@@ -259,3 +259,12 @@ cd C:\Users\user\ferrum_os
 **Next Steps:** Verify UI at /boq-pro and print preview; open PR for review.
 
 ---
+
+## 19:30 - MISSION 10: Visual sweep script (Playwright)
+**Action:** Created scripts/visual-sweep.mjs to capture 1280px screenshots for /, 6 product pages, /landintel, and /boq-pro; added "shots" npm script to root package.json; added docs/shots/ to .gitignore.
+**By:** Jules-B
+**Status:** ✅ Complete
+**Files Modified:** scripts/visual-sweep.mjs, package.json, .gitignore, docs/ACTIVITY_LOG.md
+**Next Steps:** Run visual sweep as needed during CI/CD or release checks.
+
+---
