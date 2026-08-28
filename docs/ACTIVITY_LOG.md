@@ -262,3 +262,12 @@ cd C:\Users\user\ferrum_os
 - Start the backend (uvicorn) and visit http://localhost:3001/landintel (frontend) after ensuring the frontend dev server is running.
 - To enable real data, set PLOT_DATA_API_URL (and optionally PLOT_DATA_API_KEY) and verify responses from the external API.
 
+---
+
+### 17:32 - MISSION 6: LandIntel live-source mode + fallback badge
+**Action:** Enforced the real plot-data source contract via PLOT_DATA_API_URL, kept the mock fallback when the live source is unavailable, and surfaced a backend-driven LIVE/FALLBACK mode badge in the LandIntel UI.
+**By:** Copilot (AI assistant using Copilot CLI runtime in VS Code)
+**Status:** ✅ Complete
+**Files Modified:** services/landintel/main.py, services/landintel/app/api/ulpin.py, apps/web/app/landintel/page.tsx, docs/ACTIVITY_LOG.md
+**Next Steps:** Validate the route at /landintel and land the branch via PR merge when the review passes.
+
