@@ -233,4 +233,24 @@ cd C:\Users\user\ferrum_os
 **Status:** âœ… Complete
 **Files Modified:** apps/web/components/ProductPage.tsx, apps/web/components/product-data.ts, apps/web/app/structura/page.tsx, apps/web/app/promarket/page.tsx, apps/web/app/buildos/page.tsx, apps/web/app/procurehub/page.tsx, apps/web/app/investflow/page.tsx, apps/web/app/communitybuild/page.tsx, apps/web/app/page.tsx
 **Next Steps:** Continue development on remaining product pages and features
----
+------
+
+### 16:31 - LandIntel: Real plot-data API integration & offline fallback
+**Action:** Replace Bengaluru mock with an attempt to fetch real plot-data (env: PLOT_DATA_API_URL). Preserve the offline mock fallback when external API is unavailable, and add frontend notification for fallback.
+**By:** Copilot (AI assistant using Copilot CLI runtime in VS Code)
+**Status:** ✅ Complete & Verified (basic local verification performed)
+
+**Accomplished:**
+- Backend now attempts external plot-data lookup when PLOT_DATA_API_URL is configured (uses httpx if available, falls back to urllib).
+- On external API failure or when not configured, backend returns existing mock data and a clear message indicating "Offline fallback".
+- Frontend retains loading and error states and shows a yellow banner when the backend indicates offline fallback.
+
+**Files Modified:**
+- services/landintel/app/api/ulpin.py
+- services/landintel/main.py
+- apps/web/app/landintel/page.tsx
+
+**Next Steps:**
+- Start the backend (uvicorn) and visit http://localhost:3001/landintel (frontend) after ensuring the frontend dev server is running.
+- To enable real data, set PLOT_DATA_API_URL (and optionally PLOT_DATA_API_KEY) and verify responses from the external API.
+
