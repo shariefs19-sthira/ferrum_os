@@ -10,6 +10,10 @@ from io import BytesIO
 
 app = FastAPI(title="LandIntel API", version="1.0.0")
 
+# Initialize telemetry counters
+live_count = 0
+fallback_count = 0
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -29,10 +33,12 @@ class ULPINResponse(BaseModel):
 
 @app.get("/health")
 def health_check():
-    return {"status": "ok", "service": "landintel"}
+    global live_count, fallback_count
+    return {"status": "ok", "service": "landintel", "live_count": live_count, "fallback_count": fallback_count}
 
 @app.post("/api/v1/ulpin/lookup", response_model=ULPINResponse)
 async def lookup_ulpin(request: ULPINRequest):
+    global live_count, fallback_count
     if not request.ulpin.isdigit() or len(request.ulpin) != 14:
         raise HTTPException(status_code=400, detail="ULPIN must be exactly 14 digits")
 
@@ -45,7 +51,7 @@ async def lookup_ulpin(request: ULPINRequest):
         try:
             try:
                 import httpx
-                async with httpx.AsyncClient(timeout=5) as client:
+                async with httpx.AsyncClient(timeout=5) as client: # httpx timeout=5 always
                     headers = {"Content-Type": "application/json"}
                     if api_key:
                         headers["Authorization"] = f"Bearer {api_key}"
@@ -54,8 +60,10 @@ async def lookup_ulpin(request: ULPINRequest):
                     if resp.status_code == 200:
                         body = resp.json()
                         if isinstance(body, dict) and body.get("data"):
+                            live_count += 1 # Increment live counter
                             return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API", mode="live")
                         if isinstance(body, dict) and body.get("ulpin"):
+                            live_count += 1 # Increment live counter
                             return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API", mode="live")
                         external_info = "Unexpected response shape from external API"
                     else:
@@ -66,14 +74,16 @@ async def lookup_ulpin(request: ULPINRequest):
                 req = urllib.request.Request(f"{plot_api.rstrip('/')}/lookup", data=json.dumps({"ulpin": request.ulpin}).encode(), headers={"Content-Type": "application/json"})
                 if api_key:
                     req.add_header("Authorization", f"Bearer {api_key}")
-                with urllib.request.urlopen(req, timeout=5) as r:
+                with urllib.request.urlopen(req, timeout=5) as r: # urllib timeout=5
                     if r.status != 200:
                         external_info = f"External API returned status {r.status}"
                     else:
                         body = json.loads(r.read())
                         if isinstance(body, dict) and body.get("data"):
+                            live_count += 1 # Increment live counter
                             return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API", mode="live")
                         if isinstance(body, dict) and body.get("ulpin"):
+                            live_count += 1 # Increment live counter
                             return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API", mode="live")
                         external_info = "Unexpected response shape from external API"
         except Exception as e:
@@ -103,6 +113,7 @@ async def lookup_ulpin(request: ULPINRequest):
     if external_info:
         message = f"{message} ({external_info})"
 
+    fallback_count += 1 # Increment fallback counter
     return ULPINResponse(
         success=True,
         data=mock_land_data,
