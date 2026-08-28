@@ -21,3 +21,15 @@ Applies to ALL AI agents (Qoder CN, Jules, Qwen Code, VS Code Agents).
 
 ## Ports
 Frontend 3000/3001 · LandIntel backend 8000 · BOQ backend 8001
+
+## Additional Notes
+Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
+
+## TIMEOUT DISCIPLINE (mandatory — no agent may block on the outside world)
+1. HARD TIMEOUTS: every network probe uses curl.exe -m 5 or Invoke-RestMethod -TimeoutSec 5. No exceptions.
+2. SLEEP+PROBE pattern: Start-Sleep -Seconds N; curl.exe -m 5 <url> — never 'timeout /t', and '&' / '&&' are forbidden (';' is the only separator).
+3. SERVERS: started only in dedicated background terminals, never in blocking tool calls. Name the terminal in the activity log entry.
+4. BOUNDED RETRIES: maximum ONE retry on any failed or timed-out check; then proceed with the fallback assumption and log "unhealthy, fallback verified".
+5. SELF-ABORT: if any terminal or tool call has not returned within 60 seconds, abort it (Ctrl+C or Stop) and continue from the next step with the fallback assumption. Never remain in a Generating/waiting state.
+6. LONG OPERATIONS: pushes, installs, builds run with visible progress; if one exceeds 120 seconds, abort, log it, and report — do not retry blindly.
+7. PORT PREFLIGHT: before any e2e, probe each required port once (3001, 8000, 8001); a missing server is started once in a background terminal, then probed once with -m 5.
