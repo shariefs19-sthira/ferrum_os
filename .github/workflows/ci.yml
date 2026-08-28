@@ -15,16 +15,14 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
         
     - name: Enable pnpm
       uses: pnpm/action-setup@v4
-      with:
-        version: 8.x
-        
+
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
-      
+      run: pnpm install
+
     - name: Build web app
       run: pnpm --filter web build
 
@@ -38,15 +36,13 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
 
     - name: Enable pnpm
       uses: pnpm/action-setup@v4
-      with:
-        version: 8.x
 
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: pnpm install
 
     - name: Run web tests
       run: pnpm --filter web test:run
