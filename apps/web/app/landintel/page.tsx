@@ -36,6 +36,24 @@ export default function LandIntelPage() {
     }
   }
 
+  const downloadPDF = async () => {
+    if (!result) return
+    try {
+      const response = await fetch(http://localhost:8000/api/v1/ulpin/\/report)
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = land_report_\.pdf
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+    } catch (err) {
+      console.error("PDF download error:", err)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 p-8 font-sans">
       <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -90,6 +108,38 @@ export default function LandIntelPage() {
                 </div>
               </div>
             </div>
+
+            <div className="p-4 bg-amber-50 border border-amber-200 rounded-md">
+              <h2 className="text-lg font-semibold text-amber-800 mb-2">🌍 Soil & Hazard Profile</h2>
+              <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
+                <div className="bg-white p-3 rounded shadow-sm">
+                  <p className="text-gray-500 text-xs uppercase">Soil Type</p>
+                  <p className="font-bold text-amber-700">{result.soilType}</p>
+                </div>
+                <div className="bg-white p-3 rounded shadow-sm">
+                  <p className="text-gray-500 text-xs uppercase">Flood Risk</p>
+                  <p className="font-bold text-amber-700">{result.floodRisk}</p>
+                </div>
+                <div className="bg-white p-3 rounded shadow-sm">
+                  <p className="text-gray-500 text-xs uppercase">Liquefaction Risk</p>
+                  <p className="font-bold text-amber-700">{result.liquefactionRisk}</p>
+                </div>
+                <div className="bg-white p-3 rounded shadow-sm col-span-2">
+                  <p className="text-gray-500 text-xs uppercase">Foundation Recommendation</p>
+                  <p className="font-bold text-amber-700">{result.foundationRecommendation}</p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={downloadPDF}
+              className="w-full bg-purple-600 text-white py-3 px-4 rounded-md hover:bg-purple-700 transition flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Download PDF Report
+            </button>
           </div>
         )}
       </div>
