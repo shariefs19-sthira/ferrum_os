@@ -5,10 +5,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/landintel/page": [
+    "/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/landintel/page.js"
+      "static/chunks/app/not-found.js"
     ]
   }
 }

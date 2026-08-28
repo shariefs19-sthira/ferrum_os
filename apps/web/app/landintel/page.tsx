@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useState } from "react"
 
@@ -55,25 +55,40 @@ export default function LandIntelPage() {
             {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
           </div>
           
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition"
-          >
+          <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition">
             {loading ? "Fetching Land Data..." : "Lookup Land Details"}
           </button>
         </form>
 
         {result && (
-          <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-md">
-            <h2 className="text-lg font-semibold text-green-800 mb-2">✅ Land Found</h2>
-            <div className="grid grid-cols-2 gap-2 text-sm text-gray-700">
-              <p><strong>Owner:</strong> {result.ownerName}</p>
-              <p><strong>Area:</strong> {result.area} sq.ft</p>
-              <p><strong>District:</strong> {result.district}</p>
-              <p><strong>Village:</strong> {result.village}</p>
-              <p><strong>Survey No:</strong> {result.surveyNo}</p>
-              <p><strong>Zoning:</strong> {result.zoning} (FAR: {result.maxFAR})</p>
+          <div className="mt-6 space-y-4">
+            <div className="p-4 bg-green-50 border border-green-200 rounded-md">
+              <h2 className="text-lg font-semibold text-green-800 mb-2">✅ Land Found</h2>
+              <div className="grid grid-cols-2 gap-2 text-sm text-gray-700">
+                <p><strong>Owner:</strong> {result.ownerName}</p>
+                <p><strong>Area:</strong> {result.area} sq.ft</p>
+                <p><strong>District:</strong> {result.district}</p>
+                <p><strong>Village:</strong> {result.village}</p>
+                <p><strong>Survey No:</strong> {result.surveyNo}</p>
+              </div>
+            </div>
+            
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-md">
+              <h2 className="text-lg font-semibold text-blue-800 mb-2">🏛️ Zoning Summary</h2>
+              <div className="grid grid-cols-3 gap-4 text-sm text-gray-700">
+                <div className="bg-white p-3 rounded shadow-sm">
+                  <p className="text-gray-500 text-xs uppercase">Permissible Use</p>
+                  <p className="font-bold text-blue-700">{result.zoning}</p>
+                </div>
+                <div className="bg-white p-3 rounded shadow-sm">
+                  <p className="text-gray-500 text-xs uppercase">Max FAR</p>
+                  <p className="font-bold text-blue-700">{result.maxFAR}</p>
+                </div>
+                <div className="bg-white p-3 rounded shadow-sm">
+                  <p className="text-gray-500 text-xs uppercase">Max Height</p>
+                  <p className="font-bold text-blue-700">{result.maxHeight}</p>
+                </div>
+              </div>
             </div>
           </div>
         )}

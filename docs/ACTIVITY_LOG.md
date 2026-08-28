@@ -1,4 +1,4 @@
-﻿# 🤖 Ferrum OS - AI Agent Workflow & Coordination Guide
+# 🤖 Ferrum OS - AI Agent Workflow & Coordination Guide
 
 ## AI Agent Coordination Protocol
 1. **Agent Identification:** All commits must include AI name: `git commit -m "feat: [AI: Name] description"`
@@ -20,6 +20,33 @@ cd C:\Users\user\ferrum_os
 @'
 # 📝 Ferrum OS - Activity Log & Changelog
 **Last Updated:** 2026-08-28
+
+### 12:21 - Add Zoning Summary to LandIntel
+**Action:** Updated ULPIN lookup to display zoning data (FAR, permissible use, max height)
+**By:** Sharief S (Human) + Terminal Automation
+**Status:** ✅ Complete
+
+**Accomplished:**
+- Added permissibleUse, maxFAR, and maxHeight to backend mock data
+- Created a new 'Zoning Summary' UI card in the frontend
+- Verified full-stack data flow from FastAPI to Next.js
+
+**Method Used:**
+- FastAPI (Python) for backend data structure
+- Next.js 14 + Tailwind CSS for frontend UI
+
+**Files Modified:**
+- services/landintel/main.py
+- apps/web/app/landintel/page.tsx
+
+**Status:** ✅ Complete
+
+**Next Steps:**
+- Connect to Karnataka Bhoomi API or land records service
+- Add soil/hazard layers from Bhuvan
+- Generate PDF feasibility report
+
+---
 
 ### 11:59 - FastAPI Backend Setup & Health Check
 **Action:** Set up and launched FastAPI backend for LandIntel

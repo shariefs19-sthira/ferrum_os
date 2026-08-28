@@ -1,20 +1,24 @@
 {
-    "version":  "1.0.0",
-    "name":  "web",
-    "scripts":  {
-                    "build":  "next build",
-                    "dev":  "next dev",
-                    "start":  "next start"
-                },
-    "devDependencies":  {
-                            "typescript":  "5.3.3",
-                            "@types/react":  "18.2.0",
-                            "@types/node":  "20.11.0"
-                        },
-    "dependencies":  {
-                         "react":  "18.2.0",
-                         "react-dom":  "18.2.0",
-                         "next":  "14.1.0"
-                     },
-    "private":  true
+    "version": "1.0.0",
+    "name": "web",
+    "scripts": {
+        "build": "next build",
+        "dev": "next dev",
+        "start": "next start"
+    },
+    "devDependencies": {
+        "@types/node": "20.11.0",
+        "@types/react": "18.2.0",
+        "typescript": "5.3.3"
+    },
+    "dependencies": {
+        "@radix-ui/react-select": "^2.3.7",
+        "lucide-react": "^1.34.0",
+        "next": "14.1.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-hook-form": "^7.86.0",
+        "zod": "^4.4.3"
+    },
+    "private": true
 }
