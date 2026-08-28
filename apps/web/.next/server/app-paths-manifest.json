@@ -1,7 +1,0 @@
-{
-  "/not-found": "app/not-found.js",
-  "/promarket/page": "app/promarket/page.js",
-  "/investflow/page": "app/investflow/page.js",
-  "/communitybuild/page": "app/communitybuild/page.js",
-  "/page": "app/page.js"
-}
