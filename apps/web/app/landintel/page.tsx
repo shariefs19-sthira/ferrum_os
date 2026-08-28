@@ -1,6 +1,7 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
+import { SoilCard } from "../../components/sections/SoilCard"
 
 export default function LandIntelPage() {
   const [ulpin, setUlpin] = useState("")
@@ -14,18 +15,15 @@ export default function LandIntelPage() {
       setError("ULPIN must be exactly 14 digits")
       return
     }
-    
     setLoading(true)
     setError("")
     setResult(null)
-
     try {
       const res = await fetch("http://localhost:8000/api/v1/ulpin/lookup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ulpin }),
+        body: JSON.stringify({ ulpin })
       })
-      
       const data = await res.json()
       if (!res.ok) throw new Error(data.detail || "Lookup failed")
       setResult(data.data)
@@ -39,12 +37,12 @@ export default function LandIntelPage() {
   const downloadPDF = async () => {
     if (!result) return
     try {
-      const response = await fetch(http://localhost:8000/api/v1/ulpin/\/report)
+      const response = await fetch(`http://localhost:8000/api/v1/ulpin/${result.ulpin}/report`)
       const blob = await response.blob()
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = land_report_\.pdf
+      a.download = `land_report_${result.ulpin}.pdf`
       document.body.appendChild(a)
       a.click()
       window.URL.revokeObjectURL(url)
@@ -57,27 +55,15 @@ export default function LandIntelPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-8 font-sans">
       <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">🏞️ LandIntel: ULPIN Lookup</h1>
-        
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">️ LandIntel: ULPIN Lookup</h1>
         <form onSubmit={handleLookup} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Enter 14-digit ULPIN</label>
-            <input
-              type="text"
-              maxLength={14}
-              value={ulpin}
-              onChange={(e) => setUlpin(e.target.value.replace(/\D/g, ""))}
-              placeholder="e.g., 12345678901234"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
+            <input type="text" maxLength={14} value={ulpin} onChange={(e) => setUlpin(e.target.value.replace(/\D/g, ""))} placeholder="e.g., 12345678901234" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
           </div>
-          
-          <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition">
-            {loading ? "Fetching Land Data..." : "Lookup Land Details"}
-          </button>
+          <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition">{loading ? "Fetching Land Data..." : "Lookup Land Details"}</button>
         </form>
-
         {result && (
           <div className="mt-6 space-y-4">
             <div className="p-4 bg-green-50 border border-green-200 rounded-md">
@@ -90,56 +76,16 @@ export default function LandIntelPage() {
                 <p><strong>Survey No:</strong> {result.surveyNo}</p>
               </div>
             </div>
-            
             <div className="p-4 bg-blue-50 border border-blue-200 rounded-md">
               <h2 className="text-lg font-semibold text-blue-800 mb-2">🏛️ Zoning Summary</h2>
               <div className="grid grid-cols-3 gap-4 text-sm text-gray-700">
-                <div className="bg-white p-3 rounded shadow-sm">
-                  <p className="text-gray-500 text-xs uppercase">Permissible Use</p>
-                  <p className="font-bold text-blue-700">{result.zoning}</p>
-                </div>
-                <div className="bg-white p-3 rounded shadow-sm">
-                  <p className="text-gray-500 text-xs uppercase">Max FAR</p>
-                  <p className="font-bold text-blue-700">{result.maxFAR}</p>
-                </div>
-                <div className="bg-white p-3 rounded shadow-sm">
-                  <p className="text-gray-500 text-xs uppercase">Max Height</p>
-                  <p className="font-bold text-blue-700">{result.maxHeight}</p>
-                </div>
+                <div className="bg-white p-3 rounded shadow-sm"><p className="text-gray-500 text-xs uppercase">Permissible Use</p><p className="font-bold text-blue-700">{result.zoning}</p></div>
+                <div className="bg-white p-3 rounded shadow-sm"><p className="text-gray-500 text-xs uppercase">Max FAR</p><p className="font-bold text-blue-700">{result.maxFAR}</p></div>
+                <div className="bg-white p-3 rounded shadow-sm"><p className="text-gray-500 text-xs uppercase">Max Height</p><p className="font-bold text-blue-700">{result.maxHeight}</p></div>
               </div>
             </div>
-
-            <div className="p-4 bg-amber-50 border border-amber-200 rounded-md">
-              <h2 className="text-lg font-semibold text-amber-800 mb-2">🌍 Soil & Hazard Profile</h2>
-              <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
-                <div className="bg-white p-3 rounded shadow-sm">
-                  <p className="text-gray-500 text-xs uppercase">Soil Type</p>
-                  <p className="font-bold text-amber-700">{result.soilType}</p>
-                </div>
-                <div className="bg-white p-3 rounded shadow-sm">
-                  <p className="text-gray-500 text-xs uppercase">Flood Risk</p>
-                  <p className="font-bold text-amber-700">{result.floodRisk}</p>
-                </div>
-                <div className="bg-white p-3 rounded shadow-sm">
-                  <p className="text-gray-500 text-xs uppercase">Liquefaction Risk</p>
-                  <p className="font-bold text-amber-700">{result.liquefactionRisk}</p>
-                </div>
-                <div className="bg-white p-3 rounded shadow-sm col-span-2">
-                  <p className="text-gray-500 text-xs uppercase">Foundation Recommendation</p>
-                  <p className="font-bold text-amber-700">{result.foundationRecommendation}</p>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={downloadPDF}
-              className="w-full bg-purple-600 text-white py-3 px-4 rounded-md hover:bg-purple-700 transition flex items-center justify-center gap-2"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Download PDF Report
-            </button>
+            <SoilCard type={result.soilType || "Red Sandy Loam"} risk={result.floodRisk || "Low"} />
+            <button onClick={downloadPDF} className="w-full bg-purple-600 text-white py-3 px-4 rounded-md hover:bg-purple-700 transition flex items-center justify-center gap-2"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>Download PDF Report</button>
           </div>
         )}
       </div>

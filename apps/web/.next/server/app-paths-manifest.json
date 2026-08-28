@@ -1,3 +1,4 @@
 {
+  "/not-found": "app/not-found.js",
   "/landintel/page": "app/landintel/page.js"
 }
