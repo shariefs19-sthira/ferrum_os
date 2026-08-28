@@ -25,6 +25,7 @@ class ULPINResponse(BaseModel):
     success: bool
     data: dict | None = None
     message: str
+    mode: str = "fallback"
 
 @app.get("/health")
 def health_check():
@@ -44,7 +45,7 @@ async def lookup_ulpin(request: ULPINRequest):
         try:
             try:
                 import httpx
-                async with httpx.AsyncClient(timeout=5.0) as client:
+                async with httpx.AsyncClient(timeout=5) as client:
                     headers = {"Content-Type": "application/json"}
                     if api_key:
                         headers["Authorization"] = f"Bearer {api_key}"
@@ -53,9 +54,9 @@ async def lookup_ulpin(request: ULPINRequest):
                     if resp.status_code == 200:
                         body = resp.json()
                         if isinstance(body, dict) and body.get("data"):
-                            return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API")
+                            return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API", mode="live")
                         if isinstance(body, dict) and body.get("ulpin"):
-                            return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API")
+                            return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API", mode="live")
                         external_info = "Unexpected response shape from external API"
                     else:
                         external_info = f"External API returned status {resp.status_code}"
@@ -71,9 +72,9 @@ async def lookup_ulpin(request: ULPINRequest):
                     else:
                         body = json.loads(r.read())
                         if isinstance(body, dict) and body.get("data"):
-                            return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API")
+                            return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API", mode="live")
                         if isinstance(body, dict) and body.get("ulpin"):
-                            return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API")
+                            return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API", mode="live")
                         external_info = "Unexpected response shape from external API"
         except Exception as e:
             external_info = str(e)
@@ -105,7 +106,8 @@ async def lookup_ulpin(request: ULPINRequest):
     return ULPINResponse(
         success=True,
         data=mock_land_data,
-        message=message
+        message=message,
+        mode="fallback"
     )
 
 @app.get("/api/v1/ulpin/{ulpin}/report")

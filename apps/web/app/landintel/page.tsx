@@ -9,6 +9,7 @@ export default function LandIntelPage() {
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState("")
   const [infoMessage, setInfoMessage] = useState("")
+  const [mode, setMode] = useState<"live" | "fallback">("fallback")
 
   const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -19,6 +20,7 @@ export default function LandIntelPage() {
     setLoading(true)
     setError("")
     setResult(null)
+    setMode("fallback")
     try {
       const res = await fetch("http://localhost:8000/api/v1/ulpin/lookup", {
         method: "POST",
@@ -27,14 +29,14 @@ export default function LandIntelPage() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.detail || data.message || "Lookup failed")
-      // Main land data is in data.data for backward compatibility
       setResult(data.data)
-      // Capture informational message: external vs fallback
       setInfoMessage(data.message || "")
+      setMode((data.mode === "live" ? "live" : "fallback"))
       setError("")
     } catch (err: any) {
       setError(err.message || String(err))
       setInfoMessage("")
+      setMode("fallback")
     } finally {
       setLoading(false)
     }
@@ -61,7 +63,12 @@ export default function LandIntelPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-8 font-sans">
       <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">️ LandIntel: ULPIN Lookup</h1>
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <h1 className="text-2xl font-bold text-gray-800">️ LandIntel: ULPIN Lookup</h1>
+          <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${mode === "live" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+            {mode === "live" ? "LIVE" : "FALLBACK"}
+          </span>
+        </div>
         <form onSubmit={handleLookup} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Enter 14-digit ULPIN</label>
