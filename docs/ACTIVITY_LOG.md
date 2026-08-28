@@ -250,3 +250,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** apps/web/app/landintel/page.tsx, services/landintel/app/api/ulpin.py, services/landintel/main.py
 **Next Steps:** Continue development on remaining product pages and features
 ---
+
+## 19:30 - MISSION: Fallback Telemetry & Extended Badge
+**Action:** Added in-memory counter tracking fallback vs live lookups exposed at /health and updated /landintel badge to display 'LIVE n / FALLBACK n'. Kept httpx timeout=5 and Relume contracts intact.
+**By:** Jules
+**Status:** ✅ Complete
+**Files Modified:** services/landintel/main.py, services/landintel/app/main.py, services/landintel/app/api/ulpin.py, apps/web/app/landintel/page.tsx, docs/ACTIVITY_LOG.md, docs/AI_HANDOFF.md
+**Next Steps:** Rebase on latest main, create PR, and land changes.
+---

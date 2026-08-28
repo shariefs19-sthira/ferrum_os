@@ -1,4 +1,4 @@
-﻿from fastapi import FastAPI
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import ulpin
 
@@ -16,4 +16,8 @@ app.include_router(ulpin.router, prefix="/api/v1", tags=["land"])
 
 @app.get("/health")
 def health_check():
-    return {"status": "ok", "service": "landintel"}
+    return {
+        "status": "ok",
+        "service": "landintel",
+        "telemetry": ulpin.telemetry_counts
+    }

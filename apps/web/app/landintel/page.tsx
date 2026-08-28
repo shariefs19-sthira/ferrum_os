@@ -1,6 +1,6 @@
-﻿"use client"
+"use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { SoilCard } from "../../components/sections/SoilCard"
 
 export default function LandIntelPage() {
@@ -10,6 +10,28 @@ export default function LandIntelPage() {
   const [error, setError] = useState("")
   const [infoMessage, setInfoMessage] = useState("")
   const [mode, setMode] = useState<"live" | "fallback">("fallback")
+  const [counts, setCounts] = useState<{ live: number; fallback: number }>({ live: 0, fallback: 0 })
+
+  const fetchHealthTelemetry = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/health")
+      if (res.ok) {
+        const data = await res.json()
+        if (data.telemetry) {
+          setCounts({
+            live: Number(data.telemetry.live) || 0,
+            fallback: Number(data.telemetry.fallback) || 0
+          })
+        }
+      }
+    } catch (err) {
+      // Ignore health probe failure on load
+    }
+  }
+
+  useEffect(() => {
+    fetchHealthTelemetry()
+  }, [])
 
   const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,12 +53,21 @@ export default function LandIntelPage() {
       if (!res.ok) throw new Error(data.detail || data.message || "Lookup failed")
       setResult(data.data)
       setInfoMessage(data.message || "")
-      setMode((data.mode === "live" ? "live" : "fallback"))
+      setMode(data.mode === "live" ? "live" : "fallback")
+      if (data.telemetry) {
+        setCounts({
+          live: Number(data.telemetry.live) || 0,
+          fallback: Number(data.telemetry.fallback) || 0
+        })
+      } else {
+        fetchHealthTelemetry()
+      }
       setError("")
     } catch (err: any) {
       setError(err.message || String(err))
       setInfoMessage("")
       setMode("fallback")
+      fetchHealthTelemetry()
     } finally {
       setLoading(false)
     }
@@ -66,7 +97,7 @@ export default function LandIntelPage() {
         <div className="flex items-center justify-between gap-3 mb-4">
           <h1 className="text-2xl font-bold text-gray-800">️ LandIntel: ULPIN Lookup</h1>
           <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${mode === "live" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
-            {mode === "live" ? "LIVE" : "FALLBACK"}
+            LIVE {counts.live} / FALLBACK {counts.fallback}
           </span>
         </div>
         <form onSubmit={handleLookup} className="space-y-4">

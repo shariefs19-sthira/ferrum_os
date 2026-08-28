@@ -1,7 +1,9 @@
-﻿from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 router = APIRouter()
+
+telemetry_counts = {"live": 0, "fallback": 0}
 
 class ULPINRequest(BaseModel):
     ulpin: str
@@ -11,6 +13,7 @@ class ULPINResponse(BaseModel):
     data: dict | None = None
     message: str
     mode: str = "fallback"
+    telemetry: dict | None = None
 
 @router.post("/ulpin/lookup", response_model=ULPINResponse)
 async def lookup_ulpin(request: ULPINRequest):
@@ -34,10 +37,20 @@ async def lookup_ulpin(request: ULPINRequest):
                     resp = await client.post(url, json={"ulpin": request.ulpin}, headers=headers)
                     if resp.status_code == 200:
                         body = resp.json()
+                        data = None
                         if isinstance(body, dict) and body.get("data"):
-                            return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API", mode="live")
-                        if isinstance(body, dict) and body.get("ulpin"):
-                            return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API", mode="live")
+                            data = body.get("data")
+                        elif isinstance(body, dict) and body.get("ulpin"):
+                            data = body
+                        if data:
+                            telemetry_counts["live"] += 1
+                            return ULPINResponse(
+                                success=True,
+                                data=data,
+                                message="Land data retrieved from plot-data API",
+                                mode="live",
+                                telemetry=dict(telemetry_counts)
+                            )
                         external_info = "Unexpected response shape from external API"
                     else:
                         external_info = f"External API returned status {resp.status_code}"
@@ -56,10 +69,20 @@ async def lookup_ulpin(request: ULPINRequest):
                         external_info = f"External API returned status {r.status}"
                     else:
                         body = json.loads(r.read())
+                        data = None
                         if isinstance(body, dict) and body.get("data"):
-                            return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API", mode="live")
-                        if isinstance(body, dict) and body.get("ulpin"):
-                            return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API", mode="live")
+                            data = body.get("data")
+                        elif isinstance(body, dict) and body.get("ulpin"):
+                            data = body
+                        if data:
+                            telemetry_counts["live"] += 1
+                            return ULPINResponse(
+                                success=True,
+                                data=data,
+                                message="Land data retrieved from plot-data API",
+                                mode="live",
+                                telemetry=dict(telemetry_counts)
+                            )
                         external_info = "Unexpected response shape from external API"
         except Exception as e:
             external_info = str(e)
@@ -83,4 +106,11 @@ async def lookup_ulpin(request: ULPINRequest):
     if external_info:
         message = f"{message} ({external_info})"
 
-    return ULPINResponse(success=True, data=mock_land_data, message=message, mode="fallback")
+    telemetry_counts["fallback"] += 1
+    return ULPINResponse(
+        success=True,
+        data=mock_land_data,
+        message=message,
+        mode="fallback",
+        telemetry=dict(telemetry_counts)
+    )
