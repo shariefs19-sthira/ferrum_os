@@ -21,3 +21,6 @@ Applies to ALL AI agents (Qoder CN, Jules, Qwen Code, VS Code Agents).
 
 ## Ports
 Frontend 3000/3001 · LandIntel backend 8000 · BOQ backend 8001
+
+## Additional Notes
+Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
