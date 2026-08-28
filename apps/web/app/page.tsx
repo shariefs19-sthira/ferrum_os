@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 interface Product {
   id: string;
@@ -14,7 +14,7 @@ const products: Product[] = [
   { id: "landintel", name: "LandIntel", code: "P1", description: "Land feasibility & zoning", icon: "", href: "/landintel", comingSoon: false },
   { id: "boq-pro", name: "BOQ Pro", code: "P4", description: "Quantity takeoff & cost estimation", icon: "", href: "/boq-pro", comingSoon: false },
   { id: "designstudio", name: "DesignStudio", code: "P2", description: "AI-generated floor plans", icon: "", comingSoon: true },
-  { id: "structura", name: "Structura", code: "P3", description: "Structural analysis & design", icon: "", comingSoon: true },
+  { id: "structura", name: "Structura", code: "P3", description: "Structural analysis & design", icon: "", href: "/structura", comingSoon: false },  // Updated to include href and set comingSoon to false
   { id: "promarket", name: "ProMarket", code: "P5", description: "Hire verified professionals", icon: "", comingSoon: true },
   { id: "buildos", name: "BuildOS", code: "P6", description: "Construction project management", icon: "", comingSoon: true },
   { id: "procurehub", name: "ProcureHub", code: "P7", description: "Material procurement", icon: "", comingSoon: true },
