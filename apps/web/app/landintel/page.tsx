@@ -8,6 +8,7 @@ export default function LandIntelPage() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState("")
+  const [infoMessage, setInfoMessage] = useState("")
 
   const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -25,10 +26,15 @@ export default function LandIntelPage() {
         body: JSON.stringify({ ulpin })
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.detail || "Lookup failed")
+      if (!res.ok) throw new Error(data.detail || data.message || "Lookup failed")
+      // Main land data is in data.data for backward compatibility
       setResult(data.data)
+      // Capture informational message: external vs fallback
+      setInfoMessage(data.message || "")
+      setError("")
     } catch (err: any) {
-      setError(err.message)
+      setError(err.message || String(err))
+      setInfoMessage("")
     } finally {
       setLoading(false)
     }
@@ -64,6 +70,11 @@ export default function LandIntelPage() {
           </div>
           <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition">{loading ? "Fetching Land Data..." : "Lookup Land Details"}</button>
         </form>
+        {infoMessage && infoMessage.toLowerCase().includes('offline') && (
+          <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+            <p className="text-sm text-yellow-800">⚠️ {infoMessage}</p>
+          </div>
+        )}
         {result && (
           <div className="mt-6 space-y-4">
             <div className="p-4 bg-green-50 border border-green-200 rounded-md">

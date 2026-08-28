@@ -34,7 +34,52 @@ def health_check():
 async def lookup_ulpin(request: ULPINRequest):
     if not request.ulpin.isdigit() or len(request.ulpin) != 14:
         raise HTTPException(status_code=400, detail="ULPIN must be exactly 14 digits")
-    
+
+    import os
+    external_info = None
+    plot_api = os.getenv("PLOT_DATA_API_URL")
+    api_key = os.getenv("PLOT_DATA_API_KEY")
+
+    if plot_api:
+        try:
+            try:
+                import httpx
+                async with httpx.AsyncClient(timeout=5.0) as client:
+                    headers = {"Content-Type": "application/json"}
+                    if api_key:
+                        headers["Authorization"] = f"Bearer {api_key}"
+                    url = f"{plot_api.rstrip('/')}/lookup"
+                    resp = await client.post(url, json={"ulpin": request.ulpin}, headers=headers)
+                    if resp.status_code == 200:
+                        body = resp.json()
+                        if isinstance(body, dict) and body.get("data"):
+                            return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API")
+                        if isinstance(body, dict) and body.get("ulpin"):
+                            return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API")
+                        external_info = "Unexpected response shape from external API"
+                    else:
+                        external_info = f"External API returned status {resp.status_code}"
+            except Exception:
+                import json
+                import urllib.request
+                req = urllib.request.Request(f"{plot_api.rstrip('/')}/lookup", data=json.dumps({"ulpin": request.ulpin}).encode(), headers={"Content-Type": "application/json"})
+                if api_key:
+                    req.add_header("Authorization", f"Bearer {api_key}")
+                with urllib.request.urlopen(req, timeout=5) as r:
+                    if r.status != 200:
+                        external_info = f"External API returned status {r.status}"
+                    else:
+                        body = json.loads(r.read())
+                        if isinstance(body, dict) and body.get("data"):
+                            return ULPINResponse(success=True, data=body.get("data"), message="Land data retrieved from plot-data API")
+                        if isinstance(body, dict) and body.get("ulpin"):
+                            return ULPINResponse(success=True, data=body, message="Land data retrieved from plot-data API")
+                        external_info = "Unexpected response shape from external API"
+        except Exception as e:
+            external_info = str(e)
+    else:
+        external_info = "PLOT_DATA_API_URL not configured"
+
     mock_land_data = {
         "ulpin": request.ulpin,
         "state": "Karnataka",
@@ -49,13 +94,18 @@ async def lookup_ulpin(request: ULPINRequest):
         "soilType": "Red Sandy Loam",
         "floodRisk": "Low",
         "liquefactionRisk": "Medium",
-        "foundationRecommendation": "Shallow footing acceptable. Verify bearing capacity at 1.5m depth."
+        "foundationRecommendation": "Shallow footing acceptable. Verify bearing capacity at 1.5m depth.",
+        "note": "offline-fallback"
     }
-    
+
+    message = "Offline fallback: mock data used"
+    if external_info:
+        message = f"{message} ({external_info})"
+
     return ULPINResponse(
         success=True,
         data=mock_land_data,
-        message="Land data retrieved successfully"
+        message=message
     )
 
 @app.get("/api/v1/ulpin/{ulpin}/report")
