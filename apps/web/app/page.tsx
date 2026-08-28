@@ -17,7 +17,7 @@ const products: Product[] = [
   { id: "structura", name: "Structura", code: "P3", description: "Structural analysis & design", icon: "", href: "/structura", comingSoon: false },  // Updated to include href and set comingSoon to false
   { id: "promarket", name: "ProMarket", code: "P5", description: "Hire verified professionals", icon: "", href: "/promarket", comingSoon: false },  // Updated to include href and set comingSoon to false
   { id: "buildos", name: "BuildOS", code: "P6", description: "Construction project management", icon: "", href: "/buildos", comingSoon: false },  // Updated to include href and set comingSoon to false
-  { id: "procurehub", name: "ProcureHub", code: "P7", description: "Material procurement", icon: "", comingSoon: true },
+  { id: "procurehub", name: "ProcureHub", code: "P7", description: "Material procurement", icon: "", href: "/procurehub", comingSoon: false },  // Updated to include href and set comingSoon to false
   { id: "investflow", name: "InvestFlow", code: "P8", description: "Investment forecasting", icon: "", comingSoon: true },
   { id: "communitybuild", name: "CommunityBuild", code: "P9", description: "Fractional development", icon: "", comingSoon: true },
 ];
