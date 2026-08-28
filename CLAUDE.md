@@ -1,0 +1,1 @@
+All operating rules live in AGENTS.md — read and follow it completely before any action.
