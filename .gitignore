@@ -1,8 +1,63 @@
-node_modules/ 
-dist/ 
-.env 
-.DS_Store 
-
-.next/
+# Dependencies
 node_modules/
-*.env
+*/node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+venv/
+
+# Testing
+coverage/
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.gitattributes
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Build outputs
+.next/
+dist/
+build/
+*.exe
+*.deb
+*.pkg
+*.dmg
+*.tar.gz
+
+# Local configuration files
+*.local
+config.local
+secrets.json
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

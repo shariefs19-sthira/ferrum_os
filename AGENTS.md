@@ -33,3 +33,7 @@ Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
 5. SELF-ABORT: if any terminal or tool call has not returned within 60 seconds, abort it (Ctrl+C or Stop) and continue from the next step with the fallback assumption. Never remain in a Generating/waiting state.
 6. LONG OPERATIONS: pushes, installs, builds run with visible progress; if one exceeds 120 seconds, abort, log it, and report — do not retry blindly.
 7. PORT PREFLIGHT: before any e2e, probe each required port once (3001, 8000, 8001); a missing server is started once in a background terminal, then probed once with -m 5.
+
+## SESSION LIFECYCLE: a session ends when its PR lands; never continue in a session whose branch was merged or deleted; new mission = new session.
+
+## HYGIENE RULES: NEVER commit __pycache__ or *.pyc. On push rejection: discard or stash dirt, pull --rebase, commit, push — maximum one loop, then report.
