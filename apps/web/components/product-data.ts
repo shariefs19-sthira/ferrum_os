@@ -1,4 +1,4 @@
-import type { RelumeComponent } from '../../packages/shared/src/relume-contracts';
+import type { RelumeComponent } from '@shared/relume-contracts'; // Use the new alias
 
 // Define the structure for product data
 export interface ProductData {
@@ -8,396 +8,255 @@ export interface ProductData {
   primaryColor: string;
   secondaryColor: string;
   accentColor: string;
-  components: RelumeComponent[];
+  components: RelumeComponent[]; // Use the imported type
 }
 
-// Product data for all Ferrum OS products
+// --- MOCK DATA FOR PRODUCT PAGES ---
+// This data simulates what would come from an API.
+// Each product has a slug, name, description, color scheme, and a list of Relume-compatible components.
+
 export const productsData: ProductData[] = [
   {
-    slug: 'structura',
-    name: 'Structura',
-    description: 'Structural analysis & design',
-    primaryColor: 'from-blue-600',
-    secondaryColor: 'to-purple-700',
-    accentColor: 'text-blue-600',
+    slug: "structura",
+    name: "Structura",
+    description: "Advanced structural analysis and design software.",
+    primaryColor: "#1e40af", // blue-800
+    secondaryColor: "#3b82f6", // blue-500
+    accentColor: "#f59e0b", // amber-500
     components: [
       {
-        id: 'hero-1',
-        type: 'hero',
+        id: "structura-hero",
+        type: "hero",
         props: {
-          title: 'Structura',
-          description: 'Advanced structural analysis and design platform'
+          title: "Structura: Build Stronger",
+          description: "Cutting-edge tools for structural engineers.",
+          ctaText: "Start Modeling",
+          imageSrc: "/placeholder-hero.jpg"
         }
       },
       {
-        id: 'features-1',
-        type: 'features',
+        id: "structura-features",
+        type: "features",
         props: {
-          title: 'Structural Analysis & Design',
-          description: 'Powerful tools for engineering excellence',
           features: [
-            {
-              icon: '🏗️',
-              title: 'Structural Modeling',
-              description: 'Create detailed 3D models of structures with advanced physics'
-            },
-            {
-              icon: '🔍',
-              title: 'Load Analysis',
-              description: 'Analyze various load conditions and stress factors'
-            },
-            {
-              icon: '📊',
-              title: 'Performance Reports',
-              description: 'Generate comprehensive reports on structural integrity'
-            }
+            { title: "3D Modeling", description: "Intuitive 3D modeling tools." },
+            { title: "Load Analysis", description: "Sophisticated load analysis." },
+            { title: "Code Compliance", description: "Ensures compliance with standards." }
           ]
         }
       },
       {
-        id: 'cta-1',
-        type: 'pricing',
+        id: "structura-pricing",
+        type: "pricing",
         props: {
-          title: 'Ready to Optimize Your Structural Designs?',
-          description: 'Join thousands of engineers using Structura for better structural analysis',
-          backgroundColor: 'bg-gray-100',
           plans: [
-            {
-              name: 'Professional',
-              price: 'Contact Us',
-              period: '',
-              features: [
-                'Unlimited projects',
-                'Advanced modeling tools',
-                'Priority support'
-              ],
-              buttonText: 'Request Demo'
-            }
+            { name: "Professional", price: "$99/month", features: ["Full Access", "Priority Support"] },
+            { name: "Enterprise", price: "Custom", features: ["All Features", "Dedicated Account Manager"] }
           ]
         }
       }
     ]
   },
   {
-    slug: 'promarket',
-    name: 'ProMarket',
-    description: 'Hire verified professionals',
-    primaryColor: 'from-green-600',
-    secondaryColor: 'to-teal-700',
-    accentColor: 'text-green-600',
+    slug: "promarket",
+    name: "Promarket",
+    description: "Comprehensive marketing campaign management platform.",
+    primaryColor: "#7e22ce", // violet-700
+    secondaryColor: "#a855f7", // violet-500
+    accentColor: "#ec4899", // pink-500
     components: [
       {
-        id: 'hero-1',
-        type: 'hero',
+        id: "promarket-hero",
+        type: "hero",
         props: {
-          title: 'ProMarket',
-          description: 'Connect with verified professionals for your construction projects'
+          title: "Promarket: Amplify Your Reach",
+          description: "Manage and optimize all your campaigns in one place.",
+          ctaText: "Launch Campaign",
+          imageSrc: "/placeholder-hero.jpg"
         }
       },
       {
-        id: 'features-1',
-        type: 'features',
+        id: "promarket-features",
+        type: "features",
         props: {
-          title: 'Hire Verified Professionals',
-          description: 'Find and hire trusted contractors, architects, and engineers for your projects',
           features: [
-            {
-              icon: '👷',
-              title: 'Verified Contractors',
-              description: 'Access a network of pre-vetted and licensed construction professionals'
-            },
-            {
-              icon: '📋',
-              title: 'Project Matching',
-              description: 'Our AI matches your project requirements with the right professionals'
-            },
-            {
-              icon: '⭐',
-              title: 'Ratings & Reviews',
-              description: 'View detailed ratings and reviews from previous clients'
-            }
+            { title: "Multi-Channel", description: "Manage social, email, search ads." },
+            { title: "Analytics", description: "Deep insights into performance." },
+            { title: "Automation", description: "Automate routine tasks." }
           ]
         }
       },
       {
-        id: 'cta-1',
-        type: 'pricing',
+        id: "promarket-pricing",
+        type: "pricing",
         props: {
-          title: 'Ready to Find Your Perfect Professional?',
-          description: 'Join thousands of project owners who trust ProMarket to find reliable professionals',
-          backgroundColor: 'bg-gray-100',
           plans: [
-            {
-              name: 'Basic Plan',
-              price: 'Free',
-              period: '',
-              features: [
-                'Browse professionals',
-                'View profiles',
-                'Basic contact'
-              ],
-              buttonText: 'Browse Professionals'
-            }
+            { name: "Growth", price: "$199/month", features: ["Up to 5 campaigns", "Basic Analytics"] },
+            { name: "Scale", price: "$499/month", features: ["Unlimited campaigns", "Advanced Analytics", "Dedicated Manager"] }
           ]
         }
       }
     ]
   },
   {
-    slug: 'buildos',
-    name: 'BuildOS',
-    description: 'Construction project management',
-    primaryColor: 'from-orange-600',
-    secondaryColor: 'to-red-700',
-    accentColor: 'text-orange-600',
+    slug: "buildos",
+    name: "BuildOS",
+    description: "Operating system for modern construction project management.",
+    primaryColor: "#0f766e", // teal-700
+    secondaryColor: "#14b8a6", // teal-500
+    accentColor: "#f97316", // orange-500
     components: [
       {
-        id: 'hero-1',
-        type: 'hero',
+        id: "buildos-hero",
+        type: "hero",
         props: {
-          title: 'BuildOS',
-          description: 'Comprehensive construction project management platform'
+          title: "BuildOS: Manage Smarter",
+          description: "Streamline communication and workflows.",
+          ctaText: "Start Free Trial",
+          imageSrc: "/placeholder-hero.jpg"
         }
       },
       {
-        id: 'features-1',
-        type: 'features',
+        id: "buildos-features",
+        type: "features",
         props: {
-          title: 'Construction Project Management',
-          description: 'Streamline your construction projects with our all-in-one management solution',
           features: [
-            {
-              icon: '📅',
-              title: 'Project Planning',
-              description: 'Create detailed project timelines and milestones with Gantt charts'
-            },
-            {
-              icon: '👥',
-              title: 'Team Collaboration',
-              description: 'Coordinate with architects, contractors, and stakeholders in real-time'
-            },
-            {
-              icon: '📊',
-              title: 'Progress Tracking',
-              description: 'Monitor project progress with real-time dashboards and reporting'
-            }
+            { title: "Team Coordination", description: "Centralized communication hub." },
+            { title: "Document Control", description: "Secure document sharing." },
+            { title: "Timeline Tracking", description: "Real-time progress tracking." }
           ]
         }
       },
       {
-        id: 'cta-1',
-        type: 'pricing',
+        id: "buildos-pricing",
+        type: "pricing",
         props: {
-          title: 'Ready to Transform Your Project Management?',
-          description: 'Join thousands of project managers who trust BuildOS to deliver projects on time and on budget',
-          backgroundColor: 'bg-gray-100',
           plans: [
-            {
-              name: 'Starter',
-              price: '$49',
-              period: 'mo',
-              features: [
-                'Up to 5 projects',
-                'Basic collaboration',
-                'Standard reporting'
-              ],
-              buttonText: 'Start Managing Projects'
-            }
+            { name: "Starter", price: "$299/project", features: ["Up to 10 users", "Basic features"] },
+            { name: "Professional", price: "$599/project", features: ["Unlimited users", "Advanced features", "Priority Support"] }
           ]
         }
       }
     ]
   },
   {
-    slug: 'procurehub',
-    name: 'ProcureHub',
-    description: 'Material procurement',
-    primaryColor: 'from-indigo-600',
-    secondaryColor: 'to-purple-700',
-    accentColor: 'text-indigo-600',
+    slug: "procurehub",
+    name: "ProcureHub",
+    description: "Centralized procurement and vendor management system.",
+    primaryColor: "#92400e", // amber-900
+    secondaryColor: "#f59e0b", // amber-500
+    accentColor: "#10b981", // emerald-500
     components: [
       {
-        id: 'hero-1',
-        type: 'hero',
+        id: "procurehub-hero",
+        type: "hero",
         props: {
-          title: 'ProcureHub',
-          description: 'Streamlined material procurement for construction projects'
+          title: "ProcureHub: Source Better",
+          description: "Optimize spend and manage vendors effectively.",
+          ctaText: "Get Started",
+          imageSrc: "/placeholder-hero.jpg"
         }
       },
       {
-        id: 'features-1',
-        type: 'features',
+        id: "procurehub-features",
+        type: "features",
         props: {
-          title: 'Material Procurement',
-          description: 'Efficiently source and manage materials for your construction projects',
           features: [
-            {
-              icon: '🚚',
-              title: 'Supplier Network',
-              description: 'Access vetted suppliers offering competitive prices and quality materials'
-            },
-            {
-              icon: '📋',
-              title: 'Order Management',
-              description: 'Track orders from placement to delivery with real-time status updates'
-            },
-            {
-              icon: '💰',
-              title: 'Cost Optimization',
-              description: 'Compare prices across suppliers to optimize your procurement costs'
-            }
+            { title: "Vendor Portal", description: "Self-service portal for vendors." },
+            { title: "Spend Analysis", description: "Visualize spending patterns." },
+            { title: "Contract Management", description: "Lifecycle contract management." }
           ]
         }
       },
       {
-        id: 'cta-1',
-        type: 'pricing',
+        id: "procurehub-pricing",
+        type: "pricing",
         props: {
-          title: 'Ready to Simplify Your Material Procurement?',
-          description: 'Join thousands of contractors who trust ProcureHub to streamline their material sourcing',
-          backgroundColor: 'bg-gray-100',
           plans: [
-            {
-              name: 'Business',
-              price: '$99',
-              period: 'mo',
-              features: [
-                'Unlimited orders',
-                'Supplier analytics',
-                'Dedicated account manager'
-              ],
-              buttonText: 'Start Procuring Materials'
-            }
+            { name: "Business", price: "$499/month", features: ["Up to 50 vendors", "Standard reports"] },
+            { name: "Enterprise", price: "Custom", features: ["Unlimited vendors", "Custom reports", "Dedicated account"] }
           ]
         }
       }
     ]
   },
   {
-    slug: 'investflow',
-    name: 'InvestFlow',
-    description: 'Investment forecasting',
-    primaryColor: 'from-emerald-600',
-    secondaryColor: 'to-cyan-700',
-    accentColor: 'text-emerald-600',
+    slug: "investflow",
+    name: "InvestFlow",
+    description: "Workflow automation for commercial real estate investments.",
+    primaryColor: "#1e3a8a", // blue-900
+    secondaryColor: "#3b82f6", // blue-500
+    accentColor: "#8b5cf6", // violet-500
     components: [
       {
-        id: 'hero-1',
-        type: 'hero',
+        id: "investflow-hero",
+        type: "hero",
         props: {
-          title: 'InvestFlow',
-          description: 'Smart investment forecasting for real estate projects'
+          title: "InvestFlow: Invest Faster",
+          description: "Accelerate your investment decision pipeline.",
+          ctaText: "Demo Today",
+          imageSrc: "/placeholder-hero.jpg"
         }
       },
       {
-        id: 'features-1',
-        type: 'features',
+        id: "investflow-features",
+        type: "features",
         props: {
-          title: 'Investment Forecasting',
-          description: 'Predict market trends and ROI for your real estate investments',
           features: [
-            {
-              icon: '📈',
-              title: 'Market Analysis',
-              description: 'AI-powered analysis of market conditions and trends'
-            },
-            {
-              icon: '🔮',
-              title: 'ROI Prediction',
-              description: 'Accurate forecasting of return on investment'
-            },
-            {
-              icon: '📋',
-              title: 'Risk Assessment',
-              description: 'Evaluate potential risks in your investment portfolio'
-            }
+            { title: "Deal Pipeline", description: "Track deals from sourcing to close." },
+            { title: "Financial Modeling", description: "Built-in DCF and LBO models." },
+            { title: "Due Diligence", description: "Collaborative DD checklist." }
           ]
         }
       },
       {
-        id: 'cta-1',
-        type: 'pricing',
+        id: "investflow-pricing",
+        type: "pricing",
         props: {
-          title: 'Ready to Optimize Your Investment Strategy?',
-          description: 'Join thousands of investors using InvestFlow to maximize their returns',
-          backgroundColor: 'bg-gray-100',
           plans: [
-            {
-              name: 'Investor',
-              price: '$149',
-              period: 'mo',
-              features: [
-                'Portfolio tracking',
-                'Custom forecasts',
-                'Expert insights'
-              ],
-              buttonText: 'Start Forecasting'
-            }
+            { name: "Core", price: "$999/month", features: ["Up to 10 active deals", "Basic models"] },
+            { name: "Premium", price: "$1999/month", features: ["Unlimited deals", "Advanced models", "Personal Analyst"] }
           ]
         }
       }
     ]
   },
   {
-    slug: 'communitybuild',
-    name: 'CommunityBuild',
-    description: 'Fractional development',
-    primaryColor: 'from-amber-600',
-    secondaryColor: 'to-yellow-700',
-    accentColor: 'text-amber-600',
+    slug: "communitybuild",
+    name: "CommunityBuild",
+    description: "Platform for affordable housing project collaboration.",
+    primaryColor: "#166534", // green-800
+    secondaryColor: "#22c55e", // green-500
+    accentColor: "#eab308", // yellow-500
     components: [
       {
-        id: 'hero-1',
-        type: 'hero',
+        id: "communitybuild-hero",
+        type: "hero",
         props: {
-          title: 'CommunityBuild',
-          description: 'Fractional ownership platform for real estate development'
+          title: "CommunityBuild: Build Communities",
+          description: "Connect stakeholders for impactful projects.",
+          ctaText: "Join a Project",
+          imageSrc: "/placeholder-hero.jpg"
         }
       },
       {
-        id: 'features-1',
-        type: 'features',
+        id: "communitybuild-features",
+        type: "features",
         props: {
-          title: 'Fractional Development',
-          description: 'Participate in real estate projects with shared ownership models',
           features: [
-            {
-              icon: '🏢',
-              title: 'Property Fractionalization',
-              description: 'Buy shares in premium real estate properties'
-            },
-            {
-              icon: '🤝',
-              title: 'Community Investing',
-              description: 'Join forces with other investors to purchase larger assets'
-            },
-            {
-              icon: '💳',
-              title: 'Revenue Sharing',
-              description: 'Earn passive income from rental yields and property appreciation'
-            }
+            { title: "Stakeholder Network", description: "Connect municipalities, NGOs, builders." },
+            { title: "Funding Tracker", description: "Monitor public and private funding." },
+            { title: "Progress Reports", description: "Transparent project updates." }
           ]
         }
       },
       {
-        id: 'cta-1',
-        type: 'pricing',
+        id: "communitybuild-pricing",
+        type: "pricing",
         props: {
-          title: 'Ready to Participate in Real Estate Innovation?',
-          description: 'Join thousands of users building wealth through fractional ownership',
-          backgroundColor: 'bg-gray-100',
           plans: [
-            {
-              name: 'Starter',
-              price: 'Free',
-              period: '',
-              features: [
-                'Browse opportunities',
-                'Basic analytics',
-                'Community access'
-              ],
-              buttonText: 'Explore Opportunities'
-            }
+            { name: "Municipality", price: "Free", features: ["Public listings", "Basic reporting"] },
+            { name: "Partner", price: "$499/project", features: ["Full collaboration", "Advanced reporting"] }
           ]
         }
       }
