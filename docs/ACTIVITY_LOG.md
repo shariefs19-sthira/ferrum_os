@@ -288,3 +288,12 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** .github/workflows/ci.yml
 **Next Steps:** Continue development with confidence that builds are protected
 ---
+### 18:12 - MISSION 9 - BOQ Pro: localStorage persist + print export
+**Action:** Persist material schedule + totals to localStorage; added Save, Load, Clear estimate buttons; Print/PDF export using window.print() with print-styled summary (Subtotal, GST 18%, Grand Total).
+**By:** AI assistant (Copilot CLI runtime in VS Code)
+**Status:** ? Complete
+**Files Modified:**
+- apps/web/app/boq-pro/page.tsx
+**Next Steps:** Verify UI at /boq-pro and print preview; open PR for review.
+
+---
