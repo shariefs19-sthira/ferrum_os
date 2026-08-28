@@ -2,8 +2,8 @@
 
 **Owner:** Sharief S (sharief.s19@gmail.com)  
 **GitHub:** shariefs19-sthira  
-**Status:** Phase 1 - Foundation  
-**Last Updated:** 2026-08-27
+**Status:** Phase 2 - Product Launch & Integration  
+**Last Updated:** 2026-08-28
 
 ---
 
@@ -17,7 +17,25 @@ Ferrum OS is an "Operating System for Construction." It unbundles the traditiona
 
 ---
 
-## 2. Technology Stack (Monorepo Architecture)
+## 2. Product Portfolio Status
+
+The Ferrum OS product suite is now tracked across the P1-P9 roadmap. Current live status is as follows:
+
+- **P1 – LandIntel:** Live. ULPIN lookup flows are active and enhanced with a real-API lookup path plus offline fallback behavior when the external service is unavailable.
+- **P2 – DesignStudio:** Planned / not yet launched; concept work remains staged for the next product release.
+- **P3 – Structura:** Live product page in the web app and linked from the product grid.
+- **P4 – BOQ Pro:** Live MVP. Quantity takeoff and cost estimation flows remain active and are being matured toward full production readiness.
+- **P5 – ProMarket:** Live product page in the web app.
+- **P6 – BuildOS:** Live product page in the web app.
+- **P7 – ProcureHub:** Live product page in the web app.
+- **P8 – InvestFlow:** Live product page in the web app.
+- **P9 – CommunityBuild:** Live product page in the web app.
+
+> Current platform status: P1-P9 are tracked in the product roadmap. Most pages are active, with P2 remaining the only staged product while the rest of the suite is live or MVP-ready.
+
+---
+
+## 3. Technology Stack (Monorepo Architecture)
 
 To ensure seamless Web and Mobile App performance at a global scale:
 
@@ -32,7 +50,7 @@ To ensure seamless Web and Mobile App performance at a global scale:
 
 ---
 
-## 3. Monorepo Folder Structure
+## 4. Monorepo Folder Structure
 
 ```text
 ferrum_os/
@@ -54,3 +72,13 @@ ferrum_os/
 └── infrastructure/
     ├── docker/                 # Docker configurations
     └── k8s/                    # Kubernetes manifests
+```
+
+---
+
+## 5. Current Delivery Priorities
+
+1. Finalize live product-page polish across the P3-P9 portfolio.
+2. Continue LandIntel API hardening and data-source integration.
+3. Mature BOQ Pro estimation workflows into a production-ready experience.
+4. Keep build artifacts ignored and repository line endings normalized for clean CI and local dev churn.
