@@ -1,4 +1,4 @@
-﻿# ðŸ¤– Ferrum OS - AI Agent Workflow & Coordination Guide
+# ðŸ¤– Ferrum OS - AI Agent Workflow & Coordination Guide
 
 ## AI Agent Coordination Protocol
 1. **Agent Identification:** All commits must include AI name: `git commit -m "feat: [AI: Name] description"`
@@ -268,3 +268,4 @@ cd C:\Users\user\ferrum_os
 **Next Steps:** Run visual sweep as needed during CI/CD or release checks.
 
 ---
+## 21:30 - MISSION 11: LandIntel fallback telemetry + LIVE/FALLBACK badge | **By:** Jules-B | **Status:** Complete | **Next Steps:** set PLOT_DATA_API_URL for live data
