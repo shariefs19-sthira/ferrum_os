@@ -5,7 +5,7 @@ This document outlines the protocol for assigning tasks to AI agents based on th
 
 ## Decision Template
 
-### ASSIGN `<task_id>` | domain | recommended model/tier | est cost | INTERNAL: `<per-domain stats>` | EXTERNAL: `<benchmark rank, price, community signal, dated>` | CONFIDENCE | VETO window.
+### ASSIGN `<task_id>` | domain | recommended model/tier | est cost | INTERNAL: `<per-domain stats>` | EXTERNAL: `<benchmark rank, price, community signal, dated>` | PROPHECY INPUT: `<summary of relevant prophecies>` | CONFIDENCE | VETO window.
 
 - **task_id**: The unique identifier for the task (e.g., W1-01).
 - **domain**: The constant domain of the task (e.g., D-UI, D-BE, D-QA).
@@ -13,6 +13,7 @@ This document outlines the protocol for assigning tasks to AI agents based on th
 - **est cost**: Estimated computational or time cost (FREE/LOW/MID/HIGH).
 - **INTERNAL**: Aggregate statistics from `AGENT_REGISTRY.md` for agents working in this domain. Includes metrics like average landing rate, average CI break rate, average time to completion, etc.
 - **EXTERNAL**: Relevant external data such as model benchmark scores, current pricing, community sentiment, and the date of the information. Example: "GPT-4o ranks high for code gen (2024-05), but Qwen3.5 is 5x cheaper for QA tasks (price check 2024-05-23)".
+- **PROPHECY INPUT**: Relevant predictions from `PROPHECY_LOG.md` that might affect the assignment choice or risk assessment for this task.
 - **CONFIDENCE**: Dispatcher's confidence level in the recommendation (High/Medium/Low).
 - **VETO window**: A 24-hour period during which a human can override the dispatcher's assignment.
 
@@ -22,3 +23,8 @@ This document outlines the protocol for assigning tasks to AI agents based on th
 
 ## Calibration
 After a task is completed and landed, the actual performance (cost, time, quality) is recorded in `ASSIGNMENT_LOG.md` against the prediction. The dispatcher's effectiveness is measured by comparing predictions to outcomes.
+
+## Interaction with [POS:PROPHET]
+- The [POS:DISPATCHER] must consult `PROPHECY_LOG.md` before making an assignment.
+- If a prophecy related to the task or agent has a credibility score > 70, the dispatcher must explicitly respond to it in the assignment notes or record why it's being disregarded.
+- If a prophecy related to a HIGH-cost task (J06, J09, J10, J14) has a credibility score > 85, the dispatcher must incorporate its recommendation or defer the task.

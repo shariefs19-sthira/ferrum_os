@@ -32,3 +32,5 @@
 ### IDEA-028 | 2024-05-23 | this build | universal epistemic logging | active.
 ### IDEA-029 | 2024-05-23 | this build | constants-vs-variables routing | active.
 ### IDEA-030 | 2024-05-23 | this build | calibration loop (internal evidence > external hype over time) | active.
+### IDEA-031 | 2024-05-23 | this build | prophecy + credibility ladder | active.
+### IDEA-032 | 2024-05-23 | this build | per-role agent files under docs/agents/ | active.
