@@ -64,3 +64,5 @@
 ### IDEA-060 | 2026-08-29 | MISSION RELUME-INTAKE v1 | design artifacts versioned with code in sync with Relume exports as versioned artifacts in docs/relume/ | active.
 ### IDEA-061 | 2026-08-29 | MISSION RELUME-INTAKE v1 | external-tool resets as batch boundaries for Relume workflow | active.
 ### IDEA-063 | 2026-08-29 | MISSION INFRA-14 | default-manual machine policy (adopt on trigger, free-tier trials first) | active.
+### IDEA-064 | 2026-08-29 | MISSION W1-06 | auto-merge as workflow with HUMAN-REVIEW veto capability | active.
+### IDEA-065 | 2026-08-29 | MISSION W1-06 | sync handoff windows between agents for seamless task transitions | active.
