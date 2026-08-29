@@ -5,11 +5,12 @@ This document outlines the protocol for assigning tasks to AI agents based on th
 
 ## Decision Template
 
-### ASSIGN `<task_id>` | domain | recommended model/tier | est cost | INTERNAL: `<per-domain stats>` | EXTERNAL: `<benchmark rank, price, community signal, dated>` | PROPHECY INPUT: `<summary of relevant prophecies>` | CONFIDENCE | VETO window.
+### ASSIGN `<task_id>` | domain | recommended model/tier | est duration | est cost | INTERNAL: `<per-domain stats>` | EXTERNAL: `<benchmark rank, price, community signal, dated>` | PROPHECY INPUT: `<summary of relevant prophecies>` | CONFIDENCE | VETO window.
 
 - **task_id**: The unique identifier for the task (e.g., W1-01).
 - **domain**: The constant domain of the task (e.g., D-UI, D-BE, D-QA).
 - **recommended model/tier**: The suggested AI model and its capability tier (S+/S/A/B/C).
+- **est duration**: Estimated time to completion based on model speed and task size (e.g., 1hr, 4hrs). Used for pace-aware dispatch (Rule 30).
 - **est cost**: Estimated computational or time cost (FREE/LOW/MID/HIGH).
 - **INTERNAL**: Aggregate statistics from `AGENT_REGISTRY.md` for agents working in this domain. Includes metrics like average landing rate, average CI break rate, average time to completion, etc.
 - **EXTERNAL**: Relevant external data such as model benchmark scores, current pricing, community sentiment, and the date of the information. Example: "GPT-4o ranks high for code gen (2024-05), but Qwen3.5 is 5x cheaper for QA tasks (price check 2024-05-23)".
@@ -35,6 +36,7 @@ When composing a batch, the dispatcher scores potential compositions based on:
 - **Domain Coverage**: Balancing load across different domains (D-UI, D-BE, D-QA, etc.) to prevent bottlenecks.
 - **Agent Availability**: Matching task domains to the currently available and suitable agents.
 - **Cheapest Fit**: Selecting the lowest tier capable of performing the task effectively.
+- **Estimated Duration**: Distributing long-running or slow tasks across economy batches to maintain the pace of critical batches.
 
 ## LOOKAHEAD
 While the current batch is in progress, the dispatcher drafts assignments for the *next* batch. This allows for proactive preparation and smoother transitions. The WIP (Work In Progress) limit is 1 active batch per agent to prevent overload.

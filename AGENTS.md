@@ -41,6 +41,7 @@
 27. BATCH RELEASE: agents work only OPEN-batch tasks; batches open only via conductor verification; preflight pulls the queue; HUMAN-HOLD flag freezes releases.
 28. SUBTASK SPAWNING: any agent/reviewer/prophet may spawn <parent>.<n> with justification + scope + recommended tier; child inherits parent priority (in-line); parent DONE requires all descendants DONE; caps depth<=3, children<=5, exceed = HUMAN-HOLD; dispatcher assigns child handle within one conductor cycle; spawns logged in parent METHOD record.
 29. CONFIRM-BEFORE-ACT: every NEW session posts an onboarding confirmation and waits for human "GO" before any mutating action; agents with trust >=2 clean landings may auto-start OPEN tasks.
+30. PACE-AWARE DISPATCH: assignments carry est-duration (model x size); batch pace = slowest estimate; large divisible tasks split to model size; slow/free-model work goes to parallel ECONOMY batches (suffix -E) so critical batches never stall on them; conductor stall threshold = 2x estimate; prophet pace predictions.
 
 ## UNIVERSAL ONBOARDING (any model, any vendor, any capability)
 1. Read this file fully. Every rule applies to every AI agent regardless of vendor.
