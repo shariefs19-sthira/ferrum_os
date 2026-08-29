@@ -20,21 +20,24 @@ This document provides the initial context and current state for any AI agent ta
 **Mission Goal:** Implement a robust, scalable, and observable AI agent coordination system based on capability tiers and structured workflows.
 
 **Previous Work Summary:**
-*   Established the Universal Agent Factory (v2) with capability tiers (S+/S/A/B/C) and vendor-agnostic roles.
+*   Established the Universal Agent Factory (v2) with capability tiers and vendor-agnostic roles.
 *   Defined a structured Workflow (v2) with a job taxonomy (J01-J15), cost routing, wave protocol, and immediate checks.
-*   Created foundational documents for jobs (JOBS.md), standards (STANDARDS.md), and an ideas log (IDEAS_LOG.md).
+*   Implemented fleet tracking with heartbeat rules and an agent board.
+*   Created a permanent ledger for agent identities and lifetimes (AGENT_REGISTRY.md).
+*   Established a formal queue for work items (WAVE_QUEUE.md).
 
 **Current State:**
-*   The `main` branch contains the updated `AGENTS.md`, `ROLES.md`, `WORKFLOW.md`, and the new documents `JOBS.md`, `STANDARDS.md`, `IDEAS_LOG.md`, and `AI_HANDOFF.md`.
-*   The CI/CD pipeline is configured as per previous changes.
-*   The agent fleet is now tracked via `docs/AGENT_BOARD.md` and monitored by the `scripts/fleet-status.mjs` script, which is accessible via `npm run fleet`.
-*   Security planning has been initiated with a pre-seeded `docs/SECURITY.md`.
+*   The `main` branch contains all the updated documentation and scripts for the agent system.
+*   The `docs/AGENT_REGISTRY.md` lists all known agents.
+*   The `docs/WAVE_QUEUE.md` contains the initial set of tasks for WAVE-1.
+*   All agents are required to register in `docs/AGENT_REGISTRY.md` before committing code.
 
 **Next Steps:**
-*   Agent responsible for M24 and onwards should implement the pull-based labeled queue as outlined in the workflow and ideas log.
-*   Continue populating `docs/IDEAS_LOG.md` with workflow improvements discovered during execution.
-*   Ensure all agents adhere to the HEARTBEAT rule (Rule 16) in `AGENTS.md`.
+*   New agents should register in `docs/AGENT_REGISTRY.md`.
+*   Agents should pull tasks from `docs/WAVE_QUEUE.md` according to their tier and the cost-routing rules.
+*   Ensure all commits include the `[AI: handle]` tag and all log entries include `**By:** handle [POS:tag]`.
 
 **Context/Links:**
 *   Refer to `docs/ACTIVITY_LOG.md` for a chronological list of completed tasks.
 *   Check `docs/AGENT_BOARD.md` for the current status of any assigned agents.
+*   Consult `docs/ROLES.md` and `docs/JOBS.md` for role assignments and job definitions.

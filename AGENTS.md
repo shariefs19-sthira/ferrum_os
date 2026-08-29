@@ -18,6 +18,7 @@
 15. WAVE DISCIPLINE: an agent works only its pulled task; scope = the labeled file set; exceeding it fails Danger.
 16. HEARTBEAT: every assigned agent updates docs/AGENT_BOARD.md on: task pull, each commit, entering gate-wait, completion, and any wait >15 min (status BLOCKED + reason). Silence >30 min = IDLE; human returns the task to the labeled queue.
 17. DISCUSSION CAPTURE: any workflow/security/process insight from a human-agent conversation is appended to docs/IDEAS_LOG.md (or the owning doc) before session end. No valuable discussion dies in chat history.
+18. REGISTRY: no AI commits before registering (unique handle + position + tier). Every commit: [AI: handle]; every log: **By:** handle [POS:tag]. Exit = update row (status, stats, reason). Unexpected death = monitor flags, human marks EXITED-UNEXPECTED.
 
 ## UNIVERSAL ONBOARDING (any model, any vendor, any capability)
 1. Read this file fully. Every rule applies to every AI agent regardless of vendor.

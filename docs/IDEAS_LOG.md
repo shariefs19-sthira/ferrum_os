@@ -13,3 +13,5 @@
 ### IDEA-009 | 2024-05-23 | this build | two-product vision: ship the website AND the reusable Workflow Kit — active.
 ### IDEA-010 | 2024-05-23 | this build | purpose-driven tooling over star-counts — active.
 ### IDEA-011 | 2024-05-23 | learned from M15 | Amazon-mapped security phases (edge/WAF now; SAQ-A tokenized payments at commerce; fraud/bot at volume; SOC2 later) — pending M16.
+### IDEA-012 | 2024-05-23 | this build | permanent agent identity + lifetime + results ledger (AGENT_REGISTRY.md) | active.
+### IDEA-013 | 2024-05-23 | this build | Danger-enforced [AI: handle] and [POS:tag] format in commits/logs | pending.
