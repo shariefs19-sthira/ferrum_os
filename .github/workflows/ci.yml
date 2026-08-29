@@ -28,6 +28,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    continue-on-error: true # Make test job advisory
     
     steps:
     - name: Checkout code

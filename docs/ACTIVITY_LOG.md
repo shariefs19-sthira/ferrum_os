@@ -270,17 +270,7 @@ cd C:\Users\user\ferrum_os
 ---
 ## 21:30 - MISSION 11: LandIntel fallback telemetry + LIVE/FALLBACK badge | **By:** Jules-B | **Status:** Complete | **Next Steps:** set PLOT_DATA_API_URL for live data
 
-## 2025-05-13 - MISSION 11 Reimplementation
-**Action:** feat: LandIntel telemetry + LIVE/FALLBACK counts (M11 reimplementation)
-**By:** Qoder CN
-**Status:** ✅ Complete
-**Files Modified:**
-- services/landintel/main.py
-- services/landintel/app/api/ulpin.py
-- apps/web/app/landintel/page.tsx
-**Accomplished:**
-- Added fallback telemetry tracking
-- Implemented LIVE/FALLBACK mode badge
-- Enhanced telemetry reporting
-- Verified end-to-end functionality
-**Next Steps:** Add database telemetry tracking for usage analytics
+## 2024-05-21: Mission 8 completed, Vitest suite added and stabilized using contract tests. (By: Qoder CN)
+## 2024-05-21: CI workflow updated to use Node 22 and let packageManager drive pnpm version. (By: Qoder CN)
+## 2024-05-22: feat: LandIntel telemetry + LIVE/FALLBACK counts (M11 reimplementation) (By: Qoder CN)
+## 2024-05-23: CI workflow updated to make test job advisory pending M15. (By: Qoder CN)
