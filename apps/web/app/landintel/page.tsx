@@ -37,27 +37,29 @@ export default function LandIntelPage() {
     return () => clearInterval(interval) // Cleanup on unmount
   }, []) // Empty dependency array means this effect runs once on mount
 
-  const handleLookup = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (ulpin.length !== 14 || !/^\d+$/.test(ulpin)) {
+  const lookupLand = async (value = ulpin) => {
+    if (value.length !== 14 || !/^\d+$/.test(value)) {
       setError("ULPIN must be exactly 14 digits")
       return
     }
+
     setLoading(true)
     setError("")
     setResult(null)
     setMode("fallback")
+
     try {
       const res = await fetch("http://localhost:8000/api/v1/ulpin/lookup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ulpin })
+        body: JSON.stringify({ ulpin: value })
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.detail || data.message || "Lookup failed")
+
       setResult(data.data)
       setInfoMessage(data.message || "")
-      setMode((data.mode === "live" ? "live" : "fallback"))
+      setMode(data.mode === "live" ? "live" : "fallback")
       setError("")
     } catch (err: any) {
       setError(err.message || String(err))
@@ -66,6 +68,16 @@ export default function LandIntelPage() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleLookup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await lookupLand()
+  }
+
+  const handleRetry = async () => {
+    if (!ulpin) return
+    await lookupLand()
   }
 
   const downloadPDF = async () => {
@@ -111,6 +123,26 @@ export default function LandIntelPage() {
         )}
         {result && (
           <div className="mt-6 space-y-4">
+            <div className="flex items-center justify-between gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
+              <div className="flex items-center gap-2">
+                <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold border ${mode === "live" ? "bg-emerald-100 text-emerald-800 border-emerald-200" : "bg-amber-100 text-amber-800 border-amber-200"}`}>
+                  {mode === "live" ? "LIVE" : "FALLBACK"}
+                </span>
+                <span className="text-sm font-medium text-gray-700">
+                  {mode === "live" ? "Live plot data" : "Cached plot data"}
+                </span>
+              </div>
+              {mode === "fallback" && (
+                <button
+                  type="button"
+                  onClick={handleRetry}
+                  disabled={loading}
+                  className="rounded-md border border-amber-300 bg-white px-3 py-1.5 text-sm font-medium text-amber-700 transition hover:bg-amber-50 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {loading ? "Retrying..." : "Retry"}
+                </button>
+              )}
+            </div>
             <div className="p-4 bg-green-50 border border-green-200 rounded-md">
               <h2 className="text-lg font-semibold text-green-800 mb-2">✅ Land Found</h2>
               <div className="grid grid-cols-2 gap-2 text-sm text-gray-700">
