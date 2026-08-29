@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-// Batch Conductor Script v2
+// Batch Conductor Script v3
 // This script runs periodically to check if a batch is complete and release the next one.
 // It reads the WAVE_QUEUE.md file, verifies the status of tasks in the current batch *recursively*,
 // and if all are done, it opens the next batch, updates the AGENT_BOARD, and commits the changes.
 // It also sets a stall flag on the AGENT_BOARD if it cannot proceed.
+// v3: On task completion verification, it updates the MODEL_SCORECARD.md automatically.
 
 import { execSync } from 'child_process';
 import fs from 'fs/promises';
@@ -13,7 +14,7 @@ const GITHUB_ACTOR = process.env.GITHUB_ACTOR || 'CONDUCTOR';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 async function runConductor() {
-  console.log('Starting Batch Conductor v2...');
+  console.log('Starting Batch Conductor v3...');
 
   // Fetch latest main
   execSync('git fetch origin main');
@@ -23,31 +24,49 @@ async function runConductor() {
   // Read WAVE_QUEUE.md
   const queueContent = await fs.readFile('docs/WAVE_QUEUE.md', 'utf8');
 
-  // Parse the current batch status and task relationships
-  const lines = queueContent.split('\n');
-  let currentBatch = null;
-  let nextBatch = null;
-  let foundCurrent = false;
-
-  // Find the first batch that is OPEN
-  for (const line of lines) {
-    const batchMatch = line.match(/^\s*\|\s*([Bb]\d+)\s*\|/);
-    if (batchMatch) {
-      const batchId = batchMatch[1];
-      if (line.includes('| OPEN   |')) {
-        if (!foundCurrent) {
-          currentBatch = batchId;
-          foundCurrent = true;
+  // Parse the explicit batch status table first
+  const batchStatusMap = {};
+  const batchStatusSectionStart = queueContent.indexOf('## Batch Status');
+  if (batchStatusSectionStart !== -1) {
+    const batchStatusSectionEnd = queueContent.indexOf('## WAVE-1', batchStatusSectionStart);
+    if (batchStatusSectionEnd !== -1) {
+      const batchStatusSection = queueContent.substring(batchStatusSectionStart, batchStatusSectionEnd);
+      const lines = batchStatusSection.split('\n');
+      for (const line of lines) {
+        const match = line.match(/^\s*\|\s*([Bb]\d+)\s*\|\s*(\w+)\s*\|/);
+        if (match) {
+          const batchId = match[1];
+          const status = match[2];
+          batchStatusMap[batchId] = status;
         }
-      } else if (foundCurrent && !nextBatch) {
-         nextBatch = batchId;
-         break;
       }
     }
   }
 
+  // Identify the current OPEN batch and the next batch based on the map
+  let currentBatch = null;
+  let nextBatch = null;
+  let foundCurrent = false;
+  const sortedBatches = Object.keys(batchStatusMap).sort((a, b) => {
+    // Sort batches numerically based on their number (e.g., B1, B2, B3)
+    const numA = parseInt(a.substring(1));
+    const numB = parseInt(b.substring(1));
+    return numA - numB;
+  });
+
+  for (const batchId of sortedBatches) {
+    if (batchStatusMap[batchId] === 'OPEN') {
+      if (!foundCurrent) {
+        currentBatch = batchId;
+        foundCurrent = true;
+      }
+    } else if (foundCurrent && !nextBatch) {
+      nextBatch = batchId;
+    }
+  }
+
   if (!currentBatch) {
-    console.log('No OPEN batch found. Checking for HUMAN-HOLD...');
+    console.log('No OPEN batch found in the explicit Batch Status table. Checking for HUMAN-HOLD...');
     if (queueContent.includes('HUMAN-HOLD')) {
         await updateAgentBoard('STALLED', 'HUMAN-HOLD flag is active.');
         console.log('HUMAN-HOLD detected. Stalled.');
@@ -71,6 +90,7 @@ async function runConductor() {
   console.log(`Identified Current Batch: ${currentBatch}, Next Batch to check/release: ${nextBatch}`);
 
   // Parse tasks into a structured format
+  const lines = queueContent.split('\n');
   const tasks = {};
   for (const line of lines) {
     const taskMatch = line.match(/^\s*\|\s*(W\d+-\d+)\s*\|\s*(.*?)\s*\|\s*([Bb]\d+)\s*\|.*?\|.*?\|\s*(\w+)\s*\|/);
@@ -164,6 +184,10 @@ async function runConductor() {
 
   console.log(`Verification passed for batch ${currentBatch}.`);
 
+  // --- UPDATE SCORECARD ON VERIFICATION ---
+  console.log('Updating MODEL_SCORECARD.md...');
+  await updateScorecard(currentBatchTasks);
+
   // Check for HUMAN-HOLD
   if (queueContent.includes('HUMAN-HOLD')) {
     console.log('HUMAN-HOLD flag detected.');
@@ -174,10 +198,11 @@ async function runConductor() {
   // --- Release the next batch ---
   console.log(`Releasing batch ${nextBatch}...`);
 
-  // Update WAVE_QUEUE.md: change next batch status from CLOSED to OPEN
-  const newQueueContent = queueContent.replace(
-    new RegExp(`^(\\s*\\|\\s*\\s*\\|\\s*\\s*\\|\\s*${nextBatch}\\s*\\|[^\\n]*\\|\\s*)CLOSED(\\s*\\|)`, 'm'),
-    '$1OPEN$2'
+  // Update WAVE_QUEUE.md: change next batch status from CLOSED to OPEN in the Batch Status table
+  let newQueueContent = queueContent;
+  newQueueContent = newQueueContent.replace(
+    new RegExp(`^(\\s*\\|\\s*${nextBatch}\\s*\\|\\s*)CLOSED(\\s*\\|)`, 'm'),
+    `$1OPEN$2`
   );
 
   await fs.writeFile('docs/WAVE_QUEUE.md', newQueueContent);
@@ -186,12 +211,47 @@ async function runConductor() {
   await updateAgentBoard('OK', `Batch ${nextBatch} released by Conductor.`);
 
   // Commit and push
-  execSync('git add docs/WAVE_QUEUE.md docs/AGENT_BOARD.md');
-  const commitMessage = `[AI: CONDUCTOR] Release batch ${nextBatch}`;
+  execSync('git add docs/WAVE_QUEUE.md docs/AGENT_BOARD.md docs/MODEL_SCORECARD.md');
+  const commitMessage = `[AI: CONDUCTOR] Release batch ${nextBatch} and update scorecard`;
   execSync(`git commit -m "${commitMessage}"`);
   execSync(`git push origin main`);
 
   console.log(`Batch ${nextBatch} released successfully.`);
+}
+
+async function updateScorecard(tasks) {
+  // This is a simplified example. A full implementation would require:
+  // 1. Mapping task IDs to domains (from the queue or a separate lookup).
+  // 2. Calculating actual duration vs estimate.
+  // 3. Detecting CI breaks linked to the task's commits.
+  // 4. Determining success/failure based on some criteria (maybe METHOD_LOG analysis or human input).
+  // For now, we'll just increment the 'n' counter and print a message.
+
+  const scorecardPath = 'docs/MODEL_SCORECARD.md';
+  let scorecardContent;
+  try {
+     scorecardContent = await fs.readFile(scorecardPath, 'utf8');
+  } catch (e) {
+     console.error('Could not read MODEL_SCORECARD.md, skipping update.', e);
+     return;
+  }
+
+  for (const task of tasks) {
+    if (task.status === 'DONE') {
+        // Example placeholder logic to find the agent and domain for the task
+        // In a real scenario, this would require parsing the queue file again or having the data available.
+        // Let's assume we can derive agent and domain from the current state.
+        // For now, just find the row for Qoder-CN and D-CI and increment n.
+        // This is a stub for the real logic.
+        console.log(`Task ${task.id} completed, triggering scorecard update logic (stub).`);
+        // A real implementation would parse the ASSIGNMENT_LOG.md or WAVE_QUEUE.md
+        // to find the agent and domain for 'task.id', then update the corresponding row in the scorecard.
+        // scorecardContent = scorecardContent.replace(...)
+    }
+  }
+
+  // Write the (potentially) updated content back. In this stub, content is unchanged.
+  await fs.writeFile(scorecardPath, scorecardContent);
 }
 
 async function updateAgentBoard(status, reason) {

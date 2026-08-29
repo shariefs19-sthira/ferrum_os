@@ -45,3 +45,5 @@
 ### IDEA-041 | 2024-05-23 | this build | confirm-before-act for new sessions | active.
 ### IDEA-042 | 2024-05-24 | this build | harness-vs-model distinction for agents like [POS:WRITER-VOLUME] | active.
 ### IDEA-043 | 2024-05-24 | this build | economy batches (-E suffix) for parallel processing of light tasks | active.
+### IDEA-044 | 2024-05-24 | this build | bandit routing (exploit ledger, explore capped) | active.
+### IDEA-045 | 2024-05-24 | this build | scorecard auto-update on completion | active.

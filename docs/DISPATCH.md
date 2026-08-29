@@ -5,7 +5,7 @@ This document outlines the protocol for assigning tasks to AI agents based on th
 
 ## Decision Template
 
-### ASSIGN `<task_id>` | domain | recommended model/tier | est duration | est cost | INTERNAL: `<per-domain stats>` | EXTERNAL: `<benchmark rank, price, community signal, dated>` | PROPHECY INPUT: `<summary of relevant prophecies>` | CONFIDENCE | VETO window.
+### ASSIGN `<task_id>` | domain | recommended model/tier | est duration | est cost | INTERNAL: `<per-domain stats>` | EXTERNAL: `<benchmark rank, price, community signal, dated>` | EXPLORE_BUDGET_SPENT (for explore tasks) | PROPHECY INPUT: `<summary of relevant prophecies>` | CONFIDENCE | VETO window.
 
 - **task_id**: The unique identifier for the task (e.g., W1-01).
 - **domain**: The constant domain of the task (e.g., D-UI, D-BE, D-QA).
@@ -14,9 +14,29 @@ This document outlines the protocol for assigning tasks to AI agents based on th
 - **est cost**: Estimated computational or time cost (FREE/LOW/MID/HIGH).
 - **INTERNAL**: Aggregate statistics from `AGENT_REGISTRY.md` for agents working in this domain. Includes metrics like average landing rate, average CI break rate, average time to completion, etc.
 - **EXTERNAL**: Relevant external data such as model benchmark scores, current pricing, community sentiment, and the date of the information. Example: "GPT-4o ranks high for code gen (2024-05), but Qwen3.5 is 5x cheaper for QA tasks (price check 2024-05-23)".
+- **EXPLORE_BUDGET_SPENT**: Flag indicating if this assignment was made using the 'explore' budget (trying newer/cheaper models for low-risk tasks).
 - **PROPHECY INPUT**: Relevant predictions from `PROPHECY_LOG.md` that might affect the assignment choice or risk assessment for this task.
 - **CONFIDENCE**: Dispatcher's confidence level in the recommendation (High/Medium/Low).
 - **VETO window**: A 24-hour period during which a human can override the dispatcher's assignment.
+
+## Assignment Pseudocode (Exploit vs Explore)
+1.  **Check Explore Budget**: For low-risk, volume tasks (e.g., J13, J15), decide probabilistically (e.g., 10%) whether to use the explore budget.
+2.  **Exploit Path (Standard)**: If not exploring, look up candidates in `MODEL_SCORECARD.md` where `n >= 3` for the given domain.
+    a. Filter candidates by required `tier` and `domain`.
+    b. Calculate or retrieve the `score` for each candidate.
+    c. Select the candidate with the highest `score`.
+3.  **Explore Path**: If exploring or if no candidate has `n >= 3`:
+    a. Deliberate manually (consider newer, cheaper models).
+    b. Log the exploration decision in the assignment record.
+4.  **Finalize**: Record the assignment in `WAVE_QUEUE.md` and update `ASSIGNMENT_LOG.md` with the prediction.
+
+## Weight Table (Human-Adjustable Parameters)
+These weights are used in the scoring formula found in `MODEL_SCORECARD.md`.
+- `success_rate_weight`: 0.4
+- `fix_loop_penalty_weight`: 0.1
+- `ci_break_penalty_weight`: 0.2
+- `duration_penalty_weight`: 0.1
+- `cost_efficiency_bonus_weight`: 0.2
 
 ## Cadence
 - A new dispatch decision is made for every task at every wave boundary.
@@ -37,6 +57,7 @@ When composing a batch, the dispatcher scores potential compositions based on:
 - **Agent Availability**: Matching task domains to the currently available and suitable agents.
 - **Cheapest Fit**: Selecting the lowest tier capable of performing the task effectively.
 - **Estimated Duration**: Distributing long-running or slow tasks across economy batches to maintain the pace of critical batches.
+- **Scorecard Scores**: Preferring compositions that utilize agents with high scores for their respective tasks.
 
 ## LOOKAHEAD
 While the current batch is in progress, the dispatcher drafts assignments for the *next* batch. This allows for proactive preparation and smoother transitions. The WIP (Work In Progress) limit is 1 active batch per agent to prevent overload.
