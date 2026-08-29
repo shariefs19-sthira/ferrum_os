@@ -7,3 +7,6 @@ Every active seat always holds a claimed task. The conductor issues the next tas
 
 ### RULE 45 — NO FORCE PUSH TO MAIN
 A push rejection triggers a `pull --rebase`, followed by a re-push. Any force-push attempt to `origin/main` results in a logged correction.
+
+### RULE 46 — VERIFIED GREEN
+Any "build green" claim must include the final 3 build lines and the exit code. An unverified claim results in a logged correction.

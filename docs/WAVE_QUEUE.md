@@ -55,3 +55,27 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-10   |        | B2    | J08      | Copilot     | DONE   | 6d15693  | footer component + layout render |
 | W2-11   |        | B2    | J08      | Cline-GLM-Flash | DONE   | f6d0842  | web manifest |
 | W2-12   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 60c6746  | static pricing page |
+| W2-13   |        | B2    | J08      | Copilot     | DONE   | N/A      | docs catchup |
+| W2-14   |        | B2    | J08      | Copilot     | DONE   | N/A      | get started page |
+| W2-15   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | fix documentation page |
+| W2-16   |        | B2    | J08      | Copilot     | DONE   | N/A      | get started page |
+| W2-17   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | demo page |
+| W2-18   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | login page |
+| W2-19   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | signup page |
+| W2-20   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | structura page |
+| W2-21   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | worktree merge |
+| W2-22   |        | B2    | J08      | Qoder-CN    | DONE   | 980cd74  | copilot buildos |
+| W2-23   |        | B2    | J08      | Qoder-CN    | DONE   | c8d3bf6  | cline layouts |
+| W2-24   |        | B2    | J08      | Qoder-CN    | DONE   | 0a58b81  | cline legal |
+| W2-25   |        | B2    | J08      | Qoder-CN    | DONE   | 4913df7  | cline layouts2 |
+| W2-26   |        | B2    | J08      | Qoder-CN    | DONE   | d0ee60e  | copilot investflow |
+| W2-27   |        | B2    | J08      | Qoder-CN    | DONE   | 86caff7  | cline layouts3 |
+| W2-28   |        | B2    | J08      | Qoder-CN    | DONE   | c3f4eab  | copilot promarket |
+| W2-29   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | cline layouts4 |
+| W2-30   |        | B2    | J08      | Qoder-CN    | DONE   | f2baa00  | copilot designstudio |
+| W2-31   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | cline layouts (duplicate) |
+| W2-32   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | favicon and layout |
+| W2-33   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | copilot procurehub |
+| W2-34   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | cline layouts6 |
+| W2-35   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | copilot communitybuild |
+| W2-36   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | cline blog |

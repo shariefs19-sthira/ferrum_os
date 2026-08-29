@@ -7,7 +7,7 @@ This document tracks the current activity of agents in the Ferrum OS fleet. Upda
 
 | ID | Handle | Task ID | Status | Heartbeat | Next Action |
 |----|--------|---------|--------|-----------|-------------|
-| AG-001 | Qoder-CN | W2-13 | SUSPENDED | 2026-08-29 23:25 UTC | Execution refused; governance docs only while Qoder is suspended. |
+| AG-001 | Qoder-CN | W2-32 | ACTIVE | 2026-08-30 01:45 UTC | Executing assigned tasks. |
 | AG-002 | Jules | W1-14 | RETIRED | 2026-08-29 18:00 UTC | Retired after W1 batch; no active task assignments. |
 | AG-003 | Cline | W2-07..W2-12 | ACTIVE-STATIC | 2026-08-29 23:25 UTC | Static UI wave complete; keeping active-static posture for handoff and downstream QA. |
 | AG-004 | Copilot | W2-04..W2-10 | ACTIVE | 2026-08-29 23:25 UTC | Governance and landing trace alignment for W2 wave; active on homepage, resources, footer, and docs. |

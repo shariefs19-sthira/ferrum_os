@@ -35,25 +35,29 @@ This document provides the initial context and current state for any AI agent ta
 *   Implemented the Subtask Spawning protocol for dynamic task hierarchies.
 
 **Current State:**
-*   The `main` branch contains the updated coordination stack for agent capability tiers, workflow discipline, dispatch, prophecy, batch control, and task-scope guardrails.
-*   The `docs/AGENT_REGISTRY.md` remains the source of truth for registered agents and their status.
-*   The `docs/WAVE_QUEUE.md` remains batch-organized (B1/B2/B3), with the latest infrastructure note that W1-06 landed via the Qoder branch and the seat returned to standby after the double-assignment incident.
+*   The `main` branch contains the updated coordination stack and recent landings up to W2-30 (f2baa00) and task completions up to W2-32 (c05d5ca).
+*   The `docs/AGENT_REGISTRY.md` remains the source of truth for registered agents and their status. The `docs/AGENT_BOARD.md` shows Qoder-CN as ACTIVE.
+*   The `docs/WAVE_QUEUE.md` has been updated to include tasks W2-13 through W2-36 and reflects the current status of recent landings.
 *   The `docs/STANDARDS_RADAR.md` and `docs/STANDARDS.md` remain authoritative for technology and process review cycles.
-*   `docs/METHOD_LOG.md` is now normalized to a stateless, evidence-first template for task records.
-*   `docs/IDEAS_LOG.md` includes the updated record for IDEA-066 and the human-review veto pattern for the Auto-Merge Enabler.
-*   The `.github/workflows/auto-merge.yml` pattern is in place for non-draft PRs that are not blocked by the `HUMAN-REVIEW` veto string.
-*   `W1-06` is logged as landed, with the Copilot protocol recorded as correct and the branch closed after the dispatcher double-assignment recovery.
+*   `docs/METHOD_LOG.md` is normalized to a stateless, evidence-first template for task records.
+*   `docs/IDEAS_LOG.md` contains historical records. The `docs/AUDIT_LOG.md` was requested but not found, indicating a potential procedure gap.
+*   The `.githooks/pre-push` script is in place and functional, enforcing builds on push to main. The `live-server.ps1` and `live-smoke.ps1` scripts manage the LIVE environment verification and restart cycle. Rule 46 (VERIFIED GREEN) has been added to documentation (WORKFLOW.md, AGENTS.md).
 *   The next known operational step is to continue with the open queue only when the current branch and handoff state are documented in the logs.
 
 **Next Steps:**
-*   The designated [POS:DISPATCHER] agent should continue assigning models for tasks in the OPEN batch (B2) and draft assignments for B3.
-*   Agents should pull tasks only from the currently OPEN batch (B2) as listed in `WAVE_QUEUE.md`.
-*   The [POS:CONDUCTOR] (infra bot) will automatically release B3 once all tasks in B2, and their recursive subtasks, are marked as DONE in the queue file.
-*   Agents may now spawn subtasks according to rule 28 in `AGENTS.md`.
-*   Continue executing tasks following the PREPARE -> EXECUTE -> LOG structure.
-*   Maintain all relevant logs and documentation as new work is performed.
+*   Continue landing pending branches (w2-33, w2-34, w2-35, w2-36) and completing the current task queue (W2-39 upcoming).
+*   Perform a worktree cleanup pass to remove obsolete worktrees.
+*   Maintain the `docs/ACTIVITY_LOG.md` with ongoing task reports and smoke test results.
+*   The [POS:CONDUCTOR] (infra bot) will manage batch progression based on queue status. Agents should pull tasks from the currently OPEN batch as listed in `WAVE_QUEUE.md`.
 
-**Context/Links:**
+**Next Steps:**
+*   Continue landing pending branches (w2-33, w2-34, w2-35, w2-36) and completing the current task queue (W2-39 upcoming).
+*   Perform a worktree cleanup pass to remove obsolete worktrees.
+*   Maintain the `docs/ACTIVITY_LOG.md` with ongoing task reports and smoke test results.
+*   The [POS:CONDUCTOR] (infra bot) will manage batch progression based on queue status. Agents should pull tasks from the currently OPEN batch as listed in `WAVE_QUEUE.md`.
+
+**Notes:**
+*   The audit revealed that WORKFLOW.md was missing Rule 46, which has now been added. The agent board status for Qoder-CN was corrected from SUSPENDED to ACTIVE. The wave queue was populated with missing entries. The AI_HANDOFF state was refreshed. The pre-push hook and server scripts are aligned with defined procedures.
 *   Refer to `docs/ACTIVITY_LOG.md` for a chronological list of completed tasks.
 *   Check `docs/AGENT_BOARD.md` for the current status of any assigned agents and any messages from the Conductor.
 *   Consult `docs/ROLES.md`, `docs/JOBS.md`, `docs/WORKFLOW.md`, `docs/STANDARDS.md`, `METHOD_LOG.md`, `docs/DISPATCH.md`, `docs/PROPHECY_LOG.md`, and `docs/agents/PROPHET.md` for role assignments, job definitions, workflow rules, current standards, required logging, dispatch protocol, and prophecy protocol.
