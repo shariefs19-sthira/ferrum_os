@@ -31,6 +31,7 @@ The file `packages/shared/src/relume-contracts.ts` serves as the single mapping 
 Draft W2 batch (DRAFT; releases when Relume resets AND B2 closed):
 - W2-01: Case Studies page
 - W2-02: IS Code Guides page
+- W2-02: IS Code Guides page  
 - W2-03: Section-parity sweep (Home/Pricing/About/Resources vs Relume sitemap screenshot)
 
 ## Quality Assurance
