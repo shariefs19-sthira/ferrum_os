@@ -1,4 +1,4 @@
-# Wave Queue
+﻿# Wave Queue
 
 ## Rollup Rule
 A task's status is considered DONE only if its own status is DONE AND all of its spawned subtasks (children) are also marked as DONE. The batch conductor verifies this recursively.
@@ -28,7 +28,7 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W1-20   |        | B1-E  | J13      | Cline-GLM-Flash | OPEN   | 1 hr          |
 | W1-03   |        | B2    | J10      | Qoder-CN    | OPEN   | 6 hrs         |
 | W1-05   |        | B2    | J15      | Qoder-CN    | OPEN   | 2 hrs         |
-| W1-06   |        | B2    | J15      | Qoder-CN    | OPEN   | 2 hrs         |
+| W1-06   |        | B2    | J15      | copilot-cli-vscode | CLAIMED-copilot-cli-vscode (Claimed By: copilot-cli-vscode; Start Time: 2026-08-29T16:43:33+05:30) | 2 hrs         |
 | W1-12   |        | B2    | J01      | Jules-Fork-A  | OPEN   | 3 hrs         |
 | W1-15   |        | B2    | J07      | Jules-Fork-A  | OPEN   | 2 hrs         |
 | W1-14   |        | B2    | J14      | Jules-Owner-B | OPEN   | 8 hrs         |
