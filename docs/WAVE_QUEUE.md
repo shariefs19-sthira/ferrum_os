@@ -31,7 +31,7 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W1-06   |        | B2    | J15      | Qoder-CN    | OPEN   | 2 hrs         |
 | W1-12   |        | B2    | J01      | Jules-Fork-A  | OPEN   | 3 hrs         |
 | W1-15   |        | B2    | J07      | Jules-Fork-A  | OPEN   | 2 hrs         |
-| W1-14   |        | B2    | J14      | (to be assigned) | PARKED   | 8 hrs         |
+| W1-14   |        | B2    | J14      | Jules-Owner-B | PARKED   | 8 hrs         |
 | W1-09   |        | B3    | J09      | (to be assigned) | OPEN   | 10 hrs        |
 | W1-10   |        | B3    | J12      | (to be assigned) | OPEN   | 10 hrs        |
 | W1-16   |        | B3    | J02      | (to be assigned) | OPEN   | 4 hrs         |
