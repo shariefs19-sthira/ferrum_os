@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import LandIntelFeatures from "../../components/LandIntelFeatures"
 import { SoilCard } from "../../components/sections/SoilCard"
 
 export default function LandIntelPage() {
@@ -108,6 +109,7 @@ export default function LandIntelPage() {
             {mode === "live" ? "LIVE" : "FALLBACK"} {telemetry.live} / {telemetry.fallback}
           </span>
         </div>
+        <LandIntelFeatures />
         <form onSubmit={handleLookup} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">Enter 14-digit ULPIN</label>
