@@ -21,6 +21,21 @@
 18. REGISTRY: no AI commits before registering (unique handle + position + tier). Every commit: [AI: handle]; every log: **By:** handle [POS:tag]. Exit = update row (status, stats, reason). Unexpected death = monitor flags, human marks EXITED-UNEXPECTED.
 19. TASK TAGS: every commit includes [task:<id>] from docs/WAVE_QUEUE.md; fleet-status auto-updates queue + board from tags; manual board edits only for BLOCKED/IDLE.
 20. STANDARDS CADENCE: sweeps at every wave boundary + monthly deep; BEFORE step includes modernity check vs radar; PR descriptions cite standards implemented; Group B rejects PRs lacking citations for J01/J03/J04/J10/J12 jobs.
+24. UNIVERSAL TASK STRUCTURE: every task follows BEFORE → PREPARE → EXECUTE → LOG.
+- BEFORE: environment preflight (existing)
+- PREPARE: task-type-appropriate preparation:
+  * Code tasks: research current best practice (radar + standards + web)
+  * Bug/review tasks: define coverage plan (boundary + lenses + methods)
+  * Refactor tasks: capture current behavior baseline (tests, snapshots, metrics)
+  * Performance tasks: measure current state (Lighthouse, bundle, runtime)
+  * Security tasks: threat model + attack surface mapping
+  * Research tasks: source evaluation + knowledge gap analysis
+  * Docs tasks: audience + intent + existing coverage audit
+  * Config tasks: current state dump + desired diff
+  * Deploy tasks: rollback plan + validation criteria
+  * Any other: agent defines appropriate prep and logs it
+- EXECUTE: work within self-declared scope (no scope creep without queue return)
+- LOG: METHOD record (why + how + evidence + lessons) for every task
 
 ## UNIVERSAL ONBOARDING (any model, any vendor, any capability)
 1. Read this file fully. Every rule applies to every AI agent regardless of vendor.

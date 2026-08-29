@@ -28,21 +28,23 @@ This document provides the initial context and current state for any AI agent ta
 *   Defined the Automation Matrix and Auto-Merge Policy.
 *   Introduced task tags for automated tracking.
 *   Implemented a continuous standards cadence with a technology and domain radar (STANDARDS_RADAR.md).
+*   Established the Universal Task Structure (PREPARE -> EXECUTE -> LOG) for all work types.
 
 **Current State:**
-*   The `main` branch contains all the updated documentation for the agent system and standards.
+*   The `main` branch contains all the updated documentation for the agent system, standards, and task structure.
 *   The `docs/AGENT_REGISTRY.md` lists all known agents.
-*   The `docs/WAVE_QUEUE.md` contains the tasks for WAVE-1, including new standards sweep tasks.
+*   The `docs/WAVE_QUEUE.md` contains the tasks for WAVE-1.
 *   The `docs/STANDARDS_RADAR.md` provides a dynamic view of technology and domain practices.
 *   The `docs/STANDARDS.md` has been updated with review cycles and checklists tied to job types.
-*   All agents are required to cite standards implemented in their PR descriptions.
+*   The `METHOD_LOG.md` template is now universal for all task types.
+*   All agents are required to follow the PREPARE -> EXECUTE -> LOG structure and log their methodology.
 
 **Next Steps:**
-*   Execute the first standards sweep tasks (W1-21, W1-22) from `WAVE_QUEUE.md`.
-*   Ensure all agents comply with the new standards citation requirement in PRs.
-*   Maintain the `STANDARDS_RADAR.md` as new technologies and practices are evaluated.
+*   Ensure all agents comply with the new universal task structure.
+*   Continue executing tasks from `WAVE_QUEUE.md` following the new discipline.
+*   Maintain the `STANDARDS_RADAR.md` and `METHOD_LOG.md` as new work is performed.
 
 **Context/Links:**
 *   Refer to `docs/ACTIVITY_LOG.md` for a chronological list of completed tasks.
 *   Check `docs/AGENT_BOARD.md` for the current status of any assigned agents.
-*   Consult `docs/ROLES.md`, `docs/JOBS.md`, `docs/WORKFLOW.md`, and `docs/STANDARDS.md` for role assignments, job definitions, workflow rules, and current standards.
+*   Consult `docs/ROLES.md`, `docs/JOBS.md`, `docs/WORKFLOW.md`, `docs/STANDARDS.md`, and `METHOD_LOG.md` for role assignments, job definitions, workflow rules, current standards, and the required logging format.

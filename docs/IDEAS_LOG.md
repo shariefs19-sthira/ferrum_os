@@ -24,3 +24,9 @@
 ### IDEA-020 | 2024-05-23 | this build | continuous dual-surface standards refresh | active.
 ### IDEA-021 | 2024-05-23 | this build | radar pattern | active.
 ### IDEA-022 | 2024-05-23 | this build | cite-standards-in-PR enforcement | active.
+### IDEA-023 | 2024-05-23 | this build | (placeholder) | pending.
+### IDEA-024 | 2024-05-23 | this build | (placeholder) | pending.
+### IDEA-025 | 2024-05-23 | this build | (placeholder) | pending.
+### IDEA-026 | 2024-05-23 | this build | universal preparation-first discipline | active.
+### IDEA-027 | 2024-05-23 | this build | universal scope declaration | active.
+### IDEA-028 | 2024-05-23 | this build | universal epistemic logging | active.
