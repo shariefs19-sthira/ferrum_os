@@ -8,7 +8,7 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 |-------|--------|
 | B1    | DONE   |
 | B1-E  | DONE   |
-| B2    | OPEN   |
+| B2    | DONE   |
 | B3    | CLOSED |
 
 ## WAVE-1
@@ -41,3 +41,17 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W1-23.1 | W1-23  | B2    | J01      | Qoder-CN    | OPEN   | 2 hrs         |
 | W1-24   |        | B2    | J08      | Operator    | OPEN   | 2 hrs         |
 | W1-25   |        | B2    | J16/D-RES| Scout       | OPEN   | 6 hrs         |
+
+## WAVE-2
+
+| Task ID | Parent | Batch | J/Domain | Assigned To | Status | Land SHA | Notes |
+|---------|--------|-------|----------|-------------|--------|----------|-------|
+| W2-04   |        | B2    | J10      | Copilot     | DONE   | 4034607  | homepage Relume rebuild |
+| W2-05   |        | B2    | J09      | Copilot     | DONE   | 06dd7e1  | LandIntel Relume features section |
+| W2-06   |        | B2    | J08      | Copilot     | DONE   | f369f40  | IS Code Guides page |
+| W2-07   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 148eed8  | branded 404 + loading skeleton |
+| W2-08   |        | B2    | J08      | Copilot     | DONE   | 2449e45  | blog + case-studies stubs |
+| W2-09   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 682c018  | robots + sitemap |
+| W2-10   |        | B2    | J08      | Copilot     | DONE   | 6d15693  | footer component + layout render |
+| W2-11   |        | B2    | J08      | Cline-GLM-Flash | DONE   | f6d0842  | web manifest |
+| W2-12   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 60c6746  | static pricing page |
