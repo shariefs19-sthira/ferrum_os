@@ -41,3 +41,4 @@
 ### IDEA-037 | 2024-05-23 | this build | spawn caps as anti-fractal-creep | active.
 ### IDEA-038 | 2024-05-23 | this build | lookahead batch drafting | active.
 ### IDEA-039 | 2024-05-23 | this build | WIP limit 1 | active.
+### IDEA-040 | 2024-05-23 | DRILL-1 | seat-unfilled flag for roles like [POS:DISPATCHER] and [POS:PROPHET] | active.
