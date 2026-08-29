@@ -72,3 +72,5 @@
 ### IDEA-070 | 2026-08-29 | MISSION INFRA-16 | branch-check discipline to prevent mis-branched commits | active.
 ### IDEA-071 | 2026-08-29 | MISSION INFRA-17 | stuck->Qoder escalation; human terminal = fallback, not default | active.
 ### IDEA-072 | 2026-08-29 | MISSION INFRA-18 | parallelism ≠ throughput when correction tax exceeds concurrency gain | active.
+### IDEA-066 — Auto-Merge Enabler with Human-Review Veto
+**Problem:** non-draft PRs lacked a consistent approval gate; manual arms do not scale past B2. **Method:** Auto-Merge Enabler shipped inside [task:W1-06]: author allowlist (registered ACTIVE agents + human), HUMAN-REVIEW veto string ("HUMAN-APPROVED + [task:W1-06]"), squash-only for non-draft PRs lacking HUMAN-REVIEW. **Outcome:** landed via Qoder's branch; dispatcher double-assignment logged; Copilot execution protocol-perfect; branch deleted, seat standby. **Status:** LANDED (evidence: 3acae9d guards; main d62cca1 lineage). **By:** [AI: Copilot]

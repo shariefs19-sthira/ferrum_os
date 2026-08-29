@@ -1,6 +1,24 @@
 # ðŸ¤– Ferrum OS - AI Agent Workflow & Coordination Guide
 
 ## AI Agent Coordination Protocol
+
+### 13:56 - W1-18 claim start
+**Action:** Claiming W1-18 for docs refresh (Cline economy takes W1-11/20)
+**By:** copilot-cli-vscode (AG-013)
+**Status:** ⏳ CLAIMED
+
+**Accomplished:**
+- Edited docs/WAVE_QUEUE.md to mark task W1-18 as CLAIMED-copilot-cli-vscode with start time.
+
+**Files Modified:**
+- docs/WAVE_QUEUE.md
+
+**Next Steps:**
+- Complete docs refresh for ROLES.md, WORKFLOW.md, STANDARDS.md and update ACTIVITY_LOG.md with completion record once work finishes.
+
+---
+
+## Standard Operating Procedure
 1. **Agent Identification:** All commits must include AI name: `git commit -m "feat: [AI: Name] description"`
 2. **File Locking:** Check `docs/ACTIVE_WORK.md` before editing
 3. **Conflict Resolution:** Priority: Human > Senior AI > Junior AI
@@ -285,4 +303,4 @@ cd C:\Users\user\ferrum_os
 ## 2024-05-23 - PROPHECY v2.6: calibrated forecasting | **By:** Qoder CN [POS:WRITER-MAIN] | Status: Complete | Files: AGENTS.md, docs/agents/PROPHET.md, docs/PROPHECY_LOG.md, docs/AGENT_REGISTRY.md, docs/DISPATCH.md, docs/IDEAS_LOG.md | Summary: added prophecy rule (26), created PROPHET role card, created PROPHECY_LOG with retro entries, added Prophet to registry, updated DISPATCH.md for prophecy input, appended ideas (031-032). | Next: M30+ Prophet to make first active prophecy.
 ## 2024-05-23 - BATCH CONDUCTOR v2.7: gated release train | **By:** Qoder CN [POS:WRITER-MAIN] | Status: Complete | Files: AGENTS.md, docs/WAVE_QUEUE.md, scripts/batch-conductor.mjs, .github/workflows/conductor.yml, docs/AGENT_REGISTRY.md, docs/IDEAS_LOG.md | Summary: added batch release rule (27), restructured WAVE_QUEUE into B1/B2/B3, created batch-conductor script, created conductor.yml workflow, added Conductor to registry, appended ideas (033-035). | Next: M31+ conductor to manage batch flow.
 ## 2024-05-23 - DYNAMIC TASK FOREST v2.8: recursive batches, spawn protocol | **By:** Qoder CN [POS:WRITER-MAIN] | Status: Complete | Files: AGENTS.md, docs/WAVE_QUEUE.md, docs/DISPATCH.md, scripts/batch-conductor.mjs, docs/IDEAS_LOG.md | Summary: added subtask spawning rule (28), added parent column to queue, updated dispatch for lookahead/batch scoring, updated conductor for recursive DONE verification, appended ideas (036-039). | Next: M32+ implement subtask spawning and lookahead drafting.
-* 2026-08-29: [W1-08] Refined LandIntel page UI styling and updated activity log (By: Jules-Fork-A [POS:WRITER-FORK])
+* 2026-08-29: [W1-08] Refined LandIntel page UI styling and updated activity log (By: Jules-Fork-A [POS:WRITER-FORK])## 19:19 - [INCIDENT-1] / **Action:** docs trio committed from w1-17/cline-perf (silent-checkout landmine) / **By:** [AI: Copilot] / **Status:** ?? corrected via Qoder cherry-pick to main / **Files Modified:** IDEAS_LOG.md, AI_HANDOFF.md, METHOD_LOG.md / **Next Steps:** always git branch --show-current before commit (AGENTS.md).

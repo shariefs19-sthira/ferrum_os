@@ -35,17 +35,15 @@ This document provides the initial context and current state for any AI agent ta
 *   Implemented the Subtask Spawning protocol for dynamic task hierarchies.
 
 **Current State:**
-*   The `main` branch contains all the updated documentation for the agent system, standards, task structure, dispatch, prophecy, batch control, and subtask spawning.
-*   The `docs/AGENT_REGISTRY.md` lists all known agents.
-*   The `docs/WAVE_QUEUE.md` is now organized into B1, B2, and B3 batches, with a parent-child relationship column for subtasks. B1 is complete and B2 is OPEN.
-*   The `docs/STANDARDS_RADAR.md` provides a dynamic view of technology and domain practices.
-*   The `docs/STANDARDS.md` has been updated with review cycles and checklists tied to job types.
-*   The `METHOD_LOG.md` template is now universal for all task types.
-*   The `docs/DISPATCH.md` protocol defines how tasks are assigned, composed into batches, and includes lookahead drafting.
-*   The `docs/PROPHECY_LOG.md` is ready to track predictions and their outcomes for calibration.
-*   A dedicated role card for the Prophet exists at `docs/agents/PROPHET.md`.
-*   The `scripts/batch-conductor.mjs` script now verifies task completion recursively, considering subtasks.
-*   The `.github/workflows/conductor.yml` workflow runs the updated script.
+*   The `main` branch contains the updated coordination stack for agent capability tiers, workflow discipline, dispatch, prophecy, batch control, and task-scope guardrails.
+*   The `docs/AGENT_REGISTRY.md` remains the source of truth for registered agents and their status.
+*   The `docs/WAVE_QUEUE.md` remains batch-organized (B1/B2/B3), with the latest infrastructure note that W1-06 landed via the Qoder branch and the seat returned to standby after the double-assignment incident.
+*   The `docs/STANDARDS_RADAR.md` and `docs/STANDARDS.md` remain authoritative for technology and process review cycles.
+*   `docs/METHOD_LOG.md` is now normalized to a stateless, evidence-first template for task records.
+*   `docs/IDEAS_LOG.md` includes the updated record for IDEA-066 and the human-review veto pattern for the Auto-Merge Enabler.
+*   The `.github/workflows/auto-merge.yml` pattern is in place for non-draft PRs that are not blocked by the `HUMAN-REVIEW` veto string.
+*   `W1-06` is logged as landed, with the Copilot protocol recorded as correct and the branch closed after the dispatcher double-assignment recovery.
+*   The next known operational step is to continue with the open queue only when the current branch and handoff state are documented in the logs.
 
 **Next Steps:**
 *   The designated [POS:DISPATCHER] agent should continue assigning models for tasks in the OPEN batch (B2) and draft assignments for B3.
