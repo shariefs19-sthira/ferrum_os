@@ -21,11 +21,11 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W1-07   |        | B1    | J04      | Jules-Owner-B | DONE   | 5 hrs         |
 | W1-13   |        | B1    | J15      | Jules-Owner-B | DONE   | 4 hrs         |
 | W1-08   |        | B1    | J07      | Jules-Fork-A  | DONE   | 2 hrs         |
-| W1-11   |        | B1-E  | J13      | Cline-GLM-Flash | DONE   | 1 hr          |
+| W1-11   |        | B1-E  | J13      | Cline-GLM-Flash | OPEN   | 1 hr          |
 | W1-21   |        | B1    | J16/D-RES| Scout (seat-unfilled) | DONE   | 8 hrs         |
 | W1-22   |        | B1    | J16/D-RES| Scout (seat-unfilled) | DONE   | 8 hrs         |
 | W1-18   |        | B1-E  | J08      | Cline-GLM-Flash | DONE   | 1 hr          |
-| W1-20   |        | B1-E  | J13      | Cline-GLM-Flash | DONE   | 1 hr          |
+| W1-20   |        | B1-E  | J13      | Cline-GLM-Flash | OPEN   | 1 hr          |
 | W1-03   |        | B2    | J10      | Qoder-CN    | OPEN   | 6 hrs         |
 | W1-05   |        | B2    | J15      | Qoder-CN    | OPEN   | 2 hrs         |
 | W1-06   |        | B2    | J15      | Qoder-CN    | OPEN   | 2 hrs         |

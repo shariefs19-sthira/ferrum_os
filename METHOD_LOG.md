@@ -79,6 +79,54 @@ Ensures structural contract consistency between shared contract interfaces and N
 
 ---
 
+## Incident Log: MICRO [task:INFRA-10]
+
+**Task ID:** INFRA-10
+**Type:** Config
+**Date:** 2024-05-24
+**Agent:** Qoder-CN
+
+### SCOPE DECLARED
+- **Files/Directories:** docs/WAVE_QUEUE.md, docs/AGENT_BOARD.md, METHOD_LOG.md, IDEAS_LOG.md
+- **Domains/Network:** N/A
+- **Tools/Commands:** git log, findstr
+- **Forbidden Operations:** N/A
+
+### RESEARCH
+N/A
+
+### SCOPE
+Audit W1-11 and W1-20 status in WAVE_QUEUE.md, reconcile AGENT_BOARD.md with git-tracked evidence.
+
+### METHOD
+1.  Used `git log -S` to find commits changing W1-11 and W1-20 status to DONE in WAVE_QUEUE.md.
+2.  Examined the commit message and checked METHOD_LOG.md for corresponding task-tagged commits and method records.
+3.  Reverted status of W1-11 and W1-20 in WAVE_QUEUE.md to OPEN due to lack of evidence.
+4.  Audited AGENT_BOARD.md for inconsistencies (duplicate rows, un-evidenced DONE states).
+5.  Reverted status of W1-11, W1-20, W1-02, W1-03, W1-04 on the board to IN-PROGRESS due to lack of evidence.
+6.  Added a clarifying rule to AGENT_BOARD.md.
+
+### WHY
+To enforce the rule that queue/board status changes must be evidenced by a task-tagged commit and a corresponding method record, preventing stale or incorrect status assertions.
+
+### HOW
+1.  Located commit 473a9e6 which set W1-11 and W1-20 to DONE.
+2.  Confirmed commit lacked specific task tags (e.g., [task:W1-11]) and no corresponding records existed in METHOD_LOG.md.
+3.  Updated WAVE_QUEUE.md and AGENT_BOARD.md to revert statuses.
+4.  Updated logs and board documentation.
+
+### EVIDENCE
+- Commit `473a9e6` changed status without specific task tag.
+- METHOD_LOG.md contained no records for W1-11, W1-20, W1-02, W1-03, W1-04.
+- WAVE_QUEUE.md and AGENT_BOARD.md have been updated to reflect audited state.
+
+### LESSONS
+- Status audits are crucial for maintaining data integrity in distributed state systems like our queues and boards.
+- A strict evidence requirement (commit tag + log record) is necessary to prevent drift and false status.
+- The AGENT_BOARD should ideally be updated only by automated systems (conductor, fleet-status) based on verified queue state, rather than manually en masse.
+
+---
+
 ## Incident Log: MICRO [task:INFRA-7]
 
 **Task ID:** INFRA-7
