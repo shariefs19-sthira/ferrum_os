@@ -12,3 +12,4 @@
 | AG-008 | Prophet | seat open (first pull by any T1+T4 agent) | C writes to PROPHECY_LOG | [POS:PROPHET] | 2024-05-23 | - | ACTIVE | D-RES | 0 | 0 | calibrated forecasting. |
 | AG-009 | Conductor | infra bot | infra | [POS:CONDUCTOR] | 2024-05-23 | - | ACTIVE | D-OPS | 0 | 0 | batch gated release train. |
 | AG-010 | Cline-GLM-Flash | harness Cline + GLM-4-Flash | B | [POS:WRITER-VOLUME] | 2024-05-24 | - | ACTIVE | D-QA, D-DOC | 0 | 0 | free, very-fast, light-quality. |
+| AG-011 | Operator | Open Interpreter + agent-browser | S+ | [POS:OPERATOR] | 2024-05-24 | - | ACTIVE | D-QA, D-OPS | 0 | 0 | computer-use (T5+T6) via sandboxed Chrome. |

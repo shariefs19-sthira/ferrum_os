@@ -13,3 +13,4 @@ This document defines the operational workflow, roles, and job definitions for t
 - `[POS:PROPHET]`: Agent responsible for forecasting potential issues and opportunities based on historical data.
 - `[POS:CONDUCTOR]`: Automated agent responsible for releasing batches of work based on completion criteria.
 - `[POS:WRITER-VOLUME]`: High-volume, low-latency agents for small-scoped, light-weight tasks.
+- `[POS:OPERATOR]`: Computer-use agents capable of interacting with the system through terminal and browser interfaces within a sandboxed environment.

@@ -47,3 +47,5 @@
 ### IDEA-043 | 2024-05-24 | this build | economy batches (-E suffix) for parallel processing of light tasks | active.
 ### IDEA-044 | 2024-05-24 | this build | bandit routing (exploit ledger, explore capped) | active.
 ### IDEA-045 | 2024-05-24 | this build | scorecard auto-update on completion | active.
+### IDEA-046 | 2024-05-24 | this build | layered computer-use (terminal/browser/OS) | active.
+### IDEA-047 | 2024-05-24 | this build | scripted-vs-AI browser token economics | active.

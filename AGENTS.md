@@ -43,13 +43,15 @@
 29. CONFIRM-BEFORE-ACT: every NEW session posts an onboarding confirmation and waits for human "GO" before any mutating action; agents with trust >=2 clean landings may auto-start OPEN tasks.
 30. PACE-AWARE DISPATCH: assignments carry est-duration (model x size); batch pace = slowest estimate; large divisible tasks split to model size; slow/free-model work goes to parallel ECONOMY batches (suffix -E) so critical batches never stall on them; conductor stall threshold = 2x estimate; prophet pace predictions.
 31. DATA-DRIVEN ASSIGNMENT: routine assignment = deterministic scorecard lookup (n>=3); deliberation only when n<3, on ties, or HIGH-tier; explore budget = 10% of low-risk volume tasks try cheaper/newer models; all explore decisions logged.
+32. OPERATOR SANDBOX: dedicated Chrome profile (no personal logins), allowlisted domains, ask-before-escalate, recording as evidence.
+33. BROWSER TOKEN ECONOMICS: deterministic flows = scripted Playwright/CLI, AI browser agent only for judgment tasks (114k vs 27k tokens [[3]]).
 
 ## UNIVERSAL ONBOARDING (any model, any vendor, any capability)
 1. Read this file fully. Every rule applies to every AI agent regardless of vendor.
 2. Declare capabilities in your first ACTIVITY_LOG entry (Danger will check):
-   T1: shell on a persistent checkout? T2: push branches / open PRs? T3: isolated sandbox (not the human's machine)? T4: web/API access? T5: UI inspection (browser/screenshots)?
+   T1: shell on a persistent checkout? T2: push branches / open PRs? T3: isolated sandbox (not the human's machine)? T4: web/API access? T5: UI inspection (browser/screenshots)? T6: computer-use (terminal, browser automation)?
 3. Your tier = highest permission you may exercise (ROLES.md). Never exceed it; the first PR's shape verifies your claim.
-4. Pick a stable handle "agent-<vendor>-<model>-<YYYYMMDD>"; use it in every commit tag [AI: handle] and log **By:** handle.
+4. Pick a stable handle "agent-<vendor>-<model>-<YYYYMMDD>"; use it in every commit tag [AI: handle] and log **By:** handle [POS:tag].
 5. Commit to a file scope BEFORE writing; never exceed it.
 6. Missing capability = delegate that step to human or infrastructure; never fake it.
 
