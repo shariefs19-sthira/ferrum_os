@@ -40,3 +40,5 @@ For parallel execution and isolation of tasks, use git worktrees:
 - OBSERVED CORRECTION COUNTER (rule 42): every landing commit/PR body carries corrections:<n>; METHOD_LOG entries carry a **Corrections:** line; MODEL_SCORECARD updates per landing, not per week.
 - SCOUT DELIVERABLE FORMAT (rule 43): research outputs end with an adopt/hold/drop table + revisit trigger + cost estimate; narrative-only reports = logged correction.
 - ROUTE BY OBSERVED CORRECTION COST (rule 38): default execution = Qoder chats (one per worktree, one branch each); volume/docs = Cline + Copilot; retired seats receive no routing. Parallelism via worktrees, never shared checkouts.
+- SEAT BRANCH MANAGEMENT (rule 44): seats push THEIR branch; Qoder-CN lands via terminal squash. (Added as part of INFRA-24)
+- COPILOT SCOPE CLARIFICATION (rule 45): Copilot scope: cleared for non-protected app pages under GUARD + Qoder landing; boq-pro/contracts/core stay off-limits. (Added as part of INFRA-24)

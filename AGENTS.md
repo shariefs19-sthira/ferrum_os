@@ -40,7 +40,7 @@ Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
 
 ## SYNC-HANDOFF (rule 35): finished agents go IDLE, no self-pull; conductor posts ALL-IDLE when no CLAIMED/IN-PROGRESS rows remain; dispatcher broadcasts next assignments in one window.
 
-## TERMINAL-FIRST FOR SMALL FIXES (rule 36): systemic few-line fixes (version pins, config integers, path corrections) are executed by the human directly in the terminal on the correct branch, tagged [human][task:<id>]; agents are not dispatched for changes under ~3 files / ~20 lines unless delegated. Also: always run git branch --show-current before committing — silent checkout failures cause mis-branched commits.
+## TERMINAL-FIRST FOR SMALL FIXES (rule 36): systemic few-line fixes (version pins, config integers, path corrections) are executed by Qoder-CN (WRITER-MAIN, real checkout + terminal) as the terminal fix; tag such commits [AI: Qoder-CN][terminal:<task>]; the [human] tag is retired. Also: always run git branch --show-current before committing — silent checkout failures cause mis-branched commits.
 
 ## STUCK->QODER (rule 37): any task (any agent or the human) stuck on a terminal-resolvable blocker (git tangles, env/PATH issues, version pins, file ops, server starts) is immediately handed to Qoder-CN (WRITER-MAIN, real checkout + terminal) as the unblocking step; the stuck agent waits or continues on non-blocked scope. Tag such commits [AI: Qoder-CN][unblock:<task-id>].
 
@@ -50,8 +50,12 @@ Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
 
 ## SINGLE CANONICAL LOGS (rule 40): ACTIVITY_LOG.md, METHOD_LOG.md, IDEAS_LOG.md, AI_HANDOFF.md live under docs/ ONLY. Creating a second path for an existing log = logged correction.
 
-## DISPATCH SERIALIZATION + PREFLIGHT (rule 41): AG-008 sequences mutating dispatches; at most ONE seat holds a mutating operation on a shared path at a time. Before ANY mutating git command every seat runs: git branch --show-current; git status --porcelain and aborts+reports if output differs from the dispatch expectation. Non-main seats NEVER push origin/main; worktree+PR only.
+## DISPATCH SERIALIZATION + PREFLIGHT (rule 41): AG-008 sequences mutating dispatches; at most ONE seat holds a mutating operation on a shared path at time. Before ANY mutating git command every seat runs: git branch --show-current; git status --porcelain and aborts+reports if output differs from the dispatch expectation. Non-main seats NEVER push origin/main; worktree+PR only.
 
 ## OBSERVED CORRECTION COUNTER (rule 42): every landing commit/PR body carries corrections:<n>; METHOD_LOG entries carry a **Corrections:** line; MODEL_SCORECARD updates per landing, not per week.
 
 ## SCOUT DELIVERABLE FORMAT (rule 43): research outputs end with an adopt/hold/drop table + revisit trigger + cost estimate; narrative-only reports = logged correction.
+
+## SEAT BRANCH MANAGEMENT (rule 44): seats push THEIR branch; Qoder-CN lands via terminal squash. (Added as part of INFRA-24)
+
+## COPILOT SCOPE CLARIFICATION (rule 45): Copilot scope: cleared for non-protected app pages under GUARD + Qoder landing; boq-pro/contracts/core stay off-limits. (Added as part of INFRA-24)
