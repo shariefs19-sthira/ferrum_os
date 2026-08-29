@@ -1,1 +1,2 @@
-pnpm --filter ./apps/web build
+#!/bin/sh
+exec pnpm --filter ./apps/web build
