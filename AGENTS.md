@@ -6,7 +6,7 @@
 3.  **END-TO-END COMPLETION**: Complete multi-step tasks within a single session. Execute all phases of a task before reporting completion.
 4.  **REPORT HASHES**: After any `git push`, report the commit hash and, if applicable, the status of subsequent CI jobs.
 5.  **MINIMAL COMMUNICATION**: Provide concise, direct responses. Avoid verbose explanations unless specifically requested. Use bullet points and headers for clarity.
-6.  **EXPLICIT STAGING**: Make explicit `git add` and `git commit` calls for each logical change group. Use descriptive commit messages in imperative mood.
+6.  **EXPLICIT STAGING**: Make explicit `git add` and `git commit` calls for each logical change group. Use descriptive commit messages in imperative mood. The -a and -am flags are scope violations.
 7.  **ACTIVITY LOGGING**: Log major completed tasks in `docs/ACTIVITY_LOG.md` by appending a line: `* YYYY-MM-DD: Brief description (By: Your Name/Nickname)`
 8.  **STAGING OVER BRANCHING**: Favor explicit staging and direct pushes to `main` over creating and managing feature branches.
 9.  **CONTRACT OVER UI TESTING**: When UI tests prove difficult due to environment setup, prioritize contract tests that verify data structures and business logic.
