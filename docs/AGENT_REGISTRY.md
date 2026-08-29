@@ -10,3 +10,4 @@
 | AG-006 | Qwen3.8-Advisor | Qwen3.8 | C | [POS:ARCHITECT] | 2026-08-28 | - | ACTIVE | planning | 0 | 0 | advisory, no repo writes. |
 | AG-007 | Dispatcher | interim: Qwen3.8-Advisor (AG-006 dual-hat) | C+T4 | [POS:DISPATCHER] | 2024-05-23 | - | ACTIVE | D-RES | 0 | 0 | experience-driven model routing. |
 | AG-008 | Prophet | seat open (first pull by any T1+T4 agent) | C writes to PROPHECY_LOG | [POS:PROPHET] | 2024-05-23 | - | ACTIVE | D-RES | 0 | 0 | calibrated forecasting. |
+| AG-009 | Conductor | infra bot | infra | [POS:CONDUCTOR] | 2024-05-23 | - | ACTIVE | D-OPS | 0 | 0 | batch gated release train. |

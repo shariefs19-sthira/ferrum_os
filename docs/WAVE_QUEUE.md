@@ -1,28 +1,31 @@
 # Wave Queue
 
-## WAVE-1 (Open)
+## WAVE-1
 
-| Task ID | Description | J-Type | Priority | Assigned To | Status |
-|---------|-------------|--------|----------|-------------|--------|
-| W1-01 | CI test green + remove advisory | J06 | HIGH | | open |
-| W1-02 | lockfile regen + frozen restore | J06 | HIGH | | open |
-| W1-03 | security headers + rate limits | J10 | HIGH | | open |
-| W1-04 | Danger-JS + gitleaks | J15 | MID | | open |
-| W1-05 | PR-Agent + ReviewDog + Semgrep | J15 | MID | | open |
-| W1-06 | merge queue + branch protection | J15 | MID | | open |
-| W1-07 | PLOT_DATA_API_URL live wiring | J04 | MID | | open |
-| W1-08 | visual polish from shots | J07 | LOW | | open |
-| W1-09 | pixelmatch regression CI | J09 | MID | | open |
-| W1-10 | a11y pass | J12 | MID | | open |
-| W1-11 | SEO/OG/meta | J13 | FREE | | open |
-| W1-12 | error boundaries + 404/500 | J01 | LOW | | open |
-| W1-13 | contract tests all pages | J05 | LOW | | open |
-| W1-14 | e2e smoke CI | J05 | MID | | open |
-| W1-15 | BOQ print polish | J07 | LOW | | open |
-| W1-16 | design tokens extraction | J02 | MID | | open |
-| W1-17 | perf pass | J11 | MID | | open |
-| W1-18 | README/MASTER_PLAN refresh | J08 | FREE | | open |
-| W1-19 | gh-dash monitor setup | J15 | FREE | | open |
-| W1-20 | i18n skeleton | J13 | FREE | | open |
-| W1-21 | TECH SWEEP | J16 | MID | | open |
-| W1-22 | DOMAIN SWEEP (construction/land/estimation compliance) | J16 | HIGH | | open |
+| Task ID | Batch | J/Domain | Assigned To | Status |
+|---------|-------|----------|-------------|--------|
+|         | B1    |          |             | OPEN   |
+| W1-01   | B1    | J06      | Qoder-CN    | DONE   |
+| W1-02   | B1    | J06      | Qoder-CN    | DONE   |
+| W1-04   | B1    | J15      | Qoder-CN    | DONE   |
+| W1-07   | B1    | J04      | Jules-Owner-B | DONE   |
+| W1-13   | B1    | J05      | Jules-Owner-B | DONE   |
+| W1-08   | B1    | J07      | Jules-Fork-A  | DONE   |
+| W1-11   | B1    | J13      | Jules-Fork-A  | DONE   |
+| W1-21   | B1    | J16/D-RES| Scout       | DONE   |
+| W1-22   | B1    | J16/D-RES| Scout       | DONE   |
+|         | B2    |          |             | CLOSED |
+| W1-03   | B2    | J10      | Qoder-CN    | OPEN   |
+| W1-05   | B2    | J15      | Qoder-CN    | OPEN   |
+| W1-06   | B2    | J15      | Qoder-CN    | OPEN   |
+| W1-12   | B2    | J01      | Jules-Fork-A  | OPEN   |
+| W1-15   | B2    | J07      | Jules-Fork-A  | OPEN   |
+| W1-18   | B2    | J08      | Jules-Fork-A  | OPEN   |
+| W1-20   | B2    | J13      | Jules-Fork-A  | OPEN   |
+| W1-14   | B2    | J14      | Jules-Owner-B | OPEN   |
+|         | B3    |          |             | CLOSED |
+| W1-09   | B3    | J09      | (to be assigned) | OPEN   |
+| W1-10   | B3    | J12      | (to be assigned) | OPEN   |
+| W1-16   | B3    | J02      | (to be assigned) | OPEN   |
+| W1-17   | B3    | J11      | (to be assigned) | OPEN   |
+| W1-19   | B3    | J15      | (to be assigned) | OPEN   |

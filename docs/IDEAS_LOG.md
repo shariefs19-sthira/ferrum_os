@@ -34,3 +34,6 @@
 ### IDEA-030 | 2024-05-23 | this build | calibration loop (internal evidence > external hype over time) | active.
 ### IDEA-031 | 2024-05-23 | this build | prophecy + credibility ladder | active.
 ### IDEA-032 | 2024-05-23 | this build | per-role agent files under docs/agents/ | active.
+### IDEA-033 | 2024-05-23 | this build | blackboard/repo-bus for cross-session awareness | active.
+### IDEA-034 | 2024-05-23 | this build | cron conductor release train | active.
+### IDEA-035 | 2024-05-23 | this build | evidence-gated batch release | active.

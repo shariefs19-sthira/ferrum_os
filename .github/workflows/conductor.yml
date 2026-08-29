@@ -1,0 +1,36 @@
+name: Batch Conductor
+
+on:
+  schedule:
+    # Run every 10 minutes
+    - cron: "*/10 * * * *"
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  run-conductor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # Use GITHUB_TOKEN for checkout
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Batch Conductor Script
+        run: node ./scripts/batch-conductor.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Pass GITHUB_TOKEN to script for git operations
+          # NOTE FOR M19: When branch protection lands, ensure the 'CONDUCTOR' bot (or this workflow's runner)
+          # has permission to bypass the protection rules, or store a Personal Access Token (PAT) as a secret
+          # and use that instead of GITHUB_TOKEN for the 'git push' command within the script.
+          # Example: MY_PAT_SECRET: ${{ secrets.MY_CONDUCTOR_PAT }}
+
+      # Optional: Add a step to check for errors and notify if needed
+      # - name: Notify on Failure
+      #   if: failure()
+      #   run: echo "Conductor script failed!"
