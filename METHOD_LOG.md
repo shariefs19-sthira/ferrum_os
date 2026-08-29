@@ -86,6 +86,55 @@ The QA run was executed, and a report file was generated at `docs/shots/operator
 
 ---
 
+## Task Record: W1-23.1
+
+**Task ID:** W1-23.1
+**Type:** Code
+**Date:** 2024-05-24
+**Agent:** Qoder-CN
+
+### SCOPE DECLARED
+- **Files/Directories:** apps/web/, scripts/
+- **Domains/Network:** localhost:3000
+- **Tools/Commands:** node, playwright, npm, npx, next
+- **Forbidden Operations:** N/A
+
+### RESEARCH
+Investigating the 404 errors found by the QA run for task W1-23. The hypothesis is that the Vite server was running instead of the Next.js server, causing App Router routes to 404.
+
+### SCOPE
+Attempt to start the correct Next.js development server on port 3000 and re-run the QA test.
+
+### METHOD
+1.  Kill the process running on port 3000 (previously identified as Vite).
+2.  Navigate to the `apps/web` directory.
+3.  Start the Next.js development server using `npx next dev --port 3000`.
+4.  Probe the server to confirm it's running and serving Next.js content (looking for '__next' marker).
+5.  Re-run the `operator-qa.mjs` script for task W1-23.
+
+### WHY
+To verify that the 404 errors were caused by the wrong development server harness (Vite vs. Next.js) and fix the environment for accurate QA.
+
+### HOW
+1.  Used `Get-NetTCPConnection` and `Stop-Process` to kill the port 3000 listener.
+2.  Changed directory to `apps/web`.
+3.  Executed `npx next dev --port 3000` in the background.
+4.  Attempted to probe `http://localhost:3000` for the '__next' marker (probe failed, server not detected as ready).
+5.  Re-ran `node scripts/operator-qa.mjs --task W1-23`.
+
+### EVIDENCE
+- Process on port 3000 was killed.
+- `npx next dev --port 3000` was executed from `apps/web`.
+- Server probe (`curl` + `findstr`) failed with `net::ERR_CONNECTION_REFUSED`.
+- Re-running the QA script also failed with `net::ERR_CONNECTION_REFUSED`, confirming the Next.js server did not start correctly or become available on port 3000.
+
+### LESSONS
+- Starting development servers programmatically, especially in background processes on different platforms (Windows), can be unreliable if the interaction with the terminal is limited.
+- Verifying the *state* of a service (e.g., server readiness, specific markers) after starting it is crucial before proceeding with dependent tasks.
+- The `get_terminal_output` tool did not successfully capture the output of the background `npx next dev` process, hindering debugging.
+
+---
+
 ## Incident Log: MICRO-FIX [task:INFRA-4.6]
 
 **Task ID:** INFRA-4.6

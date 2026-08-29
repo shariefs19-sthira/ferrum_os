@@ -1,53 +1,28 @@
-# Standards
+# Standards (STANDARDS.md)
 
-This document defines the coding and operational standards for the project.
+This document defines the coding, architectural, and operational standards for the Ferrum OS project. It is a living document, updated as practices evolve.
 
-## Scripting Standards (PowerShell, Bash, etc.)
+## Version Control Standards
 
-- Use descriptive variable names.
-- Always quote string literals.
-- Include error handling.
-- Add comments for complex logic.
-- **NEW:** Avoid using reserved or automatic variable names specific to the shell (e.g., `$PID`, `$HOST`, `$ERROR` in PowerShell). Use explicitly named variables instead (e.g., `$ProcessId`, `$OpPid`).
-- **NEW:** Every change to a `.ps1` file must pass two checks before committing: (a) a parse check (e.g., `[System.Management.Automation.Language.Parser]::ParseFile(...)`) and (b) a dry-run execution (e.g., `script.ps1 -DryRun`) with zero errors and no unintended side effects. This acts as a regression gate, similar to CI for code.
+1.  **Explicit Paths:** All `git add` and `git commit` commands must explicitly list file paths. `git add .` or `git add -A` is prohibited for agents. This promotes awareness of the exact scope of changes.
+2.  **Pre-commit Gates for Scripts:** Every change to a `.ps1` or `.mjs` file must pass a syntax parse check (e.g., `node --check` or `powershell -c "Parser::ParseFile()"`) and a `--dry-run` test (if applicable) before being committed. This prevents unparseable or logically incorrect scripts from entering the repository.
 
-## Coding Standards (TypeScript, Python, etc.)
+## Coding Standards
 
-- Use camelCase for variable and function names.
-- Use PascalCase for class names.
-- Use UPPER_SNAKE_CASE for constants.
-- Use JSDoc/Docstring comments for public functions/classes.
-- Prefer const/let over var in JavaScript/TypeScript.
-- Use async/await over callbacks for asynchronous operations.
-- Use destructuring assignment where appropriate.
-- Use template literals over string concatenation.
-- Use arrow functions where appropriate.
-- Use modules to organize code.
-- Use strict mode in JavaScript.
-- Use TypeScript for type safety.
-- Use consistent indentation (2 spaces).
-- Use consistent line endings (LF).
-- Use consistent quoting (single quotes for strings).
-- Use consistent spacing (around operators, after commas, etc.).
-- Use consistent casing (lowercase for filenames).
-- Use consistent naming (kebab-case for filenames).
-- Use consistent file extensions (.ts, .tsx, .js, .jsx, .py, .md, etc.).
-- Use consistent import/export syntax.
-- Use consistent module resolution.
-- Use consistent dependency management (package.json, requirements.txt, etc.).
-- Use consistent testing frameworks (Jest, Vitest, PyTest, etc.).
-- Use consistent linters/formatters (ESLint, Prettier, Black, etc.).
-- Use consistent CI/CD practices.
-- Use consistent security practices.
-- Use consistent performance practices.
-- Use consistent accessibility practices.
-- Use consistent internationalization practices.
-- Use consistent documentation practices.
-- Use consistent logging practices.
-- Use consistent error handling practices.
-- Use consistent configuration management practices.
-- Use consistent deployment practices.
-- Use consistent monitoring practices.
-- Use consistent alerting practices.
-- Use consistent disaster recovery practices.
-- Use consistent security incident response practices.
+1.  **Language Choice:** New logic should prefer TypeScript for type safety and clarity. Python is acceptable for data science or specific integrations. Bash/PowerShell scripts are discouraged for complex logic; Node.js `.mjs` is preferred for cross-platform compatibility.
+2.  **Async/Await:** Prefer `async`/`await` over raw Promises and callbacks for readability.
+3.  **Error Handling:** All async operations must have explicit error handling using `try...catch` or equivalent.
+4.  **Logging:** Use structured logging with consistent levels (INFO, WARN, ERROR) and include relevant context (e.g., task ID, file path).
+5.  **Naming:** Use descriptive names for variables, functions, and files. Follow camelCase for JavaScript/TypeScript, snake_case for Python.
+
+## Architectural Standards
+
+1.  **Microservice Boundaries:** Services should align with business domains. Communication via well-defined APIs or events.
+2.  **API Design:** RESTful principles for synchronous communication. Consistent error formats.
+3.  **Database Per Service:** Each service owns its data. Avoid shared databases.
+4.  **Frontend Structure:** Use Next.js App Router for page-based routing. Shared components in `apps/web/components`.
+
+## Operational Standards
+
+1.  **Agent Scoping:** Agents must strictly adhere to the declared scope for their assigned task. Accessing files or systems outside the scope requires a HUMAN-HOLD.
+2.  **Operator QA Verification:** Before running automated QA checks (like those performed by the Operator agent), the environment must be verified. Specifically, for web applications, the QA process must confirm the correct server harness is running (e.g., checking for server banners like '__next' for Next.js) before executing tests. Failure to do so can result in false positives/negatives due to incorrect harnesses (e.g., Vite vs. Next.js dev servers).

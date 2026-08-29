@@ -56,3 +56,4 @@
 ### IDEA-052 | 2024-05-24 | this build | pre-commit parse + dry-run gate for agent-authored scripts | active.
 ### IDEA-053 | 2024-05-24 | this build | harness routing by reliability data — the scorecard applied to tooling itself | active.
 ### IDEA-054 | 2024-05-24 | this build | operator v1 = scripted Playwright hands; AI browser agent reserved for judgment-only tasks | active.
+### IDEA-055 | 2024-05-24 | W1-23.1 execution | operator QA must verify the server banner (Next.js ready / __next marker) before running — wrong-harness runs produce false findings | active.
