@@ -60,3 +60,4 @@
 ### IDEA-056 | 2024-05-24 | this build | git-push-as-lock claim protocol | active.
 ### IDEA-057 | 2024-05-24 | this build | (placeholder) | pending.
 ### IDEA-058 | 2024-05-24 | this build | bulk destructive commands (git clean -fd, rm -rf, drop table) require preview + explicit human approval — rule 33 reversibility made explicit | active.
+### IDEA-059 | 2024-05-24 | this build | queue rows may only flip DONE via conductor verification or evidenced commit (task tag + method record) | active.
