@@ -15,6 +15,7 @@ Cost efficiency bonus is higher for lower-cost models (FREE/HIGH) performing wel
 - `dur-vs-est`: Average ratio of actual duration to estimated duration. Penalties apply for consistently overrunning estimates.
 - `cost`: The operational cost tier of the agent (FREE, LOW, MID, HIGH).
 - `score`: The calculated score used for deterministic assignment.
+- `corrections-per-landing`: Average number of corrections required per task completion (lower is better).
 
 ## Scorecard Data
 
@@ -27,3 +28,12 @@ Cost efficiency bonus is higher for lower-cost models (FREE/HIGH) performing wel
 | Cline-GLM | D-DOC | 3 | 100% | 0 | 0 | 0.8 | 0.05 | 97 |
 | Qoder-CN | D-OPS-PowerShell | 4 | 0% | - | - | - | - | 0 |
 | Qoder-CN | D-OPS-Node | 2 | 100% | 0 | 0 | 0.85 | 0.1 | 94 |
+
+## Corrections-per-Landing Metrics
+
+| model | corrections-per-landing |
+|-------|------------------------|
+| Qoder | low |
+| Copilot | 2 |
+| Cline | 2 |
+| Jules | 8+ |

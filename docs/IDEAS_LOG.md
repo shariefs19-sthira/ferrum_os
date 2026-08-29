@@ -71,3 +71,4 @@
 ### IDEA-069 | 2026-08-29 | MISSION INFRA-16 | terminal-first small-fix policy for systemic few-line changes | active.
 ### IDEA-070 | 2026-08-29 | MISSION INFRA-16 | branch-check discipline to prevent mis-branched commits | active.
 ### IDEA-071 | 2026-08-29 | MISSION INFRA-17 | stuck->Qoder escalation; human terminal = fallback, not default | active.
+### IDEA-072 | 2026-08-29 | MISSION INFRA-18 | parallelism ≠ throughput when correction tax exceeds concurrency gain | active.

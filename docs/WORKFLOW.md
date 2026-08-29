@@ -21,3 +21,9 @@ When an agent becomes stuck on a task, the following escalation procedure applie
 - The stuck agent should wait or continue working on non-blocked aspects of the scope.
 - Such unblocking commits should be tagged as [AI: Qoder-CN][unblock:<task-id>].
 - If the issue is not terminal-resolvable, escalate to human decision for guidance.
+
+## Worktree Management
+For parallel execution and isolation of tasks, use git worktrees:
+- To create a new isolated workspace: `git worktree add D:\ferrum_os.wt\<task-id> -b <branch> origin/main`
+- Open the new folder in a new VS Code window to create a new Qoder chat instance
+- This ensures parallelism without shared checkout conflicts

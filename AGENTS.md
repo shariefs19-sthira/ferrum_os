@@ -43,3 +43,5 @@ Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
 ## TERMINAL-FIRST FOR SMALL FIXES (rule 36): systemic few-line fixes (version pins, config integers, path corrections) are executed by the human directly in the terminal on the correct branch, tagged [human][task:<id>]; agents are not dispatched for changes under ~3 files / ~20 lines unless delegated. Also: always run git branch --show-current before committing — silent checkout failures cause mis-branched commits.
 
 ## STUCK->QODER (rule 37): any task (any agent or the human) stuck on a terminal-resolvable blocker (git tangles, env/PATH issues, version pins, file ops, server starts) is immediately handed to Qoder-CN (WRITER-MAIN, real checkout + terminal) as the unblocking step; the stuck agent waits or continues on non-blocked scope. Tag such commits [AI: Qoder-CN][unblock:<task-id>].
+
+## ROUTE BY OBSERVED CORRECTION COST (rule 38): default execution = Qoder chats (one per worktree, one branch each); volume/docs = Cline + Copilot; Jules = overnight overflow only, re-earned by scorecard. Parallelism via worktrees, never shared checkouts.
