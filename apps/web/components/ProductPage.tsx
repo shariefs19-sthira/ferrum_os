@@ -63,8 +63,8 @@ const ProductPage: React.FC<ProductPageProps> = ({
 
             <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8`}>
               {(component.props.features || []).map((feature: any, index: number) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                  <div className={`${getColorClass('accent')} text-2xl mb-4`}>
+                <div key={index} className="bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
+                  <div className={`${getColorClass('accent')} text-2xl mb-4`} role="img" aria-hidden="true">
                     {feature.icon || '✨'}
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -73,6 +73,17 @@ const ProductPage: React.FC<ProductPageProps> = ({
                   <p className="text-gray-600">
                     {feature.description || 'Feature description'}
                   </p>
+                  {feature.imageSrc && (
+                    <div className="mt-4">
+                      <Image
+                        src={feature.imageSrc}
+                        alt={`${feature.title || `Feature ${index + 1}`} illustration`}
+                        width={300}
+                        height={200}
+                        className="w-full h-auto rounded-md"
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

@@ -262,4 +262,78 @@ export const productsData: ProductData[] = [
       }
     ]
   }
+    ],
+    {
+      slug: "landintel",
+      name: "LandIntel",
+      description: "Comprehensive land intelligence platform for real estate professionals.",
+      primaryColor: "#1e40af", // blue-800
+      secondaryColor: "#3b82f6", // blue-500
+      accentColor: "#10b981", // emerald-500
+      components: [
+        {
+          id: "landintel-hero",
+          type: "hero",
+          props: {
+            title: "LandIntel: Smart Land Intelligence",
+            description: "Comprehensive land intelligence platform for real estate professionals.",
+            ctaText: "Start Exploring",
+            imageSrc: "/placeholder-hero.jpg"
+          }
+        },
+        {
+          id: "landintel-features",
+          type: "features",
+          props: {
+            title: "Comprehensive Land Intelligence",
+            description: "Powerful tools for land analysis, planning, and investment decisions.",
+            features: [
+              { 
+                title: "ULPIN Lookup", 
+                description: "Access comprehensive land records and ownership details through the unique land parcel identification number.",
+                icon: "🔍"
+              },
+              { 
+                title: "Interactive Maps", 
+                description: "Explore detailed geographic information with our interactive mapping tools and satellite imagery.",
+                icon: "🗺️"
+              },
+              { 
+                title: "Zoning Summary", 
+                description: "Get detailed zoning information, land use regulations, and development restrictions for any property.",
+                icon: "📋"
+              },
+              { 
+                title: "Soil & Hazard Analysis", 
+                description: "Assess soil composition, flood risks, and environmental hazards for land development planning.",
+                icon: "🌱"
+              },
+              { 
+                title: "Feasibility Report", 
+                description: "Generate comprehensive feasibility studies including cost analysis and development potential.",
+                icon: "📊"
+              },
+              { 
+                title: "Investment Forecasts", 
+                description: "Data-driven investment projections and ROI analysis for land development opportunities.",
+                icon: "💰"
+              }
+            ]
+          }
+        },
+        {
+          id: "landintel-pricing",
+          type: "pricing",
+          props: {
+            title: "Pricing Plans",
+            description: "Choose the perfect plan for your land intelligence needs.",
+            plans: [
+              { name: "Professional", price: "$299/month", features: ["Basic Analytics", "5 Reports", "Standard Maps"] },
+              { name: "Enterprise", price: "$599/month", features: ["Advanced Analytics", "Unlimited Reports", "API Access", "Custom Maps"] }
+            ]
+          }
+        }
+      ]
+    }
+  ];
 ];
