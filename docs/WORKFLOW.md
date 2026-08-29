@@ -27,3 +27,8 @@ For parallel execution and isolation of tasks, use git worktrees:
 - To create a new isolated workspace: `git worktree add D:\ferrum_os.wt\<task-id> -b <branch> origin/main`
 - Open the new folder in a new VS Code window to create a new Qoder chat instance
 - This ensures parallelism without shared checkout conflicts
+
+## Runner Rules
+- Root directory operations should only execute harness scripts (e.g., conductor, fleet-status).
+- All build and test operations must use pnpm filters: `pnpm --filter ./apps/web build` or similar.
+- Package managers at root level: use pnpm exclusively, no npm commands allowed.
