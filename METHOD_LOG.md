@@ -9,6 +9,13 @@ This document captures the methodology, reasoning, and outcomes for significant 
 **Date:** YYYY-MM-DD
 **Agent:** (e.g., Qoder-CN)
 
+### SCOPE DECLARED
+(List the specific files, directories, domains, tools, and forbidden operations for this task, as determined in the PREPARE phase.)
+- **Files/Directories:** (e.g., apps/web/components/ProductCard.tsx, docs/WAVE_QUEUE.md)
+- **Domains/Network:** (e.g., localhost:5173, api.example.com)
+- **Tools/Commands:** (e.g., git, pnpm, playwright)
+- **Forbidden Operations:** (e.g., delete, payment, email)
+
 ### RESEARCH
 (Summarize the initial investigation, resources consulted, and information gathered relevant to the task type. For code, this might be API docs or best practices. For research, this is source evaluation. For security, this is threat modeling.)
 

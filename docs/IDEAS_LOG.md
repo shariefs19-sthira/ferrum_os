@@ -49,3 +49,5 @@
 ### IDEA-045 | 2024-05-24 | this build | scorecard auto-update on completion | active.
 ### IDEA-046 | 2024-05-24 | this build | layered computer-use (terminal/browser/OS) | active.
 ### IDEA-047 | 2024-05-24 | this build | scripted-vs-AI browser token economics | active.
+### IDEA-048 | 2024-05-24 | this build | four-boundary scope control (project/artifact/reversibility/blast radius) | active.
+### IDEA-049 | 2024-05-24 | this build | scope violation = HUMAN-HOLD + quarantine | active.

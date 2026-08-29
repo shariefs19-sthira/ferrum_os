@@ -44,7 +44,12 @@
 30. PACE-AWARE DISPATCH: assignments carry est-duration (model x size); batch pace = slowest estimate; large divisible tasks split to model size; slow/free-model work goes to parallel ECONOMY batches (suffix -E) so critical batches never stall on them; conductor stall threshold = 2x estimate; prophet pace predictions.
 31. DATA-DRIVEN ASSIGNMENT: routine assignment = deterministic scorecard lookup (n>=3); deliberation only when n<3, on ties, or HIGH-tier; explore budget = 10% of low-risk volume tasks try cheaper/newer models; all explore decisions logged.
 32. OPERATOR SANDBOX: dedicated Chrome profile (no personal logins), allowlisted domains, ask-before-escalate, recording as evidence.
-33. BROWSER TOKEN ECONOMICS: deterministic flows = scripted Playwright/CLI, AI browser agent only for judgment tasks (114k vs 27k tokens [[3]]).
+33. SCOPE CONTROL (primary defense): every agent operates within four boundaries:
+   - PROJECT: only Ferrum OS files (git repo), domains (localhost, github.com, approved APIs), and tasks (queue IDs)
+   - ARTIFACT: only code/docs/screenshots/logs in declared directories
+   - REVERSIBILITY: no destructive ops without human approval (delete, payment, email, prod push)
+   - BLAST RADIUS: sandbox profile, no personal logins, allowlisted network
+   Violation = immediate HUMAN-HOLD + task quarantine; prophet logs as scope-creep incident; dispatcher scorecard penalizes.
 
 ## UNIVERSAL ONBOARDING (any model, any vendor, any capability)
 1. Read this file fully. Every rule applies to every AI agent regardless of vendor.
