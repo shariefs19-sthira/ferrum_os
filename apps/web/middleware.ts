@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { randomBytes } from 'crypto';
 
 export function middleware(request: NextRequest) {
-  // Generate a unique nonce for each request
-  const nonce = randomBytes(16).toString('hex');
+  // Generate a unique nonce for each request using Web Crypto API instead of Node crypto
+  const nonce = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
   
   // Create the CSP header with report-uri directive
   const cspHeader = [
@@ -19,6 +20,22 @@ export function middleware(request: NextRequest) {
 
   // Clone the response to modify headers
   const response = NextResponse.next();
+  
+  // Add security headers
+  // Strict-Transport-Security: Enforce HTTPS
+  response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  
+  // X-Content-Type-Options: Prevent MIME type sniffing
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  
+  // X-Frame-Options: Prevent clickjacking (equivalent to frame-ancestors for older browsers)
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN');
+  
+  // Referrer-Policy: Limit referrer information
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  // Permissions-Policy: Restrict browser features
+  response.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
   
   // Add the CSP Report-Only header (won't block, just report)
   response.headers.set('Content-Security-Policy-Report-Only', cspHeader);
