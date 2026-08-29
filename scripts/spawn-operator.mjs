@@ -152,7 +152,7 @@ STOP IMMEDIATELY and log a HUMAN-HOLD request. Do not attempt to proceed or find
 
   // Compose command to run the operator with the scope prompt
   // Placeholder command, replace with actual interpreter/agent command
-  const commandToRun = ['echo', `'${scopePrompt}'`, '&&', 'echo', `'Placeholder for Operator task ${nextTaskId} execution with scope enforcement.'`, '&&', 'sleep', '10'];
+  const commandToRun = ['node', 'scripts/operator-qa.mjs', '--task', nextTaskId]; // Updated command
 
   // Print details for Dry Run
   if (dryRun) {
@@ -160,7 +160,7 @@ STOP IMMEDIATELY and log a HUMAN-HOLD request. Do not attempt to proceed or find
     console.log('Scope Prompt:');
     console.log(scopePrompt);
     console.log('Command to Run (in real run):');
-    console.log(commandToRun.join(' '));
+    console.log(commandToRun.join(' ')); // Updated command
     console.log(`Would attempt to launch with scope: Files=${scopeFiles}, Domains=${scopeDomains}, Forbidden=${scopeForbiddenOps}`);
     console.log('DRY RUN COMPLETE — nothing launched, nothing written');
     process.exit(0);
@@ -168,7 +168,7 @@ STOP IMMEDIATELY and log a HUMAN-HOLD request. Do not attempt to proceed or find
 
   // --- REAL RUN PATH ---
   console.log('Launching operator process...');
-  const child = spawn(commandToRun[0], commandToRun.slice(1), { stdio: 'inherit' });
+  const child = spawn(commandToRun[0], commandToRun.slice(1), { stdio: 'inherit' }); // Updated spawn
 
   const opPid = child.pid;
   const startTime = new Date().toISOString();
