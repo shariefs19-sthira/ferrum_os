@@ -53,3 +53,4 @@
 ### IDEA-049 | 2024-05-24 | this build | scope violation = HUMAN-HOLD + quarantine | active.
 ### IDEA-050 | 2024-05-24 | this build | agent-authored PowerShell must avoid reserved variable names ($pid, $host, $error...) | active.
 ### IDEA-051 | 2024-05-24 | this build | git commit -a / -am BANNED for all agents — explicit paths only | active.
+### IDEA-052 | 2024-05-24 | this build | pre-commit parse + dry-run gate for agent-authored scripts | active.

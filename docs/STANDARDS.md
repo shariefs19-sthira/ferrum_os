@@ -9,6 +9,7 @@ This document defines the coding and operational standards for the project.
 - Include error handling.
 - Add comments for complex logic.
 - **NEW:** Avoid using reserved or automatic variable names specific to the shell (e.g., `$PID`, `$HOST`, `$ERROR` in PowerShell). Use explicitly named variables instead (e.g., `$ProcessId`, `$OpPid`).
+- **NEW:** Every change to a `.ps1` file must pass two checks before committing: (a) a parse check (e.g., `[System.Management.Automation.Language.Parser]::ParseFile(...)`) and (b) a dry-run execution (e.g., `script.ps1 -DryRun`) with zero errors and no unintended side effects. This acts as a regression gate, similar to CI for code.
 
 ## Coding Standards (TypeScript, Python, etc.)
 
