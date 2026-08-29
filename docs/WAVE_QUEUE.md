@@ -3,11 +3,17 @@
 ## Rollup Rule
 A task's status is considered DONE only if its own status is DONE AND all of its spawned subtasks (children) are also marked as DONE. The batch conductor verifies this recursively.
 
+## Batch Status
+| Batch | Status |
+|-------|--------|
+| B1    | OPEN   |
+| B2    | CLOSED |
+| B3    | CLOSED |
+
 ## WAVE-1
 
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status |
 |---------|--------|-------|----------|-------------|--------|
-|         |        | B1    |          |             | OPEN   |
 | W1-01   |        | B1    | J06      | Qoder-CN    | DONE   |
 | W1-02   |        | B1    | J06      | Qoder-CN    | OPEN   |
 | W1-04   |        | B1    | J15      | Qoder-CN    | OPEN   |
@@ -17,7 +23,6 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W1-11   |        | B1    | J13      | Jules-Fork-A  | OPEN   |
 | W1-21   |        | B1    | J16/D-RES| Scout (seat-unfilled) | OPEN   |
 | W1-22   |        | B1    | J16/D-RES| Scout (seat-unfilled) | OPEN   |
-|         |        | B2    |          |             | CLOSED |
 | W1-03   |        | B2    | J10      | Qoder-CN    | OPEN   |
 | W1-05   |        | B2    | J15      | Qoder-CN    | OPEN   |
 | W1-06   |        | B2    | J15      | Qoder-CN    | OPEN   |
@@ -26,7 +31,6 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W1-18   |        | B2    | J08      | Jules-Fork-A  | OPEN   |
 | W1-20   |        | B2    | J13      | Jules-Fork-A  | OPEN   |
 | W1-14   |        | B2    | J14      | Jules-Owner-B | OPEN   |
-|         |        | B3    |          |             | CLOSED |
 | W1-09   |        | B3    | J09      | (to be assigned) | OPEN   |
 | W1-10   |        | B3    | J12      | (to be assigned) | OPEN   |
 | W1-16   |        | B3    | J02      | (to be assigned) | OPEN   |
