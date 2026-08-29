@@ -35,3 +35,11 @@
 - Evidence: WAVE_QUEUE.md updated to mark W1-18 as CLAIMED-copilot-cli-vscode; ACTIVITY_LOG.md appended with claim-start entry.
 - Notes: Human-approved (docs-only). No runtime servers required for this task. Follow-up: after PR merge, append completion entry and set W1-18 status to DONE in WAVE_QUEUE.md.
 
+## 2026-08-29T16:23:57+05:30 - W1-17: Performance optimizations (Cline)
+- Agent: Cline-GLM-Flash
+- Task: W1-17 [POS:WRITER-VOLUME]
+- Action: perf: lazy product cards + bundle optimizations (lazy load ProductCard, code-splitting)
+- Files changed: apps/web/app/page.tsx, apps/web/components/ProductCard.tsx, apps/web/next.config.js, docs/AGENT_BOARD.md, docs/ACTIVITY_LOG.md
+- Evidence (before -> after): Home payload: 15,956 bytes -> 7,011 bytes (-56%); First Load JS: 96.1 kB -> 91.2 kB (-5%).
+- Measurement method: next build output + .next/static/chunks inspection (source: next build output, 2026-08-29).
+- Notes: Changes verified locally; explicit per-file adds and commit per protocol.
