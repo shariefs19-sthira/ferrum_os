@@ -15,3 +15,9 @@
 ### IDEA-011 | 2024-05-23 | learned from M15 | Amazon-mapped security phases (edge/WAF now; SAQ-A tokenized payments at commerce; fraud/bot at volume; SOC2 later) — pending M16.
 ### IDEA-012 | 2024-05-23 | this build | permanent agent identity + lifetime + results ledger (AGENT_REGISTRY.md) | active.
 ### IDEA-013 | 2024-05-23 | this build | Danger-enforced [AI: handle] and [POS:tag] format in commits/logs | pending.
+### IDEA-014 | 2024-05-23 | this build | native auto-merge + queue first, Mergify only if outgrown | active.
+### IDEA-015 | 2024-05-23 | this build | task-tag auto-tracking | active.
+### IDEA-016 | 2024-05-23 | this build | CI-run visual sweep + pixelmatch per web PR | active.
+### IDEA-017 | 2024-05-23 | this build | cron fleet digest | active.
+### IDEA-018 | 2024-05-23 | this build | release-please changelogs | active.
+### IDEA-019 | 2024-05-23 | this build | Renovate automerge devDeps/patch | active.

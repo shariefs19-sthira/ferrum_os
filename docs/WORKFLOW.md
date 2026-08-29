@@ -18,3 +18,18 @@ On PR open, Group B runs same-second: automated layer (CI+Danger+Semgrep+ReviewD
 ## COST ROUTING
 Cheapest sufficient tier first; escalate tier only after 2 gate failures; J06/J09/J10/J14 always HIGH.
 Versioning: WORKFLOW.md semver; every promoted idea bumps minor; CHANGELOG entry per change; at site completion publish as "Ferrum Workflow Kit" for new websites.
+
+## AUTOMATION MATRIX
+| Role Slot | Human/Infra | Notes |
+|-----------|-------------|-------|
+| PRIMARY WRITER (max 1) | Human | Designated by human. |
+| BRANCH WRITER (unlimited) | Agent | Tier S; feature missions via PR. |
+| SANDBOX WRITER (unlimited) | Agent | Tier S+; risky missions. |
+| HOTFIX WRITER (unlimited) | Agent | Tier B; max 3 files. |
+| REVIEWER | PR-Agent | Auto-review every PR. |
+| ENFORCER | Danger-JS + Semgrep + ReviewDog | Policy as code. |
+| MONITOR | gh-dash + pixelmatch | Observability. |
+| MERGE QUEUE | Infra (native or app) | Auto-merge policy applies. |
+
+## AUTO-MERGE POLICY
+Auto-merge is permitted only when: build green + danger green + scope <= 15 files + no protected files modified + [AI: handle] tag present in PR title/description/commits + agent has >=2 clean landings in AGENT_REGISTRY. Merge queue is mandatory. The first 2 PRs from any new agent must be manually clicked by a human.

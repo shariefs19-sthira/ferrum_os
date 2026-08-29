@@ -25,19 +25,23 @@ This document provides the initial context and current state for any AI agent ta
 *   Implemented fleet tracking with heartbeat rules and an agent board.
 *   Created a permanent ledger for agent identities and lifetimes (AGENT_REGISTRY.md).
 *   Established a formal queue for work items (WAVE_QUEUE.md).
+*   Defined the Automation Matrix and Auto-Merge Policy.
+*   Introduced task tags for automated tracking.
 
 **Current State:**
-*   The `main` branch contains all the updated documentation and scripts for the agent system.
+*   The `main` branch contains all the updated documentation for the agent system.
 *   The `docs/AGENT_REGISTRY.md` lists all known agents.
 *   The `docs/WAVE_QUEUE.md` contains the initial set of tasks for WAVE-1.
+*   The `docs/WORKFLOW.md` details the automation policies.
 *   All agents are required to register in `docs/AGENT_REGISTRY.md` before committing code.
+*   Commits are required to include `[task:<id>]` tags.
 
 **Next Steps:**
-*   New agents should register in `docs/AGENT_REGISTRY.md`.
-*   Agents should pull tasks from `docs/WAVE_QUEUE.md` according to their tier and the cost-routing rules.
-*   Ensure all commits include the `[AI: handle]` tag and all log entries include `**By:** handle [POS:tag]`.
+*   Implement the auto-merge queue mechanism (native or app).
+*   Develop the task-tag tracking script to update `WAVE_QUEUE.md` and `AGENT_BOARD.md`.
+*   Ensure all agents comply with the new tagging and auto-merge policies.
 
 **Context/Links:**
 *   Refer to `docs/ACTIVITY_LOG.md` for a chronological list of completed tasks.
 *   Check `docs/AGENT_BOARD.md` for the current status of any assigned agents.
-*   Consult `docs/ROLES.md` and `docs/JOBS.md` for role assignments and job definitions.
+*   Consult `docs/ROLES.md`, `docs/JOBS.md`, and `docs/WORKFLOW.md` for role assignments, job definitions, and automation rules.
