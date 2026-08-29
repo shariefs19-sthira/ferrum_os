@@ -302,4 +302,14 @@ cd C:\Users\user\ferrum_os
 ## 2024-05-23 - DISPATCHER v2.5: experience-driven model routing | **By:** Qoder CN [POS:WRITER-MAIN] | Status: Complete | Files: AGENTS.md, docs/JOBS.md, docs/DISPATCH.md, docs/ASSIGNMENT_LOG.md, docs/AGENT_REGISTRY.md, docs/IDEAS_LOG.md | Summary: added dispatch rule (25), mapped J-types to domains (D-UI, D-BE, etc.), created DISPATCH.md protocol, created ASSIGNMENT_LOG.md, added Dispatcher to registry, appended ideas (029-030). | Next: M29+ dispatcher assigns models to W1 tasks.
 ## 2024-05-23 - PROPHECY v2.6: calibrated forecasting | **By:** Qoder CN [POS:WRITER-MAIN] | Status: Complete | Files: AGENTS.md, docs/agents/PROPHET.md, docs/PROPHECY_LOG.md, docs/AGENT_REGISTRY.md, docs/DISPATCH.md, docs/IDEAS_LOG.md | Summary: added prophecy rule (26), created PROPHET role card, created PROPHECY_LOG with retro entries, added Prophet to registry, updated DISPATCH.md for prophecy input, appended ideas (031-032). | Next: M30+ Prophet to make first active prophecy.
 ## 2024-05-23 - BATCH CONDUCTOR v2.7: gated release train | **By:** Qoder CN [POS:WRITER-MAIN] | Status: Complete | Files: AGENTS.md, docs/WAVE_QUEUE.md, scripts/batch-conductor.mjs, .github/workflows/conductor.yml, docs/AGENT_REGISTRY.md, docs/IDEAS_LOG.md | Summary: added batch release rule (27), restructured WAVE_QUEUE into B1/B2/B3, created batch-conductor script, created conductor.yml workflow, added Conductor to registry, appended ideas (033-035). | Next: M31+ conductor to manage batch flow.
-## 2024-05-23 - DYNAMIC TASK FOREST v2.8: recursive batches, spawn protocol | **By:** Qoder CN [POS:WRITER-MAIN] | Status: Complete | Files: AGENTS.md, docs/WAVE_QUEUE.md, docs/DISPATCH.md, scripts/batch-conductor.mjs, docs/IDEAS_LOG.md | Summary: added subtask spawning rule (28), added parent column to queue, updated dispatch for lookahead/batch scoring, updated conductor for recursive DONE verification, appended ideas (036-039). | Next: M32+ implement subtask spawning and lookahead drafting.
+## 2024-05-23 - DYNAMIC TASK FOREST v2.8: recursive batches, spawn protocol | **By:** Qoder CN [POS:WRITER-MAIN] | Status: Complete | Files: AGENTS.md, docs/WAVE_QUEUE.md, docs/DISPATCH.md, scripts/batch-conductor.mjs, docs/IDEAS_LOG.md | Summary: added subtask spawning rule (28), added parent column to queue, updated dispatch for lookahead/batch scoring, updated conductor for recursive DONE verification, appended ideas (036-039). | Next: M32+ implement subtask spawning and lookahead drafting.### 2026-08-29T16:43:33+05:30 - W1-06 claim and workflow creation
+**Action:** Claimed W1-06 and created the auto-merge enabler workflow to enable squash auto-merge for non-draft PRs without HUMAN-REVIEW.
+**By:** copilot-cli-vscode (AG-013)
+**Status:** ? CLAIMED + WORKFLOW CREATED
+
+**Files Modified:**
+- docs/WAVE_QUEUE.md
+- .github/workflows/auto-merge.yml
+
+**Next Steps:**
+- Push branch and open PR with HUMAN-APPROVED + [task:W1-06] in the body; do not merge.
