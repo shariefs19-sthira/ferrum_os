@@ -1,41 +1,14 @@
-# 🔄 FERRUM OS - AI HANDOFF DOCUMENT
-**Created:** 2026-08-28 13:29:35
-**Status:** All systems operational
+# AI Handoff Protocol
 
-## ✅ COMPLETED TODAY
-1. LandIntel MVP - LIVE with ULPIN, Zoning, Soil/Hazard, PDF
-2. BOQ Pro - QTO engine tested & working (200 OK)
-3. Deployment - Vercel + Railway ready
-4. Relume Sync - Complete
-5. Structura (P3) - LIVE at http://localhost:3001/structura
-6. ProMarket (P5) - LIVE at http://localhost:3001/promarket
-7. BuildOS (P6) - LIVE at http://localhost:3001/buildos
-8. ProcureHub (P7) - LIVE at http://localhost:3001/procurehub
-9. MISSION 1 - DRY refactor completed, P8/P9 launched
-10. MISSION 3 - End-to-end testing completed, all backends operational
-11. MISSION 5 - CI build guard workflow implemented
-12. MISSION 6 - LandIntel live-source mode with fallback badge implemented
-13. MISSION 7 - PR #1 with LandIntel enhancements successfully landed
+## Core Principle: Model Rotation (Universal Tiers)
+Any AI agent can be replaced mid-mission by any other agent of equal or higher capability tier (S+, S, A, B, C as defined in AGENTS.md). Continuity is maintained through documentation (ACTIVITY_LOG.md, this file), not session state. If an agent is retired or unavailable, its successor resumes from the latest documented state.
 
-## 🎯 NEXT TASKS
-1. Complete BOQ Pro UI
-2. Integrate real land records API
-3. Add authentication
-4. Build remaining products (P2)
+## Purpose
+This document provides the initial context and current state for any AI agent taking over an ongoing mission. It summarizes the goal, the work completed so far by previous agents, the current status, and the immediate next steps.
 
-## 📊 CURRENT STATE
-- All 9 product pages live at http://localhost:3001
-- LandIntel backend running on port 8000
-- BOQ Pro backend running on port 8001
-- CI workflow protecting main branch from broken builds
-- PR #1 with LandIntel real plot data enhancements merged
-- Missions M2-M6 all completed and on main
-- Last Commit: "agents/enhance landintel real plot data (#1)" (01e413e)
-- Working Tree: Clean
-
-##  WORKFLOW
-- Log everything to docs/ACTIVITY_LOG.md
-- Commit after each feature
-- Check Relume specs
-
-**Ready for next AI to continue.**
+## Content Structure
+1.  **Mission Goal:** A concise statement of the overall objective.
+2.  **Previous Work Summary:** Key accomplishments and decisions made by prior agents, referencing commit hashes or log entries where possible.
+3.  **Current State:** The status of the codebase, open PRs, CI, etc., as of the last update.
+4.  **Next Steps:** Clear, actionable items for the incoming agent.
+5.  **Context/Links:** Relevant PRs, issues, or external resources.

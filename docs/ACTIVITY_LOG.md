@@ -274,3 +274,5 @@ cd C:\Users\user\ferrum_os
 ## 2024-05-21: CI workflow updated to use Node 22 and let packageManager drive pnpm version. (By: Qoder CN)
 ## 2024-05-22: feat: LandIntel telemetry + LIVE/FALLBACK counts (M11 reimplementation) (By: Qoder CN)
 ## 2024-05-23: CI workflow updated to make test job advisory pending M15. (By: Qoder CN)
+## 2024-05-23 - AGENT FACTORY v2: universal capability-based coordination | **By:** Qoder CN | Status: Complete | Files: AGENTS.md, docs/ROLES.md, docs/WORKFLOW.md, docs/AI_HANDOFF.md | Summary: replaced vendor-named roles with capability tiers (S+/S/A/B/C), universal onboarding questionnaire, model-rotation rule; guards are infrastructure. | Next: M17-M20 install the guard layer.
+## 2024-05-23 - WORKFLOW v2: job taxonomy, cost-routed waves, ideas log | **By:** Qoder CN | Status: Complete | Files: AGENTS.md, docs/ROLES.md, docs/WORKFLOW.md, docs/JOBS.md, docs/STANDARDS.md, docs/IDEAS_LOG.md, docs/AI_HANDOFF.md | Summary: introduced J01-J15 taxonomy, cost routing (FREE/LOW/MID/HIGH), WAVE protocol, IMMEDIATE CHECK, and append-only IDEAS log. | Next: M21+ execute waves using J-types.
