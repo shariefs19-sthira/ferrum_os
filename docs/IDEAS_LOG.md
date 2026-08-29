@@ -37,3 +37,7 @@
 ### IDEA-033 | 2024-05-23 | this build | blackboard/repo-bus for cross-session awareness | active.
 ### IDEA-034 | 2024-05-23 | this build | cron conductor release train | active.
 ### IDEA-035 | 2024-05-23 | this build | evidence-gated batch release | active.
+### IDEA-036 | 2024-05-23 | this build | hierarchical dynamic queue | active.
+### IDEA-037 | 2024-05-23 | this build | spawn caps as anti-fractal-creep | active.
+### IDEA-038 | 2024-05-23 | this build | lookahead batch drafting | active.
+### IDEA-039 | 2024-05-23 | this build | WIP limit 1 | active.

@@ -29,26 +29,29 @@ This document provides the initial context and current state for any AI agent ta
 *   Introduced task tags for automated tracking.
 *   Implemented a continuous standards cadence with a technology and domain radar (STANDARDS_RADAR.md).
 *   Established the Universal Task Structure (PREPARE -> EXECUTE -> LOG) for all work types.
-*   Implemented the Dispatcher role for experience-driven model routing.
+*   Implemented the Dispatcher role for experience-driven model routing, with lookahead drafting.
 *   Implemented the Prophet role for calibrated forecasting.
-*   Implemented the Batch Conductor for automated, gated batch releases.
+*   Implemented the Batch Conductor for automated, gated batch releases, with recursive verification.
+*   Implemented the Subtask Spawning protocol for dynamic task hierarchies.
 
 **Current State:**
-*   The `main` branch contains all the updated documentation for the agent system, standards, task structure, dispatch, prophecy, and batch control.
-*   The `docs/AGENT_REGISTRY.md` lists all known agents, including the new Dispatcher, Prophet, and Conductor.
-*   The `docs/WAVE_QUEUE.md` is now organized into B1, B2, and B3 batches, with B1 marked as complete and B2 as OPEN.
+*   The `main` branch contains all the updated documentation for the agent system, standards, task structure, dispatch, prophecy, batch control, and subtask spawning.
+*   The `docs/AGENT_REGISTRY.md` lists all known agents.
+*   The `docs/WAVE_QUEUE.md` is now organized into B1, B2, and B3 batches, with a parent-child relationship column for subtasks. B1 is complete and B2 is OPEN.
 *   The `docs/STANDARDS_RADAR.md` provides a dynamic view of technology and domain practices.
 *   The `docs/STANDARDS.md` has been updated with review cycles and checklists tied to job types.
 *   The `METHOD_LOG.md` template is now universal for all task types.
-*   The `docs/DISPATCH.md` protocol defines how tasks are assigned based on domain and model capability, incorporating prophecy input.
+*   The `docs/DISPATCH.md` protocol defines how tasks are assigned, composed into batches, and includes lookahead drafting.
 *   The `docs/PROPHECY_LOG.md` is ready to track predictions and their outcomes for calibration.
 *   A dedicated role card for the Prophet exists at `docs/agents/PROPHET.md`.
-*   A new script `scripts/batch-conductor.mjs` and a corresponding workflow `.github/workflows/conductor.yml` automate the release of batches based on task completion.
+*   The `scripts/batch-conductor.mjs` script now verifies task completion recursively, considering subtasks.
+*   The `.github/workflows/conductor.yml` workflow runs the updated script.
 
 **Next Steps:**
-*   The designated [POS:DISPATCHER] agent should assign models for tasks in the OPEN batch (B2) and the upcoming B3.
+*   The designated [POS:DISPATCHER] agent should continue assigning models for tasks in the OPEN batch (B2) and draft assignments for B3.
 *   Agents should pull tasks only from the currently OPEN batch (B2) as listed in `WAVE_QUEUE.md`.
-*   The [POS:CONDUCTOR] (infra bot) will automatically release B3 once all tasks in B2 are marked as DONE in the queue file.
+*   The [POS:CONDUCTOR] (infra bot) will automatically release B3 once all tasks in B2, and their recursive subtasks, are marked as DONE in the queue file.
+*   Agents may now spawn subtasks according to rule 28 in `AGENTS.md`.
 *   Continue executing tasks following the PREPARE -> EXECUTE -> LOG structure.
 *   Maintain all relevant logs and documentation as new work is performed.
 

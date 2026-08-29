@@ -28,3 +28,13 @@ After a task is completed and landed, the actual performance (cost, time, qualit
 - The [POS:DISPATCHER] must consult `PROPHECY_LOG.md` before making an assignment.
 - If a prophecy related to the task or agent has a credibility score > 70, the dispatcher must explicitly respond to it in the assignment notes or record why it's being disregarded.
 - If a prophecy related to a HIGH-cost task (J06, J09, J10, J14) has a credibility score > 85, the dispatcher must incorporate its recommendation or defer the task.
+
+## Batch Composition Scoring
+When composing a batch, the dispatcher scores potential compositions based on:
+- **Priority**: Higher priority tasks are included first.
+- **Domain Coverage**: Balancing load across different domains (D-UI, D-BE, D-QA, etc.) to prevent bottlenecks.
+- **Agent Availability**: Matching task domains to the currently available and suitable agents.
+- **Cheapest Fit**: Selecting the lowest tier capable of performing the task effectively.
+
+## LOOKAHEAD
+While the current batch is in progress, the dispatcher drafts assignments for the *next* batch. This allows for proactive preparation and smoother transitions. The WIP (Work In Progress) limit is 1 active batch per agent to prevent overload.

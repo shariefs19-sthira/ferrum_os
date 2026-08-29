@@ -39,6 +39,7 @@
 25. DISPATCH: model selection belongs to [POS:DISPATCHER], not humans or agents; every assignment cites INTERNAL (registry stats per domain) + EXTERNAL (dated benchmarks/pricing/community); agents pull only dispatcher-tagged tasks; human veto window 24h.
 26. PROPHECY: [POS:PROPHET] reads fleet/CI/method/assignment data, emits dated prophecies; dispatcher advisory input; credibility ladder 50-start, HIT+5/PARTIAL+2/MISS-4; >70 = dispatcher must respond; >85 = mandatory gate on HIGH tasks.
 27. BATCH RELEASE: agents work only OPEN-batch tasks; batches open only via conductor verification; preflight pulls the queue; HUMAN-HOLD flag freezes releases.
+28. SUBTASK SPAWNING: any agent/reviewer/prophet may spawn <parent>.<n> with justification + scope + recommended tier; child inherits parent priority (in-line); parent DONE requires all descendants DONE; caps depth<=3, children<=5, exceed = HUMAN-HOLD; dispatcher assigns child handle within one conductor cycle; spawns logged in parent METHOD record.
 
 ## UNIVERSAL ONBOARDING (any model, any vendor, any capability)
 1. Read this file fully. Every rule applies to every AI agent regardless of vendor.
