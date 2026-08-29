@@ -8,7 +8,7 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status |
 |---------|--------|-------|----------|-------------|--------|
 |         |        | B1    |          |             | OPEN   |
-| W1-01   |        | B1    | J06      | Qoder-CN    | OPEN   |
+| W1-01   |        | B1    | J06      | Qoder-CN    | DONE   |
 | W1-02   |        | B1    | J06      | Qoder-CN    | OPEN   |
 | W1-04   |        | B1    | J15      | Qoder-CN    | OPEN   |
 | W1-07   |        | B1    | J04      | Jules-Owner-B | OPEN   |
