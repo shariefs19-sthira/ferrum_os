@@ -14,3 +14,10 @@ This document defines the operational workflow, roles, and job definitions for t
 - `[POS:CONDUCTOR]`: Automated agent responsible for releasing batches of work based on completion criteria.
 - `[POS:WRITER-VOLUME]`: High-volume, low-latency agents for small-scoped, light-weight tasks.
 - `[POS:OPERATOR]`: Computer-use agents capable of interacting with the system through terminal and browser interfaces within a sandboxed environment.
+
+## Escalation Policy
+When an agent becomes stuck on a task, the following escalation procedure applies:
+- If the blocker is terminal-resolvable (git tangles, env/PATH issues, version pins, file ops, server starts), immediately hand the task to Qoder-CN (WRITER-MAIN, real checkout + terminal) as the unblocking step.
+- The stuck agent should wait or continue working on non-blocked aspects of the scope.
+- Such unblocking commits should be tagged as [AI: Qoder-CN][unblock:<task-id>].
+- If the issue is not terminal-resolvable, escalate to human decision for guidance.

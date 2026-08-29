@@ -68,3 +68,6 @@
 ### IDEA-065 | 2026-08-29 | MISSION W1-06 | sync handoff windows between agents for seamless task transitions | active.
 ### IDEA-067 | 2026-08-29 | MISSION W1-06 amendment | pull_request_target workflows require author allowlist for security | active.
 ### IDEA-068 | 2026-08-29 | MISSION W1-04 amendment | every workflow job gets an explicit permissions block for security and clarity | active.
+### IDEA-069 | 2026-08-29 | MISSION INFRA-16 | terminal-first small-fix policy for systemic few-line changes | active.
+### IDEA-070 | 2026-08-29 | MISSION INFRA-16 | branch-check discipline to prevent mis-branched commits | active.
+### IDEA-071 | 2026-08-29 | MISSION INFRA-17 | stuck->Qoder escalation; human terminal = fallback, not default | active.

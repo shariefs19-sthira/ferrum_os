@@ -39,3 +39,7 @@ Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
 ## HYGIENE RULES: NEVER commit __pycache__ or *.pyc. On push rejection: discard or stash dirt, pull --rebase, commit, push — maximum one loop, then report.
 
 ## SYNC-HANDOFF (rule 35): finished agents go IDLE, no self-pull; conductor posts ALL-IDLE when no CLAIMED/IN-PROGRESS rows remain; dispatcher broadcasts next assignments in one window.
+
+## TERMINAL-FIRST FOR SMALL FIXES (rule 36): systemic few-line fixes (version pins, config integers, path corrections) are executed by the human directly in the terminal on the correct branch, tagged [human][task:<id>]; agents are not dispatched for changes under ~3 files / ~20 lines unless delegated. Also: always run git branch --show-current before committing — silent checkout failures cause mis-branched commits.
+
+## STUCK->QODER (rule 37): any task (any agent or the human) stuck on a terminal-resolvable blocker (git tangles, env/PATH issues, version pins, file ops, server starts) is immediately handed to Qoder-CN (WRITER-MAIN, real checkout + terminal) as the unblocking step; the stuck agent waits or continues on non-blocked scope. Tag such commits [AI: Qoder-CN][unblock:<task-id>].
