@@ -30,3 +30,5 @@
 ### IDEA-026 | 2024-05-23 | this build | universal preparation-first discipline | active.
 ### IDEA-027 | 2024-05-23 | this build | universal scope declaration | active.
 ### IDEA-028 | 2024-05-23 | this build | universal epistemic logging | active.
+### IDEA-029 | 2024-05-23 | this build | constants-vs-variables routing | active.
+### IDEA-030 | 2024-05-23 | this build | calibration loop (internal evidence > external hype over time) | active.

@@ -36,6 +36,7 @@
   * Any other: agent defines appropriate prep and logs it
 - EXECUTE: work within self-declared scope (no scope creep without queue return)
 - LOG: METHOD record (why + how + evidence + lessons) for every task
+25. DISPATCH: model selection belongs to [POS:DISPATCHER], not humans or agents; every assignment cites INTERNAL (registry stats per domain) + EXTERNAL (dated benchmarks/pricing/community); agents pull only dispatcher-tagged tasks; human veto window 24h.
 
 ## UNIVERSAL ONBOARDING (any model, any vendor, any capability)
 1. Read this file fully. Every rule applies to every AI agent regardless of vendor.

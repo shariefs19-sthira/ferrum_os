@@ -8,3 +8,4 @@
 | AG-004 | Jules-Fork-A | Jules/Gemini-3.6-Flash | S | [POS:WRITER-FORK] | M10 | - | ACTIVE | M10 | 1 | 0 | cross-fork landings. |
 | AG-005 | Jules-Owner-B | Jules/Gemini | S | [POS:WRITER-BRANCH] | M11 | - | ACTIVE | M11/M13 | 1 | 0 | history-rewrite incident IDEA-004. |
 | AG-006 | Qwen3.8-Advisor | Qwen3.8 | C | [POS:ARCHITECT] | 2026-08-28 | - | ACTIVE | planning | 0 | 0 | advisory, no repo writes. |
+| AG-007 | Dispatcher | interim: Qwen3.8-Advisor (AG-006 dual-hat) | C+T4 | [POS:DISPATCHER] | 2024-05-23 | - | ACTIVE | D-RES | 0 | 0 | experience-driven model routing. |
