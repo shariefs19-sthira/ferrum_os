@@ -21,6 +21,11 @@ jobs:
 
   danger-check:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      statuses: write
+      checks: write
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
