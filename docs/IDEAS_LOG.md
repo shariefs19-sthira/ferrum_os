@@ -8,3 +8,8 @@
 ### IDEA-004 | 2026-08-28 | learned from PR#4/M11 | scrubs restore files, never rewrite history (now rule 12) | promoted.
 ### IDEA-005 | 2026-08-28 | learned from vim hang | non-interactive git everywhere (now rule 10) | promoted.
 ### IDEA-006 | 2026-08-28 | learned from CI drift | lockfile is truth; regen + frozen-lockfile (pending M14) | pending.
+### IDEA-007 | 2024-05-23 | this build | fleet heartbeat + idle detection (idle agent = lost time) — active.
+### IDEA-008 | 2024-05-23 | this build | pull-based labeled queue as structural anti-idle — active.
+### IDEA-009 | 2024-05-23 | this build | two-product vision: ship the website AND the reusable Workflow Kit — active.
+### IDEA-010 | 2024-05-23 | this build | purpose-driven tooling over star-counts — active.
+### IDEA-011 | 2024-05-23 | learned from M15 | Amazon-mapped security phases (edge/WAF now; SAQ-A tokenized payments at commerce; fraud/bot at volume; SOC2 later) — pending M16.

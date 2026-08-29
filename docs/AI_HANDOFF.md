@@ -12,3 +12,29 @@ This document provides the initial context and current state for any AI agent ta
 3.  **Current State:** The status of the codebase, open PRs, CI, etc., as of the last update.
 4.  **Next Steps:** Clear, actionable items for the incoming agent.
 5.  **Context/Links:** Relevant PRs, issues, or external resources.
+
+---
+
+## Current Mission Handoff Point
+
+**Mission Goal:** Implement a robust, scalable, and observable AI agent coordination system based on capability tiers and structured workflows.
+
+**Previous Work Summary:**
+*   Established the Universal Agent Factory (v2) with capability tiers (S+/S/A/B/C) and vendor-agnostic roles.
+*   Defined a structured Workflow (v2) with a job taxonomy (J01-J15), cost routing, wave protocol, and immediate checks.
+*   Created foundational documents for jobs (JOBS.md), standards (STANDARDS.md), and an ideas log (IDEAS_LOG.md).
+
+**Current State:**
+*   The `main` branch contains the updated `AGENTS.md`, `ROLES.md`, `WORKFLOW.md`, and the new documents `JOBS.md`, `STANDARDS.md`, `IDEAS_LOG.md`, and `AI_HANDOFF.md`.
+*   The CI/CD pipeline is configured as per previous changes.
+*   The agent fleet is now tracked via `docs/AGENT_BOARD.md` and monitored by the `scripts/fleet-status.mjs` script, which is accessible via `npm run fleet`.
+*   Security planning has been initiated with a pre-seeded `docs/SECURITY.md`.
+
+**Next Steps:**
+*   Agent responsible for M24 and onwards should implement the pull-based labeled queue as outlined in the workflow and ideas log.
+*   Continue populating `docs/IDEAS_LOG.md` with workflow improvements discovered during execution.
+*   Ensure all agents adhere to the HEARTBEAT rule (Rule 16) in `AGENTS.md`.
+
+**Context/Links:**
+*   Refer to `docs/ACTIVITY_LOG.md` for a chronological list of completed tasks.
+*   Check `docs/AGENT_BOARD.md` for the current status of any assigned agents.

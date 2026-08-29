@@ -1,26 +1,14 @@
 {
-  "name": "ferrum-platform",
-  "version": "1.0.0",
+  "name": "ferrum_os",
   "private": true,
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "lint": "turbo run lint",
-    "db:generate": "turbo run db:generate",
-    "db:push": "turbo run db:push",
-    "shots": "node scripts/visual-sweep.mjs"
+    "fleet": "node scripts/fleet-status.mjs"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^7.0.1",
-    "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.6",
-    "@types/jsdom": "^30.0.0",
-    "@vitejs/plugin-react": "^6.1.1",
-    "@vitest/ui": "^4.1.11",
-    "jsdom": "^30.0.1",
-    "playwright": "^1.62.1",
-    "turbo": "^1.12.4",
-    "typescript": "^5.3.3"
+    "@types/node": "^20.11.17"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "packageManager": "pnpm@8.15.0"
 }

@@ -16,6 +16,8 @@
 13. COST ROUTING: work is assigned by J-type to the cheapest sufficient tier; agents must not claim tasks above their tier; pay-HIGH slots are J06/J09/J10/J14.
 14. IDEAS OBLIGATION: any agent that discovers a workflow improvement appends to docs/IDEAS_LOG.md (never edits WORKFLOW.md); humans promote.
 15. WAVE DISCIPLINE: an agent works only its pulled task; scope = the labeled file set; exceeding it fails Danger.
+16. HEARTBEAT: every assigned agent updates docs/AGENT_BOARD.md on: task pull, each commit, entering gate-wait, completion, and any wait >15 min (status BLOCKED + reason). Silence >30 min = IDLE; human returns the task to the labeled queue.
+17. DISCUSSION CAPTURE: any workflow/security/process insight from a human-agent conversation is appended to docs/IDEAS_LOG.md (or the owning doc) before session end. No valuable discussion dies in chat history.
 
 ## UNIVERSAL ONBOARDING (any model, any vendor, any capability)
 1. Read this file fully. Every rule applies to every AI agent regardless of vendor.
