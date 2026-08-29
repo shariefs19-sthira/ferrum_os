@@ -17,7 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/resources/blog/is-1200-vs-cesmm4',
     '/resources/blog/monsoon-concreting',
     '/resources/blog/ulin-explained',
-    '/resources/case-studies'
+    '/resources/case-studies',
+    '/resources/case-studies/contractor-fleet',
+    '/resources/case-studies/greenfield-developer',
+    '/resources/case-studies/self-build-family'
   ]
   
   const lastModified = new Date()
