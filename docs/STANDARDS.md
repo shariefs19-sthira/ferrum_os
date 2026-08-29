@@ -26,3 +26,14 @@ This document defines the coding, architectural, and operational standards for t
 
 1.  **Agent Scoping:** Agents must strictly adhere to the declared scope for their assigned task. Accessing files or systems outside the scope requires a HUMAN-HOLD.
 2.  **Operator QA Verification:** Before running automated QA checks (like those performed by the Operator agent), the environment must be verified. Specifically, for web applications, the QA process must confirm the correct server harness is running (e.g., checking for server banners like '__next' for Next.js) before executing tests. Failure to do so can result in false positives/negatives due to incorrect harnesses (e.g., Vite vs. Next.js dev servers).
+
+## Guard Checks Standards
+
+1.  **Required Status Checks:** After the first successful run (M19), guard checks including security scans and compliance validations join the required status check list for pull requests to main.
+2.  **Human Approval:** Changes to sensitive files (AGENTS.md, .github/**, .gitignore, apps/api/**, package.json, *lock* files) require explicit "HUMAN-APPROVED" in the PR description.
+3.  **Task Tagging:** All commits and PR titles should include [task:] tags for proper tracking and accountability.
+
+## Security Standards
+
+1.  **Workflow Permissions:** Workflows using `pull_request_target` event with write permissions MUST include an author allowlist to prevent unauthorized access. Only PRs from approved authors should be allowed to trigger actions that can modify the repository.
+2.  **pull_request_target + write permissions ONLY with author allowlist:** When defining workflows that use the `pull_request_target` trigger and have write permissions to the repository, ensure that the workflow is restricted to run only for PRs from trusted authors as defined in an allowlist.

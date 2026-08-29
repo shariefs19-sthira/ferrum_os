@@ -67,6 +67,13 @@
 ### IDEA-064 | 2026-08-29 | MISSION W1-06 | auto-merge as workflow with HUMAN-REVIEW veto capability | active.
 ### IDEA-065 | 2026-08-29 | MISSION W1-06 | sync handoff windows between agents for seamless task transitions | active.
 ### IDEA-067 | 2026-08-29 | MISSION W1-06 amendment | pull_request_target workflows require author allowlist for security | active.
+<<<<<<< HEAD
+### IDEA-060 | 2026-08-29 | MISSION RELUME-INTAKE v1 | design artifacts versioned with code in sync with Relume exports as versioned artifacts in docs/relume/ | active.
+### IDEA-061 | 2026-08-29 | MISSION RELUME-INTAKE v1 | external-tool resets as batch boundaries for Relume workflow | active.
+### IDEA-063 | 2026-08-29 | MISSION INFRA-14 | default-manual machine policy (adopt on trigger, free-tier trials first) | active.
+### IDEA-064 | 2026-08-29 | MISSION W1-06 | auto-merge as workflow with HUMAN-REVIEW veto capability | active.
+### IDEA-065 | 2026-08-29 | MISSION W1-06 | sync handoff windows between agents for seamless task transitions | active.
+### IDEA-067 | 2026-08-29 | MISSION W1-06 amendment | pull_request_target workflows require author allowlist for security | active.
 ### IDEA-068 | 2026-08-29 | MISSION W1-04 amendment | every workflow job gets an explicit permissions block for security and clarity | active.
 ### IDEA-069 | 2026-08-29 | MISSION INFRA-16 | terminal-first small-fix policy for systemic few-line changes | active.
 ### IDEA-070 | 2026-08-29 | MISSION INFRA-16 | branch-check discipline to prevent mis-branched commits | active.

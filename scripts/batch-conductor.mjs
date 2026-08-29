@@ -24,6 +24,13 @@ async function runConductor() {
   // Read WAVE_QUEUE.md
   const queueContent = await fs.readFile('docs/WAVE_QUEUE.md', 'utf8');
 
+  // Check for ALL-IDLE condition: no CLAIMED/IN-PROGRESS rows remain
+  const claimedInProgressCount = (queueContent.match(/\|\s*(CLAIMED|IN-PROGRESS)\s*\|/gi) || []).length;
+  if (claimedInProgressCount === 0 && queueContent.includes('|')) {
+    console.log('ALL-IDLE: No CLAIMED/IN-PROGRESS tasks detected in queue.');
+    await updateAgentBoard('ALL-IDLE', 'All agents are idle - no CLAIMED/IN-PROGRESS tasks remain.');
+  }
+
   // Parse the explicit batch status table first
   const batchStatusMap = {};
   const batchStatusSectionStart = queueContent.indexOf('## Batch Status');
