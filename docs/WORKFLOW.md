@@ -32,3 +32,8 @@ For parallel execution and isolation of tasks, use git worktrees:
 - Root directory operations should only execute harness scripts (e.g., conductor, fleet-status).
 - All build and test operations must use pnpm filters: `pnpm --filter ./apps/web build` or similar.
 - Package managers at root level: use pnpm exclusively, no npm commands allowed.
+
+## Operating Rules
+- ONE WRITER PER CHECKOUT (rule 39): D:\ferrum_os (main) is Qoder-CN exclusive. Every other seat operates only in its assigned worktree path. Encountering a dirty/merge/cherry-pick/rebase state you did not create -> STOP and report via conductor. Resolving another seat's operation = logged correction.
+- SINGLE CANONICAL LOGS (rule 40): ACTIVITY_LOG.md, METHOD_LOG.md, IDEAS_LOG.md, AI_HANDOFF.md live under docs/ ONLY. Creating a second path for an existing log = logged correction.
+- DISPATCH SERIALIZATION + PREFLIGHT (rule 41): AG-008 sequences mutating dispatches; at most ONE seat holds a mutating operation on a shared path at a time. Before ANY mutating git command every seat runs: git branch --show-current; git status --porcelain and aborts+reports if output differs from the dispatch expectation. Non-main seats NEVER push origin/main; worktree+PR only.

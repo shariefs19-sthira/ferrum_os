@@ -9,7 +9,7 @@ Applies to ALL AI agents (Qoder CN, Jules, Qwen Code, VS Code Agents).
 
 ## WHILE working
 - PowerShell: single-line commands; ';' separator, NEVER '&&'.
-- Stage files explicitly; NEVER 'git add .'.
+- Stage files explicitly; NEVER 'git add .' .
 - Do NOT modify without explicit approval: apps/web/app/boq-pro/*, package.json, pnpm-lock.yaml, .next/**.
 - One writer per file at a time.
 
@@ -45,3 +45,9 @@ Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
 ## STUCK->QODER (rule 37): any task (any agent or the human) stuck on a terminal-resolvable blocker (git tangles, env/PATH issues, version pins, file ops, server starts) is immediately handed to Qoder-CN (WRITER-MAIN, real checkout + terminal) as the unblocking step; the stuck agent waits or continues on non-blocked scope. Tag such commits [AI: Qoder-CN][unblock:<task-id>].
 
 ## ROUTE BY OBSERVED CORRECTION COST (rule 38): default execution = Qoder chats (one per worktree, one branch each); volume/docs = Cline + Copilot; Jules = overnight overflow only, re-earned by scorecard. Parallelism via worktrees, never shared checkouts.
+
+## ONE WRITER PER CHECKOUT (rule 39): D:\ferrum_os (main) is Qoder-CN exclusive. Every other seat operates only in its assigned worktree path. Encountering a dirty/merge/cherry-pick/rebase state you did not create -> STOP and report via conductor. Resolving another seat's operation = logged correction.
+
+## SINGLE CANONICAL LOGS (rule 40): ACTIVITY_LOG.md, METHOD_LOG.md, IDEAS_LOG.md, AI_HANDOFF.md live under docs/ ONLY. Creating a second path for an existing log = logged correction.
+
+## DISPATCH SERIALIZATION + PREFLIGHT (rule 41): AG-008 sequences mutating dispatches; at most ONE seat holds a mutating operation on a shared path at a time. Before ANY mutating git command every seat runs: git branch --show-current; git status --porcelain and aborts+reports if output differs from the dispatch expectation. Non-main seats NEVER push origin/main; worktree+PR only.
