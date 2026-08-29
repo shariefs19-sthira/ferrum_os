@@ -12,7 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/procurehub',
     '/investflow',
     '/communitybuild',
-    '/resources'
+    '/resources',
+    '/resources/blog',
+    '/resources/blog/is-1200-vs-cesmm4',
+    '/resources/blog/monsoon-concreting',
+    '/resources/blog/ulin-explained',
+    '/resources/case-studies'
   ]
   
   const lastModified = new Date()
