@@ -67,7 +67,9 @@ export default function DocumentationPage() {
                       <p className="text-gray-600 mb-4">{resource.description}</p>
                       <div className="flex items-center text-blue-600 font-medium">
                         <span>Learn more</span>
-                        <span className="ml-1">→</span>
+<<<<<<< HEAD
+=======
+>>>>>>> origin/w2-17-demo-page
                       </div>
                     </div>
                   </div>
