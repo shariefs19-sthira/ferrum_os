@@ -61,3 +61,6 @@
 ### IDEA-057 | 2024-05-24 | this build | (placeholder) | pending.
 ### IDEA-058 | 2024-05-24 | this build | bulk destructive commands (git clean -fd, rm -rf, drop table) require preview + explicit human approval — rule 33 reversibility made explicit | active.
 ### IDEA-059 | 2024-05-24 | this build | queue rows may only flip DONE via conductor verification or evidenced commit (task tag + method record) | active.
+### IDEA-060 | 2026-08-29 | MISSION RELUME-INTAKE v1 | design artifacts versioned with code in sync with Relume exports as versioned artifacts in docs/relume/ | active.
+### IDEA-061 | 2026-08-29 | MISSION RELUME-INTAKE v1 | external-tool resets as batch boundaries for Relume workflow | active.
+### IDEA-063 | 2026-08-29 | MISSION INFRA-14 | default-manual machine policy (adopt on trigger, free-tier trials first) | active.
