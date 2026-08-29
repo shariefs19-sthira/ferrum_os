@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import type { RelumeComponent } from '../../../packages/shared/src/relume-contracts';
+import type { RelumeComponent } from '@shared/relume-contracts';
 
 interface ProductPageProps {
   productName: string;
