@@ -27,21 +27,22 @@ This document provides the initial context and current state for any AI agent ta
 *   Established a formal queue for work items (WAVE_QUEUE.md).
 *   Defined the Automation Matrix and Auto-Merge Policy.
 *   Introduced task tags for automated tracking.
+*   Implemented a continuous standards cadence with a technology and domain radar (STANDARDS_RADAR.md).
 
 **Current State:**
-*   The `main` branch contains all the updated documentation for the agent system.
+*   The `main` branch contains all the updated documentation for the agent system and standards.
 *   The `docs/AGENT_REGISTRY.md` lists all known agents.
-*   The `docs/WAVE_QUEUE.md` contains the initial set of tasks for WAVE-1.
-*   The `docs/WORKFLOW.md` details the automation policies.
-*   All agents are required to register in `docs/AGENT_REGISTRY.md` before committing code.
-*   Commits are required to include `[task:<id>]` tags.
+*   The `docs/WAVE_QUEUE.md` contains the tasks for WAVE-1, including new standards sweep tasks.
+*   The `docs/STANDARDS_RADAR.md` provides a dynamic view of technology and domain practices.
+*   The `docs/STANDARDS.md` has been updated with review cycles and checklists tied to job types.
+*   All agents are required to cite standards implemented in their PR descriptions.
 
 **Next Steps:**
-*   Implement the auto-merge queue mechanism (native or app).
-*   Develop the task-tag tracking script to update `WAVE_QUEUE.md` and `AGENT_BOARD.md`.
-*   Ensure all agents comply with the new tagging and auto-merge policies.
+*   Execute the first standards sweep tasks (W1-21, W1-22) from `WAVE_QUEUE.md`.
+*   Ensure all agents comply with the new standards citation requirement in PRs.
+*   Maintain the `STANDARDS_RADAR.md` as new technologies and practices are evaluated.
 
 **Context/Links:**
 *   Refer to `docs/ACTIVITY_LOG.md` for a chronological list of completed tasks.
 *   Check `docs/AGENT_BOARD.md` for the current status of any assigned agents.
-*   Consult `docs/ROLES.md`, `docs/JOBS.md`, and `docs/WORKFLOW.md` for role assignments, job definitions, and automation rules.
+*   Consult `docs/ROLES.md`, `docs/JOBS.md`, `docs/WORKFLOW.md`, and `docs/STANDARDS.md` for role assignments, job definitions, workflow rules, and current standards.

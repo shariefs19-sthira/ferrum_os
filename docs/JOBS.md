@@ -17,3 +17,4 @@ J12 Accessibility pass: WCAG AA on touched routes | T1,T2,T5 | MID | —.
 J13 Content/SEO/i18n: meta/OG/structured data valid | any | FREE | —.
 J14 Review (Group B judgment layer): structured verdict PASS/FIX/ESCALATE with refs | T4 | PAY HIGH | ALWAYS (this is the bought-judgment slot).
 J15 Policy/enforcement config: Danger/Semgrep rules mirror AGENTS.md | T1,T2 | MID | —.
+J16 Standards sweep: research latest best practices for assigned surface since last sweep; DoD = dated report with sources + radar move proposals | T1,T2,T4 | MID | HIGH if compliance/legal.

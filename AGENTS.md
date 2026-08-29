@@ -20,6 +20,7 @@
 17. DISCUSSION CAPTURE: any workflow/security/process insight from a human-agent conversation is appended to docs/IDEAS_LOG.md (or the owning doc) before session end. No valuable discussion dies in chat history.
 18. REGISTRY: no AI commits before registering (unique handle + position + tier). Every commit: [AI: handle]; every log: **By:** handle [POS:tag]. Exit = update row (status, stats, reason). Unexpected death = monitor flags, human marks EXITED-UNEXPECTED.
 19. TASK TAGS: every commit includes [task:<id>] from docs/WAVE_QUEUE.md; fleet-status auto-updates queue + board from tags; manual board edits only for BLOCKED/IDLE.
+20. STANDARDS CADENCE: sweeps at every wave boundary + monthly deep; BEFORE step includes modernity check vs radar; PR descriptions cite standards implemented; Group B rejects PRs lacking citations for J01/J03/J04/J10/J12 jobs.
 
 ## UNIVERSAL ONBOARDING (any model, any vendor, any capability)
 1. Read this file fully. Every rule applies to every AI agent regardless of vendor.

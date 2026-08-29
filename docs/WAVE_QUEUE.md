@@ -24,3 +24,5 @@
 | W1-18 | README/MASTER_PLAN refresh | J08 | FREE | | open |
 | W1-19 | gh-dash monitor setup | J15 | FREE | | open |
 | W1-20 | i18n skeleton | J13 | FREE | | open |
+| W1-21 | TECH SWEEP | J16 | MID | | open |
+| W1-22 | DOMAIN SWEEP (construction/land/estimation compliance) | J16 | HIGH | | open |

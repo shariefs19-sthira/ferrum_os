@@ -21,3 +21,6 @@
 ### IDEA-017 | 2024-05-23 | this build | cron fleet digest | active.
 ### IDEA-018 | 2024-05-23 | this build | release-please changelogs | active.
 ### IDEA-019 | 2024-05-23 | this build | Renovate automerge devDeps/patch | active.
+### IDEA-020 | 2024-05-23 | this build | continuous dual-surface standards refresh | active.
+### IDEA-021 | 2024-05-23 | this build | radar pattern | active.
+### IDEA-022 | 2024-05-23 | this build | cite-standards-in-PR enforcement | active.

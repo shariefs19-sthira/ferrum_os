@@ -10,7 +10,7 @@ ONBOARD(step 0: register in docs/AGENT_REGISTRY.md) -> BRIEF(human) -> ONBOARD(a
 Group A never reviews Group A; scope cap 15 files; protected files need HUMAN-APPROVED tag; no history rewrites; timeout discipline 5s; sessions never resumed.
 
 ## WAVE PROTOCOL
-Human labels 10-20 tasks as {id, J-type, file scope, tier, priority}. Disjoint-scope check mandatory before launch. Tasks sit in a LABELED QUEUE (docs/WAVE_QUEUE.md); agents (existing or newly onboarded) PULL the highest-priority task matching their declared tier; human may override. Build parallel; land serial (merge queue).
+Human labels 10-20 tasks as {id, J-type, file scope, tier, priority}. Disjoint-scope check mandatory before launch. Tasks sit in a LABELED QUEUE (docs/WAVE_QUEUE.md); agents (existing or newly onboarded) PULL the highest-priority task matching their declared tier; human may override. Build parallel; land serial (merge queue). At every wave boundary, a STANDARDS SWEEP (J16) is conducted for both TECH and DOMAIN surfaces.
 
 ## IMMEDIATE CHECK
 On PR open, Group B runs same-second: automated layer (CI+Danger+Semgrep+ReviewDog+pixelmatch) PLUS one PAY-HIGH reviewer (J14) fed a CONTEXT PACK = mission brief + J-type checklist from STANDARDS.md + relevant contract excerpt + AGENTS.md rules. Verdict format: PASS / FIX(cite lines+standard) / ESCALATE(human). Max 2 fix loops.
@@ -30,6 +30,7 @@ Versioning: WORKFLOW.md semver; every promoted idea bumps minor; CHANGELOG entry
 | ENFORCER | Danger-JS + Semgrep + ReviewDog | Policy as code. |
 | MONITOR | gh-dash + pixelmatch | Observability. |
 | MERGE QUEUE | Infra (native or app) | Auto-merge policy applies. |
+| SCOUT | Agent | Tier requires T4; researches new tech/practices. |
 
 ## AUTO-MERGE POLICY
 Auto-merge is permitted only when: build green + danger green + scope <= 15 files + no protected files modified + [AI: handle] tag present in PR title/description/commits + agent has >=2 clean landings in AGENT_REGISTRY. Merge queue is mandatory. The first 2 PRs from any new agent must be manually clicked by a human.
