@@ -19,7 +19,7 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W1-02   |        | B1    | J06      | Qoder-CN    | DONE   | 3 hrs         |
 | W1-04   |        | B1    | J15      | Qoder-CN    | DONE   | 2 hrs         |
 | W1-07   |        | B1    | J04      | Jules-Owner-B | DONE   | 5 hrs         |
-| W1-13   |        | B1    | J05      | Jules-Owner-B | DONE   | 4 hrs         |
+| W1-13   |        | B1    | J15      | Jules-Owner-B | DONE   | 4 hrs         |
 | W1-08   |        | B1    | J07      | Jules-Fork-A  | DONE   | 2 hrs         |
 | W1-11   |        | B1-E  | J13      | Cline-GLM-Flash | DONE   | 1 hr          |
 | W1-21   |        | B1    | J16/D-RES| Scout (seat-unfilled) | DONE   | 8 hrs         |
@@ -38,5 +38,6 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W1-17   |        | B3    | J11      | (to be assigned) | OPEN   | 3 hrs         |
 | W1-19   |        | B3    | J15      | (to be assigned) | OPEN   | 2 hrs         |
 | W1-23   |        | B2    | J03      | Operator    | OPEN   | 4 hrs         |
+| W1-23.1 | W1-23  | B2    | J01      | Qoder-CN    | OPEN   | 2 hrs         |
 | W1-24   |        | B2    | J08      | Operator    | OPEN   | 2 hrs         |
 | W1-25   |        | B2    | J16/D-RES| Scout       | OPEN   | 6 hrs         |

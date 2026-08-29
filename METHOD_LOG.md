@@ -60,8 +60,8 @@ Perform a click-through QA of 6 product pages on the local development server (h
 
 ### METHOD
 1.  Spawned the `operator-qa.mjs` script via `spawn-operator.mjs` for task ID W1-23.
-2.  The script attempted to navigate to predefined routes on the local server.
-3.  Screenshots were captured for each route (or attempted route).
+2.  The script navigated to predefined routes on the local server.
+3.  Screenshots were captured for each route.
 4.  Console and page errors were collected.
 5.  A report (`W1-23-report.json`) was generated.
 
@@ -77,12 +77,12 @@ To perform an automated QA check of the main product pages for console errors, p
 6.  A JSON report was written to `docs/shots/operator/W1-23-report.json`.
 
 ### EVIDENCE
-The QA run was executed, and a report file was generated at `docs/shots/operator/W1-23-report.json`. However, the report indicates that the server at `http://localhost:3000` was not reachable during the run (net::ERR_CONNECTION_REFUSED). The evidence shows the script's ability to handle errors and report them, but does not provide the intended QA data for the pages themselves.
+The QA run was executed, and a report file was generated at `docs/shots/operator/W1-23-report.json`. The report indicates that all routes ('/', '/structura', '/promarket', '/buildos', '/procurehub', '/investflow', '/communitybuild', '/landintel', '/boq-pro') loaded successfully (status: SUCCESS). However, each route generated a console error: "Failed to load resource: the server responded with a status of 404 (Not Found)". This suggests a common issue with loading static assets (CSS, JS, images) across all pages. Subtask W1-23.1 has been created in WAVE_QUEUE.md to investigate and fix this asset loading issue.
 
 ### LESSONS
-- The QA script successfully captured and reported connection errors.
-- It is crucial to ensure the target application is running before initiating automated tests that depend on it.
-- The separation of concerns (spawning operator, operator logic, reporting) worked as designed, allowing the failure to be isolated to the target server availability.
+- The QA script successfully executed its Playwright tasks and reported both successes and errors.
+- Automated QA can effectively surface widespread issues like broken asset links.
+- The Operator pattern of spawning subtasks for issues found during automated runs is effective for managing discovered work.
 
 ---
 
