@@ -1,7 +1,7 @@
 param([string]$ProdUrl = '')
 
 $c = & curl.exe -m 3 -s -o NUL -w '%{http_code}' http://localhost:3001/
-if ($c -ne '200') { Stop-Process -Name node -Force -ErrorAction SilentlyContinue; Start-Process powershell -ArgumentList '-NoExit','-Command','cd D:\ferrum_os; pnpm --filter ./apps/web start -p 3001'; Start-Sleep -Seconds 10 }
+if ($c -ne '200') { & "$PSScriptRoot\live-server.ps1"; Start-Sleep -Seconds 10 }
 
 $base = if ($ProdUrl) { $ProdUrl } else { 'http://localhost:3001' }
 $routes = @('/','/landintel','/structura','/boq-pro','/promarket','/investflow','/communitybuild','/buildos')
