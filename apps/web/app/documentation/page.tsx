@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 
 export default function DocumentationPage() {
   const resources = [
@@ -68,7 +67,7 @@ export default function DocumentationPage() {
                       <p className="text-gray-600 mb-4">{resource.description}</p>
                       <div className="flex items-center text-blue-600 font-medium">
                         <span>Learn more</span>
-                        <ArrowRight className="ml-1 h-4 w-4" />
+                        <span className="ml-1">→</span>
                       </div>
                     </div>
                   </div>
