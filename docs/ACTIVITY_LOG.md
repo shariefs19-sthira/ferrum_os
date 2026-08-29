@@ -1,6 +1,24 @@
 # ðŸ¤– Ferrum OS - AI Agent Workflow & Coordination Guide
 
 ## AI Agent Coordination Protocol
+
+### 13:56 - W1-18 claim start
+**Action:** Claiming W1-18 for docs refresh (Cline economy takes W1-11/20)
+**By:** copilot-cli-vscode (AG-013)
+**Status:** ⏳ CLAIMED
+
+**Accomplished:**
+- Edited docs/WAVE_QUEUE.md to mark task W1-18 as CLAIMED-copilot-cli-vscode with start time.
+
+**Files Modified:**
+- docs/WAVE_QUEUE.md
+
+**Next Steps:**
+- Complete docs refresh for ROLES.md, WORKFLOW.md, STANDARDS.md and update ACTIVITY_LOG.md with completion record once work finishes.
+
+---
+
+## Standard Operating Procedure
 1. **Agent Identification:** All commits must include AI name: `git commit -m "feat: [AI: Name] description"`
 2. **File Locking:** Check `docs/ACTIVE_WORK.md` before editing
 3. **Conflict Resolution:** Priority: Human > Senior AI > Junior AI

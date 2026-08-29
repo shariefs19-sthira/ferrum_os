@@ -13,3 +13,4 @@
 | AG-009 | Conductor | infra bot | infra | [POS:CONDUCTOR] | 2024-05-23 | - | ACTIVE | D-OPS | 0 | 0 | batch gated release train. |
 | AG-010 | Cline-GLM-Flash | harness Cline + GLM-4-Flash | B | [POS:WRITER-VOLUME] | 2024-05-24 | - | ACTIVE | D-QA, D-DOC | 0 | 0 | free, very-fast, light-quality. |
 | AG-011 | Operator | Open Interpreter + agent-browser | S+ | [POS:OPERATOR] | 2024-05-24 | - | ACTIVE | D-QA, D-OPS | 0 | 0 | computer-use (T5+T6) via sandboxed Chrome. Safety controls: allowlist Chrome profile, no personal logins, domain allowlist (localhost/127.0.0.1/github.com), file whitelist (apps/, services/, docs/, scripts/) |
+| AG-013 | copilot-cli-vscode | GitHub Copilot (VS Code runtime) | B | [POS:WRITER-HOTFIX] | 2026-08-29 | - | ACTIVE | W1-18 | 0 | 0 | T1:Yes (persistent checkout); T2:Yes (push branches/PR); T3:No (no isolated sandbox); T4:Yes (limited web/API access); T5:Limited (UI inspection requires human). |
