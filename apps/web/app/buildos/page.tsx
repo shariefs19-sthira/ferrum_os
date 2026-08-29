@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import BuildOSFeatures from '../../components/BuildOSFeatures';
 import ProductPage from '../../components/ProductPage';
 import { productsData } from '../../components/product-data';
 
@@ -12,14 +13,17 @@ const BuildOSPage = () => {
   }
 
   return (
-    <ProductPage
-      productName={product.name}
-      productDescription={product.description}
-      primaryColor={product.primaryColor}
-      secondaryColor={product.secondaryColor}
-      accentColor={product.accentColor}
-      components={product.components}
-    />
+    <>
+      <ProductPage
+        productName={product.name}
+        productDescription={product.description}
+        primaryColor={product.primaryColor}
+        secondaryColor={product.secondaryColor}
+        accentColor={product.accentColor}
+        components={product.components}
+      />
+      <BuildOSFeatures />
+    </>
   );
 };
 
