@@ -66,3 +66,4 @@
 ### IDEA-063 | 2026-08-29 | MISSION INFRA-14 | default-manual machine policy (adopt on trigger, free-tier trials first) | active.
 ### IDEA-064 | 2026-08-29 | MISSION W1-06 | auto-merge as workflow with HUMAN-REVIEW veto capability | active.
 ### IDEA-065 | 2026-08-29 | MISSION W1-06 | sync handoff windows between agents for seamless task transitions | active.
+### IDEA-067 | 2026-08-29 | MISSION W1-06 amendment | pull_request_target workflows require author allowlist for security | active.

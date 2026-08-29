@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Approve and Merge PR
-        if: github.event.pull_request.user.login == 'dependabot[bot]'
+        if: contains(fromJSON('["shariefs19-sthira","reifmusicexpress-code","google-labs-jules"]'), github.event.pull_request.user.login) && !github.event.pull_request.draft && !contains(github.event.pull_request.body, 'HUMAN-REVIEW')
         uses: dependabot/fetch-metadata@v2.2.0
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           
-      - name: Enable Auto-Merge for Dependabot PRs
-        if: github.event.pull_request.user.login == 'dependabot[bot]'
+      - name: Enable Auto-Merge for Allowed Authors
+        if: contains(fromJSON('["shariefs19-sthira","reifmusicexpress-code","google-labs-jules"]'), github.event.pull_request.user.login) && !github.event.pull_request.draft && !contains(github.event.pull_request.body, 'HUMAN-REVIEW')
         run: |
           gh pr merge --auto --merge "$PR_URL"
         env:
