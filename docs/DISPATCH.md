@@ -30,6 +30,9 @@ This document outlines the protocol for assigning tasks to AI agents based on th
     b. Log the exploration decision in the assignment record.
 4.  **Finalize**: Record the assignment in `WAVE_QUEUE.md` and update `ASSIGNMENT_LOG.md` with the prediction.
 
+## New Rule: Harness Routing for Agent-authored Scripts
+Agent-authored scripts (like this one) should default to the Node.js (.mjs) harness for improved portability and consistency, leveraging the existing Node.js runtime environment. The PowerShell (.ps1) harness is deprecated for new agent scripts.
+
 ## Weight Table (Human-Adjustable Parameters)
 These weights are used in the scoring formula found in `MODEL_SCORECARD.md`.
 - `success_rate_weight`: 0.4
@@ -37,6 +40,12 @@ These weights are used in the scoring formula found in `MODEL_SCORECARD.md`.
 - `ci_break_penalty_weight`: 0.2
 - `duration_penalty_weight`: 0.1
 - `cost_efficiency_bonus_weight`: 0.2
+
+## Rules
+
+1.  **Scorecard Routing:** Routine assignment is driven by the deterministic scorecard lookup. Deliberation occurs only when data is sparse (n<3), on ties, or for HIGH-tier tasks.
+2.  **Explore Budget:** A fixed percentage (e.g., 10%) of low-risk, high-volume tasks are assigned to models not currently performing best (the 'explore pool') to gather more data.
+3.  **Harness Routing:** Agent-authored scripts (like this one) should default to the Node.js (.mjs) harness for improved portability and consistency, leveraging the existing Node.js runtime environment. The PowerShell (.ps1) harness is deprecated for new agent scripts.
 
 ## Cadence
 - A new dispatch decision is made for every task at every wave boundary.

@@ -1,3 +1,7 @@
+<#
+NOTE: This script is DEPRECATED. Please use the Node.js version: scripts/spawn-operator.mjs
+#>
+
 # PowerShell script to spawn an operator task
 # Reads the next OPEN operator task from WAVE_QUEUE.md
 # Composes a prompt from the task description and the operator role card

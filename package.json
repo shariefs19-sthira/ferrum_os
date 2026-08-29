@@ -1,14 +1,16 @@
 {
-  "name": "ferrum_os",
+  "name": "@ferrum_os/root",
   "private": true,
   "scripts": {
-    "fleet": "node scripts/fleet-status.mjs"
+    "fleet-status": "node scripts/fleet-status.mjs",
+    "conductor": "node scripts/batch-conductor.mjs",
+    "operator": "node scripts/spawn-operator.mjs"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17"
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "packageManager": "pnpm@8.15.0"
+  }
 }
