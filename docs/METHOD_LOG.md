@@ -1,5 +1,11 @@
 # METHOD_LOG
 
+## 2026-08-29T23:25:00+05:30 | W2-wave governance | [AI: Copilot] | Status: evidenced
+- Why: The W2 wave needed governance alignment across the board, the task queue, and the landed commit trace so the active/static assignment model matched the actual work and shas.
+- How: Read `git log --oneline --all --grep='\[task:W2-' -i -n 30` and reconciled the board state with the verified landing commits for W2-04 through W2-12.
+- Evidence: W2-04 4034607 homepage Relume rebuild; W2-05 06dd7e1 LandIntel features; W2-06 f369f40 IS Code Guides page; W2-07 148eed8 branded 404 + loading skeleton; W2-08 2449e45 blog + case studies; W2-09 682c018 robots + sitemap; W2-10 6d15693 footer component; W2-11 f6d0842 web manifest; W2-12 60c6746 static pricing page.
+- Lessons: Governance docs must be reconciled to verifiable git land traces, not just narrative task status, and the board should clearly distinguish active work from static completion handoff.
+
 ## 2026-08-29T16:50:07+05:30 | W1-06 | [AI: Copilot] | Status: LANDED
 - Why: The auto-merge enabler needed a human-review veto and a consistent non-draft PR gate; the telemetry showed the dispatcher had double-assigned the work and the mitigation needed documentation.
 - How: The workflow was created with a veto string of `HUMAN-APPROVED + [task:W1-06]`, the related idea record was appended, and the handoff state was refreshed after the branch landed via Qoder's branch.
