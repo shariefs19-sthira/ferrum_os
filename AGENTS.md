@@ -23,3 +23,6 @@ Applies to ALL AI agents (Qoder CN, Jules, Qwen Code, VS Code Agents).
 
 ### RULE 44 — CONTINUOUS ASSIGNMENT
 Every active seat always holds a claimed task. The conductor issues the next task in the same relay as any green report. A green seat left idle is logged as a correction against AG-008.
+
+### RULE 46 — VERIFIED GREEN
+Any "build green" claim must include the final 3 build lines and the exit code. An unverified claim results in a logged correction.
