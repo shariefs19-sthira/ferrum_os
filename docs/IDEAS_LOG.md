@@ -57,3 +57,6 @@
 ### IDEA-053 | 2024-05-24 | this build | harness routing by reliability data — the scorecard applied to tooling itself | active.
 ### IDEA-054 | 2024-05-24 | this build | operator v1 = scripted Playwright hands; AI browser agent reserved for judgment-only tasks | active.
 ### IDEA-055 | 2024-05-24 | W1-23.1 execution | operator QA must verify the server banner (Next.js ready / __next marker) before running — wrong-harness runs produce false findings | active.
+### IDEA-056 | 2024-05-24 | this build | git-push-as-lock claim protocol | active.
+### IDEA-057 | 2024-05-24 | this build | (placeholder) | pending.
+### IDEA-058 | 2024-05-24 | this build | bulk destructive commands (git clean -fd, rm -rf, drop table) require preview + explicit human approval — rule 33 reversibility made explicit | active.

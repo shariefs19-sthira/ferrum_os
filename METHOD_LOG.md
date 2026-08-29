@@ -39,50 +39,45 @@ This document captures the methodology, reasoning, and outcomes for significant 
 
 ---
 
-## Task Record: W1-23
+## Incident Log: MICRO [task:INFRA-7]
 
-**Task ID:** W1-23
-**Type:** QA
+**Task ID:** INFRA-7
+**Type:** Config
 **Date:** 2024-05-24
 **Agent:** Qoder-CN
 
 ### SCOPE DECLARED
-- **Files/Directories:** apps/web/, docs/
-- **Domains/Network:** localhost:5173, github.com
-- **Tools/Commands:** node, playwright
-- **Forbidden Operations:** delete, payment, email, prod_push
+- **Files/Directories:** N/A (inspection task)
+- **Domains/Network:** N/A
+- **Tools/Commands:** list_dir, git status
+- **Forbidden Operations:** delete, gitignore
 
 ### RESEARCH
 N/A
 
 ### SCOPE
-Perform a click-through QA of 6 product pages on the local development server (http://localhost:3000).
+Inspect specific untracked directories (`apps/api/`, `apps/mobile/`, `packages/database/`, `apps/web/app/landintel/`) for content and purpose.
 
 ### METHOD
-1.  Spawned the `operator-qa.mjs` script via `spawn-operator.mjs` for task ID W1-23.
-2.  The script navigated to predefined routes on the local server.
-3.  Screenshots were captured for each route.
-4.  Console and page errors were collected.
-5.  A report (`W1-23-report.json`) was generated.
+Used `list_dir` tool to enumerate contents of each specified directory.
 
 ### WHY
-To perform an automated QA check of the main product pages for console errors, page load errors, and visual integrity.
+To triage untracked directories and assess risk/corrective action before applying `git clean` or similar destructive operations.
 
 ### HOW
-1.  The operator spawner identified task W1-23 as an OPEN QA task for the Operator.
-2.  It generated a scope-enforcing prompt limiting the operator to specific files/directories and domains (localhost:5173, github.com).
-3.  It launched the `scripts/operator-qa.mjs --task W1-23` command.
-4.  The QA script navigated to routes ('/', '/structura', '/promarket', '/buildos', '/procurehub', '/investflow', '/communitybuild', '/landintel', '/boq-pro').
-5.  It collected errors and took screenshots.
-6.  A JSON report was written to `docs/shots/operator/W1-23-report.json`.
+1.  Called `list_dir` on `apps/api/`, `apps/mobile/`, `packages/database/`, and `apps/web/app/landintel/`.
+2.  Recorded the contents (or lack thereof) for each.
+3.  Compiled a triage report with recommendations based on findings and task guidelines.
 
 ### EVIDENCE
-The QA run was executed, and a report file was generated at `docs/shots/operator/W1-23-report.json`. The report indicates that all routes ('/', '/structura', '/promarket', '/buildos', '/procurehub', '/investflow', '/communitybuild', '/landintel', '/boq-pro') loaded successfully (status: SUCCESS). However, each route generated a console error: "Failed to load resource: the server responded with a status of 404 (Not Found)". This suggests a common issue with loading static assets (CSS, JS, images) across all pages. Subtask W1-23.1 has been created in WAVE_QUEUE.md to investigate and fix this asset loading issue.
+- `apps/api/` is empty.
+- `apps/mobile/` is empty.
+- `packages/database/` is empty.
+- `apps/web/app/landintel/` contains `page.tsx` (already tracked under `apps/web`).
 
 ### LESSONS
-- The QA script successfully executed its Playwright tasks and reported both successes and errors.
-- Automated QA can effectively surface widespread issues like broken asset links.
-- The Operator pattern of spawning subtasks for issues found during automated runs is effective for managing discovered work.
+- Empty directories pose no immediate risk for data loss but can lead to project sprawl if not managed.
+- Commands like `git clean -f -d` could potentially remove empty directories, which might be a near-miss for unintended structural changes if those directories held significance. Always preview destructive actions.
 
 ---
 
@@ -132,6 +127,53 @@ To verify that the 404 errors were caused by the wrong development server harnes
 - Starting development servers programmatically, especially in background processes on different platforms (Windows), can be unreliable if the interaction with the terminal is limited.
 - Verifying the *state* of a service (e.g., server readiness, specific markers) after starting it is crucial before proceeding with dependent tasks.
 - The `get_terminal_output` tool did not successfully capture the output of the background `npx next dev` process, hindering debugging.
+
+---
+
+## Task Record: W1-23
+
+**Task ID:** W1-23
+**Type:** QA
+**Date:** 2024-05-24
+**Agent:** Qoder-CN
+
+### SCOPE DECLARED
+- **Files/Directories:** apps/web/, docs/
+- **Domains/Network:** localhost:5173, github.com
+- **Tools/Commands:** node, playwright
+- **Forbidden Operations:** delete, payment, email, prod_push
+
+### RESEARCH
+N/A
+
+### SCOPE
+Perform a click-through QA of 6 product pages on the local development server (http://localhost:3000).
+
+### METHOD
+1.  Spawned the `operator-qa.mjs` script via `spawn-operator.mjs` for task ID W1-23.
+2.  The script navigated to predefined routes on the local server.
+3.  Screenshots were captured for each route.
+4.  Console and page errors were collected.
+5.  A report (`W1-23-report.json`) was generated.
+
+### WHY
+To perform an automated QA check of the main product pages for console errors, page load errors, and visual integrity.
+
+### HOW
+1.  The operator spawner identified task W1-23 as an OPEN QA task for the Operator.
+2.  It generated a scope-enforcing prompt limiting the operator to specific files/directories and domains (localhost:5173, github.com).
+3.  It launched the `scripts/operator-qa.mjs --task W1-23` command.
+4.  The QA script navigated to routes ('/', '/structura', '/promarket', '/buildos', '/procurehub', '/investflow', '/communitybuild', '/landintel', '/boq-pro').
+5.  It collected errors and took screenshots.
+6.  A JSON report was written to `docs/shots/operator/W1-23-report.json`.
+
+### EVIDENCE
+The QA run was executed, and a report file was generated at `docs/shots/operator/W1-23-report.json`. The report indicates that all routes ('/', '/structura', '/promarket', '/buildos', '/procurehub', '/investflow', '/communitybuild', '/landintel', '/boq-pro') loaded successfully (status: SUCCESS). However, each route generated a console error: "Failed to load resource: the server responded with a status of 404 (Not Found)". This suggests a common issue with loading static assets (CSS, JS, images) across all pages. Subtask W1-23.1 has been created in WAVE_QUEUE.md to investigate and fix this asset loading issue.
+
+### LESSONS
+- The QA script successfully executed its Playwright tasks and reported both successes and errors.
+- Automated QA can effectively surface widespread issues like broken asset links.
+- The Operator pattern of spawning subtasks for issues found during automated runs is effective for managing discovered work.
 
 ---
 
