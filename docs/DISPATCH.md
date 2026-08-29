@@ -5,7 +5,7 @@ This document outlines the protocol for assigning tasks to AI agents based on th
 
 ## Decision Template
 
-### ASSIGN `<task_id>` | domain | recommended model/tier | est duration | est cost | INTERNAL: `<per-domain stats>` | EXTERNAL: `<benchmark rank, price, community signal, dated>` | EXPLORE_BUDGET_SPENT (for explore tasks) | PROPHECY INPUT: `<summary of relevant prophecies>` | CONFIDENCE | VETO window.
+### ASSIGN `<task_id>` | domain | recommended model/tier | est duration | est cost | INTERNAL: `<per-domain stats>` | EXTERNAL: `<benchmark rank, price, community signal, dated>` | EXPLORE_BUDGET_SPENT (for explore tasks) | PROPHECY INPUT: `<summary of relevant prophecies>` | CONFIDENCE | VETO window | MACHINE: `<recommended machine/environment>`.
 
 - **task_id**: The unique identifier for the task (e.g., W1-01).
 - **domain**: The constant domain of the task (e.g., D-UI, D-BE, D-QA).
@@ -18,6 +18,7 @@ This document outlines the protocol for assigning tasks to AI agents based on th
 - **PROPHECY INPUT**: Relevant predictions from `PROPHECY_LOG.md` that might affect the assignment choice or risk assessment for this task.
 - **CONFIDENCE**: Dispatcher's confidence level in the recommendation (High/Medium/Low).
 - **VETO window**: A 24-hour period during which a human can override the dispatcher's assignment.
+- **MACHINE**: The recommended machine or environment for executing the task (e.g., local terminal, GitHub Actions, Vercel, Replit).
 
 ## Assignment Pseudocode (Exploit vs Explore)
 1.  **Check Explore Budget**: For low-risk, volume tasks (e.g., J13, J15), decide probabilistically (e.g., 10%) whether to use the explore budget.

@@ -13,3 +13,21 @@
 | AG-009 | Conductor | infra bot | infra | [POS:CONDUCTOR] | 2024-05-23 | - | ACTIVE | D-OPS | 0 | 0 | batch gated release train. |
 | AG-010 | Cline-GLM-Flash | harness Cline + GLM-4-Flash | B | [POS:WRITER-VOLUME] | 2024-05-24 | - | ACTIVE | D-QA, D-DOC | 0 | 0 | free, very-fast, light-quality. |
 | AG-011 | Operator | Open Interpreter + agent-browser | S+ | [POS:OPERATOR] | 2024-05-24 | - | ACTIVE | D-QA, D-OPS | 0 | 0 | computer-use (T5+T6) via sandboxed Chrome. Safety controls: allowlist Chrome profile, no personal logins, domain allowlist (localhost/127.0.0.1/github.com), file whitelist (apps/, services/, docs/, scripts/) |
+| AG-012 | Operator | Open Interpreter + agent-browser | S+ | [POS:OPERATOR] | 2024-05-24 | - | ACTIVE | D-QA, D-OPS | 0 | 0 | MACHINES: Cross-linked with machine infrastructure for computer-use (T5+T6) via sandboxed Chrome. |
+| AG-014 | Replit | Online IDE platform | T2 | [POS:REPLIT] | 2024-05-24 | - | ACTIVE | D-PROTO | 0 | 0 | MACHINES: Cross-linked with Replit machine for rapid prototyping and collaborative coding. |
+
+## MACHINES
+
+Infrastructure machines (not agents) used for various purposes:
+
+| Machine | Description | Cross-link |
+|---------|-------------|------------|
+| GitHub Actions | CI/CD automation | AG-012 Operator uses for automation |
+| Local Terminal | Manual development | Primary development environment |
+| Vercel | Frontend hosting | Deployment platform for frontend |
+| Replit | Online IDE/prototyping | AG-014 Replit for rapid prototyping |
+| Railway | Backend hosting | API deployment and database hosting |
+| AWS EC2 | Cloud compute | Scalable infrastructure for production |
+| Google Cloud Platform | Cloud services | Advanced cloud services, ML/AI workloads |
+| Docker | Containerization | Consistent environments, microservices |
+| Kubernetes | Container orchestration | Large-scale deployments, auto-scaling |
