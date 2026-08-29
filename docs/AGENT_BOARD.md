@@ -10,7 +10,7 @@ This document tracks the current activity of agents in the Ferrum OS fleet. Upda
 |----|--------|---------|--------|-----------|-------------|
 | AG-001 | Qoder-CN | INFRA-19 | ACTIVE | 2026-08-29 19:35 UTC | Executing DISPATCH-v2 tasks: verifying PRs, removing lockfile, updating docs. |
 | AG-002 | Jules | W1-14 | OPEN | 2026-08-29 18:00 UTC | Overnight overflow, awaiting assignment. |
-| AG-003 | Cline | #8,W1-20 | CLAIMED | 2026-08-29 19:35 UTC | Landing PR #8, starting W1-20. |
+| AG-003 | Cline | #8,W1-20 | COMPLETE | 2026-08-29 19:45 UTC | PR #8: HUMAN-APPROVED + [task:W1-17] landed, proceeding to W1-20. |
 | AG-004 | Copilot | docs | CLAIMED | 2026-08-29 19:35 UTC | Documentation tasks, awaiting human approval for demotion. |
 | AG-005 | Qwen-Code | research | UNAVAILABLE | 2026-08-29 19:35 UTC | Research absorbed by AG-008 (Qwen-Web), no active tasks. |
 | AG-006 | Operator | W1-23/W1-24 | ACTIVE | 2026-08-29 19:00 UTC | QA and system interaction tasks. |
