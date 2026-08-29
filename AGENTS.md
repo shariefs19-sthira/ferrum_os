@@ -51,3 +51,7 @@ Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
 ## SINGLE CANONICAL LOGS (rule 40): ACTIVITY_LOG.md, METHOD_LOG.md, IDEAS_LOG.md, AI_HANDOFF.md live under docs/ ONLY. Creating a second path for an existing log = logged correction.
 
 ## DISPATCH SERIALIZATION + PREFLIGHT (rule 41): AG-008 sequences mutating dispatches; at most ONE seat holds a mutating operation on a shared path at a time. Before ANY mutating git command every seat runs: git branch --show-current; git status --porcelain and aborts+reports if output differs from the dispatch expectation. Non-main seats NEVER push origin/main; worktree+PR only.
+
+## OBSERVED CORRECTION COUNTER (rule 42): every landing commit/PR body carries corrections:<n>; METHOD_LOG entries carry a **Corrections:** line; MODEL_SCORECARD updates per landing, not per week.
+
+## SCOUT DELIVERABLE FORMAT (rule 43): research outputs end with an adopt/hold/drop table + revisit trigger + cost estimate; narrative-only reports = logged correction.
