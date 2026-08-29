@@ -8,15 +8,15 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status |
 |---------|--------|-------|----------|-------------|--------|
 |         |        | B1    |          |             | OPEN   |
-| W1-01   |        | B1    | J06      | Qoder-CN    | DONE   |
-| W1-02   |        | B1    | J06      | Qoder-CN    | DONE   |
-| W1-04   |        | B1    | J15      | Qoder-CN    | DONE   |
-| W1-07   |        | B1    | J04      | Jules-Owner-B | DONE   |
-| W1-13   |        | B1    | J05      | Jules-Owner-B | DONE   |
-| W1-08   |        | B1    | J07      | Jules-Fork-A  | DONE   |
-| W1-11   |        | B1    | J13      | Jules-Fork-A  | DONE   |
-| W1-21   |        | B1    | J16/D-RES| Scout       | DONE   |
-| W1-22   |        | B1    | J16/D-RES| Scout       | DONE   |
+| W1-01   |        | B1    | J06      | Qoder-CN    | OPEN   |
+| W1-02   |        | B1    | J06      | Qoder-CN    | OPEN   |
+| W1-04   |        | B1    | J15      | Qoder-CN    | OPEN   |
+| W1-07   |        | B1    | J04      | Jules-Owner-B | OPEN   |
+| W1-13   |        | B1    | J05      | Jules-Owner-B | OPEN   |
+| W1-08   |        | B1    | J07      | Jules-Fork-A  | OPEN   |
+| W1-11   |        | B1    | J13      | Jules-Fork-A  | OPEN   |
+| W1-21   |        | B1    | J16/D-RES| Scout (seat-unfilled) | OPEN   |
+| W1-22   |        | B1    | J16/D-RES| Scout (seat-unfilled) | OPEN   |
 |         |        | B2    |          |             | CLOSED |
 | W1-03   |        | B2    | J10      | Qoder-CN    | OPEN   |
 | W1-05   |        | B2    | J15      | Qoder-CN    | OPEN   |
