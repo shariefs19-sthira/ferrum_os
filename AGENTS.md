@@ -44,7 +44,7 @@ Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
 
 ## STUCK->QODER (rule 37): any task (any agent or the human) stuck on a terminal-resolvable blocker (git tangles, env/PATH issues, version pins, file ops, server starts) is immediately handed to Qoder-CN (WRITER-MAIN, real checkout + terminal) as the unblocking step; the stuck agent waits or continues on non-blocked scope. Tag such commits [AI: Qoder-CN][unblock:<task-id>].
 
-## ROUTE BY OBSERVED CORRECTION COST (rule 38): default execution = Qoder chats (one per worktree, one branch each); volume/docs = Cline + Copilot; Jules = overnight overflow only, re-earned by scorecard. Parallelism via worktrees, never shared checkouts.
+## ROUTE BY OBSERVED CORRECTION COST (rule 38): default execution = Qoder chats (one per worktree, one branch each); volume/docs = Cline + Copilot; retired seats receive no routing. Parallelism via worktrees, never shared checkouts.
 
 ## ONE WRITER PER CHECKOUT (rule 39): D:\ferrum_os (main) is Qoder-CN exclusive. Every other seat operates only in its assigned worktree path. Encountering a dirty/merge/cherry-pick/rebase state you did not create -> STOP and report via conductor. Resolving another seat's operation = logged correction.
 
