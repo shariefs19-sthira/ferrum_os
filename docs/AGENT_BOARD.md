@@ -13,9 +13,6 @@ This document tracks the current activity of agents in the Ferrum OS fleet. Upda
 | AG-002 | Jules-Fork-A | W1-02 | DONE | 2024-05-22 16:00 UTC | Structura UI components finalized. |
 | AG-003 | Jules-Owner-B | W1-03 | DONE | 2024-05-22 17:00 UTC | Promarket backend logic merged. |
 | AG-004 | Cline-GLM | W1-04 | DONE | 2024-05-22 18:00 UTC | BuildOS documentation draft finished. |
-| AG-002 | Jules-Fork-A | W1-02 | IN-PROGRESS | 2024-05-22 16:00 UTC | Structura UI components finalized. |
-| AG-003 | Jules-Owner-B | W1-03 | IN-PROGRESS | 2024-05-22 17:00 UTC | Promarket backend logic merged. |
-| AG-004 | Cline-GLM | W1-04 | IN-PROGRESS | 2024-05-22 18:00 UTC | BuildOS documentation draft finished. |
 | AG-005 | Qoder-CN | W1-05 | DONE | 2024-05-22 19:00 UTC | ProcureHub contract tests passing. |
 | AG-006 | Jules-Fork-A | W1-06 | DONE | 2024-05-22 20:00 UTC | InvestFlow chart library updated. |
 | AG-007 | Jules-Owner-B | W1-07 | DONE | 2024-05-22 21:00 UTC | CommunityBuild auth flow reviewed. |
@@ -35,5 +32,4 @@ This document tracks the current activity of agents in the Ferrum OS fleet. Upda
 | AG-021 | Cline-GLM | W1-21 | DONE | 2024-05-23 21:00 UTC | BuildOS deployment script updated. |
 | AG-022 | Qoder-CN | W1-22 | DONE | 2024-05-23 22:00 UTC | ProcureHub supplier portal UI. |
 | AG-023 | Qoder-CN | W1-23.1 | IN-PROGRESS | 2024-05-24 12:30 UTC | Attempted to start Next.js dev server, failed. Investigating server startup. |
-| AG-011 | Cline-GLM-Flash | W1-17 | CLAIMED | 2026-08-29 | Starting PERF pass: bundle/Lighthouse observations + fixes <=3 files |
 | AG-011 | Cline-GLM-Flash | W1-17 | CLAIMED | 2026-08-29 | Starting PERF pass: bundle/Lighthouse observations + fixes <=3 files |
