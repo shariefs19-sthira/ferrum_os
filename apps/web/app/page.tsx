@@ -40,13 +40,20 @@ const products: Product[] = [
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gray-50">
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16 px-4 text-center">
-        <h1 className="text-4xl font-extrabold mb-4">Ferrum OS - AI-Native Construction Platform</h1>
-        <p className="text-xl">9 integrated products for the entire construction lifecycle</p>
+    <main className="min-h-screen bg-slate-50 text-slate-900">
+      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl text-center">
+          <h1 className="text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+            Ferrum OS - AI-Native Construction Platform
+          </h1>
+          <p className="mt-4 text-lg text-blue-50 sm:text-xl">
+            9 integrated products for the entire construction lifecycle
+          </p>
+        </div>
       </section>
-      <section className="max-w-7xl mx-auto py-12 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
