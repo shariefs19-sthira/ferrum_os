@@ -2,6 +2,45 @@
 
 This document captures the methodology, reasoning, and outcomes for significant actions taken during development. It serves as a historical record for future developers and AI agents to understand the context behind decisions.
 
+## Task Record: W1-08
+
+**Task ID:** W1-08
+**Type:** Visual / Code
+**Date:** 2026-08-29
+**Agent:** Jules-Fork-A
+
+### SCOPE DECLARED
+- **Files/Directories:** `apps/web/app/landintel/page.tsx`, `docs/ACTIVITY_LOG.md`, `docs/AGENT_BOARD.md`, `docs/WAVE_QUEUE.md`, `METHOD_LOG.md`
+- **Domains/Network:** `localhost:3001`
+- **Tools/Commands:** git, npm, node
+- **Forbidden Operations:** edits to `apps/web/app/boq-pro/*`, `package.json`, `pnpm-lock.yaml`, `.next/**`, `git add .`, `git commit -a/-am`
+
+### RESEARCH
+Investigated `apps/web/app/landintel/page.tsx` for visual hierarchy and styling alignment. Found opportunities to enhance input focus rings (`focus:ring-2 focus:ring-blue-500`), container elevation (`shadow-lg`), and badge spacing (`px-3 py-1 text-xs font-semibold shadow-sm`).
+
+### SCOPE
+Refine UI component styling in `apps/web/app/landintel/page.tsx` without changing core business logic or API contracts, and update logging documentation.
+
+### METHOD
+1. Examined `apps/web/app/landintel/page.tsx` and identified improvements for container elevation, focus states, and typography hierarchy.
+2. Updated container styling with `rounded-xl shadow-lg border border-gray-100`.
+3. Updated focus states on ULPIN input with `focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all shadow-sm`.
+4. Enhanced badge and button padding and font weight.
+
+### WHY
+Improves visual consistency and feedback for land details search per Relume UI specs without altering backend integration logic.
+
+### HOW
+Modified Tailwind utility class strings in `apps/web/app/landintel/page.tsx`.
+
+### EVIDENCE
+Reviewed JSX structure in `apps/web/app/landintel/page.tsx` and validated cleanliness via `git diff`.
+
+### LESSONS
+Incremental visual adjustments using standardized Tailwind utility classes provide clean UI enhancements without breaking existing component state or API handlers.
+
+---
+
 ## Template
 
 **Task ID:** (e.g., W1-XX or MYY)

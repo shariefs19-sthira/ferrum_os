@@ -88,21 +88,21 @@ export default function LandIntelPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8 font-sans">
-      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <h1 className="text-2xl font-bold text-gray-800">️ LandIntel: ULPIN Lookup</h1>
+      <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+        <div className="flex items-center justify-between gap-3 mb-6">
+          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">🗺️ LandIntel: ULPIN Lookup</h1>
           {/* Updated badge to show LIVE/FALLBACK counts */}
-          <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${mode === "live" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+          <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold shadow-sm transition-colors ${mode === "live" ? "bg-emerald-100 text-emerald-800 border border-emerald-200" : "bg-amber-100 text-amber-800 border border-amber-200"}`}>
             {mode === "live" ? "LIVE" : "FALLBACK"} {telemetry.live} / {telemetry.fallback}
           </span>
         </div>
         <form onSubmit={handleLookup} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Enter 14-digit ULPIN</label>
-            <input type="text" maxLength={14} value={ulpin} onChange={(e) => setUlpin(e.target.value.replace(/\D/g, ""))} placeholder="e.g., 12345678901234" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Enter 14-digit ULPIN</label>
+            <input type="text" maxLength={14} value={ulpin} onChange={(e) => setUlpin(e.target.value.replace(/\D/g, ""))} placeholder="e.g., 12345678901234" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all shadow-sm" />
+            {error && <p className="text-red-500 text-sm mt-1 font-medium">{error}</p>}
           </div>
-          <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition">{loading ? "Fetching Land Data..." : "Lookup Land Details"}</button>
+          <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-2.5 px-4 rounded-lg hover:bg-blue-700 active:bg-blue-800 disabled:bg-gray-400 transition-all font-medium shadow-sm">{loading ? "Fetching Land Data..." : "Lookup Land Details"}</button>
         </form>
         {infoMessage && infoMessage.toLowerCase().includes('offline') && (
           <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md">

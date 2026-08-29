@@ -15,7 +15,7 @@ This document tracks the current activity of agents in the Ferrum OS fleet. Upda
 | AG-005 | Qoder-CN | W1-05 | DONE | 2024-05-22 19:00 UTC | ProcureHub contract tests passing. |
 | AG-006 | Jules-Fork-A | W1-06 | DONE | 2024-05-22 20:00 UTC | InvestFlow chart library updated. |
 | AG-007 | Jules-Owner-B | W1-07 | DONE | 2024-05-22 21:00 UTC | CommunityBuild auth flow reviewed. |
-| AG-008 | Cline-GLM | W1-08 | DONE | 2024-05-22 22:00 UTC | LandIntel data model documented. |
+| AG-008 | Jules-Fork-A | W1-08 | DONE | 2026-08-29 08:30 UTC | LandIntel UI styling refined and logs updated. |
 | AG-009 | Qoder-CN | W1-09 | DONE | 2024-05-22 23:00 UTC | BoQ-Pro calculation engine fixed. |
 | AG-010 | Jules-Fork-A | W1-10 | DONE | 2024-05-23 10:00 UTC | Structura responsive layout complete. |
 | AG-011 | Jules-Owner-B | W1-11 | IN-PROGRESS | 2024-05-23 11:00 UTC | Promarket payment gateway integrated. |
