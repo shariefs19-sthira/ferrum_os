@@ -51,3 +51,4 @@
 ### IDEA-047 | 2024-05-24 | this build | scripted-vs-AI browser token economics | active.
 ### IDEA-048 | 2024-05-24 | this build | four-boundary scope control (project/artifact/reversibility/blast radius) | active.
 ### IDEA-049 | 2024-05-24 | this build | scope violation = HUMAN-HOLD + quarantine | active.
+### IDEA-050 | 2024-05-24 | this build | agent-authored PowerShell must avoid reserved variable names ($pid, $host, $error...) | active.

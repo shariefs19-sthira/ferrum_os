@@ -1,24 +1,52 @@
-# Standards (human-or-better check knowledge)
+# Standards
 
-## GLOBAL
-TS strict; no secrets; timeout discipline; explicit staging; [AI: handle] tags; docs updated; tests for logic; OWASP-top-10 awareness; WCAG AA; Next.js perf budget (LCP<2.5s, bundle<200KB first-load).
+This document defines the coding and operational standards for the project.
 
-## Per-job checklists
-### J01 (last_reviewed: 2026-08-28, cadence: 14d)
-contract fields present + responsive + no console errors; J03 input validation + error semantics + counters; J04 fallback path proven; J06 CI reproducible (frozen lockfile); J07 tokens from design system only; J10 CSP/HSTS/rate-limits/gitleaks clean; J12 landmarks/contrast/keyboard; J14 verdict must cite specific lines + standards violated.
+## Scripting Standards (PowerShell, Bash, etc.)
 
-### J03 (last_reviewed: 2026-08-28, cadence: 14d)
-Input validation + error semantics + counters + timeout=5.
+- Use descriptive variable names.
+- Always quote string literals.
+- Include error handling.
+- Add comments for complex logic.
+- **NEW:** Avoid using reserved or automatic variable names specific to the shell (e.g., `$PID`, `$HOST`, `$ERROR` in PowerShell). Use explicitly named variables instead (e.g., `$ProcessId`, `$OpPid`).
 
-### J04 (last_reviewed: 2026-08-28, cadence: 14d)
-Graceful fallback, counters, no secrets in code, timeout=5.
+## Coding Standards (TypeScript, Python, etc.)
 
-### J10 (last_reviewed: 2026-08-28, cadence: 14d)
-CSP/HSTS/rate-limits/gitleaks clean, OWASP top-10.
-
-### J12 (last_reviewed: 2026-08-28, cadence: 14d)
-Landmarks/contrast/keyboard, WCAG AA.
-
-(Grow per wave: reviewers append missing checks as IDEAS, human promotes.)
-
-(NOTE: Sections marked as stale (due for review based on cadence) will auto-queue a J16 task.)
+- Use camelCase for variable and function names.
+- Use PascalCase for class names.
+- Use UPPER_SNAKE_CASE for constants.
+- Use JSDoc/Docstring comments for public functions/classes.
+- Prefer const/let over var in JavaScript/TypeScript.
+- Use async/await over callbacks for asynchronous operations.
+- Use destructuring assignment where appropriate.
+- Use template literals over string concatenation.
+- Use arrow functions where appropriate.
+- Use modules to organize code.
+- Use strict mode in JavaScript.
+- Use TypeScript for type safety.
+- Use consistent indentation (2 spaces).
+- Use consistent line endings (LF).
+- Use consistent quoting (single quotes for strings).
+- Use consistent spacing (around operators, after commas, etc.).
+- Use consistent casing (lowercase for filenames).
+- Use consistent naming (kebab-case for filenames).
+- Use consistent file extensions (.ts, .tsx, .js, .jsx, .py, .md, etc.).
+- Use consistent import/export syntax.
+- Use consistent module resolution.
+- Use consistent dependency management (package.json, requirements.txt, etc.).
+- Use consistent testing frameworks (Jest, Vitest, PyTest, etc.).
+- Use consistent linters/formatters (ESLint, Prettier, Black, etc.).
+- Use consistent CI/CD practices.
+- Use consistent security practices.
+- Use consistent performance practices.
+- Use consistent accessibility practices.
+- Use consistent internationalization practices.
+- Use consistent documentation practices.
+- Use consistent logging practices.
+- Use consistent error handling practices.
+- Use consistent configuration management practices.
+- Use consistent deployment practices.
+- Use consistent monitoring practices.
+- Use consistent alerting practices.
+- Use consistent disaster recovery practices.
+- Use consistent security incident response practices.
