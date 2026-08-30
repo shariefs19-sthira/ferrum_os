@@ -7,11 +7,12 @@ This document tracks the current activity of agents in the Ferrum OS fleet. Upda
 
 | ID | Handle | Task ID | Status | Heartbeat | Next Action |
 |----|--------|---------|--------|-----------|-------------|
-| AG-001 | Qoder-CN | W2-32 | ACTIVE | 2026-08-30 01:45 UTC | Executing assigned tasks. |
-| AG-002 | Jules | W1-14 | RETIRED | 2026-08-29 18:00 UTC | Retired after W1 batch; no active task assignments. |
-| AG-003 | Cline | W2-07..W2-12 | ACTIVE-STATIC | 2026-08-29 23:25 UTC | Static UI wave complete; keeping active-static posture for handoff and downstream QA. |
-| AG-004 | Copilot | W2-04..W2-10 | ACTIVE | 2026-08-29 23:25 UTC | Governance and landing trace alignment for W2 wave; active on homepage, resources, footer, and docs. |
-| AG-005 | Qwen-Code | research | UNAVAILABLE | 2026-08-29 19:35 UTC | Research absorbed by AG-008 (Qwen-Web), no active tasks. |
-| AG-006 | Operator | W1-23/W1-24 | ACTIVE | 2026-08-29 19:00 UTC | QA and system interaction tasks. |
-| AG-007 | Replit | browser | DORMANT | 2026-08-29 21:10 UTC | Seat dormant per conductor ruling. |
-| AG-008 | Qwen-Web | W1-19 | ACTIVE | 2026-08-29 20:45 UTC | Performing system audit and research tasks. |
+| AG-008 | Qwen-Web | (conductor) | ACTIVE | 2026-08-30 06:45 UTC | Conductor — orchestrating B2/B3 wave landings, cherry-pick reconciliation, queue refresh. |
+| AG-013 | Copilot | W2-04..W2-10, W2-33, W2-40, W2-45, W2-52 | ACTIVE | 2026-08-30 06:45 UTC | Included model, components; active on homepage, resources, footer, JSON-LD, FAQ, MobileMenu. |
+| AG-003a | Cline-A | W2-53, W2-61, W2-68 | ACTIVE | 2026-08-30 06:45 UTC | model: minimax-m3:free; roles: lander + static-content (homepage highlights, case-study reconciliation, sweep). |
+| AG-003b | Cline-B | W2-50, W2-54, W2-66, W2-67 | ACTIVE | 2026-08-30 06:45 UTC | model: minimax-m3:free; role: static-content (layouts + 4th blog + 4th case study). |
+| AG-009 | Continue | W2-41, W2-43, W2-49 | ACTIVE | 2026-08-30 06:45 UTC | Ollama local; patterned static-content (resources layouts, demo/get-started, metadata refinement). |
+| AG-001 | Qoder-CN | W1-23.1 | PARKED | 2026-08-30 06:45 UTC | Dead-worktree loop; pending conductor unstick. |
+| AG-010 | Claude Code | — | DORMANT | 2026-08-30 06:45 UTC | Not onboarded to relay. |
+| AG-002 | Jules | W1-14 | RETIRED | 2026-08-30 06:45 UTC | Retired after W1 batch. |
+| AG-007 | Replit | browser | DORMANT | 2026-08-30 06:45 UTC | Seat dormant per conductor ruling. |
