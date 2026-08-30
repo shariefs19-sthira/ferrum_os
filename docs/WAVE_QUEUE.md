@@ -108,4 +108,5 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-75   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | d062bda | docs: AGENT_BOARD roster refresh (Qwen-Web conductor, Cline-A/B, Continue, Claude Code DORMANT) |
 | W2-78   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 28d099e  | structura/page.tsx — static beam-size quick-lookup table (IS 456, 6 spans) |
 | W2-83   |        | B2    | J08      | Cline-GLM-Flash | DONE   | d0d4373  | documentation/page.tsx — "Getting started" section (1) IS-Code guides (2) Blog (3) Case studies |
-| W2-88   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | resources/guides/page.tsx — static hub linking is-code-guides, glossary, faq with one-line descriptions |
+| W2-88   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 916983c  | resources/guides/page.tsx — static hub linking is-code-guides, glossary, faq with one-line descriptions |
+| W2-89   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | resources/blog/procurement-terms/{page,layout}.tsx — 6th article stub (h1+3 sections) on Indian procurement terms (rate-only/item-rate/lumpsum, EPC/PMC, contract clauses) |
