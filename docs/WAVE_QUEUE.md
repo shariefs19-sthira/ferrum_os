@@ -116,6 +116,7 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-80   |        | B2    | J16      | copilot-cli-vscode | DONE (cherry-pick db1cdec) | 1 hr  | stats band component (4 stats) + homepage render |
 | W2-95   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |         | BATCH: resources/tools (hub: Plot Estimator, beam table, sample calc) + resources/webinars |
 | W2-97   |        | B2    | J08      | Cline-GLM-Flash | DONE   | e449b33  | BATCH: resources/whitepapers/page.tsx (4 papers) + resources/videos/page.tsx (5 videos) — 2 static hubs; landed 6e45bca |
+| W2-98   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | BATCH: resources/reports/page.tsx + resources/podcasts/page.tsx — 2 static hubs (industry reports + audio series) |
 | W2-85   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | f321421  | LANDER: landintel PlotEstimator component (surgical cherry-pick from origin/w2-85/copilot-plotestimator e89ad25; branch has no merge base) |
 | W2-79   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | 1132551  | contact/page.tsx — add offices (Bengaluru/Mumbai/London) + hours + map placeholder section |
 | W2-83   |        | B2    | J08      | Cline-GLM-Flash | DONE   | d0d4373  | documentation/page.tsx — "Getting started" section (1) IS-Code guides (2) Blog (3) Case studies |
