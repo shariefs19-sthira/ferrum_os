@@ -106,5 +106,5 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-69   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | b9241aa | surgical cherry-pick: ProductSpecs.tsx + TestimonialStrip.tsx (other 4 files in branch commit already in main richer) |
 | W2-70   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | b9241aa | TestimonialStrip.tsx — bundled with W2-69 surgical cherry-pick |
 | W2-75   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | d062bda | docs: AGENT_BOARD roster refresh (Qwen-Web conductor, Cline-A/B, Continue, Claude Code DORMANT) |
-| W2-78   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | structura/page.tsx — add static beam-size quick-lookup table section |
+| W2-78   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 28d099e  | structura/page.tsx — static beam-size quick-lookup table (IS 456, 6 spans) |
 | W2-83   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | documentation/page.tsx — add "Getting started" section linking the three sample pages |
