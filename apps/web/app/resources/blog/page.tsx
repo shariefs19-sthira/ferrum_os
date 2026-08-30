@@ -1,18 +1,23 @@
+import Link from 'next/link';
+
 const posts = [
   {
     category: 'Market Brief',
-    title: 'How construction teams reduce rework with better site intelligence',
-    summary: 'A practical look at how early planning and property data improve cost certainty across the pre-construction phase.'
+    href: '/resources/blog/ulin-explained',
+    title: 'ULPIN explained: how unique land identifiers improve diligence and records',
+    summary: 'A quick guide to how ULPIN helps teams verify land identity, reduce errors, and compare parcels more confidently.'
+  },
+  {
+    category: 'Standards',
+    href: '/resources/blog/is-1200-vs-cesmm4',
+    title: 'IS 1200 vs CESMM4: choosing the right specification style',
+    summary: 'A practical comparison of two common estimating frameworks used during planning and project delivery.'
   },
   {
     category: 'Operations',
-    title: 'Five signals that indicate a project is drifting before schedule slips',
-    summary: 'Learn which indicators matter most for project managers when monitoring cash flow, approvals, and procurement lead times.'
-  },
-  {
-    category: 'Investing',
-    title: 'What to review before buying land for a residential or mixed-use project',
-    summary: 'A framework covering zoning, feasibility, risk, and market demand to tighten investment decisions before commitment.'
+    href: '/resources/blog/monsoon-concreting',
+    title: 'Monsoon concreting: the checklist for safe work during wet weather',
+    summary: 'A field-ready checklist for protecting finish quality, curing, and site safety when the rains hit.'
   }
 ];
 
@@ -49,9 +54,9 @@ export default function BlogPage() {
               <h2 className="text-2xl font-semibold leading-tight text-slate-900">{post.title}</h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">{post.summary}</p>
               <div className="mt-6 border-t border-slate-200 pt-4">
-                <a href="/resources" className="text-sm font-medium text-blue-700 transition hover:text-blue-800">
+                <Link href={post.href} className="text-sm font-medium text-blue-700 transition hover:text-blue-800">
                   Read article →
-                </a>
+                </Link>
               </div>
             </article>
           ))}

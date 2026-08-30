@@ -1,18 +1,23 @@
+import Link from 'next/link';
+
 const caseStudies = [
   {
-    name: 'Bengaluru Residential Land Play',
-    label: 'LandIntel',
-    summary: 'A mixed-use land acquisition team improved early-stage site filtering and cut diligence time by more than 30%.'
+    label: 'Developer',
+    href: '/resources/case-studies/greenfield-developer',
+    name: 'Greenfield developer: turning early site assumptions into a confident launch plan',
+    summary: 'A landowner used early feasibility signals to clarify risk, sequencing, and capital timing before breaking ground.'
   },
   {
-    name: 'Urban Redevelopment Portfolio',
-    label: 'Portfolio Strategy',
-    summary: 'An investment group used structured project data to compare development options across five city corridors.'
+    label: 'Family Build',
+    href: '/resources/case-studies/self-build-family',
+    name: 'Self-build family: planning a home around approvals, cost, and long-term use',
+    summary: 'A family project team tightened design decisions by balancing budget, compliance, and site suitability in one workflow.'
   },
   {
-    name: 'Industrial Expansion Initiative',
-    label: 'Operations',
-    summary: 'A manufacturing client coordinated feasibility, approvals, and procurement decisions across multiple site options.'
+    label: 'Contractor',
+    href: '/resources/case-studies/contractor-fleet',
+    name: 'Contractor fleet: replacing reactive planning with leaner workfront visibility',
+    summary: 'A contractor network reduced uncertainty across teams by coordinating production, manpower, and site readiness more closely.'
   }
 ];
 
@@ -49,9 +54,9 @@ export default function CaseStudiesPage() {
               <h2 className="text-2xl font-semibold leading-tight text-slate-900">{item.name}</h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">{item.summary}</p>
               <div className="mt-6 border-t border-slate-200 pt-4">
-                <a href="/resources" className="text-sm font-medium text-blue-700 transition hover:text-blue-800">
+                <Link href={item.href} className="text-sm font-medium text-blue-700 transition hover:text-blue-800">
                   Read story →
-                </a>
+                </Link>
               </div>
             </article>
           ))}
