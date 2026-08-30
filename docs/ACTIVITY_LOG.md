@@ -660,3 +660,8 @@ cd C:\Users\user\ferrum_os
 
 **Action:** Built W2-94 batch (resources/blog/site-safety-checklist + resources/blog/construction-insurance-101, 2 static articles h1+3 sections each, 3033d1c); landed as merge a2b8d4e. Lander cycle: cherry-picked W2-80 stats band from origin/w2-80/copilot-statsband db1cdec (kept StatsBand.tsx + page.tsx + ACTIVITY_LOG; skipped the AGENTS.md RULE-47 hunk per conductor rule), resolved WAVE_QUEUE conflict to post-state, amended to c9316f2. w2-81/82/85/86 already on main (already landed in earlier cycle); w2-95 broken (Qoder in-progress, untracked) - moved aside for build, restored after.
 **Next Steps:** Push; next lander cycle.
+
+## 2026-08-30 - W2-97 batch
+
+**Action:** Built W2-97 batch (resources/whitepapers/page.tsx with 4 research papers: boq-drift-diagnostics, standards-as-procurement-filter, is-1200-vs-cesmm4, monsoon-concreting-decision-tree; resources/videos/page.tsx with 5 recorded sessions: boq-drift-walkthrough, standards-procurement-roundtable, monsoon-concreting-field-clinic, plot-estimator-demo, careers-at-ferrum-os; 2 static hubs, h1+grid layout, e449b33); landed as merge 6e45bca. Branch w2-97/cline-hubs3 (no collision).
+**Next Steps:** Await clean W2-95 (tools+webinars) land on main to clean up .session-stash; in this session Qoder's webinars/page.tsx untracked WIP was lost during a build-staging mv (Qoder to regenerate, not my work, not in any commit).
