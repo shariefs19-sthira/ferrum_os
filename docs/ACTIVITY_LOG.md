@@ -315,3 +315,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** apps/web/app/page.tsx, apps/web/app/landintel/page.tsx, apps/web/components/ProductSpecs.tsx, apps/web/components/TestimonialStrip.tsx, docs/WAVE_QUEUE.md
 **Next Steps:** Resume the visual sweep when the dependency set is restored; keep the repo on the current sync-safe branch and avoid package manifest edits until then.
 ---
+
+## 2026-08-30 - W2-81/W2-82 lane
+**Action:** Claimed W2-81 newsletter signup in the footer and W2-82 pricing toggle; built both inline with the current Relume-inspired landing-page styling and kept the work within the app UI surface.
+**By:** AI assistant (Copilot CLI runtime in VS Code)
+**Status:** ⏳ In progress
+**Files Modified:** apps/web/app/layout.tsx, apps/web/components/NewsletterSignup.tsx, apps/web/app/pricing/page.tsx, docs/WAVE_QUEUE.md
+**Next Steps:** Commit and push W2-81, then create the separate W2-82 task branch and push once the pricing toggle is green.
+---
