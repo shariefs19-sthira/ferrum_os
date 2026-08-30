@@ -108,6 +108,7 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-70   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | b9241aa | TestimonialStrip.tsx — bundled with W2-69 surgical cherry-pick |
 | W2-75   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | d062bda | docs: AGENT_BOARD roster refresh (Qwen-Web conductor, Cline-A/B, Continue, Claude Code DORMANT) |
 | W2-78   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 28d099e  | structura/page.tsx — static beam-size quick-lookup table (IS 456, 6 spans) |
+<<<<<<< HEAD
 | W2-79   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | <pending>  | contact/page.tsx — add offices (Bengaluru/Mumbai/London) + hours + map placeholder section |
 | W2-83   |        | B2    | J08      | Cline-GLM-Flash | DONE   | d0d4373  | documentation/page.tsx — "Getting started" section (1) IS-Code guides (2) Blog (3) Case studies |
 | W2-84   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | CLAIMED | <pending> | about/page.tsx — add "How we work" section (Discover/Model/Deliver/Hand off) |
