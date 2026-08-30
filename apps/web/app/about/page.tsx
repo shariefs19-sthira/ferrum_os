@@ -14,6 +14,29 @@ export default function AboutPage() {
     }
   ]
 
+  const howWeWork = [
+    {
+      step: "01",
+      title: "Discover",
+      description: "We start every engagement by listening — to project owners, site teams, contractors, and the parcel itself. Discovery combines on-site walks, document review, and short stakeholder interviews so the real constraints surface before any tooling is chosen."
+    },
+    {
+      step: "02",
+      title: "Model",
+      description: "Findings turn into a working model: schedule of values, BOQ structure, decision log, and the data fields each downstream tool will need. We keep models lean so the BOQ engine, site diary, and approvals pipeline all read from the same source of truth."
+    },
+    {
+      step: "03",
+      title: "Deliver",
+      description: "Delivery happens in tight, evidence-backed loops. Field teams capture progress, the platform updates earned value in real time, and weekly reviews turn data into decisions. Nothing ships without a defensible paper trail."
+    },
+    {
+      step: "04",
+      title: "Hand off",
+      description: "When the project moves on, your team keeps the templates, the data, and the muscle memory. We document what worked, what didn't, and where the next project can save another week of effort."
+    }
+  ]
+
   const teamMembers = [
     { name: "Alex Johnson", role: "CEO & Founder" },
     { name: "Sarah Chen", role: "CTO" },
@@ -49,6 +72,35 @@ export default function AboutPage() {
               <div key={index} className="text-center">
                 <div className="text-4xl font-extrabold text-blue-600">{stat.value}</div>
                 <div className="mt-2 text-lg font-medium text-gray-900">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* How We Work Section */}
+      <div className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
+              Our process
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
+              How we work
+            </h2>
+            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">
+              A four-step loop that turns field evidence into defensible project decisions, every time.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {howWeWork.map((item) => (
+              <div key={item.step} className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-700">
+                  {item.step}
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-gray-900">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-gray-600">{item.description}</p>
               </div>
             ))}
           </div>
