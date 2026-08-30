@@ -48,6 +48,107 @@ export default function ContactPage() {
 
         <div className="bg-white rounded-lg shadow-md p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Our Offices & Hours
+          </h2>
+
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Bengaluru (HQ)</h3>
+              <p className="text-gray-600 mb-3">
+                4th Floor, Ferrum Tower<br />
+                Outer Ring Road, Marathahalli<br />
+                Bengaluru, KA 560037
+              </p>
+              <p className="text-sm text-gray-700">
+                <span className="font-medium">Hours:</span> Mon–Fri, 09:30–18:30 IST
+              </p>
+              <p className="text-sm text-gray-700">
+                <span className="font-medium">Phone:</span> +91 80 4000 2200
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Mumbai</h3>
+              <p className="text-gray-600 mb-3">
+                Level 7, BKC One<br />
+                Bandra Kurla Complex<br />
+                Mumbai, MH 400051
+              </p>
+              <p className="text-sm text-gray-700">
+                <span className="font-medium">Hours:</span> Mon–Fri, 09:30–18:30 IST
+              </p>
+              <p className="text-sm text-gray-700">
+                <span className="font-medium">Phone:</span> +91 22 6100 4400
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">London</h3>
+              <p className="text-gray-600 mb-3">
+                Suite 12, 88 Shoreditch High Street<br />
+                London E1 6JJ<br />
+                United Kingdom
+              </p>
+              <p className="text-sm text-gray-700">
+                <span className="font-medium">Hours:</span> Mon–Fri, 09:00–18:00 GMT
+              </p>
+              <p className="text-sm text-gray-700">
+                <span className="font-medium">Phone:</span> +44 20 7946 0810
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-6 text-sm text-gray-500">
+            Office visits are by appointment only. Please email{' '}
+            <a href="mailto:visit@ferrum_os.com" className="text-blue-600 hover:text-blue-500">
+              visit@ferrum_os.com
+            </a>{' '}
+            to schedule.
+          </p>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-8 mt-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Find Us
+          </h2>
+          <div
+            role="img"
+            aria-label="Map placeholder showing Bengaluru headquarters location"
+            className="w-full h-64 rounded-md border border-gray-200 bg-gradient-to-br from-blue-50 via-white to-gray-100 flex items-center justify-center"
+          >
+            <div className="text-center px-6">
+              <svg
+                className="mx-auto h-10 w-10 text-blue-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              <p className="mt-3 text-sm font-medium text-gray-700">
+                Interactive map placeholder
+              </p>
+              <p className="mt-1 text-xs text-gray-500">
+                Embedded map will load here (Google Maps / Mapbox) with HQ pin and directions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
             Send us a Message
           </h2>
           <form className="space-y-6">
