@@ -641,9 +641,9 @@ cd C:\Users\user\ferrum_os
 ---
 
 ## 2026-08-30 - W2-81/W2-82 lane
-**Action:** Claimed W2-81 newsletter signup in the footer and W2-82 pricing toggle; built both inline with the current Relume-inspired landing-page styling and kept the work within the app UI surface.
+**Action:** Delivered the W2-81 footer newsletter signup and the W2-82 pricing toggle with monthly/annual billing state; verified both features compile cleanly in the current app build.
 **By:** AI assistant (Copilot CLI runtime in VS Code)
-**Status:** ⏳ In progress
+**Status:** ✅ Complete
 **Files Modified:** apps/web/app/layout.tsx, apps/web/components/NewsletterSignup.tsx, apps/web/app/pricing/page.tsx, docs/WAVE_QUEUE.md
-**Next Steps:** Commit and push W2-81, then create the separate W2-82 task branch and push once the pricing toggle is green.
+**Next Steps:** Push the final W2-82 branch to origin; the next queue gate remains the origin/main W2-70 land commit before W2-80/W2-85 resume.
 ---

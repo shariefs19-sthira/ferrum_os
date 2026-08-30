@@ -1,135 +1,96 @@
-import Link from "next/link"
+"use client"
+
+import { useState } from "react"
+
+type Plan = {
+  name: string
+  price: string
+  description: string
+  features: string[]
+  featured?: boolean
+}
+
+const plans: Record<"monthly" | "annual", Plan[]> = {
+  monthly: [
+    { name: "Starter", price: "$29", description: "For early teams validating a single project pipeline.", features: ["Up to 3 active projects", "AI site summary", "Shared document hub"] },
+    { name: "Growth", price: "$79", description: "For operators managing multiple active jobs and vendors.", features: ["Unlimited projects", "Live cost tracking", "Procurement workflows"], featured: true },
+    { name: "Scale", price: "$149", description: "For enterprise portfolios with multi-entity oversight.", features: ["Advanced forecasting", "Portfolio dashboards", "Dedicated onboarding"] },
+  ],
+  annual: [
+    { name: "Starter", price: "$24", description: "For early teams validating a single project pipeline.", features: ["Up to 3 active projects", "AI site summary", "Shared document hub"] },
+    { name: "Growth", price: "$66", description: "For operators managing multiple active jobs and vendors.", features: ["Unlimited projects", "Live cost tracking", "Procurement workflows"], featured: true },
+    { name: "Scale", price: "$124", description: "For enterprise portfolios with multi-entity oversight.", features: ["Advanced forecasting", "Portfolio dashboards", "Dedicated onboarding"] },
+  ],
+}
 
 export default function PricingPage() {
-  const pricingTiers = [
-    {
-      name: "Starter",
-      price: "$99",
-      period: "/month",
-      description: "Perfect for individual developers and small projects",
-      features: [
-        "Up to 5 projects",
-        "Basic analytics",
-        "Email support",
-        "1GB storage",
-        "Community access"
-      ],
-      ctaText: "Get Started",
-      ctaLink: "/signup",
-      popular: false
-    },
-    {
-      name: "Pro",
-      price: "$299",
-      period: "/month",
-      description: "For growing teams and professional developers",
-      features: [
-        "Unlimited projects",
-        "Advanced analytics",
-        "Priority support",
-        "10GB storage",
-        "Team collaboration",
-        "API access",
-        "Custom integrations"
-      ],
-      ctaText: "Start Free Trial",
-      ctaLink: "/signup",
-      popular: true
-    },
-    {
-      name: "Enterprise",
-      price: "Custom",
-      period: "",
-      description: "For large organizations with custom needs",
-      features: [
-        "Everything in Pro",
-        "Unlimited storage",
-        "24/7 dedicated support",
-        "SLA guarantee",
-        "Custom onboarding",
-        "Advanced security",
-        "White-label options",
-        "Dedicated account manager"
-      ],
-      ctaText: "Contact Sales",
-      ctaLink: "/contact",
-      popular: false
-    }
-  ]
+  const [billing, setBilling] = useState<"monthly" | "annual">("monthly")
+  const activePlans = plans[billing]
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-            Simple, transparent pricing
+    <main className="min-h-screen bg-slate-50 px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-12 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">Pricing</p>
+          <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-900 sm:text-5xl">
+            Choose the plan that fits your next phase.
           </h1>
-          <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
-            Choose the right plan for your team. All plans include a 14-day free trial.
-          </p>
         </div>
 
-        <div className="mt-16 space-y-8 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
-          {pricingTiers.map((tier) => (
+        <div className="mb-12 flex items-center justify-center">
+          <div className="inline-flex rounded-full border border-slate-200 bg-white p-1 shadow-sm">
+            {(["monthly", "annual"] as const).map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => setBilling(option)}
+                className={`rounded-full px-5 py-2 text-sm font-semibold transition ${billing === option ? "bg-slate-900 text-white" : "text-slate-600 hover:text-slate-900"}`}
+              >
+                {option === "monthly" ? "Monthly" : "Annual"}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-3">
+          {activePlans.map((plan) => (
             <div
-              key={tier.name}
-              className={`relative bg-white rounded-2xl shadow-lg p-8 ${
-                tier.popular ? 'ring-2 ring-blue-500' : ''
-              }`}
+              key={plan.name}
+              className={`rounded-3xl border p-8 shadow-sm ${plan.featured ? "border-blue-200 bg-blue-50/40" : "border-slate-200 bg-white"}`}
             >
-              {tier.popular && (
-                <div className="absolute top-0 left-0 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                  Most Popular
+              {plan.featured && (
+                <div className="mb-4 inline-flex rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white">
+                  Most popular
                 </div>
               )}
-              
-              <div className="pt-6">
-                <h3 className="text-2xl font-bold text-gray-900">{tier.name}</h3>
-                <p className="mt-2 text-gray-600">{tier.description}</p>
-                <div className="mt-4 flex items-baseline">
-                  <p className="text-4xl font-bold text-gray-900">{tier.price}</p>
-                  <p className="ml-1 text-gray-500">{tier.period}</p>
-                </div>
+
+              <h2 className="text-2xl font-bold text-slate-900">{plan.name}</h2>
+              <p className="mt-3 text-sm text-slate-600">{plan.description}</p>
+
+              <div className="mt-8 flex items-baseline gap-2">
+                <span className="text-4xl font-black tracking-tight text-slate-900">{plan.price}</span>
+                <span className="text-sm text-slate-500">/seat</span>
               </div>
 
-              <div className="mt-6 space-y-4">
-                <ul className="space-y-2">
-                  {tier.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul className="mt-8 space-y-3 text-sm text-slate-700">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3">
+                    <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
 
-              <div className="mt-8">
-                <Link
-                  href={tier.ctaLink}
-                  className={`w-full py-3 px-6 rounded-md text-center font-medium text-white ${
-                    tier.popular 
-                      ? 'bg-blue-600 hover:bg-blue-700' 
-                      : 'bg-gray-900 hover:bg-gray-800'
-                  } transition-colors duration-200`}
-                >
-                  {tier.ctaText}
-                </Link>
-              </div>
+              <button
+                type="button"
+                className={`mt-8 w-full rounded-full px-5 py-3 text-sm font-semibold transition ${plan.featured ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-slate-900 text-white hover:bg-slate-800"}`}
+              >
+                {plan.featured ? "Start free trial" : "Get started"}
+              </button>
             </div>
           ))}
         </div>
-
-        <div className="mt-16 text-center">
-          <p className="text-gray-600">
-            Have questions?{' '}
-            <Link href="/contact" className="font-medium text-blue-600 hover:text-blue-500">
-              Contact our sales team
-            </Link>
-          </p>
-        </div>
       </div>
-    </div>
+    </main>
   )
 }
