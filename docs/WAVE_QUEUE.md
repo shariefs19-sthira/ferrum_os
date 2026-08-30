@@ -79,4 +79,21 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-34   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | cline layouts6 |
 | W2-35   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | copilot communitybuild |
 | W2-36   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | cline blog |
-| W2-53   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE   | aba7bea  | component-class homepage highlight block |
+| W2-37   |        | B2    | J08      | Cline-GLM-Flash | DONE   | c97fb43  | Qoder-CN touched: home content polish |
+| W2-38   |        | B2    | J08      | Cline-GLM-Flash | DONE   | e79d23a  | 3 case study stubs |
+| W2-39   |        | B2    | J08      | Cline-GLM-Flash | DONE   | c97fb43  | Qoder-CN copilot sweep3 |
+| W2-40   |        | B2    | J08      | Copilot     | DONE   | 60956f7  | MobileMenu component |
+| W2-41   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 0cf6b8c  | resources layouts (resources/blog + resources/case-studies parents) |
+| W2-42   |        | B2    | J08      | Copilot     | DONE   | 085f12b  | content links (cross-link articles and products) |
+| W2-43   |        | B2    | J08      | Cline-GLM-Flash | DONE   | c4c3d7c  | get-started/demo/contact layouts |
+| W2-44   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 47cc602  | login/signup/privacy/terms layouts |
+| W2-45   |        | B2    | J08      | Copilot     | DONE   | 2fc64d3  | JSON-LD SEO |
+| W2-46   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 76c7084  | 3 blog article layouts |
+| W2-48   |        | B2    | J08      | Copilot     | DROPPED | N/A      | header to layout refactor — superseded by W2-40 MobileMenu (conflicts on land) |
+| W2-49   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 1354754  | demo + get-started layout metadata refinement |
+| W2-50   |        | B2    | J08      | Cline-GLM-Flash | DONE   | N/A      | buildos + designstudio layouts (closeout) |
+| W2-51   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 5ae954e  | sitemap 6 article routes |
+| W2-52   |        | B2    | J08      | Copilot     | DONE   | 98838b2  | homepage FAQ section |
+| W2-53   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE   | b1f9738  | component-class homepage highlight block |
+| W2-54   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 2ca6c04  | case-study subpage layouts (greenfield / self-build / contractor) — superseded by W2-61 |
+| W2-61   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 2ca6c04  | case-study article layouts (greenfield-developer / self-build-family / contractor-fleet layout.tsx) — landed via W2-54 cherry-pick |
