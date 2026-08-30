@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next'
- 
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ferrum_os'
-  
+
   const productRoutes = [
     '/landintel',
     '/boq-pro',
@@ -12,7 +12,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/procurehub',
     '/investflow',
     '/communitybuild',
-    '/resources',
+  ]
+
+  const articleRoutes = [
     '/resources/blog',
     '/resources/blog/is-1200-vs-cesmm4',
     '/resources/blog/monsoon-concreting',
@@ -20,11 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/resources/case-studies',
     '/resources/case-studies/contractor-fleet',
     '/resources/case-studies/greenfield-developer',
-    '/resources/case-studies/self-build-family'
+    '/resources/case-studies/self-build-family',
   ]
-  
+
   const lastModified = new Date()
-  
+
   return [
     {
       url: baseUrl,
@@ -37,6 +39,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
+    })),
+    ...articleRoutes.map((route) => ({
+      url: `${baseUrl}${route}`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
     })),
   ]
 }
