@@ -45,3 +45,5 @@ Health checks must use curl.exe -m 5 (5s max) to prevent hung agent loops.
 ## STUCK->QODER (rule 37): any task (any agent or the human) stuck on a terminal-resolvable blocker (git tangles, env/PATH issues, version pins, file ops, server starts) is immediately handed to Qoder-CN (WRITER-MAIN, real checkout + terminal) as the unblocking step; the stuck agent waits or continues on non-blocked scope. Tag such commits [AI: Qoder-CN][unblock:<task-id>].
 
 ## ROUTE BY OBSERVED CORRECTION COST (rule 38): default execution = Qoder chats (one per worktree, one branch each); volume/docs = Cline + Copilot; Jules = overnight overflow only, re-earned by scorecard. Parallelism via worktrees, never shared checkouts.
+
+### RULE 47 — Qoder ops: (a) before any git command, cd to the stated repo path (D:\ferrum_os_recovered); (b) never run git init; (c) never halt on a preflight mismatch — report it and continue with the corrected path; (d) no unbounded scans (git log --all --grep); use bounded logs (-60) + docs/WAVE_QUEUE.md.
