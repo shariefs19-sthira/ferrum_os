@@ -2,10 +2,10 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Get Started - Ferrum OS',
-  description: 'Quick start guide to begin using Ferrum OS for your real estate and construction projects.',
+  description: 'Start building with confidence: create an account, add your first plot, and explore AI-native Ferrum OS products for land insight, planning, and operations.',
   openGraph: {
     title: 'Get Started - Ferrum OS',
-    description: 'Quick start guide to begin using Ferrum OS for your real estate and construction projects.',
+    description: 'Start building with confidence: create an account, add your first plot, and explore AI-native Ferrum OS products for land insight, planning, and operations.',
     type: 'website',
     locale: 'en_US',
   },

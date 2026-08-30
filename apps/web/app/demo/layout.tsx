@@ -2,10 +2,10 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Demo - Ferrum OS',
-  description: 'Experience a live demonstration of Ferrum OS capabilities and features.',
+  description: 'Book a demo to see how Ferrum OS streamlines construction workflows, get personalized recommendations, and connect with product experts.',
   openGraph: {
     title: 'Demo - Ferrum OS',
-    description: 'Experience a live demonstration of Ferrum OS capabilities and features.',
+    description: 'Book a demo to see how Ferrum OS streamlines construction workflows, get personalized recommendations, and connect with product experts.',
     type: 'website',
     locale: 'en_US',
   },
