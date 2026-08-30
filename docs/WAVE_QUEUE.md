@@ -97,3 +97,5 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-53   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE   | b1f9738  | component-class homepage highlight block |
 | W2-54   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 2ca6c04  | case-study subpage layouts (greenfield / self-build / contractor) — superseded by W2-61 |
 | W2-61   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 2ca6c04  | case-study article layouts (greenfield-developer / self-build-family / contractor-fleet layout.tsx) — landed via W2-54 cherry-pick |
+| W2-66   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | 4th blog article resources/blog/advanced-ulpin (h1+3 sections) |
+| W2-67   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | 4th case-study resources/case-studies/infrastructure-contractor (challenge/approach/outcome) |
