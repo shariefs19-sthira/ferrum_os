@@ -110,7 +110,8 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-78   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 28d099e  | structura/page.tsx — static beam-size quick-lookup table (IS 456, 6 spans) |
 <<<<<<< HEAD
 | W2-87   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 0c8dff4  | partners/page.tsx — 3 partner tiers (Technology/Implementation/Channel) + FAQ |
-| W2-90   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |         | BATCH: rera-compliance + gst-for-builders + home-loan-margins articles (h1+3 sections each) |
+| W2-90   |        | B2    | J08      | Cline-GLM-Flash | DONE   | d548a51  | BATCH: rera-compliance + gst-for-builders + home-loan-margins articles (h1+3 sections each); landed d548a51 |
+| W2-91   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | BATCH: resources/events/page.tsx + resources/templates/page.tsx — static hubs (events calendar placeholder + downloadable templates list) |
 | W2-79   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | 1132551  | contact/page.tsx — add offices (Bengaluru/Mumbai/London) + hours + map placeholder section |
 | W2-83   |        | B2    | J08      | Cline-GLM-Flash | DONE   | d0d4373  | documentation/page.tsx — "Getting started" section (1) IS-Code guides (2) Blog (3) Case studies |
 | W2-84   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | 5181b49  | about/page.tsx — add "How we work" section (Discover/Model/Deliver/Hand off) |
