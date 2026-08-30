@@ -1,5 +1,6 @@
 import Link from "next/link";
 import dynamic from 'next/dynamic';
+import MobileMenu from '../components/MobileMenu';
 
 const ProductCard = dynamic(() => import('../components/ProductCard'), {
   loading: () => (
@@ -43,9 +44,9 @@ const productMenu = products.map((product) => ({
 }));
 
 const resourceMenu = [
-  { name: 'Blog', href: '#' },
-  { name: 'Case Studies', href: '#' },
-  { name: 'IS Code Guides', href: '#' },
+  { name: 'Blog', href: '/resources/blog' },
+  { name: 'Case Studies', href: '/resources/case-studies' },
+  { name: 'IS Code Guides', href: '/resources/is-code-guides' },
 ];
 
 export default function HomePage() {
@@ -92,18 +93,19 @@ export default function HomePage() {
               </div>
             </details>
 
-            <Link href="#" className="text-sm font-medium text-slate-700 transition hover:text-slate-900">
+            <Link href="/pricing" className="text-sm font-medium text-slate-700 transition hover:text-slate-900">
               Pricing
             </Link>
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link href="#" className="hidden rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50 sm:inline-flex">
+            <Link href="/demo" className="hidden rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50 sm:inline-flex">
               Book a demo
             </Link>
-            <Link href="#" className="inline-flex rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
+            <Link href="/get-started" className="hidden rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 sm:inline-flex">
               Get started
             </Link>
+            <MobileMenu />
           </div>
         </div>
       </header>
@@ -122,10 +124,10 @@ export default function HomePage() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="#" className="inline-flex rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
+              <Link href="/get-started" className="inline-flex rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
                 Get started
               </Link>
-              <Link href="#" className="inline-flex rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50">
+              <Link href="/demo" className="inline-flex rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50">
                 Talk to sales
               </Link>
             </div>
