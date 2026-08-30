@@ -647,3 +647,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** apps/web/app/layout.tsx, apps/web/components/NewsletterSignup.tsx, apps/web/app/pricing/page.tsx, docs/WAVE_QUEUE.md
 **Next Steps:** Push the final W2-82 branch to origin; the next queue gate remains the origin/main W2-70 land commit before W2-80/W2-85 resume.
 ---
+
+## 2026-08-30 - W2-80 StatsBand
+**Action:** Claimed W2-80 and added the homepage StatsBand component with four high-signal stats cards above the testimonial strip.
+**By:** AI assistant (Copilot CLI runtime in VS Code)
+**Status:** ✅ Complete
+**Files Modified:** apps/web/app/page.tsx, apps/web/components/StatsBand.tsx, docs/WAVE_QUEUE.md
+**Next Steps:** Build and push the W2-80 branch, then claim the W2-85 landintel estimator task.
+---
