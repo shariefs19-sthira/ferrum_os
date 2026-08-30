@@ -1,6 +1,7 @@
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import MobileMenu from '../components/MobileMenu';
+import HomeFeatureHighlights from '../components/HomeFeatureHighlights';
 
 const ProductCard = dynamic(() => import('../components/ProductCard'), {
   loading: () => (
@@ -211,6 +212,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <HomeFeatureHighlights />
 
       <section className="border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">

@@ -79,3 +79,4 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-34   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | cline layouts6 |
 | W2-35   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | copilot communitybuild |
 | W2-36   |        | B2    | J08      | Qoder-CN    | DONE   | N/A      | cline blog |
+| W2-53   |        | B2    | J08      | copilot-cli-vscode | CLAIMED-copilot-cli-vscode | N/A      | component-class homepage highlight block |
