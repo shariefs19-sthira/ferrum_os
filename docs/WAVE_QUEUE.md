@@ -1,5 +1,9 @@
 # Wave Queue
 
+## Dormant Seats
+> **DORMANT SEATS (do not assign until conductor unlocks):**
+> - **Claude Code**: login pending ETA ~48h; unlock = one-bit confirm.
+
 ## Rollup Rule
 A task's status is considered DONE only if its own status is DONE AND all of its spawned subtasks (children) are also marked as DONE. The batch conductor verifies this recursively.
 
