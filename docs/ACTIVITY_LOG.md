@@ -655,3 +655,8 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** apps/web/app/page.tsx, apps/web/components/StatsBand.tsx, docs/WAVE_QUEUE.md
 **Next Steps:** Build and push the W2-80 branch, then claim the W2-85 landintel estimator task.
 ---
+
+## 2026-08-30 - W2-94 batch + W2-80 lander
+
+**Action:** Built W2-94 batch (resources/blog/site-safety-checklist + resources/blog/construction-insurance-101, 2 static articles h1+3 sections each, 3033d1c); landed as merge a2b8d4e. Lander cycle: cherry-picked W2-80 stats band from origin/w2-80/copilot-statsband db1cdec (kept StatsBand.tsx + page.tsx + ACTIVITY_LOG; skipped the AGENTS.md RULE-47 hunk per conductor rule), resolved WAVE_QUEUE conflict to post-state, amended to c9316f2. w2-81/82/85/86 already on main (already landed in earlier cycle); w2-95 broken (Qoder in-progress, untracked) - moved aside for build, restored after.
+**Next Steps:** Push; next lander cycle.
