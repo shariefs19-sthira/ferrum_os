@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import PlotEstimator from "../../components/PlotEstimator"
 import { SoilCard } from "../../components/sections/SoilCard"
 import ProductSpecs from "../../components/ProductSpecs"
 
@@ -161,6 +162,7 @@ export default function LandIntelPage() {
         </div>
       </section>
 
+      <PlotEstimator />
       <ProductSpecs />
     </div>
   )

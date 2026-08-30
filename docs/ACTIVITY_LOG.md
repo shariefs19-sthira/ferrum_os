@@ -331,3 +331,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** apps/web/app/page.tsx, apps/web/components/StatsBand.tsx, docs/WAVE_QUEUE.md
 **Next Steps:** Build and push the W2-80 branch, then claim the W2-85 landintel estimator task.
 ---
+
+## 2026-08-30 - W2-85 PlotEstimator
+**Action:** Claimed W2-85 and added a live landintel plot estimator that uses state to translate square footage into a cost band with contextual planning copy.
+**By:** AI assistant (Copilot CLI runtime in VS Code)
+**Status:** ✅ Complete
+**Files Modified:** apps/web/app/landintel/page.tsx, apps/web/components/PlotEstimator.tsx, docs/WAVE_QUEUE.md
+**Next Steps:** None; the branch was built green and pushed to origin.
+---
