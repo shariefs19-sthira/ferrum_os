@@ -48,6 +48,7 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 
 ## WAVE-2
 
+<<<<<<< HEAD
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Land SHA | Notes |
 |---------|--------|-------|----------|-------------|--------|----------|-------|
 | W2-04   |        | B2    | J10      | Copilot     | DONE   | 4034607  | homepage Relume rebuild |
@@ -112,3 +113,16 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-84   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | CLAIMED | <pending> | about/page.tsx — add "How we work" section (Discover/Model/Deliver/Hand off) |
 | W2-88   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 916983c  | resources/guides/page.tsx — static hub linking is-code-guides, glossary, faq with one-line descriptions |
 | W2-89   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | resources/blog/procurement-terms/{page,layout}.tsx — 6th article stub (h1+3 sections) on Indian procurement terms (rate-only/item-rate/lumpsum, EPC/PMC, contract clauses) |
+| W2-86   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | 0c8dff4  | careers/page.tsx — culture section (4 principles) + 3 open role cards (Engineering/Construction/Design); landed via w2-87/cline-partners merge |
+| W2-87   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | 0c8dff4  | partners/page.tsx — 3 partner tiers (Technology/Implementation/Channel) + FAQ; bundled with W2-81 newsletter and W2-86 careers in w2-87/cline-partners merge |
+
+## Copilot W2 series (recovered branch provenance)
+| Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
+|---------|--------|-------|----------|-------------|--------|---------------|
+| W2-68   |        | B2    | J16      | copilot-cli-vscode | PARKED-DEP-GAP | 1 hr |
+| W2-69   |        | B2    | J16      | copilot-cli-vscode | DONE | 1 hr |
+| W2-70   |        | B2    | J16      | copilot-cli-vscode | DONE | 1 hr |
+| W2-81   |        | B2    | J16      | copilot-cli-vscode | DONE (cherry-pick 1f57049) | 1 hr |
+| W2-82   |        | B2    | J16      | copilot-cli-vscode | DONE (cherry-pick 3e4c6b7) | 1 hr |
+
+> W2-68 note: visual sweep is parked in the recovered repo because the required sweep dependencies are not available, and the repo must not receive package.json or ad-hoc install changes to satisfy it. Sweep will resume on the next sync-safe branch.
