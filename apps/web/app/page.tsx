@@ -49,6 +49,25 @@ const resourceMenu = [
   { name: 'IS Code Guides', href: '/resources/is-code-guides' },
 ];
 
+const faqs = [
+  {
+    question: 'What does Ferrum OS cover?',
+    answer: 'Ferrum OS connects land intelligence, design coordination, procurement, project controls, and investment workflows so teams can operate from a single source of truth.'
+  },
+  {
+    question: 'Is the platform built for Indian construction workflows?',
+    answer: 'Yes. The product structure and content are designed around Indian compliance, planning patterns, contractor coordination, and delivery realities.'
+  },
+  {
+    question: 'Can I try it before committing?',
+    answer: 'You can start with a guided demo or free trial flow to explore the core workflows without needing a long onboarding cycle.'
+  },
+  {
+    question: 'Does Ferrum OS support multiple product teams?',
+    answer: 'The platform is structured to support stakeholders across pricing, site execution, project management, and investor reporting in one connected operating model.'
+  }
+];
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white text-slate-900">
@@ -188,6 +207,26 @@ export default function HomePage() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-slate-200 bg-white">
+        <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mb-8 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">FAQ</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Questions teams ask before they go live</h2>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq) => (
+              <details key={faq.question} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-left">
+                <summary className="cursor-pointer list-none text-base font-semibold text-slate-900 marker:content-none">
+                  {faq.question}
+                </summary>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{faq.answer}</p>
+              </details>
             ))}
           </div>
         </div>
