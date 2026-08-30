@@ -102,4 +102,9 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-54   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 2ca6c04  | case-study subpage layouts (greenfield / self-build / contractor) — superseded by W2-61 |
 | W2-61   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 2ca6c04  | case-study article layouts (greenfield-developer / self-build-family / contractor-fleet layout.tsx) — landed via W2-54 cherry-pick |
 | W2-66   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 5ec695b  | 4th blog article resources/blog/advanced-ulpin (h1+3 sections) — landed on main |
-| W2-67   |        | B2    | J08      | Cline-GLM-Flash | DONE   | a6b113f  | 4th case-study resources/case-studies/infrastructure-contractor (challenge/approach/outcome) — landed on w2-67/cline-casestudy4-recovery |
+| W2-67   |        | B2    | J08      | Cline-GLM-Flash | DONE   | b02d1c9  | 4th case-study resources/case-studies/infrastructure-contractor (challenge/approach/outcome) — cherry-picked a6b113f to main |
+| W2-69   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | b9241aa | surgical cherry-pick: ProductSpecs.tsx + TestimonialStrip.tsx (other 4 files in branch commit already in main richer) |
+| W2-70   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | b9241aa | TestimonialStrip.tsx — bundled with W2-69 surgical cherry-pick |
+| W2-75   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | d062bda | docs: AGENT_BOARD roster refresh (Qwen-Web conductor, Cline-A/B, Continue, Claude Code DORMANT) |
+| W2-78   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | structura/page.tsx — add static beam-size quick-lookup table section |
+| W2-83   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | documentation/page.tsx — add "Getting started" section linking the three sample pages |
