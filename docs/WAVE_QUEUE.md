@@ -49,9 +49,9 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-68   |        | B2    | J16      | copilot-cli-vscode | PARKED-DEP-GAP | 1 hr |
 | W2-69   |        | B2    | J16      | copilot-cli-vscode | DONE | 1 hr |
 | W2-70   |        | B2    | J16      | copilot-cli-vscode | DONE | 1 hr |
-| W2-80   |        | B2    | J16      | copilot-cli-vscode | DONE | 1 hr |
-| W2-81   |        | B2    | J16      | copilot-cli-vscode | DONE | 1 hr |
-| W2-82   |        | B2    | J16      | copilot-cli-vscode | DONE | 1 hr |
-| W2-85   |        | B2    | J16      | copilot-cli-vscode | DONE | 1 hr |
+| W2-80   |        | B2    | J16      | copilot-cli-vscode | DONE (db1cdec) | 1 hr |
+| W2-81   |        | B2    | J16      | copilot-cli-vscode | DONE (1f57049) | 1 hr |
+| W2-82   |        | B2    | J16      | copilot-cli-vscode | DONE (3e4c6b7) | 1 hr |
+| W2-85   |        | B2    | J16      | copilot-cli-vscode | DONE (e89ad25) | 1 hr |
 
 > W2-68 note: visual sweep is parked in the recovered repo because the required sweep dependencies are not available, and the repo must not receive package.json or ad-hoc install changes to satisfy it. Sweep will resume on the next sync-safe branch.
