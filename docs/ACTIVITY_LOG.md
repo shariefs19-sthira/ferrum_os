@@ -377,3 +377,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority; CRANE to land w2-216/SCRIBE-logfix.
 ---
+
+## 19:00 - SCRIBE lean rulebook (w2-217)
+**Action:** Rewrote AGENTS.md from the 19-rule consolidated set down to a lean 8-rule version, voiding RULES 1-19 entirely (none in force). New rules: (1) Roster (2) Attribution — dropped the MISDIRECTED ritual, a misaddressed prompt now just gets a plain "wrong seat" reply and a hold (3) Queue — append-only, DONE only at LIVE (4) Stage-gate — LIVE = ls-remote-verified push + scripts/land.ps1 landing + green build (5) Quality — verify-static.ps1 + tsc pre-push, REGENT PASS/REVERT/FIX-REQUIRED post-land, no fabricated content/metrics, no placeholder commits (6) Protected paths (7) Docs ownership — SCRIBE-only edits to rules/queue/roles (8) Session rotation via HANDOFF note in the seat's own doc. docs/ROLE_MAP.md and docs/seats/* are unchanged and still the detail source for RULE 1/7.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority; CRANE to land w2-217/SCRIBE-lean.
+---
