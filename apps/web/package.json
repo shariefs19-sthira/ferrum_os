@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "lint": "next lint",
     "test": "vitest",
     "test:run": "vitest run",
@@ -13,6 +15,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.4",
     "next": "^14.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -34,6 +37,7 @@
     "turbo": "^1.13.4",
     "typescript": "^5.3.3",
     "vite": "^5.1.0",
-    "vitest": "^1.6.1"
+    "vitest": "^1.6.1",
+    "wrangler": "^4.127.1"
   }
 }
