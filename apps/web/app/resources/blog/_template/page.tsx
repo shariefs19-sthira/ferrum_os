@@ -1,8 +1,10 @@
 import Link from "next/link";
+import ReadingProgress from "../../../../components/ReadingProgress";
 
 export default function BlogArticleTemplatePage() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
+      <ReadingProgress />
       <section className="bg-gradient-to-r from-blue-700 via-indigo-700 to-violet-700 px-4 py-20 text-white sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">Ferrum OS</p>
