@@ -4,7 +4,16 @@ import React from 'react';
 import StructuraFeatures from '../../components/StructuraFeatures';
 import ProductPage from '../../components/ProductPage';
 import StatCallout from '../../components/StatCallout';
+import SpecTable from '../../components/SpecTable';
 import { productsData } from '../../components/product-data';
+
+const beamTableColumns = [
+  { key: 'spanM', label: 'Span (m)' },
+  { key: 'widthMm', label: 'Width (mm)' },
+  { key: 'depthMm', label: 'Depth (mm)' },
+  { key: 'steelKg', label: 'Steel (kg/m)' },
+  { key: 'use', label: 'Typical use' },
+];
 
 const beamTable = [
   { spanM: '3.0', widthMm: '230', depthMm: '300', steelKg: '9.5', use: 'Residential, light partitions' },
@@ -57,30 +66,7 @@ const StructuraPage = () => {
             />
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
-            <table className="min-w-full divide-y divide-gray-200 text-left">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">Span (m)</th>
-                  <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">Width (mm)</th>
-                  <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">Depth (mm)</th>
-                  <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">Steel (kg/m)</th>
-                  <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">Typical use</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {beamTable.map((row) => (
-                  <tr key={row.spanM} className="align-top">
-                    <td className="px-6 py-4 text-sm font-semibold text-gray-900">{row.spanM}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{row.widthMm}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{row.depthMm}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{row.steelKg}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{row.use}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <SpecTable columns={beamTableColumns} rows={beamTable} rowKey="spanM" />
 
           <p className="mt-4 text-xs text-gray-500">
             Values are indicative and rounded. Live BoQ quantities, exact reinforcement, and
