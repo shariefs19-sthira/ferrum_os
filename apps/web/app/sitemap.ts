@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://ferrum_os'
+  const baseUrl = 'https://www.ferrumos.com'
 
   const productRoutes = [
     '/landintel',

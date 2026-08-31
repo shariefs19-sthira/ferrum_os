@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://ferrum_os/sitemap.xml',
+    sitemap: 'https://www.ferrumos.com/sitemap.xml',
   }
 }

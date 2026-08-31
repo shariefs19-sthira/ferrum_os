@@ -1,8 +1,7 @@
-// Matches the baseUrl convention already used in apps/web/app/sitemap.ts and
-// robots.ts. That placeholder domain is a pre-existing gap in the codebase
-// (not introduced here) — swap all three in one pass once the real
-// production domain is known.
-const SITE_BASE_URL = 'https://ferrum_os'
+// Real production domain, per apps/web/components/JsonLd.tsx's Organization
+// schema (the site-wide root-layout JSON-LD). sitemap.ts and robots.ts were
+// still on a placeholder domain until this fix.
+const SITE_BASE_URL = 'https://www.ferrumos.com'
 
 type ArticleJsonLdProps = {
   headline: string
