@@ -47,3 +47,11 @@ If a session is degraded (context exhausted, tool failures, stuck), stop
 and leave a HANDOFF note in the seat's docs/seats/<SEAT>.md — current
 branch, last claimed row, what's left — before rotating to the next
 session.
+
+## RULE 9 — Seat directory isolation
+Each seat commits only from its own git worktree, checked out from
+`origin/main` (e.g. SCRIBE works from `D:\ferrum_os.worktrees\scribe-docs`).
+The shared main checkout at `D:\ferrum_os_recovered` is `scripts/land.ps1`
+territory only — no seat runs `git checkout`/`git switch` there. This
+keeps concurrent seats from colliding on HEAD in the one checkout CRANE's
+landing script depends on.

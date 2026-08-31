@@ -385,3 +385,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority; CRANE to land w2-217/SCRIBE-lean.
 ---
+
+## 19:30 - SCRIBE worktree isolation (w2-218)
+**Action:** Created a dedicated SCRIBE worktree at D:\ferrum_os.worktrees\scribe-docs (git worktree add ... origin/main) to stop doing branch checkouts inside the shared D:\ferrum_os_recovered checkout, which is CRANE's scripts/land.ps1 territory. All SCRIBE docs commits now happen from this worktree. Amended AGENTS.md with RULE 9 (seat directory isolation) codifying this: each seat commits from its own worktree; the shared main checkout is land.ps1-only, no seat runs git checkout/switch there.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority from the scribe-docs worktree; CRANE to land w2-218/SCRIBE-isolation.
+---
