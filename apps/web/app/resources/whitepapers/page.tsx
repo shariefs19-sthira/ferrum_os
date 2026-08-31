@@ -32,6 +32,14 @@ const whitepapers = [
     pages: 11,
     summary:
       'A printable decision tree for sequencing pours, protecting curing, and documenting weather deviations during the Indian monsoon, derived from a year of field-clinic case logs.'
+  },
+  {
+    slug: 'thermal-envelope-cost-tradeoffs',
+    title: 'Thermal envelope design: cost tradeoffs for Indian climate zones',
+    year: '2026',
+    pages: 16,
+    summary:
+      'A comparison of insulation, glazing, and shading strategies across Indian climate zones, with the upfront-cost-versus-operating-cost tradeoff worked through for each envelope choice.'
   }
 ];
 
