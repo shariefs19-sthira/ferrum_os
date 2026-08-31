@@ -92,9 +92,9 @@
 | W2-131 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | DONE | 3233ba3 | resources/events/webinars-2026 |
 
 ## 2026-08-31 — SCRIBE sprint rows (W2-219..233)
-| W2-219 | | B2 | J08 | CRANE | CLAIMED-CRANE | | blog/piling-quality-gates |
-| W2-220 | | B2 | J08 | CRANE | CLAIMED-CRANE | | blog/weld-inspection-basics |
-| W2-221 | | B2 | J08 | CRANE | CLAIMED-CRANE | | blog/cement-storage-humidity |
+| W2-219 | | B2 | J08 | CRANE | DONE | 46188b6 | blog/piling-quality-gates |
+| W2-220 | | B2 | J08 | CRANE | DONE | 46188b6 | blog/weld-inspection-basics |
+| W2-221 | | B2 | J08 | CRANE | DONE | 46188b6 | blog/cement-storage-humidity |
 | W2-222 | | B2 | J08 | CRANE | OPEN | | blog/prefab-connection-detailing |
 | W2-223 | | B2 | J08 | CRANE | OPEN | | checklists/crane-maintenance |
 | W2-224 | | B2 | J08 | CRANE | OPEN | | checklists/material-receiving |
