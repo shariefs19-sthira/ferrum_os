@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { ArticleJsonLd } from '../../_components/ArticleJsonLd'
 
 export const metadata: Metadata = {
   title: 'Procurement Terms for Indian Construction - Ferrum OS',
@@ -16,5 +17,14 @@ export default function ProcurementTermsLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <ArticleJsonLd
+        headline={metadata.title as string}
+        description={metadata.description as string}
+        url="/resources/blog/procurement-terms"
+      />
+      {children}
+    </>
+  )
 }

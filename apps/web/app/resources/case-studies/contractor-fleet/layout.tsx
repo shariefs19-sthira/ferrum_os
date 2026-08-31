@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { ArticleJsonLd } from '../../_components/ArticleJsonLd'
 
 export const metadata: Metadata = {
   title: 'Contractor Fleet Management Case Study - Ferrum OS',
@@ -16,5 +17,14 @@ export default function ContractorFleetLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <ArticleJsonLd
+        headline={metadata.title as string}
+        description={metadata.description as string}
+        url="/resources/case-studies/contractor-fleet"
+      />
+      {children}
+    </>
+  )
 }
