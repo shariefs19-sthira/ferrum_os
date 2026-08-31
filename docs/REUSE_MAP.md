@@ -20,3 +20,10 @@ rules.
 **Repos never merge.** Every row above is a read/reference-only verdict;
 none of them permit importing ferrum-web trunk as a dependency, submodule,
 or merged history into this repo.
+
+## Brand decision (2026-08-31, operator)
+Ferrum OS retains its current identity per Relume. ferrumgroup.in design
+tokens (bronze #B8873B et al.) are NOT adopted — reference-only, same as
+the Design tokens row above. Post-Relume design-polish derives its tokens
+from the Relume wireframe, not from ferrumgroup.in. The BOQ port (W2-235,
+PORT-CONTENT row above) is logic-only and carries no brand coupling.
