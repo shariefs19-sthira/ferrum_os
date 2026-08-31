@@ -401,3 +401,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims and works W2-219..233 in order.
 ---
+
+## 20:15 - SCRIBE reuse policy (W2-234)
+**Action:** Added a Reuse Policy section to AGENTS.md: content/config may be extracted read-only from the stopped ferrum project; the two repos are never merged; anything ported in enters this repo only as a normal W2 task under the current stage-gate/quality/protected-paths rules (no bulk import, no queue bypass).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority.
+---
