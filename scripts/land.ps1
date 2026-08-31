@@ -55,7 +55,12 @@ foreach ($branch in $remoteBranches) {
     git merge --squash $branch
     if ($LASTEXITCODE -ne 0) {
         Write-Host "SKIPPED (conflict on squash): $shortName"
-        git merge --abort
+        # `git merge --squash` never sets MERGE_HEAD, so `git merge --abort`
+        # always fails here ("There is no merge to abort") and leaves the
+        # index/working tree dirty, corrupting every subsequent branch in
+        # this loop. Clean up with reset + clean instead.
+        git reset --hard HEAD
+        git clean -fd
         $skipped += $shortName
         continue
     }
