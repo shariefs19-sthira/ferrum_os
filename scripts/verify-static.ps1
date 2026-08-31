@@ -77,6 +77,17 @@ function Test-SectionSkeleton {
         $pageH1 = ([regex]::Matches($pageContent, '<h1')).Count
         $pageH2 = ([regex]::Matches($pageContent, '<h2')).Count
 
+        # If <h2> is rendered from a mapped array (e.g. {sections.map(...) => <h2>{section.title}</h2>})
+        # the literal source only has one <h2, even though several render at runtime. Fall back to
+        # counting "title:" keys in the file as a proxy for section count in that case. This is a
+        # heuristic, not a parser — a differently-shaped mapped skeleton can still slip past it.
+        if ($pageContent -match '<h2[^>]*>\s*\{') {
+            $mappedTitleCount = ([regex]::Matches($pageContent, '(?m)^\s*title:\s*[''"]')).Count
+            if ($mappedTitleCount -gt $pageH2) {
+                $pageH2 = $mappedTitleCount
+            }
+        }
+
         if ($pageH1 -lt $MinH1) {
             $result += "TEMPLATE_MISMATCH (h1 count $pageH1 < $SectionLabel floor $MinH1): $pagePath"
         }
