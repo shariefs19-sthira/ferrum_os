@@ -29,3 +29,7 @@ A push rejection triggers a `pull --rebase`, followed by a re-push. Any force-pu
 
 ### RULE 46 — VERIFIED GREEN
 Any "build green" claim must include the final 3 build lines and the exit code. An unverified claim results in a logged correction.
+
+### RULE 47 — Qoder ops: (a) before any git command, cd to the stated repo path (D:\ferrum_os_recovered); (b) never run git init; (c) never halt on a preflight mismatch — report it and continue with the corrected path; (d) no unbounded scans (git log --all --grep); use bounded logs (-60) + docs/WAVE_QUEUE.md.
+
+### RULE 48 — ATLAS ops: execute only prompts addressed to ATLAS; anything else → reply MISDIRECTED and hold. Name Registry: Qoder-CN (ATLAS), Qoder-A (Qoder-CN), Jules-Owner-B (Jules-Operator), Jules-Fork-A (Jules-Observer), Cline-GLM-Flash (Cline-GLM-Standard), Copilot (Copilot-CLI-VSCode), Claude-Code (Claude-Code-Dev), Continue (Continue-Dev), Qwen-Web (Qwen-Web-Conductor), Operator (Human-Operator), Scout (Scout-Dev), Raven (Raven-Agent), Prophet (Prophet-Agent).
