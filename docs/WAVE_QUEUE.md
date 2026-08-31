@@ -78,18 +78,23 @@
 | W2-86   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | c48f511  | careers/page.tsx — culture section (4 principles) + 3 open role cards (Engineering/Construction/Design); landed via w2-87/cline-partners merge |
 | W2-87   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | 0c8dff4  | partners/page.tsx — 3 partner tiers (Technology/Implementation/Channel) + FAQ; bundled with W2-81 newsletter and W2-86 careers in w2-87/cline-partners merge |
 
-| W2-120 | | B2 | J08 | MASON | OPEN | | blog/monsoon-structural-checks |
-| W2-121 | | B2 | J08 | MASON | OPEN | | checklists/handover-documents |
-| W2-122 | | B2 | J08 | RIVET | OPEN | | components/FaqAccordion |
-| W2-123 | | B2 | J08 | MASON | OPEN | | blog/steel-price-hedges |
-| W2-124 | | B2 | J08 | MASON | OPEN | | case-studies/airport-cargo-bay |
-| W2-125 | | B2 | J08 | RIVET | OPEN | | components/SpecTable render structura |
-| W2-126 | | B2 | J08 | MASON | OPEN | | guides/contractor-onboarding |
-| W2-127 | | B2 | J08 | RIVET | OPEN | | components/PrintButton render checklists index |
-| W2-128 | | B2 | J08 | MASON | OPEN | | blog/foundation-retrofit-costs |
-| W2-129 | | B2 | J08 | MASON | OPEN | | whitepapers/thermal-envelope |
-| W2-130 | | B2 | J08 | RIVET | OPEN | | components/ReadingProgress render blog article template |
-| W2-131 | | B2 | J08 | MASON | OPEN | | resources/events/webinars-2026 |
+| W2-120 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | blog/monsoon-structural-checks |
+| W2-121 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | checklists/handover-documents |
+| W2-122 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | OPEN | | components/FaqAccordion |
+| W2-123 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | blog/steel-price-hedges |
+| W2-124 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | case-studies/airport-cargo-bay |
+| W2-125 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | OPEN | | components/SpecTable render structura |
+| W2-126 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | guides/contractor-onboarding |
+| W2-127 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | OPEN | | components/PrintButton render checklists index |
+| W2-128 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | blog/foundation-retrofit-costs |
+| W2-129 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | whitepapers/thermal-envelope |
+| W2-130 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | OPEN | | components/ReadingProgress render blog article template |
+| W2-131 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | resources/events/webinars-2026 |
+
+## 2026-08-31 — SCRIBE consolidation note
+MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
+OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
+DONE by this edit — status flips only at LIVE (AGENTS.md STAGE-GATES rule).
 
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |

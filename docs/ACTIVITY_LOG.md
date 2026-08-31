@@ -672,3 +672,11 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** apps/web/components/CookieConsent.tsx, apps/web/app/layout.tsx, docs/WAVE_QUEUE.md
 **Next Steps:** Proceed to W2-102 BackToTop.
+
+## 15:00 - SCRIBE consolidation (w2-215)
+**Action:** Consolidated fleet roster: ACTIVE = CRANE (executor+lander+REGENT) + SCRIBE (docs/ledger/rules/registry); PARKED = ATLAS, MASON, RIVET, GIRDER (Qoder) plus older Copilot/Continue/Jules/Cline seats, reactivatable when Codex/Cursor join. Replaced AGENTS.md's prior ad hoc rule numbering with a single renumbered rulebook (RULES 1-19) as a fresh baseline — explicitly void any unverified rule numbers (e.g. a prior chat reference to "RULE 57") not present in this file's git history on main. Reassigned MASON/RIVET's OPEN WAVE_QUEUE rows (W2-120/121/122/123/124/125/126/127/128/129/130/131) to CRANE. Created docs/ROLE_MAP.md and docs/seats/{CRANE,SCRIBE}.md.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/WAVE_QUEUE.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE picks up reassigned W2-120..131 rows per its own claim process (RULE 6). Note: docs/ACTIVITY_LOG.md has a pre-existing unresolved git merge-conflict marker (`<<<<<<< HEAD`) at line 1, predating this commit — flagged for CRANE/operator, not resolved here (out of scope for a docs-only append).
+---
