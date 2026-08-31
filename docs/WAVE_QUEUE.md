@@ -108,6 +108,9 @@
 | W2-232 | | B2 | J08 | CRANE | OPEN | | guides/monsoon-preparedness-audit |
 | W2-233 | | B2 | J08 | CRANE | OPEN | | checklists/crane-lift-plan |
 
+## 2026-08-31 — SCRIBE CSP hardening (post-launch)
+| W2-240 | | B2 | J08 | CRANE | OPEN | | security: post-launch CSP hardening — replace static _headers unsafe-inline with hash-based or edge-nonce CSP; see docs/SECURITY.md CSP decisions |
+
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
