@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { ArticleJsonLd } from '../../_components/ArticleJsonLd'
 
 export const metadata: Metadata = {
   title: 'IS 1200 vs CESMM4 - Ferrum OS',
@@ -16,5 +17,16 @@ export default function Is1200VsCesmm4Layout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <ArticleJsonLd
+        headline={metadata.title as string}
+        description={metadata.description as string}
+        url="/resources/blog/is-1200-vs-cesmm4"
+        datePublished="2026-08-30"
+        authorSeat="Qoder-CN"
+      />
+      {children}
+    </>
+  )
 }

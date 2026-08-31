@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { ArticleJsonLd } from '../../_components/ArticleJsonLd'
 
 export const metadata: Metadata = {
   title: 'Greenfield Development Case Study - Ferrum OS',
@@ -16,5 +17,16 @@ export default function GreenfieldDeveloperLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <ArticleJsonLd
+        headline={metadata.title as string}
+        description={metadata.description as string}
+        url="/resources/case-studies/greenfield-developer"
+        datePublished="2026-08-30"
+        authorSeat="Cline-GLM-Flash"
+      />
+      {children}
+    </>
+  )
 }

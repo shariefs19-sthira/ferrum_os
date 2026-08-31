@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { ArticleJsonLd } from '../../_components/ArticleJsonLd'
 
 export const metadata: Metadata = {
   title: 'ULPIN Explained - Ferrum OS',
@@ -16,5 +17,16 @@ export default function UlinExplainedLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <ArticleJsonLd
+        headline={metadata.title as string}
+        description={metadata.description as string}
+        url="/resources/blog/ulin-explained"
+        datePublished="2026-08-30"
+        authorSeat="Qoder-CN"
+      />
+      {children}
+    </>
+  )
 }

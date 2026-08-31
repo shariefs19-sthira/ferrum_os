@@ -1,3 +1,16 @@
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'IS Code Guides - Ferrum OS',
+  description: 'A practical radar for Indian construction standards: what to adopt, hold, or drop across IS 1200, CESMM4, IS 456/875/800, and proprietary estimating templates.',
+  openGraph: {
+    title: 'IS Code Guides - Ferrum OS',
+    description: 'A practical radar for Indian construction standards: what to adopt, hold, or drop across IS 1200, CESMM4, IS 456/875/800, and proprietary estimating templates.',
+    type: 'article',
+    locale: 'en_US',
+  },
+}
+
 const measurementRows = [
   {
     standard: 'IS 1200',
