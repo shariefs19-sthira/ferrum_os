@@ -1,54 +1,5 @@
-# Wave Queue
-
-## Dormant Seats
-> **DORMANT SEATS (do not assign until conductor unlocks):**
-> - **Claude Code**: login pending ETA ~48h; unlock = one-bit confirm.
-
-## Rollup Rule
-A task's status is considered DONE only if its own status is DONE AND all of its spawned subtasks (children) are also marked as DONE. The batch conductor verifies this recursively.
-
-## Batch Status
-| Batch | Status |
-|-------|--------|
-| B1    | DONE   |
-| B1-E  | DONE   |
-| B2    | DONE   |
-| B3    | CLOSED |
-
-## WAVE-1
-
-| Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
-|---------|--------|-------|----------|-------------|--------|---------------|
-| W1-01   |        | B1    | J06      | Qoder-CN    | DONE   | 4 hrs         |
-| W1-02   |        | B1    | J06      | Qoder-CN    | DONE   | 3 hrs         |
-| W1-04   |        | B1    | J15      | Qoder-CN    | DONE   | 2 hrs         |
-| W1-07   |        | B1    | J04      | Jules-Owner-B | DONE   | 5 hrs         |
-| W1-13   |        | B1    | J15      | Jules-Owner-B | DONE   | 4 hrs         |
-| W1-08   |        | B1    | J07      | Jules-Fork-A  | DONE   | 2 hrs         |
-| W1-11   |        | B1-E  | J13      | Cline-GLM-Flash | DONE-evidenced   | 1 hr          |
-| W1-21   |        | B1    | J16/D-RES| Scout (seat-unfilled) | DONE   | 8 hrs         |
-| W1-22   |        | B1    | J16/D-RES| Scout (seat-unfilled) | DONE   | 8 hrs         |
-| W1-18   |        | B1-E  | J08      | Cline-GLM-Flash | DONE   | 1 hr          |
-| W1-20   |        | B1-E  | J13      | Cline-GLM-Flash | DONE   | 1 hr          |
-| W1-03   |        | B2    | J10      | Qoder-CN    | OPEN   | 6 hrs         |
-| W1-05   |        | B2    | J15      | Qoder-CN    | OPEN   | 2 hrs         |
-| W1-06   |        | B2    | J15      | Qoder-CN    | OPEN   | 2 hrs         |
-| W1-12   |        | B2    | J01      | Jules-Fork-A  | OPEN   | 3 hrs         |
-| W1-15   |        | B2    | J07      | Jules-Fork-A  | OPEN   | 2 hrs         |
-| W1-14   |        | B2    | J14      | Jules-Owner-B | PARKED   | 8 hrs         |
-| W1-09   |        | B3    | J09      | (to be assigned) | OPEN   | 10 hrs        |
-| W1-10   |        | B3    | J12      | (to be assigned) | OPEN   | 10 hrs        |
-| W1-16   |        | B3    | J02      | (to be assigned) | OPEN   | 4 hrs         |
-| W1-17   |        | B3    | J11      | (to be assigned) | DONE   | 3 hrs         |
-| W1-19   |        | B3    | J15      | (to be assigned) | OPEN   | 2 hrs         |
-| W1-23   |        | B2    | J03      | Operator    | OPEN   | 4 hrs         |
-| W1-23.1 | W1-23  | B2    | J01      | Qoder-CN    | OPEN   | 2 hrs         |
-| W1-24   |        | B2    | J08      | Operator    | OPEN   | 2 hrs         |
-| W1-25   |        | B2    | J16/D-RES| Scout       | OPEN   | 6 hrs         |
-
 ## WAVE-2
 
-<<<<<<< HEAD
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Land SHA | Notes |
 |---------|--------|-------|----------|-------------|--------|----------|-------|
 | W2-04   |        | B2    | J10      | Copilot     | DONE   | 4034607  | homepage Relume rebuild |
@@ -108,7 +59,6 @@ A task's status is considered DONE only if its own status is DONE AND all of its
 | W2-70   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | b9241aa | TestimonialStrip.tsx — bundled with W2-69 surgical cherry-pick |
 | W2-75   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | d062bda | docs: AGENT_BOARD roster refresh (Qwen-Web conductor, Cline-A/B, Continue, Claude Code DORMANT) |
 | W2-78   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 28d099e  | structura/page.tsx — static beam-size quick-lookup table (IS 456, 6 spans) |
-<<<<<<< HEAD
 | W2-87   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 0c8dff4  | partners/page.tsx — 3 partner tiers (Technology/Implementation/Channel) + FAQ |
 | W2-90   |        | B2    | J08      | Cline-GLM-Flash | DONE   | d548a51  | BATCH: rera-compliance + gst-for-builders + home-loan-margins articles (h1+3 sections each); landed d548a51 |
 | W2-91   |        | B2    | J08      | Cline-GLM-Flash | DONE   | 403a70e  | BATCH: resources/events/page.tsx + resources/templates/page.tsx — static hubs (events calendar placeholder + downloadable templates list); landed 403a70e |
