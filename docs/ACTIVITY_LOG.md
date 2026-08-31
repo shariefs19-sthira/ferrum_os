@@ -665,3 +665,10 @@ cd C:\Users\user\ferrum_os
 
 **Action:** Built W2-97 batch (resources/whitepapers/page.tsx with 4 research papers: boq-drift-diagnostics, standards-as-procurement-filter, is-1200-vs-cesmm4, monsoon-concreting-decision-tree; resources/videos/page.tsx with 5 recorded sessions: boq-drift-walkthrough, standards-procurement-roundtable, monsoon-concreting-field-clinic, plot-estimator-demo, careers-at-ferrum-os; 2 static hubs, h1+grid layout, e449b33); landed as merge 6e45bca. Branch w2-97/cline-hubs3 (no collision).
 **Next Steps:** Await clean W2-95 (tools+webinars) land on main to clean up .session-stash; in this session Qoder's webinars/page.tsx untracked WIP was lost during a build-staging mv (Qoder to regenerate, not my work, not in any commit).
+
+## 2026-08-31 - W2-101 CookieConsent
+**Action:** Added a client-side cookie consent notice with localStorage persistence and rendered it from the root layout.
+**By:** AI assistant (Copilot CLI runtime in VS Code)
+**Status:** ✅ Complete
+**Files Modified:** apps/web/components/CookieConsent.tsx, apps/web/app/layout.tsx, docs/WAVE_QUEUE.md
+**Next Steps:** Proceed to W2-102 BackToTop.
