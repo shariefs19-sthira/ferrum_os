@@ -81,9 +81,9 @@
 | W2-120 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | DONE | a7b6e88 | blog/monsoon-structural-checks |
 | W2-121 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | DONE | 42e8aa8 | checklists/handover-documents |
 | W2-122 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | DONE | ff2f8db | components/FaqAccordion |
-| W2-123 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | blog/steel-price-hedges |
-| W2-124 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | case-studies/airport-cargo-bay |
-| W2-125 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | OPEN | | components/SpecTable render structura |
+| W2-123 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | CLAIMED-CRANE | | blog/steel-price-hedges |
+| W2-124 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | CLAIMED-CRANE | | case-studies/airport-cargo-bay |
+| W2-125 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | CLAIMED-CRANE | | components/SpecTable render structura |
 | W2-126 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | guides/contractor-onboarding |
 | W2-127 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | OPEN | | components/PrintButton render checklists index |
 | W2-128 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | blog/foundation-retrofit-costs |
