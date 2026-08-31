@@ -55,3 +55,10 @@ The shared main checkout at `D:\ferrum_os_recovered` is `scripts/land.ps1`
 territory only — no seat runs `git checkout`/`git switch` there. This
 keeps concurrent seats from colliding on HEAD in the one checkout CRANE's
 landing script depends on.
+
+## Reuse policy — stopped ferrum project
+Content and config may be extracted, read-only, from the stopped ferrum
+project for reuse here. The two repos are never merged. Anything ported
+in enters this repo only as a normal W2 task, subject to the same gates
+as any other task (RULE 4 stage-gate, RULE 5 quality, RULE 6 protected
+paths) — no bulk import, no bypassing the queue.
