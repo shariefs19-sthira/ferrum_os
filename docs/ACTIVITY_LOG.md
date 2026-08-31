@@ -409,3 +409,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 20:30 - SCRIBE REUSE_MAP (W2-235)
+**Action:** Added docs/REUSE_MAP.md summarizing reuse verdicts against ferrum-web trunk (the stopped ferrum project) per the AGENTS.md Reuse Policy: BOQ logic = PORT-CONTENT, design tokens = design reference only, no content library exists to port, Cloudflare setup = account-pattern reference only. Repos never merge.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/REUSE_MAP.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority; note w2-234/SCRIBE-reuse-policy (AGENTS.md Reuse Policy section) is pushed but not yet landed — this doc references it by name, land order doesn't matter for correctness but CRANE should land both.
+---
