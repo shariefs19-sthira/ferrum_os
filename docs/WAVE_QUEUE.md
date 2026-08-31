@@ -91,6 +91,23 @@
 | W2-130 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | DONE | 3233ba3 | components/ReadingProgress render blog article template |
 | W2-131 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | DONE | 3233ba3 | resources/events/webinars-2026 |
 
+## 2026-08-31 — SCRIBE sprint rows (W2-219..233)
+| W2-219 | | B2 | J08 | CRANE | OPEN | | blog/piling-quality-gates |
+| W2-220 | | B2 | J08 | CRANE | OPEN | | blog/weld-inspection-basics |
+| W2-221 | | B2 | J08 | CRANE | OPEN | | blog/cement-storage-humidity |
+| W2-222 | | B2 | J08 | CRANE | OPEN | | blog/prefab-connection-detailing |
+| W2-223 | | B2 | J08 | CRANE | OPEN | | checklists/crane-maintenance |
+| W2-224 | | B2 | J08 | CRANE | OPEN | | checklists/material-receiving |
+| W2-225 | | B2 | J08 | CRANE | OPEN | | checklists/scaffold-handover |
+| W2-226 | | B2 | J08 | CRANE | OPEN | | case-studies/clinic-retrofit |
+| W2-227 | | B2 | J08 | CRANE | OPEN | | case-studies/library-retrofit |
+| W2-228 | | B2 | J08 | CRANE | OPEN | | case-studies/municipal-market-retrofit |
+| W2-229 | | B2 | J08 | CRANE | OPEN | | whitepapers hub entry: carbon-accounting-for-builders |
+| W2-230 | | B2 | J08 | CRANE | OPEN | | whitepapers hub entry: retrofit-payback-models |
+| W2-231 | | B2 | J08 | CRANE | OPEN | | guides/site-handover-playbook |
+| W2-232 | | B2 | J08 | CRANE | OPEN | | guides/monsoon-preparedness-audit |
+| W2-233 | | B2 | J08 | CRANE | OPEN | | checklists/crane-lift-plan |
+
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to

@@ -393,3 +393,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority from the scribe-docs worktree; CRANE to land w2-218/SCRIBE-isolation.
 ---
+
+## 20:00 - SCRIBE sprint rows (W2-219..233)
+**Action:** Appended 15 new OPEN queue rows (W2-219 through W2-233) to docs/WAVE_QUEUE.md, all assigned CRANE: 4 blog articles (piling-quality-gates, weld-inspection-basics, cement-storage-humidity, prefab-connection-detailing), 4 checklists (crane-maintenance, material-receiving, scaffold-handover, crane-lift-plan), 3 case studies (clinic-retrofit, library-retrofit, municipal-market-retrofit), 2 whitepapers hub entries (carbon-accounting-for-builders, retrofit-payback-models), 2 guides (site-handover-playbook, monsoon-preparedness-audit). Append-only per RULE 3 — no existing rows touched.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims and works W2-219..233 in order.
+---
