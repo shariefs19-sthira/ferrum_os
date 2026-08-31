@@ -1,8 +1,8 @@
 <#
 verify-static.ps1 - grep-based guard for static-page constraints under
-apps/web/app/resources/**, plus a template-skeleton check for blog articles,
-plus a repo-wide tsc --noEmit. Exits non-zero and prints offenders on any
-violation. No ESLint plugin dependency by design.
+apps/web/app/resources/**, plus a template-skeleton check for blog articles
+and checklists, plus a repo-wide tsc --noEmit. Exits non-zero and prints
+offenders on any violation. No ESLint plugin dependency by design.
 #>
 
 $ErrorActionPreference = "Stop"
@@ -46,38 +46,67 @@ foreach ($file in $resourceFiles) {
     }
 }
 
-# 3. Blog articles must match the _template skeleton (1x <h1, 3x <h2 minimum).
-# Note: _template/page.tsx itself has 4x <h2 (3 body sections + Conclusion),
-# but the established convention landed across WAVE-2 (see docs/WAVE_QUEUE.md,
-# "h1+3 sections each") is h1 + 3 body <h2>s with no separate Conclusion
-# heading. Enforcing the template's literal 4 would fail every already-landed
-# article, so the floor here is the real convention, not the template file.
-$templatePath = "$root/blog/_template/page.tsx"
-if (Test-Path $templatePath) {
-    $templateH1 = 1
-    $templateH2 = 3
+function Test-SectionSkeleton {
+    param(
+        [string]$SectionRoot,
+        [string]$SectionLabel,
+        [int]$MinH1,
+        [int]$MinH2,
+        [string]$ExcludeDirName
+    )
 
-    $blogDirs = Get-ChildItem -Path "$root/blog" -Directory | Where-Object { $_.Name -ne "_template" }
-    foreach ($dir in $blogDirs) {
+    $result = @()
+
+    if (-not (Test-Path $SectionRoot)) {
+        Write-Host "WARN: no $SectionLabel directory found at $SectionRoot; skipping skeleton check."
+        return $result
+    }
+
+    $dirs = Get-ChildItem -Path $SectionRoot -Directory
+    if ($ExcludeDirName) {
+        $dirs = $dirs | Where-Object { $_.Name -ne $ExcludeDirName }
+    }
+
+    foreach ($dir in $dirs) {
         $pagePath = Join-Path $dir.FullName "page.tsx"
         if (-not (Test-Path $pagePath)) {
-            $violations += "MISSING_PAGE (no page.tsx matching _template): $($dir.FullName)"
+            $result += "MISSING_PAGE (no page.tsx matching $SectionLabel skeleton): $($dir.FullName)"
             continue
         }
         $pageContent = Get-Content -Raw -LiteralPath $pagePath
         $pageH1 = ([regex]::Matches($pageContent, '<h1')).Count
         $pageH2 = ([regex]::Matches($pageContent, '<h2')).Count
 
-        if ($pageH1 -lt $templateH1) {
-            $violations += "TEMPLATE_MISMATCH (h1 count $pageH1 < template $templateH1): $pagePath"
+        if ($pageH1 -lt $MinH1) {
+            $result += "TEMPLATE_MISMATCH (h1 count $pageH1 < $SectionLabel floor $MinH1): $pagePath"
         }
-        if ($pageH2 -lt $templateH2) {
-            $violations += "TEMPLATE_MISMATCH (h2 count $pageH2 < template $templateH2): $pagePath"
+        if ($pageH2 -lt $MinH2) {
+            $result += "TEMPLATE_MISMATCH (h2 count $pageH2 < $SectionLabel floor $MinH2): $pagePath"
         }
     }
-} else {
-    Write-Host "WARN: no blog _template found at $templatePath; skipping skeleton check."
+
+    return $result
 }
+
+# 3. Blog articles must match the _template skeleton (1x <h1, 3x <h2 minimum).
+# Note: _template/page.tsx itself has 4x <h2 (3 body sections + Conclusion),
+# but the established convention landed across WAVE-2 (see docs/WAVE_QUEUE.md,
+# "h1+3 sections each") is h1 + 3 body <h2>s with no separate Conclusion
+# heading. Enforcing the template's literal 4 would fail every already-landed
+# article, so the floor here is the real convention, not the template file.
+$blogTemplatePath = "$root/blog/_template/page.tsx"
+if (Test-Path $blogTemplatePath) {
+    $violations += Test-SectionSkeleton -SectionRoot "$root/blog" -SectionLabel "blog" -MinH1 1 -MinH2 3 -ExcludeDirName "_template"
+} else {
+    Write-Host "WARN: no blog _template found at $blogTemplatePath; skipping skeleton check."
+}
+
+# 4. Checklists must match the same h1+3-section floor established by
+# resources/checklists/structural-punch-list (W2-168). There is no
+# _template/ under checklists/ yet, so this floor is inferred from that
+# landed page rather than read from a template file; if a checklists
+# _template/ is added later, wire it in the same way the blog check is.
+$violations += Test-SectionSkeleton -SectionRoot "$root/checklists" -SectionLabel "checklists" -MinH1 1 -MinH2 3 -ExcludeDirName "_template"
 
 if ($violations.Count -gt 0) {
     Write-Host "Static-page constraint violations found:"
