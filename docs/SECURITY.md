@@ -13,3 +13,17 @@ supporting middleware were retired for the static launch. The static
 `_headers` CSP uses `unsafe-inline`, accepted consciously as a
 launch-scoped tradeoff, not an oversight. **W2-240** is queued for
 post-launch hardening back to hash-based or edge-nonce CSP.
+
+## Process incidents
+
+**2026-08-31 — auto-land of held dependency WIP:** `scripts/land.ps1`'s
+catch-all loop auto-landed a held, not-ready branch (`w2-234/crane-cloudflare`,
+OpenNext/Wrangler dependency work touching `package.json`,
+`next.config.js`, `wrangler.jsonc`, `pnpm-lock.yaml`) onto `main`. This is
+notable from a supply-chain standpoint because `package.json` and
+`pnpm-lock.yaml` are RULE 6 protected paths — the branch itself was
+legitimate CRANE WIP, not malicious, but it landed without the explicit
+approval RULE 6 requires. Fixed via a clean revert; see the ACTIVITY_LOG
+postmortem entry for the full timeline. `docs/LAND_HOLD.txt` (added as
+part of the fix) is now the mechanism that keeps held branches like this
+one out of the catch-all loop.
