@@ -1,6 +1,5 @@
 import Link from "next/link";
 import dynamic from 'next/dynamic';
-import StatsBand from '../components/StatsBand';
 import TestimonialStrip from '../components/TestimonialStrip';
 
 // Lazy load the ProductCard component
@@ -75,7 +74,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <StatsBand />
       <TestimonialStrip />
     </main>
   );
