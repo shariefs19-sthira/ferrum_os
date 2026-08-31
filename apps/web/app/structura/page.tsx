@@ -3,6 +3,7 @@
 import React from 'react';
 import StructuraFeatures from '../../components/StructuraFeatures';
 import ProductPage from '../../components/ProductPage';
+import StatCallout from '../../components/StatCallout';
 import { productsData } from '../../components/product-data';
 
 const beamTable = [
@@ -44,6 +45,16 @@ const StructuraPage = () => {
               IS 456 for M25 concrete and Fe500 reinforcement. Use as a pre-design starting point
               only &mdash; verify with a qualified structural engineer before finalising sections.
             </p>
+          </div>
+
+          <div className="mb-8">
+            <StatCallout
+              stats={[
+                { value: '6', label: 'span sizes covered (3.0m–9.0m)' },
+                { value: 'IS 456', label: 'M25 concrete, Fe500 reinforcement' },
+                { value: '5', label: 'use-case tiers, residential to industrial' },
+              ]}
+            />
           </div>
 
           <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
