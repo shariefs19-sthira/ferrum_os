@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Ferrum OS Architecture Overview",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "client_browser",
+      "type": "frontend",
+      "label": "Client Browser"
+    },
+    {
+      "id": "nextjs_frontend",
+      "type": "frontend",
+      "label": "Next.js Frontend",
+      "sublabel": "apps/web/app"
+    },
+    {
+      "id": "components_lib",
+      "type": "frontend",
+      "label": "React Components",
+      "sublabel": "apps/web/components"
+    },
+    {
+      "id": "shared_backend",
+      "type": "backend",
+      "label": "Shared Backend",
+      "sublabel": "packages/shared"
+    },
+    {
+      "id": "scripts",
+      "type": "backend",
+      "label": "Automation Scripts",
+      "sublabel": "scripts/"
+    },
+    {
+      "id": "landintel_service",
+      "type": "backend",
+      "label": "LandIntel Service",
+      "sublabel": "apps/web/app/landintel"
+    },
+    {
+      "id": "boqpro_service",
+      "type": "backend",
+      "label": "BOQ Pro Service",
+      "sublabel": "apps/web/app/boq-pro"
+    },
+    {
+      "id": "other_services",
+      "type": "backend",
+      "label": "Other Services",
+      "sublabel": "buildos, structura, etc."
+    }
+  ],
+  "connections": [
+    {
+      "from": "client_browser",
+      "to": "nextjs_frontend",
+      "label": "HTTP/S Requests"
+    },
+    {
+      "from": "nextjs_frontend",
+      "to": "components_lib",
+      "label": "Uses Components"
+    },
+    {
+      "from": "nextjs_frontend",
+      "to": "shared_backend",
+      "label": "API Calls"
+    },
+    {
+      "from": "scripts",
+      "to": "shared_backend",
+      "label": "Invoke APIs"
+    },
+    {
+      "from": "nextjs_frontend",
+      "to": "landintel_service",
+      "label": "Route Handler"
+    },
+    {
+      "from": "nextjs_frontend",
+      "to": "boqpro_service",
+      "label": "Route Handler"
+    },
+    {
+      "from": "nextjs_frontend",
+      "to": "other_services",
+      "label": "Route Handler"
+    }
+  ]
+}
