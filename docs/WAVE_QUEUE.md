@@ -79,7 +79,7 @@
 | W2-87   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | 0c8dff4  | partners/page.tsx — 3 partner tiers (Technology/Implementation/Channel) + FAQ; bundled with W2-81 newsletter and W2-86 careers in w2-87/cline-partners merge |
 
 | W2-120 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | DONE | a7b6e88 | blog/monsoon-structural-checks |
-| W2-121 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | CLAIMED-CRANE | | checklists/handover-documents |
+| W2-121 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | DONE | 42e8aa8 | checklists/handover-documents |
 | W2-122 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | CLAIMED-CRANE | | components/FaqAccordion |
 | W2-123 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | blog/steel-price-hedges |
 | W2-124 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | case-studies/airport-cargo-bay |
