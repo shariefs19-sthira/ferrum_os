@@ -78,7 +78,7 @@
 | W2-86   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | c48f511  | careers/page.tsx — culture section (4 principles) + 3 open role cards (Engineering/Construction/Design); landed via w2-87/cline-partners merge |
 | W2-87   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | 0c8dff4  | partners/page.tsx — 3 partner tiers (Technology/Implementation/Channel) + FAQ; bundled with W2-81 newsletter and W2-86 careers in w2-87/cline-partners merge |
 
-| W2-120 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | CLAIMED-CRANE | | blog/monsoon-structural-checks |
+| W2-120 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | DONE | a7b6e88 | blog/monsoon-structural-checks |
 | W2-121 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | CLAIMED-CRANE | | checklists/handover-documents |
 | W2-122 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | CLAIMED-CRANE | | components/FaqAccordion |
 | W2-123 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | blog/steel-price-hedges |
