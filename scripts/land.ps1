@@ -48,7 +48,19 @@ foreach ($branch in $remoteBranches) {
 
     $alreadyLanded = git log main --oneline --grep="$tag" -F
     if ($alreadyLanded) {
-        Write-Host "SKIPPED (already landed): $shortName"
+        Write-Host "SKIPPED (already landed, tag match): $shortName"
+        continue
+    }
+
+    # Cheap pre-check before attempting a squash merge: if the branch has no
+    # unique changes since it diverged from main (git diff with the 3-dot
+    # merge-base form), its content is already in main under a different
+    # commit shape (e.g. landed before this script existed, or landed by
+    # another process without the [land:...] tag). Skip without a merge
+    # attempt instead of hitting an avoidable conflict.
+    $uniqueDiff = git diff "main...$branch" --stat
+    if (-not $uniqueDiff) {
+        Write-Host "SKIPPED (no unique changes vs main): $shortName"
         continue
     }
 
