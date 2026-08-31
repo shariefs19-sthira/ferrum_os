@@ -62,3 +62,10 @@ project for reuse here. The two repos are never merged. Anything ported
 in enters this repo only as a normal W2 task, subject to the same gates
 as any other task (RULE 4 stage-gate, RULE 5 quality, RULE 6 protected
 paths) — no bulk import, no bypassing the queue.
+
+**Brand decision (2026-08-31, operator):** Ferrum OS retains its current
+identity per Relume. ferrumgroup.in design tokens (bronze #B8873B et al.)
+are NOT adopted — reference-only. Post-Relume design-polish derives its
+tokens from the Relume wireframe, not from ferrumgroup.in. The BOQ port
+(W2-235) is logic-only and carries no brand coupling. Full verdict table
+in docs/REUSE_MAP.md.

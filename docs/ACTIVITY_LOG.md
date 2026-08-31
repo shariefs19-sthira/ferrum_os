@@ -409,3 +409,19 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 20:30 - SCRIBE REUSE_MAP (W2-235)
+**Action:** Added docs/REUSE_MAP.md summarizing reuse verdicts against ferrum-web trunk (the stopped ferrum project) per the AGENTS.md Reuse Policy: BOQ logic = PORT-CONTENT, design tokens = design reference only, no content library exists to port, Cloudflare setup = account-pattern reference only. Repos never merge.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/REUSE_MAP.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority; note w2-234/SCRIBE-reuse-policy (AGENTS.md Reuse Policy section) is pushed but not yet landed — this doc references it by name, land order doesn't matter for correctness but CRANE should land both.
+---
+
+## 20:45 - SCRIBE brand decision (W2-236)
+**Action:** Recorded the operator's 2026-08-31 brand decision in both AGENTS.md's Reuse Policy and docs/REUSE_MAP.md: Ferrum OS retains its current identity per Relume; ferrumgroup.in design tokens (bronze #B8873B et al.) are NOT adopted, reference-only; post-Relume design-polish derives tokens from the Relume wireframe, not ferrumgroup.in; the W2-235 BOQ port is logic-only with no brand coupling.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/REUSE_MAP.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority; CRANE to land w2-234, w2-235, and w2-236 (this branch already contains all three, merged).
+---
