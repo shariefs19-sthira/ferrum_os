@@ -3,6 +3,9 @@ land.ps1 - squash-lands origin/w2-* branches onto main.
 For each remote branch matching origin/w2-*, skips it if a commit tagged
 "[land:<branch>]" already exists in the main log; otherwise squash-merges it,
 commits with an [AI: SCRIPT] tag, and skips (with a logged reason) on conflict.
+Branches matching a glob in docs/LAND_HOLD.txt are skipped by this catch-all
+loop entirely (a targeted `git merge --squash origin/<branch>` still works
+on a held branch — the hold only applies to the automatic sweep).
 After the loop: type-checks apps/web, then pushes main with rebase-retry.
 #>
 
@@ -23,6 +26,25 @@ function Get-LandTag($branchName) {
     return "[land:$branchName]"
 }
 
+function Get-HoldGlobs {
+    $holdFile = "docs/LAND_HOLD.txt"
+    if (-not (Test-Path $holdFile)) {
+        return @()
+    }
+    return Get-Content $holdFile |
+        ForEach-Object { $_.Trim() } |
+        Where-Object { $_ -and -not $_.StartsWith('#') }
+}
+
+function Test-OnHold($shortName, $holdGlobs) {
+    foreach ($glob in $holdGlobs) {
+        if ($shortName -like $glob) {
+            return $true
+        }
+    }
+    return $false
+}
+
 Ensure-GitIdentity
 
 git fetch origin --prune
@@ -38,12 +60,24 @@ git pull --rebase origin main
 if ($LASTEXITCODE -ne 0) { throw "initial git pull --rebase origin main failed" }
 
 $remoteBranches = git branch -r | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^origin/w2-' -and $_ -ne 'origin/HEAD' }
+$holdGlobs = Get-HoldGlobs
+if ($holdGlobs.Count -gt 0) {
+    Write-Host "Hold list active ($($holdGlobs.Count) pattern(s)): $($holdGlobs -join ', ')"
+}
 
 $skipped = @()
 $landed = @()
+$held = @()
 
 foreach ($branch in $remoteBranches) {
     $shortName = $branch -replace '^origin/', ''
+
+    if (Test-OnHold $shortName $holdGlobs) {
+        Write-Host "HELD (docs/LAND_HOLD.txt): $shortName"
+        $held += $shortName
+        continue
+    }
+
     $tag = Get-LandTag $shortName
 
     $alreadyLanded = git log main --oneline --grep="$tag" -F
@@ -100,8 +134,12 @@ foreach ($branch in $remoteBranches) {
 Write-Host "---"
 Write-Host "Landed: $($landed.Count)"
 Write-Host "Skipped: $($skipped.Count)"
+Write-Host "Held: $($held.Count)"
 if ($skipped.Count -gt 0) {
     $skipped | ForEach-Object { Write-Host "  SKIPPED: $_" }
+}
+if ($held.Count -gt 0) {
+    $held | ForEach-Object { Write-Host "  HELD: $_" }
 }
 
 if ($landed.Count -gt 0) {

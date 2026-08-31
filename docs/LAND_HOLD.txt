@@ -1,0 +1,14 @@
+# LAND_HOLD.txt — branches scripts/land.ps1's catch-all loop must skip.
+#
+# One glob per line. Blank lines and lines starting with # are ignored.
+# Matching uses PowerShell -like semantics (e.g. "w2-234/*" matches any
+# branch under that prefix). Add a branch here when it's intentionally
+# held back from the catch-all — a WIP branch not ready to land, an
+# experiment, anything you don't want swept in automatically. A targeted
+# `git merge --squash origin/<branch>` still works on a held branch;
+# only the catch-all loop in land.ps1 skips it.
+#
+# Remove a line (or the whole file) once the branch is ready to land
+# normally, or has already landed via a targeted merge.
+
+w2-234/*
