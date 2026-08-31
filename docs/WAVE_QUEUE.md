@@ -66,6 +66,7 @@
 | W2-80   |        | B2    | J16      | copilot-cli-vscode | DONE (cherry-pick db1cdec) | 1 hr  | stats band component (4 stats) + homepage render |
 | W2-95   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |         | BATCH: resources/tools (hub: Plot Estimator, beam table, sample calc) + resources/webinars |
 | W2-97   |        | B2    | J08      | Cline-GLM-Flash | DONE   | e449b33  | BATCH: resources/whitepapers/page.tsx (4 papers) + resources/videos/page.tsx (5 videos) — 2 static hubs; landed 6e45bca |
+| W2-98   |        | B2    | J08      | Cline-GLM-Flash | CLAIMED |          | BATCH: resources/reports/page.tsx + resources/podcasts/page.tsx — 2 static hubs (industry reports + audio series) |
 | W2-85   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | f321421  | LANDER: landintel PlotEstimator component (surgical cherry-pick from origin/w2-85/copilot-plotestimator e89ad25; branch has no merge base) |
 | W2-101  |        | B2    | J16      | copilot-cli-vscode | DONE | 1 hr | Cookie consent client component rendered in root layout |
 | W2-102  |        | B2    | J16      | copilot-cli-vscode | CLAIMED-copilot-cli-vscode | 1 hr | Back-to-top client component rendered in root layout |
