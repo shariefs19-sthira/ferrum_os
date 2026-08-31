@@ -425,3 +425,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/REUSE_MAP.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority; CRANE to land w2-234, w2-235, and w2-236 (this branch already contains all three, merged).
 ---
+
+## 21:00 - SCRIBE CSP decision (W2-240)
+**Action:** Recorded the CSP decision in docs/SECURITY.md: the nonce-based CSP and its middleware were retired for the static launch; the static _headers CSP uses unsafe-inline, accepted consciously as a launch-scoped tradeoff. Queued W2-240 in docs/WAVE_QUEUE.md for post-launch hardening to hash-based or edge-nonce CSP, assigned CRANE.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/SECURITY.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE picks up W2-240 post-launch.
+---
