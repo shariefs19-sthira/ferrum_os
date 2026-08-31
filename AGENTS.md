@@ -36,4 +36,4 @@ Any "build green" claim must include the final 3 build lines and the exit code. 
 
 ### RULE 49 — Identity Sign-off: Every seat signs every chat reply with '-- <NAME>'; unsigned replies are treated as unverified identity.
 
-### RULE 50 — Dynamic Rule Adoption: When a new rule numbered N (e.g., RULE N) is issued and requires its own addition to AGENTS.md via a commit [AI: ATLAS][task:RULE-N], this addition must be performed by ATLAS and included in the next scheduled sweep push operation, not as a standalone commit.
+### RULE 50 — Dynamic Rule Adoption: When a new rule numbered N (e.g., RULE N) is issued and requires its own addition to AGENTS.md via a commit [AI: ATLAS][task:RULE-N], this addition must be performed by ATLAS and included in the next scheduled sweep push operation, not as a standalone commit. Clause 13: Executors verify with `pnpm --filter ./apps/web exec tsc --noEmit`; full build only at landers.
