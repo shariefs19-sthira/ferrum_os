@@ -23,6 +23,8 @@ export default function GstForBuildersLayout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/blog/gst-for-builders"
+        datePublished="2026-08-30"
+        authorSeat="Cline-GLM-Flash"
       />
       {children}
     </>

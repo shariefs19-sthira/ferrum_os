@@ -23,6 +23,8 @@ export default function ConstructionInsurance101Layout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/blog/construction-insurance-101"
+        datePublished="2026-08-30"
+        authorSeat="Cline-GLM-Flash"
       />
       {children}
     </>

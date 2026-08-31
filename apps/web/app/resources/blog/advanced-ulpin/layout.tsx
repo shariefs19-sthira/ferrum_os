@@ -23,6 +23,8 @@ export default function AdvancedUlpinLayout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/blog/advanced-ulpin"
+        datePublished="2026-08-30"
+        authorSeat="Cline-B"
       />
       {children}
     </>

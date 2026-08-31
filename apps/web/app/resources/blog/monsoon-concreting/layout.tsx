@@ -23,6 +23,8 @@ export default function MonsoonConcretingLayout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/blog/monsoon-concreting"
+        datePublished="2026-08-30"
+        authorSeat="Qoder-CN"
       />
       {children}
     </>

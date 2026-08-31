@@ -23,6 +23,8 @@ export default function InfrastructureContractorLayout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/case-studies/infrastructure-contractor"
+        datePublished="2026-08-30"
+        authorSeat="Cline-GLM-Flash"
       />
       {children}
     </>

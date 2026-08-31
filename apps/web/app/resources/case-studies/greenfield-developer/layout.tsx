@@ -23,6 +23,8 @@ export default function GreenfieldDeveloperLayout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/case-studies/greenfield-developer"
+        datePublished="2026-08-30"
+        authorSeat="Cline-GLM-Flash"
       />
       {children}
     </>

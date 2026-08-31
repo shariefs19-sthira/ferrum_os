@@ -23,6 +23,8 @@ export default function HomeLoanMarginsLayout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/blog/home-loan-margins"
+        datePublished="2026-08-30"
+        authorSeat="Cline-GLM-Flash"
       />
       {children}
     </>

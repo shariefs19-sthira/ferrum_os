@@ -23,6 +23,8 @@ export default function Is1200VsCesmm4Layout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/blog/is-1200-vs-cesmm4"
+        datePublished="2026-08-30"
+        authorSeat="Qoder-CN"
       />
       {children}
     </>

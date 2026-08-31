@@ -23,6 +23,8 @@ export default function SelfBuildFamilyLayout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/case-studies/self-build-family"
+        datePublished="2026-08-30"
+        authorSeat="Cline-GLM-Flash"
       />
       {children}
     </>

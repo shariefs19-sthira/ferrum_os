@@ -23,6 +23,8 @@ export default function ProcurementTermsLayout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/blog/procurement-terms"
+        datePublished="2026-08-30"
+        authorSeat="Cline-GLM-Flash"
       />
       {children}
     </>

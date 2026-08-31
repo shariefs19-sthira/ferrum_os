@@ -23,6 +23,8 @@ export default function SiteSafetyChecklistLayout({
         headline={metadata.title as string}
         description={metadata.description as string}
         url="/resources/blog/site-safety-checklist"
+        datePublished="2026-08-30"
+        authorSeat="Cline-GLM-Flash"
       />
       {children}
     </>

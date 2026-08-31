@@ -9,15 +9,26 @@ type ArticleJsonLdProps = {
   description: string
   /** Site-relative path, e.g. "/resources/blog/advanced-ulpin". */
   url: string
+  /** ISO date (YYYY-MM-DD) the page's content first landed on main, per `git log --follow`. */
+  datePublished: string
+  /** The seat that authored the page content, recorded as an Organization (not a Person — no named human author exists for these pages). */
+  authorSeat: string
+  // image intentionally omitted: no real article images exist yet. Wire it in
+  // once real assets are available rather than fabricating a placeholder URL.
 }
 
-export function ArticleJsonLd({ headline, description, url }: ArticleJsonLdProps) {
+export function ArticleJsonLd({ headline, description, url, datePublished, authorSeat }: ArticleJsonLdProps) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline,
     description,
     url: `${SITE_BASE_URL}${url}`,
+    datePublished,
+    author: {
+      '@type': 'Organization',
+      name: authorSeat,
+    },
     publisher: {
       '@type': 'Organization',
       name: 'Ferrum OS',
