@@ -1,0 +1,51 @@
+export default function CementStorageHumidityPage() {
+  return (
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+            Cement Storage and Humidity on Site
+          </h1>
+          <p className="mt-4 text-xl text-gray-600">
+            Why Cement Age Alone Doesn't Tell You Whether a Bag Is Usable
+          </p>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">How Humidity Actually Degrades Cement</h2>
+            <p className="text-gray-600">
+              Cement hydrates on contact with moisture, and once that reaction starts in the bag
+              rather than in the mix, the resulting lumps and reduced reactivity quietly weaken
+              whatever concrete or mortar it goes into. Humid site storage does this faster than
+              time alone, which is why a cement bag stored badly for six weeks can be in worse
+              condition than one stored well for six months.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Storage Conditions That Actually Matter</h2>
+            <p className="text-gray-600">
+              Stacking bags on a raised, dry platform away from external walls, keeping stacks
+              below the height that risks bag rupture, and sequencing stock on a strict
+              first-in-first-out basis are the three controls that do most of the work. A
+              covered store with poor ventilation can trap humidity just as effectively as no
+              cover at all, so airflow matters as much as keeping rain off.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">When to Reject a Bag</h2>
+            <p className="text-gray-600">
+              A field test — checking for lumps that don't crumble under light hand pressure, or
+              a visible loss of the powder's free-flowing texture — is a faster and more reliable
+              signal than the manufacture date alone. Site teams that reject on texture rather
+              than age avoid both false confidence in old-but-well-stored cement and false
+              rejection of recent-but-badly-stored cement.
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  )
+}
