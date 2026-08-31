@@ -35,3 +35,5 @@ Any "build green" claim must include the final 3 build lines and the exit code. 
 ### RULE 48 — ATLAS ops: execute only prompts addressed to ATLAS; anything else → reply MISDIRECTED and hold. Name Registry: Qoder-CN (ATLAS), Qoder-A (Qoder-CN), Jules-Owner-B (Jules-Operator), Jules-Fork-A (Jules-Observer), Cline-GLM-Flash (Cline-GLM-Standard), Copilot (Copilot-CLI-VSCode), Claude-Code (Claude-Code-Dev), Continue (Continue-Dev), Qwen-Web (Qwen-Web-Conductor), Operator (Human-Operator), Scout (Scout-Dev), Raven (Raven-Agent), Prophet (Prophet-Agent).
 
 ### RULE 49 — Identity Sign-off: Every seat signs every chat reply with '-- <NAME>'; unsigned replies are treated as unverified identity.
+
+### RULE 50 — Dynamic Rule Adoption: When a new rule numbered N (e.g., RULE N) is issued and requires its own addition to AGENTS.md via a commit [AI: ATLAS][task:RULE-N], this addition must be performed by ATLAS and included in the next scheduled sweep push operation, not as a standalone commit.
