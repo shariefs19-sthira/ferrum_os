@@ -84,12 +84,12 @@
 | W2-123 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | DONE | 033fa80 | blog/steel-price-hedges |
 | W2-124 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | DONE | e6a2cba | case-studies/airport-cargo-bay |
 | W2-125 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | DONE | 7bfbb2a | components/SpecTable render structura |
-| W2-126 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | guides/contractor-onboarding |
-| W2-127 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | OPEN | | components/PrintButton render checklists index |
-| W2-128 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | blog/foundation-retrofit-costs |
-| W2-129 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | whitepapers/thermal-envelope |
-| W2-130 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | OPEN | | components/ReadingProgress render blog article template |
-| W2-131 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | OPEN | | resources/events/webinars-2026 |
+| W2-126 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | CLAIMED-CRANE | | guides/contractor-onboarding |
+| W2-127 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | CLAIMED-CRANE | | components/PrintButton render checklists index |
+| W2-128 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | CLAIMED-CRANE | | blog/foundation-retrofit-costs |
+| W2-129 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | CLAIMED-CRANE | | whitepapers/thermal-envelope |
+| W2-130 | | B2 | J08 | CRANE (was RIVET, parked 2026-08-31) | CLAIMED-CRANE | | components/ReadingProgress render blog article template |
+| W2-131 | | B2 | J08 | CRANE (was MASON, parked 2026-08-31) | CLAIMED-CRANE | | resources/events/webinars-2026 |
 
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
