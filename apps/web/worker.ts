@@ -29,6 +29,7 @@ import { hashPassword, verifyPassword, generateToken, hashToken } from './lib/au
 import { createSession, getSessionUser, deleteSession, setCookieHeader, clearCookieHeader, parseSessionCookie } from './lib/auth/session'
 import { sendVerificationEmail, sendResetEmail } from './lib/auth/email'
 import { checkRateLimit } from './lib/auth/rateLimit'
+import { checkIpRateLimit } from './lib/auth/ipRateLimit'
 import { sendCaseNotification } from './lib/transact/notifications'
 
 async function requireUser(env: Env, cookieHeader: string | undefined) {
@@ -87,6 +88,7 @@ app.get('/api/ulpin/:id', async (c) => {
 })
 
 app.post('/api/testfit', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'testfit', 60, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (
     !body ||
@@ -103,6 +105,7 @@ app.post('/api/testfit', async (c) => {
 app.post('/api/plan-gen', (c) => c.json({ error: 'not_implemented', tool: 'plan-gen' }, 501))
 
 app.post('/api/is-check', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'is-check', 60, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (!body || typeof body.structure_type !== 'string' || typeof body.params !== 'object') {
     return c.json({ error: 'invalid_input' }, 400)
@@ -111,6 +114,7 @@ app.post('/api/is-check', async (c) => {
 })
 
 app.post('/api/boq-estimate', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'boq-estimate', 60, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (!body || !Array.isArray(body.items)) return c.json({ error: 'invalid_input' }, 400)
   const region = typeof body.region === 'string' ? body.region : 'Bengaluru'
@@ -157,6 +161,7 @@ app.get('/api/rates/compare', async (c) => {
 })
 
 app.post('/api/irr-npv', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'irr-npv', 60, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (!body || !Array.isArray(body.cash_flows) || typeof body.discount_rate !== 'number') {
     return c.json({ error: 'invalid_input' }, 400)
@@ -182,6 +187,7 @@ app.get('/api/cde-status/:project_id', (c) => {
 // so this same route serves both ordinary product leads and the
 // Transact demand-token waitlist (W2-286) without a parallel table.
 app.post('/api/leads', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'leads', 20, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (!body || typeof body.email !== 'string' || typeof body.name !== 'string') {
     return c.json({ error: 'invalid_lead' }, 400)
@@ -213,6 +219,7 @@ app.get('/api/stamp-duty/:state', async (c) => {
 })
 
 app.post('/api/ask-band', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'ask-band', 60, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (!body || typeof body.base_value !== 'number' || typeof body.urgency !== 'number') {
     return c.json({ error: 'invalid_input' }, 400)
@@ -233,6 +240,7 @@ app.get('/api/govt-reference-rate', async (c) => {
 
 // Mode 1 (FERRUM) direct lookup for the three-mode calculator (W2-312).
 app.post('/api/ferrum-rate', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'ferrum-rate', 60, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (!body || typeof body.category !== 'string' || typeof body.region !== 'string') {
     return c.json({ error: 'invalid_input' }, 400)
@@ -257,6 +265,7 @@ app.post('/api/ferrum-rate', async (c) => {
 // yet (W2-324 not landed), advancing past it just records the case moved
 // on, matching the "ship stub if dependency missing" rule.
 app.post('/api/transact/cases', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'transact-cases-create', 20, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   const role: CaseRole | undefined = body?.role === 'buyer' || body?.role === 'seller' ? body.role : undefined
   if (!body || !role || typeof body.contact_name !== 'string' || typeof body.contact_email !== 'string') {
@@ -423,6 +432,7 @@ app.get('/api/transact/cases/:id/schedule', async (c) => {
 // Razorpay secrets — every response carries `simulated`/`mode` so the
 // client can label the flow honestly either way.
 app.post('/api/payments/order', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'payments-order', 20, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (!body || typeof body.amount_paise !== 'number' || body.amount_paise <= 0) {
     return c.json({ error: 'invalid_input' }, 400)
@@ -504,6 +514,7 @@ app.post('/api/payments/webhook', async (c) => {
 app.post('/api/subscriptions', async (c) => {
   const user = await requireUser(c.env, c.req.header('Cookie'))
   if (!user) return c.json({ error: 'unauthorized' }, 401)
+  if (!(await checkRateLimit(c.env.DB, `subscriptions-create:${user.id}`, 20, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (!body || typeof body.plan_id !== 'string') return c.json({ error: 'invalid_input' }, 400)
   const plan = await c.env.DB.prepare('SELECT * FROM subscription_plans WHERE id = ?').bind(body.plan_id).first<{
@@ -702,6 +713,7 @@ app.post('/api/auth/reset-password', async (c) => {
 app.post('/api/workspace/artifacts', async (c) => {
   const user = await requireUser(c.env, c.req.header('Cookie'))
   if (!user) return c.json({ error: 'unauthorized' }, 401)
+  if (!(await checkRateLimit(c.env.DB, `workspace-create:${user.id}`, 60, 60))) return c.json({ error: 'rate_limited' }, 429)
   const body = await c.req.json().catch(() => null)
   if (!body || typeof body.type !== 'string' || typeof body.title !== 'string' || body.data === undefined) {
     return c.json({ error: 'invalid_input' }, 400)
