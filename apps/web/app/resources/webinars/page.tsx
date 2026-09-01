@@ -60,12 +60,12 @@ export default function WebinarsPage() {
           <p className="mt-1 text-sm text-slate-600">Recordings of past sessions. Drop in for the relevant minute.</p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {onDemand.map((w) => (
-              <a key={w.id} href={`/resources/webinars/${w.id}`} className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-5 py-4 hover:border-blue-300 hover:bg-white">
+              <a key={w.id} href={`mailto:webinars@ferrum_os.com?subject=Recording%20request%3A%20${encodeURIComponent(w.id)}`} className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-5 py-4 hover:border-blue-300 hover:bg-white">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">{w.track} · {w.length}</p>
                   <p className="mt-1 text-sm font-semibold text-slate-900">{w.title}</p>
                 </div>
-                <span className="text-blue-700 text-sm font-semibold">Watch →</span>
+                <span className="text-blue-700 text-sm font-semibold">Request recording →</span>
               </a>
             ))}
           </div>

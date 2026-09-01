@@ -2,7 +2,7 @@ const tools = [
   {
     name: 'Plot Estimator',
     badge: 'Feasibility',
-    href: '/landintel',
+    href: '/products/landintel',
     summary:
       'Guided calculator that turns a parcel polygon, an FAR, and a buildable mix into a buildable-area estimate, a revenue envelope, and a first-pass land-cost ceiling. Lives inside LandIntel so the same inputs feed the parcel record, the BOQ, and the team handoff.',
     inputs: 'Parcel area, Road width, FSI / FAR, Land cost, Construction rate',
@@ -11,7 +11,7 @@ const tools = [
   {
     name: 'Beam Section Table',
     badge: 'Structural',
-    href: '/resources/tools/beam-table',
+    href: '/products/structura',
     summary:
       'Printable quick-reference for RCC beam sizing that maps span, breadth, and depth to steel area and moment capacity using IS 456 working-stress assumptions. Designed to be checked against the project structural schedule before a bar-bending schedule is released.',
     inputs: 'Span (m), Breadth (mm), Depth (mm), Concrete grade, Steel grade',
@@ -20,7 +20,7 @@ const tools = [
   {
     name: 'Sample BOQ Calculator',
     badge: 'Procurement',
-    href: '/resources/tools/sample-calc',
+    href: '/products/boq-pro',
     summary:
       'Small worked example that takes a four-line item-rate BOQ (excavation, PCC, RCC M25, brickwork) and returns a unit-rate summary, a tax split, and a grand total. Useful for vendor onboarding and for sanity-checking the master BOQ when a new rate is keyed in.',
     inputs: 'Item, Quantity, Unit, Unit rate (INR)',
