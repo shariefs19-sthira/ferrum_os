@@ -26,6 +26,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/project-workspace',
   ]
 
+  // /account and /admin/leads are deliberately excluded — both are
+  // authenticated/internal surfaces (post-W2-326 auth, W2-328 admin lead
+  // view), not public marketing/content pages, so they don't belong in a
+  // public sitemap. /forgot-password is public and unauthenticated like
+  // /login and /signup, so it's included alongside them.
   const topLevelRoutes = [
     '/about',
     '/about/timeline',
@@ -33,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/contact',
     '/demo',
     '/documentation',
+    '/forgot-password',
     '/get-started',
     '/login',
     '/partners',
