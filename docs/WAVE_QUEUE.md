@@ -111,6 +111,25 @@
 ## 2026-08-31 — SCRIBE CSP hardening (post-launch)
 | W2-240 | | B2 | J08 | CRANE | OPEN | | security: post-launch CSP hardening — replace static _headers unsafe-inline with hash-based or edge-nonce CSP; see docs/SECURITY.md CSP decisions |
 
+## 2026-09-01 — SCRIBE Relume addendum (docs/RELUME_ADDENDUM.md)
+| W2-253 | | B2 | J08 | CRANE | OPEN | | Relume: ProcureHub page |
+| W2-254 | | B2 | J08 | CRANE | OPEN | | Relume: InvestFlow page |
+| W2-255 | | B2 | J08 | CRANE | OPEN | | Relume: CommunityBuild page |
+| W2-256 | | B2 | J08 | CRANE | OPEN | | Relume: BuildOS FAQ+CTA completion |
+| W2-257 | | B2 | J08 | CRANE | OPEN | | Relume: Pricing page restyle (7 sections, tokens) |
+
+## 2026-09-01 — SCRIBE Wave C (renumbered 259..263, see note)
+| W2-259 | | B2 | J08 | CRANE | OPEN | | Relume: About + /about/careers |
+| W2-260 | | B2 | J08 | CRANE | OPEN | | Relume: content hubs — Resources / Case Studies / IS Code Guides / Blog |
+| W2-261 | | B2 | J08 | CRANE | OPEN | | Relume: Documentation + API Docs + User Guides |
+| W2-262 | | B2 | J08 | CRANE | OPEN | | Relume: Dashboard + Project Workspace |
+| W2-263 | | B2 | J08 | CRANE | OPEN | | Relume: Sign Up + Billing |
+
+Note: requested as W2-258..262, renumbered to W2-259..263 — W2-258 is
+already the branch name for the addendum commit (w2-258/SCRIBE-addendum),
+not a queue row, but reusing it as a task ID too would collide. No
+existing row was touched.
+
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to

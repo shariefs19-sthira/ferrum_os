@@ -441,3 +441,19 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/SECURITY.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority. docs/LAND_HOLD.txt is CRANE's file to maintain going forward per its own W2-241 land; SCRIBE records the incident, doesn't own the hold-list.
 ---
+
+## 2026-09-01 09:20 - SCRIBE Relume addendum (W2-258)
+**Action:** Committed the operator's Relume Addendum Manifest verbatim as docs/RELUME_ADDENDUM.md (ProcureHub, InvestFlow, CommunityBuild pages fully wired; BuildOS FAQ+CTA completed; Pricing page 7 sections wired; remaining pending list: About, Careers, Resources, Case Studies, IS Code Guides, Blog, Documentation, API Docs, User Guides, Dashboard, Project Workspace, Sign Up, Billing). Appended 5 WAVE_QUEUE rows (W2-253..257), all CRANE. Branched fresh off origin/main as w2-258/SCRIBE-addendum rather than reusing the still-unlanded w2-243/SCRIBE-relume, per operator's "cleaner" preference.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/RELUME_ADDENDUM.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE works W2-253..257 after W2-244..252 (w2-243/SCRIBE-relume still pending land).
+---
+
+## 2026-09-01 09:35 - SCRIBE Wave C queue rows
+**Action:** Appended 5 Wave C queue rows to docs/WAVE_QUEUE.md, all CRANE: About + /about/careers; content hubs (Resources/Case Studies/IS Code Guides/Blog); Documentation + API Docs + User Guides; Dashboard + Project Workspace; Sign Up + Billing. Requested as W2-258..262, renumbered to W2-259..263 since W2-258 is already in use as the addendum commit's branch name (w2-258/SCRIBE-addendum) — no existing queue row used that number, but assigning it as a task ID too would have created ambiguity between "the branch that landed the addendum" and "a Wave C task." Noted the renumbering inline in WAVE_QUEUE.md.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority.
+---
