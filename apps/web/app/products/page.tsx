@@ -12,7 +12,7 @@ const products = [
   { title: 'LandIntel', body: 'Land feasibility & ULPIN lookup', href: '/products/landintel' },
   { title: 'DesignStudio', body: 'AI architectural design', href: '/products/designstudio' },
   { title: 'Structura', body: 'Structural analysis & IS compliance', href: '/products/structura' },
-  { title: 'BOQ Pro', body: 'Automated BOQ & cost estimation', href: '/boq-pro' },
+  { title: 'BOQ Pro', body: 'Automated BOQ & cost estimation', href: '/products/boq-pro' },
   { title: 'ProMarket', body: 'Verified professionals marketplace', href: '/products/promarket' },
   { title: 'BuildOS', body: 'Project management & digital PMC', href: '/products/buildos' },
   { title: 'ProcureHub', body: 'Material procurement & suppliers', href: '/products/procurehub' },

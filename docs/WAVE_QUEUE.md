@@ -118,7 +118,7 @@
 | W2-247 | | B2 | J08 | CRANE | DONE | b75a3d9 | Relume: LandIntel |
 | W2-248 | | B2 | J08 | CRANE | DONE | 4258238 | Relume: DesignStudio (new page) |
 | W2-249 | | B2 | J08 | CRANE | DONE | 2642fb8 | Relume: Structura |
-| W2-250 | | B2 | J08 | CRANE | OPEN | | Relume: BOQ-Pro marketing page |
+| W2-250 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Relume: BOQ-Pro marketing page |
 | W2-251 | | B2 | J08 | CRANE | OPEN | | Relume: ProMarket |
 | W2-252 | | B2 | J08 | CRANE | OPEN | | Relume: BuildOS (5 wireframed sections; FAQ/CTA in Wave B) |
 
