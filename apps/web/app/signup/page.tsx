@@ -33,6 +33,14 @@ export default function SignupPage() {
         setStatus("error")
         return
       }
+      // Fire-and-forget lead capture alongside real account creation
+      // (W2-341) — a marketing/lead-tracking record distinct from the
+      // account itself, doesn't block or affect the signup outcome.
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, product: "signup-lead", source_page: "signup" }),
+      }).catch(() => {})
       window.location.href = "/account"
     } catch {
       setErrorMsg("Something went wrong — try again.")
