@@ -481,3 +481,19 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 2026-09-01 10:20 - SCRIBE Transact compliance gate (W2-287)
+**Action:** Committed the operator's docs/COMPLIANCE_GATE.md verbatim (DRAFT status, conductor-authored, pending counsel verification, explicitly not legal advice). Stage-1 rules: INDICATIVE watermarking on all calculators, mandatory facilitator/not-legal-practitioner disclaimers, no guarantee language, no commission/pricing claims, no transactional marketing. Counsel checklist covers RERA Sec 9 agent registration, Advocates Act 1961 (licensed advocates only via ProMarket empanelment), stamp duty/registration as pass-through facilitation only, escrow via bank/NBFC partner (never pooling client funds), PMLA 2002 KYC/AML, and no "guaranteed" advertising claims. Stage-2 (transactional) is BLOCKED until counsel signs off. Added WAVE_QUEUE row W2-287 for the doc itself; per operator instruction, did NOT queue W2-283..286 (Transact page, stamp-duty estimator, ask-band estimator, waitlist capture) yet — those build under W2-287's rules once queued in a later pass.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/COMPLIANCE_GATE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority.
+---
+
+## 2026-09-01 10:30 - SCRIBE Transact rows (W2-283..286)
+**Action:** Queued the four Transact build rows now that W2-287 (COMPLIANCE_GATE.md) is committed: W2-283 Transact product page (7-section template, Stage-1 copy per COMPLIANCE_GATE); W2-284 stamp-duty/registration-fee estimator (state-wise, INDICATIVE); W2-285 ask-band estimator + urgency slider (sample comparables); W2-286 demand-token waitlist capture (extend D1 leads schema). All CRANE, all noted as building under W2-287's Stage-1 rules.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority.
+---
