@@ -593,3 +593,5 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE works these; verification of all pending row numbers follows in this same push.
 ---
+
+## 2026-09-01 14:30 - SCRIBE ATLAS reactivation + disjoint-ownership protocol (WIP, continued below)
