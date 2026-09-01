@@ -237,14 +237,14 @@ landed, so W2-312 carries the real scope.
 
 ## 2026-09-01 — SCRIBE final rails (auth through ops)
 | W2-326 | | B2 | J08 | CRANE | DONE | 4ef78791 | AUTH_COMPLETE — password auth via PBKDF2 over WebCrypto, sessions, verify + reset flows via Resend with a dev fallback, account page, rate limits on auth endpoints. Folds/supersedes W2-317. |
-| W2-327 | | B2 | J08 | CRANE | DONE | cf271df9 | WORKSPACE_DATA — saved-artifact CRUD + export + share, tied to W2-326 auth |
+| W2-327 | | B2 | J08 | CRANE | DONE | cf271df9 | WORKSPACE_DATA — saved-artifact CRUD + export + share, tied to W2-326 auth. Audit: partial — Update op missing at audit time; gap-closure row follows (W2-343). |
 | W2-328 | | B2 | J08 | CRANE | DONE | 6d35ec57 | FORMS_LEADS — route all site forms into D1, plus a minimal operator admin view for leads |
 | W2-329 | | B2 | J08 | CRANE | DONE | 0b4e8711 | PAYMENTS_COMPLETE — checkout, demand tokens, subscriptions, webhooks with signature verification, receipts + GST invoice generation; test-mode for now |
 | W2-330 | | B2 | J08 | CRANE | DONE | f417d4dd | TRANSACT_LIFECYCLE — buyer/seller state machine, KYC capture, document uploads via R2, scheduling, notifications |
 | W2-331 | | B2 | J08 | ATLAS | OPEN | | CONTENT_REAL — real content pass on Blog / Case Studies / IS Code Guides, no lorem/placeholder text remaining |
 | W2-332 | | B2 | J08 | ATLAS | OPEN | | LEGAL_PAGES — Terms, Privacy, Refunds, Disclaimers, DPDP notice, cookie consent |
 | W2-333 | | B2 | J08 | ATLAS | OPEN | | SITE_SYSTEMS — 404 page, SEO/OG tags, sitemap + robots, accessibility pass, performance pass, error boundaries. Acceptance criteria: sitemap.ts route count must match the actual `next build` route count exactly (diff=0); must create public/_redirects per docs/RELUME_ROUTE_MAP.md. |
-| W2-334 | | B2 | J08 | CRANE | DONE | 0c4e1ffb | SECURITY_HARDENING — rate limits, CSP (see docs/SECURITY.md CSP decisions / W2-240), input validation, secrets audit |
+| W2-334 | | B2 | J08 | CRANE | DONE | 0c4e1ffb | SECURITY_HARDENING — rate limits, CSP (see docs/SECURITY.md CSP decisions / W2-240), input validation, secrets audit. Audit: partial — CSP shipped Report-Only; doc/ledger scope contradiction; enforcement lands via gap-closure (W2-343). |
 | W2-335 | | B2 | J08 | CRANE | DONE | e62c53ba | AGENT_SURFACE_SYNC — reconcile llms.txt/AGENTS.md/OpenAPI/MCP tool catalog against whatever actually shipped by this point in the build. Acceptance criteria: downgrade plan-gen to "stub" in docs/AGENT_INTERFACE.md and its A2A card; ship llms.txt; reconcile the plans table against actual shipped state. |
 | W2-336 | | B2 | J08 | CRANE | OPEN | | OPS — logging + tracing, error tracking |
 
@@ -268,6 +268,9 @@ landed, so W2-312 carries the real scope.
 
 ## 2026-09-01 — SCRIBE performance pass
 | W2-342 | | B2 | J08 | ATLAS | OPEN | | PERF_PASS — Lighthouse run on 10 key routes (home, each product page, pricing, one blog article, one checklist). Targets: Performance ≥ 90, LCP < 2.5s, CLS < 0.1, TTFB < 300ms. Bundle budget check: no route exceeds 200 kB first-load JS. Cache/security headers verified on edge. Fix offenders (defer non-critical JS, preload key assets). |
+
+## 2026-09-02 — SCRIBE gap-closure (ATLAS cross-audit findings)
+| W2-343 | | B2 | J08 | CRANE | OPEN | | GAP_CLOSURE — close two partial-audit gaps from ATLAS's cross-audit of CRANE's landed rows: (1) W2-327 WORKSPACE_DATA — implement the missing Update op on saved-artifact CRUD (Create/Read/Delete confirmed present, Update was not); (2) W2-334 SECURITY_HARDENING — move CSP from Report-Only to fully enforced, resolving the doc/ledger contradiction between docs/SECURITY.md's CSP decision entry and the SECURITY_HARDENING row's DONE status. Acceptance: CRUD test proves Update persists; CSP header enforced (not report-only) in prod build; E2E pass shows no breakage from CSP enforcement (forms, auth, payments, workspace flows all still function). UNDO: git revert <sha>. |
 
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
