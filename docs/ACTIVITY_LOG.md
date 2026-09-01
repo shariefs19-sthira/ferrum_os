@@ -473,3 +473,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/LAUNCH_ARCHITECTURE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE works parity (266-272, no ordering dependency) and llms.txt (273) anytime; the rest follows the stated build order starting at 276.
 ---
+
+## 2026-09-01 10:05 - SCRIBE cleanup queue rows (W2-280, W2-281)
+**Action:** Appended 2 WAVE_QUEUE rows, both CRANE: W2-280 metadata pass (sitemap.ts to new canonical /products/* paths, C-07 SITE_BASE_URL swap, robots check — gated to run after Wave A); W2-281 legacy-branch triage (one-by-one review of the held pre-Relume branches, genuinely-stale ones deleted, actually-unique ones rescued via targeted port — gated post-architecture-wave). Note: origin currently carries 107 remote branches total (excluding origin/main); did not independently verify the operator's "~47 held pre-Relume" subset count, so the row states it as given rather than as something SCRIBE confirmed — W2-281's own review is what will establish the real number.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority.
+---
