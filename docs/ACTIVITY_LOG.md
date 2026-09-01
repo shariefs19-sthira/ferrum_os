@@ -481,3 +481,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 2026-09-01 10:45 - SCRIBE open-source stack audit (W2-288)
+**Action:** Authored docs/OPEN_SOURCE_STACK.md. No "conductor map" existed anywhere to expand — built it directly from apps/web/package.json, root package.json, and actual resolved node_modules versions (next 14.2.35, react/react-dom 18.2.0, typescript 5.9.3, tailwindcss 3.4.19, postcss 8.5.26, autoprefixer 10.5.4, vite 5.4.21, vitest 1.6.1, playwright 1.62.1, turbo 1.13.4, terser 5.51.2, jsdom 24.1.3). License audit: every currently-installed dependency is MIT, Apache-2.0, or BSD-2-Clause — no LGPL/AGPL found, stated as such rather than fabricating a flagged entry. Added a "Later" section for the Launch Architecture stack (Wrangler, @opennextjs/cloudflare, Cloudflare Workers runtime — all named in the reverted w2-234/crane-cloudflare WIP, none currently installed), with a now-vs-later table by product. Research only, no code changed.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/OPEN_SOURCE_STACK.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority; re-audit when package.json changes or the Worker/D1 work actually lands.
+---

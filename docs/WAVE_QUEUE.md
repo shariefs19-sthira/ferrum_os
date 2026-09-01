@@ -168,6 +168,9 @@ MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
 DONE by this edit — status flips only at LIVE (AGENTS.md STAGE-GATES rule).
 
+## 2026-09-01 — SCRIBE open-source stack audit
+| W2-288 | | B2 | J08 | CRANE | OPEN | | docs/OPEN_SOURCE_STACK.md — dependency + license audit (now vs later, per product); research only, no code |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
