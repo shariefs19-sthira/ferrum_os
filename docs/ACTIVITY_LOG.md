@@ -497,3 +497,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 2026-09-01 11:35 - SCRIBE engine arch + V&V rows (W2-303, W2-304)
+**Action:** Queued 2 research/docs rows for CRANE to author (SCRIBE does not author substantive research docs itself, per the earlier W2-288 correction): W2-303 docs/ENGINE_ARCH.md (solver orchestration design covering OpenSees/CalculiX/Code_Aster headless compute, IS-code design post-processors, scope tiers T1-T3, post-launch compute topology); W2-304 docs/ENGINE_VV.md (validation plan — IS worked examples + NAFEMS benchmarks, run per release, published). Requested as W2-295/296, renumbered to W2-303/304 — W2-295 is already the branch name for the OSS-adoption commit, same collision pattern as W2-258 and W2-289 before it.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE researches and authors both docs; SCRIBE stands by.
+---
