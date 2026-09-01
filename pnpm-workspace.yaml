@@ -3,3 +3,5 @@ packages:
   - "packages/*"
   - "services/*"
 dangerouslyAllowAllBuilds: true
+minimumReleaseAgeExclude:
+  - '@cloudflare/workers-types@5.20260901.1'

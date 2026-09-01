@@ -1,7 +1,16 @@
 {
   "name": "ferrum-os",
   "compatibility_date": "2026-08-01",
+  "main": "apps/web/worker.ts",
   "assets": {
-    "directory": "./apps/web/out"
-  }
+    "directory": "./apps/web/out",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ferrum-os-data",
+      "database_id": "049b0f34-adb3-4f7f-85ec-60170019f3a0"
+    }
+  ]
 }
