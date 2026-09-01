@@ -19,6 +19,14 @@ const resources = [
   { name: 'IS Code Guides', href: '/resources/is-code-guides' }
 ]
 
+const legal = [
+  { name: 'Terms', href: '/terms' },
+  { name: 'Privacy', href: '/privacy' },
+  { name: 'Refunds', href: '/refunds' },
+  { name: 'Disclaimers', href: '/disclaimers' },
+  { name: 'DPDP Notice', href: '/dpdp' }
+]
+
 export default function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-white">
@@ -34,7 +42,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2">
+          <div className="grid gap-8 sm:grid-cols-3">
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Products</h3>
               <ul className="mt-4 space-y-3">
@@ -55,6 +63,19 @@ export default function Footer() {
                   <li key={resource.name}>
                     <Link href={resource.href} className="text-sm text-slate-600 transition hover:text-slate-900">
                       {resource.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Legal</h3>
+              <ul className="mt-4 space-y-3">
+                {legal.map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href} className="text-sm text-slate-600 transition hover:text-slate-900">
+                      {item.name}
                     </Link>
                   </li>
                 ))}
