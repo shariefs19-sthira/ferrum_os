@@ -101,9 +101,9 @@
 | W2-225 | | B2 | J08 | CRANE | DONE | 3741b70 | checklists/scaffold-handover |
 | W2-226 | | B2 | J08 | CRANE | DONE | 3741b70 | case-studies/clinic-retrofit |
 | W2-227 | | B2 | J08 | CRANE | DONE | 3741b70 | case-studies/library-retrofit |
-| W2-228 | | B2 | J08 | CRANE | CLAIMED-CRANE | | case-studies/municipal-market-retrofit |
-| W2-229 | | B2 | J08 | CRANE | CLAIMED-CRANE | | whitepapers hub entry: carbon-accounting-for-builders |
-| W2-230 | | B2 | J08 | CRANE | CLAIMED-CRANE | | whitepapers hub entry: retrofit-payback-models |
+| W2-228 | | B2 | J08 | CRANE | DONE | 855eb23 | case-studies/municipal-market-retrofit |
+| W2-229 | | B2 | J08 | CRANE | DONE | 855eb23 | whitepapers hub entry: carbon-accounting-for-builders |
+| W2-230 | | B2 | J08 | CRANE | DONE | 855eb23 | whitepapers hub entry: retrofit-payback-models |
 | W2-231 | | B2 | J08 | CRANE | OPEN | | guides/site-handover-playbook |
 | W2-232 | | B2 | J08 | CRANE | OPEN | | guides/monsoon-preparedness-audit |
 | W2-233 | | B2 | J08 | CRANE | OPEN | | checklists/crane-lift-plan |
