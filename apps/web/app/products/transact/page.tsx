@@ -8,6 +8,7 @@ import AskBandEstimator from '../../../components/sections/AskBandEstimator'
 import WaitlistCapture from '../../../components/sections/WaitlistCapture'
 import OcrSpike from '../../../components/sections/OcrSpike'
 import TransactCaseFlow from '../../../components/sections/TransactCaseFlow'
+import PaymentDemo from '../../../components/sections/PaymentDemo'
 
 export const metadata = {
   title: 'Transact — Ferrum OS',
@@ -113,6 +114,7 @@ export default function TransactPage() {
           <AskBandEstimator />
           <OcrSpike />
           <TransactCaseFlow />
+          <PaymentDemo />
         </div>
       </SectionShell>
 
