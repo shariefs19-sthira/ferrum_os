@@ -252,6 +252,15 @@ here instead.
 | W2-335 | | B2 | J08 | CRANE | OPEN | | AGENT_SURFACE_SYNC — reconcile llms.txt/AGENTS.md/OpenAPI/MCP tool catalog against whatever actually shipped by this point in the build |
 | W2-336 | | B2 | J08 | CRANE | OPEN | | OPS — logging + tracing, error tracking |
 
+## 2026-09-01 — SCRIBE Transact launch rails + first sweep + final certification
+| W2-320 | | B2 | J08 | CRANE | OPEN | | TRANSACT_VISIBILITY — add Transact to the navbar products menu, footer products column, home showcase as a 10th card, sitemap.ts, and the concierge catalog. No copy changes to the Transact page itself. |
+| W2-321 | | B2 | J08 | CRANE | OPEN | | PLACEHOLDER_AUDIT — inventory every interactive/dead element on every page (buttons, forms, links, badges); wire each to a real route/tool/lead capture or remove it. Specifically: delete LandIntelLookup.tsx (dead localhost:8000 FastAPI relic), keep UlpinDemoWidget; remove FALLBACK badges from prod UI; wire newsletter Join to /api/leads; ensure all resources hub links resolve. Acceptance: post-build grep for localhost:8000 = 0 hits; zero dead links on re-crawl. |
+| W2-322 | | B2 | J08 | CRANE | OPEN | | TRANSACT_FLOWS — buyer flow (shortlist → legal cross-check report → token payment step via Razorpay test → registration checklist + slot request) and seller flow (intake → opinion slot → ask-band → mandate confirm → listing card). New D1 tables transact_cases + case_events (migration 0005); status tracking UI. Stage-1 compliance voice throughout (facilitator disclaimers, indicative labels, zero guarantee language). |
+| W2-323 | | B2 | J08 | CRANE | OPEN | | ESCROW_DESIGN — author docs/ESCROW_DESIGN.md: RBI-compliant options analysis (bank/NBFC escrow partner vs Razorpay Route), one recommendation with rationale, no-self-custody principle, integration sequence, cross-referenced against docs/COMPLIANCE_GATE.md. Research/docs only, no code. |
+| W2-324 | | B2 | J08 | CRANE | OPEN | | RAZORPAY_INTEGRATION — test-mode checkout on the Worker (/api/payments/order, /api/payments/verify with Razorpay signature verification), orders + payments tables (migration 0006), webhook with signature check, configurable token amount, GST invoice via pdf-lib client-side. Keys via env placeholders only — operator adds real secrets later; live mode stays gated. |
+| W2-325 | | B2 | J08 | CRANE | OPEN | | SWEEP_FIRST — site-wide pass after W2-320..324 land: all routes 200, zero dead links, forms→D1 verified, MCP cross-check, tsc + build + verify-static green; fix in-scope findings, report the rest. |
+| SWEEP_100 | | B2 | J08 | CRANE | OPEN | | Final certification after ALL rows through W2-339 land: route crawl, sitemap parity vs built routes, grep audits (localhost/lorem/unlabeled PREVIEW), forms E2E, payment test-mode E2E, auth E2E, MCP tools/list + tools/call live, OG/redirects/headers present. Publish as a PASS/FAIL report + commit SHA table. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

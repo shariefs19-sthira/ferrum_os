@@ -569,3 +569,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE works these; when w2-314/SCRIBE-post-launch-rails lands, its W2-317 row should get a superseded-by-W2-326 note.
 ---
+
+## 2026-09-01 13:45 - SCRIBE Transact launch rails + first sweep + final certification (W2-320..325, SWEEP_100)
+**Action:** Verified against origin/main directly that W2-320..325, W2-337..339, and SWEEP_100 were all absent (no rows, and only w2-337/SCRIBE-is-code-ocr-stamp existed as a pushed-but-unlanded branch). Queued the operator/conductor-authored scopes verbatim: W2-320 TRANSACT_VISIBILITY (nav/footer/home-showcase/sitemap/concierge-catalog listing, no page copy changes); W2-321 PLACEHOLDER_AUDIT (full dead-element inventory and wiring, delete LandIntelLookup.tsx, keep UlpinDemoWidget, remove prod FALLBACK badges, wire newsletter to /api/leads, acceptance = 0 localhost:8000 grep hits + 0 dead links); W2-322 TRANSACT_FLOWS (buyer/seller state flows, transact_cases + case_events D1 tables via migration 0005, Stage-1 compliance voice); W2-323 ESCROW_DESIGN (docs/ESCROW_DESIGN.md, RBI-compliant bank/NBFC-vs-Razorpay-Route analysis, no-self-custody principle, cross-ref COMPLIANCE_GATE, research/docs only); W2-324 RAZORPAY_INTEGRATION (test-mode Worker checkout + signature-verified webhook, orders/payments tables via migration 0006, GST invoice via pdf-lib, env-placeholder keys only, live mode gated); W2-325 SWEEP_FIRST (site-wide pass after 320-324); SWEEP_100 (final certification after everything through W2-339, PASS/FAIL report + SHA table).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Merge in W2-337-339 (still on a separate unlanded branch) so all requested rows land together; then verify presence on origin/main per the operator's protocol.
+---
