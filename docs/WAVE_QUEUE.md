@@ -127,7 +127,7 @@
 | W2-254 | | B2 | J08 | CRANE | DONE | b102a3f | Relume: InvestFlow page |
 | W2-255 | | B2 | J08 | CRANE | DONE | cd7650f | Relume: CommunityBuild page |
 | W2-256 | | B2 | J08 | CRANE | DONE | 781fbeb | Relume: BuildOS FAQ+CTA completion |
-| W2-257 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Relume: Pricing page restyle (7 sections, tokens) |
+| W2-257 | | B2 | J08 | CRANE | DONE | 0a1df13 | Relume: Pricing page restyle (7 sections, tokens) |
 
 ## 2026-09-01 — SCRIBE Wave C (renumbered 259..263, see note)
 | W2-259 | | B2 | J08 | CRANE | OPEN | | Relume: About + /about/careers |
