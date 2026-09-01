@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/products/communitybuild',
     '/products/boq-pro',
     '/boq-pro',
+    '/products/transact',
   ]
 
   const articleRoutes = [
