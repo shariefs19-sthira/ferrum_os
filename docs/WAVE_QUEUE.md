@@ -266,6 +266,9 @@ landed, so W2-312 carries the real scope.
 | W2-340 | | B2 | J08 | CRANE | OPEN | | CDE_STATUS_FIX — /api/cde-status/:project_id must either read a real per-project D1 record, or carry explicit `indicative:true` + "ignores input, mock data" in the API payload itself. Currently silently ignores the project_id param — a hidden defect an MCP agent wouldn't detect. Wire the same fix into the MCP cde-status tool if it's exposed there. Acceptance: curl any project_id, response carries the flag. |
 | W2-341 | | B2 | J08 | CRANE | OPEN | | FORM_WIRING — wire 4 decorative forms to /api/leads with a type discriminator: NewsletterSignup (type='newsletter'), Contact page form (type='contact'), Demo page form (type='demo'), Signup page form (type='signup-lead'). Login page: wrap Email/Password in a real `<form>`, add a real submit handler posting to /api/auth/login (real auth lives in W2-326), replace "Forgot password?" with a real /forgot-password route (stub page with a form posting to /api/auth/reset-request). Acceptance: submit each form, confirm a row appears in D1 leads with the correct type. |
 
+## 2026-09-01 — SCRIBE performance pass
+| W2-342 | | B2 | J08 | CRANE | OPEN | | PERF_PASS — Lighthouse run on 10 key routes (home, each product page, pricing, one blog article, one checklist). Targets: Performance ≥ 90, LCP < 2.5s, CLS < 0.1, TTFB < 300ms. Bundle budget check: no route exceeds 200 kB first-load JS. Cache/security headers verified on edge. Fix offenders (defer non-critical JS, preload key assets). |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

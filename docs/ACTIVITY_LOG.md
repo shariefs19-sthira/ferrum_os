@@ -593,3 +593,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE works these; verification of all pending row numbers follows in this same push.
 ---
+
+## 2026-09-01 14:15 - SCRIBE performance pass (W2-342)
+**Action:** Queued W2-342 PERF_PASS for CRANE: Lighthouse run on 10 key routes (home, each product page, pricing, one blog article, one checklist); targets Performance ≥ 90, LCP < 2.5s, CLS < 0.1, TTFB < 300ms; bundle budget (no route > 200 kB first-load JS); edge cache/security header verification; fix offenders (defer non-critical JS, preload key assets).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Preflight check for W2-320..342 follows in this same push.
+---
