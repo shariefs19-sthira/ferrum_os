@@ -104,9 +104,9 @@
 | W2-228 | | B2 | J08 | CRANE | DONE | 855eb23 | case-studies/municipal-market-retrofit |
 | W2-229 | | B2 | J08 | CRANE | DONE | 855eb23 | whitepapers hub entry: carbon-accounting-for-builders |
 | W2-230 | | B2 | J08 | CRANE | DONE | 855eb23 | whitepapers hub entry: retrofit-payback-models |
-| W2-231 | | B2 | J08 | CRANE | CLAIMED-CRANE | | guides/site-handover-playbook |
-| W2-232 | | B2 | J08 | CRANE | CLAIMED-CRANE | | guides/monsoon-preparedness-audit |
-| W2-233 | | B2 | J08 | CRANE | CLAIMED-CRANE | | checklists/crane-lift-plan |
+| W2-231 | | B2 | J08 | CRANE | DONE | 0c6fda2 | guides/site-handover-playbook |
+| W2-232 | | B2 | J08 | CRANE | DONE | 0c6fda2 | guides/monsoon-preparedness-audit |
+| W2-233 | | B2 | J08 | CRANE | DONE | 0c6fda2 | checklists/crane-lift-plan |
 
 ## 2026-08-31 — SCRIBE CSP hardening (post-launch)
 | W2-240 | | B2 | J08 | CRANE | OPEN | | security: post-launch CSP hardening — replace static _headers unsafe-inline with hash-based or edge-nonce CSP; see docs/SECURITY.md CSP decisions |
