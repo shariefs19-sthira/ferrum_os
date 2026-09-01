@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
 
 type Mode = "ferrum" | "govt" | "custom"
 
@@ -165,6 +166,7 @@ function FerrumMode() {
           <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs">
             INDICATIVE — {result.why_this_band}
           </p>
+          <SaveToWorkspaceButton type="ferrum_rate" title={`${category} — ${region} (${role})`} data={result} />
         </div>
       )}
     </div>
