@@ -1,15 +1,15 @@
 import Link from 'next/link'
 
 const products = [
-  { name: 'LandIntel', href: '/landintel' },
+  { name: 'LandIntel', href: '/products/landintel' },
   { name: 'BOQ Pro', href: '/boq-pro' },
-  { name: 'DesignStudio', href: '/designstudio' },
-  { name: 'Structura', href: '/structura' },
-  { name: 'ProMarket', href: '/promarket' },
-  { name: 'BuildOS', href: '/buildos' },
-  { name: 'ProcureHub', href: '/procurehub' },
-  { name: 'InvestFlow', href: '/investflow' },
-  { name: 'CommunityBuild', href: '/communitybuild' }
+  { name: 'DesignStudio', href: '/products/designstudio' },
+  { name: 'Structura', href: '/products/structura' },
+  { name: 'ProMarket', href: '/products/promarket' },
+  { name: 'BuildOS', href: '/products/buildos' },
+  { name: 'ProcureHub', href: '/products/procurehub' },
+  { name: 'InvestFlow', href: '/products/investflow' },
+  { name: 'CommunityBuild', href: '/products/communitybuild' }
 ]
 
 const resources = [

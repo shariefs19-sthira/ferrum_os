@@ -1,0 +1,11 @@
+# W2-246: products route move (docs/RELUME_ROUTE_MAP.md).
+# boq-pro is NOT redirected — /boq-pro (protected app page) and
+# /products/boq-pro (marketing page, W2-250) coexist deliberately.
+/landintel        /products/landintel        301
+/designstudio     /products/designstudio     301
+/structura        /products/structura        301
+/promarket        /products/promarket        301
+/buildos          /products/buildos          301
+/procurehub       /products/procurehub       301
+/investflow       /products/investflow       301
+/communitybuild   /products/communitybuild   301

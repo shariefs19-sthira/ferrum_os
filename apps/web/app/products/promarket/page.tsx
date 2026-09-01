@@ -1,12 +1,12 @@
 "use client";
 
 import React from 'react';
-import InvestFlowFeatures from '../../components/InvestFlowFeatures';
-import ProductPage from '../../components/ProductPage';
-import { productsData } from '../../components/product-data';
+import ProMarketFeatures from '../../../components/ProMarketFeatures';
+import ProductPage from '../../../components/ProductPage';
+import { productsData } from '../../../components/product-data';
 
-const InvestFlowPage = () => {
-  const product = productsData.find(p => p.slug === 'investflow');
+const ProMarketPage = () => {
+  const product = productsData.find(p => p.slug === 'promarket');
   
   if (!product) {
     return <div>Product not found</div>;
@@ -22,9 +22,9 @@ const InvestFlowPage = () => {
         accentColor={product.accentColor}
         components={product.components}
       />
-      <InvestFlowFeatures />
+      <ProMarketFeatures />
     </>
   );
 };
 
-export default InvestFlowPage;
+export default ProMarketPage;

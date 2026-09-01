@@ -5,19 +5,18 @@ import { PrimaryButton, SecondaryButton } from '../components/sections/Buttons'
 import CardGrid from '../components/sections/CardGrid'
 import SliderLeaf from '../components/sections/SliderLeaf'
 
-// Product Showcase links target today's live routes, not /products/<slug> —
-// that route move is W2-246, which lands after this page (wave order:
-// 244 -> 245 -> 246). Update these once W2-246's redirects are live.
+// boq-pro stays at /boq-pro (protected app page); every other product moved
+// under /products/<slug> in W2-246, with 301s from the old paths.
 const productShowcaseItems = [
-  { title: 'LandIntel', body: 'Land feasibility & ULPIN lookup', href: '/landintel' },
-  { title: 'DesignStudio', body: 'AI architectural design', href: '/designstudio' },
-  { title: 'Structura', body: 'Structural analysis & IS compliance', href: '/structura' },
+  { title: 'LandIntel', body: 'Land feasibility & ULPIN lookup', href: '/products/landintel' },
+  { title: 'DesignStudio', body: 'AI architectural design', href: '/products/designstudio' },
+  { title: 'Structura', body: 'Structural analysis & IS compliance', href: '/products/structura' },
   { title: 'BOQ Pro', body: 'Automated BOQ & cost estimation', href: '/boq-pro' },
-  { title: 'ProMarket', body: 'Verified professionals marketplace', href: '/promarket' },
-  { title: 'BuildOS', body: 'Project management & digital PMC', href: '/buildos' },
-  { title: 'ProcureHub', body: 'Material procurement & suppliers', href: '/procurehub' },
-  { title: 'InvestFlow', body: 'Investment forecasting', href: '/investflow' },
-  { title: 'CommunityBuild', body: 'Fractional development', href: '/communitybuild' },
+  { title: 'ProMarket', body: 'Verified professionals marketplace', href: '/products/promarket' },
+  { title: 'BuildOS', body: 'Project management & digital PMC', href: '/products/buildos' },
+  { title: 'ProcureHub', body: 'Material procurement & suppliers', href: '/products/procurehub' },
+  { title: 'InvestFlow', body: 'Investment forecasting', href: '/products/investflow' },
+  { title: 'CommunityBuild', body: 'Fractional development', href: '/products/communitybuild' },
 ]
 
 const valuePropItems = [

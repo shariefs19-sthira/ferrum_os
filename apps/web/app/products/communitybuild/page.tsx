@@ -1,12 +1,12 @@
 "use client";
 
 import React from 'react';
-import ProMarketFeatures from '../../components/ProMarketFeatures';
-import ProductPage from '../../components/ProductPage';
-import { productsData } from '../../components/product-data';
+import CommunityBuildFeatures from '../../../components/CommunityBuildFeatures';
+import ProductPage from '../../../components/ProductPage';
+import { productsData } from '../../../components/product-data';
 
-const ProMarketPage = () => {
-  const product = productsData.find(p => p.slug === 'promarket');
+const CommunityBuildPage = () => {
+  const product = productsData.find(p => p.slug === 'communitybuild');
   
   if (!product) {
     return <div>Product not found</div>;
@@ -22,9 +22,9 @@ const ProMarketPage = () => {
         accentColor={product.accentColor}
         components={product.components}
       />
-      <ProMarketFeatures />
+      <CommunityBuildFeatures />
     </>
   );
 };
 
-export default ProMarketPage;
+export default CommunityBuildPage;

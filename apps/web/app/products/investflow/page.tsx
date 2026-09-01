@@ -1,12 +1,12 @@
 "use client";
 
 import React from 'react';
-import CommunityBuildFeatures from '../../components/CommunityBuildFeatures';
-import ProductPage from '../../components/ProductPage';
-import { productsData } from '../../components/product-data';
+import InvestFlowFeatures from '../../../components/InvestFlowFeatures';
+import ProductPage from '../../../components/ProductPage';
+import { productsData } from '../../../components/product-data';
 
-const CommunityBuildPage = () => {
-  const product = productsData.find(p => p.slug === 'communitybuild');
+const InvestFlowPage = () => {
+  const product = productsData.find(p => p.slug === 'investflow');
   
   if (!product) {
     return <div>Product not found</div>;
@@ -22,9 +22,9 @@ const CommunityBuildPage = () => {
         accentColor={product.accentColor}
         components={product.components}
       />
-      <CommunityBuildFeatures />
+      <InvestFlowFeatures />
     </>
   );
 };
 
-export default CommunityBuildPage;
+export default InvestFlowPage;

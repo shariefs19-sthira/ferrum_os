@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import LandIntelFeatures from "../../components/LandIntelFeatures"
-import PlotEstimator from "../../components/PlotEstimator"
-import { SoilCard } from "../../components/sections/SoilCard"
+import LandIntelFeatures from "../../../components/LandIntelFeatures"
+import PlotEstimator from "../../../components/PlotEstimator"
+import { SoilCard } from "../../../components/sections/SoilCard"
 
 export default function LandIntelPage() {
   const [ulpin, setUlpin] = useState("")
