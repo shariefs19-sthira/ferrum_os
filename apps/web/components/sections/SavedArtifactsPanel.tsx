@@ -36,6 +36,18 @@ export default function SavedArtifactsPanel() {
     setArtifacts((prev) => prev?.filter((a) => a.id !== id) ?? null)
   }
 
+  const rename = async (id: string, currentTitle: string) => {
+    const newTitle = window.prompt("Rename artifact", currentTitle)
+    if (!newTitle || newTitle === currentTitle) return
+    const res = await fetch(`/api/workspace/artifacts/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: newTitle }),
+    })
+    if (!res.ok) return
+    setArtifacts((prev) => prev?.map((a) => (a.id === id ? { ...a, title: newTitle } : a)) ?? null)
+  }
+
   const share = async (id: string) => {
     const res = await fetch(`/api/workspace/artifacts/${id}/share`, { method: "POST" })
     const data = await res.json()
@@ -73,6 +85,9 @@ export default function SavedArtifactsPanel() {
               <a href={`/api/workspace/artifacts/${a.id}/export`} className="rounded-full border border-relume-border px-3 py-1 text-xs hover:bg-relume-ink hover:text-white">
                 Export
               </a>
+              <button onClick={() => rename(a.id, a.title)} className="rounded-full border border-relume-border px-3 py-1 text-xs hover:bg-relume-ink hover:text-white">
+                Rename
+              </button>
               <button onClick={() => share(a.id)} className="rounded-full border border-relume-border px-3 py-1 text-xs hover:bg-relume-ink hover:text-white">
                 Share
               </button>
