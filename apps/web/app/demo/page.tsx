@@ -1,9 +1,41 @@
+"use client"
+
+import { useState } from "react"
+
 export default function DemoPage() {
   const benefits = [
     "See how our platform can streamline your construction workflow",
     "Get personalized recommendations for your specific use case",
     "Connect with our experts to discuss your project needs"
   ]
+
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [company, setCompany] = useState("")
+  const [message, setMessage] = useState("")
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle")
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus("loading")
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `${firstName} ${lastName}`.trim(),
+          email,
+          product: "demo",
+          source_page: "demo",
+          message: company ? `Company: ${company}\n\n${message}` : message,
+        }),
+      })
+      setStatus(res.ok ? "done" : "error")
+    } catch {
+      setStatus("error")
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -37,72 +69,93 @@ export default function DemoPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             Request a Demo
           </h2>
-          <form className="space-y-6">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {status === "done" ? (
+            <p className="rounded-md bg-emerald-50 p-4 text-sm text-emerald-800">
+              Thanks — we&apos;ve received your request and will be in touch to schedule your demo.
+            </p>
+          ) : (
+            <form onSubmit={submit} className="space-y-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    required
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
+
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                  First Name
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  Email Address
                 </label>
                 <input
-                  type="text"
-                  id="firstName"
+                  type="email"
+                  id="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
+
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                  Last Name
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700">
+                  Company
                 </label>
                 <input
                   type="text"
-                  id="lastName"
+                  id="company"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-            </div>
-            
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="company" className="block text-sm font-medium text-gray-700">
-                Company
-              </label>
-              <input
-                type="text"
-                id="company"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                Message (Optional)
-              </label>
-              <textarea
-                id="message"
-                rows={4}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              ></textarea>
-            </div>
-            
-            <div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                Request Demo
-              </button>
-            </div>
-          </form>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                  Message (Optional)
+                </label>
+                <textarea
+                  id="message"
+                  rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                ></textarea>
+              </div>
+
+              {status === "error" && <p className="text-sm text-red-600">Something went wrong — try again.</p>}
+
+              <div>
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-60"
+                >
+                  {status === "loading" ? "Requesting..." : "Request Demo"}
+                </button>
+              </div>
+            </form>
+          )}
         </div>
 
         <div className="mt-8 text-center text-sm text-gray-600">
