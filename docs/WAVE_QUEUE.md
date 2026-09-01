@@ -134,7 +134,7 @@
 | W2-260 | | B2 | J08 | CRANE | DONE | a3cb58e | Relume: content hubs — Resources / Case Studies / IS Code Guides / Blog |
 | W2-261 | | B2 | J08 | CRANE | DONE | edc8c44 | Relume: Documentation restyle (API Docs/User Guides not built - no source content) |
 | W2-262 | | B2 | J08 | CRANE | OPEN | | Relume: Dashboard + Project Workspace |
-| W2-263 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Relume: Sign Up + Billing |
+| W2-263 | | B2 | J08 | CRANE | DONE | 883803a | Relume: Sign Up restyle (Billing not built - no source content) |
 
 Note: requested as W2-258..262, renumbered to W2-259..263 — W2-258 is
 already the branch name for the addendum commit (w2-258/SCRIBE-addendum),
