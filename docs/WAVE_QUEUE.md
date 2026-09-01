@@ -133,7 +133,7 @@
 | W2-259 | | B2 | J08 | CRANE | DONE | b33047c | Relume: About + /about/careers |
 | W2-260 | | B2 | J08 | CRANE | DONE | a3cb58e | Relume: content hubs — Resources / Case Studies / IS Code Guides / Blog |
 | W2-261 | | B2 | J08 | CRANE | DONE | edc8c44 | Relume: Documentation restyle (API Docs/User Guides not built - no source content) |
-| W2-262 | | B2 | J08 | CRANE | OPEN | | Relume: Dashboard + Project Workspace |
+| W2-262 | | B2 | J08 | CRANE | PARKED | | ~~Relume: Dashboard + Project Workspace~~ — blocked, no copy (no wireframed section content exists for these pages yet); parked until copy lands |
 | W2-263 | | B2 | J08 | CRANE | DONE | 883803a | Relume: Sign Up restyle (Billing not built - no source content) |
 
 Note: requested as W2-258..262, renumbered to W2-259..263 — W2-258 is
@@ -152,12 +152,12 @@ dependency and can run anytime.
 | W2-270 | | B2 | J08 | CRANE | OPEN | | parity: IRR/NPV modeler |
 | W2-271 | | B2 | J08 | CRANE | OPEN | | parity: rate-compare calculator |
 | W2-272 | | B2 | J08 | CRANE | OPEN | | parity: CDE dashboard mock |
-| W2-273 | | B2 | J08 | CRANE | OPEN | | architecture: llms.txt (no dependency, anytime) |
-| W2-276 | | B2 | J08 | CRANE | OPEN | | architecture: worker + D1 scaffold (D1 "ferrum-os-data", binding DB, id 049b0f34-adb3-4f7f-85ec-60170019f3a0; schema: rates, parcels, leads, plans; wrangler.jsonc gains worker + bindings) |
-| W2-277 | | B2 | J08 | CRANE | OPEN | | architecture: provider seams (LandRecordsProvider, RatesProvider, GeometryExporter) + INDICATIVE sample parcel/rate datasets — after W2-276 |
-| W2-278 | | B2 | J08 | CRANE | OPEN | | architecture: client-side DXF exporter — after W2-276 |
-| W2-274 | | B2 | J08 | CRANE | OPEN | | architecture: MCP server (ulpin-demo, testfit, boq-estimate, plan-gen, is-check) — after W2-276 |
-| W2-275 | | B2 | J08 | CRANE | OPEN | | architecture: OpenAPI at /docs/api — with W2-276 |
+| W2-273 | | B2 | J08 | CRANE | OPEN | | architecture: llms.txt (no dependency, anytime) — built per AGENT_INTERFACE spec (W2-305) |
+| W2-276 | | B2 | J08 | CRANE | OPEN | | architecture: worker + D1 scaffold (D1 "ferrum-os-data", binding DB, id 049b0f34-adb3-4f7f-85ec-60170019f3a0; schema: rates, parcels, leads, plans; wrangler.jsonc gains worker + bindings) — built per AGENT_INTERFACE spec (W2-305) |
+| W2-277 | | B2 | J08 | CRANE | OPEN | | architecture: provider seams (LandRecordsProvider, RatesProvider, GeometryExporter) + INDICATIVE sample parcel/rate datasets — after W2-276; built per AGENT_INTERFACE spec (W2-305) |
+| W2-278 | | B2 | J08 | CRANE | OPEN | | architecture: client-side DXF exporter — after W2-276; built per AGENT_INTERFACE spec (W2-305) |
+| W2-274 | | B2 | J08 | CRANE | OPEN | | architecture: MCP server (ulpin-demo, testfit, boq-estimate, plan-gen, is-check) — after W2-276; built per AGENT_INTERFACE spec (W2-305) |
+| W2-275 | | B2 | J08 | CRANE | OPEN | | architecture: OpenAPI at /docs/api — with W2-276; built per AGENT_INTERFACE spec (W2-305) |
 
 ## 2026-09-01 — SCRIBE cleanup rows
 | W2-280 | | B2 | J08 | CRANE | OPEN | | metadata pass: sitemap.ts to new canonical /products/* paths + C-07 SITE_BASE_URL swap + robots check — do after Wave A |
@@ -174,6 +174,17 @@ dependency and can run anytime.
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
 DONE by this edit — status flips only at LIVE (AGENTS.md STAGE-GATES rule).
+
+## 2026-09-01 — SCRIBE agent-interface research (CRANE-authored, research only)
+| W2-305 | | B2 | J08 | CRANE | OPEN | | author docs/AGENT_INTERFACE.md — MCP tool catalog for all 9 products; MCP Apps plan (which tools get in-chat UI); A2A agent-card spec; agent auth + rate-card design; payments evaluation (x402 vs AP2, recommend one, flag India-regulatory considerations); llms.txt/AGENTS.md/OpenAPI alignment; MCP security section. Research only, no code. |
+
+Rows W2-273/274/275/276/277/278 (architecture wave) now build per the
+W2-305 AGENT_INTERFACE spec once it lands — annotated inline above.
+
+**New build order after Wave C:** research (W2-305) → architecture wave
+(W2-273/276/277/278/274/275, per their own internal order) → parity
+(W2-266..272) → W2-280 (metadata pass) → Transact (W2-283..287) →
+W2-292/294/297/299 (OSS adoption + three-mode rate calc + rate engine).
 
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |

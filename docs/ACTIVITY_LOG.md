@@ -497,3 +497,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 2026-09-01 11:50 - SCRIBE park W2-262, queue AGENT_INTERFACE research (W2-305), new build order
+**Action:** Parked W2-262 (Relume Dashboard + Project Workspace) — blocked, no copy exists for these pages yet. Queued W2-305 (next free number) as a CRANE research/docs row: author docs/AGENT_INTERFACE.md covering the MCP tool catalog for all 9 products, MCP Apps plan (in-chat UI candidates), A2A agent-card spec, agent auth + rate-card design, payments evaluation (x402 vs AP2, one recommendation, India-regulatory flag), llms.txt/AGENTS.md/OpenAPI alignment, and an MCP security section — research only, no code. Annotated the architecture-wave rows (W2-273/274/275/276/277/278) inline: "built per AGENT_INTERFACE spec (W2-305)". Recorded the new build order after Wave C: research (305) → architecture wave (273/276/277/278/274/275) → parity (266-272) → 280 (metadata pass) → Transact (283-287) → 292/294/297/299 (OSS adoption + rate calc/engine).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE authors docs/AGENT_INTERFACE.md first per the new order; SCRIBE stands by.
+---
