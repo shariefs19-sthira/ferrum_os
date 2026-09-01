@@ -6,6 +6,7 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import LandIntelLookup from '../../../components/sections/LandIntelLookup'
 import UlpinDemoWidget from '../../../components/sections/UlpinDemoWidget'
+import ParcelMap from '../../../components/sections/ParcelMap'
 
 const featureItems = [
   { title: 'ULPIN lookup', body: 'Enter a 14-digit ULPIN and pull official land records instantly.' },
@@ -217,6 +218,20 @@ export default function LandIntelPage() {
         </div>
         <div className="mx-auto mt-8 max-w-2xl">
           <UlpinDemoWidget />
+        </div>
+      </SectionShell>
+
+      {/* Parcel map (parity: W2-309) */}
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Parcel map</Eyebrow>
+          <SectionHeading className="mt-4">See a parcel on the map</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            OpenStreetMap tiles, a sample parcel location — indicative until real parcel geometry is wired to a lookup.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-2xl">
+          <ParcelMap label="Sample parcel — Bengaluru" />
         </div>
       </SectionShell>
 
