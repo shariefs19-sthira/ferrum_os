@@ -569,3 +569,27 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE works these; when w2-314/SCRIBE-post-launch-rails lands, its W2-317 row should get a superseded-by-W2-326 note.
 ---
+
+## 2026-09-01 13:30 - SCRIBE IS-code expand, OCR verify, stamp duty expand, acceptance criteria
+**Action:** Queued 3 rows for CRANE: W2-337 IS_CODE_EXPAND (add IS 1893 seismic response spectrum + IS 875 wind/imposed load checks to lib/checks/isCode.ts, wire into /api/is-check + MCP is-check tool, unit tests against textbook worked examples). W2-338 OCR_VERIFY — pre-resolved this myself rather than leaving it as an open investigation: ran `git show 18364a6` and confirmed the Tesseract OCR spike DID land on main (tesseract.js 7.0.0 in apps/web/package.json, apps/web/components/sections/OcrSpike.tsx, wired into apps/web/app/products/transact/page.tsx) — marked VERIFIED with the commit SHA, no further action needed. W2-339 STAMP_DUTY_EXPAND (seed all 28 states + 8 UTs into stamp_duty_rates via migration 0005_stamp_duty_all_states.sql, sourced from current state govt gazette rates, every row labeled INDICATIVE until independently verified). Added acceptance criteria to two existing rows on the still-unlanded w2-326/SCRIBE-final-rails branch (merged into this one to do so): W2-333 SITE_SYSTEMS now requires sitemap.ts route count to exactly match the actual `next build` route count (diff=0) plus creation of public/_redirects per docs/RELUME_ROUTE_MAP.md; W2-335 AGENT_SURFACE_SYNC now requires downgrading plan-gen to "stub" in docs/AGENT_INTERFACE.md and its A2A card, shipping llms.txt, and reconciling the plans table. Also formally marked W2-317 SUPERSEDED (folded into W2-326) now that both rows are in the same file after the merge. At the time, could NOT attach acceptance criteria to "W2-321" — no such row existed yet anywhere in WAVE_QUEUE.md history on any branch checked; flagged rather than inventing one. (Resolved next entry: W2-321 was subsequently defined for real as PLACEHOLDER_AUDIT.)
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE works W2-337/339; W2-338 needs no further action.
+---
+
+## 2026-09-01 13:45 - SCRIBE Transact launch rails + first sweep + final certification (W2-320..325, SWEEP_100)
+**Action:** Verified against origin/main directly that W2-320..325, W2-337..339, and SWEEP_100 were all absent (no rows, and only w2-337/SCRIBE-is-code-ocr-stamp existed as a pushed-but-unlanded branch). Queued the operator/conductor-authored scopes verbatim: W2-320 TRANSACT_VISIBILITY (nav/footer/home-showcase/sitemap/concierge-catalog listing, no page copy changes); W2-321 PLACEHOLDER_AUDIT (full dead-element inventory and wiring, delete LandIntelLookup.tsx, keep UlpinDemoWidget, remove prod FALLBACK badges, wire newsletter to /api/leads, acceptance = 0 localhost:8000 grep hits + 0 dead links) — this is the real definition of the row the previous entry flagged as missing; W2-322 TRANSACT_FLOWS (buyer/seller state flows, transact_cases + case_events D1 tables via migration 0005, Stage-1 compliance voice); W2-323 ESCROW_DESIGN (docs/ESCROW_DESIGN.md, RBI-compliant bank/NBFC-vs-Razorpay-Route analysis, no-self-custody principle, cross-ref COMPLIANCE_GATE, research/docs only); W2-324 RAZORPAY_INTEGRATION (test-mode Worker checkout + signature-verified webhook, orders/payments tables via migration 0006, GST invoice via pdf-lib, env-placeholder keys only, live mode gated); W2-325 SWEEP_FIRST (site-wide pass after 320-324); SWEEP_100 (final certification after everything through W2-339, PASS/FAIL report + SHA table). Merged in the separate w2-337/SCRIBE-is-code-ocr-stamp branch so all requested rows land together in one push; resolved trivial append-only conflicts in both docs files.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Verify presence on origin/main per the operator's protocol (ls-remote + fetch + grep) before reporting Done.
+---
+
+## 2026-09-01 14:00 - SCRIBE ATLAS findings: CDE status honesty + form wiring (W2-340, W2-341)
+**Action:** Queued 2 rows for CRANE from ATLAS findings not covered by existing rows: W2-340 CDE_STATUS_FIX (make /api/cde-status/:project_id either read a real per-project record or explicitly self-declare indicative/mock in its own payload — currently silently ignores project_id, a hidden defect invisible to an MCP agent; same fix wired into the MCP cde-status tool if exposed). W2-341 FORM_WIRING (wire NewsletterSignup/Contact/Demo/Signup forms to /api/leads with a type discriminator each; wrap the Login page fields in a real form posting to /api/auth/login; replace the dead "Forgot password?" link with a real /forgot-password stub route posting to /api/auth/reset-request).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE works these; verification of all pending row numbers follows in this same push.
+---
