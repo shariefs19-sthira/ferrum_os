@@ -481,3 +481,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 2026-09-01 11:00 - SCRIBE W2-288 rescope (self-contained, CRANE-authored)
+**Action:** Corrected W2-288's assignment model per operator instruction: this is CRANE research-and-author work, not a SCRIBE docs commit — SCRIBE's own docs/OPEN_SOURCE_STACK.md draft from earlier this session (unlanded, branch w2-288/SCRIBE-oss-stack) is superseded by this row and should not be treated as the deliverable; CRANE authors the real one. Appended a fresh, self-contained W2-288 row covering the full rescoped scope: per-product open-source library map, India open-data map (CPWD DSR rates, ULPIN/DILRMP, OSM/Bhuvan, RBI/NHB HPI, GST tables), current versions, license audit (MIT/Apache ok; LGPL/AGPL flagged with usage boundaries), now/later split. Research only, no code.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims and authors docs/OPEN_SOURCE_STACK.md fresh; SCRIBE's earlier draft branch (w2-288/SCRIBE-oss-stack) should be left unlanded/superseded rather than merged.
+---
