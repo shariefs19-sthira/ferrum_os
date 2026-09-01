@@ -115,7 +115,7 @@
 | W2-244 | | B2 | J08 | CRANE | OPEN | | Relume: tokens + shared section primitives (SectionShell/Eyebrow/card-grid/accordion-leaf/slider-leaf) |
 | W2-245 | | B2 | J08 | CRANE | DONE | 173fa64 | Relume: Home (7 sections) |
 | W2-246 | | B2 | J08 | CRANE | DONE | e707a2c | Relume: products route move + _redirects |
-| W2-247 | | B2 | J08 | CRANE | OPEN | | Relume: LandIntel |
+| W2-247 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Relume: LandIntel |
 | W2-248 | | B2 | J08 | CRANE | OPEN | | Relume: DesignStudio (new page) |
 | W2-249 | | B2 | J08 | CRANE | OPEN | | Relume: Structura |
 | W2-250 | | B2 | J08 | CRANE | OPEN | | Relume: BOQ-Pro marketing page |
