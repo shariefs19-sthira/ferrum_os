@@ -537,3 +537,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE builds W2-307 (deterministic, no external calls); W2-308 stays blocked pending gates.
 ---
+
+## 2026-09-01 12:30 - SCRIBE re-queue phantom rows (W2-309, W2-310, W2-311)
+**Action:** Verified against origin/main directly (git show origin/main:docs/WAVE_QUEUE.md) that the earlier Leaflet/Tesseract/three-mode rows (previously W2-292/294/297) never landed — confirmed phantom, only a stray reference to those numbers existed in a build-order note. Re-queued with fresh, self-contained, next-free numbers off origin/main: W2-309 Leaflet + OSM parcel map (MIT); W2-310 Tesseract.js OCR spike (Apache); W2-311 BOQ Pro three-mode calculator, revised scope — Mode 2 (GOVT REFERENCE) and Mode 3 (CUSTOM) ship now, Mode 1 (FERRUM) ships as a labeled stub pending W2-299's spec. All gated on W2-288's license audit.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Land this branch to main (see below), then verify rows are actually present on origin/main.
+---
