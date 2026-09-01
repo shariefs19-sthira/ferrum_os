@@ -133,7 +133,7 @@
 | W2-259 | | B2 | J08 | CRANE | DONE | b33047c | Relume: About + /about/careers |
 | W2-260 | | B2 | J08 | CRANE | DONE | a3cb58e | Relume: content hubs — Resources / Case Studies / IS Code Guides / Blog |
 | W2-261 | | B2 | J08 | CRANE | DONE | edc8c44 | Relume: Documentation restyle (API Docs/User Guides not built - no source content) |
-| W2-262 | | B2 | J08 | CRANE | PARKED | | ~~Relume: Dashboard + Project Workspace~~ — blocked, no copy (no wireframed section content exists for these pages yet); parked until copy lands |
+| W2-262 | | B2 | J08 | CRANE | PARKED | | ~~Relume: Dashboard + Project Workspace~~ — blocked, no copy (no wireframed section content exists for these pages yet); parked until copy lands. Unparked via W2-313 below (marketing-preview scope, not the full Relume page — copy for that still doesn't exist). |
 | W2-263 | | B2 | J08 | CRANE | DONE | 883803a | Relume: Sign Up restyle (Billing not built - no source content) |
 
 Note: requested as W2-258..262, renumbered to W2-259..263 — W2-258 is
@@ -209,6 +209,18 @@ this session as W2-303 and W2-304 on branch w2-302/SCRIBE-engine-arch-rows
 ## 2026-09-01 — SCRIBE concierge assistant
 | W2-307 | | B2 | J08 | CRANE | DONE | e7e9cb6 | CONCIERGE — deterministic intent-router assistant: build-time catalog knowledge, polite script set per COMPLIANCE_GATE voice, quick replies, router.push maneuvers into pages AND tools, polite fallback + lead handoff, ARIA + mobile, no external calls |
 | W2-308 | | B2 | J08 | CRANE | OPEN | | CONCIERGE_LLM — post-launch upgrade of W2-307 to an LLM-backed assistant, gated on API-key provisioning + abuse/cost review + retrieval-grounding design; do not start until all three gates clear |
+
+## 2026-09-01 — SCRIBE Ferrum-rate engine spec + Dashboard/Workspace preview (operator-approved, conductor-authored, build as-is)
+Renumbered from requested W2-309/310 to W2-312/313 — those numbers are
+already taken by the still-unlanded Leaflet/Tesseract requeue rows on
+branch w2-309/SCRIBE-oss-requeue (same collision pattern as W2-258/289/295
+before it). No existing row was touched. W2-312 supersedes/fulfills the
+earlier placeholder rate-engine row (W2-299, "awaiting operator spec" —
+also still unlanded, on w2-295/SCRIBE-oss-adoption): the spec has now
+landed, so W2-312 carries the real scope.
+
+| W2-312 | | B2 | J08 | CRANE | OPEN | | FERRUM-RATE ENGINE (Mode 1 of the W2-311 three-mode calculator, fulfills W2-299). Sources v1: govt reference (CPWD DSR/circle-rate derived, watermarked), indicative market seeds, user Mode-3 assumptions, project params (city tier, structure type, floors, finish grade). Uploaded BOQs/live feeds explicitly excluded until post-launch. Weighting default 40 govt / 40 market / 20 user, slider-adjustable, weights always displayed. "Best price" = role-aware weighted-median output as a band (P25/P50/P75): buyer role = conservative-high, seller role = market median, contractor role = realistic median. Output anatomy: band + per-source breakdown + weights used + sources + INDICATIVE watermark + a "why this band" explanation line. Optional time-adjustment (project start month, quarterly escalation factor, itself labeled INDICATIVE). Every output figure carries `indicative:true` until real feeds exist — never presented as market truth. Wire Mode 1 into the MCP `boq-estimate` tool so the stub becomes real. |
+| W2-313 | | B2 | J08 | CRANE | OPEN | | DASHBOARD + WORKSPACE PREVIEW — unparks W2-262 (marketing-preview scope only, not the full Relume page). Marketing preview pages: realistic mock UI built as real components, non-functional controls explicitly labeled PREVIEW, CTA = early-access lead capture into the D1 leads table. Copy list to cover: saved test-fits, BOQ estimates, rate comparisons, ULPIN reports, projects with timelines, team + comments, agent/MCP access to your data. Dashboard page = hero + 4 feature blocks + mock UI strip + security note + CTA. Workspace page = hero + artifact grid + collaboration + integrations + CTA. Use the 7-section template where the manifest allows it; Relume voice throughout; do not re-open Relume engagement/design-review for this. |
 
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
