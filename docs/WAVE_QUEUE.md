@@ -160,7 +160,7 @@ dependency and can run anytime.
 | W2-275 | | B2 | J08 | CRANE | DONE | e951657 | architecture: OpenAPI at /docs/api — with W2-276; built per AGENT_INTERFACE spec (W2-305) |
 
 ## 2026-09-01 — SCRIBE cleanup rows
-| W2-280 | | B2 | J08 | CRANE | OPEN | | metadata pass: sitemap.ts to new canonical /products/* paths + C-07 SITE_BASE_URL swap + robots check — do after Wave A |
+| W2-280 | | B2 | J08 | CRANE | CLAIMED-CRANE | | metadata pass: sitemap.ts to new canonical /products/* paths + C-07 SITE_BASE_URL swap + robots check — do after Wave A |
 | W2-281 | | B2 | J08 | CRANE | OPEN | | legacy-branch triage: one-by-one review of the ~47 held pre-Relume branches — genuinely-stale → delete, actually-unique → rescue via targeted port — post-architecture-wave |
 
 ## 2026-09-01 — SCRIBE Transact compliance gate (docs/COMPLIANCE_GATE.md, DRAFT, pending counsel)
