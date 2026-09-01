@@ -1,11 +1,20 @@
 <#
 land.ps1 - squash-lands origin/w2-* branches onto main.
-For each remote branch matching origin/w2-*, skips it if a commit tagged
-"[land:<branch>]" already exists in the main log; otherwise squash-merges it,
-commits with an [AI: SCRIPT] tag, and skips (with a logged reason) on conflict.
-Branches matching a glob in docs/LAND_HOLD.txt are skipped by this catch-all
-loop entirely (a targeted `git merge --squash origin/<branch>` still works
-on a held branch — the hold only applies to the automatic sweep).
+For each remote branch matching origin/w2-*, skips it when the branch's tip
+is already fully represented on main (git diff main...origin/<branch> --stat
+is empty); otherwise squash-merges it, commits with an [AI: SCRIPT] tag, and
+skips (with a logged reason) on conflict. Branches matching a glob in
+docs/LAND_HOLD.txt are skipped by this catch-all loop entirely (a targeted
+`git merge --squash origin/<branch>` still works on a held branch — the hold
+only applies to the automatic sweep).
+
+Skip logic is diff-emptiness only, not a [land:<branch>] tag grep. A tag
+grep only proves *some* commit on the branch landed at some point — it
+false-positives on a multi-commit branch where a later push added real
+content after an earlier commit already landed (a branch can be pushed to
+again after its first commit lands). Landed commits are still tagged
+[land:<branch>] for audit/history purposes; the tag is just not used as the
+skip condition anymore.
 After the loop: type-checks apps/web, then pushes main with rebase-retry.
 #>
 
@@ -80,18 +89,14 @@ foreach ($branch in $remoteBranches) {
 
     $tag = Get-LandTag $shortName
 
-    $alreadyLanded = git log main --oneline --grep="$tag" -F
-    if ($alreadyLanded) {
-        Write-Host "SKIPPED (already landed, tag match): $shortName"
-        continue
-    }
-
-    # Cheap pre-check before attempting a squash merge: if the branch has no
-    # unique changes since it diverged from main (git diff with the 3-dot
-    # merge-base form), its content is already in main under a different
-    # commit shape (e.g. landed before this script existed, or landed by
-    # another process without the [land:...] tag). Skip without a merge
-    # attempt instead of hitting an avoidable conflict.
+    # Skip condition: the branch's tip has no unique changes left vs main
+    # (3-dot merge-base diff is empty), meaning it's already fully
+    # represented on main — whether that happened via this script, a
+    # targeted merge, or another process entirely. This is the ONLY skip
+    # check; a [land:<branch>] tag existing on main is not sufficient on
+    # its own, since a branch can receive a second push with real new
+    # content after its first commit already landed (W2-244 hit exactly
+    # this: the tag grep skipped the branch's second commit).
     $uniqueDiff = git diff "main...$branch" --stat
     if (-not $uniqueDiff) {
         Write-Host "SKIPPED (no unique changes vs main): $shortName"
