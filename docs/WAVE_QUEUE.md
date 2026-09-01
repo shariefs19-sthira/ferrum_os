@@ -249,7 +249,7 @@ landed, so W2-312 carries the real scope.
 | W2-336 | | B2 | J08 | CRANE | OPEN | | OPS — logging + tracing, error tracking |
 
 ## 2026-09-01 — SCRIBE IS-code expand, OCR verify, stamp duty expand
-| W2-337 | | B2 | J08 | CRANE | CLAIMED-CRANE | | IS_CODE_EXPAND — add IS 1893 (seismic response spectrum check) and IS 875 (wind/imposed load check) to lib/checks/isCode.ts, wire into /api/is-check and the MCP is-check tool, unit tests against textbook worked examples |
+| W2-337 | | B2 | J08 | CRANE | DONE | ce680a3d | IS_CODE_EXPAND — add IS 1893 (seismic response spectrum check) and IS 875 (wind/imposed load check) to lib/checks/isCode.ts, wire into /api/is-check and the MCP is-check tool, unit tests against textbook worked examples |
 | W2-338 | | B2 | J08 | ATLAS | VERIFIED | 18364a6 | OCR_VERIFY — pre-resolved by SCRIBE: `git show 18364a6` confirms the Tesseract OCR spike DID land on main (tesseract.js 7.0.0 added to apps/web/package.json, apps/web/components/sections/OcrSpike.tsx created, wired into apps/web/app/products/transact/page.tsx). No re-implementation or additional wiring needed. |
 | W2-339 | | B2 | J08 | ATLAS | OPEN | | STAMP_DUTY_EXPAND — seed all 28 states + 8 UTs into stamp_duty_rates (migration 0005_stamp_duty_all_states.sql), source current state govt gazette rates, label every row INDICATIVE until independently verified |
 
