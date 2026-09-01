@@ -245,7 +245,7 @@ landed, so W2-312 carries the real scope.
 | W2-332 | | B2 | J08 | ATLAS | OPEN | | LEGAL_PAGES — Terms, Privacy, Refunds, Disclaimers, DPDP notice, cookie consent |
 | W2-333 | | B2 | J08 | ATLAS | OPEN | | SITE_SYSTEMS — 404 page, SEO/OG tags, sitemap + robots, accessibility pass, performance pass, error boundaries. Acceptance criteria: sitemap.ts route count must match the actual `next build` route count exactly (diff=0); must create public/_redirects per docs/RELUME_ROUTE_MAP.md. |
 | W2-334 | | B2 | J08 | CRANE | DONE | 0c4e1ffb | SECURITY_HARDENING — rate limits, CSP (see docs/SECURITY.md CSP decisions / W2-240), input validation, secrets audit |
-| W2-335 | | B2 | J08 | CRANE | OPEN | | AGENT_SURFACE_SYNC — reconcile llms.txt/AGENTS.md/OpenAPI/MCP tool catalog against whatever actually shipped by this point in the build. Acceptance criteria: downgrade plan-gen to "stub" in docs/AGENT_INTERFACE.md and its A2A card; ship llms.txt; reconcile the plans table against actual shipped state. |
+| W2-335 | | B2 | J08 | CRANE | CLAIMED-CRANE | | AGENT_SURFACE_SYNC — reconcile llms.txt/AGENTS.md/OpenAPI/MCP tool catalog against whatever actually shipped by this point in the build. Acceptance criteria: downgrade plan-gen to "stub" in docs/AGENT_INTERFACE.md and its A2A card; ship llms.txt; reconcile the plans table against actual shipped state. |
 | W2-336 | | B2 | J08 | CRANE | OPEN | | OPS — logging + tracing, error tracking |
 
 ## 2026-09-01 — SCRIBE IS-code expand, OCR verify, stamp duty expand
