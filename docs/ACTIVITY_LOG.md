@@ -593,3 +593,29 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE works these; verification of all pending row numbers follows in this same push.
 ---
+
+## 2026-09-01 14:15 - SCRIBE performance pass (W2-342)
+**Action:** Queued W2-342 PERF_PASS for CRANE (reassigned to ATLAS as part of the same-day slice split, see below): Lighthouse run on 10 key routes (home, each product page, pricing, one blog article, one checklist); targets Performance ≥ 90, LCP < 2.5s, CLS < 0.1, TTFB < 300ms; bundle budget (no route > 200 kB first-load JS); edge cache/security header verification; fix offenders (defer non-critical JS, preload key assets).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Preflight check for W2-320..342 follows in this same push.
+---
+
+## 2026-09-01 14:30 - SCRIBE ATLAS reactivation + disjoint-ownership protocol (WIP, continued below)
+
+## 2026-09-01 14:40 - SCRIBE ATLAS reactivation + disjoint-ownership protocol (complete)
+**Action:** Reactivated ATLAS as ACTIVE with a dual role (architect + executor for its assigned queue slice) — updated AGENTS.md RULE 1 roster, docs/ROLE_MAP.md's ACTIVE table and change log (removed ATLAS from PARKED), and created docs/seats/ATLAS.md. Codified the ATLAS/CRANE disjoint-ownership protocol in both AGENTS.md and ROLE_MAP.md: ATLAS never touches worker.ts/auth/payments files, CRANE never touches sitemap/nav/footer/legal/resources files, dependency additions are CRANE-only, both push from their own worktrees, landing is serialized via scripts/land.ps1 regardless of authoring seat, and SWEEP_100 is run mechanically by CRANE with each seat then spot-auditing the other's half (no self-certification). Reassigned WAVE_QUEUE rows per the operator's split: W2-323, 331, 332, 333, 338, 339, 342 → ATLAS. Did NOT blindly reassign W2-320 (already DONE by CRANE — added a note instead of rewriting history) or W2-321 (actively CLAIMED-CRANE — left with CRANE to avoid duplicate work, noted that it falls in ATLAS's slice going forward). W2-322, 324, 326-330, 334, 335, 337, 340, 341 remain CRANE, unchanged, as specified. Merged in the concurrently-landed w2-320/SCRIBE-transact-launch-rails branch to reach W2-342's real row and resolved several trivial conflicts (mostly duplicate sections from independent landings; kept the more current/already-updated status where both sides described the same row).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/ATLAS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** ATLAS and CRANE both read the disjoint-ownership protocol from main before claiming further rows.
+---
+
+## 2026-09-01 14:55 - SCRIBE DSH-inspired patterns (undo discipline, skills catalog, gate dispatch)
+**Action:** Added three new rules to AGENTS.md (no full harness adoption, just these three patterns): RULE 10 UNDO_DISCIPLINE — every WAVE_QUEUE row going forward carries an UNDO: field (one-line deterministic inverse command); existing rows are not retrofitted. RULE 11 SKILLS_CATALOG — new docs/SKILLS.md lists each seat's expert skills (CRANE: D1 migrations, Worker routes, MCP wiring, auth/payments backend; ATLAS: audits, research, legal drafting, site-systems architecture; SCRIBE: queue management, ledger discipline, row verification); the conductor routes sub-tasks by skill. RULE 12 SUB_AGENT_GATE_DISPATCH — when CRANE hits an operator gate it reports to the conductor instead of blocking, and the conductor dispatches the unblocking sub-task to ATLAS (research/design) or SCRIBE (docs/queue) as appropriate.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/SKILLS.md, docs/ACTIVITY_LOG.md
+**Next Steps:** New WAVE_QUEUE rows should start carrying UNDO: fields from here on.
+---

@@ -4,7 +4,6 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton, SecondaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
-import LandIntelLookup from '../../../components/sections/LandIntelLookup'
 import UlpinDemoWidget from '../../../components/sections/UlpinDemoWidget'
 import ParcelMap from '../../../components/sections/ParcelMap'
 
@@ -141,7 +140,7 @@ export default function LandIntelPage() {
           </p>
         </div>
         <div className="mt-12">
-          <LandIntelLookup />
+          <UlpinDemoWidget />
         </div>
       </SectionShell>
 

@@ -6,10 +6,23 @@ the complete rulebook (8 rules). Applies to every seat (Qoder CN, Jules,
 Qwen Code, VS Code Agents, Claude Code).
 
 ## RULE 1 — Roster
-ACTIVE: CRANE (executor + lander + REGENT), SCRIBE (docs/ledger/rules).
-PARKED: ATLAS, MASON, RIVET, GIRDER (Qoder) and the older Copilot/
-Continue/Jules/Cline seats — reactivatable when Codex/Cursor join.
+ACTIVE: CRANE (executor + lander + REGENT), SCRIBE (docs/ledger/rules),
+ATLAS (dual role — architect + executor for its assigned slice of the
+queue, reactivated 2026-09-01).
+PARKED: MASON, RIVET, GIRDER (Qoder) and the older Copilot/Continue/
+Jules/Cline seats — reactivatable when Codex/Cursor join.
 CONDUCTOR: Qwen-Web. OPERATOR: human. Full detail in docs/ROLE_MAP.md.
+
+**ATLAS/CRANE disjoint-ownership protocol (2026-09-01):** ATLAS and CRANE
+work separate slices of docs/WAVE_QUEUE.md concurrently, not overlapping
+files: ATLAS never edits worker.ts / auth / payments files; CRANE never
+edits sitemap / nav / footer / legal / resources files. Dependency
+additions (package.json/pnpm-lock.yaml changes) are CRANE-only — ATLAS
+does not add deps. Both seats push from their own worktree (RULE 9);
+landing to main is serialized through `scripts/land.ps1` regardless of
+which seat authored the branch. SWEEP_100 (final certification) is run
+mechanically by CRANE, then each seat spot-audits the other's half — no
+self-certification of either seat's own work.
 
 ## RULE 2 — Attribution
 Every commit is tagged `[AI: <SEAT>]` in the subject line. Every chat
@@ -55,6 +68,25 @@ The shared main checkout at `D:\ferrum_os_recovered` is `scripts/land.ps1`
 territory only — no seat runs `git checkout`/`git switch` there. This
 keeps concurrent seats from colliding on HEAD in the one checkout CRANE's
 landing script depends on.
+
+## RULE 10 — Undo discipline
+Every docs/WAVE_QUEUE.md row includes an `UNDO:` field — a one-line
+inverse command for that row's change (e.g. `UNDO: git revert <sha>`, or
+`UNDO: delete apps/web/app/X/page.tsx + npm uninstall Y`). Rollback must
+be deterministic, not reconstructed after the fact. Applies going
+forward to new rows; existing rows are not being retrofitted.
+
+## RULE 11 — Skills catalog
+docs/SKILLS.md lists each seat's expert skills. The conductor (Qwen-Web)
+uses it to route sub-tasks to the seat best suited, rather than by
+availability alone.
+
+## RULE 12 — Sub-agent gate dispatch
+When CRANE hits an operator gate (a secret, an approval, a design
+decision it can't make itself), it does not sit blocked. It reports the
+gate to the conductor, which dispatches the unblocking sub-task to the
+seat that owns that kind of work — ATLAS for research/design questions,
+SCRIBE for docs/queue questions — instead of CRANE idling on its own row.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum

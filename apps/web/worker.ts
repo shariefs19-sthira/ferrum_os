@@ -21,6 +21,27 @@ import { D1StampDutyProvider } from './lib/providers/StampDutyProvider'
 import { computeAskBand } from './lib/transact/askBand'
 import { D1GovtReferenceRatesProvider } from './lib/providers/GovtReferenceRatesProvider'
 import { computeFerrumRate, type Role } from './lib/rateEngine/ferrumRateEngine'
+import { initialStep, isValidTransition, isTerminalStep, type CaseRole } from './lib/transact/caseFlow'
+import type { PaymentProvider } from './lib/payments/PaymentProvider'
+import { RazorpayProvider } from './lib/payments/RazorpayProvider'
+import { StubPaymentProvider } from './lib/payments/StubPaymentProvider'
+import { hashPassword, verifyPassword, generateToken, hashToken } from './lib/auth/password'
+import { createSession, getSessionUser, deleteSession, setCookieHeader, clearCookieHeader, parseSessionCookie } from './lib/auth/session'
+import { sendVerificationEmail, sendResetEmail } from './lib/auth/email'
+import { checkRateLimit } from './lib/auth/rateLimit'
+
+async function requireUser(env: Env, cookieHeader: string | undefined) {
+  const sessionId = parseSessionCookie(cookieHeader)
+  if (!sessionId) return null
+  return getSessionUser(env.DB, sessionId)
+}
+
+function getPaymentProvider(env: Env): PaymentProvider {
+  if (env.RAZORPAY_KEY_ID && env.RAZORPAY_KEY_SECRET) {
+    return new RazorpayProvider(env.RAZORPAY_KEY_ID, env.RAZORPAY_KEY_SECRET, env.RAZORPAY_WEBHOOK_SECRET)
+  }
+  return new StubPaymentProvider()
+}
 
 export type Env = {
   DB: D1Database
@@ -29,6 +50,22 @@ export type Env = {
   // yet, so LiveLandRecordsProvider/LiveMarketRatesProvider always
   // fall through to D1 seed data until it's set.
   OGD_API_KEY?: string
+  // Razorpay test/live keys (W2-324) — unset until an operator provisions
+  // them, so getPaymentProvider() falls back to StubPaymentProvider (a
+  // fully labeled simulated flow) rather than blocking the pipeline.
+  RAZORPAY_KEY_ID?: string
+  RAZORPAY_KEY_SECRET?: string
+  RAZORPAY_WEBHOOK_SECRET?: string
+  // Resend key (W2-326) — unset until an operator provisions it, so
+  // verify/reset emails fall back to returning the raw token in the API
+  // response (labeled dev-mode) instead of sending real mail.
+  RESEND_API_KEY?: string
+  // Shared-secret gate for the minimal /api/admin/leads view (W2-328).
+  // There's no admin-role concept in the auth system yet (a real one is
+  // out of this task's scope) — unset until an operator provisions it,
+  // and the route returns 503 rather than pretending to be open or
+  // silently allowing anyone through.
+  ADMIN_TOKEN?: string
 }
 
 const app = new Hono<{ Bindings: Env }>()
@@ -143,7 +180,7 @@ app.post('/api/leads', async (c) => {
     return c.json({ error: 'invalid_lead' }, 400)
   }
   await c.env.DB.prepare(
-    'INSERT INTO leads (name, email, phone, product, source_page, state) VALUES (?, ?, ?, ?, ?, ?)',
+    'INSERT INTO leads (name, email, phone, product, source_page, state, message) VALUES (?, ?, ?, ?, ?, ?, ?)',
   )
     .bind(
       body.name,
@@ -152,6 +189,7 @@ app.post('/api/leads', async (c) => {
       typeof body.product === 'string' ? body.product : 'unspecified',
       typeof body.source_page === 'string' ? body.source_page : 'unspecified',
       typeof body.state === 'string' ? body.state : null,
+      typeof body.message === 'string' ? body.message : null,
     )
     .run()
   return c.json({ status: 'captured' })
@@ -204,6 +242,408 @@ app.post('/api/ferrum-rate', async (c) => {
       : undefined
   const result = computeFerrumRate(govtRow?.rate ?? 0, marketRow?.rate ?? 0, userRate, role, body.weights, timeAdjustment)
   return c.json(result)
+})
+
+// Transact case tracking (W2-322), gated by docs/COMPLIANCE_GATE.md.
+// Buyer/seller state machine — see lib/transact/caseFlow.ts. token_payment
+// (buyer step 3) is Stage-1 test-mode only; no real Razorpay charge exists
+// yet (W2-324 not landed), advancing past it just records the case moved
+// on, matching the "ship stub if dependency missing" rule.
+app.post('/api/transact/cases', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  const role: CaseRole | undefined = body?.role === 'buyer' || body?.role === 'seller' ? body.role : undefined
+  if (!body || !role || typeof body.contact_name !== 'string' || typeof body.contact_email !== 'string') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const id = crypto.randomUUID()
+  const step = initialStep(role)
+  await c.env.DB.batch([
+    c.env.DB.prepare(
+      'INSERT INTO transact_cases (id, role, contact_name, contact_email, contact_phone, property_ref, state, current_step) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    ).bind(
+      id,
+      role,
+      body.contact_name,
+      body.contact_email,
+      typeof body.contact_phone === 'string' ? body.contact_phone : null,
+      typeof body.property_ref === 'string' ? body.property_ref : null,
+      typeof body.state === 'string' ? body.state : null,
+      step,
+    ),
+    c.env.DB.prepare('INSERT INTO case_events (id, case_id, from_step, to_step, note) VALUES (?, ?, NULL, ?, ?)').bind(
+      crypto.randomUUID(),
+      id,
+      step,
+      'case created',
+    ),
+  ])
+  return c.json({ id, role, current_step: step, status: 'in_progress', indicative: true })
+})
+
+app.get('/api/transact/cases/:id', async (c) => {
+  const caseId = c.req.param('id')
+  const caseRow = await c.env.DB.prepare('SELECT * FROM transact_cases WHERE id = ?').bind(caseId).first()
+  if (!caseRow) return c.json({ error: 'not_found' }, 404)
+  const events = await c.env.DB.prepare('SELECT * FROM case_events WHERE case_id = ? ORDER BY created_at ASC')
+    .bind(caseId)
+    .all()
+  return c.json({ ...caseRow, events: events.results, indicative: true })
+})
+
+app.post('/api/transact/cases/:id/advance', async (c) => {
+  const caseId = c.req.param('id')
+  const body = await c.req.json().catch(() => null)
+  const caseRow = await c.env.DB.prepare('SELECT * FROM transact_cases WHERE id = ?').bind(caseId).first<{
+    role: CaseRole
+    current_step: string
+    status: string
+  }>()
+  if (!caseRow) return c.json({ error: 'not_found' }, 404)
+  if (caseRow.status !== 'in_progress') return c.json({ error: 'case_closed' }, 409)
+  if (!body || typeof body.to_step !== 'string' || !isValidTransition(caseRow.role, caseRow.current_step, body.to_step)) {
+    return c.json({ error: 'invalid_transition', current_step: caseRow.current_step }, 400)
+  }
+  const newStatus = isTerminalStep(caseRow.role, body.to_step) ? 'closed' : 'in_progress'
+  await c.env.DB.batch([
+    c.env.DB.prepare("UPDATE transact_cases SET current_step = ?, status = ?, updated_at = datetime('now') WHERE id = ?").bind(
+      body.to_step,
+      newStatus,
+      caseId,
+    ),
+    c.env.DB.prepare('INSERT INTO case_events (id, case_id, from_step, to_step, note) VALUES (?, ?, ?, ?, ?)').bind(
+      crypto.randomUUID(),
+      caseId,
+      caseRow.current_step,
+      body.to_step,
+      typeof body.note === 'string' ? body.note : null,
+    ),
+  ])
+  return c.json({ id: caseId, current_step: body.to_step, status: newStatus, indicative: true })
+})
+
+// Payments (W2-324), gated by docs/COMPLIANCE_GATE.md. Test-mode by
+// default (StubPaymentProvider) until an operator provisions real
+// Razorpay secrets — every response carries `simulated`/`mode` so the
+// client can label the flow honestly either way.
+app.post('/api/payments/order', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.amount_paise !== 'number' || body.amount_paise <= 0) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const id = crypto.randomUUID()
+  const provider = getPaymentProvider(c.env)
+  const result = await provider.createOrder({ amountPaise: body.amount_paise, currency: 'INR', receipt: id })
+  await c.env.DB.prepare(
+    'INSERT INTO orders (id, case_id, provider, provider_order_id, amount_paise, currency, mode, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+  )
+    .bind(
+      id,
+      typeof body.case_id === 'string' ? body.case_id : null,
+      'razorpay',
+      result.providerOrderId,
+      body.amount_paise,
+      'INR',
+      result.mode,
+      'created',
+    )
+    .run()
+  return c.json({
+    id,
+    provider_order_id: result.providerOrderId,
+    // Razorpay's key_id is a publishable identifier (analogous to a
+    // Stripe publishable key) — safe to return to the client, and
+    // required to open Razorpay Checkout. Omitted in simulated mode
+    // since there is no real checkout to open.
+    key_id: result.simulated ? null : c.env.RAZORPAY_KEY_ID,
+    amount_paise: body.amount_paise,
+    currency: 'INR',
+    mode: result.mode,
+    simulated: result.simulated,
+    indicative: true,
+  })
+})
+
+app.post('/api/payments/verify', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.order_id !== 'string' || typeof body.razorpay_payment_id !== 'string' || typeof body.razorpay_signature !== 'string') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const order = await c.env.DB.prepare('SELECT * FROM orders WHERE id = ?').bind(body.order_id).first<{
+    id: string
+    provider_order_id: string | null
+  }>()
+  if (!order) return c.json({ error: 'not_found' }, 404)
+  const provider = getPaymentProvider(c.env)
+  const verified = await provider.verifyPaymentSignature(
+    order.provider_order_id ?? order.id,
+    body.razorpay_payment_id,
+    body.razorpay_signature,
+  )
+  await c.env.DB.batch([
+    c.env.DB.prepare('INSERT INTO payments (id, order_id, provider_payment_id, signature_verified, status) VALUES (?, ?, ?, ?, ?)').bind(
+      crypto.randomUUID(),
+      body.order_id,
+      body.razorpay_payment_id,
+      verified ? 1 : 0,
+      verified ? 'verified' : 'failed',
+    ),
+    c.env.DB.prepare('UPDATE orders SET status = ? WHERE id = ?').bind(verified ? 'paid' : 'failed', body.order_id),
+  ])
+  return c.json({ order_id: body.order_id, status: verified ? 'paid' : 'failed', indicative: true })
+})
+
+app.post('/api/payments/webhook', async (c) => {
+  const rawBody = await c.req.text()
+  const signature = c.req.header('X-Razorpay-Signature') ?? ''
+  const provider = getPaymentProvider(c.env)
+  const verified = await provider.verifyWebhookSignature(rawBody, signature)
+  if (!verified) return c.json({ error: 'invalid_signature' }, 400)
+  return c.json({ received: true })
+})
+
+// Password auth (W2-326), supersedes the stubbed W2-317 login. Sessions
+// are HttpOnly/Secure cookies (see lib/auth/session.ts). Rate-limited
+// endpoints are D1-backed sliding windows (lib/auth/rateLimit.ts), since
+// Workers isolates carry no in-memory state between requests.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+app.post('/api/auth/signup', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.email !== 'string' || !EMAIL_RE.test(body.email) || typeof body.password !== 'string' || body.password.length < 8) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const email = body.email.toLowerCase()
+  if (!(await checkRateLimit(c.env.DB, `signup:${email}`, 5, 60))) return c.json({ error: 'rate_limited' }, 429)
+  const existing = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first()
+  if (existing) return c.json({ error: 'email_taken' }, 409)
+  const { hash, salt, iterations } = await hashPassword(body.password)
+  const userId = crypto.randomUUID()
+  await c.env.DB.prepare(
+    'INSERT INTO users (id, name, email, password_hash, password_salt, password_iterations) VALUES (?, ?, ?, ?, ?, ?)',
+  )
+    .bind(userId, typeof body.name === 'string' ? body.name : null, email, hash, salt, iterations)
+    .run()
+  const token = generateToken()
+  const tokenHash = await hashToken(token)
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+  await c.env.DB.prepare('INSERT INTO verification_tokens (id, user_id, token_hash, type, expires_at) VALUES (?, ?, ?, ?, ?)')
+    .bind(crypto.randomUUID(), userId, tokenHash, 'verify_email', expiresAt)
+    .run()
+  const emailResult = await sendVerificationEmail(c.env.RESEND_API_KEY, email, token)
+  const sessionId = await createSession(c.env.DB, userId)
+  c.header('Set-Cookie', setCookieHeader(sessionId))
+  return c.json({ id: userId, email, email_verified: false, dev_verify_token: emailResult.devToken })
+})
+
+app.post('/api/auth/login', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.email !== 'string' || typeof body.password !== 'string') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const email = body.email.toLowerCase()
+  if (!(await checkRateLimit(c.env.DB, `login:${email}`, 10, 15))) return c.json({ error: 'rate_limited' }, 429)
+  const user = await c.env.DB.prepare('SELECT * FROM users WHERE email = ?').bind(email).first<{
+    id: string
+    email: string
+    password_hash: string
+    password_salt: string
+    password_iterations: number
+    email_verified: number
+  }>()
+  if (!user || !(await verifyPassword(body.password, { hash: user.password_hash, salt: user.password_salt, iterations: user.password_iterations }))) {
+    return c.json({ error: 'invalid_credentials' }, 401)
+  }
+  const sessionId = await createSession(c.env.DB, user.id)
+  c.header('Set-Cookie', setCookieHeader(sessionId))
+  return c.json({ id: user.id, email: user.email, email_verified: !!user.email_verified })
+})
+
+app.post('/api/auth/logout', async (c) => {
+  const sessionId = parseSessionCookie(c.req.header('Cookie'))
+  if (sessionId) await deleteSession(c.env.DB, sessionId)
+  c.header('Set-Cookie', clearCookieHeader())
+  return c.json({ ok: true })
+})
+
+app.get('/api/auth/session', async (c) => {
+  const sessionId = parseSessionCookie(c.req.header('Cookie'))
+  if (!sessionId) return c.json({ user: null })
+  const user = await getSessionUser(c.env.DB, sessionId)
+  return c.json({ user: user ? { id: user.id, email: user.email, email_verified: !!user.email_verified } : null })
+})
+
+app.post('/api/auth/verify', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.token !== 'string') return c.json({ error: 'invalid_input' }, 400)
+  const tokenHash = await hashToken(body.token)
+  const row = await c.env.DB.prepare(
+    `SELECT id, user_id FROM verification_tokens WHERE token_hash = ? AND type = 'verify_email' AND used_at IS NULL AND expires_at > datetime('now')`,
+  )
+    .bind(tokenHash)
+    .first<{ id: string; user_id: string }>()
+  if (!row) return c.json({ error: 'invalid_or_expired_token' }, 400)
+  await c.env.DB.batch([
+    c.env.DB.prepare('UPDATE users SET email_verified = 1 WHERE id = ?').bind(row.user_id),
+    c.env.DB.prepare("UPDATE verification_tokens SET used_at = datetime('now') WHERE id = ?").bind(row.id),
+  ])
+  return c.json({ ok: true })
+})
+
+app.post('/api/auth/forgot-password', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.email !== 'string') return c.json({ error: 'invalid_input' }, 400)
+  const email = body.email.toLowerCase()
+  if (!(await checkRateLimit(c.env.DB, `forgot:${email}`, 5, 60))) return c.json({ error: 'rate_limited' }, 429)
+  const user = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first<{ id: string }>()
+  // Always return 200 regardless of whether the email exists — an
+  // account-enumeration guard, not an inconsistency.
+  if (!user) return c.json({ ok: true })
+  const token = generateToken()
+  const tokenHash = await hashToken(token)
+  const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString()
+  await c.env.DB.prepare('INSERT INTO verification_tokens (id, user_id, token_hash, type, expires_at) VALUES (?, ?, ?, ?, ?)')
+    .bind(crypto.randomUUID(), user.id, tokenHash, 'reset_password', expiresAt)
+    .run()
+  const emailResult = await sendResetEmail(c.env.RESEND_API_KEY, email, token)
+  return c.json({ ok: true, dev_reset_token: emailResult.devToken })
+})
+
+app.post('/api/auth/reset-password', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.token !== 'string' || typeof body.new_password !== 'string' || body.new_password.length < 8) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const tokenHash = await hashToken(body.token)
+  const row = await c.env.DB.prepare(
+    `SELECT id, user_id FROM verification_tokens WHERE token_hash = ? AND type = 'reset_password' AND used_at IS NULL AND expires_at > datetime('now')`,
+  )
+    .bind(tokenHash)
+    .first<{ id: string; user_id: string }>()
+  if (!row) return c.json({ error: 'invalid_or_expired_token' }, 400)
+  const { hash, salt, iterations } = await hashPassword(body.new_password)
+  await c.env.DB.batch([
+    c.env.DB.prepare('UPDATE users SET password_hash = ?, password_salt = ?, password_iterations = ? WHERE id = ?').bind(
+      hash,
+      salt,
+      iterations,
+      row.user_id,
+    ),
+    c.env.DB.prepare("UPDATE verification_tokens SET used_at = datetime('now') WHERE id = ?").bind(row.id),
+  ])
+  return c.json({ ok: true })
+})
+
+// Saved-artifact workspace (W2-327), tied to W2-326 auth. `data` is
+// stored/returned as an opaque JSON blob — see migrations/0008_workspace.sql
+// for why it isn't normalized per artifact type.
+app.post('/api/workspace/artifacts', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.type !== 'string' || typeof body.title !== 'string' || body.data === undefined) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const id = crypto.randomUUID()
+  await c.env.DB.prepare('INSERT INTO saved_artifacts (id, user_id, type, title, data) VALUES (?, ?, ?, ?, ?)')
+    .bind(id, user.id, body.type, body.title, JSON.stringify(body.data))
+    .run()
+  return c.json({ id, type: body.type, title: body.title })
+})
+
+app.get('/api/workspace/artifacts', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const rows = await c.env.DB.prepare('SELECT id, type, title, created_at FROM saved_artifacts WHERE user_id = ? ORDER BY created_at DESC')
+    .bind(user.id)
+    .all()
+  return c.json({ artifacts: rows.results })
+})
+
+async function loadOwnedArtifact(env: Env, userId: string, artifactId: string) {
+  return env.DB.prepare('SELECT * FROM saved_artifacts WHERE id = ? AND user_id = ?').bind(artifactId, userId).first<{
+    id: string
+    user_id: string
+    type: string
+    title: string
+    data: string
+    created_at: string
+  }>()
+}
+
+app.get('/api/workspace/artifacts/:id', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const artifact = await loadOwnedArtifact(c.env, user.id, c.req.param('id'))
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  return c.json({ ...artifact, data: JSON.parse(artifact.data) })
+})
+
+app.delete('/api/workspace/artifacts/:id', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const artifact = await loadOwnedArtifact(c.env, user.id, c.req.param('id'))
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  await c.env.DB.batch([
+    c.env.DB.prepare('DELETE FROM artifact_shares WHERE artifact_id = ?').bind(artifact.id),
+    c.env.DB.prepare('DELETE FROM saved_artifacts WHERE id = ?').bind(artifact.id),
+  ])
+  return c.json({ ok: true })
+})
+
+app.get('/api/workspace/artifacts/:id/export', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const artifact = await loadOwnedArtifact(c.env, user.id, c.req.param('id'))
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  const payload = JSON.stringify({ ...artifact, data: JSON.parse(artifact.data) }, null, 2)
+  return new Response(payload, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Disposition': `attachment; filename="${artifact.id}.json"`,
+    },
+  })
+})
+
+app.post('/api/workspace/artifacts/:id/share', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const artifact = await loadOwnedArtifact(c.env, user.id, c.req.param('id'))
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  const existing = await c.env.DB.prepare('SELECT share_token FROM artifact_shares WHERE artifact_id = ?')
+    .bind(artifact.id)
+    .first<{ share_token: string }>()
+  if (existing) return c.json({ share_token: existing.share_token })
+  const shareToken = generateToken()
+  await c.env.DB.prepare('INSERT INTO artifact_shares (id, artifact_id, share_token) VALUES (?, ?, ?)')
+    .bind(crypto.randomUUID(), artifact.id, shareToken)
+    .run()
+  return c.json({ share_token: shareToken })
+})
+
+// Public — no auth. A share token grants read access to exactly one
+// artifact, nothing else about the owning user or their workspace.
+app.get('/api/workspace/shared/:token', async (c) => {
+  const share = await c.env.DB.prepare('SELECT artifact_id FROM artifact_shares WHERE share_token = ?')
+    .bind(c.req.param('token'))
+    .first<{ artifact_id: string }>()
+  if (!share) return c.json({ error: 'not_found' }, 404)
+  const artifact = await c.env.DB.prepare('SELECT type, title, data, created_at FROM saved_artifacts WHERE id = ?')
+    .bind(share.artifact_id)
+    .first<{ type: string; title: string; data: string; created_at: string }>()
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  return c.json({ ...artifact, data: JSON.parse(artifact.data) })
+})
+
+// Minimal operator lead view (W2-328) — shared-secret gate, not a real
+// admin-role system (that's a separate, larger task). 503 (not 401) when
+// ADMIN_TOKEN is unset: this route is genuinely not configured yet, not
+// a locked door someone might mistake for a working one.
+app.get('/api/admin/leads', async (c) => {
+  if (!c.env.ADMIN_TOKEN) return c.json({ error: 'admin_view_not_configured' }, 503)
+  const token = c.req.query('token')
+  if (token !== c.env.ADMIN_TOKEN) return c.json({ error: 'unauthorized' }, 401)
+  const rows = await c.env.DB.prepare('SELECT * FROM leads ORDER BY created_at DESC LIMIT 200').all()
+  return c.json({ leads: rows.results })
 })
 
 // MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md
