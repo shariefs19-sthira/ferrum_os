@@ -481,3 +481,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 2026-09-01 11:15 - SCRIBE OSS adoption rows (W2-292..294)
+**Action:** Queued 3 open-source adoption rows per operator directive to utilize open-source in the build, all CRANE: Leaflet + OpenStreetMap parcel map in LandIntel (MIT); CPWD-DSR-derived INDICATIVE rate table into BOQ Pro (govt-public data, watermarked); Tesseract.js client-side OCR spike in Transact (Apache). Each gated on W2-288's license audit confirming the tool's license before code lands. Requested as W2-289..291, renumbered to W2-292..294 — W2-289 is already the branch name for the oss-stack rescope commit, same collision pattern as the earlier W2-258 renumbering; no existing row was touched.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE works these after W2-288's license audit lands.
+---

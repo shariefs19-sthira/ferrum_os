@@ -168,6 +168,17 @@ MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
 DONE by this edit — status flips only at LIVE (AGENTS.md STAGE-GATES rule).
 
+## 2026-09-01 — SCRIBE OSS adoption (operator directive: utilize open-source in the build)
+Renumbered from requested W2-289..291 to W2-292..294 — W2-289 is already
+the branch name for the oss-stack rescope commit (w2-289/SCRIBE-oss-stack-rescope),
+not a queue row, but reusing it as a task ID too would collide, same
+pattern as the earlier W2-258 renumbering. No existing row was touched.
+Each row is gated on W2-288's license audit confirming the tool's license
+before code lands.
+| W2-292 | | B2 | J08 | CRANE | OPEN | | Leaflet + OpenStreetMap parcel map in LandIntel (client-leaf, MIT) — gated on W2-288 license audit |
+| W2-293 | | B2 | J08 | CRANE | OPEN | | CPWD-DSR-derived INDICATIVE rate table into BOQ Pro (govt-public data, watermarked) — gated on W2-288 license audit |
+| W2-294 | | B2 | J08 | CRANE | OPEN | | Tesseract.js client-side OCR spike in Transact (Apache) — gated on W2-288 license audit |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
