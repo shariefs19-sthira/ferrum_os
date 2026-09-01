@@ -1,3 +1,7 @@
+"use client"
+
+import { useState } from "react"
+
 const features = [
   'Multi-site visibility',
   'Faster land diligence',
@@ -5,6 +9,33 @@ const features = [
 ];
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle")
+  const [errorMsg, setErrorMsg] = useState("")
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus("loading")
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        setErrorMsg(data.error === "rate_limited" ? "Too many attempts — try again later." : "Invalid email or password.")
+        setStatus("error")
+        return
+      }
+      window.location.href = "/account"
+    } catch {
+      setErrorMsg("Something went wrong — try again.")
+      setStatus("error")
+    }
+  }
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
       <div className="mx-auto grid min-h-screen max-w-7xl items-center px-6 py-12 md:px-8 lg:grid-cols-2">
@@ -21,7 +52,7 @@ export default function LoginPage() {
             Sign in to manage projects, land intelligence, and execution workflows from one place.
           </p>
 
-          <div className="mt-8 space-y-5">
+          <form onSubmit={submit} className="mt-8 space-y-5">
             <div>
               <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
                 Email
@@ -29,6 +60,9 @@ export default function LoginPage() {
               <input
                 id="email"
                 type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
                 className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-base text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
@@ -41,13 +75,16 @@ export default function LoginPage() {
               <input
                 id="password"
                 type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-base text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
             <div className="flex items-center justify-between gap-3 pt-1">
-              <a href="/" className="text-sm font-medium text-blue-700 transition hover:text-blue-800">
+              <a href="/forgot-password" className="text-sm font-medium text-blue-700 transition hover:text-blue-800">
                 Forgot password?
               </a>
               <a href="/get-started" className="text-sm font-medium text-slate-600 transition hover:text-slate-900">
@@ -55,13 +92,16 @@ export default function LoginPage() {
               </a>
             </div>
 
+            {status === "error" && <p className="text-sm text-red-600">{errorMsg}</p>}
+
             <button
-              type="button"
-              className="w-full rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700"
+              type="submit"
+              disabled={status === "loading"}
+              className="w-full rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700 disabled:opacity-60"
             >
-              Sign in
+              {status === "loading" ? "Signing in..." : "Sign in"}
             </button>
-          </div>
+          </form>
         </section>
 
         <aside className="hidden lg:block">
