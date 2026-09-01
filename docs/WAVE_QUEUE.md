@@ -231,15 +231,11 @@ landed, so W2-312 carries the real scope.
 | W2-314 | | B2 | J08 | CRANE | DONE | 494fbb7 | author CONCIERGE_LLM grounding design doc — retrieval over the site catalog, mandatory citations on every generated answer, deterministic-router fallback when retrieval is unconfident, abuse/cost model with rate limits + budget caps. Research/docs only, no code. |
 | W2-315 | | B2 | J08 | CRANE | OPEN | | CONCIERGE_LLM implementation (Worker route, strict grounding per W2-314, deterministic-router fallback) — GATED on ANTHROPIC_API_KEY secret provisioning + operator budget approval; do not start until both clear |
 | W2-316 | | B2 | J08 | CRANE | CLAIMED-CRANE | | live-feed adapters: LandRecordsProvider + MarketRatesProvider against documented public endpoints, graceful seed-data fallback, indicative flags preserved; plus author a DILRMP onboarding-application doc (research/docs component, no code) |
-| W2-317 | | B2 | J08 | CRANE | SUPERSEDED | | ~~real workspace auth — magic-link sessions on Workers+D1~~ — superseded by W2-326 (AUTH_COMPLETE, password auth via PBKDF2/WebCrypto instead of magic-link), per SCRIBE's w2-326/SCRIBE-final-rails note |
+| W2-317 | | B2 | J08 | CRANE | SUPERSEDED | | ~~real workspace auth — magic-link sessions on Workers+D1~~ — superseded by W2-326 (AUTH_COMPLETE, password auth via PBKDF2/WebCrypto instead of magic-link) |
 | W2-318 | | B2 | J08 | CRANE | OPEN | | full Dashboard/Workspace copy per conductor spec — replace W2-313's PREVIEW-labeled mock with real sections, no PREVIEW labels, early-access CTA becomes a real sign-in flow (now depends on W2-326 auth landing first, not W2-317) |
 | W2-319 | | B2 | J08 | CRANE | OPEN | | author docs/TRANSACTION_COUNSEL_PACK.md — expand docs/COMPLIANCE_GATE.md's checklist into a counsel-ready memo: RERA scope per operating state, advocate empanelment process, escrow structure, KYC/AML procedure, advertising rules. Research/docs only, no code — this is prep material for actual counsel, not a substitute for counsel sign-off (COMPLIANCE_GATE's Stage-2 block stays in force regardless). |
 
 ## 2026-09-01 — SCRIBE final rails (auth through ops)
-Note: W2-326 folds/supersedes the earlier W2-317 (real workspace auth) —
-that row is on the still-unlanded w2-314/SCRIBE-post-launch-rails branch,
-not present in this checkout, so no in-file edit was made to it; recorded
-here instead.
 | W2-326 | | B2 | J08 | CRANE | OPEN | | AUTH_COMPLETE — password auth via PBKDF2 over WebCrypto, sessions, verify + reset flows via Resend with a dev fallback, account page, rate limits on auth endpoints. Folds/supersedes W2-317. |
 | W2-327 | | B2 | J08 | CRANE | OPEN | | WORKSPACE_DATA — saved-artifact CRUD + export + share, tied to W2-326 auth |
 | W2-328 | | B2 | J08 | CRANE | OPEN | | FORMS_LEADS — route all site forms into D1, plus a minimal operator admin view for leads |
@@ -247,10 +243,15 @@ here instead.
 | W2-330 | | B2 | J08 | CRANE | OPEN | | TRANSACT_LIFECYCLE — buyer/seller state machine, KYC capture, document uploads via R2, scheduling, notifications |
 | W2-331 | | B2 | J08 | CRANE | OPEN | | CONTENT_REAL — real content pass on Blog / Case Studies / IS Code Guides, no lorem/placeholder text remaining |
 | W2-332 | | B2 | J08 | CRANE | OPEN | | LEGAL_PAGES — Terms, Privacy, Refunds, Disclaimers, DPDP notice, cookie consent |
-| W2-333 | | B2 | J08 | CRANE | OPEN | | SITE_SYSTEMS — 404 page, SEO/OG tags, sitemap + robots, accessibility pass, performance pass, error boundaries |
+| W2-333 | | B2 | J08 | CRANE | OPEN | | SITE_SYSTEMS — 404 page, SEO/OG tags, sitemap + robots, accessibility pass, performance pass, error boundaries. Acceptance criteria: sitemap.ts route count must match the actual `next build` route count exactly (diff=0); must create public/_redirects per docs/RELUME_ROUTE_MAP.md. |
 | W2-334 | | B2 | J08 | CRANE | OPEN | | SECURITY_HARDENING — rate limits, CSP (see docs/SECURITY.md CSP decisions / W2-240), input validation, secrets audit |
-| W2-335 | | B2 | J08 | CRANE | OPEN | | AGENT_SURFACE_SYNC — reconcile llms.txt/AGENTS.md/OpenAPI/MCP tool catalog against whatever actually shipped by this point in the build |
+| W2-335 | | B2 | J08 | CRANE | OPEN | | AGENT_SURFACE_SYNC — reconcile llms.txt/AGENTS.md/OpenAPI/MCP tool catalog against whatever actually shipped by this point in the build. Acceptance criteria: downgrade plan-gen to "stub" in docs/AGENT_INTERFACE.md and its A2A card; ship llms.txt; reconcile the plans table against actual shipped state. |
 | W2-336 | | B2 | J08 | CRANE | OPEN | | OPS — logging + tracing, error tracking |
+
+## 2026-09-01 — SCRIBE IS-code expand, OCR verify, stamp duty expand
+| W2-337 | | B2 | J08 | CRANE | OPEN | | IS_CODE_EXPAND — add IS 1893 (seismic response spectrum check) and IS 875 (wind/imposed load check) to lib/checks/isCode.ts, wire into /api/is-check and the MCP is-check tool, unit tests against textbook worked examples |
+| W2-338 | | B2 | J08 | CRANE | VERIFIED | 18364a6 | OCR_VERIFY — pre-resolved by SCRIBE: `git show 18364a6` confirms the Tesseract OCR spike DID land on main (tesseract.js 7.0.0 added to apps/web/package.json, apps/web/components/sections/OcrSpike.tsx created, wired into apps/web/app/products/transact/page.tsx). No re-implementation or additional wiring needed. |
+| W2-339 | | B2 | J08 | CRANE | OPEN | | STAMP_DUTY_EXPAND — seed all 28 states + 8 UTs into stamp_duty_rates (migration 0005_stamp_duty_all_states.sql), source current state govt gazette rates, label every row INDICATIVE until independently verified |
 
 ## 2026-09-01 — SCRIBE Transact launch rails + first sweep + final certification
 | W2-320 | | B2 | J08 | CRANE | OPEN | | TRANSACT_VISIBILITY — add Transact to the navbar products menu, footer products column, home showcase as a 10th card, sitemap.ts, and the concierge catalog. No copy changes to the Transact page itself. |
