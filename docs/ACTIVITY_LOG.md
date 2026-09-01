@@ -553,3 +553,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE builds W2-312 and W2-313; note W2-309/310/311 (Leaflet/Tesseract/three-mode calc) still awaits a landing decision from the operator per the prior turn.
 ---
+
+## 2026-09-01 13:00 - SCRIBE post-launch rails rows (W2-314..319)
+**Action:** Queued 6 rows for CRANE, all self-contained: W2-314 CONCIERGE_LLM grounding design doc (retrieval over site catalog, mandatory citations, deterministic-router fallback, abuse/cost model with rate limits + budget caps — research/docs only). W2-315 CONCIERGE_LLM implementation, gated on ANTHROPIC_API_KEY secret + operator budget approval. W2-316 live-feed adapters (LandRecordsProvider/MarketRatesProvider, documented public endpoints, graceful seed fallback, indicative flags preserved) plus a DILRMP onboarding-application doc. W2-317 real workspace auth (magic-link, Workers+D1, dev console-email fallback, prod email gated on operator email-API key). W2-318 full Dashboard/Workspace copy replacing W2-313's PREVIEW mock with real sections and a real sign-in CTA, noted as depending on W2-317 landing first. W2-319 author docs/TRANSACTION_COUNSEL_PACK.md expanding COMPLIANCE_GATE's checklist into a counsel-ready memo (RERA per-state scope, advocate empanelment, escrow structure, KYC/AML, advertising rules) — explicitly framed as prep material for actual counsel, not a substitute for sign-off; COMPLIANCE_GATE's Stage-2 block stays in force regardless. Per the standing SCRIBE-authorship correction, none of the doc-authoring rows (314, 316's doc component, 319) were written by SCRIBE — all queued for CRANE to research and author.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE works these; W2-315 and the prod-email path of W2-317 stay blocked on operator-provided secrets/approval.
+---
