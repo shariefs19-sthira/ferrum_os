@@ -238,7 +238,7 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-01 — SCRIBE final rails (auth through ops)
 | W2-326 | | B2 | J08 | CRANE | DONE | 4ef78791 | AUTH_COMPLETE — password auth via PBKDF2 over WebCrypto, sessions, verify + reset flows via Resend with a dev fallback, account page, rate limits on auth endpoints. Folds/supersedes W2-317. |
 | W2-327 | | B2 | J08 | CRANE | DONE | cf271df9 | WORKSPACE_DATA — saved-artifact CRUD + export + share, tied to W2-326 auth |
-| W2-328 | | B2 | J08 | CRANE | CLAIMED-CRANE | | FORMS_LEADS — route all site forms into D1, plus a minimal operator admin view for leads |
+| W2-328 | | B2 | J08 | CRANE | DONE | 6d35ec57 | FORMS_LEADS — route all site forms into D1, plus a minimal operator admin view for leads |
 | W2-329 | | B2 | J08 | CRANE | OPEN | | PAYMENTS_COMPLETE — checkout, demand tokens, subscriptions, webhooks with signature verification, receipts + GST invoice generation; test-mode for now |
 | W2-330 | | B2 | J08 | CRANE | OPEN | | TRANSACT_LIFECYCLE — buyer/seller state machine, KYC capture, document uploads via R2, scheduling, notifications |
 | W2-331 | | B2 | J08 | ATLAS | OPEN | | CONTENT_REAL — real content pass on Blog / Case Studies / IS Code Guides, no lorem/placeholder text remaining |
