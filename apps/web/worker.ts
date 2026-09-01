@@ -60,6 +60,12 @@ export type Env = {
   // verify/reset emails fall back to returning the raw token in the API
   // response (labeled dev-mode) instead of sending real mail.
   RESEND_API_KEY?: string
+  // Shared-secret gate for the minimal /api/admin/leads view (W2-328).
+  // There's no admin-role concept in the auth system yet (a real one is
+  // out of this task's scope) — unset until an operator provisions it,
+  // and the route returns 503 rather than pretending to be open or
+  // silently allowing anyone through.
+  ADMIN_TOKEN?: string
 }
 
 const app = new Hono<{ Bindings: Env }>()
@@ -174,7 +180,7 @@ app.post('/api/leads', async (c) => {
     return c.json({ error: 'invalid_lead' }, 400)
   }
   await c.env.DB.prepare(
-    'INSERT INTO leads (name, email, phone, product, source_page, state) VALUES (?, ?, ?, ?, ?, ?)',
+    'INSERT INTO leads (name, email, phone, product, source_page, state, message) VALUES (?, ?, ?, ?, ?, ?, ?)',
   )
     .bind(
       body.name,
@@ -183,6 +189,7 @@ app.post('/api/leads', async (c) => {
       typeof body.product === 'string' ? body.product : 'unspecified',
       typeof body.source_page === 'string' ? body.source_page : 'unspecified',
       typeof body.state === 'string' ? body.state : null,
+      typeof body.message === 'string' ? body.message : null,
     )
     .run()
   return c.json({ status: 'captured' })
@@ -625,6 +632,18 @@ app.get('/api/workspace/shared/:token', async (c) => {
     .first<{ type: string; title: string; data: string; created_at: string }>()
   if (!artifact) return c.json({ error: 'not_found' }, 404)
   return c.json({ ...artifact, data: JSON.parse(artifact.data) })
+})
+
+// Minimal operator lead view (W2-328) — shared-secret gate, not a real
+// admin-role system (that's a separate, larger task). 503 (not 401) when
+// ADMIN_TOKEN is unset: this route is genuinely not configured yet, not
+// a locked door someone might mistake for a working one.
+app.get('/api/admin/leads', async (c) => {
+  if (!c.env.ADMIN_TOKEN) return c.json({ error: 'admin_view_not_configured' }, 503)
+  const token = c.req.query('token')
+  if (token !== c.env.ADMIN_TOKEN) return c.json({ error: 'unauthorized' }, 401)
+  const rows = await c.env.DB.prepare('SELECT * FROM leads ORDER BY created_at DESC LIMIT 200').all()
+  return c.json({ leads: rows.results })
 })
 
 // MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md
