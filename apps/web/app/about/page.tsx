@@ -1,3 +1,7 @@
+import SectionShell from "../../components/sections/SectionShell"
+import Eyebrow from "../../components/sections/Eyebrow"
+import SectionHeading from "../../components/sections/SectionHeading"
+
 export default function AboutPage() {
   const stats = [
     {
@@ -49,91 +53,71 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="bg-white">
-        <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-              Building the future of construction
-            </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-500">
-              We're on a mission to transform the construction industry with innovative software solutions that make building smarter, faster, and more sustainable.
-            </p>
-          </div>
+    <main>
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionHeading as="h1">Building the future of construction</SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
+            We&apos;re on a mission to transform the construction industry with innovative software solutions that make building smarter, faster, and more sustainable.
+          </p>
         </div>
-      </div>
+      </SectionShell>
 
-      {/* Stats Section */}
-      <div className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl font-extrabold text-blue-600">{stat.value}</div>
-                <div className="mt-2 text-lg font-medium text-gray-900">{stat.label}</div>
+      <SectionShell background="surface-secondary">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+          {stats.map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-4xl font-semibold tracking-relume-tight text-relume-ink">{stat.value}</div>
+              <div className="mt-2 text-base font-medium text-relume-ink">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </SectionShell>
+
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Our process</Eyebrow>
+          <SectionHeading className="mt-3">How we work</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            A four-step loop that turns field evidence into defensible project decisions, every time.
+          </p>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {howWeWork.map((item) => (
+            <div key={item.step} className="rounded-lg border border-relume-border bg-relume-surface p-6">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-relume-border text-sm font-semibold text-relume-ink">
+                {item.step}
               </div>
-            ))}
-          </div>
+              <h3 className="mt-4 text-lg font-semibold tracking-relume-tight text-relume-ink">{item.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-relume-ink">{item.description}</p>
+            </div>
+          ))}
         </div>
-      </div>
+      </SectionShell>
 
-      {/* How We Work Section */}
-      <div className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
-              Our process
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              How we work
-            </h2>
-            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">
-              A four-step loop that turns field evidence into defensible project decisions, every time.
-            </p>
-          </div>
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionHeading>Meet Our Team</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            The passionate individuals driving innovation in construction technology
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {howWeWork.map((item) => (
-              <div key={item.step} className="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-700">
-                  {item.step}
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-gray-900">{item.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-gray-600">{item.description}</p>
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {teamMembers.map((member, index) => (
+            <div key={index} className="rounded-lg border border-relume-border bg-relume-surface p-6 text-center">
+              <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full border border-relume-border">
+                <span className="text-2xl font-semibold text-relume-ink">
+                  {member.name.split(' ').map(n => n[0]).join('')}
+                </span>
               </div>
-            ))}
-          </div>
+              <h3 className="text-lg font-medium text-relume-ink">{member.name}</h3>
+              <p className="mt-1 text-sm text-relume-ink">{member.role}</p>
+            </div>
+          ))}
         </div>
-      </div>
-
-      {/* Team Section */}
-      <div className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Meet Our Team
-            </h2>
-            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">
-              The passionate individuals driving innovation in construction technology
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {teamMembers.map((member, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md p-6 text-center">
-                <div className="mx-auto h-24 w-24 rounded-full bg-gray-300 flex items-center justify-center mb-4">
-                  <span className="text-2xl font-bold text-gray-600">
-                    {member.name.split(' ').map(n => n[0]).join('')}
-                  </span>
-                </div>
-                <h3 className="text-lg font-medium text-gray-900">{member.name}</h3>
-                <p className="mt-1 text-sm text-gray-500">{member.role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+      </SectionShell>
+    </main>
   )
 }

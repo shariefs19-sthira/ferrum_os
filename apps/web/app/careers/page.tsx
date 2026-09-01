@@ -1,3 +1,8 @@
+import SectionShell from "../../components/sections/SectionShell"
+import Eyebrow from "../../components/sections/Eyebrow"
+import SectionHeading from "../../components/sections/SectionHeading"
+import { PrimaryButton, SecondaryButton } from "../../components/sections/Buttons"
+
 export const metadata = {
   title: 'Careers — Ferrum OS',
   description: 'Build the operating system for construction with us. Culture, values, and open roles at Ferrum OS.',
@@ -67,142 +72,111 @@ const roles = [
   }
 ]
 
-
-
 export default function CareersPage() {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      {/* Hero */}
-      <section className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
-            Careers
-          </p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-gray-900 md:text-6xl">
+    <main>
+      <SectionShell>
+        <div className="max-w-3xl">
+          <Eyebrow>Careers</Eyebrow>
+          <SectionHeading as="h1" className="mt-4">
             Build the operating system for construction
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-600">
+          </SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
             We are a small team of engineers, designers, and former site
             professionals turning a fragmented industry into a system that can be
             queried, audited, and improved. If the gap between a paper drawing
             and a working platform bothers you, we should talk.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href="#open-roles"
-              className="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700"
-            >
-              See open roles
-            </a>
-            <a
-              href="mailto:careers@ferrum_os.com"
-              className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
-            >
+            <PrimaryButton href="#open-roles">See open roles</PrimaryButton>
+            <SecondaryButton href="mailto:careers@ferrum_os.com">
               Email careers@ferrum_os.com
-            </a>
+            </SecondaryButton>
           </div>
         </div>
-      </section>
+      </SectionShell>
 
-      {/* Culture Section */}
-      <section className="py-16 bg-white">
-        <div className="mx-auto max-w-7xl px-6 md:px-8">
-          <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
-              How we work
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Culture
-            </h2>
-            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">
-              Four principles we test every decision against.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {culture.map((item) => (
-              <article
-                key={item.title}
-                className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm"
-              >
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-gray-600">
-                  {item.body}
-                </p>
-              </article>
-            ))}
-          </div>
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>How we work</Eyebrow>
+          <SectionHeading className="mt-3">Culture</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            Four principles we test every decision against.
+          </p>
         </div>
-      </section>
 
-      {/* Open Roles */}
-      <section id="open-roles" className="py-16 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-6 md:px-8">
-          <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
-              Open roles
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Where we are hiring
-            </h2>
-            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">
-              Three roles open this quarter. Don&apos;t see a fit? Send a note
-              to careers@ferrum_os.com — strong generalists always have a chair.
-            </p>
-          </div>
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {culture.map((item) => (
+            <article key={item.title} className="rounded-lg border border-relume-border bg-relume-surface p-6">
+              <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-sm leading-6 text-relume-ink">
+                {item.body}
+              </p>
+            </article>
+          ))}
+        </div>
+      </SectionShell>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {roles.map((role) => (
-              <article
-                key={role.title}
-                className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <span className="inline-flex w-fit items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
-                  {role.badge}
-                </span>
-                <h3 className="mt-4 text-xl font-semibold text-gray-900">
-                  {role.title}
-                </h3>
-                <p className="mt-2 text-sm text-gray-500">
-                  {role.location} &middot; {role.type}
-                </p>
-                <p className="mt-4 text-sm leading-7 text-gray-600">
-                  {role.summary}
-                </p>
-                <ul className="mt-4 space-y-2 text-sm text-gray-700">
-                  {role.requirements.map((req) => (
-                    <li key={req} className="flex items-start">
-                      <svg
-                        className="mt-0.5 h-4 w-4 flex-none text-blue-600"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <span className="ml-2">{req}</span>
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={`mailto:careers@ferrum_os.com?subject=Application%3A%20${encodeURIComponent(role.title)}`}
-                  className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
-                >
+      <SectionShell id="open-roles">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Open roles</Eyebrow>
+          <SectionHeading className="mt-3">Where we are hiring</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            Three roles open this quarter. Don&apos;t see a fit? Send a note
+            to careers@ferrum_os.com — strong generalists always have a chair.
+          </p>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {roles.map((role) => (
+            <article
+              key={role.title}
+              className="flex flex-col rounded-lg border border-relume-border bg-relume-surface p-6"
+            >
+              <span className="inline-flex w-fit items-center rounded-full border border-relume-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-relume-ink">
+                {role.badge}
+              </span>
+              <h3 className="mt-4 text-xl font-semibold tracking-relume-tight text-relume-ink">
+                {role.title}
+              </h3>
+              <p className="mt-2 text-sm text-relume-ink">
+                {role.location} &middot; {role.type}
+              </p>
+              <p className="mt-4 text-sm leading-6 text-relume-ink">
+                {role.summary}
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-relume-ink">
+                {role.requirements.map((req) => (
+                  <li key={req} className="flex items-start">
+                    <svg
+                      className="mt-0.5 h-4 w-4 flex-none text-relume-ink"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <span className="ml-2">{req}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6">
+                <PrimaryButton href={`mailto:careers@ferrum_os.com?subject=Application%3A%20${encodeURIComponent(role.title)}`}>
                   Apply for this role
-                </a>
-              </article>
-            ))}
-          </div>
+                </PrimaryButton>
+              </div>
+            </article>
+          ))}
         </div>
-      </section>
-    </div>
+      </SectionShell>
+    </main>
   )
 }

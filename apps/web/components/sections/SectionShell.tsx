@@ -7,6 +7,7 @@ type SectionShellProps = {
   /** Relume scheme background: white by default, F5F5F5 for the secondary scheme. */
   background?: 'surface' | 'surface-secondary'
   className?: string
+  id?: string
 }
 
 export default function SectionShell({
@@ -14,12 +15,13 @@ export default function SectionShell({
   bordered = false,
   background = 'surface',
   className = '',
+  id,
 }: SectionShellProps) {
   const bg = background === 'surface-secondary' ? 'bg-relume-surface-secondary' : 'bg-relume-surface'
   const border = bordered ? 'border border-relume-border rounded-lg' : ''
 
   return (
-    <section className={`${bg} py-16 sm:py-20 md:px-8 ${className}`}>
+    <section id={id} className={`${bg} py-16 sm:py-20 md:px-8 ${className}`}>
       <div className={`mx-auto max-w-7xl px-6 md:px-8 ${border}`}>{children}</div>
     </section>
   )
