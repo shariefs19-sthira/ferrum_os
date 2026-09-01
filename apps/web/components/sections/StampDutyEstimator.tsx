@@ -4,7 +4,45 @@ import { useState } from "react"
 
 type StampDutyResult = { state: string; rate_pct: number; registration_fee_pct: number; note: string; indicative: boolean }
 
-const STATES = ["Karnataka", "Maharashtra", "Tamil Nadu"]
+// W2-339: all 28 states + 8 UTs, matching migrations/0007_stamp_duty_all_states.sql
+const STATES = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi",
+  "Jammu and Kashmir",
+  "Ladakh",
+  "Lakshadweep",
+  "Puducherry",
+]
 
 /**
  * Transact Stage-1: stamp-duty/registration-fee estimator — W2-284.
