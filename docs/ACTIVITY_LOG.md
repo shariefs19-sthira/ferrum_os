@@ -569,3 +569,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE works these; when w2-314/SCRIBE-post-launch-rails lands, its W2-317 row should get a superseded-by-W2-326 note.
 ---
+
+## 2026-09-01 13:30 - SCRIBE IS-code expand, OCR verify, stamp duty expand, acceptance criteria
+**Action:** Queued 3 rows for CRANE: W2-337 IS_CODE_EXPAND (add IS 1893 seismic response spectrum + IS 875 wind/imposed load checks to lib/checks/isCode.ts, wire into /api/is-check + MCP is-check tool, unit tests against textbook worked examples). W2-338 OCR_VERIFY — pre-resolved this myself rather than leaving it as an open investigation: ran `git show 18364a6` and confirmed the Tesseract OCR spike DID land on main (tesseract.js 7.0.0 in apps/web/package.json, apps/web/components/sections/OcrSpike.tsx, wired into apps/web/app/products/transact/page.tsx) — marked VERIFIED with the commit SHA, no further action needed. W2-339 STAMP_DUTY_EXPAND (seed all 28 states + 8 UTs into stamp_duty_rates via migration 0005_stamp_duty_all_states.sql, sourced from current state govt gazette rates, every row labeled INDICATIVE until independently verified). Added acceptance criteria to two existing rows on the still-unlanded w2-326/SCRIBE-final-rails branch (merged into this one to do so): W2-333 SITE_SYSTEMS now requires sitemap.ts route count to exactly match the actual `next build` route count (diff=0) plus creation of public/_redirects per docs/RELUME_ROUTE_MAP.md; W2-335 AGENT_SURFACE_SYNC now requires downgrading plan-gen to "stub" in docs/AGENT_INTERFACE.md and its A2A card, shipping llms.txt, and reconciling the plans table. Also formally marked W2-317 SUPERSEDED (folded into W2-326) now that both rows are in the same file after the merge. Could NOT attach acceptance criteria to "W2-321" — no such row exists anywhere in WAVE_QUEUE.md history on any branch checked; flagged rather than inventing one.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Confirm with operator whether "W2-321" was a typo for a different row number. CRANE works W2-337/339; W2-338 needs no further action.
+---
