@@ -442,6 +442,14 @@ cd C:\Users\user\ferrum_os
 **Next Steps:** Standing by as docs authority. docs/LAND_HOLD.txt is CRANE's file to maintain going forward per its own W2-241 land; SCRIBE records the incident, doesn't own the hold-list.
 ---
 
+## 2026-09-01 09:00 - SCRIBE Relume handoff (W2-243)
+**Action:** Committed the operator's Relume build manifest verbatim as docs/RELUME_HANDOFF.md (sitemap, sections-per-page, section copy/wireframe detail, design tokens, product list) and the conductor-authored docs/RELUME_ROUTE_MAP.md (route decisions: /products/<slug> canonical, /products/boq-pro marketing vs protected /boq-pro app page kept separate, /about/careers, /blog over /resources/blog/**, /resources/is-code-guides hub, 301s via public/_redirects for static export, KEEP list, Relume default tokens). Appended 9 WAVE_QUEUE rows (W2-244..252), all CRANE: tokens+primitives, Home, products route move+_redirects, LandIntel, DesignStudio, Structura, BOQ-Pro marketing, ProMarket, BuildOS (partial, FAQ/CTA deferred to Wave B).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/RELUME_HANDOFF.md, docs/RELUME_ROUTE_MAP.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims and works W2-244..252 in order; W2-244 (tokens+primitives) is the dependency for the rest.
+---
+
 ## 2026-09-01 09:20 - SCRIBE Relume addendum (W2-258)
 **Action:** Committed the operator's Relume Addendum Manifest verbatim as docs/RELUME_ADDENDUM.md (ProcureHub, InvestFlow, CommunityBuild pages fully wired; BuildOS FAQ+CTA completed; Pricing page 7 sections wired; remaining pending list: About, Careers, Resources, Case Studies, IS Code Guides, Blog, Documentation, API Docs, User Guides, Dashboard, Project Workspace, Sign Up, Billing). Appended 5 WAVE_QUEUE rows (W2-253..257), all CRANE. Branched fresh off origin/main as w2-258/SCRIBE-addendum rather than reusing the still-unlanded w2-243/SCRIBE-relume, per operator's "cleaner" preference.
 **By:** SCRIBE (Claude Code)
