@@ -20,6 +20,8 @@ import { D1RatesProvider } from '../providers/RatesProvider'
 import { SvgGeometryExporter } from '../providers/GeometryExporter'
 import { runIsCheck } from '../checks/isCode'
 import { estimateIrr } from '../finance/irrNpv'
+import { D1GovtReferenceRatesProvider } from '../providers/GovtReferenceRatesProvider'
+import { computeFerrumRate, type Role } from '../rateEngine/ferrumRateEngine'
 
 function textResult(data: unknown) {
   return { content: [{ type: 'text' as const, text: JSON.stringify(data) }] }
@@ -65,23 +67,46 @@ export function buildMcpServer(db: D1Database): McpServer {
     'boq-estimate',
     {
       title: 'BOQ estimate',
-      description: 'Indicative bill-of-quantities estimate.',
+      description: 'Indicative bill-of-quantities estimate. Set mode="ferrum" for the weighted-band Mode 1 engine (govt + market + user-supplied rate).',
       inputSchema: {
         region: z.string().optional(),
-        items: z.array(z.object({ category: z.string(), quantity: z.number(), unit: z.string() })),
+        mode: z.enum(['market', 'ferrum']).optional(),
+        role: z.enum(['buyer', 'seller', 'contractor']).optional(),
+        weights: z.object({ govt: z.number(), market: z.number(), user: z.number() }).optional(),
+        items: z.array(z.object({ category: z.string(), quantity: z.number(), unit: z.string(), user_rate: z.number().optional() })),
       },
     },
-    async ({ region, items }) => {
-      const provider = new D1RatesProvider(db)
+    async ({ region, mode, role, weights, items }) => {
       const effectiveRegion = region ?? 'Bengaluru'
+      const useFerrum = mode === 'ferrum'
+      const effectiveRole: Role = role ?? 'contractor'
+      const ratesProvider = new D1RatesProvider(db)
+      const govtProvider = new D1GovtReferenceRatesProvider(db)
       const lineItems = []
       let total = 0
       for (const item of items) {
-        const rateRow = await provider.getRate(item.category, effectiveRegion)
-        const rate = rateRow?.rate ?? 0
-        const amount = rate * item.quantity
-        total += amount
-        lineItems.push({ category: item.category, quantity: item.quantity, unit: rateRow?.unit ?? item.unit, rate, amount })
+        if (useFerrum) {
+          const govtRow = await govtProvider.getRate(item.category, effectiveRegion)
+          const marketRow = await ratesProvider.getRate(item.category, effectiveRegion)
+          const userRate = item.user_rate ?? marketRow?.rate ?? 0
+          const ferrum = computeFerrumRate(govtRow?.rate ?? 0, marketRow?.rate ?? 0, userRate, effectiveRole, weights)
+          const amount = ferrum.role_output.value * item.quantity
+          total += amount
+          lineItems.push({
+            category: item.category,
+            quantity: item.quantity,
+            unit: marketRow?.unit ?? govtRow?.unit ?? item.unit,
+            rate: ferrum.role_output.value,
+            amount,
+            ferrum_rate_detail: ferrum,
+          })
+        } else {
+          const rateRow = await ratesProvider.getRate(item.category, effectiveRegion)
+          const rate = rateRow?.rate ?? 0
+          const amount = rate * item.quantity
+          total += amount
+          lineItems.push({ category: item.category, quantity: item.quantity, unit: rateRow?.unit ?? item.unit, rate, amount })
+        }
       }
       return textResult({ line_items: lineItems, total, indicative: true })
     },

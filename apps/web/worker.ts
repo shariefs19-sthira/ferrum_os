@@ -20,6 +20,7 @@ import { estimateIrr } from './lib/finance/irrNpv'
 import { D1StampDutyProvider } from './lib/providers/StampDutyProvider'
 import { computeAskBand } from './lib/transact/askBand'
 import { D1GovtReferenceRatesProvider } from './lib/providers/GovtReferenceRatesProvider'
+import { computeFerrumRate, type Role } from './lib/rateEngine/ferrumRateEngine'
 
 export type Env = {
   DB: D1Database
@@ -65,15 +66,35 @@ app.post('/api/boq-estimate', async (c) => {
   const body = await c.req.json().catch(() => null)
   if (!body || !Array.isArray(body.items)) return c.json({ error: 'invalid_input' }, 400)
   const region = typeof body.region === 'string' ? body.region : 'Bengaluru'
-  const provider = new D1RatesProvider(c.env.DB)
+  const useFerrum = body.mode === 'ferrum'
+  const role: Role = body.role === 'buyer' || body.role === 'seller' ? body.role : 'contractor'
+  const ratesProvider = new D1RatesProvider(c.env.DB)
+  const govtProvider = new D1GovtReferenceRatesProvider(c.env.DB)
   const lineItems = []
   let total = 0
   for (const item of body.items) {
-    const rateRow = await provider.getRate(item.category, region)
-    const rate = rateRow?.rate ?? 0
-    const amount = rate * (item.quantity ?? 0)
-    total += amount
-    lineItems.push({ category: item.category, quantity: item.quantity, unit: rateRow?.unit ?? item.unit, rate, amount })
+    if (useFerrum) {
+      const govtRow = await govtProvider.getRate(item.category, region)
+      const marketRow = await ratesProvider.getRate(item.category, region)
+      const userRate = typeof item.user_rate === 'number' ? item.user_rate : (marketRow?.rate ?? 0)
+      const ferrum = computeFerrumRate(govtRow?.rate ?? 0, marketRow?.rate ?? 0, userRate, role, body.weights)
+      const amount = ferrum.role_output.value * (item.quantity ?? 0)
+      total += amount
+      lineItems.push({
+        category: item.category,
+        quantity: item.quantity,
+        unit: marketRow?.unit ?? govtRow?.unit ?? item.unit,
+        rate: ferrum.role_output.value,
+        amount,
+        ferrum_rate_detail: ferrum,
+      })
+    } else {
+      const rateRow = await ratesProvider.getRate(item.category, region)
+      const rate = rateRow?.rate ?? 0
+      const amount = rate * (item.quantity ?? 0)
+      total += amount
+      lineItems.push({ category: item.category, quantity: item.quantity, unit: rateRow?.unit ?? item.unit, rate, amount })
+    }
   }
   return c.json({ line_items: lineItems, total, indicative: true })
 })
@@ -159,6 +180,26 @@ app.get('/api/govt-reference-rate', async (c) => {
   const row = await provider.getRate(category, region)
   if (!row) return c.json({ error: 'not_found' }, 404)
   return c.json({ ...row, indicative: true })
+})
+
+// Mode 1 (FERRUM) direct lookup for the three-mode calculator (W2-312).
+app.post('/api/ferrum-rate', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.category !== 'string' || typeof body.region !== 'string') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const role: Role = body.role === 'buyer' || body.role === 'seller' ? body.role : 'contractor'
+  const govtProvider = new D1GovtReferenceRatesProvider(c.env.DB)
+  const ratesProvider = new D1RatesProvider(c.env.DB)
+  const govtRow = await govtProvider.getRate(body.category, body.region)
+  const marketRow = await ratesProvider.getRate(body.category, body.region)
+  const userRate = typeof body.user_rate === 'number' ? body.user_rate : (marketRow?.rate ?? 0)
+  const timeAdjustment =
+    body.project_start_month && typeof body.quarterly_escalation_factor === 'number'
+      ? { project_start_month: body.project_start_month, quarterly_escalation_factor: body.quarterly_escalation_factor }
+      : undefined
+  const result = computeFerrumRate(govtRow?.rate ?? 0, marketRow?.rate ?? 0, userRate, role, body.weights, timeAdjustment)
+  return c.json(result)
 })
 
 // MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md
