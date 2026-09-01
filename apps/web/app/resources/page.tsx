@@ -1,4 +1,7 @@
-import Link from 'next/link';
+import Link from 'next/link'
+import SectionShell from '../../components/sections/SectionShell'
+import Eyebrow from '../../components/sections/Eyebrow'
+import SectionHeading from '../../components/sections/SectionHeading'
 
 const sections = [
   {
@@ -19,41 +22,41 @@ const sections = [
     name: 'IS Code Guides',
     summary: 'A practical radar for Indian construction standards: what to adopt, hold, or drop in real workflows.'
   }
-];
+]
 
 export default function ResourcesIndexPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">Resources</p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 md:text-6xl">
+    <main>
+      <SectionShell>
+        <div className="max-w-3xl">
+          <Eyebrow>Resources</Eyebrow>
+          <SectionHeading as="h1" className="mt-4">
             Everything you need to plan, build, and decide with clarity
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+          </SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
             A growing library of articles, client stories, and Indian construction standards guides to help real estate and infrastructure teams move from uncertainty to confident action.
           </p>
         </div>
-      </section>
+      </SectionShell>
 
-      <section className="mx-auto max-w-7xl px-6 py-16 md:px-8">
+      <SectionShell background="surface-secondary">
         <div className="grid gap-6 md:grid-cols-3">
           {sections.map((section) => (
-            <article key={section.name} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-              <div className="mb-4 inline-flex rounded-full bg-blue-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-700">
+            <article key={section.name} className="rounded-lg border border-relume-border bg-relume-surface p-6">
+              <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
                 {section.label}
               </div>
-              <h2 className="text-2xl font-semibold leading-tight text-slate-900">{section.name}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{section.summary}</p>
-              <div className="mt-6 border-t border-slate-200 pt-4">
-                <Link href={section.href} className="text-sm font-medium text-blue-700 transition hover:text-blue-800">
+              <h2 className="text-2xl font-semibold tracking-relume-tight text-relume-ink">{section.name}</h2>
+              <p className="mt-4 text-sm leading-6 text-relume-ink">{section.summary}</p>
+              <div className="mt-6 border-t border-relume-border pt-4">
+                <Link href={section.href} className="text-sm font-medium text-relume-ink underline underline-offset-4">
                   Browse {section.name.toLowerCase()} →
                 </Link>
               </div>
             </article>
           ))}
         </div>
-      </section>
+      </SectionShell>
     </main>
-  );
+  )
 }
