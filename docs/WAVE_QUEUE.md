@@ -95,9 +95,9 @@
 | W2-219 | | B2 | J08 | CRANE | DONE | 46188b6 | blog/piling-quality-gates |
 | W2-220 | | B2 | J08 | CRANE | DONE | 46188b6 | blog/weld-inspection-basics |
 | W2-221 | | B2 | J08 | CRANE | DONE | 46188b6 | blog/cement-storage-humidity |
-| W2-222 | | B2 | J08 | CRANE | CLAIMED-CRANE | | blog/prefab-connection-detailing |
-| W2-223 | | B2 | J08 | CRANE | CLAIMED-CRANE | | checklists/crane-maintenance |
-| W2-224 | | B2 | J08 | CRANE | CLAIMED-CRANE | | checklists/material-receiving |
+| W2-222 | | B2 | J08 | CRANE | DONE | ee767df | blog/prefab-connection-detailing |
+| W2-223 | | B2 | J08 | CRANE | DONE | ee767df | checklists/crane-maintenance |
+| W2-224 | | B2 | J08 | CRANE | DONE | ee767df | checklists/material-receiving |
 | W2-225 | | B2 | J08 | CRANE | OPEN | | checklists/scaffold-handover |
 | W2-226 | | B2 | J08 | CRANE | OPEN | | case-studies/clinic-retrofit |
 | W2-227 | | B2 | J08 | CRANE | OPEN | | case-studies/library-retrofit |
