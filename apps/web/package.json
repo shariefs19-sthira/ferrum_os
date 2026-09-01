@@ -18,7 +18,8 @@
     "react-dom": "18.2.0",
     "hono": "4.13.5",
     "zod": "4.5.4",
-    "leaflet": "1.9.4"
+    "leaflet": "1.9.4",
+    "tesseract.js": "7.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.17.0",
