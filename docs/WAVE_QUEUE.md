@@ -123,7 +123,7 @@
 | W2-252 | | B2 | J08 | CRANE | DONE | 76a9fac | Relume: BuildOS (5 wireframed sections; FAQ/CTA in Wave B) |
 
 ## 2026-09-01 — SCRIBE Relume addendum (docs/RELUME_ADDENDUM.md)
-| W2-253 | | B2 | J08 | CRANE | OPEN | | Relume: ProcureHub page |
+| W2-253 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Relume: ProcureHub page |
 | W2-254 | | B2 | J08 | CRANE | OPEN | | Relume: InvestFlow page |
 | W2-255 | | B2 | J08 | CRANE | OPEN | | Relume: CommunityBuild page |
 | W2-256 | | B2 | J08 | CRANE | OPEN | | Relume: BuildOS FAQ+CTA completion |
