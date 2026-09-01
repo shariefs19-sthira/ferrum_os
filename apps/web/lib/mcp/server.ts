@@ -130,7 +130,7 @@ export function buildMcpServer(db: D1Database, ogdApiKey?: string): McpServer {
     'is-check',
     {
       title: 'IS-code compliance check',
-      description: 'Check structural params against IS 456/875/800.',
+      description: 'Check structural params against IS 456 Cl 26.5.1.1 and IS 800 Cl 3.8.',
       inputSchema: { structure_type: z.string(), params: z.record(z.string(), z.number()) },
     },
     async ({ structure_type, params }) => {
@@ -141,8 +141,8 @@ export function buildMcpServer(db: D1Database, ogdApiKey?: string): McpServer {
   server.registerTool(
     'plan-gen',
     {
-      title: 'Plan + DXF export',
-      description: 'Export a test-fit result as DXF.',
+      title: 'Plan + DXF export (stub)',
+      description: 'Not implemented yet — returns a not_implemented result. See docs/AGENT_INTERFACE.md §3.',
       inputSchema: { testfit_id: z.string() },
     },
     async () => {

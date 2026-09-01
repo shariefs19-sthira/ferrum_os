@@ -1,0 +1,44 @@
+# Ferrum OS
+
+> India-first construction & investment platform — land feasibility, AI
+> design, structural checks, BOQ estimation, rate comparison, IRR/NPV
+> modeling, CDE status. All figures across every tool are INDICATIVE
+> unless explicitly stated otherwise — sample/illustrative data, not
+> live government or market feeds, until noted.
+
+Full machine-readable specs:
+- OpenAPI (REST): /docs/api
+- MCP server (Model Context Protocol): /mcp
+- A2A agent card: /.well-known/agent.json
+
+## Tools (available over both REST and MCP — same input/output shape)
+
+- **ulpin-demo** — Indicative ULPIN parcel lookup. `GET /api/ulpin/:id`
+- **testfit** — SVG massing/test-fit generation for a plot. `POST /api/testfit`
+- **plan-gen** — STUB, not implemented. Returns 501. `POST /api/plan-gen`
+- **is-check** — IS 456 Cl 26.5.1.1 (RC beam min reinforcement) and IS 800 Cl 3.8 (steel column slenderness) checks. `POST /api/is-check`
+- **boq-estimate** — Indicative bill-of-quantities estimate. `POST /api/boq-estimate`
+- **rate-compare** — Indicative material/labor rate comparison. `GET /api/rates/compare`
+- **irr-npv** — Investment IRR/NPV modeling from cash flows. `POST /api/irr-npv`
+- **cde-status** — Indicative mock CDE project status (does not yet vary by project_id). `GET /api/cde-status/:project_id`
+
+## Write path
+
+- **leads** — Lead capture. `POST /api/leads`. No MCP tool by design —
+  this is a human-CTA conversion action, not a general agent capability.
+
+## Not agent-accessible
+
+The site's human-facing workspace, auth, payments, and Transact
+case-management features (accounts, saved artifacts, subscriptions,
+document uploads) are separate from the tool surface above and are not
+exposed as MCP tools or documented here — they require a logged-in
+session and are out of scope for this file. See /.well-known/agent.json
+for the authentication note on the tool surface itself (none required).
+
+## Compliance
+
+Every figure returned by any tool above is labeled `indicative: true`.
+None of these tools issue a legal opinion, a guaranteed price, or a
+government-verified value. See docs/COMPLIANCE_GATE.md in the source
+repository for the full compliance posture.
