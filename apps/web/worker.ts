@@ -2,12 +2,16 @@
 // docs/LAUNCH_ARCHITECTURE.md. Serves the static site (ASSETS binding)
 // plus /api/*, /mcp, /docs/api, /.well-known/agent.json.
 //
-// W2-276 scope: scaffold only — route shape, D1 binding, health check.
-// Provider seams (W2-277), the MCP server (W2-274), and the OpenAPI
-// spec (W2-275) fill in the /api/* handlers in later tasks; each route
-// below is a typed stub until then.
+// W2-276 scaffolded the route shape. W2-277 wires ulpin-demo, testfit,
+// boq-estimate, and rate-compare to real provider seams (still on
+// INDICATIVE sample data). is-check, plan-gen, irr-npv, cde-status,
+// and leads stay stubbed — they're either out of W2-277's three named
+// seams or land with the MCP server task (W2-274).
 
 import { Hono } from 'hono'
+import { D1LandRecordsProvider } from './lib/providers/LandRecordsProvider'
+import { D1RatesProvider } from './lib/providers/RatesProvider'
+import { SvgGeometryExporter } from './lib/providers/GeometryExporter'
 
 export type Env = {
   DB: D1Database
@@ -18,20 +22,63 @@ const app = new Hono<{ Bindings: Env }>()
 
 app.get('/api/health', (c) => c.json({ status: 'ok' }))
 
-// Read-tool routes from docs/AGENT_INTERFACE.md §2/§3 — stubbed until
-// W2-277 (provider seams) and W2-274 (MCP server) wire real logic.
-app.get('/api/ulpin/:id', (c) => c.json({ error: 'not_implemented', tool: 'ulpin-demo' }, 501))
-app.post('/api/testfit', (c) => c.json({ error: 'not_implemented', tool: 'testfit' }, 501))
+app.get('/api/ulpin/:id', async (c) => {
+  const provider = new D1LandRecordsProvider(c.env.DB)
+  const parcel = await provider.lookup(c.req.param('id'))
+  if (!parcel) return c.json({ error: 'not_found' }, 404)
+  return c.json({ ...parcel, indicative: true })
+})
+
+app.post('/api/testfit', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (
+    !body ||
+    typeof body.plot_width_m !== 'number' ||
+    typeof body.plot_depth_m !== 'number' ||
+    typeof body.floors !== 'number'
+  ) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const exporter = new SvgGeometryExporter()
+  return c.json(exporter.testfit(body))
+})
+
 app.post('/api/plan-gen', (c) => c.json({ error: 'not_implemented', tool: 'plan-gen' }, 501))
 app.post('/api/is-check', (c) => c.json({ error: 'not_implemented', tool: 'is-check' }, 501))
-app.post('/api/boq-estimate', (c) => c.json({ error: 'not_implemented', tool: 'boq-estimate' }, 501))
-app.get('/api/rates/compare', (c) => c.json({ error: 'not_implemented', tool: 'rate-compare' }, 501))
+
+app.post('/api/boq-estimate', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || !Array.isArray(body.items)) return c.json({ error: 'invalid_input' }, 400)
+  const region = typeof body.region === 'string' ? body.region : 'Bengaluru'
+  const provider = new D1RatesProvider(c.env.DB)
+  const lineItems = []
+  let total = 0
+  for (const item of body.items) {
+    const rateRow = await provider.getRate(item.category, region)
+    const rate = rateRow?.rate ?? 0
+    const amount = rate * (item.quantity ?? 0)
+    total += amount
+    lineItems.push({ category: item.category, quantity: item.quantity, unit: rateRow?.unit ?? item.unit, rate, amount })
+  }
+  return c.json({ line_items: lineItems, total, indicative: true })
+})
+
+app.get('/api/rates/compare', async (c) => {
+  const category = c.req.query('category')
+  const region = c.req.query('region')
+  if (!category) return c.json({ error: 'invalid_input' }, 400)
+  const provider = new D1RatesProvider(c.env.DB)
+  const rates = await provider.compare(category, region)
+  return c.json({ category, region: region ?? null, rates, indicative: true })
+})
+
 app.post('/api/irr-npv', (c) => c.json({ error: 'not_implemented', tool: 'irr-npv' }, 501))
 app.get('/api/cde-status/:project_id', (c) => c.json({ error: 'not_implemented', tool: 'cde-status' }, 501))
 
-// Lead capture — the one write path (AGENT_INTERFACE.md §5). Real
-// validation + D1 insert lands with W2-277; scaffold just proves the
-// binding is wired.
+// Lead capture — the one write path (AGENT_INTERFACE.md §5). Not one
+// of W2-277's three named seams (LandRecordsProvider/RatesProvider/
+// GeometryExporter); stays stubbed until the MCP server task decides
+// its final validation shape.
 app.post('/api/leads', async (c) => {
   const body = await c.req.json().catch(() => null)
   if (!body || typeof body.email !== 'string' || typeof body.name !== 'string') {
