@@ -17,6 +17,8 @@ import { openApiSpec } from './lib/openapi/spec'
 import { renderOpenApiHtml } from './lib/openapi/render'
 import { runIsCheck } from './lib/checks/isCode'
 import { estimateIrr } from './lib/finance/irrNpv'
+import { D1StampDutyProvider } from './lib/providers/StampDutyProvider'
+import { computeAskBand } from './lib/transact/askBand'
 
 export type Env = {
   DB: D1Database
@@ -105,16 +107,46 @@ app.get('/api/cde-status/:project_id', (c) => {
   })
 })
 
-// Lead capture — the one write path (AGENT_INTERFACE.md §5). Not one
-// of W2-277's three named seams (LandRecordsProvider/RatesProvider/
-// GeometryExporter); stays stubbed until the MCP server task decides
-// its final validation shape.
+// Lead capture — the one write path (AGENT_INTERFACE.md §5). Real D1
+// insert; `state` (added by migrations/0003_transact.sql) is optional
+// so this same route serves both ordinary product leads and the
+// Transact demand-token waitlist (W2-286) without a parallel table.
 app.post('/api/leads', async (c) => {
   const body = await c.req.json().catch(() => null)
   if (!body || typeof body.email !== 'string' || typeof body.name !== 'string') {
     return c.json({ error: 'invalid_lead' }, 400)
   }
-  return c.json({ error: 'not_implemented', tool: 'leads' }, 501)
+  await c.env.DB.prepare(
+    'INSERT INTO leads (name, email, phone, product, source_page, state) VALUES (?, ?, ?, ?, ?, ?)',
+  )
+    .bind(
+      body.name,
+      body.email,
+      typeof body.phone === 'string' ? body.phone : null,
+      typeof body.product === 'string' ? body.product : 'unspecified',
+      typeof body.source_page === 'string' ? body.source_page : 'unspecified',
+      typeof body.state === 'string' ? body.state : null,
+    )
+    .run()
+  return c.json({ status: 'captured' })
+})
+
+// Transact Stage-1 tools (W2-283..286), gated by docs/COMPLIANCE_GATE.md.
+// Every response is INDICATIVE — no current-government-rate claim, no
+// guarantee language, no commission/pricing claim (compliance gate §2).
+app.get('/api/stamp-duty/:state', async (c) => {
+  const provider = new D1StampDutyProvider(c.env.DB)
+  const row = await provider.getRate(c.req.param('state'))
+  if (!row) return c.json({ error: 'not_found' }, 404)
+  return c.json({ ...row, indicative: true })
+})
+
+app.post('/api/ask-band', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.base_value !== 'number' || typeof body.urgency !== 'number') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  return c.json(computeAskBand(body))
 })
 
 // MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md

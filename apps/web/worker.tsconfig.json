@@ -11,5 +11,5 @@
     "isolatedModules": true,
     "esModuleInterop": true
   },
-  "include": ["worker.ts", "lib/providers/**/*.ts", "lib/mcp/**/*.ts", "lib/openapi/**/*.ts", "lib/checks/**/*.ts", "lib/finance/**/*.ts"]
+  "include": ["worker.ts", "lib/providers/**/*.ts", "lib/mcp/**/*.ts", "lib/openapi/**/*.ts", "lib/checks/**/*.ts", "lib/finance/**/*.ts", "lib/transact/**/*.ts"]
 }
