@@ -6,6 +6,7 @@ import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import StampDutyEstimator from '../../../components/sections/StampDutyEstimator'
 import AskBandEstimator from '../../../components/sections/AskBandEstimator'
 import WaitlistCapture from '../../../components/sections/WaitlistCapture'
+import OcrSpike from '../../../components/sections/OcrSpike'
 
 export const metadata = {
   title: 'Transact — Ferrum OS',
@@ -104,6 +105,7 @@ export default function TransactPage() {
         <div className="mx-auto mt-8 max-w-2xl space-y-8">
           <StampDutyEstimator />
           <AskBandEstimator />
+          <OcrSpike />
         </div>
       </SectionShell>
 
