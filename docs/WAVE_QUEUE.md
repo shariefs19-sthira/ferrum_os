@@ -163,6 +163,13 @@ dependency and can run anytime.
 | W2-280 | | B2 | J08 | CRANE | OPEN | | metadata pass: sitemap.ts to new canonical /products/* paths + C-07 SITE_BASE_URL swap + robots check — do after Wave A |
 | W2-281 | | B2 | J08 | CRANE | OPEN | | legacy-branch triage: one-by-one review of the ~47 held pre-Relume branches — genuinely-stale → delete, actually-unique → rescue via targeted port — post-architecture-wave |
 
+## 2026-09-01 — SCRIBE Transact compliance gate (docs/COMPLIANCE_GATE.md, DRAFT, pending counsel)
+| W2-287 | | B2 | J08 | CRANE | OPEN | | docs/COMPLIANCE_GATE.md — Stage-1 rules + counsel checklist; Stage-2 (transactional) BLOCKED until counsel sign-off |
+
+Gate: W2-283..286 (Transact product page, stamp-duty estimator, ask-band
+estimator, waitlist capture) build under W2-287's Stage-1 rules once
+queued — not yet added, per operator instruction to stand by.
+
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
