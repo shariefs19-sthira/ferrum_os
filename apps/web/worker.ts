@@ -22,6 +22,16 @@ import { computeAskBand } from './lib/transact/askBand'
 import { D1GovtReferenceRatesProvider } from './lib/providers/GovtReferenceRatesProvider'
 import { computeFerrumRate, type Role } from './lib/rateEngine/ferrumRateEngine'
 import { initialStep, isValidTransition, isTerminalStep, type CaseRole } from './lib/transact/caseFlow'
+import type { PaymentProvider } from './lib/payments/PaymentProvider'
+import { RazorpayProvider } from './lib/payments/RazorpayProvider'
+import { StubPaymentProvider } from './lib/payments/StubPaymentProvider'
+
+function getPaymentProvider(env: Env): PaymentProvider {
+  if (env.RAZORPAY_KEY_ID && env.RAZORPAY_KEY_SECRET) {
+    return new RazorpayProvider(env.RAZORPAY_KEY_ID, env.RAZORPAY_KEY_SECRET, env.RAZORPAY_WEBHOOK_SECRET)
+  }
+  return new StubPaymentProvider()
+}
 
 export type Env = {
   DB: D1Database
@@ -30,6 +40,12 @@ export type Env = {
   // yet, so LiveLandRecordsProvider/LiveMarketRatesProvider always
   // fall through to D1 seed data until it's set.
   OGD_API_KEY?: string
+  // Razorpay test/live keys (W2-324) — unset until an operator provisions
+  // them, so getPaymentProvider() falls back to StubPaymentProvider (a
+  // fully labeled simulated flow) rather than blocking the pipeline.
+  RAZORPAY_KEY_ID?: string
+  RAZORPAY_KEY_SECRET?: string
+  RAZORPAY_WEBHOOK_SECRET?: string
 }
 
 const app = new Hono<{ Bindings: Env }>()
@@ -282,6 +298,86 @@ app.post('/api/transact/cases/:id/advance', async (c) => {
     ),
   ])
   return c.json({ id: caseId, current_step: body.to_step, status: newStatus, indicative: true })
+})
+
+// Payments (W2-324), gated by docs/COMPLIANCE_GATE.md. Test-mode by
+// default (StubPaymentProvider) until an operator provisions real
+// Razorpay secrets — every response carries `simulated`/`mode` so the
+// client can label the flow honestly either way.
+app.post('/api/payments/order', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.amount_paise !== 'number' || body.amount_paise <= 0) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const id = crypto.randomUUID()
+  const provider = getPaymentProvider(c.env)
+  const result = await provider.createOrder({ amountPaise: body.amount_paise, currency: 'INR', receipt: id })
+  await c.env.DB.prepare(
+    'INSERT INTO orders (id, case_id, provider, provider_order_id, amount_paise, currency, mode, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+  )
+    .bind(
+      id,
+      typeof body.case_id === 'string' ? body.case_id : null,
+      'razorpay',
+      result.providerOrderId,
+      body.amount_paise,
+      'INR',
+      result.mode,
+      'created',
+    )
+    .run()
+  return c.json({
+    id,
+    provider_order_id: result.providerOrderId,
+    // Razorpay's key_id is a publishable identifier (analogous to a
+    // Stripe publishable key) — safe to return to the client, and
+    // required to open Razorpay Checkout. Omitted in simulated mode
+    // since there is no real checkout to open.
+    key_id: result.simulated ? null : c.env.RAZORPAY_KEY_ID,
+    amount_paise: body.amount_paise,
+    currency: 'INR',
+    mode: result.mode,
+    simulated: result.simulated,
+    indicative: true,
+  })
+})
+
+app.post('/api/payments/verify', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.order_id !== 'string' || typeof body.razorpay_payment_id !== 'string' || typeof body.razorpay_signature !== 'string') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const order = await c.env.DB.prepare('SELECT * FROM orders WHERE id = ?').bind(body.order_id).first<{
+    id: string
+    provider_order_id: string | null
+  }>()
+  if (!order) return c.json({ error: 'not_found' }, 404)
+  const provider = getPaymentProvider(c.env)
+  const verified = await provider.verifyPaymentSignature(
+    order.provider_order_id ?? order.id,
+    body.razorpay_payment_id,
+    body.razorpay_signature,
+  )
+  await c.env.DB.batch([
+    c.env.DB.prepare('INSERT INTO payments (id, order_id, provider_payment_id, signature_verified, status) VALUES (?, ?, ?, ?, ?)').bind(
+      crypto.randomUUID(),
+      body.order_id,
+      body.razorpay_payment_id,
+      verified ? 1 : 0,
+      verified ? 'verified' : 'failed',
+    ),
+    c.env.DB.prepare('UPDATE orders SET status = ? WHERE id = ?').bind(verified ? 'paid' : 'failed', body.order_id),
+  ])
+  return c.json({ order_id: body.order_id, status: verified ? 'paid' : 'failed', indicative: true })
+})
+
+app.post('/api/payments/webhook', async (c) => {
+  const rawBody = await c.req.text()
+  const signature = c.req.header('X-Razorpay-Signature') ?? ''
+  const provider = getPaymentProvider(c.env)
+  const verified = await provider.verifyWebhookSignature(rawBody, signature)
+  if (!verified) return c.json({ error: 'invalid_signature' }, 400)
+  return c.json({ received: true })
 })
 
 // MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md
