@@ -15,6 +15,17 @@ content after an earlier commit already landed (a branch can be pushed to
 again after its first commit lands). Landed commits are still tagged
 [land:<branch>] for audit/history purposes; the tag is just not used as the
 skip condition anymore.
+
+Known, accepted quirk: docs/LAND_HOLD.txt is read ONCE at the start of a
+run, into $holdGlobs, before the branch loop begins. If a commit landed
+earlier in the SAME run adds a new hold pattern, that pattern does not
+apply until the NEXT invocation of this script — branches matching it can
+still land later in the current run. (Hit for real on 2026-09-01: landing
+a hold-list update mid-run didn't stop three already-in-flight legacy
+branches from landing again in that same run; they were reverted and the
+hold applied cleanly on the next run.) If you need a hold to apply
+immediately, don't rely on this script landing it for you mid-run — commit
+docs/LAND_HOLD.txt directly to main first, then run this script.
 After the loop: type-checks apps/web, then pushes main with rebase-retry.
 #>
 
