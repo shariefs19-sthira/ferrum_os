@@ -20,7 +20,7 @@ Full machine-readable specs:
 - **boq-estimate** — Indicative bill-of-quantities estimate. `POST /api/boq-estimate`
 - **rate-compare** — Indicative material/labor rate comparison. `GET /api/rates/compare`
 - **irr-npv** — Investment IRR/NPV modeling from cash flows. `POST /api/irr-npv`
-- **cde-status** — Indicative mock CDE project status (does not yet vary by project_id). `GET /api/cde-status/:project_id`
+- **cde-status** — Indicative mock CDE project status. Ignores project_id — the response's `note` field says so explicitly (W2-340). `GET /api/cde-status/:project_id`
 
 ## Write path
 

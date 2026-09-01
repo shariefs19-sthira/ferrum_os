@@ -156,11 +156,15 @@ data.
 
 ### `cde-status`
 - Input: `{ project_id: string }`
-- Output: `{ project_id, phase: string, open_items: number, last_updated: string, indicative: true }`
+- Output: `{ project_id, phase: string, open_items: number, last_updated: string, indicative: true, note: string }`
 - Reads the same indicative mock dataset the W2-272 CDE dashboard mock
   uses. Explicitly `indicative: true` in every response — this is not
   live project data, and the tool contract says so on every call, not
-  just in this doc.
+  just in this doc. **W2-340:** the tool silently ignored `project_id`
+  (every call returned identical fixed values) — an MCP-calling agent
+  had no way to detect this from the response alone. Fixed by adding
+  an explicit `note: "ignores input, mock data — ..."` field to the
+  payload itself, both on REST and MCP.
 
 ## 4. MCP Apps plan
 
