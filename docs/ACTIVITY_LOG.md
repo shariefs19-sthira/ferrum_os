@@ -545,3 +545,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Land this branch to main (see below), then verify rows are actually present on origin/main.
 ---
+
+## 2026-09-01 12:45 - SCRIBE Ferrum-rate engine spec + Dashboard/Workspace preview (W2-312, W2-313)
+**Action:** Queued the operator-approved, conductor-authored specs, build as-is: W2-312 FERRUM-RATE ENGINE (full Mode 1 spec — sources v1 (govt reference/CPWD DSR watermarked, indicative market seeds, user Mode-3 assumptions, project params), uploaded-BOQ/live-feed sources explicitly excluded until post-launch, default 40/40/20 govt/market/user weighting slider-adjustable and always shown, role-aware weighted-median P25/P50/P75 band output, full output anatomy incl. INDICATIVE watermark and "why this band" line, optional labeled-indicative time-adjustment, indicative:true on every figure until real feeds exist, wired into MCP boq-estimate to make the stub real); fulfills the earlier placeholder W2-299. W2-313 DASHBOARD + WORKSPACE PREVIEW (unparks W2-262, marketing-preview scope only — realistic mock UI as real components, PREVIEW-labeled non-functional controls, early-access lead capture CTA into D1 leads, full copy list and per-page section breakdown as specified, 7-section template where the manifest allows, Relume voice, no Relume re-engagement). Renumbered from requested W2-309/310 to W2-312/313 — those numbers were already taken by the still-unlanded Leaflet/Tesseract/three-mode requeue on w2-309/SCRIBE-oss-requeue, same collision pattern as before. Appended a note on W2-262 pointing to its unparking via W2-313 rather than closing/deleting the row.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE builds W2-312 and W2-313; note W2-309/310/311 (Leaflet/Tesseract/three-mode calc) still awaits a landing decision from the operator per the prior turn.
+---
