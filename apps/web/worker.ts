@@ -12,6 +12,7 @@ import { Hono } from 'hono'
 import { D1LandRecordsProvider } from './lib/providers/LandRecordsProvider'
 import { D1RatesProvider } from './lib/providers/RatesProvider'
 import { SvgGeometryExporter } from './lib/providers/GeometryExporter'
+import { buildMcpServer, createMcpTransport } from './lib/mcp/server'
 
 export type Env = {
   DB: D1Database
@@ -87,8 +88,17 @@ app.post('/api/leads', async (c) => {
   return c.json({ error: 'not_implemented', tool: 'leads' }, 501)
 })
 
-// MCP server mount point — real tool registration lands with W2-274.
-app.all('/mcp', (c) => c.json({ error: 'not_implemented', surface: 'mcp' }, 501))
+// MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md
+// §5's "no workspace/account auth at launch"). A fresh McpServer +
+// transport per request keeps this correct under Workers' per-request
+// isolate model — there is no long-lived process to hold session state
+// in even if we wanted it.
+app.all('/mcp', async (c) => {
+  const server = buildMcpServer(c.env.DB)
+  const transport = createMcpTransport()
+  await server.connect(transport)
+  return transport.handleRequest(c.req.raw)
+})
 
 // OpenAPI spec — real spec lands with W2-275.
 app.get('/docs/api', (c) => c.json({ error: 'not_implemented', surface: 'openapi' }, 501))
