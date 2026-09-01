@@ -770,6 +770,30 @@ app.delete('/api/workspace/artifacts/:id', async (c) => {
   return c.json({ ok: true })
 })
 
+// Update (rename/edit) — ATLAS audit gap on W2-327's CRUD, closed here.
+// Same ownership-checked lookup as GET/DELETE: a wrong user gets 404,
+// never a 403 that would confirm the artifact exists under someone
+// else's account.
+app.patch('/api/workspace/artifacts/:id', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const artifact = await loadOwnedArtifact(c.env, user.id, c.req.param('id'))
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  const body = await c.req.json().catch(() => null)
+  if (!body || (body.title === undefined && body.data === undefined)) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  if (body.title !== undefined && typeof body.title !== 'string') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const newTitle = typeof body.title === 'string' ? body.title : artifact.title
+  const newData = body.data !== undefined ? JSON.stringify(body.data) : artifact.data
+  await c.env.DB.prepare('UPDATE saved_artifacts SET title = ?, data = ? WHERE id = ?')
+    .bind(newTitle, newData, artifact.id)
+    .run()
+  return c.json({ id: artifact.id, title: newTitle, data: JSON.parse(newData) })
+})
+
 app.get('/api/workspace/artifacts/:id/export', async (c) => {
   const user = await requireUser(c.env, c.req.header('Cookie'))
   if (!user) return c.json({ error: 'unauthorized' }, 401)
