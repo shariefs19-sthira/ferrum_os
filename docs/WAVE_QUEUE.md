@@ -159,6 +159,10 @@ dependency and can run anytime.
 | W2-274 | | B2 | J08 | CRANE | OPEN | | architecture: MCP server (ulpin-demo, testfit, boq-estimate, plan-gen, is-check) — after W2-276 |
 | W2-275 | | B2 | J08 | CRANE | OPEN | | architecture: OpenAPI at /docs/api — with W2-276 |
 
+## 2026-09-01 — SCRIBE cleanup rows
+| W2-280 | | B2 | J08 | CRANE | OPEN | | metadata pass: sitemap.ts to new canonical /products/* paths + C-07 SITE_BASE_URL swap + robots check — do after Wave A |
+| W2-281 | | B2 | J08 | CRANE | OPEN | | legacy-branch triage: one-by-one review of the ~47 held pre-Relume branches — genuinely-stale → delete, actually-unique → rescue via targeted port — post-architecture-wave |
+
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
