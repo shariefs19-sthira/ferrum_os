@@ -240,7 +240,7 @@ landed, so W2-312 carries the real scope.
 | W2-327 | | B2 | J08 | CRANE | DONE | cf271df9 | WORKSPACE_DATA — saved-artifact CRUD + export + share, tied to W2-326 auth |
 | W2-328 | | B2 | J08 | CRANE | DONE | 6d35ec57 | FORMS_LEADS — route all site forms into D1, plus a minimal operator admin view for leads |
 | W2-329 | | B2 | J08 | CRANE | DONE | 0b4e8711 | PAYMENTS_COMPLETE — checkout, demand tokens, subscriptions, webhooks with signature verification, receipts + GST invoice generation; test-mode for now |
-| W2-330 | | B2 | J08 | CRANE | OPEN | | TRANSACT_LIFECYCLE — buyer/seller state machine, KYC capture, document uploads via R2, scheduling, notifications |
+| W2-330 | | B2 | J08 | CRANE | CLAIMED-CRANE | | TRANSACT_LIFECYCLE — buyer/seller state machine, KYC capture, document uploads via R2, scheduling, notifications |
 | W2-331 | | B2 | J08 | ATLAS | OPEN | | CONTENT_REAL — real content pass on Blog / Case Studies / IS Code Guides, no lorem/placeholder text remaining |
 | W2-332 | | B2 | J08 | ATLAS | OPEN | | LEGAL_PAGES — Terms, Privacy, Refunds, Disclaimers, DPDP notice, cookie consent |
 | W2-333 | | B2 | J08 | ATLAS | OPEN | | SITE_SYSTEMS — 404 page, SEO/OG tags, sitemap + robots, accessibility pass, performance pass, error boundaries. Acceptance criteria: sitemap.ts route count must match the actual `next build` route count exactly (diff=0); must create public/_redirects per docs/RELUME_ROUTE_MAP.md. |
