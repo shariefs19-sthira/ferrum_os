@@ -29,6 +29,7 @@ import { hashPassword, verifyPassword, generateToken, hashToken } from './lib/au
 import { createSession, getSessionUser, deleteSession, setCookieHeader, clearCookieHeader, parseSessionCookie } from './lib/auth/session'
 import { sendVerificationEmail, sendResetEmail } from './lib/auth/email'
 import { checkRateLimit } from './lib/auth/rateLimit'
+import { sendCaseNotification } from './lib/transact/notifications'
 
 async function requireUser(env: Env, cookieHeader: string | undefined) {
   const sessionId = parseSessionCookie(cookieHeader)
@@ -66,6 +67,12 @@ export type Env = {
   // and the route returns 503 rather than pretending to be open or
   // silently allowing anyone through.
   ADMIN_TOKEN?: string
+  // R2 bucket for Transact document uploads (W2-330) — not provisioned
+  // (creating live R2 infrastructure on the operator's real Cloudflare
+  // account isn't something to do unilaterally); the upload route
+  // returns 503 until an operator adds the binding, matching the
+  // ADMIN_TOKEN/RESEND_API_KEY precedent.
+  TRANSACT_DOCS?: R2Bucket
 }
 
 const app = new Hono<{ Bindings: Env }>()
@@ -319,6 +326,96 @@ app.post('/api/transact/cases/:id/advance', async (c) => {
     ),
   ])
   return c.json({ id: caseId, current_step: body.to_step, status: newStatus, indicative: true })
+})
+
+// Transact lifecycle extensions (W2-330): KYC capture, document
+// uploads, scheduling. Gated by docs/COMPLIANCE_GATE.md.
+async function loadCase(env: Env, caseId: string) {
+  return env.DB.prepare('SELECT * FROM transact_cases WHERE id = ?').bind(caseId).first<{
+    id: string
+    contact_email: string
+  }>()
+}
+
+// Self-declared only — no government identity API is whitelisted or
+// integrated, so this never claims to "verify" anything (would be
+// fabricating a legal/identity conclusion this build has no basis for).
+app.post('/api/transact/cases/:id/kyc', async (c) => {
+  const transactCase = await loadCase(c.env, c.req.param('id'))
+  if (!transactCase) return c.json({ error: 'not_found' }, 404)
+  const body = await c.req.json().catch(() => null)
+  if (
+    !body ||
+    typeof body.full_name !== 'string' ||
+    typeof body.document_type !== 'string' ||
+    typeof body.document_ref_last4 !== 'string' ||
+    body.document_ref_last4.length !== 4
+  ) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const id = crypto.randomUUID()
+  await c.env.DB.prepare(
+    'INSERT INTO kyc_submissions (id, case_id, full_name, document_type, document_ref_last4) VALUES (?, ?, ?, ?, ?)',
+  )
+    .bind(id, transactCase.id, body.full_name, body.document_type, body.document_ref_last4)
+    .run()
+  return c.json({ id, status: 'self_declared', indicative: true })
+})
+
+app.post('/api/transact/cases/:id/documents', async (c) => {
+  if (!c.env.TRANSACT_DOCS) return c.json({ error: 'document_upload_not_configured' }, 503)
+  const transactCase = await loadCase(c.env, c.req.param('id'))
+  if (!transactCase) return c.json({ error: 'not_found' }, 404)
+  const formData = await c.req.formData().catch(() => null)
+  const file = formData?.get('file')
+  if (!file || !(file instanceof File)) return c.json({ error: 'invalid_input' }, 400)
+  const id = crypto.randomUUID()
+  const key = `transact/${transactCase.id}/${id}-${file.name}`
+  await c.env.TRANSACT_DOCS.put(key, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } })
+  await c.env.DB.prepare(
+    'INSERT INTO document_uploads (id, case_id, r2_key, filename, content_type, size_bytes) VALUES (?, ?, ?, ?, ?, ?)',
+  )
+    .bind(id, transactCase.id, key, file.name, file.type, file.size)
+    .run()
+  return c.json({ id, filename: file.name, size_bytes: file.size })
+})
+
+app.get('/api/transact/cases/:id/documents', async (c) => {
+  const transactCase = await loadCase(c.env, c.req.param('id'))
+  if (!transactCase) return c.json({ error: 'not_found' }, 404)
+  const rows = await c.env.DB.prepare(
+    'SELECT id, filename, content_type, size_bytes, created_at FROM document_uploads WHERE case_id = ? ORDER BY created_at DESC',
+  )
+    .bind(transactCase.id)
+    .all()
+  return c.json({ documents: rows.results })
+})
+
+app.post('/api/transact/cases/:id/schedule', async (c) => {
+  const transactCase = await loadCase(c.env, c.req.param('id'))
+  if (!transactCase) return c.json({ error: 'not_found' }, 404)
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.requested_date !== 'string') return c.json({ error: 'invalid_input' }, 400)
+  const id = crypto.randomUUID()
+  await c.env.DB.prepare('INSERT INTO scheduled_slots (id, case_id, requested_date, requested_window) VALUES (?, ?, ?, ?)')
+    .bind(id, transactCase.id, body.requested_date, typeof body.requested_window === 'string' ? body.requested_window : null)
+    .run()
+  const notification = await sendCaseNotification(
+    c.env.RESEND_API_KEY,
+    transactCase.contact_email,
+    'Your Ferrum OS registration slot request',
+    `We received your requested slot for ${body.requested_date}${body.requested_window ? ` (${body.requested_window})` : ''}. This is a request, not a confirmed booking — indicative only.`,
+  )
+  return c.json({ id, status: 'requested', notification_sent: notification.sent, dev_notification_preview: notification.devPreview })
+})
+
+app.get('/api/transact/cases/:id/schedule', async (c) => {
+  const transactCase = await loadCase(c.env, c.req.param('id'))
+  if (!transactCase) return c.json({ error: 'not_found' }, 404)
+  const rows = await c.env.DB.prepare('SELECT * FROM scheduled_slots WHERE case_id = ? ORDER BY created_at DESC')
+    .bind(transactCase.id)
+    .all()
+  return c.json({ slots: rows.results })
 })
 
 // Payments (W2-324), gated by docs/COMPLIANCE_GATE.md. Test-mode by

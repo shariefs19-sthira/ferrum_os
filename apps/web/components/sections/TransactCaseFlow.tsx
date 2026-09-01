@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import TransactLifecyclePanel from "./TransactLifecyclePanel"
 
 const BUYER_STEPS = ["shortlist", "legal_cross_check", "token_payment", "registration_checklist", "slot_requested"]
 const SELLER_STEPS = ["intake", "opinion_slot", "ask_band", "mandate_confirm", "listing_card"]
@@ -130,6 +131,7 @@ export default function TransactCaseFlow() {
             <p className="mt-4 text-sm text-emerald-700">Flow complete — case closed.</p>
           )}
           {status === "error" && <p className="mt-3 text-sm text-red-600">Something went wrong — try again.</p>}
+          <TransactLifecyclePanel caseId={caseState.id} />
         </div>
       )}
       <p className="mt-4 text-xs text-relume-ink opacity-70">
