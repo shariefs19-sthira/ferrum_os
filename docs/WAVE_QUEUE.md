@@ -141,6 +141,24 @@ already the branch name for the addendum commit (w2-258/SCRIBE-addendum),
 not a queue row, but reusing it as a task ID too would collide. No
 existing row was touched.
 
+## 2026-09-01 — SCRIBE launch architecture (docs/LAUNCH_ARCHITECTURE.md)
+Build order per the manifest: 273 → 276 → 277 → 278 → 274 → 275, after
+Waves A/A2/C + parity (W2-266..272 below). 273 (llms.txt) has no
+dependency and can run anytime.
+| W2-266 | | B2 | J08 | CRANE | OPEN | | parity: FAR/test-fit calculator (SVG massing) |
+| W2-267 | | B2 | J08 | CRANE | OPEN | | parity: rule-based plan generator + DXF export |
+| W2-268 | | B2 | J08 | CRANE | OPEN | | parity: IS 456/800 checker |
+| W2-269 | | B2 | J08 | CRANE | OPEN | | parity: ULPIN demo (sample data) |
+| W2-270 | | B2 | J08 | CRANE | OPEN | | parity: IRR/NPV modeler |
+| W2-271 | | B2 | J08 | CRANE | OPEN | | parity: rate-compare calculator |
+| W2-272 | | B2 | J08 | CRANE | OPEN | | parity: CDE dashboard mock |
+| W2-273 | | B2 | J08 | CRANE | OPEN | | architecture: llms.txt (no dependency, anytime) |
+| W2-276 | | B2 | J08 | CRANE | OPEN | | architecture: worker + D1 scaffold (D1 "ferrum-os-data", binding DB, id 049b0f34-adb3-4f7f-85ec-60170019f3a0; schema: rates, parcels, leads, plans; wrangler.jsonc gains worker + bindings) |
+| W2-277 | | B2 | J08 | CRANE | OPEN | | architecture: provider seams (LandRecordsProvider, RatesProvider, GeometryExporter) + INDICATIVE sample parcel/rate datasets — after W2-276 |
+| W2-278 | | B2 | J08 | CRANE | OPEN | | architecture: client-side DXF exporter — after W2-276 |
+| W2-274 | | B2 | J08 | CRANE | OPEN | | architecture: MCP server (ulpin-demo, testfit, boq-estimate, plan-gen, is-check) — after W2-276 |
+| W2-275 | | B2 | J08 | CRANE | OPEN | | architecture: OpenAPI at /docs/api — with W2-276 |
+
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
