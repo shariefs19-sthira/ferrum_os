@@ -175,6 +175,14 @@ MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
 DONE by this edit — status flips only at LIVE (AGENTS.md STAGE-GATES rule).
 
+## 2026-09-01 — SCRIBE engine architecture + V&V docs (CRANE-authored, research/docs only)
+Renumbered from requested W2-295/296 to W2-303/304 — W2-295 is already
+the branch name for the OSS-adoption commit (w2-295/SCRIBE-oss-adoption),
+same collision pattern as W2-258 and W2-289 earlier. No existing row was
+touched.
+| W2-303 | | B2 | J08 | CRANE | OPEN | | author docs/ENGINE_ARCH.md — solver orchestration design: OpenSees/CalculiX/Code_Aster headless compute, IS-code design post-processors, scope tiers T1-T3, compute topology (post-launch). Research/docs only, no code. |
+| W2-304 | | B2 | J08 | CRANE | OPEN | | author docs/ENGINE_VV.md — validation plan: IS worked examples + NAFEMS benchmarks, run per release, published. Research/docs only, no code. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
