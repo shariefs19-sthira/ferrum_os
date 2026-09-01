@@ -9,8 +9,8 @@
 // seams or land with the MCP server task (W2-274).
 
 import { Hono } from 'hono'
-import { D1LandRecordsProvider } from './lib/providers/LandRecordsProvider'
-import { D1RatesProvider } from './lib/providers/RatesProvider'
+import { LiveLandRecordsProvider } from './lib/providers/LiveLandRecordsProvider'
+import { LiveMarketRatesProvider } from './lib/providers/LiveMarketRatesProvider'
 import { SvgGeometryExporter } from './lib/providers/GeometryExporter'
 import { buildMcpServer, createMcpTransport } from './lib/mcp/server'
 import { openApiSpec } from './lib/openapi/spec'
@@ -25,6 +25,10 @@ import { computeFerrumRate, type Role } from './lib/rateEngine/ferrumRateEngine'
 export type Env = {
   DB: D1Database
   ASSETS: Fetcher
+  // Live-feed adapter key (W2-316) — no operator has provisioned this
+  // yet, so LiveLandRecordsProvider/LiveMarketRatesProvider always
+  // fall through to D1 seed data until it's set.
+  OGD_API_KEY?: string
 }
 
 const app = new Hono<{ Bindings: Env }>()
@@ -32,7 +36,7 @@ const app = new Hono<{ Bindings: Env }>()
 app.get('/api/health', (c) => c.json({ status: 'ok' }))
 
 app.get('/api/ulpin/:id', async (c) => {
-  const provider = new D1LandRecordsProvider(c.env.DB)
+  const provider = new LiveLandRecordsProvider(c.env.DB, c.env.OGD_API_KEY)
   const parcel = await provider.lookup(c.req.param('id'))
   if (!parcel) return c.json({ error: 'not_found' }, 404)
   return c.json({ ...parcel, indicative: true })
@@ -68,7 +72,7 @@ app.post('/api/boq-estimate', async (c) => {
   const region = typeof body.region === 'string' ? body.region : 'Bengaluru'
   const useFerrum = body.mode === 'ferrum'
   const role: Role = body.role === 'buyer' || body.role === 'seller' ? body.role : 'contractor'
-  const ratesProvider = new D1RatesProvider(c.env.DB)
+  const ratesProvider = new LiveMarketRatesProvider(c.env.DB, c.env.OGD_API_KEY)
   const govtProvider = new D1GovtReferenceRatesProvider(c.env.DB)
   const lineItems = []
   let total = 0
@@ -103,7 +107,7 @@ app.get('/api/rates/compare', async (c) => {
   const category = c.req.query('category')
   const region = c.req.query('region')
   if (!category) return c.json({ error: 'invalid_input' }, 400)
-  const provider = new D1RatesProvider(c.env.DB)
+  const provider = new LiveMarketRatesProvider(c.env.DB, c.env.OGD_API_KEY)
   const rates = await provider.compare(category, region)
   return c.json({ category, region: region ?? null, rates, indicative: true })
 })
@@ -190,7 +194,7 @@ app.post('/api/ferrum-rate', async (c) => {
   }
   const role: Role = body.role === 'buyer' || body.role === 'seller' ? body.role : 'contractor'
   const govtProvider = new D1GovtReferenceRatesProvider(c.env.DB)
-  const ratesProvider = new D1RatesProvider(c.env.DB)
+  const ratesProvider = new LiveMarketRatesProvider(c.env.DB, c.env.OGD_API_KEY)
   const govtRow = await govtProvider.getRate(body.category, body.region)
   const marketRow = await ratesProvider.getRate(body.category, body.region)
   const userRate = typeof body.user_rate === 'number' ? body.user_rate : (marketRow?.rate ?? 0)
@@ -208,7 +212,7 @@ app.post('/api/ferrum-rate', async (c) => {
 // isolate model — there is no long-lived process to hold session state
 // in even if we wanted it.
 app.all('/mcp', async (c) => {
-  const server = buildMcpServer(c.env.DB)
+  const server = buildMcpServer(c.env.DB, c.env.OGD_API_KEY)
   const transport = createMcpTransport()
   await server.connect(transport)
   return transport.handleRequest(c.req.raw)
