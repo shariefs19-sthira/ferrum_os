@@ -204,7 +204,7 @@ IS-code post-processors, scope tiers T1-T3) and ENGINE_VV (IS worked
 examples + NAFEMS benchmarks, published per release) were already queued
 this session as W2-303 and W2-304 on branch w2-302/SCRIBE-engine-arch-rows
 (unlanded, same scope as re-requested here) — not duplicated.
-| W2-306 | | B2 | J08 | CRANE | OPEN | | SEAMLESS_SWEEP — final site-wide verification: all routes 200, redirects work, no dead links, every MCP tool is real-or-honest-stub (no silent fakes), tsc + verify-static green, sitemap canonical. Run last, after everything else in the build order. |
+| W2-306 | | B2 | J08 | CRANE | CLAIMED-CRANE | | SEAMLESS_SWEEP — final site-wide verification: all routes 200, redirects work, no dead links, every MCP tool is real-or-honest-stub (no silent fakes), tsc + verify-static green, sitemap canonical. Run last, after everything else in the build order. |
 
 ## 2026-09-01 — SCRIBE concierge assistant
 | W2-307 | | B2 | J08 | CRANE | DONE | e7e9cb6 | CONCIERGE — deterministic intent-router assistant: build-time catalog knowledge, polite script set per COMPLIANCE_GATE voice, quick replies, router.push maneuvers into pages AND tools, polite fallback + lead handoff, ARIA + mobile, no external calls |
