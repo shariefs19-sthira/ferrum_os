@@ -489,3 +489,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/COMPLIANCE_GATE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 2026-09-01 10:30 - SCRIBE Transact rows (W2-283..286)
+**Action:** Queued the four Transact build rows now that W2-287 (COMPLIANCE_GATE.md) is committed: W2-283 Transact product page (7-section template, Stage-1 copy per COMPLIANCE_GATE); W2-284 stamp-duty/registration-fee estimator (state-wise, INDICATIVE); W2-285 ask-band estimator + urgency slider (sample comparables); W2-286 demand-token waitlist capture (extend D1 leads schema). All CRANE, all noted as building under W2-287's Stage-1 rules.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority.
+---
