@@ -433,3 +433,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/SECURITY.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE picks up W2-240 post-launch.
 ---
+
+## 21:15 - SCRIBE postmortem: land.ps1 auto-land of held WIP (W2-241)
+**Action:** Postmortem for 2026-08-31. scripts/land.ps1's catch-all loop auto-landed a held, not-ready branch (w2-234/crane-cloudflare — standalone OpenNext/Wrangler dependency work touching apps/web/next.config.js, apps/web/open-next.config.ts, apps/web/package.json, apps/web/wrangler.jsonc, pnpm-lock.yaml) onto main as commit 6bdbf35. Fixed by: (1) a clean revert, commit 26554b1 ("Revert \"feat: [land:w2-234/crane-cloudflare] [AI: SCRIPT]\""); (2) targeted re-land of the three branches that were queued behind it (w2-239/SCRIBE-docs-clean at cf3c13a, w2-240/SCRIBE-csp-decision at adfcf34, w2-238/crane-static-export at dd1bc06); (3) W2-241 introduced docs/LAND_HOLD.txt, a glob-per-line hold-list (currently `w2-234/*`) that land.ps1's catch-all loop skips, landed as 9734d4e. No data loss: w2-234/crane-cloudflare (b6d6b366079c1ac6d04cb9e7822dd3a16efd80e4) and w2-234/SCRIBE-reuse-policy (e41dc02d5de7e25991386fc0574ffbbabfd1414b) both remain on origin, untouched by the revert. Also noted in docs/SECURITY.md under Process incidents: the landed branch touched RULE 6 protected paths (package.json, pnpm-lock.yaml) without the explicit approval RULE 6 requires — not malicious, but a process gap the hold-list now closes.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/SECURITY.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority. docs/LAND_HOLD.txt is CRANE's file to maintain going forward per its own W2-241 land; SCRIBE records the incident, doesn't own the hold-list.
+---
