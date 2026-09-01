@@ -176,8 +176,29 @@ pattern as the earlier W2-258 renumbering. No existing row was touched.
 Each row is gated on W2-288's license audit confirming the tool's license
 before code lands.
 | W2-292 | | B2 | J08 | CRANE | OPEN | | Leaflet + OpenStreetMap parcel map in LandIntel (client-leaf, MIT) — gated on W2-288 license audit |
-| W2-293 | | B2 | J08 | CRANE | OPEN | | CPWD-DSR-derived INDICATIVE rate table into BOQ Pro (govt-public data, watermarked) — gated on W2-288 license audit |
+| W2-293 | | B2 | J08 | CRANE | SUPERSEDED | | ~~CPWD-DSR-derived INDICATIVE rate table into BOQ Pro~~ — superseded by W2-297's three-mode design below, which folds CPWD DSR in as Mode 2 (reference only, never default) |
 | W2-294 | | B2 | J08 | CRANE | OPEN | | Tesseract.js client-side OCR spike in Transact (Apache) — gated on W2-288 license audit |
+
+## 2026-09-01 — SCRIBE three-mode rate calculator decision (BOQ Pro)
+Operator refined the BOQ Pro rate row into a three-mode calculator design,
+logged here inline (no separate decision doc):
+- **Mode 1 — FERRUM (data-driven best price):** STUB for now. The real
+  engine is W2-299, gated on the operator's in-depth spec — not built yet.
+- **Mode 2 — GOVT REFERENCE:** CPWD DSR / state ready-reckoner shown as
+  reference only, watermarked INDICATIVE. Never the default truth — this
+  absorbs the CPWD-DSR scope that was W2-293, now superseded above.
+- **Mode 3 — CUSTOM:** user enters their own rates/assumptions (material,
+  labour, city factor, GST) with live recompute.
+Reconciliation note: the operator's follow-up re-requested Leaflet and
+Tesseract as W2-289/W2-291, but those exact scopes are already queued
+above as W2-292 and W2-294 (this same branch, unlanded) — no duplicate
+rows added, this note just maps the requested numbers to the existing
+ones. W2-290 (the three-mode calculator) and W2-292 (a Ferrum-rate
+engine) were also requested, but W2-292 is already taken by Leaflet on
+this branch, so the three-mode calculator and the rate engine are queued
+below as W2-297 and W2-299 instead.
+| W2-297 | | B2 | J08 | CRANE | OPEN | | BOQ Pro three-mode rate calculator: Mode 1 FERRUM (stub, see W2-299), Mode 2 GOVT REFERENCE (CPWD DSR/state ready-reckoner, watermarked INDICATIVE, reference only), Mode 3 CUSTOM (user rates/assumptions incl. material/labour/city factor/GST, live recompute) — gated on W2-288 license audit |
+| W2-299 | | B2 | J08 | CRANE | OPEN | | Ferrum-rate engine (data-driven best price, Mode 1 of W2-297) — awaiting operator spec, do not start until spec lands |
 
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |

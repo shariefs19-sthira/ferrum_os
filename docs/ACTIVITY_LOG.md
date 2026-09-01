@@ -489,3 +489,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE works these after W2-288's license audit lands.
 ---
+
+## 2026-09-01 11:25 - SCRIBE three-mode rate calculator decision + queue reconciliation
+**Action:** Logged the operator's three-mode BOQ Pro rate calculator decision inline: Mode 1 FERRUM (data-driven best price, STUB now, real engine gated on operator's in-depth spec), Mode 2 GOVT REFERENCE (CPWD DSR/state ready-reckoner, watermarked INDICATIVE, reference only, never default), Mode 3 CUSTOM (user-entered rates/assumptions with live recompute). Marked W2-293 (the earlier simple CPWD-DSR rate table row) SUPERSEDED — its scope is absorbed into Mode 2 of the new design. Queued W2-297 (the three-mode calculator itself) and W2-299 (the Ferrum-rate engine behind Mode 1, explicitly "awaiting operator spec, do not start"). Reconciled numbering: the operator's follow-up re-requested Leaflet/Tesseract as W2-289/291 and the new items as W2-290/292, but Leaflet and Tesseract were already queued this same session as W2-292 and W2-294 (unlanded, same branch) with identical scope, so no duplicate rows were created — just a mapping note; and W2-292 was already taken by Leaflet, so the three-mode calculator and rate engine landed at W2-297/299 instead of the requested 290/292.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE builds W2-297 (Mode 2 + Mode 3 + Mode 1 stub) after W2-288's license audit; W2-299 stays OPEN/blocked until the operator delivers the Ferrum-rate engine spec.
+---
