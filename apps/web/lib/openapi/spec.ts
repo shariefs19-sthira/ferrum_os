@@ -251,7 +251,7 @@ export const openApiSpec: OpenAPIV3.Document = {
     '/api/cde-status/{project_id}': {
       get: {
         summary: 'CDE status read (indicative mock)',
-        description: `${indicativeNote} Same tool as MCP \`cde-status\`. Currently returns fixed mock data regardless of project_id — see W2-340 for the honesty fix tracking this.`,
+        description: `${indicativeNote} Same tool as MCP \`cde-status\`. Ignores project_id — the response's own \`note\` field says so (W2-340), rather than requiring the caller to already know that from documentation.`,
         parameters: [{ name: 'project_id', in: 'path', required: true, schema: { type: 'string' } }],
         responses: {
           '200': {
@@ -266,6 +266,7 @@ export const openApiSpec: OpenAPIV3.Document = {
                     open_items: { type: 'integer' },
                     last_updated: { type: 'string' },
                     indicative: { type: 'boolean' },
+                    note: { type: 'string' },
                   },
                 },
               },

@@ -171,6 +171,10 @@ app.post('/api/irr-npv', async (c) => {
   return c.json({ irr, npv: Math.round(npv * 100) / 100, indicative: true })
 })
 
+// Ignores project_id — no real per-project D1 record exists yet
+// (W2-272's mock dataset). Fixed under W2-340 to say so explicitly in
+// the payload itself, since an MCP-calling agent has no other way to
+// discover that every project_id returns the same fixed values.
 app.get('/api/cde-status/:project_id', (c) => {
   const project_id = c.req.param('project_id')
   return c.json({
@@ -179,6 +183,7 @@ app.get('/api/cde-status/:project_id', (c) => {
     open_items: 4,
     last_updated: new Date().toISOString(),
     indicative: true,
+    note: 'ignores input, mock data — this fixed payload is returned for any project_id; no real per-project record exists yet',
   })
 })
 

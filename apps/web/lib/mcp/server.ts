@@ -173,18 +173,21 @@ export function buildMcpServer(db: D1Database, ogdApiKey?: string): McpServer {
     'cde-status',
     {
       title: 'CDE status read',
-      description: 'Indicative common-data-environment project status.',
+      description: 'Indicative common-data-environment project status. Ignores project_id — returns fixed mock data for any input (W2-340).',
       inputSchema: { project_id: z.string() },
     },
     async ({ project_id }) => {
       // Indicative mock dataset per W2-272 (CDE dashboard mock parity
-      // task) — no real project-state D1 table exists yet.
+      // task) — no real project-state D1 table exists yet. W2-340:
+      // the payload itself says so, not just this comment, since an
+      // agent calling this tool has no other way to find out.
       return textResult({
         project_id,
         phase: 'Design Development',
         open_items: 4,
         last_updated: new Date().toISOString(),
         indicative: true,
+        note: 'ignores input, mock data — this fixed payload is returned for any project_id; no real per-project record exists yet',
       })
     },
   )
