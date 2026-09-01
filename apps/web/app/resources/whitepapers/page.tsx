@@ -40,6 +40,22 @@ const whitepapers = [
     pages: 16,
     summary:
       'A comparison of insulation, glazing, and shading strategies across Indian climate zones, with the upfront-cost-versus-operating-cost tradeoff worked through for each envelope choice.'
+  },
+  {
+    slug: 'carbon-accounting-for-builders',
+    title: 'Carbon accounting for builders: a working method',
+    year: '2026',
+    pages: 20,
+    summary:
+      'A practical embodied-carbon accounting method for Indian construction projects, covering material-stage emissions factors, boundary-setting, and how to report a figure that survives audit.'
+  },
+  {
+    slug: 'retrofit-payback-models',
+    title: 'Retrofit payback models: comparing structural and energy retrofits',
+    year: '2026',
+    pages: 17,
+    summary:
+      'A worked comparison of payback-period models for structural versus energy-efficiency retrofits, with the assumptions each model depends on made explicit rather than buried in the spreadsheet.'
   }
 ];
 
