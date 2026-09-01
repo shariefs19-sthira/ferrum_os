@@ -113,7 +113,7 @@
 
 ## 2026-09-01 — SCRIBE Relume rebuild (docs/RELUME_HANDOFF.md, docs/RELUME_ROUTE_MAP.md)
 | W2-244 | | B2 | J08 | CRANE | OPEN | | Relume: tokens + shared section primitives (SectionShell/Eyebrow/card-grid/accordion-leaf/slider-leaf) |
-| W2-245 | | B2 | J08 | CRANE | OPEN | | Relume: Home (7 sections) |
+| W2-245 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Relume: Home (7 sections) |
 | W2-246 | | B2 | J08 | CRANE | OPEN | | Relume: products route move + _redirects |
 | W2-247 | | B2 | J08 | CRANE | OPEN | | Relume: LandIntel |
 | W2-248 | | B2 | J08 | CRANE | OPEN | | Relume: DesignStudio (new page) |
