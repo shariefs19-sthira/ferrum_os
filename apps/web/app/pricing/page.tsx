@@ -4,19 +4,21 @@ import { useState } from "react"
 import SectionShell from "../../components/sections/SectionShell"
 import Eyebrow from "../../components/sections/Eyebrow"
 import SectionHeading from "../../components/sections/SectionHeading"
-import { PrimaryButton, SecondaryButton } from "../../components/sections/Buttons"
+import { PrimaryButton } from "../../components/sections/Buttons"
 import AccordionLeaf from "../../components/sections/AccordionLeaf"
+import SubscribeButton from "../../components/sections/SubscribeButton"
 
 type Tier = {
   name: string
   price: string
+  planId?: string
   featured?: boolean
 }
 
 const tiers: Tier[] = [
   { name: "Freemium", price: "Free" },
-  { name: "Pro", price: "₹499", featured: true },
-  { name: "Enterprise", price: "₹9,999" },
+  { name: "Pro", price: "₹499", planId: "pro", featured: true },
+  { name: "Enterprise", price: "₹9,999", planId: "enterprise" },
 ]
 
 const products = [
@@ -80,6 +82,9 @@ export default function PricingPage() {
       <SectionShell background="surface-secondary">
         <div className="mx-auto max-w-3xl text-center">
           <SectionHeading>Choose the plan that fits your build</SectionHeading>
+          <p className="mt-4 text-xs text-relume-ink opacity-70">
+            Subscriptions run in test mode — no real charge occurs while this is under active build.
+          </p>
         </div>
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {tiers.map((tier) => (
@@ -95,10 +100,18 @@ export default function PricingPage() {
               <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">{tier.name}</h3>
               <p className="mt-4 text-4xl font-semibold tracking-relume-tight text-relume-ink">{tier.price}</p>
               <div className="mt-8">
-                {tier.featured ? (
-                  <PrimaryButton href="/get-started">Start Free Trial</PrimaryButton>
+                {tier.planId ? (
+                  <SubscribeButton
+                    planId={tier.planId}
+                    label={`Subscribe to ${tier.name} (test mode)`}
+                    className={
+                      tier.featured
+                        ? "inline-flex items-center justify-center rounded-full bg-relume-ink px-6 py-3 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-60"
+                        : "inline-flex items-center justify-center rounded-full border border-relume-border px-6 py-3 text-sm font-medium text-relume-ink transition hover:bg-relume-surface-secondary disabled:opacity-60"
+                    }
+                  />
                 ) : (
-                  <SecondaryButton href="/get-started">Start Free Trial</SecondaryButton>
+                  <PrimaryButton href="/get-started">Start Free Trial</PrimaryButton>
                 )}
               </div>
             </div>

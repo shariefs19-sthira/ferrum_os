@@ -1,4 +1,10 @@
-import type { CreateOrderInput, CreateOrderResult, PaymentProvider } from './PaymentProvider'
+import type {
+  CreateOrderInput,
+  CreateOrderResult,
+  CreateSubscriptionInput,
+  CreateSubscriptionResult,
+  PaymentProvider,
+} from './PaymentProvider'
 
 /**
  * Real Razorpay integration via direct REST calls (not the official
@@ -53,6 +59,48 @@ export class RazorpayProvider implements PaymentProvider {
     if (!this.webhookSecret) return false
     const expected = await hmacSha256Hex(this.webhookSecret, rawBody)
     return timingSafeEqual(expected, signature)
+  }
+
+  private authHeader(): string {
+    return `Basic ${btoa(`${this.keyId}:${this.keySecret}`)}`
+  }
+
+  // Razorpay subscriptions need a plan_id first — plans aren't per-user,
+  // so this creates one on demand rather than requiring an operator to
+  // pre-provision plans in the Razorpay dashboard before test-mode can
+  // be exercised at all. Not idempotent across calls (each call makes a
+  // fresh plan) — acceptable for this Stage-1 test-mode surface, revisit
+  // if/when this goes live.
+  async createSubscription(input: CreateSubscriptionInput): Promise<CreateSubscriptionResult> {
+    const planRes = await fetch('https://api.razorpay.com/v1/plans', {
+      method: 'POST',
+      headers: { Authorization: this.authHeader(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        period: 'monthly',
+        interval: 1,
+        item: { name: input.planName, amount: input.amountPaise, currency: input.currency },
+      }),
+    })
+    if (!planRes.ok) throw new Error(`razorpay plan create failed: ${planRes.status}`)
+    const plan = (await planRes.json()) as { id: string }
+
+    const subRes = await fetch('https://api.razorpay.com/v1/subscriptions', {
+      method: 'POST',
+      headers: { Authorization: this.authHeader(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan_id: plan.id, total_count: input.totalCount, customer_notify: 1 }),
+    })
+    if (!subRes.ok) throw new Error(`razorpay subscription create failed: ${subRes.status}`)
+    const sub = (await subRes.json()) as { id: string }
+    return { providerSubscriptionId: sub.id, mode: this.mode, simulated: false }
+  }
+
+  async cancelSubscription(providerSubscriptionId: string | null): Promise<boolean> {
+    if (!providerSubscriptionId) return false
+    const res = await fetch(`https://api.razorpay.com/v1/subscriptions/${providerSubscriptionId}/cancel`, {
+      method: 'POST',
+      headers: { Authorization: this.authHeader(), 'Content-Type': 'application/json' },
+    })
+    return res.ok
   }
 }
 
