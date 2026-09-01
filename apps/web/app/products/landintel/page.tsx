@@ -5,6 +5,7 @@ import { PrimaryButton, SecondaryButton } from '../../../components/sections/But
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import LandIntelLookup from '../../../components/sections/LandIntelLookup'
+import UlpinDemoWidget from '../../../components/sections/UlpinDemoWidget'
 
 const featureItems = [
   { title: 'ULPIN lookup', body: 'Enter a 14-digit ULPIN and pull official land records instantly.' },
@@ -202,6 +203,20 @@ export default function LandIntelPage() {
         </div>
         <div className="mx-auto mt-12 max-w-2xl">
           <AccordionLeaf items={faqItems} />
+        </div>
+      </SectionShell>
+
+      {/* Try it: ULPIN demo, sample data (parity: W2-269) */}
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Try it</Eyebrow>
+          <SectionHeading className="mt-4">Look up a sample ULPIN</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            Three sample parcels, live from the Ferrum OS data layer — indicative until the real ULPIN registry integration lands.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-2xl">
+          <UlpinDemoWidget />
         </div>
       </SectionShell>
 

@@ -4,6 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
+import RateCompareCalculator from '../../../components/sections/RateCompareCalculator'
 
 const featureItems = [
   { title: 'Verified profiles', body: 'Profiles for architects, engineers and contractors.' },
@@ -182,6 +183,20 @@ export default function ProMarketPage() {
         </div>
         <div className="mx-auto mt-12 max-w-2xl">
           <AccordionLeaf items={faqItems} />
+        </div>
+      </SectionShell>
+
+      {/* Try it: rate-compare calculator (parity: W2-271) */}
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Try it</Eyebrow>
+          <SectionHeading className="mt-4">Compare material & labor rates</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            Indicative rates across regions, live from the Ferrum OS data layer.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-2xl">
+          <RateCompareCalculator />
         </div>
       </SectionShell>
 

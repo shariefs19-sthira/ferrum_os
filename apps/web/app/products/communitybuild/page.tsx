@@ -3,6 +3,7 @@ import Eyebrow from '../../../components/sections/Eyebrow'
 import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
+import CdeStatusMock from '../../../components/sections/CdeStatusMock'
 
 const featureItems = [
   { title: 'SPV creation', body: 'Set up a special purpose vehicle for the build.' },
@@ -115,6 +116,20 @@ export default function CommunityBuildPage() {
               </div>
             </div>
           ))}
+        </div>
+      </SectionShell>
+
+      {/* Try it: CDE dashboard mock (parity: W2-272) */}
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Try it</Eyebrow>
+          <SectionHeading className="mt-4">Check a project's CDE status</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            A working preview of the common-data-environment status read — indicative mock data.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-2xl">
+          <CdeStatusMock />
         </div>
       </SectionShell>
 

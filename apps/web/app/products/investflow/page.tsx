@@ -3,6 +3,7 @@ import Eyebrow from '../../../components/sections/Eyebrow'
 import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
+import IrrNpvModeler from '../../../components/sections/IrrNpvModeler'
 
 const featureItems = [
   { title: 'Cash-flow modeling', body: 'Model cash flow across the life of a project.' },
@@ -115,6 +116,20 @@ export default function InvestFlowPage() {
               </div>
             </div>
           ))}
+        </div>
+      </SectionShell>
+
+      {/* Try it: IRR/NPV modeler (parity: W2-270) */}
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Try it</Eyebrow>
+          <SectionHeading className="mt-4">Model IRR and NPV</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            Enter a cash-flow series and discount rate — real Newton's-method IRR and discounted NPV.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-2xl">
+          <IrrNpvModeler />
         </div>
       </SectionShell>
 

@@ -15,6 +15,8 @@ import { SvgGeometryExporter } from './lib/providers/GeometryExporter'
 import { buildMcpServer, createMcpTransport } from './lib/mcp/server'
 import { openApiSpec } from './lib/openapi/spec'
 import { renderOpenApiHtml } from './lib/openapi/render'
+import { runIsCheck } from './lib/checks/isCode'
+import { estimateIrr } from './lib/finance/irrNpv'
 
 export type Env = {
   DB: D1Database
@@ -47,7 +49,14 @@ app.post('/api/testfit', async (c) => {
 })
 
 app.post('/api/plan-gen', (c) => c.json({ error: 'not_implemented', tool: 'plan-gen' }, 501))
-app.post('/api/is-check', (c) => c.json({ error: 'not_implemented', tool: 'is-check' }, 501))
+
+app.post('/api/is-check', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.structure_type !== 'string' || typeof body.params !== 'object') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  return c.json(runIsCheck(body.structure_type, body.params))
+})
 
 app.post('/api/boq-estimate', async (c) => {
   const body = await c.req.json().catch(() => null)
@@ -75,8 +84,26 @@ app.get('/api/rates/compare', async (c) => {
   return c.json({ category, region: region ?? null, rates, indicative: true })
 })
 
-app.post('/api/irr-npv', (c) => c.json({ error: 'not_implemented', tool: 'irr-npv' }, 501))
-app.get('/api/cde-status/:project_id', (c) => c.json({ error: 'not_implemented', tool: 'cde-status' }, 501))
+app.post('/api/irr-npv', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || !Array.isArray(body.cash_flows) || typeof body.discount_rate !== 'number') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const npv = body.cash_flows.reduce((sum: number, cf: number, i: number) => sum + cf / Math.pow(1 + body.discount_rate, i), 0)
+  const irr = estimateIrr(body.cash_flows)
+  return c.json({ irr, npv: Math.round(npv * 100) / 100, indicative: true })
+})
+
+app.get('/api/cde-status/:project_id', (c) => {
+  const project_id = c.req.param('project_id')
+  return c.json({
+    project_id,
+    phase: 'Design Development',
+    open_items: 4,
+    last_updated: new Date().toISOString(),
+    indicative: true,
+  })
+})
 
 // Lead capture — the one write path (AGENT_INTERFACE.md §5). Not one
 // of W2-277's three named seams (LandRecordsProvider/RatesProvider/
