@@ -1,80 +1,230 @@
-import Link from "next/link";
-import dynamic from 'next/dynamic';
-import TestimonialStrip from '../components/TestimonialStrip';
+import SectionShell from '../components/sections/SectionShell'
+import Eyebrow from '../components/sections/Eyebrow'
+import SectionHeading from '../components/sections/SectionHeading'
+import { PrimaryButton, SecondaryButton } from '../components/sections/Buttons'
+import CardGrid from '../components/sections/CardGrid'
+import SliderLeaf from '../components/sections/SliderLeaf'
 
-// Lazy load the ProductCard component
-const ProductCard = dynamic(() => import('../components/ProductCard'), { 
-  loading: () => (
-    <div className="bg-white rounded-lg shadow-md p-6 animate-pulse">
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-3xl bg-gray-200 h-8 w-8 rounded"></span>
-        <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-blue-100 text-blue-600 h-6 w-12"></span>
-      </div>
-      <h2 className="text-xl font-bold text-gray-900 mb-2 h-6 bg-gray-200 rounded w-3/4"></h2>
-      <p className="text-gray-600 text-sm h-4 bg-gray-200 rounded w-full"></p>
-    </div>
-  ),
-  ssr: false
-});
+// Product Showcase links target today's live routes, not /products/<slug> —
+// that route move is W2-246, which lands after this page (wave order:
+// 244 -> 245 -> 246). Update these once W2-246's redirects are live.
+const productShowcaseItems = [
+  { title: 'LandIntel', body: 'Land feasibility & ULPIN lookup', href: '/landintel' },
+  { title: 'DesignStudio', body: 'AI architectural design', href: '/designstudio' },
+  { title: 'Structura', body: 'Structural analysis & IS compliance', href: '/structura' },
+  { title: 'BOQ Pro', body: 'Automated BOQ & cost estimation', href: '/boq-pro' },
+  { title: 'ProMarket', body: 'Verified professionals marketplace', href: '/promarket' },
+  { title: 'BuildOS', body: 'Project management & digital PMC', href: '/buildos' },
+  { title: 'ProcureHub', body: 'Material procurement & suppliers', href: '/procurehub' },
+  { title: 'InvestFlow', body: 'Investment forecasting', href: '/investflow' },
+  { title: 'CommunityBuild', body: 'Fractional development', href: '/communitybuild' },
+]
 
-interface Product {
-  id: string;
-  name: string;
-  code: string;
-  description: string;
-  icon: string;
-  href?: string;
-  comingSoon: boolean;
-}
+const valuePropItems = [
+  { title: 'Land', body: 'Check feasibility, zoning and risk before you buy or build.' },
+  { title: 'Design', body: 'Generate plans and get them engineered to IS codes.' },
+  { title: 'Build', body: 'Estimate, procure, manage and track your project.' },
+  { title: 'Invest', body: 'Model returns and raise capital with confidence.' },
+]
 
-const products: Product[] = [
-  { id: "landintel", name: "LandIntel", code: "P1", description: "Land feasibility & zoning", icon: "", href: "/landintel", comingSoon: false },
-  { id: "boq-pro", name: "BOQ Pro", code: "P4", description: "Quantity takeoff & cost estimation", icon: "", href: "/boq-pro", comingSoon: false },
-  { id: "designstudio", name: "DesignStudio", code: "P2", description: "AI-generated floor plans", icon: "", comingSoon: true },
-  { id: "structura", name: "Structura", code: "P3", description: "Structural analysis & design", icon: "", href: "/structura", comingSoon: false },
-  { id: "promarket", name: "ProMarket", code: "P5", description: "Hire verified professionals", icon: "", href: "/promarket", comingSoon: false },
-  { id: "buildos", name: "BuildOS", code: "P6", description: "Construction project management", icon: "", href: "/buildos", comingSoon: false },
-  { id: "procurehub", name: "ProcureHub", code: "P7", description: "Material procurement", icon: "", href: "/procurehub", comingSoon: false },
-  { id: "investflow", name: "InvestFlow", code: "P8", description: "Investment forecasting", icon: "", href: "/investflow", comingSoon: false },
-  { id: "communitybuild", name: "CommunityBuild", code: "P9", description: "Fractional development", icon: "", href: "/communitybuild", comingSoon: false },
-];
+const howItWorksSteps = [
+  { title: 'Look up your land', body: 'Enter a ULPIN and get feasibility, zoning and risk in minutes.' },
+  { title: 'Design it', body: 'Turn a brief into plans with AI, then refine and export.' },
+  { title: 'Engineer it', body: 'Run structural analysis and IS code checks.' },
+  { title: 'Build & manage', body: 'Estimate, procure and track progress to handover.' },
+  { title: 'Invest & grow', body: 'Model returns and raise capital.' },
+]
+
+const pricingPlans = [
+  {
+    name: 'Freemium',
+    price: 'Free',
+    features: ['1 active project', 'ULPIN land lookups', 'Basic BOQ & estimates', 'Community support'],
+    button: 'Start Free Trial',
+  },
+  {
+    name: 'Pro',
+    price: '₹499/mo',
+    tag: 'Most popular',
+    features: ['Unlimited projects', 'All 9 products', 'IS code compliance', 'Priority support'],
+    button: 'Start Free Trial',
+  },
+  {
+    name: 'Enterprise',
+    price: '₹9,999/mo',
+    features: ['Unlimited everything', 'API access', 'Dedicated account manager', 'Custom integrations'],
+    button: 'Contact sales',
+  },
+]
+
+const testimonials = [
+  {
+    quote:
+      "Ferrum Build took us from a bare plot to a signed-off design in weeks. The ULPIN lookup alone saved us a month of due diligence.",
+    name: 'Rahul Mehta',
+    title: 'Developer, Bengaluru',
+  },
+  {
+    quote:
+      'BOQ Pro gave us a GST-compliant bill of quantities in an afternoon — what used to take our estimator a week.',
+    name: 'Priya Sharma',
+    title: 'Civil Engineer, Pune',
+  },
+  {
+    quote:
+      'We run three projects on BuildOS and ProcureHub. One source of truth for the whole team, from site to site.',
+    name: 'Arjun Nair',
+    title: 'Contractor, Kochi',
+  },
+]
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="bg-gradient-to-r from-blue-700 via-indigo-700 to-violet-700 px-4 py-20 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">Ferrum OS</p>
-          <h1 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-            AI-Native Construction Platform
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-blue-50">
-            9 integrated products for the entire construction lifecycle, from land diligence to delivery and returns.
-          </p>
-          <div className="mt-8 flex justify-center gap-4">
-            <Link href="/landintel" className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100">
-              Explore LandIntel
-            </Link>
-            <Link href="/boq-pro" className="rounded-full border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-              View BOQ Pro
-            </Link>
+    <main>
+      {/* 1. Hero */}
+      <SectionShell>
+        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+          <div>
+            <Eyebrow>The complete build platform</Eyebrow>
+            <SectionHeading as="h1" className="mt-4">
+              India&rsquo;s first end-to-end construction &amp; investment platform
+            </SectionHeading>
+            <p className="mt-6 text-base leading-7 text-relume-ink">
+              From land to design, build and invest — run your entire project on one India-first
+              platform. Nine integrated products, one shared data model.
+            </p>
+            <ul className="mt-6 space-y-2 text-sm text-relume-ink">
+              <li>Land feasibility &amp; ULPIN lookup</li>
+              <li>AI-generated design &amp; engineering</li>
+              <li>Estimate, procure, build &amp; manage</li>
+              <li>Invest &amp; raise capital</li>
+            </ul>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
+              <SecondaryButton href="/products">Explore Products</SecondaryButton>
+            </div>
           </div>
+          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
         </div>
-      </section>
+      </SectionShell>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mb-10 max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-700">Product suite</p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Everything your project team needs in one operating layer.</h2>
+      {/* 2. Value Proposition */}
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Land → Design → Build → Invest</Eyebrow>
+          <SectionHeading className="mt-4">One platform, the whole journey</SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
+            Four connected stages. Nine products. One shared data model — so nothing is
+            re-entered and every decision flows into the next.
+          </p>
         </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+        <div className="mt-12">
+          <CardGrid items={valuePropItems} columns={4} />
+        </div>
+      </SectionShell>
+
+      {/* 3. Product Showcase */}
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Explore the products</Eyebrow>
+          <SectionHeading className="mt-4">Nine products. One platform.</SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
+            Each product works standalone or plugs into the full workflow — so you can start
+            with one and grow into the rest.
+          </p>
+        </div>
+        <div className="mt-12">
+          <CardGrid
+            items={productShowcaseItems.map((p) => ({ ...p, linkLabel: 'Learn more' }))}
+            columns={3}
+          />
+        </div>
+      </SectionShell>
+
+      {/* 4. How It Works */}
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>How it works</Eyebrow>
+          <SectionHeading className="mt-4">From plot to profit in five steps</SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
+            A clear path from your first land lookup to a finished, funded project.
+          </p>
+        </div>
+        <div className="mx-auto mt-12 max-w-xl">
+          <SliderLeaf items={howItWorksSteps} />
+        </div>
+      </SectionShell>
+
+      {/* 5. Pricing Preview */}
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Pricing</Eyebrow>
+          <SectionHeading className="mt-4">Simple, SMB-friendly pricing</SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
+            Start free. Scale as you build. Plans from ₹499/month — 60–90% below global tools.
+          </p>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {pricingPlans.map((plan) => (
+            <div key={plan.name} className="rounded-lg border border-relume-border bg-relume-surface p-8">
+              {plan.tag && (
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-relume-ink">
+                  {plan.tag}
+                </p>
+              )}
+              <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">{plan.name}</h3>
+              <p className="mt-2 text-3xl font-semibold tracking-relume-tight text-relume-ink">{plan.price}</p>
+              <ul className="mt-6 space-y-2 text-sm text-relume-ink">
+                {plan.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+              <div className="mt-8">
+                <PrimaryButton href={plan.button === 'Contact sales' ? '/contact' : '/signup'}>
+                  {plan.button}
+                </PrimaryButton>
+              </div>
+            </div>
           ))}
         </div>
-      </section>
+      </SectionShell>
 
-      <TestimonialStrip />
+      {/* 6. Testimonials */}
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Testimonials</Eyebrow>
+          <SectionHeading className="mt-4">Trusted across the build</SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
+            Builders, engineers and investors who run their work on Ferrum Build.
+          </p>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {testimonials.map((item) => (
+            <figure key={item.name} className="rounded-lg border border-relume-border bg-relume-surface p-6">
+              <blockquote className="text-sm leading-6 text-relume-ink">&ldquo;{item.quote}&rdquo;</blockquote>
+              <figcaption className="mt-6 border-t border-relume-border pt-4">
+                <div className="font-semibold text-relume-ink">{item.name}</div>
+                <div className="mt-1 text-sm text-relume-ink">{item.title}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </SectionShell>
+
+      {/* 7. Start Free Trial */}
+      <SectionShell>
+        <div className="mx-auto max-w-xl rounded-lg border border-relume-border bg-relume-surface-secondary p-10 text-center">
+          <Eyebrow>Start free</Eyebrow>
+          <SectionHeading className="mt-4">Start building with Ferrum Build</SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
+            No credit card required. Set up your first project in minutes.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
+            <SecondaryButton href="/pricing">Talk to sales</SecondaryButton>
+          </div>
+        </div>
+      </SectionShell>
     </main>
-  );
+  )
 }
