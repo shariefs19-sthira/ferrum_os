@@ -165,10 +165,10 @@ dependency and can run anytime.
 
 ## 2026-09-01 — SCRIBE Transact compliance gate (docs/COMPLIANCE_GATE.md, DRAFT, pending counsel)
 | W2-287 | | B2 | J08 | CRANE | DONE | a5563be | docs/COMPLIANCE_GATE.md — Stage-1 rules + counsel checklist; Stage-2 (transactional) BLOCKED until counsel sign-off |
-| W2-283 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Transact product page (7-section template, Stage-1 copy per COMPLIANCE_GATE) — under W2-287 |
-| W2-284 | | B2 | J08 | CRANE | CLAIMED-CRANE | | stamp-duty/registration-fee estimator (state-wise, INDICATIVE) — under W2-287 |
-| W2-285 | | B2 | J08 | CRANE | CLAIMED-CRANE | | ask-band estimator + urgency slider (sample comparables) — under W2-287 |
-| W2-286 | | B2 | J08 | CRANE | CLAIMED-CRANE | | demand-token waitlist capture (extend D1 leads schema) — under W2-287 |
+| W2-283 | | B2 | J08 | CRANE | DONE | e6658a6 | Transact product page (7-section template, Stage-1 copy per COMPLIANCE_GATE) — under W2-287 |
+| W2-284 | | B2 | J08 | CRANE | DONE | e6658a6 | stamp-duty/registration-fee estimator (state-wise, INDICATIVE) — under W2-287 |
+| W2-285 | | B2 | J08 | CRANE | DONE | e6658a6 | ask-band estimator + urgency slider (sample comparables) — under W2-287 |
+| W2-286 | | B2 | J08 | CRANE | DONE | e6658a6 | demand-token waitlist capture (extend D1 leads schema) — under W2-287 |
 
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
