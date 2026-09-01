@@ -30,6 +30,12 @@ import { createSession, getSessionUser, deleteSession, setCookieHeader, clearCoo
 import { sendVerificationEmail, sendResetEmail } from './lib/auth/email'
 import { checkRateLimit } from './lib/auth/rateLimit'
 
+async function requireUser(env: Env, cookieHeader: string | undefined) {
+  const sessionId = parseSessionCookie(cookieHeader)
+  if (!sessionId) return null
+  return getSessionUser(env.DB, sessionId)
+}
+
 function getPaymentProvider(env: Env): PaymentProvider {
   if (env.RAZORPAY_KEY_ID && env.RAZORPAY_KEY_SECRET) {
     return new RazorpayProvider(env.RAZORPAY_KEY_ID, env.RAZORPAY_KEY_SECRET, env.RAZORPAY_WEBHOOK_SECRET)
@@ -518,6 +524,107 @@ app.post('/api/auth/reset-password', async (c) => {
     c.env.DB.prepare("UPDATE verification_tokens SET used_at = datetime('now') WHERE id = ?").bind(row.id),
   ])
   return c.json({ ok: true })
+})
+
+// Saved-artifact workspace (W2-327), tied to W2-326 auth. `data` is
+// stored/returned as an opaque JSON blob — see migrations/0008_workspace.sql
+// for why it isn't normalized per artifact type.
+app.post('/api/workspace/artifacts', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.type !== 'string' || typeof body.title !== 'string' || body.data === undefined) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const id = crypto.randomUUID()
+  await c.env.DB.prepare('INSERT INTO saved_artifacts (id, user_id, type, title, data) VALUES (?, ?, ?, ?, ?)')
+    .bind(id, user.id, body.type, body.title, JSON.stringify(body.data))
+    .run()
+  return c.json({ id, type: body.type, title: body.title })
+})
+
+app.get('/api/workspace/artifacts', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const rows = await c.env.DB.prepare('SELECT id, type, title, created_at FROM saved_artifacts WHERE user_id = ? ORDER BY created_at DESC')
+    .bind(user.id)
+    .all()
+  return c.json({ artifacts: rows.results })
+})
+
+async function loadOwnedArtifact(env: Env, userId: string, artifactId: string) {
+  return env.DB.prepare('SELECT * FROM saved_artifacts WHERE id = ? AND user_id = ?').bind(artifactId, userId).first<{
+    id: string
+    user_id: string
+    type: string
+    title: string
+    data: string
+    created_at: string
+  }>()
+}
+
+app.get('/api/workspace/artifacts/:id', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const artifact = await loadOwnedArtifact(c.env, user.id, c.req.param('id'))
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  return c.json({ ...artifact, data: JSON.parse(artifact.data) })
+})
+
+app.delete('/api/workspace/artifacts/:id', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const artifact = await loadOwnedArtifact(c.env, user.id, c.req.param('id'))
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  await c.env.DB.batch([
+    c.env.DB.prepare('DELETE FROM artifact_shares WHERE artifact_id = ?').bind(artifact.id),
+    c.env.DB.prepare('DELETE FROM saved_artifacts WHERE id = ?').bind(artifact.id),
+  ])
+  return c.json({ ok: true })
+})
+
+app.get('/api/workspace/artifacts/:id/export', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const artifact = await loadOwnedArtifact(c.env, user.id, c.req.param('id'))
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  const payload = JSON.stringify({ ...artifact, data: JSON.parse(artifact.data) }, null, 2)
+  return new Response(payload, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Disposition': `attachment; filename="${artifact.id}.json"`,
+    },
+  })
+})
+
+app.post('/api/workspace/artifacts/:id/share', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const artifact = await loadOwnedArtifact(c.env, user.id, c.req.param('id'))
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  const existing = await c.env.DB.prepare('SELECT share_token FROM artifact_shares WHERE artifact_id = ?')
+    .bind(artifact.id)
+    .first<{ share_token: string }>()
+  if (existing) return c.json({ share_token: existing.share_token })
+  const shareToken = generateToken()
+  await c.env.DB.prepare('INSERT INTO artifact_shares (id, artifact_id, share_token) VALUES (?, ?, ?)')
+    .bind(crypto.randomUUID(), artifact.id, shareToken)
+    .run()
+  return c.json({ share_token: shareToken })
+})
+
+// Public — no auth. A share token grants read access to exactly one
+// artifact, nothing else about the owning user or their workspace.
+app.get('/api/workspace/shared/:token', async (c) => {
+  const share = await c.env.DB.prepare('SELECT artifact_id FROM artifact_shares WHERE share_token = ?')
+    .bind(c.req.param('token'))
+    .first<{ artifact_id: string }>()
+  if (!share) return c.json({ error: 'not_found' }, 404)
+  const artifact = await c.env.DB.prepare('SELECT type, title, data, created_at FROM saved_artifacts WHERE id = ?')
+    .bind(share.artifact_id)
+    .first<{ type: string; title: string; data: string; created_at: string }>()
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  return c.json({ ...artifact, data: JSON.parse(artifact.data) })
 })
 
 // MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md

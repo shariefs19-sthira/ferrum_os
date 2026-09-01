@@ -3,6 +3,7 @@ import Eyebrow from '../../components/sections/Eyebrow'
 import SectionHeading from '../../components/sections/SectionHeading'
 import CardGrid from '../../components/sections/CardGrid'
 import EarlyAccessCapture from '../../components/sections/EarlyAccessCapture'
+import SavedArtifactsPanel from '../../components/sections/SavedArtifactsPanel'
 
 export const metadata = {
   title: 'Project Workspace — Ferrum OS',
@@ -43,7 +44,21 @@ export default function ProjectWorkspacePage() {
         </div>
       </SectionShell>
 
-      {/* 2. Artifact grid (PREVIEW) */}
+      {/* 2. Real saved artifacts (W2-327) */}
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Your workspace</Eyebrow>
+          <SectionHeading className="mt-4">Real saved artifacts</SectionHeading>
+          <p className="mt-4 text-sm text-relume-ink opacity-70">
+            Unlike the grid below, this section is functional — sign in, save a calculator result, export or share it.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-3xl">
+          <SavedArtifactsPanel />
+        </div>
+      </SectionShell>
+
+      {/* 3. Artifact grid (PREVIEW) */}
       <SectionShell background="surface-secondary">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>Preview</Eyebrow>
