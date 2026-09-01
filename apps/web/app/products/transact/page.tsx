@@ -7,6 +7,7 @@ import StampDutyEstimator from '../../../components/sections/StampDutyEstimator'
 import AskBandEstimator from '../../../components/sections/AskBandEstimator'
 import WaitlistCapture from '../../../components/sections/WaitlistCapture'
 import OcrSpike from '../../../components/sections/OcrSpike'
+import TransactCaseFlow from '../../../components/sections/TransactCaseFlow'
 
 export const metadata = {
   title: 'Transact — Ferrum OS',
@@ -17,6 +18,7 @@ const featureItems = [
   { title: 'Stamp-duty estimator', body: 'Indicative stamp duty and registration fee, state-wise, from illustrative sample rates.' },
   { title: 'Ask-band estimator', body: 'An indicative price range from sample comparable data, adjusted by an urgency slider.' },
   { title: 'Demand-token waitlist', body: 'Register interest in Transact — a signal, not a commitment or a queue position.' },
+  { title: 'Buyer & seller case flow', body: 'A step-by-step case tracker for both sides — legal cross-check, token payment (test mode), and listing/registration steps.' },
 ]
 
 const howItWorksSteps = [
@@ -41,6 +43,10 @@ const faqItems = [
   {
     question: 'Where do the stamp-duty rates come from?',
     answer: 'The rates shown are illustrative sample figures, not current government-published rates. Always verify with your local sub-registrar office before relying on any number here.',
+  },
+  {
+    question: 'Does the case flow tracker move real money?',
+    answer: 'No. The token payment step is test mode only — no live payment integration exists yet, and no funds move. It exists to demonstrate the process end to end.',
   },
 ]
 
@@ -106,6 +112,7 @@ export default function TransactPage() {
           <StampDutyEstimator />
           <AskBandEstimator />
           <OcrSpike />
+          <TransactCaseFlow />
         </div>
       </SectionShell>
 

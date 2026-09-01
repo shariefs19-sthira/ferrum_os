@@ -21,6 +21,7 @@ import { D1StampDutyProvider } from './lib/providers/StampDutyProvider'
 import { computeAskBand } from './lib/transact/askBand'
 import { D1GovtReferenceRatesProvider } from './lib/providers/GovtReferenceRatesProvider'
 import { computeFerrumRate, type Role } from './lib/rateEngine/ferrumRateEngine'
+import { initialStep, isValidTransition, isTerminalStep, type CaseRole } from './lib/transact/caseFlow'
 
 export type Env = {
   DB: D1Database
@@ -204,6 +205,83 @@ app.post('/api/ferrum-rate', async (c) => {
       : undefined
   const result = computeFerrumRate(govtRow?.rate ?? 0, marketRow?.rate ?? 0, userRate, role, body.weights, timeAdjustment)
   return c.json(result)
+})
+
+// Transact case tracking (W2-322), gated by docs/COMPLIANCE_GATE.md.
+// Buyer/seller state machine — see lib/transact/caseFlow.ts. token_payment
+// (buyer step 3) is Stage-1 test-mode only; no real Razorpay charge exists
+// yet (W2-324 not landed), advancing past it just records the case moved
+// on, matching the "ship stub if dependency missing" rule.
+app.post('/api/transact/cases', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  const role: CaseRole | undefined = body?.role === 'buyer' || body?.role === 'seller' ? body.role : undefined
+  if (!body || !role || typeof body.contact_name !== 'string' || typeof body.contact_email !== 'string') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const id = crypto.randomUUID()
+  const step = initialStep(role)
+  await c.env.DB.batch([
+    c.env.DB.prepare(
+      'INSERT INTO transact_cases (id, role, contact_name, contact_email, contact_phone, property_ref, state, current_step) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    ).bind(
+      id,
+      role,
+      body.contact_name,
+      body.contact_email,
+      typeof body.contact_phone === 'string' ? body.contact_phone : null,
+      typeof body.property_ref === 'string' ? body.property_ref : null,
+      typeof body.state === 'string' ? body.state : null,
+      step,
+    ),
+    c.env.DB.prepare('INSERT INTO case_events (id, case_id, from_step, to_step, note) VALUES (?, ?, NULL, ?, ?)').bind(
+      crypto.randomUUID(),
+      id,
+      step,
+      'case created',
+    ),
+  ])
+  return c.json({ id, role, current_step: step, status: 'in_progress', indicative: true })
+})
+
+app.get('/api/transact/cases/:id', async (c) => {
+  const caseId = c.req.param('id')
+  const caseRow = await c.env.DB.prepare('SELECT * FROM transact_cases WHERE id = ?').bind(caseId).first()
+  if (!caseRow) return c.json({ error: 'not_found' }, 404)
+  const events = await c.env.DB.prepare('SELECT * FROM case_events WHERE case_id = ? ORDER BY created_at ASC')
+    .bind(caseId)
+    .all()
+  return c.json({ ...caseRow, events: events.results, indicative: true })
+})
+
+app.post('/api/transact/cases/:id/advance', async (c) => {
+  const caseId = c.req.param('id')
+  const body = await c.req.json().catch(() => null)
+  const caseRow = await c.env.DB.prepare('SELECT * FROM transact_cases WHERE id = ?').bind(caseId).first<{
+    role: CaseRole
+    current_step: string
+    status: string
+  }>()
+  if (!caseRow) return c.json({ error: 'not_found' }, 404)
+  if (caseRow.status !== 'in_progress') return c.json({ error: 'case_closed' }, 409)
+  if (!body || typeof body.to_step !== 'string' || !isValidTransition(caseRow.role, caseRow.current_step, body.to_step)) {
+    return c.json({ error: 'invalid_transition', current_step: caseRow.current_step }, 400)
+  }
+  const newStatus = isTerminalStep(caseRow.role, body.to_step) ? 'closed' : 'in_progress'
+  await c.env.DB.batch([
+    c.env.DB.prepare("UPDATE transact_cases SET current_step = ?, status = ?, updated_at = datetime('now') WHERE id = ?").bind(
+      body.to_step,
+      newStatus,
+      caseId,
+    ),
+    c.env.DB.prepare('INSERT INTO case_events (id, case_id, from_step, to_step, note) VALUES (?, ?, ?, ?, ?)').bind(
+      crypto.randomUUID(),
+      caseId,
+      caseRow.current_step,
+      body.to_step,
+      typeof body.note === 'string' ? body.note : null,
+    ),
+  ])
+  return c.json({ id: caseId, current_step: body.to_step, status: newStatus, indicative: true })
 })
 
 // MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md
