@@ -211,7 +211,7 @@ this session as W2-303 and W2-304 on branch w2-302/SCRIBE-engine-arch-rows
 | W2-308 | | B2 | J08 | CRANE | OPEN | | CONCIERGE_LLM — post-launch upgrade of W2-307 to an LLM-backed assistant, gated on API-key provisioning + abuse/cost review + retrieval-grounding design; do not start until all three gates clear |
 
 ## 2026-09-01 — SCRIBE re-queue (prior W2-292/294/297/299 were phantom, never on main)
-| W2-309 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Leaflet + OpenStreetMap parcel map in LandIntel (client-leaf, MIT) — gated on W2-288 license audit |
+| W2-309 | | B2 | J08 | CRANE | DONE | 9c3c7fc | Leaflet + OpenStreetMap parcel map in LandIntel (client-leaf, leaflet BSD-2-Clause verified — used directly, not react-leaflet which is Hippocratic-2.1) — license verified inline per operator direction, no separate W2-288 audit exists |
 | W2-310 | | B2 | J08 | CRANE | OPEN | | Tesseract.js client-side OCR spike in Transact (Apache) — gated on W2-288 license audit |
 | W2-311 | | B2 | J08 | CRANE | OPEN | | BOQ Pro three-mode rate calculator — Mode 2 GOVT REFERENCE (CPWD DSR/state ready-reckoner, watermarked INDICATIVE, reference only) and Mode 3 CUSTOM (user rates/assumptions incl. material/labour/city factor/GST, live recompute) ship now; Mode 1 FERRUM ships as a clearly labeled stub until W2-299's operator spec lands — gated on W2-288 license audit |
 
