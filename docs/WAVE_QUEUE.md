@@ -116,7 +116,7 @@
 | W2-245 | | B2 | J08 | CRANE | DONE | 173fa64 | Relume: Home (7 sections) |
 | W2-246 | | B2 | J08 | CRANE | DONE | e707a2c | Relume: products route move + _redirects |
 | W2-247 | | B2 | J08 | CRANE | DONE | b75a3d9 | Relume: LandIntel |
-| W2-248 | | B2 | J08 | CRANE | OPEN | | Relume: DesignStudio (new page) |
+| W2-248 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Relume: DesignStudio (new page) |
 | W2-249 | | B2 | J08 | CRANE | OPEN | | Relume: Structura |
 | W2-250 | | B2 | J08 | CRANE | OPEN | | Relume: BOQ-Pro marketing page |
 | W2-251 | | B2 | J08 | CRANE | OPEN | | Relume: ProMarket |
