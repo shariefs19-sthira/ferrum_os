@@ -164,7 +164,7 @@ dependency and can run anytime.
 | W2-281 | | B2 | J08 | CRANE | OPEN | | legacy-branch triage: one-by-one review of the ~47 held pre-Relume branches — genuinely-stale → delete, actually-unique → rescue via targeted port — post-architecture-wave |
 
 ## 2026-09-01 — SCRIBE Transact compliance gate (docs/COMPLIANCE_GATE.md, DRAFT, pending counsel)
-| W2-287 | | B2 | J08 | CRANE | CLAIMED-CRANE | | docs/COMPLIANCE_GATE.md — Stage-1 rules + counsel checklist; Stage-2 (transactional) BLOCKED until counsel sign-off |
+| W2-287 | | B2 | J08 | CRANE | DONE | a5563be | docs/COMPLIANCE_GATE.md — Stage-1 rules + counsel checklist; Stage-2 (transactional) BLOCKED until counsel sign-off |
 | W2-283 | | B2 | J08 | CRANE | OPEN | | Transact product page (7-section template, Stage-1 copy per COMPLIANCE_GATE) — under W2-287 |
 | W2-284 | | B2 | J08 | CRANE | OPEN | | stamp-duty/registration-fee estimator (state-wise, INDICATIVE) — under W2-287 |
 | W2-285 | | B2 | J08 | CRANE | OPEN | | ask-band estimator + urgency slider (sample comparables) — under W2-287 |
