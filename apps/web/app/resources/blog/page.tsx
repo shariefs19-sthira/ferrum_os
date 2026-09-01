@@ -1,4 +1,8 @@
-import Link from 'next/link';
+import Link from 'next/link'
+import SectionShell from '../../../components/sections/SectionShell'
+import Eyebrow from '../../../components/sections/Eyebrow'
+import SectionHeading from '../../../components/sections/SectionHeading'
+import { PrimaryButton, SecondaryButton } from '../../../components/sections/Buttons'
 
 const posts = [
   {
@@ -19,49 +23,45 @@ const posts = [
     title: 'Monsoon concreting: the checklist for safe work during wet weather',
     summary: 'A field-ready checklist for protecting finish quality, curing, and site safety when the rains hit.'
   }
-];
+]
 
 export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">Resources</p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 md:text-6xl">
+    <main>
+      <SectionShell>
+        <div className="max-w-3xl">
+          <Eyebrow>Resources</Eyebrow>
+          <SectionHeading as="h1" className="mt-4">
             Insights for smarter construction decisions
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+          </SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
             Fresh thinking on land intelligence, planning, execution, and investment strategy for teams building with confidence.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <a href="#latest-posts" className="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700">
-              Explore articles
-            </a>
-            <a href="/resources" className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-slate-900">
-              Browse all resources
-            </a>
+            <PrimaryButton href="#latest-posts">Explore articles</PrimaryButton>
+            <SecondaryButton href="/resources">Browse all resources</SecondaryButton>
           </div>
         </div>
-      </section>
+      </SectionShell>
 
-      <section id="latest-posts" className="mx-auto max-w-7xl px-6 py-16 md:px-8">
+      <SectionShell id="latest-posts" background="surface-secondary">
         <div className="grid gap-6 md:grid-cols-3">
           {posts.map((post) => (
-            <article key={post.title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-              <div className="mb-4 inline-flex rounded-full bg-blue-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-700">
+            <article key={post.title} className="rounded-lg border border-relume-border bg-relume-surface p-6">
+              <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
                 {post.category}
               </div>
-              <h2 className="text-2xl font-semibold leading-tight text-slate-900">{post.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{post.summary}</p>
-              <div className="mt-6 border-t border-slate-200 pt-4">
-                <Link href={post.href} className="text-sm font-medium text-blue-700 transition hover:text-blue-800">
+              <h2 className="text-2xl font-semibold tracking-relume-tight text-relume-ink">{post.title}</h2>
+              <p className="mt-4 text-sm leading-6 text-relume-ink">{post.summary}</p>
+              <div className="mt-6 border-t border-relume-border pt-4">
+                <Link href={post.href} className="text-sm font-medium text-relume-ink underline underline-offset-4">
                   Read article →
                 </Link>
               </div>
             </article>
           ))}
         </div>
-      </section>
+      </SectionShell>
     </main>
-  );
+  )
 }

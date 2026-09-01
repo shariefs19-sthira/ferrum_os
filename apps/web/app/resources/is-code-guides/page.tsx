@@ -1,4 +1,7 @@
 import { Metadata } from 'next'
+import SectionShell from '../../../components/sections/SectionShell'
+import Eyebrow from '../../../components/sections/Eyebrow'
+import SectionHeading from '../../../components/sections/SectionHeading'
 
 export const metadata: Metadata = {
   title: 'IS Code Guides - Ferrum OS',
@@ -36,7 +39,7 @@ const measurementRows = [
     stance: 'Drop',
     note: 'Keep only if they are wrapped by an internal review layer and mapped back to the Indian code baseline.',
   },
-];
+]
 
 const steelRadar = [
   {
@@ -51,26 +54,36 @@ const steelRadar = [
     category: 'Drop',
     items: ['Non-Indian steel design sheets used without code mapping', 'Custom rebar or detailing conventions that bypass authority approval'],
   },
-];
+]
+
+// Adopt/Hold/Drop keep semantic emerald/amber/rose coding — the color carries real
+// decision meaning here, unlike the decorative badges restyled to relume-ink elsewhere.
+function stanceClass(stance: string) {
+  if (stance === 'Adopt') return 'inline-flex rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-800'
+  if (stance === 'Hold') return 'inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-amber-800'
+  return 'inline-flex rounded-full bg-rose-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-rose-800'
+}
 
 export default function IsCodeGuidesPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <header className="mb-10">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">Resources</p>
-          <h1 className="text-4xl font-black tracking-tight text-slate-900 sm:text-5xl">IS Code Guides</h1>
-          <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
+    <main>
+      <SectionShell>
+        <div className="max-w-3xl">
+          <Eyebrow>Resources</Eyebrow>
+          <SectionHeading as="h1" className="mt-4">IS Code Guides</SectionHeading>
+          <p className="mt-6 text-base leading-7 text-relume-ink">
             A practical radar for Indian construction standards, including when to adopt, hold, or drop specific code regimes in estimator and design workflows.
           </p>
-        </header>
+        </div>
+      </SectionShell>
 
-        <section className="mb-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900">IS 1200 vs CESMM4</h2>
+      <SectionShell background="surface-secondary">
+        <div className="rounded-lg border border-relume-border bg-relume-surface p-6 sm:p-8">
+          <h2 className="text-2xl font-semibold tracking-relume-tight text-relume-ink">IS 1200 vs CESMM4</h2>
           <div className="mt-6 overflow-x-auto">
             <table className="min-w-full border-separate border-spacing-y-2 text-left">
               <thead>
-                <tr className="text-sm uppercase tracking-[0.12em] text-slate-500">
+                <tr className="text-sm uppercase tracking-[0.12em] text-relume-ink">
                   <th className="px-4 py-3 font-semibold">Standard</th>
                   <th className="px-4 py-3 font-semibold">Primary use</th>
                   <th className="px-4 py-3 font-semibold">Stance</th>
@@ -79,57 +92,39 @@ export default function IsCodeGuidesPage() {
               </thead>
               <tbody>
                 {measurementRows.map((row) => (
-                  <tr key={row.standard} className="rounded-2xl bg-slate-50 align-top">
-                    <td className="rounded-l-2xl border border-slate-200 px-4 py-4 font-semibold text-slate-900">{row.standard}</td>
-                    <td className="border-y border-slate-200 px-4 py-4 text-slate-700">{row.use}</td>
-                    <td className="border-y border-slate-200 px-4 py-4">
-                      <span
-                        className={
-                          row.stance === 'Adopt'
-                            ? 'inline-flex rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-800'
-                            : row.stance === 'Hold'
-                              ? 'inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-amber-800'
-                              : 'inline-flex rounded-full bg-rose-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-rose-800'
-                        }
-                      >
-                        {row.stance}
-                      </span>
+                  <tr key={row.standard} className="align-top">
+                    <td className="rounded-l-lg border border-relume-border px-4 py-4 font-semibold text-relume-ink">{row.standard}</td>
+                    <td className="border-y border-relume-border px-4 py-4 text-relume-ink">{row.use}</td>
+                    <td className="border-y border-relume-border px-4 py-4">
+                      <span className={stanceClass(row.stance)}>{row.stance}</span>
                     </td>
-                    <td className="rounded-r-2xl border border-slate-200 px-4 py-4 text-slate-700">{row.note}</td>
+                    <td className="rounded-r-lg border border-relume-border px-4 py-4 text-relume-ink">{row.note}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </section>
+        </div>
+      </SectionShell>
 
-        <section className="grid gap-6 lg:grid-cols-3">
+      <SectionShell>
+        <div className="grid gap-6 lg:grid-cols-3">
           {steelRadar.map((group) => (
-            <div key={group.category} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              <span
-                className={
-                  group.category === 'Adopt'
-                    ? 'inline-flex rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-800'
-                    : group.category === 'Hold'
-                      ? 'inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-amber-800'
-                      : 'inline-flex rounded-full bg-rose-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-rose-800'
-                }
-              >
-                {group.category}
-              </span>
+            <div key={group.category} className="rounded-lg border border-relume-border bg-relume-surface p-6">
+              <span className={stanceClass(group.category)}>{group.category}</span>
 
-              <ul className="mt-5 space-y-3 text-sm leading-6 text-slate-700">
+              <ul className="mt-5 space-y-3 text-sm leading-6 text-relume-ink">
                 {group.items.map((item) => (
                   <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 rounded-full bg-slate-400" aria-hidden="true" />
+                    <span className="mt-2 h-2 w-2 rounded-full bg-relume-ink" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
-        </section>
-      </div>
+        </div>
+      </SectionShell>
     </main>
-  );
+  )
 }
