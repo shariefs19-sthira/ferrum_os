@@ -130,7 +130,7 @@ export function buildMcpServer(db: D1Database, ogdApiKey?: string): McpServer {
     'is-check',
     {
       title: 'IS-code compliance check',
-      description: 'Check structural params against IS 456 Cl 26.5.1.1 and IS 800 Cl 3.8.',
+      description: 'Check structural params against IS 456 Cl 26.5.1.1, IS 800 Cl 3.8, IS 1893 Cl 6.4.2 (seismic coefficient), and IS 875 Part 3 Cl 6.3/7.2 (wind pressure).',
       inputSchema: { structure_type: z.string(), params: z.record(z.string(), z.number()) },
     },
     async ({ structure_type, params }) => {
