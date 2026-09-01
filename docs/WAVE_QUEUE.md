@@ -161,7 +161,7 @@ dependency and can run anytime.
 
 ## 2026-09-01 — SCRIBE cleanup rows
 | W2-280 | | B2 | J08 | CRANE | DONE | 6b5313d | metadata pass: sitemap.ts to new canonical /products/* paths + C-07 SITE_BASE_URL swap + robots check — do after Wave A |
-| W2-281 | | B2 | J08 | CRANE | OPEN | | legacy-branch triage: one-by-one review of the ~47 held pre-Relume branches — genuinely-stale → delete, actually-unique → rescue via targeted port — post-architecture-wave |
+| W2-281 | | B2 | J08 | CRANE | CLAIMED-CRANE | | legacy-branch triage: one-by-one review of the ~47 held pre-Relume branches — genuinely-stale → delete, actually-unique → rescue via targeted port — post-architecture-wave |
 
 ## 2026-09-01 — SCRIBE Transact compliance gate (docs/COMPLIANCE_GATE.md, DRAFT, pending counsel)
 | W2-287 | | B2 | J08 | CRANE | DONE | a5563be | docs/COMPLIANCE_GATE.md — Stage-1 rules + counsel checklist; Stage-2 (transactional) BLOCKED until counsel sign-off |
