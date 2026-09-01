@@ -4,6 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
+import TestFitCalculator from '../../../components/sections/TestFitCalculator'
 
 const featureItems = [
   { title: 'Brief input wizard', body: 'Describe your rooms, size and style in plain words.' },
@@ -182,6 +183,20 @@ export default function DesignStudioPage() {
         </div>
         <div className="mx-auto mt-12 max-w-2xl">
           <AccordionLeaf items={faqItems} />
+        </div>
+      </SectionShell>
+
+      {/* Try it: test-fit + DXF export (parity: W2-266/267) */}
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Try it</Eyebrow>
+          <SectionHeading className="mt-4">Generate a test-fit</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            A working preview of the plan generator — real SVG massing and DXF export, indicative data.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-2xl">
+          <TestFitCalculator />
         </div>
       </SectionShell>
 

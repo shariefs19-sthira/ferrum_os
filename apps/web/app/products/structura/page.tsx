@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SpecTable from '../../../components/SpecTable'
+import IsCheckWidget from '../../../components/sections/IsCheckWidget'
 
 const featureItems = [
   { title: 'Model importer', body: 'Bring in structural models from your design tools.' },
@@ -223,6 +224,20 @@ export default function StructuraPage() {
         </div>
         <div className="mx-auto mt-12 max-w-2xl">
           <AccordionLeaf items={faqItems} />
+        </div>
+      </SectionShell>
+
+      {/* Try it: IS 456/800 checker (parity: W2-268) */}
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Try it</Eyebrow>
+          <SectionHeading className="mt-4">Run an IS-code check</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            A working preview: minimum reinforcement (IS 456 Cl 26.5.1.1) and slenderness ratio (IS 800 Cl 3.8) checks.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-2xl">
+          <IsCheckWidget />
         </div>
       </SectionShell>
 

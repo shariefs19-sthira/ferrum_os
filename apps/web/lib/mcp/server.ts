@@ -18,6 +18,8 @@ import { z } from 'zod'
 import { D1LandRecordsProvider } from '../providers/LandRecordsProvider'
 import { D1RatesProvider } from '../providers/RatesProvider'
 import { SvgGeometryExporter } from '../providers/GeometryExporter'
+import { runIsCheck } from '../checks/isCode'
+import { estimateIrr } from '../finance/irrNpv'
 
 function textResult(data: unknown) {
   return { content: [{ type: 'text' as const, text: JSON.stringify(data) }] }
@@ -106,13 +108,8 @@ export function buildMcpServer(db: D1Database): McpServer {
       description: 'Check structural params against IS 456/875/800.',
       inputSchema: { structure_type: z.string(), params: z.record(z.string(), z.number()) },
     },
-    async ({ structure_type }) => {
-      // Static rule tables mirroring Structura's IS 456/875/800 checks
-      // (AGENT_INTERFACE.md §3). Real code-check rules land as a
-      // dedicated task; this tool intentionally returns a defined,
-      // non-fabricated shape (no checks yet) rather than inventing
-      // rule outcomes with no rule table behind them.
-      return textResult({ code: structure_type, checks: [], indicative: true })
+    async ({ structure_type, params }) => {
+      return textResult(runIsCheck(structure_type, params))
     },
   )
 
@@ -168,25 +165,6 @@ export function buildMcpServer(db: D1Database): McpServer {
   )
 
   return server
-}
-
-/** Newton's-method IRR estimate; returns null if it doesn't converge. */
-function estimateIrr(cashFlows: number[]): number | null {
-  let rate = 0.1
-  for (let iter = 0; iter < 100; iter++) {
-    let npv = 0
-    let dNpv = 0
-    for (let t = 0; t < cashFlows.length; t++) {
-      npv += cashFlows[t] / Math.pow(1 + rate, t)
-      dNpv += (-t * cashFlows[t]) / Math.pow(1 + rate, t + 1)
-    }
-    if (Math.abs(npv) < 1e-6) return Math.round(rate * 10000) / 10000
-    if (dNpv === 0) return null
-    const nextRate = rate - npv / dNpv
-    if (!Number.isFinite(nextRate)) return null
-    rate = nextRate
-  }
-  return null
 }
 
 export function createMcpTransport(): WebStandardStreamableHTTPServerTransport {
