@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib"
 
 declare global {
   interface Window {
@@ -92,6 +91,10 @@ export default function PaymentDemo() {
 
   const downloadReceipt = async () => {
     if (!order) return
+    // Dynamically imported: pdf-lib is only needed for this one on-demand
+    // action, not the initial page render — keeps /products/transact's
+    // first-load JS from carrying its ~150kB unconditionally.
+    const { PDFDocument, StandardFonts, rgb } = await import("pdf-lib")
     const doc = await PDFDocument.create()
     const page = doc.addPage([400, 500])
     const font = await doc.embedFont(StandardFonts.Helvetica)
