@@ -13,6 +13,8 @@ import { D1LandRecordsProvider } from './lib/providers/LandRecordsProvider'
 import { D1RatesProvider } from './lib/providers/RatesProvider'
 import { SvgGeometryExporter } from './lib/providers/GeometryExporter'
 import { buildMcpServer, createMcpTransport } from './lib/mcp/server'
+import { openApiSpec } from './lib/openapi/spec'
+import { renderOpenApiHtml } from './lib/openapi/render'
 
 export type Env = {
   DB: D1Database
@@ -100,8 +102,17 @@ app.all('/mcp', async (c) => {
   return transport.handleRequest(c.req.raw)
 })
 
-// OpenAPI spec — real spec lands with W2-275.
-app.get('/docs/api', (c) => c.json({ error: 'not_implemented', surface: 'openapi' }, 501))
+// OpenAPI spec per docs/AGENT_INTERFACE.md §5/§8 — generated from the
+// same route inventory the MCP server (W2-274) registers as tools.
+// Content-negotiates: Accept: application/json (or ?format=json) gets
+// the machine-readable spec; a plain browser GET gets a readable HTML
+// index, no external Swagger UI CDN load.
+app.get('/docs/api', (c) => {
+  const acceptsHtml = c.req.header('Accept')?.includes('text/html')
+  const wantsHtml = acceptsHtml && c.req.query('format') !== 'json'
+  if (wantsHtml) return c.html(renderOpenApiHtml(openApiSpec))
+  return c.json(openApiSpec)
+})
 
 // A2A agent card per docs/AGENT_INTERFACE.md §7. Static shape is
 // stable now even though the tools it lists aren't wired yet — an
