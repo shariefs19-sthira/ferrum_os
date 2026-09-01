@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const productLinks = [
   { name: 'LandIntel', href: '/landintel' },
-  { name: 'BOQ Pro', href: '/boq-pro' },
+  { name: 'BOQ Pro', href: '/products/boq-pro' },
   { name: 'DesignStudio', href: '/demo' },
   { name: 'Structura', href: '/structura' },
   { name: 'ProMarket', href: '/promarket' },

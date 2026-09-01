@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const products = [
   { name: 'LandIntel', href: '/products/landintel' },
-  { name: 'BOQ Pro', href: '/boq-pro' },
+  { name: 'BOQ Pro', href: '/products/boq-pro' },
   { name: 'DesignStudio', href: '/products/designstudio' },
   { name: 'Structura', href: '/products/structura' },
   { name: 'ProMarket', href: '/products/promarket' },
