@@ -14,6 +14,31 @@ supporting middleware were retired for the static launch. The static
 launch-scoped tradeoff, not an oversight. **W2-240** is queued for
 post-launch hardening back to hash-based or edge-nonce CSP.
 
+## Rate limiting (W2-334)
+
+**2026-09-02 — POST-route rate limiting:** D1-backed sliding-window
+rate limits (`lib/auth/rateLimit.ts`, `lib/auth/ipRateLimit.ts`) applied
+to every public/authenticated write route that lacked one: `/api/leads`,
+`/api/transact/cases` (create), `/api/payments/order`,
+`/api/testfit`, `/api/is-check`, `/api/boq-estimate`, `/api/irr-npv`,
+`/api/ask-band`, `/api/ferrum-rate` (all keyed by `CF-Connecting-IP`),
+and `/api/workspace/artifacts` / `/api/subscriptions` create routes
+(keyed by user id, since they're auth-gated). All return 429 on
+exceeding their window. Auth endpoints (`/api/auth/*`) were already
+rate-limited as part of W2-326. CSP stays out of this task's scope —
+see the 2026-08-31 decision above and W2-240.
+
+## Secrets audit (W2-334)
+
+**2026-09-02:** Repo-wide grep for hardcoded API keys/secrets/passwords
+found none — every credential (Razorpay, Resend, admin token) is read
+from `Env` bindings only, set via `wrangler secret put` or local
+`.dev.vars`, never committed. `wrangler.jsonc` carries only a D1
+database id (not a secret). One real gap found and fixed: `.dev.vars`
+(wrangler's local-secrets file, analogous to `.env`) was not in
+`.gitignore` — added before any operator creates one with real keys
+for local testing.
+
 ## Process incidents
 
 **2026-08-31 — auto-land of held dependency WIP:** `scripts/land.ps1`'s
