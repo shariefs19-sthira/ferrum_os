@@ -1,4 +1,10 @@
-import type { CreateOrderInput, CreateOrderResult, PaymentProvider } from './PaymentProvider'
+import type {
+  CreateOrderInput,
+  CreateOrderResult,
+  CreateSubscriptionInput,
+  CreateSubscriptionResult,
+  PaymentProvider,
+} from './PaymentProvider'
 
 /**
  * Used when RAZORPAY_KEY_ID/RAZORPAY_KEY_SECRET are not provisioned
@@ -8,7 +14,7 @@ import type { CreateOrderInput, CreateOrderResult, PaymentProvider } from './Pay
  * succeeds so the demo flow can be exercised end to end.
  */
 export class StubPaymentProvider implements PaymentProvider {
-  async createOrder(input: CreateOrderInput): Promise<CreateOrderResult> {
+  async createOrder(_input: CreateOrderInput): Promise<CreateOrderResult> {
     return {
       providerOrderId: `stub_order_${crypto.randomUUID()}`,
       mode: 'test',
@@ -21,6 +27,18 @@ export class StubPaymentProvider implements PaymentProvider {
   }
 
   async verifyWebhookSignature(): Promise<boolean> {
+    return true
+  }
+
+  async createSubscription(_input: CreateSubscriptionInput): Promise<CreateSubscriptionResult> {
+    return {
+      providerSubscriptionId: `stub_sub_${crypto.randomUUID()}`,
+      mode: 'test',
+      simulated: true,
+    }
+  }
+
+  async cancelSubscription(): Promise<boolean> {
     return true
   }
 }

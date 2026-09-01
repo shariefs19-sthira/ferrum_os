@@ -401,6 +401,72 @@ app.post('/api/payments/webhook', async (c) => {
   return c.json({ received: true })
 })
 
+// Subscriptions (W2-329), gated by docs/COMPLIANCE_GATE.md. Test-mode
+// only — see RazorpayProvider.createSubscription for why plans are
+// created on demand rather than pre-provisioned.
+app.post('/api/subscriptions', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.plan_id !== 'string') return c.json({ error: 'invalid_input' }, 400)
+  const plan = await c.env.DB.prepare('SELECT * FROM subscription_plans WHERE id = ?').bind(body.plan_id).first<{
+    id: string
+    name: string
+    price_paise: number
+  }>()
+  if (!plan) return c.json({ error: 'unknown_plan' }, 400)
+  const provider = getPaymentProvider(c.env)
+  const result = await provider.createSubscription({
+    planName: plan.name,
+    amountPaise: plan.price_paise,
+    currency: 'INR',
+    totalCount: 12,
+  })
+  const id = crypto.randomUUID()
+  await c.env.DB.prepare(
+    'INSERT INTO subscriptions (id, user_id, plan_id, provider_subscription_id, mode, status) VALUES (?, ?, ?, ?, ?, ?)',
+  )
+    .bind(id, user.id, plan.id, result.providerSubscriptionId, result.mode, result.simulated ? 'active' : 'created')
+    .run()
+  return c.json({
+    id,
+    plan_id: plan.id,
+    provider_subscription_id: result.providerSubscriptionId,
+    mode: result.mode,
+    simulated: result.simulated,
+    status: result.simulated ? 'active' : 'created',
+    indicative: true,
+  })
+})
+
+app.get('/api/subscriptions/me', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const rows = await c.env.DB.prepare(
+    `SELECT s.id, s.plan_id, s.status, s.mode, s.created_at, p.name as plan_name
+     FROM subscriptions s JOIN subscription_plans p ON p.id = s.plan_id
+     WHERE s.user_id = ? ORDER BY s.created_at DESC`,
+  )
+    .bind(user.id)
+    .all()
+  return c.json({ subscriptions: rows.results })
+})
+
+app.post('/api/subscriptions/:id/cancel', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const sub = await c.env.DB.prepare('SELECT * FROM subscriptions WHERE id = ? AND user_id = ?')
+    .bind(c.req.param('id'), user.id)
+    .first<{ id: string; provider_subscription_id: string | null }>()
+  if (!sub) return c.json({ error: 'not_found' }, 404)
+  const provider = getPaymentProvider(c.env)
+  await provider.cancelSubscription(sub.provider_subscription_id)
+  await c.env.DB.prepare("UPDATE subscriptions SET status = 'cancelled', updated_at = datetime('now') WHERE id = ?")
+    .bind(sub.id)
+    .run()
+  return c.json({ ok: true })
+})
+
 // Password auth (W2-326), supersedes the stubbed W2-317 login. Sessions
 // are HttpOnly/Secure cookies (see lib/auth/session.ts). Rate-limited
 // endpoints are D1-backed sliding windows (lib/auth/rateLimit.ts), since

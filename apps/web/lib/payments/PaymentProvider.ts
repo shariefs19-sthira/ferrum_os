@@ -15,8 +15,23 @@ export type CreateOrderResult = {
   simulated: boolean
 }
 
+export type CreateSubscriptionInput = {
+  planName: string
+  amountPaise: number
+  currency: string
+  totalCount: number
+}
+
+export type CreateSubscriptionResult = {
+  providerSubscriptionId: string | null
+  mode: 'test' | 'live'
+  simulated: boolean
+}
+
 export interface PaymentProvider {
   createOrder(input: CreateOrderInput): Promise<CreateOrderResult>
   verifyPaymentSignature(orderId: string, paymentId: string, signature: string): Promise<boolean>
   verifyWebhookSignature(rawBody: string, signature: string): Promise<boolean>
+  createSubscription(input: CreateSubscriptionInput): Promise<CreateSubscriptionResult>
+  cancelSubscription(providerSubscriptionId: string | null): Promise<boolean>
 }
