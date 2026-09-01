@@ -198,6 +198,10 @@ W2-305 AGENT_INTERFACE spec once it lands — annotated inline above.
 (W2-266..272) → W2-280 (metadata pass) → Transact (W2-283..287) →
 W2-292/294/297/299 (OSS adoption + three-mode rate calc + rate engine).
 
+## 2026-09-01 — SCRIBE concierge assistant
+| W2-307 | | B2 | J08 | CRANE | OPEN | | CONCIERGE — deterministic intent-router assistant: build-time catalog knowledge, polite script set per COMPLIANCE_GATE voice, quick replies, router.push maneuvers into pages AND tools, polite fallback + lead handoff, ARIA + mobile, no external calls |
+| W2-308 | | B2 | J08 | CRANE | OPEN | | CONCIERGE_LLM — post-launch upgrade of W2-307 to an LLM-backed assistant, gated on API-key provisioning + abuse/cost review + retrieval-grounding design; do not start until all three gates clear |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
