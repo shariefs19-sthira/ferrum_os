@@ -19,6 +19,7 @@ import { runIsCheck } from './lib/checks/isCode'
 import { estimateIrr } from './lib/finance/irrNpv'
 import { D1StampDutyProvider } from './lib/providers/StampDutyProvider'
 import { computeAskBand } from './lib/transact/askBand'
+import { D1GovtReferenceRatesProvider } from './lib/providers/GovtReferenceRatesProvider'
 
 export type Env = {
   DB: D1Database
@@ -147,6 +148,17 @@ app.post('/api/ask-band', async (c) => {
     return c.json({ error: 'invalid_input' }, 400)
   }
   return c.json(computeAskBand(body))
+})
+
+// Mode 2 (GOVT REFERENCE) for the three-mode rate calculator (W2-311).
+app.get('/api/govt-reference-rate', async (c) => {
+  const category = c.req.query('category')
+  const region = c.req.query('region')
+  if (!category || !region) return c.json({ error: 'invalid_input' }, 400)
+  const provider = new D1GovtReferenceRatesProvider(c.env.DB)
+  const row = await provider.getRate(category, region)
+  if (!row) return c.json({ error: 'not_found' }, 404)
+  return c.json({ ...row, indicative: true })
 })
 
 // MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md

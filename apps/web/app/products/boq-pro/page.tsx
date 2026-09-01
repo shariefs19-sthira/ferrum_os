@@ -4,6 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
+import ThreeModeCalculator from '../../../components/sections/ThreeModeCalculator'
 
 const featureItems = [
   { title: 'Quantity take-off', body: 'Automatically measure quantities from your design.' },
@@ -182,6 +183,20 @@ export default function BoqProMarketingPage() {
         </div>
         <div className="mx-auto mt-12 max-w-2xl">
           <AccordionLeaf items={faqItems} />
+        </div>
+      </SectionShell>
+
+      {/* Try it: three-mode rate calculator (W2-311) */}
+      <SectionShell>
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Try it</Eyebrow>
+          <SectionHeading className="mt-4">Rate your build, three ways</SectionHeading>
+          <p className="mt-3 text-base leading-7 text-relume-ink">
+            Government reference rates, your own assumptions, or the Ferrum weighted engine — pick the mode that fits how you work.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-2xl">
+          <ThreeModeCalculator />
         </div>
       </SectionShell>
 
