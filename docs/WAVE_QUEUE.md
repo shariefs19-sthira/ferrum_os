@@ -236,7 +236,7 @@ landed, so W2-312 carries the real scope.
 | W2-319 | | B2 | J08 | CRANE | CLAIMED-CRANE | | author docs/TRANSACTION_COUNSEL_PACK.md — expand docs/COMPLIANCE_GATE.md's checklist into a counsel-ready memo: RERA scope per operating state, advocate empanelment process, escrow structure, KYC/AML procedure, advertising rules. Research/docs only, no code — this is prep material for actual counsel, not a substitute for counsel sign-off (COMPLIANCE_GATE's Stage-2 block stays in force regardless). |
 
 ## 2026-09-01 — SCRIBE final rails (auth through ops)
-| W2-326 | | B2 | J08 | CRANE | CLAIMED-CRANE | | AUTH_COMPLETE — password auth via PBKDF2 over WebCrypto, sessions, verify + reset flows via Resend with a dev fallback, account page, rate limits on auth endpoints. Folds/supersedes W2-317. |
+| W2-326 | | B2 | J08 | CRANE | DONE | 4ef78791 | AUTH_COMPLETE — password auth via PBKDF2 over WebCrypto, sessions, verify + reset flows via Resend with a dev fallback, account page, rate limits on auth endpoints. Folds/supersedes W2-317. |
 | W2-327 | | B2 | J08 | CRANE | OPEN | | WORKSPACE_DATA — saved-artifact CRUD + export + share, tied to W2-326 auth |
 | W2-328 | | B2 | J08 | CRANE | OPEN | | FORMS_LEADS — route all site forms into D1, plus a minimal operator admin view for leads |
 | W2-329 | | B2 | J08 | CRANE | OPEN | | PAYMENTS_COMPLETE — checkout, demand tokens, subscriptions, webhooks with signature verification, receipts + GST invoice generation; test-mode for now |
