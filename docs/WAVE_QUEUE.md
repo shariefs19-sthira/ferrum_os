@@ -180,8 +180,8 @@ Renumbered from requested W2-295/296 to W2-303/304 — W2-295 is already
 the branch name for the OSS-adoption commit (w2-295/SCRIBE-oss-adoption),
 same collision pattern as W2-258 and W2-289 earlier. No existing row was
 touched.
-| W2-303 | | B2 | J08 | CRANE | OPEN | | author docs/ENGINE_ARCH.md — solver orchestration design: OpenSees/CalculiX/Code_Aster headless compute, IS-code design post-processors, scope tiers T1-T3, compute topology (post-launch). Research/docs only, no code. |
-| W2-304 | | B2 | J08 | CRANE | OPEN | | author docs/ENGINE_VV.md — validation plan: IS worked examples + NAFEMS benchmarks, run per release, published. Research/docs only, no code. |
+| W2-303 | | B2 | J08 | CRANE | CLAIMED-CRANE | | author docs/ENGINE_ARCH.md — solver orchestration design: OpenSees/CalculiX/Code_Aster headless compute, IS-code design post-processors, scope tiers T1-T3, compute topology (post-launch). Research/docs only, no code. |
+| W2-304 | | B2 | J08 | CRANE | CLAIMED-CRANE | | author docs/ENGINE_VV.md — validation plan: IS worked examples + NAFEMS benchmarks, run per release, published. Research/docs only, no code. |
 
 ## 2026-09-01 — SCRIBE agent-interface research (CRANE-authored, research only)
 | W2-305 | | B2 | J08 | CRANE | DONE | 9f9bf26 | author docs/AGENT_INTERFACE.md — MCP tool catalog for all 9 products; MCP Apps plan (which tools get in-chat UI); A2A agent-card spec; agent auth + rate-card design; payments evaluation (x402 vs AP2, recommend one, flag India-regulatory considerations); llms.txt/AGENTS.md/OpenAPI alignment; MCP security section. Research only, no code. |
