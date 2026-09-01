@@ -198,6 +198,14 @@ W2-305 AGENT_INTERFACE spec once it lands — annotated inline above.
 (W2-266..272) → W2-280 (metadata pass) → Transact (W2-283..287) →
 W2-292/294/297/299 (OSS adoption + three-mode rate calc + rate engine).
 
+## 2026-09-01 — SCRIBE seamless sweep + engine docs reconciliation
+Note: ENGINE_ARCH (solver orchestration: OpenSees/CalculiX/Code_Aster,
+IS-code post-processors, scope tiers T1-T3) and ENGINE_VV (IS worked
+examples + NAFEMS benchmarks, published per release) were already queued
+this session as W2-303 and W2-304 on branch w2-302/SCRIBE-engine-arch-rows
+(unlanded, same scope as re-requested here) — not duplicated.
+| W2-306 | | B2 | J08 | CRANE | OPEN | | SEAMLESS_SWEEP — final site-wide verification: all routes 200, redirects work, no dead links, every MCP tool is real-or-honest-stub (no silent fakes), tsc + verify-static green, sitemap canonical. Run last, after everything else in the build order. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

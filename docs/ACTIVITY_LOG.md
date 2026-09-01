@@ -521,3 +521,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Expand docs/AGENT_INTERFACE.md to full W2-305 scope, land as v2, then build architecture wave 276→277→278→274→275 against it.
 ---
+
+## 2026-09-01 12:05 - SCRIBE seamless sweep row + engine docs reconciliation
+**Action:** Queued W2-306 SEAMLESS_SWEEP for CRANE — final site-wide verification pass: all routes 200, redirects work, no dead links, every MCP tool is real-or-honest-stub (no silent fakes), tsc + verify-static green, sitemap canonical; run last, after everything else in the build order. Did not duplicate ENGINE_ARCH/ENGINE_VV — those are already queued this session as W2-303/304 on unlanded branch w2-302/SCRIBE-engine-arch-rows with identical scope, noted inline rather than re-added.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Standing by as docs authority.
+---
