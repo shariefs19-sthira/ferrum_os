@@ -611,3 +611,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/ATLAS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** ATLAS and CRANE both read the disjoint-ownership protocol from main before claiming further rows.
 ---
+
+## 2026-09-01 14:55 - SCRIBE DSH-inspired patterns (undo discipline, skills catalog, gate dispatch)
+**Action:** Added three new rules to AGENTS.md (no full harness adoption, just these three patterns): RULE 10 UNDO_DISCIPLINE — every WAVE_QUEUE row going forward carries an UNDO: field (one-line deterministic inverse command); existing rows are not retrofitted. RULE 11 SKILLS_CATALOG — new docs/SKILLS.md lists each seat's expert skills (CRANE: D1 migrations, Worker routes, MCP wiring, auth/payments backend; ATLAS: audits, research, legal drafting, site-systems architecture; SCRIBE: queue management, ledger discipline, row verification); the conductor routes sub-tasks by skill. RULE 12 SUB_AGENT_GATE_DISPATCH — when CRANE hits an operator gate it reports to the conductor instead of blocking, and the conductor dispatches the unblocking sub-task to ATLAS (research/design) or SCRIBE (docs/queue) as appropriate.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/SKILLS.md, docs/ACTIVITY_LOG.md
+**Next Steps:** New WAVE_QUEUE rows should start carrying UNDO: fields from here on.
+---
