@@ -553,3 +553,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE builds W2-312 and W2-313; note W2-309/310/311 (Leaflet/Tesseract/three-mode calc) still awaits a landing decision from the operator per the prior turn.
 ---
+
+## 2026-09-01 13:15 - SCRIBE final rails rows (W2-326..336)
+**Action:** Queued 11 rows for CRANE covering the remaining build-out to a real, shippable product: W2-326 AUTH_COMPLETE (PBKDF2/WebCrypto password auth, sessions, Resend verify+reset with dev fallback, account page, rate limits — folds W2-317); W2-327 WORKSPACE_DATA (saved-artifact CRUD/export/share tied to auth); W2-328 FORMS_LEADS (all forms into D1 + minimal admin lead view); W2-329 PAYMENTS_COMPLETE (checkout/tokens/subscriptions/webhooks with signature verify/receipts+GST invoice, test-mode now); W2-330 TRANSACT_LIFECYCLE (buyer/seller state machine, KYC capture, R2 uploads, scheduling, notifications); W2-331 CONTENT_REAL (Blog/Case Studies/IS Guides real content, no lorem); W2-332 LEGAL_PAGES (Terms/Privacy/Refunds/Disclaimers/DPDP/cookie consent); W2-333 SITE_SYSTEMS (404, SEO/OG, sitemap/robots, a11y, perf, error boundaries); W2-334 SECURITY_HARDENING (rate limits, CSP, validation, secrets audit); W2-335 AGENT_SURFACE_SYNC (reconcile llms.txt/AGENTS.md/OpenAPI/MCP catalog against actual shipped state); W2-336 OPS (logs/traces, error tracking). W2-326 folds the earlier W2-317 (real workspace auth) — that row lives on the still-unlanded w2-314/SCRIBE-post-launch-rails branch and isn't present in this checkout, so the fold is recorded here rather than as an in-file edit to W2-317 itself.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE works these; when w2-314/SCRIBE-post-launch-rails lands, its W2-317 row should get a superseded-by-W2-326 note.
+---

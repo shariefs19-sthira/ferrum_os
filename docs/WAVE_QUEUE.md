@@ -227,6 +227,23 @@ landed, so W2-312 carries the real scope.
 | W2-312 | | B2 | J08 | CRANE | DONE | 77f88b1 | FERRUM-RATE ENGINE (Mode 1 of the W2-311 three-mode calculator, fulfills W2-299). Sources v1: govt reference (CPWD DSR/circle-rate derived, watermarked), indicative market seeds, user Mode-3 assumptions, project params (city tier, structure type, floors, finish grade). Uploaded BOQs/live feeds explicitly excluded until post-launch. Weighting default 40 govt / 40 market / 20 user, slider-adjustable, weights always displayed. "Best price" = role-aware weighted-median output as a band (P25/P50/P75): buyer role = conservative-high, seller role = market median, contractor role = realistic median. Output anatomy: band + per-source breakdown + weights used + sources + INDICATIVE watermark + a "why this band" explanation line. Optional time-adjustment (project start month, quarterly escalation factor, itself labeled INDICATIVE). Every output figure carries `indicative:true` until real feeds exist — never presented as market truth. Wire Mode 1 into the MCP `boq-estimate` tool so the stub becomes real. |
 | W2-313 | | B2 | J08 | CRANE | DONE | d8b3ea3 | DASHBOARD + WORKSPACE PREVIEW — unparks W2-262 (marketing-preview scope only, not the full Relume page). Marketing preview pages: realistic mock UI built as real components, non-functional controls explicitly labeled PREVIEW, CTA = early-access lead capture into the D1 leads table. Copy list to cover: saved test-fits, BOQ estimates, rate comparisons, ULPIN reports, projects with timelines, team + comments, agent/MCP access to your data. Dashboard page = hero + 4 feature blocks + mock UI strip + security note + CTA. Workspace page = hero + artifact grid + collaboration + integrations + CTA. Use the 7-section template where the manifest allows it; Relume voice throughout; do not re-open Relume engagement/design-review for this. |
 
+## 2026-09-01 — SCRIBE final rails (auth through ops)
+Note: W2-326 folds/supersedes the earlier W2-317 (real workspace auth) —
+that row is on the still-unlanded w2-314/SCRIBE-post-launch-rails branch,
+not present in this checkout, so no in-file edit was made to it; recorded
+here instead.
+| W2-326 | | B2 | J08 | CRANE | OPEN | | AUTH_COMPLETE — password auth via PBKDF2 over WebCrypto, sessions, verify + reset flows via Resend with a dev fallback, account page, rate limits on auth endpoints. Folds/supersedes W2-317. |
+| W2-327 | | B2 | J08 | CRANE | OPEN | | WORKSPACE_DATA — saved-artifact CRUD + export + share, tied to W2-326 auth |
+| W2-328 | | B2 | J08 | CRANE | OPEN | | FORMS_LEADS — route all site forms into D1, plus a minimal operator admin view for leads |
+| W2-329 | | B2 | J08 | CRANE | OPEN | | PAYMENTS_COMPLETE — checkout, demand tokens, subscriptions, webhooks with signature verification, receipts + GST invoice generation; test-mode for now |
+| W2-330 | | B2 | J08 | CRANE | OPEN | | TRANSACT_LIFECYCLE — buyer/seller state machine, KYC capture, document uploads via R2, scheduling, notifications |
+| W2-331 | | B2 | J08 | CRANE | OPEN | | CONTENT_REAL — real content pass on Blog / Case Studies / IS Code Guides, no lorem/placeholder text remaining |
+| W2-332 | | B2 | J08 | CRANE | OPEN | | LEGAL_PAGES — Terms, Privacy, Refunds, Disclaimers, DPDP notice, cookie consent |
+| W2-333 | | B2 | J08 | CRANE | OPEN | | SITE_SYSTEMS — 404 page, SEO/OG tags, sitemap + robots, accessibility pass, performance pass, error boundaries |
+| W2-334 | | B2 | J08 | CRANE | OPEN | | SECURITY_HARDENING — rate limits, CSP (see docs/SECURITY.md CSP decisions / W2-240), input validation, secrets audit |
+| W2-335 | | B2 | J08 | CRANE | OPEN | | AGENT_SURFACE_SYNC — reconcile llms.txt/AGENTS.md/OpenAPI/MCP tool catalog against whatever actually shipped by this point in the build |
+| W2-336 | | B2 | J08 | CRANE | OPEN | | OPS — logging + tracing, error tracking |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
