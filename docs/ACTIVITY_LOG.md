@@ -585,3 +585,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Verify presence on origin/main per the operator's protocol (ls-remote + fetch + grep) before reporting Done.
 ---
+
+## 2026-09-01 14:00 - SCRIBE ATLAS findings: CDE status honesty + form wiring (W2-340, W2-341)
+**Action:** Queued 2 rows for CRANE from ATLAS findings not covered by existing rows: W2-340 CDE_STATUS_FIX (make /api/cde-status/:project_id either read a real per-project record or explicitly self-declare indicative/mock in its own payload — currently silently ignores project_id, a hidden defect invisible to an MCP agent; same fix wired into the MCP cde-status tool if exposed). W2-341 FORM_WIRING (wire NewsletterSignup/Contact/Demo/Signup forms to /api/leads with a type discriminator each; wrap the Login page fields in a real form posting to /api/auth/login; replace the dead "Forgot password?" link with a real /forgot-password stub route posting to /api/auth/reset-request).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE works these; verification of all pending row numbers follows in this same push.
+---
