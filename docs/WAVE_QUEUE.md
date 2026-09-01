@@ -120,7 +120,7 @@
 | W2-249 | | B2 | J08 | CRANE | DONE | 2642fb8 | Relume: Structura |
 | W2-250 | | B2 | J08 | CRANE | DONE | 109c8a6 | Relume: BOQ-Pro marketing page |
 | W2-251 | | B2 | J08 | CRANE | DONE | f9d013d | Relume: ProMarket |
-| W2-252 | | B2 | J08 | CRANE | OPEN | | Relume: BuildOS (5 wireframed sections; FAQ/CTA in Wave B) |
+| W2-252 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Relume: BuildOS (5 wireframed sections; FAQ/CTA in Wave B) |
 
 ## 2026-09-01 — SCRIBE Relume addendum (docs/RELUME_ADDENDUM.md)
 | W2-253 | | B2 | J08 | CRANE | OPEN | | Relume: ProcureHub page |
