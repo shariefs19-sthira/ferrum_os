@@ -15,8 +15,8 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
 import { z } from 'zod'
-import { D1LandRecordsProvider } from '../providers/LandRecordsProvider'
-import { D1RatesProvider } from '../providers/RatesProvider'
+import { LiveLandRecordsProvider } from '../providers/LiveLandRecordsProvider'
+import { LiveMarketRatesProvider } from '../providers/LiveMarketRatesProvider'
 import { SvgGeometryExporter } from '../providers/GeometryExporter'
 import { runIsCheck } from '../checks/isCode'
 import { estimateIrr } from '../finance/irrNpv'
@@ -27,7 +27,7 @@ function textResult(data: unknown) {
   return { content: [{ type: 'text' as const, text: JSON.stringify(data) }] }
 }
 
-export function buildMcpServer(db: D1Database): McpServer {
+export function buildMcpServer(db: D1Database, ogdApiKey?: string): McpServer {
   const server = new McpServer({ name: 'ferrum-os', version: '1.0.0' })
 
   server.registerTool(
@@ -38,7 +38,7 @@ export function buildMcpServer(db: D1Database): McpServer {
       inputSchema: { ulpin: z.string() },
     },
     async ({ ulpin }) => {
-      const provider = new D1LandRecordsProvider(db)
+      const provider = new LiveLandRecordsProvider(db, ogdApiKey)
       const parcel = await provider.lookup(ulpin)
       if (!parcel) return textResult({ error: 'not_found' })
       return textResult({ ...parcel, indicative: true })
@@ -80,7 +80,7 @@ export function buildMcpServer(db: D1Database): McpServer {
       const effectiveRegion = region ?? 'Bengaluru'
       const useFerrum = mode === 'ferrum'
       const effectiveRole: Role = role ?? 'contractor'
-      const ratesProvider = new D1RatesProvider(db)
+      const ratesProvider = new LiveMarketRatesProvider(db, ogdApiKey)
       const govtProvider = new D1GovtReferenceRatesProvider(db)
       const lineItems = []
       let total = 0
@@ -120,7 +120,7 @@ export function buildMcpServer(db: D1Database): McpServer {
       inputSchema: { category: z.string(), region: z.string().optional() },
     },
     async ({ category, region }) => {
-      const provider = new D1RatesProvider(db)
+      const provider = new LiveMarketRatesProvider(db, ogdApiKey)
       const rates = await provider.compare(category, region)
       return textResult({ category, region: region ?? null, rates, indicative: true })
     },
