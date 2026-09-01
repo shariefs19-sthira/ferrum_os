@@ -441,3 +441,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/SECURITY.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority. docs/LAND_HOLD.txt is CRANE's file to maintain going forward per its own W2-241 land; SCRIBE records the incident, doesn't own the hold-list.
 ---
+
+## 2026-09-01 09:20 - SCRIBE Relume addendum (W2-258)
+**Action:** Committed the operator's Relume Addendum Manifest verbatim as docs/RELUME_ADDENDUM.md (ProcureHub, InvestFlow, CommunityBuild pages fully wired; BuildOS FAQ+CTA completed; Pricing page 7 sections wired; remaining pending list: About, Careers, Resources, Case Studies, IS Code Guides, Blog, Documentation, API Docs, User Guides, Dashboard, Project Workspace, Sign Up, Billing). Appended 5 WAVE_QUEUE rows (W2-253..257), all CRANE. Branched fresh off origin/main as w2-258/SCRIBE-addendum rather than reusing the still-unlanded w2-243/SCRIBE-relume, per operator's "cleaner" preference.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/RELUME_ADDENDUM.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE works W2-253..257 after W2-244..252 (w2-243/SCRIBE-relume still pending land).
+---
