@@ -3,6 +3,7 @@ import Eyebrow from '../../../components/sections/Eyebrow'
 import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
+import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 
 const featureItems = [
   { title: 'Common data environment', body: 'One source of truth for the whole team.' },
@@ -47,9 +48,27 @@ const pricingPlans = [
   },
 ]
 
-// FAQ and CTA sections are explicitly marked PENDING (not yet wireframed)
-// in docs/RELUME_HANDOFF.md for BuildOS — deferred to Wave B per W2-252's
-// own scope note. Not fabricated here.
+// FAQ topics per docs/RELUME_ADDENDUM.md: CDE, mobile field app, MB/RA
+// bills, small projects. Answers restate facts already stated elsewhere
+// on this page (Hero, Features, Pricing) — not new claims.
+const faqItems = [
+  {
+    question: 'What is the common data environment (CDE)?',
+    answer: 'The CDE is BuildOS’s single source of truth for the whole team — tasks, RFIs, QA/QC, progress and measurement books all live in one shared environment.',
+  },
+  {
+    question: 'Is there a mobile app for the field?',
+    answer: 'Yes — BuildOS includes a mobile field app so site teams can work from the same data as the office.',
+  },
+  {
+    question: 'How do measurement books and RA bills work?',
+    answer: 'Measurement books and RA bills are billed accurately from measured work recorded in BuildOS, so billing stays tied to what was actually built.',
+  },
+  {
+    question: 'Is BuildOS suitable for small projects?',
+    answer: 'Yes — the Free plan covers 1 active project with task management and a basic CDE, so a small project can run on BuildOS without committing to a paid plan.',
+  },
+]
 
 export default function BuildOSPage() {
   return (
@@ -152,6 +171,28 @@ export default function BuildOSPage() {
               </div>
             </div>
           ))}
+        </div>
+      </SectionShell>
+
+      {/* 6. FAQ */}
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>FAQ</Eyebrow>
+          <SectionHeading className="mt-4">BuildOS questions, answered</SectionHeading>
+        </div>
+        <div className="mx-auto mt-12 max-w-2xl">
+          <AccordionLeaf items={faqItems} />
+        </div>
+      </SectionShell>
+
+      {/* 7. CTA */}
+      <SectionShell>
+        <div className="mx-auto max-w-xl rounded-lg border border-relume-border bg-relume-surface-secondary p-10 text-center">
+          <Eyebrow>Start free</Eyebrow>
+          <SectionHeading className="mt-4">Run your first project free</SectionHeading>
+          <div className="mt-8">
+            <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
+          </div>
         </div>
       </SectionShell>
     </main>
