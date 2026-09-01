@@ -529,3 +529,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 2026-09-01 12:15 - SCRIBE concierge assistant rows (W2-307, W2-308)
+**Action:** Queued 2 rows for CRANE, next free numbers: W2-307 CONCIERGE — deterministic intent-router assistant (no LLM): build-time catalog knowledge, polite script set following COMPLIANCE_GATE voice, quick replies, router.push into both pages and tools, polite fallback + lead handoff, ARIA + mobile support, no external network calls. W2-308 CONCIERGE_LLM — post-launch upgrade path to an LLM-backed assistant, explicitly gated OPEN/blocked on three preconditions: API-key provisioning, abuse/cost review, and retrieval-grounding design — not to start until all three clear.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE builds W2-307 (deterministic, no external calls); W2-308 stays blocked pending gates.
+---
