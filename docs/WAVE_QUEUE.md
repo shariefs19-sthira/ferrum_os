@@ -155,7 +155,7 @@ dependency and can run anytime.
 | W2-273 | | B2 | J08 | CRANE | OPEN | | architecture: llms.txt (no dependency, anytime) — built per AGENT_INTERFACE spec (W2-305) |
 | W2-276 | | B2 | J08 | CRANE | DONE | e773b49 | architecture: worker + D1 scaffold (D1 "ferrum-os-data", binding DB, id 049b0f34-adb3-4f7f-85ec-60170019f3a0; schema: rates, parcels, leads, plans; wrangler.jsonc gains worker + bindings) — built per AGENT_INTERFACE spec (W2-305) |
 | W2-277 | | B2 | J08 | CRANE | DONE | 2a6a249 | architecture: provider seams (LandRecordsProvider, RatesProvider, GeometryExporter) + INDICATIVE sample parcel/rate datasets — after W2-276; built per AGENT_INTERFACE spec (W2-305) |
-| W2-278 | | B2 | J08 | CRANE | OPEN | | architecture: client-side DXF exporter — after W2-276; built per AGENT_INTERFACE spec (W2-305) |
+| W2-278 | | B2 | J08 | CRANE | CLAIMED-CRANE | | architecture: client-side DXF exporter — after W2-276; built per AGENT_INTERFACE spec (W2-305) |
 | W2-274 | | B2 | J08 | CRANE | OPEN | | architecture: MCP server (ulpin-demo, testfit, boq-estimate, plan-gen, is-check) — after W2-276; built per AGENT_INTERFACE spec (W2-305) |
 | W2-275 | | B2 | J08 | CRANE | OPEN | | architecture: OpenAPI at /docs/api — with W2-276; built per AGENT_INTERFACE spec (W2-305) |
 
