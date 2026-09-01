@@ -16,7 +16,7 @@ Full machine-readable specs:
 - **ulpin-demo** — Indicative ULPIN parcel lookup. `GET /api/ulpin/:id`
 - **testfit** — SVG massing/test-fit generation for a plot. `POST /api/testfit`
 - **plan-gen** — STUB, not implemented. Returns 501. `POST /api/plan-gen`
-- **is-check** — IS 456 Cl 26.5.1.1 (RC beam min reinforcement) and IS 800 Cl 3.8 (steel column slenderness) checks. `POST /api/is-check`
+- **is-check** — IS 456 Cl 26.5.1.1 (RC beam min reinforcement), IS 800 Cl 3.8 (steel column slenderness), IS 1893:2016 Cl 6.4.2 (seismic coefficient), IS 875:2015 Part 3 (wind pressure) checks. `POST /api/is-check`
 - **boq-estimate** — Indicative bill-of-quantities estimate. `POST /api/boq-estimate`
 - **rate-compare** — Indicative material/labor rate comparison. `GET /api/rates/compare`
 - **irr-npv** — Investment IRR/NPV modeling from cash flows. `POST /api/irr-npv`

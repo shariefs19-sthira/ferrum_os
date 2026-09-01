@@ -110,7 +110,7 @@ export const openApiSpec: OpenAPIV3.Document = {
       post: {
         summary: 'IS-code compliance check',
         description:
-          'Same tool as MCP `is-check`. Two textbook checks (W2-268): IS 456 Cl 26.5.1.1 minimum tension reinforcement (structure_type: "rc-beam") and IS 800 Cl 3.8 slenderness ratio (structure_type: "steel-column"). Not the full code — just these two.',
+          'Same tool as MCP `is-check`. Four textbook checks (W2-268, W2-337), not the full codes: IS 456 Cl 26.5.1.1 minimum tension reinforcement (structure_type: "rc-beam"), IS 800 Cl 3.8 slenderness ratio (structure_type: "steel-column"), IS 1893:2016 Cl 6.4.2 seismic coefficient (structure_type: "seismic-coefficient"), IS 875:2015 Part 3 wind pressure (structure_type: "wind-pressure").',
         requestBody: {
           required: true,
           content: {

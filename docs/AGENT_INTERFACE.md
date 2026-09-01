@@ -120,9 +120,20 @@ data.
 ### `is-check`
 - Input: `{ structure_type: string, params: Record<string, number> }`
 - Output: `{ code: string, checks: Array<{ rule, pass: boolean, note }> }`
-- Static rule tables mirroring Structura's IS 456/875/800 checks. No
-  D1 dependency — rules are code, not data, so this tool works even if
-  D1 is unavailable.
+- Static rule tables — four textbook checks, not the full codes:
+  - `rc-beam`: IS 456 Cl 26.5.1.1 minimum tension reinforcement (pass/fail).
+  - `steel-column`: IS 800 Cl 3.8 slenderness ratio limit (pass/fail).
+  - `seismic-coefficient` (W2-337): IS 1893:2016 Cl 6.4.2 design
+    horizontal seismic coefficient Ah, using the Table 3 piecewise
+    Sa/g spectrum by soil type. Informational — `pass` reflects valid
+    input, not a threshold, since Ah is a coefficient (VB = Ah × W),
+    not a limit.
+  - `wind-pressure` (W2-337): IS 875:2015 Part 3 Cl 6.3/7.2 design
+    wind speed Vz and pressure pz = 0.6·Vz². Also informational for
+    the same reason — apply Cp coefficients for the actual structure
+    before using pz as a design value.
+- No D1 dependency — rules are code, not data, so this tool works even
+  if D1 is unavailable.
 
 ### `boq-estimate`
 - Input: `{ items: Array<{ category: string, quantity: number, unit: string }> }`
@@ -267,7 +278,7 @@ An A2A-compatible agent discovers Ferrum's capabilities via a card at
     { "id": "ulpin-demo", "name": "ULPIN parcel lookup", "description": "Indicative parcel lookup by ULPIN." },
     { "id": "testfit", "name": "Test-fit massing", "description": "Generate SVG massing for a plot." },
     { "id": "plan-gen", "name": "Plan + DXF export (stub)", "description": "Not implemented yet — returns 501. See §3 for the intended shape." },
-    { "id": "is-check", "name": "IS-code compliance check", "description": "Check structural params against IS 456 Cl 26.5.1.1 and IS 800 Cl 3.8." },
+    { "id": "is-check", "name": "IS-code compliance check", "description": "Check structural params against IS 456 Cl 26.5.1.1, IS 800 Cl 3.8, IS 1893 Cl 6.4.2 (seismic coefficient), and IS 875 Part 3 Cl 6.3/7.2 (wind pressure)." },
     { "id": "boq-estimate", "name": "BOQ estimate", "description": "Indicative bill-of-quantities estimate." },
     { "id": "rate-compare", "name": "Rate comparison", "description": "Indicative material/labor rate comparison." },
     { "id": "irr-npv", "name": "IRR/NPV modeling", "description": "Investment return modeling from cash flows." },
