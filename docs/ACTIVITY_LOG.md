@@ -603,3 +603,11 @@ cd C:\Users\user\ferrum_os
 ---
 
 ## 2026-09-01 14:30 - SCRIBE ATLAS reactivation + disjoint-ownership protocol (WIP, continued below)
+
+## 2026-09-01 14:40 - SCRIBE ATLAS reactivation + disjoint-ownership protocol (complete)
+**Action:** Reactivated ATLAS as ACTIVE with a dual role (architect + executor for its assigned queue slice) — updated AGENTS.md RULE 1 roster, docs/ROLE_MAP.md's ACTIVE table and change log (removed ATLAS from PARKED), and created docs/seats/ATLAS.md. Codified the ATLAS/CRANE disjoint-ownership protocol in both AGENTS.md and ROLE_MAP.md: ATLAS never touches worker.ts/auth/payments files, CRANE never touches sitemap/nav/footer/legal/resources files, dependency additions are CRANE-only, both push from their own worktrees, landing is serialized via scripts/land.ps1 regardless of authoring seat, and SWEEP_100 is run mechanically by CRANE with each seat then spot-auditing the other's half (no self-certification). Reassigned WAVE_QUEUE rows per the operator's split: W2-323, 331, 332, 333, 338, 339, 342 → ATLAS. Did NOT blindly reassign W2-320 (already DONE by CRANE — added a note instead of rewriting history) or W2-321 (actively CLAIMED-CRANE — left with CRANE to avoid duplicate work, noted that it falls in ATLAS's slice going forward). W2-322, 324, 326-330, 334, 335, 337, 340, 341 remain CRANE, unchanged, as specified. Merged in the concurrently-landed w2-320/SCRIBE-transact-launch-rails branch to reach W2-342's real row and resolved several trivial conflicts (mostly duplicate sections from independent landings; kept the more current/already-updated status where both sides described the same row).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/ATLAS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** ATLAS and CRANE both read the disjoint-ownership protocol from main before claiming further rows.
+---
