@@ -1,11 +1,11 @@
 "use client";
 
 import React from 'react';
-import StructuraFeatures from '../../components/StructuraFeatures';
-import ProductPage from '../../components/ProductPage';
-import StatCallout from '../../components/StatCallout';
-import SpecTable from '../../components/SpecTable';
-import { productsData } from '../../components/product-data';
+import StructuraFeatures from '../../../components/StructuraFeatures';
+import ProductPage from '../../../components/ProductPage';
+import StatCallout from '../../../components/StatCallout';
+import SpecTable from '../../../components/SpecTable';
+import { productsData } from '../../../components/product-data';
 
 const beamTableColumns = [
   { key: 'spanM', label: 'Span (m)' },

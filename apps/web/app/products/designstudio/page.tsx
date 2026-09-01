@@ -1,4 +1,4 @@
-import DesignStudioFeatures from '../../components/DesignStudioFeatures';
+import DesignStudioFeatures from '../../../components/DesignStudioFeatures';
 
 export default function DesignStudioPage() {
   return (
