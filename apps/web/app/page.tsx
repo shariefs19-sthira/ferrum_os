@@ -17,6 +17,7 @@ const productShowcaseItems = [
   { title: 'ProcureHub', body: 'Material procurement & suppliers', href: '/products/procurehub' },
   { title: 'InvestFlow', body: 'Investment forecasting', href: '/products/investflow' },
   { title: 'CommunityBuild', body: 'Fractional development', href: '/products/communitybuild' },
+  { title: 'Transact', body: 'Indicative stamp-duty & ask-band estimation', href: '/products/transact' },
 ]
 
 const valuePropItems = [
@@ -126,7 +127,7 @@ export default function HomePage() {
       <SectionShell>
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>Explore the products</Eyebrow>
-          <SectionHeading className="mt-4">Nine products. One platform.</SectionHeading>
+          <SectionHeading className="mt-4">Ten products. One platform.</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
             Each product works standalone or plugs into the full workflow — so you can start
             with one and grow into the rest.

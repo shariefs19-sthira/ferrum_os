@@ -9,7 +9,8 @@ const products = [
   { name: 'BuildOS', href: '/products/buildos' },
   { name: 'ProcureHub', href: '/products/procurehub' },
   { name: 'InvestFlow', href: '/products/investflow' },
-  { name: 'CommunityBuild', href: '/products/communitybuild' }
+  { name: 'CommunityBuild', href: '/products/communitybuild' },
+  { name: 'Transact', href: '/products/transact' }
 ]
 
 const resources = [
