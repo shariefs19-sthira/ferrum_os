@@ -132,7 +132,7 @@
 ## 2026-09-01 — SCRIBE Wave C (renumbered 259..263, see note)
 | W2-259 | | B2 | J08 | CRANE | DONE | b33047c | Relume: About + /about/careers |
 | W2-260 | | B2 | J08 | CRANE | DONE | a3cb58e | Relume: content hubs — Resources / Case Studies / IS Code Guides / Blog |
-| W2-261 | | B2 | J08 | CRANE | CLAIMED-CRANE | | Relume: Documentation + API Docs + User Guides |
+| W2-261 | | B2 | J08 | CRANE | DONE | edc8c44 | Relume: Documentation restyle (API Docs/User Guides not built - no source content) |
 | W2-262 | | B2 | J08 | CRANE | OPEN | | Relume: Dashboard + Project Workspace |
 | W2-263 | | B2 | J08 | CRANE | OPEN | | Relume: Sign Up + Billing |
 
