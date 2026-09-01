@@ -50,7 +50,7 @@ tool name, and a REST equivalent.
 |---|---|---|---|---|---|
 | ULPIN parcel lookup (indicative) | LandIntel | `ulpin-demo` | `GET /api/ulpin/:id` | `LandRecordsProvider` | launch |
 | Massing/test-fit generation | DesignStudio | `testfit` | `POST /api/testfit` | `GeometryExporter` (SVG) | launch |
-| Plan generation (client DXF export) | DesignStudio | `plan-gen` | `POST /api/plan-gen` | `GeometryExporter` (DXF) | launch |
+| Plan generation (client DXF export) | DesignStudio | `plan-gen` | `POST /api/plan-gen` | `GeometryExporter` (DXF) | stub |
 | IS-code compliance check | Structura | `is-check` | `POST /api/is-check` | static rule tables | launch |
 | BOQ estimate | BOQ Pro | `boq-estimate` | `POST /api/boq-estimate` | D1 rate tables | launch |
 | Rate comparison (indicative) | ProMarket | `rate-compare` | `GET /api/rates/compare` | `RatesProvider` | launch |
@@ -87,8 +87,10 @@ data.
 - Input: `{ ulpin: string }`
 - Output: `{ ulpin, state, district, area_sqm, land_use, indicative: true }`
 - Backed by the same sample parcel dataset the LandIntel product page
-  demos (`LandIntelLookup.tsx`). INDICATIVE until the real DILRMP/ULPIN
-  API lands (post-launch rail, per `LAUNCH_ARCHITECTURE.md`).
+  demos (`UlpinDemoWidget.tsx` — the earlier `LandIntelLookup.tsx` was a
+  dead FastAPI-era relic removed in W2-321). INDICATIVE until the real
+  DILRMP/ULPIN API lands (post-launch rail, per `LAUNCH_ARCHITECTURE.md`,
+  see also `docs/DILRMP_ONBOARDING.md`).
 
 ### `testfit`
 - Input: `{ plot_width_m: number, plot_depth_m: number, floors: number, setback_m?: number }`
@@ -96,13 +98,24 @@ data.
 - SVG massing only at launch (`LAUNCH_ARCHITECTURE.md`: "SVG massing/plan
   viz... WebGPU FEA + 3D viewer" is post-launch).
 
-### `plan-gen`
-- Input: `{ testfit_id: string, options?: Record<string, unknown> }`
-- Output: `{ dxf_url: string, expires_at: string }`
-- Wraps a prior `testfit` result into an exportable DXF. Export stays
-  client-side per `LAUNCH_ARCHITECTURE.md` ("R2 deferred, exports stay
-  client-side") — the Worker returns a short-lived signed URL to a
-  client-generated blob, not a server-rendered file.
+### `plan-gen` (stub — W2-335 downgrade)
+- Both the REST route and MCP tool currently return `501 not_implemented`
+  — the DXF-export seam described below was never built. Downgraded
+  from "launch" to "stub" here and in the A2A card (§7) rather than
+  advertising a capability that doesn't exist to any agent reading this
+  catalog.
+- Intended shape once built: Input `{ testfit_id: string, options?:
+  Record<string, unknown> }`, Output `{ dxf_url: string, expires_at:
+  string }` — wraps a prior `testfit` result into an exportable DXF.
+  Export stays client-side per `LAUNCH_ARCHITECTURE.md` ("R2 deferred,
+  exports stay client-side") — the Worker would return a short-lived
+  signed URL to a client-generated blob, not a server-rendered file.
+- `migrations/0001_init.sql`'s `plans` table (`testfit_id`,
+  `dxf_blob_ref`, `expires_at`) is schema-reserved for this — created
+  at launch, never read or written by any route today. Left in place
+  rather than dropped, since dropping a table that's part of the
+  originally-scoped schema is a bigger call than this reconciliation
+  task warrants; it becomes live once `plan-gen` is actually built.
 
 ### `is-check`
 - Input: `{ structure_type: string, params: Record<string, number> }`
@@ -253,8 +266,8 @@ An A2A-compatible agent discovers Ferrum's capabilities via a card at
   "skills": [
     { "id": "ulpin-demo", "name": "ULPIN parcel lookup", "description": "Indicative parcel lookup by ULPIN." },
     { "id": "testfit", "name": "Test-fit massing", "description": "Generate SVG massing for a plot." },
-    { "id": "plan-gen", "name": "Plan + DXF export", "description": "Export a test-fit result as DXF." },
-    { "id": "is-check", "name": "IS-code compliance check", "description": "Check structural params against IS 456/875/800." },
+    { "id": "plan-gen", "name": "Plan + DXF export (stub)", "description": "Not implemented yet — returns 501. See §3 for the intended shape." },
+    { "id": "is-check", "name": "IS-code compliance check", "description": "Check structural params against IS 456 Cl 26.5.1.1 and IS 800 Cl 3.8." },
     { "id": "boq-estimate", "name": "BOQ estimate", "description": "Indicative bill-of-quantities estimate." },
     { "id": "rate-compare", "name": "Rate comparison", "description": "Indicative material/labor rate comparison." },
     { "id": "irr-npv", "name": "IRR/NPV modeling", "description": "Investment return modeling from cash flows." },
@@ -270,7 +283,12 @@ Notes:
   fourth set of capabilities. `leads` is intentionally absent for the
   same reason it has no MCP tool (§5).
 - `authentication.schemes` is empty at launch (no auth, §5); it gains
-  an entry once the post-launch API-key tier exists.
+  an entry once the post-launch API-key tier exists. Note: W2-326
+  landed real password auth (session cookies) for the site's human
+  workspace/payments features — that's unrelated to this card, which
+  only describes the eight stateless tools in §2/§3. None of them
+  require or check a session; the agent-facing surface stays
+  unauthenticated regardless of what the human-facing site added.
 - `capabilities.streaming` and `pushNotifications` are both `false` —
   every tool here is a single request/response call, nothing long-running
   or async at launch.

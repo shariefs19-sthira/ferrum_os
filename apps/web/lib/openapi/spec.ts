@@ -109,7 +109,8 @@ export const openApiSpec: OpenAPIV3.Document = {
     '/api/is-check': {
       post: {
         summary: 'IS-code compliance check',
-        description: 'Same tool as MCP `is-check`. Rule table not yet populated — returns an empty checks array, never a fabricated result.',
+        description:
+          'Same tool as MCP `is-check`. Two textbook checks (W2-268): IS 456 Cl 26.5.1.1 minimum tension reinforcement (structure_type: "rc-beam") and IS 800 Cl 3.8 slenderness ratio (structure_type: "steel-column"). Not the full code — just these two.',
         requestBody: {
           required: true,
           content: {
@@ -122,7 +123,29 @@ export const openApiSpec: OpenAPIV3.Document = {
             },
           },
         },
-        responses: { '501': { description: 'Not implemented' } },
+        responses: {
+          '200': {
+            description: 'Check result',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    code: { type: 'string' },
+                    checks: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: { rule: { type: 'string' }, pass: { type: 'boolean' }, note: { type: 'string' } },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          '400': { description: 'Invalid input' },
+        },
       },
     },
     '/api/boq-estimate': {
@@ -198,7 +221,7 @@ export const openApiSpec: OpenAPIV3.Document = {
     '/api/irr-npv': {
       post: {
         summary: 'IRR/NPV modeling',
-        description: `${indicativeNote} Same tool as MCP \`irr-npv\`. Not yet wired on the REST route — see MCP for the live implementation.`,
+        description: `${indicativeNote} Same tool as MCP \`irr-npv\`.`,
         requestBody: {
           required: true,
           content: {
@@ -211,15 +234,44 @@ export const openApiSpec: OpenAPIV3.Document = {
             },
           },
         },
-        responses: { '501': { description: 'Not implemented on REST yet — available via MCP' } },
+        responses: {
+          '200': {
+            description: 'IRR/NPV result',
+            content: {
+              'application/json': {
+                schema: { type: 'object', properties: { irr: { type: 'number' }, npv: { type: 'number' }, indicative: { type: 'boolean' } } },
+              },
+            },
+          },
+          '400': { description: 'Invalid input' },
+          '429': { description: 'Rate limited' },
+        },
       },
     },
     '/api/cde-status/{project_id}': {
       get: {
         summary: 'CDE status read (indicative mock)',
-        description: `${indicativeNote} Same tool as MCP \`cde-status\`. Not yet wired on the REST route — see MCP for the live implementation.`,
+        description: `${indicativeNote} Same tool as MCP \`cde-status\`. Currently returns fixed mock data regardless of project_id — see W2-340 for the honesty fix tracking this.`,
         parameters: [{ name: 'project_id', in: 'path', required: true, schema: { type: 'string' } }],
-        responses: { '501': { description: 'Not implemented on REST yet — available via MCP' } },
+        responses: {
+          '200': {
+            description: 'Mock status',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    project_id: { type: 'string' },
+                    phase: { type: 'string' },
+                    open_items: { type: 'integer' },
+                    last_updated: { type: 'string' },
+                    indicative: { type: 'boolean' },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     },
     '/api/leads': {
@@ -230,11 +282,15 @@ export const openApiSpec: OpenAPIV3.Document = {
           required: true,
           content: {
             'application/json': {
-              schema: { type: 'object', required: ['name', 'email'], properties: { name: { type: 'string' }, email: { type: 'string' }, phone: { type: 'string' }, product: { type: 'string' }, source_page: { type: 'string' } } },
+              schema: { type: 'object', required: ['name', 'email'], properties: { name: { type: 'string' }, email: { type: 'string' }, phone: { type: 'string' }, product: { type: 'string' }, source_page: { type: 'string' }, message: { type: 'string' } } },
             },
           },
         },
-        responses: { '501': { description: 'Not implemented yet' }, '400': { description: 'Invalid lead' } },
+        responses: {
+          '200': { description: 'Captured', content: { 'application/json': { schema: { type: 'object', properties: { status: { type: 'string' } } } } } },
+          '400': { description: 'Invalid lead' },
+          '429': { description: 'Rate limited' },
+        },
       },
     },
   },

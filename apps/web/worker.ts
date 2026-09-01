@@ -859,8 +859,8 @@ app.get('/.well-known/agent.json', (c) =>
     skills: [
       { id: 'ulpin-demo', name: 'ULPIN parcel lookup', description: 'Indicative parcel lookup by ULPIN.' },
       { id: 'testfit', name: 'Test-fit massing', description: 'Generate SVG massing for a plot.' },
-      { id: 'plan-gen', name: 'Plan + DXF export', description: 'Export a test-fit result as DXF.' },
-      { id: 'is-check', name: 'IS-code compliance check', description: 'Check structural params against IS 456/875/800.' },
+      { id: 'plan-gen', name: 'Plan + DXF export (stub)', description: 'Not implemented yet — returns 501.' },
+      { id: 'is-check', name: 'IS-code compliance check', description: 'Check structural params against IS 456 Cl 26.5.1.1 and IS 800 Cl 3.8.' },
       { id: 'boq-estimate', name: 'BOQ estimate', description: 'Indicative bill-of-quantities estimate.' },
       { id: 'rate-compare', name: 'Rate comparison', description: 'Indicative material/labor rate comparison.' },
       { id: 'irr-npv', name: 'IRR/NPV modeling', description: 'Investment return modeling from cash flows.' },
