@@ -465,3 +465,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Standing by as docs authority.
 ---
+
+## 2026-09-01 09:50 - SCRIBE launch architecture (W2-266..278)
+**Action:** Committed the conductor's LAUNCH ARCHITECTURE v1 verbatim as docs/LAUNCH_ARCHITECTURE.md: static site + thin Worker co-hosted topology (/api/*, /mcp, /docs/api), D1 "ferrum-os-data" storage for rates/parcels/leads/plans, R2 deferred, provider seams (LandRecordsProvider/RatesProvider/GeometryExporter), AI surface (llms.txt, MCP tools, OpenAPI, schema.org), at-launch vs post-launch rails split, and the build order (273 → 276 → 277 → 278 → 274 → 275, after Waves A/A2/C + parity). Appended 13 WAVE_QUEUE rows, all CRANE: 7 parity calculators (W2-266..272: FAR/test-fit, plan-gen+DXF, IS 456/800 checker, ULPIN demo, IRR/NPV, rate-compare, CDE dashboard mock) and 6 architecture tasks (W2-273 llms.txt anytime; W2-276 worker+D1 scaffold; W2-277 provider seams+INDICATIVE datasets after 276; W2-278 client DXF exporter after 276; W2-274 MCP server after 276; W2-275 OpenAPI with 276). No existing rows touched; verified no ID collisions in the 266-278 range before writing.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/LAUNCH_ARCHITECTURE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE works parity (266-272, no ordering dependency) and llms.txt (273) anytime; the rest follows the stated build order starting at 276.
+---
