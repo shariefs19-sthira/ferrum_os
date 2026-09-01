@@ -25,6 +25,10 @@ import { initialStep, isValidTransition, isTerminalStep, type CaseRole } from '.
 import type { PaymentProvider } from './lib/payments/PaymentProvider'
 import { RazorpayProvider } from './lib/payments/RazorpayProvider'
 import { StubPaymentProvider } from './lib/payments/StubPaymentProvider'
+import { hashPassword, verifyPassword, generateToken, hashToken } from './lib/auth/password'
+import { createSession, getSessionUser, deleteSession, setCookieHeader, clearCookieHeader, parseSessionCookie } from './lib/auth/session'
+import { sendVerificationEmail, sendResetEmail } from './lib/auth/email'
+import { checkRateLimit } from './lib/auth/rateLimit'
 
 function getPaymentProvider(env: Env): PaymentProvider {
   if (env.RAZORPAY_KEY_ID && env.RAZORPAY_KEY_SECRET) {
@@ -46,6 +50,10 @@ export type Env = {
   RAZORPAY_KEY_ID?: string
   RAZORPAY_KEY_SECRET?: string
   RAZORPAY_WEBHOOK_SECRET?: string
+  // Resend key (W2-326) — unset until an operator provisions it, so
+  // verify/reset emails fall back to returning the raw token in the API
+  // response (labeled dev-mode) instead of sending real mail.
+  RESEND_API_KEY?: string
 }
 
 const app = new Hono<{ Bindings: Env }>()
@@ -378,6 +386,138 @@ app.post('/api/payments/webhook', async (c) => {
   const verified = await provider.verifyWebhookSignature(rawBody, signature)
   if (!verified) return c.json({ error: 'invalid_signature' }, 400)
   return c.json({ received: true })
+})
+
+// Password auth (W2-326), supersedes the stubbed W2-317 login. Sessions
+// are HttpOnly/Secure cookies (see lib/auth/session.ts). Rate-limited
+// endpoints are D1-backed sliding windows (lib/auth/rateLimit.ts), since
+// Workers isolates carry no in-memory state between requests.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+app.post('/api/auth/signup', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.email !== 'string' || !EMAIL_RE.test(body.email) || typeof body.password !== 'string' || body.password.length < 8) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const email = body.email.toLowerCase()
+  if (!(await checkRateLimit(c.env.DB, `signup:${email}`, 5, 60))) return c.json({ error: 'rate_limited' }, 429)
+  const existing = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first()
+  if (existing) return c.json({ error: 'email_taken' }, 409)
+  const { hash, salt, iterations } = await hashPassword(body.password)
+  const userId = crypto.randomUUID()
+  await c.env.DB.prepare(
+    'INSERT INTO users (id, name, email, password_hash, password_salt, password_iterations) VALUES (?, ?, ?, ?, ?, ?)',
+  )
+    .bind(userId, typeof body.name === 'string' ? body.name : null, email, hash, salt, iterations)
+    .run()
+  const token = generateToken()
+  const tokenHash = await hashToken(token)
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+  await c.env.DB.prepare('INSERT INTO verification_tokens (id, user_id, token_hash, type, expires_at) VALUES (?, ?, ?, ?, ?)')
+    .bind(crypto.randomUUID(), userId, tokenHash, 'verify_email', expiresAt)
+    .run()
+  const emailResult = await sendVerificationEmail(c.env.RESEND_API_KEY, email, token)
+  const sessionId = await createSession(c.env.DB, userId)
+  c.header('Set-Cookie', setCookieHeader(sessionId))
+  return c.json({ id: userId, email, email_verified: false, dev_verify_token: emailResult.devToken })
+})
+
+app.post('/api/auth/login', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.email !== 'string' || typeof body.password !== 'string') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const email = body.email.toLowerCase()
+  if (!(await checkRateLimit(c.env.DB, `login:${email}`, 10, 15))) return c.json({ error: 'rate_limited' }, 429)
+  const user = await c.env.DB.prepare('SELECT * FROM users WHERE email = ?').bind(email).first<{
+    id: string
+    email: string
+    password_hash: string
+    password_salt: string
+    password_iterations: number
+    email_verified: number
+  }>()
+  if (!user || !(await verifyPassword(body.password, { hash: user.password_hash, salt: user.password_salt, iterations: user.password_iterations }))) {
+    return c.json({ error: 'invalid_credentials' }, 401)
+  }
+  const sessionId = await createSession(c.env.DB, user.id)
+  c.header('Set-Cookie', setCookieHeader(sessionId))
+  return c.json({ id: user.id, email: user.email, email_verified: !!user.email_verified })
+})
+
+app.post('/api/auth/logout', async (c) => {
+  const sessionId = parseSessionCookie(c.req.header('Cookie'))
+  if (sessionId) await deleteSession(c.env.DB, sessionId)
+  c.header('Set-Cookie', clearCookieHeader())
+  return c.json({ ok: true })
+})
+
+app.get('/api/auth/session', async (c) => {
+  const sessionId = parseSessionCookie(c.req.header('Cookie'))
+  if (!sessionId) return c.json({ user: null })
+  const user = await getSessionUser(c.env.DB, sessionId)
+  return c.json({ user: user ? { id: user.id, email: user.email, email_verified: !!user.email_verified } : null })
+})
+
+app.post('/api/auth/verify', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.token !== 'string') return c.json({ error: 'invalid_input' }, 400)
+  const tokenHash = await hashToken(body.token)
+  const row = await c.env.DB.prepare(
+    `SELECT id, user_id FROM verification_tokens WHERE token_hash = ? AND type = 'verify_email' AND used_at IS NULL AND expires_at > datetime('now')`,
+  )
+    .bind(tokenHash)
+    .first<{ id: string; user_id: string }>()
+  if (!row) return c.json({ error: 'invalid_or_expired_token' }, 400)
+  await c.env.DB.batch([
+    c.env.DB.prepare('UPDATE users SET email_verified = 1 WHERE id = ?').bind(row.user_id),
+    c.env.DB.prepare("UPDATE verification_tokens SET used_at = datetime('now') WHERE id = ?").bind(row.id),
+  ])
+  return c.json({ ok: true })
+})
+
+app.post('/api/auth/forgot-password', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.email !== 'string') return c.json({ error: 'invalid_input' }, 400)
+  const email = body.email.toLowerCase()
+  if (!(await checkRateLimit(c.env.DB, `forgot:${email}`, 5, 60))) return c.json({ error: 'rate_limited' }, 429)
+  const user = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first<{ id: string }>()
+  // Always return 200 regardless of whether the email exists — an
+  // account-enumeration guard, not an inconsistency.
+  if (!user) return c.json({ ok: true })
+  const token = generateToken()
+  const tokenHash = await hashToken(token)
+  const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString()
+  await c.env.DB.prepare('INSERT INTO verification_tokens (id, user_id, token_hash, type, expires_at) VALUES (?, ?, ?, ?, ?)')
+    .bind(crypto.randomUUID(), user.id, tokenHash, 'reset_password', expiresAt)
+    .run()
+  const emailResult = await sendResetEmail(c.env.RESEND_API_KEY, email, token)
+  return c.json({ ok: true, dev_reset_token: emailResult.devToken })
+})
+
+app.post('/api/auth/reset-password', async (c) => {
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.token !== 'string' || typeof body.new_password !== 'string' || body.new_password.length < 8) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const tokenHash = await hashToken(body.token)
+  const row = await c.env.DB.prepare(
+    `SELECT id, user_id FROM verification_tokens WHERE token_hash = ? AND type = 'reset_password' AND used_at IS NULL AND expires_at > datetime('now')`,
+  )
+    .bind(tokenHash)
+    .first<{ id: string; user_id: string }>()
+  if (!row) return c.json({ error: 'invalid_or_expired_token' }, 400)
+  const { hash, salt, iterations } = await hashPassword(body.new_password)
+  await c.env.DB.batch([
+    c.env.DB.prepare('UPDATE users SET password_hash = ?, password_salt = ?, password_iterations = ? WHERE id = ?').bind(
+      hash,
+      salt,
+      iterations,
+      row.user_id,
+    ),
+    c.env.DB.prepare("UPDATE verification_tokens SET used_at = datetime('now') WHERE id = ?").bind(row.id),
+  ])
+  return c.json({ ok: true })
 })
 
 // MCP server — stateless (no sessionIdGenerator, per AGENT_INTERFACE.md

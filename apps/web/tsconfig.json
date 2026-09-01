@@ -40,6 +40,7 @@
     "node_modules",
     "worker.ts",
     "lib/providers",
-    "lib/mcp"
+    "lib/mcp",
+    "lib/auth"
   ]
 }
