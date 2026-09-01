@@ -619,3 +619,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/SKILLS.md, docs/ACTIVITY_LOG.md
 **Next Steps:** New WAVE_QUEUE rows should start carrying UNDO: fields from here on.
 ---
+
+## 2026-09-02 08:10 - SCRIBE gap-closure row + ATLAS cross-audit notes on W2-327, W2-334
+**Action:** Per ATLAS's cross-audit of CRANE's landed rows (spot-audit half of the disjoint-ownership protocol), amended two DONE rows with audit findings rather than reopening or deleting them: W2-327 WORKSPACE_DATA now notes "audit: partial — Update op missing at audit time; gap-closure row follows"; W2-334 SECURITY_HARDENING now notes "audit: partial — CSP shipped Report-Only; doc/ledger scope contradiction; enforcement lands via gap-closure". Added new row W2-343 GAP_CLOSURE (assigned CRANE) to actually close both gaps: implement the missing Update op on saved-artifact CRUD, and move CSP from Report-Only to enforced, plus an E2E no-breakage proof across forms/auth/payments/workspace flows. No deletions — append-only per RULE 3.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims and lands W2-343; ATLAS re-audits both gaps once W2-343 is DONE.
+---
