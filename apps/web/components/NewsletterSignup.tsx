@@ -30,11 +30,11 @@ export default function NewsletterSignup() {
 
   return (
     <footer className="border-t border-relume-border bg-relume-ink text-white">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Newsletter</p>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-relume-tight text-white">Stay in the loop on new product releases.</h2>
+      <div className="mx-auto max-w-relume-container px-6 py-12 md:px-8">
+        <div className="grid gap-8 lg:grid-cols-[minmax(20rem,1fr)_minmax(24rem,32rem)] lg:items-center lg:gap-12">
+          <div className="min-w-0">
+            <p className="whitespace-nowrap text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Newsletter</p>
+            <h2 className="mt-3 max-w-[24ch] text-3xl font-semibold leading-tight tracking-relume-tight text-white sm:text-4xl">Stay in the loop on new product releases.</h2>
           </div>
 
           <form className="w-full max-w-lg" onSubmit={submit}>
@@ -54,7 +54,7 @@ export default function NewsletterSignup() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-relume-ink transition hover:opacity-90 disabled:opacity-60"
+                className="shrink-0 whitespace-nowrap rounded-full bg-white px-5 py-3 text-sm font-semibold text-relume-ink transition hover:opacity-90 disabled:opacity-60"
               >
                 {status === "loading" ? "Joining..." : "Join now"}
               </button>
