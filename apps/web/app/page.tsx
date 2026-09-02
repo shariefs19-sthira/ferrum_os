@@ -47,7 +47,7 @@ const pricingPlans = [
     name: 'Pro',
     price: '₹499/mo',
     tag: 'Most popular',
-    features: ['Unlimited projects', 'All 9 products', 'IS code compliance', 'Priority support'],
+    features: ['Unlimited projects', 'All 9 subscription products', 'IS code compliance', 'Priority support'],
     button: 'Start Free Trial',
   },
   {
@@ -92,7 +92,7 @@ export default function HomePage() {
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
               From land to design, build and invest — run your entire project on one India-first
-              platform. Nine integrated products, one shared data model.
+              platform. Ten integrated products, one shared data model.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
               <li>Land feasibility &amp; ULPIN lookup</li>
@@ -115,7 +115,7 @@ export default function HomePage() {
           <Eyebrow>Land → Design → Build → Invest</Eyebrow>
           <SectionHeading className="mt-4">One platform, the whole journey</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            Four connected stages. Nine products. One shared data model — so nothing is
+            Four connected stages. Ten products. One shared data model — so nothing is
             re-entered and every decision flows into the next.
           </p>
         </div>

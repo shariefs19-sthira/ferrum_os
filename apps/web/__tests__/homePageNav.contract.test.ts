@@ -23,7 +23,7 @@ const ALL_PRODUCT_SLUGS = [
 const EXPECTED_HREF_ROUTES = ALL_PRODUCT_SLUGS.map(slug => `/${slug}`);
 
 describe('Home Page Navigation Contract Test', () => {
-  it('should list links for all 9 product routes (excluding coming soon)', () => {
+  it('should list links for the canonical product routes (STALE: see W2-351 note)', () => {
     // This test assumes knowledge of the internal structure of page.tsx
     // In a perfect world, we'd import the `products` array directly if it were exported.
     // Since it's not, and we cannot modify page.tsx, we assert based on the canonical list.
