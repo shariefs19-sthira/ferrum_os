@@ -80,13 +80,14 @@ export default function BoqProMarketingPage() {
               Know exactly what your build will cost
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              Automate your bill of quantities and cost estimation from excavation to handover —
-              with brand-wise materials and city-wise pricing.
+              A three-mode rate calculator — government reference, custom, and the Ferrum-band
+              engine — with city-wise pricing today. Automated take-off from your design,
+              brand-wise materials, and GST-compliant bills are on the roadmap.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>Automated quantity take-off</li>
-              <li>Brand-wise materials</li>
-              <li>GST-compliant BOQ</li>
+              <li>City-wise rate calculator (live)</li>
+              <li>Automated quantity take-off — roadmap</li>
+              <li>Brand-wise materials — roadmap</li>
             </ul>
             <div className="mt-8">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
