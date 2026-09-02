@@ -1,7 +1,18 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ParcelMap from "./ParcelMap"
+
+// Rough India bounding box, used only to place an unlabeled preview pin
+// before any lookup — never presented as a parcel or a real location.
+const INDIA_BOUNDS = { latMin: 8, latMax: 35, lngMin: 68, lngMax: 97 }
+
+function randomIndiaPoint() {
+  return {
+    lat: INDIA_BOUNDS.latMin + Math.random() * (INDIA_BOUNDS.latMax - INDIA_BOUNDS.latMin),
+    lng: INDIA_BOUNDS.lngMin + Math.random() * (INDIA_BOUNDS.lngMax - INDIA_BOUNDS.lngMin),
+  }
+}
 
 type ParcelResult = {
   ulpin: string
@@ -31,7 +42,15 @@ export default function UlpinMapExplorer() {
   const [result, setResult] = useState<ParcelResult | null>(null)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [previewCenter, setPreviewCenter] = useState<{ lat: number; lng: number } | null>(null)
   const selectedMap = SAMPLE_MAPS[ulpin]
+
+  // Randomized client-side, after mount — this static-exported page has no
+  // per-request server, so a random value picked during the build would be
+  // baked into every visitor's HTML and never actually vary "per load".
+  useEffect(() => {
+    setPreviewCenter(randomIndiaPoint())
+  }, [])
 
   const selectSample = (sample: string) => {
     setUlpin(sample)
@@ -124,11 +143,24 @@ export default function UlpinMapExplorer() {
           </p>
         </div>
       ) : ulpin === "" ? (
-        <div className="flex min-h-80 items-center justify-center rounded-lg border border-dashed border-relume-border p-6 text-center">
-          <p className="max-w-sm text-sm leading-6 text-relume-muted">
-            Select a sample ULPIN above to center the map on its city reference point.
-          </p>
-        </div>
+        previewCenter ? (
+          <div>
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+              <p className="text-sm font-medium text-relume-ink">Preview — random location. Run a lookup to jump to a parcel.</p>
+              <span className="rounded-full border border-relume-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">
+                Preview
+              </span>
+            </div>
+            <ParcelMap
+              lat={previewCenter.lat}
+              lng={previewCenter.lng}
+              zoom={4}
+              label="Preview — random location within India, not a parcel or lookup result"
+            />
+          </div>
+        ) : (
+          <div className="flex min-h-80 items-center justify-center rounded-lg border border-dashed border-relume-border p-6 text-center" />
+        )
       ) : (
         <div className="flex min-h-80 items-center justify-center rounded-lg border border-dashed border-relume-border p-6 text-center">
           <p className="max-w-sm text-sm leading-6 text-relume-muted">
