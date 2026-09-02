@@ -137,3 +137,17 @@ no-guarantee-language rule the Stage-1 UI copy already follows
   question overlaps with it.
 - A sign-off log — that lives in `docs/COMPLIANCE_GATE.md` §5, and
   stays empty until real counsel review happens.
+
+## 7. Stage-2 candidates flagged during Stage-1 build
+
+Items surfaced while executing Stage-1 WAVE_QUEUE rows that need counsel
+review before they can move past ROADMAP-LABEL. Not full pack sections —
+just a log of what's waiting on Stage-2 sign-off.
+
+- **CommunityBuild investor-KYC wiring** (flagged 2026-09-02, from
+  W2-347 SITEWIDE_CLAIM_TRUTH tools-side execution): CommunityBuild's
+  investor-facing KYC claim cannot move to IMPLEMENT-MIN/WIRE at
+  Stage-1 — it's BLOCKED per `docs/COMPLIANCE_GATE.md`. Stays
+  ROADMAP-LABEL until this pack (or a follow-up) gets a real Stage-2
+  counsel review covering investor KYC/AML obligations distinct from
+  the buyer/seller KYC already scoped under §4.
