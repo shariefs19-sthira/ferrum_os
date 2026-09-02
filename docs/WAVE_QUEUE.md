@@ -296,6 +296,9 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-02 — SCRIBE landing pipeline fix
 | W2-357 | | B2 | J08 | CRANE | OPEN | | LANDING_PIPELINE_FIX — end the recurring squash-conflict hand-reconstruction on docs-only landings. New protocol: (1) SCRIBE rebases onto origin/main before every push (shared docs files resolved by keeping both additions, in chronological order); (2) land.ps1 gains a rebase-then-squash path for docs-only branches, and REPORTS a conflict instead of silently failing on it. Acceptance: the next three docs branches land without manual reconstruction. UNDO: git revert <sha>. |
 
+## 2026-09-02 — SCRIBE full-card-nav (temporary CRANE reassignment, MASON rate-limited)
+| W2-358 | | B2 | J08 | CRANE | OPEN | | FULL_CARD_NAV — temporary reassignment of this UI-class row to CRANE because MASON is rate-limited; falls back to MASON's slice once it's available again. Rule: every card on every listing/grid page is fully clickable to its route via the stretched-link pattern (card wrapped so the whole surface navigates; "Learn more" remains a visual affordance, not the only clickable target); no nested-`<a>` violations; cursor-pointer + focus-visible ring for a11y. Scope: products index, home showcase, resources index, and all listing pages (blog, case-studies, checklists, guides, tools, templates, whitepapers, reports, events). Acceptance: Playwright click-matrix — clicking ANY point on each card navigates to its route, zero cards with link-only clickability. UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

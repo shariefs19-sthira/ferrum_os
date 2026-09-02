@@ -691,3 +691,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE implements the land.ps1 rebase-then-squash path; SCRIBE follows the rebase-before-push protocol going forward.
 ---
+
+## 2026-09-02 11:00 - SCRIBE W2-358 FULL_CARD_NAV (temporary CRANE reassignment, MASON rate-limited)
+**Action:** Queued W2-358 FULL_CARD_NAV, temporarily assigned CRANE instead of MASON (whose slice this UI-affordance class would normally fall under) because MASON is currently rate-limited — noted explicitly on the row as temporary, falling back to MASON's slice once available. Scope verbatim: every card on every listing/grid page fully clickable to its route via the stretched-link pattern (whole card surface navigates; "Learn more" stays a visual affordance, not the only clickable target); no nested-`<a>` violations; cursor-pointer + focus-visible ring for accessibility. Covers products index, home showcase, resources index, and all listing pages (blog, case-studies, checklists, guides, tools, templates, whitepapers, reports, events). Acceptance: Playwright click-matrix proving every point on every card navigates, zero link-only-clickable cards.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims W2-358; reassign back to MASON's slice for any future rows of this class once MASON is unblocked.
+---
