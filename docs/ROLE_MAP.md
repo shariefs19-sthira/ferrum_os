@@ -11,7 +11,7 @@ or in git history on `main`.
 | CRANE  | Executor + Lander + REGENT    | Writes code, lands branches via `scripts/land.ps1`, and runs REGENT quality gates on its own landings. 19+ `[AI: CRANE]` commits on `main` as of 2026-08-31. |
 | SCRIBE | Docs / Ledger / Rules / Registry | Owns AGENTS.md, ROLE_MAP.md, WAVE_QUEUE.md, docs/seats/*. Only seat permitted to commit rule changes (RULE 4). |
 | ATLAS  | Architect + Executor (dual role, assigned slice) | Reactivated 2026-09-01. Works WAVE_QUEUE rows in its assigned slice (see below); disjoint-ownership protocol with CRANE — see AGENTS.md RULE 1. |
-| CODEX  | Executor, parallel slice | Activated 2026-09-02. Owns W2-346..350 and W2-353+ per the operator's slice statement (existing Assigned To values on W2-346..350 are not retroactively rewritten — see Change log). |
+| CODEX  | Executor, parallel slice | Activated 2026-09-02. Owns W2-346, 348, 349, 350, 353, 354 per the operator's slice statement. W2-347 is explicitly carved out to CRANE (specific reassignment overrides the roster range) — see the ATLAS/CRANE disjoint-ownership protocol note below and the row itself. |
 
 ### ATLAS / CRANE disjoint-ownership protocol (2026-09-01)
 
@@ -75,10 +75,16 @@ Seat name -> underlying tool, kept for audit purposes:
   established with CRANE (file-scope separation, CRANE-only deps, no
   self-certification on SWEEP_100). MASON, RIVET, GIRDER remain PARKED.
 - 2026-09-02: CODEX activated as ACTIVE, executor role, parallel slice
-  (operator directive). Operator stated CODEX owns W2-346..350 and
-  W2-353+; W2-346, 348, 350 already carried ATLAS/CRANE assignments from
-  prior rows and were NOT retroactively rewritten (same precedent as
-  W2-320/321 during ATLAS's 2026-09-01 reactivation) — the slice statement
-  applies going forward. W2-353 (EMPTY_PLACEHOLDER_SWEEP) is CODEX's first
+  (operator directive). W2-353 (EMPTY_PLACEHOLDER_SWEEP) is CODEX's first
   assigned row. PARKED list heading updated to "reactivatable when Cursor
   joins" since Codex has now joined.
+- 2026-09-02 (later): Operator confirmed the exact CODEX slice as
+  W2-346, 348, 349, 350, 353, 354 — narrower than the initial "346..350
+  and 353+" range — and explicitly carved W2-347 out to CRANE (a specific
+  reassignment overrides the roster range) because its tools-side wiring
+  touches worker.ts/MCP territory. Rows 346, 349, 350 reassigned ATLAS ->
+  CODEX; row 348 confirmed CODEX (matching CRANE's own prior release-claim
+  landing); row 347 confirmed CRANE with a note that its CommunityBuild
+  investor-KYC wiring is Stage-2, BLOCKED per docs/COMPLIANCE_GATE.md, and
+  stays ROADMAP-LABEL rather than IMPLEMENT-MIN/WIRE — added to
+  docs/TRANSACTION_COUNSEL_PACK.md as a Stage-2 candidate.

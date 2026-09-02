@@ -9,7 +9,8 @@ Qwen Code, VS Code Agents, Claude Code).
 ACTIVE: CRANE (executor + lander + REGENT), SCRIBE (docs/ledger/rules),
 ATLAS (dual role — architect + executor for its assigned slice of the
 queue, reactivated 2026-09-01), CODEX (executor, parallel slice, activated
-2026-09-02 — owns W2-346..350 and W2-353+).
+2026-09-02 — owns W2-346, 348, 349, 350, 353, 354; W2-347 is explicitly
+carved out to CRANE — a specific reassignment overrides the roster range).
 PARKED: MASON, RIVET, GIRDER (Qoder) and the older Copilot/Continue/
 Jules/Cline seats — reactivatable when Cursor joins.
 CONDUCTOR: Qwen-Web. OPERATOR: human. Full detail in docs/ROLE_MAP.md.

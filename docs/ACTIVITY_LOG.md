@@ -667,3 +667,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CODEX claims W2-353 then W2-354 in order.
 ---
+
+## 2026-09-02 10:05 - SCRIBE CODEX slice confirmed (346/348/349/350/353/354) + W2-347 CRANE override + Stage-2 counsel-pack entry
+**Action:** Operator confirmed the exact CODEX slice — W2-346, 348, 349, 350, 353, 354 — narrower than the initial "346..350 and 353+" statement, and explicitly carved W2-347 out to CRANE (a specific reassignment overrides the general roster range). Also noticed in passing that CRANE had already self-reassigned W2-348 from CLAIMED-CRANE to CODEX/OPEN on main (commit 179f849c, `feat: [land:w2-348/crane-release-claim]`) — consistent with this confirmation, not contradicting it. Annotated rows: W2-346 ATLAS→CODEX, W2-349 ATLAS→CODEX, W2-350 ATLAS→CODEX (all noted inline, not deleted); W2-348 confirmed CODEX; W2-347 confirmed CRANE with an explicit override note plus the compliance finding — CommunityBuild investor-KYC wiring is Stage-2, BLOCKED per docs/COMPLIANCE_GATE.md, stays ROADMAP-LABEL rather than IMPLEMENT-MIN/WIRE. Added docs/TRANSACTION_COUNSEL_PACK.md §7 "Stage-2 candidates flagged during Stage-1 build" logging this item for future counsel review. Updated AGENTS.md RULE 1, docs/ROLE_MAP.md (ACTIVE table + change log), and docs/seats/CODEX.md to state the confirmed slice and the W2-347 carve-out.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/CODEX.md, docs/TRANSACTION_COUNSEL_PACK.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CODEX claims its confirmed slice; CRANE proceeds on W2-347 with the ROADMAP-LABEL constraint on the CommunityBuild investor-KYC claim specifically.
+---
