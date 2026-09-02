@@ -739,3 +739,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** None pending; W2-360 still awaits landing/DONE status.
 ---
+
+## 2026-09-02 13:00 - SCRIBE W2-367 PARCEL_MAP_SYNC + reassignment annotations; RULE 16/17 and W2-368 BLOCKED (no verbatim text provided)
+**Action:** Several stacked prompts arrived this turn, some addressed to CRANE (held, no action per RULE 2). Of the SCRIBE-addressed items, completed: (1) Queued W2-367 PARCEL_MAP_SYNC, assigned CRANE, folding into the W2-361 work session per CRANE's own note (same files, not a separate branch) — BLR/PUN/CHN lat/lng values, every map instance must center+marker on the selected parcel, neutral India pre-selection view, Playwright per-parcel screenshot acceptance. (2) Reassigned W2-331 CONTENT_REAL and W2-354 RESPONSIVE_SWEEP to MASON per the "MASON at 12:51 AM gets 354 + 331 retoken" instruction — W2-331 noted as a retoken pass (re-run against current Relume tokens, not a scope change); W2-354 also had its stale "CODEX" assignee corrected to MASON in the same edit (leftover from the pre-rename branch chain). (3) Confirmed W2-365 COMMAND_DECK_BACKEND is already CRANE — no change needed. NOT done, flagged rather than fabricated: RULE 16 (ALWAYS ENGAGED) and RULE 17 (PROPOSE FREELY, EXECUTE ON APPROVAL) were requested "verbatim per conductor text" but no such text was ever provided in this conversation — cannot add rules without their actual wording. W2-368 BRAND_MARK_26 was requested "per conductor spec above" with a footer line "verbatim," but no brand spec or footer-line text was provided either — cannot queue a row whose acceptance criteria depend on content that doesn't exist in my context. Both need the actual source text pasted in before I act.
+**By:** SCRIBE (Claude Code)
+**Status:** ⚠️ Partial — RULE 16/17 and W2-368 blocked on missing verbatim text
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Operator/conductor pastes the actual RULE 16/17 text and the BRAND_MARK_26 spec + footer line verbatim; SCRIBE applies both once received.
+---
