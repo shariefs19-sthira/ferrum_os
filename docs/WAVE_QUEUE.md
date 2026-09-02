@@ -293,6 +293,9 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-02 — SCRIBE RIVET activation, mobile app-shell
 | W2-356 | | B2 | J08 | RIVET | OPEN | | APP_SHELL_V1 — Capacitor/TWA shell in apps/mobile wrapping the deployed workers.dev URL: config, icons, splash screen, offline-notice screen. Deliverables: docs/APP_LAUNCH_CHECKLIST.md; docs/pwa-wiring.patch (the 2-line manifest/SW wiring for CRANE to apply — patch only, RIVET does not touch apps/web files directly). Exclusive paths: apps/mobile/** and docs/** only. UNDO: git revert <sha>. |
 
+## 2026-09-02 — SCRIBE landing pipeline fix
+| W2-357 | | B2 | J08 | CRANE | OPEN | | LANDING_PIPELINE_FIX — end the recurring squash-conflict hand-reconstruction on docs-only landings. New protocol: (1) SCRIBE rebases onto origin/main before every push (shared docs files resolved by keeping both additions, in chronological order); (2) land.ps1 gains a rebase-then-squash path for docs-only branches, and REPORTS a conflict instead of silently failing on it. Acceptance: the next three docs branches land without manual reconstruction. UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

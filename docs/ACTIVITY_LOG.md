@@ -683,3 +683,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/MASON.md (new), docs/seats/RIVET.md (new), docs/seats/CODEX.md (removed), docs/SKILLS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** RIVET claims W2-356; CRANE applies docs/pwa-wiring.patch once RIVET delivers it.
 ---
+
+## 2026-09-02 10:35 - SCRIBE LANDING_PIPELINE_FIX (W2-357) + new rebase-before-push protocol adopted immediately
+**Action:** Queued W2-357 LANDING_PIPELINE_FIX, assigned CRANE, to end the recurring squash-conflict hand-reconstruction seen across several landings this session: (1) SCRIBE rebases onto origin/main before every push, resolving shared docs files (WAVE_QUEUE.md, ACTIVITY_LOG.md) by keeping both additions in chronological order; (2) land.ps1 gains a rebase-then-squash path for docs-only branches and REPORTS a conflict instead of silently failing on it. Acceptance: next three docs branches land without manual reconstruction. Also codified the SCRIBE half of the new protocol as an addendum to AGENTS.md RULE 9. Tried to apply it to this very push — attempted `git rebase origin/main` on this branch (stacked atop several unlanded prior SCRIBE branches) and hit exactly the conflict class W2-357 targets: 3-way content conflicts in AGENTS.md/ACTIVITY_LOG.md/WAVE_QUEUE.md across multiple commits in the stack. Aborted the rebase rather than risk a bad manual resolution corrupting the ledger, and pushed this branch using the same stacked-branch pattern as every prior task this session instead. This is itself evidence for W2-357: the rebase protocol needs a flatter branch chain (i.e., earlier branches landed first) to actually work — CRANE's land.ps1 side of the fix should land the backlog before SCRIBE's rebase step becomes reliable.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE implements the land.ps1 rebase-then-squash path; SCRIBE follows the rebase-before-push protocol going forward.
+---
