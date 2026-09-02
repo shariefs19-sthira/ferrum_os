@@ -9,6 +9,7 @@ import WaitlistCapture from '../../../components/sections/WaitlistCapture'
 import OcrSpike from '../../../components/sections/OcrSpike'
 import TransactCaseFlow from '../../../components/sections/TransactCaseFlow'
 import PaymentDemo from '../../../components/sections/PaymentDemo'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 export const metadata = {
   title: 'Transact — Ferrum OS',
@@ -56,14 +57,17 @@ export default function TransactPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Transact</Eyebrow>
-          <SectionHeading as="h1" className="mt-4">
-            Indicative estimates for your next property transaction
-          </SectionHeading>
-          <p className="mt-6 text-base leading-7 text-relume-ink">
-            Stamp-duty and ask-band estimates to help you plan — informational only, not legal or financial advice.
-          </p>
+        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+          <div>
+            <Eyebrow>Transact</Eyebrow>
+            <SectionHeading as="h1" className="mt-4">
+              Indicative estimates for your next property transaction
+            </SectionHeading>
+            <p className="mt-6 text-base leading-7 text-relume-ink">
+              Stamp-duty and ask-band estimates to help you plan — informational only, not legal or financial advice.
+            </p>
+          </div>
+          <ProductHeroPreview product="transact" />
         </div>
       </SectionShell>
 

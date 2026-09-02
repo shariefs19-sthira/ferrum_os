@@ -4,6 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: BuildOS has zero shipped tool of any kind — no task management,
 // no RFI/submittal tracking, no QA/QC or HSE checklists, no progress
@@ -95,7 +96,7 @@ export default function BuildOSPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="buildos" />
         </div>
       </SectionShell>
 

@@ -9,6 +9,7 @@ type ParcelMapProps = {
   lat?: number
   lng?: number
   label?: string
+  zoom?: number
 }
 
 /**
@@ -18,7 +19,7 @@ type ParcelMapProps = {
  * © OpenStreetMap contributors under ODbL — attribution is required
  * and shown in the map's built-in attribution control, not removed.
  */
-export default function ParcelMap({ lat = 12.9716, lng = 77.5946, label = "Sample parcel" }: ParcelMapProps) {
+export default function ParcelMap({ lat = 12.9716, lng = 77.5946, label = "Sample parcel", zoom = 15 }: ParcelMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<LeafletMap | null>(null)
 
@@ -28,7 +29,7 @@ export default function ParcelMap({ lat = 12.9716, lng = 77.5946, label = "Sampl
     import("leaflet").then((L) => {
       if (cancelled || !containerRef.current || mapRef.current) return
 
-      const map = L.map(containerRef.current).setView([lat, lng], 15)
+      const map = L.map(containerRef.current).setView([lat, lng], zoom)
       mapRef.current = map
 
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -54,11 +55,18 @@ export default function ParcelMap({ lat = 12.9716, lng = 77.5946, label = "Sampl
       mapRef.current?.remove()
       mapRef.current = null
     }
-  }, [lat, lng, label])
+  }, [lat, lng, label, zoom])
 
   return (
     <div className="overflow-hidden rounded-lg border border-relume-border">
-      <div ref={containerRef} className="h-80 w-full" role="img" aria-label={`Map showing ${label}`} />
+      <div
+        ref={containerRef}
+        className="h-80 w-full"
+        role="img"
+        aria-label={`Map showing ${label}`}
+        data-map-lat={lat}
+        data-map-lng={lng}
+      />
     </div>
   )
 }

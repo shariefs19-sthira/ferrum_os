@@ -4,6 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import IrrNpvModeler from '../../../components/sections/IrrNpvModeler'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: cash-flow modeling and IRR/NPV are shipped and real
 // (IrrNpvModeler below, lib/finance/irrNpv.ts, indicative labeled). Yield
@@ -61,7 +62,7 @@ export default function InvestFlowPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="investflow" />
         </div>
       </SectionShell>
 

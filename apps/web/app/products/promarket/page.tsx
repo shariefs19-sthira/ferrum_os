@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import RateCompareCalculator from '../../../components/sections/RateCompareCalculator'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: only rate comparison is shipped and real (RateCompareCalculator
 // below, D1-backed). The marketplace itself — profiles, verification,
@@ -95,7 +96,7 @@ export default function ProMarketPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="promarket" />
         </div>
       </SectionShell>
 
