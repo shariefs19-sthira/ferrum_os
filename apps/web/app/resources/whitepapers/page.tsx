@@ -74,10 +74,10 @@ export const metadata = {
 
 export default function WhitepapersPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Whitepapers
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -89,7 +89,7 @@ export default function WhitepapersPage() {
           {whitepapers.map((paper) => (
             <article key={paper.slug} className="border-b border-relume-border pb-8 last:border-b-0 last:pb-0">
               <div className="flex items-baseline justify-between flex-wrap gap-2">
-                <h2 className="text-2xl font-bold text-relume-ink">{paper.title}</h2>
+                <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">{paper.title}</h2>
                 <span className="text-sm font-medium text-relume-muted">
                   {paper.year} · {paper.pages} pages
                 </span>

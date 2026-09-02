@@ -30,10 +30,10 @@ const materialReceivingSections = [
 
 export default function MaterialReceivingPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Material Receiving Checklist
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -44,7 +44,7 @@ export default function MaterialReceivingPage() {
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           {materialReceivingSections.map((section) => (
             <section key={section.title}>
-              <h2 className="text-2xl font-bold text-relume-ink mb-4">{section.title}</h2>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">{section.title}</h2>
               <ul className="list-disc list-inside space-y-2 text-relume-muted">
                 {section.items.map((item) => (
                   <li key={item}>{item}</li>

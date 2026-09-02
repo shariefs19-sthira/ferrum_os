@@ -50,7 +50,7 @@ export default function AdminLeadsView() {
   return (
     <main className="min-h-screen bg-relume-surface-secondary px-6 py-16">
       <div className="mx-auto max-w-4xl">
-        <h1 className="text-2xl font-bold text-relume-ink">Leads (operator view)</h1>
+        <h1 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">Leads (operator view)</h1>
         <p className="mt-2 text-sm text-relume-muted">
           Internal tool — not a customer-facing page. Requires the operator token.
         </p>

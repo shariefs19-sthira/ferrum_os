@@ -12,7 +12,7 @@ export default function ProductSpecs() {
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-10 max-w-2xl">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-relume-ink">Product specs</p>
-        <h2 className="mt-3 text-3xl font-bold tracking-tight text-relume-ink sm:text-4xl">
+        <h2 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-relume-tight text-relume-ink sm:text-4xl">
           Built to keep project decisions grounded in real plot intelligence.
         </h2>
       </div>

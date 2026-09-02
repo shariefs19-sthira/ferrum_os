@@ -27,7 +27,7 @@ export default function ForgotPasswordPage() {
   return (
     <main className="min-h-screen bg-relume-surface-secondary text-relume-ink">
       <div className="mx-auto max-w-md px-6 py-24">
-        <h1 className="text-3xl font-bold tracking-tight">Reset your password</h1>
+        <h1 className="text-3xl sm:text-4xl font-semibold tracking-relume-tight">Reset your password</h1>
         <p className="mt-4 text-sm text-relume-muted">
           Enter your account email. If it matches an account, we&apos;ll send a reset link.
         </p>

@@ -1,9 +1,9 @@
 export default function UlpinExplainedPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             ULPIN Explained
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function UlpinExplainedPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">What is ULPIN?</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">What is ULPIN?</h2>
             <p className="text-relume-muted">
               ULPIN (Unique Land Parcel Identification Number) is a standardized system for 
               identifying land parcels across India. This unique alphanumeric code helps in 
@@ -23,7 +23,7 @@ export default function UlpinExplainedPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Benefits of ULPIN</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Benefits of ULPIN</h2>
             <p className="text-relume-muted">
               The ULPIN system provides numerous benefits including prevention of land fraud, 
               streamlined property transactions, and easier access to land records. It helps 
@@ -32,7 +32,7 @@ export default function UlpinExplainedPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Implementation Process</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Implementation Process</h2>
             <p className="text-relume-muted">
               The implementation of ULPIN involves digitization of land records, survey of 
               land parcels, and assigning unique identification numbers. This process is 
