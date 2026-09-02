@@ -306,6 +306,9 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-02 — SCRIBE parcel-map sync (folds into W2-361 session)
 | W2-367 | | B2 | J08 | CRANE | OPEN | | PARCEL_MAP_SYNC — folds into the W2-361 work session (same files); executed inline within W2-361 per CRANE's own note, not a separate branch. Every sample parcel carries lat/lng: BLR ≈12.9757,77.5901; PUN ≈18.5204,73.8567; CHN ≈13.0827,80.2707. EVERY map instance site-wide (LandIntel map section, hero minis post-361, any dashboard/workspace previews) centers + places a marker on the selected parcel; pre-selection state = neutral India view with a prompt, not a silent default city. Flagged instance: Chennai lookup was showing Bengaluru — the class is all maps, not just that one. Acceptance: Playwright — look up each of the 3 parcels, assert marker lat/lng matches that parcel (screenshot each); include the 3 screenshots in the W2-361 report. UNDO: git revert <sha>. |
 
+## 2026-09-02 — SCRIBE brand mark (Fe·26)
+| W2-368 | | B2 | J08 | CRANE | OPEN | | BRAND_MARK_26 — reassigned MASON → CRANE (MASON dark). Tile: tricolor bands #FF9933/#FFFFFF/#138808; navy #000080 24-spoke chakra in the white band; "Fe" bold navy centered; "26" white on green as the cell footer. Wordmark unchanged. Applies to header + footer on all routes; favicon.svg replaced; OG image + manifest icons updated. Footer bottom-right line, verbatim: "Fe·26 — India-first construction & investment platform. Launch 2026." UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
