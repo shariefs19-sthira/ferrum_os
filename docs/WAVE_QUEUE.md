@@ -288,6 +288,7 @@ landed, so W2-312 carries the real scope.
 
 ## 2026-09-02 — SCRIBE CODEX activation, empty-placeholder sweep
 | W2-353 | | B2 | J08 | CODEX | OPEN | | EMPTY_PLACEHOLDER_SWEEP — (1) every hero/section visual box contains a real composed visual or is removed — zero empty containers; (2) every product/resource card is fully clickable to its route (whole card = link, not just "Learn more"); (3) every button has a real handler or is removed; (4) every nav dropdown/menu lists real routes — no empty tabs. Acceptance: Playwright crawl of ALL routes reports zero empty containers, zero handler-less buttons, zero dead '#' links. UNDO: git revert <sha>. |
+| W2-354 | | B2 | J08 | CODEX | OPEN | | RESPONSIVE_SWEEP — sequenced AFTER W2-353. Every route × viewports 375×667, 390×844, 768×1024, 1024×768, 1366×768, 1920×1080 + landscape phone. Checks: zero horizontal overflow; nav/hamburger functional; footer grid collapses cleanly; hero composed-visuals scale unclipped; cards stack; tables stack or scroll; tap targets ≥44px; every calculator/tool usable at 375px; type legible; viewport meta present (PWA-ready). Acceptance: Playwright routes × breakpoints matrix with zero violations post-fix; re-crawl green; build + verify-static green. UNDO: git revert <sha>. |
 
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |

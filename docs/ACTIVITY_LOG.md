@@ -659,3 +659,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/CODEX.md, docs/SKILLS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CODEX claims W2-353.
 ---
+
+## 2026-09-02 09:45 - SCRIBE W2-354 RESPONSIVE_SWEEP (CODEX, sequenced after W2-353)
+**Action:** Added W2-354 RESPONSIVE_SWEEP, assigned CODEX, explicitly sequenced after W2-353 (built this branch on top of the still-unlanded w2-353/scribe-codex-placeholder-sweep branch so the row order in the ledger reflects that sequencing). Scope verbatim: every route × 7 viewports (375×667, 390×844, 768×1024, 1024×768, 1366×768, 1920×1080, landscape phone); checks for zero horizontal overflow, functional nav/hamburger, clean footer-grid collapse, unclipped hero composed-visual scaling, card stacking, table stacking/scrolling, ≥44px tap targets, calculator/tool usability at 375px, legible type, and PWA-ready viewport meta presence. Acceptance: Playwright routes × breakpoints matrix, zero violations post-fix, re-crawl green, build + verify-static green.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CODEX claims W2-353 then W2-354 in order.
+---
