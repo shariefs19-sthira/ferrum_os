@@ -715,3 +715,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** None pending; W2-360 still awaits landing/DONE status.
 ---
+
+## 2026-09-02 12:45 - SCRIBE Command Deck backend+UI (W2-365, W2-366) + sequencing notes on W2-354, W2-363
+**Action:** Queued W2-365 COMMAND_DECK_BACKEND (CRANE): projects table + project_id on artifacts/leads/parcels, additive/idempotent, applied to local AND production under the one-file/verify protocol; REST+MCP parity for project CRUD+attach; server-side per-user scoping. Sequenced after W2-362. Queued W2-366 COMMAND_DECK_UI (MASON, conditional CRANE fallback noted same as W2-363): /account becomes the Command Deck per conductor spec — pipeline spine, engine launchers with resume, activity ledger, Ctrl+K palette, honest state chips, Relume tokens, dense data-forward layout. Depends on W2-365. Per the operator's stated sequencing, annotated two existing rows rather than reordering the ledger: W2-354 RESPONSIVE_SWEEP now also runs AFTER W2-366 (the Command Deck must exist before it's in the responsive matrix); W2-363 TYPOGRAPHY_LAYOUT_SWEEP noted as parallel-safe (global chrome only, no dependency on 365/366).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims W2-365 after W2-362 lands; MASON/CRANE claims W2-366 after W2-365; W2-363 can proceed anytime.
+---
