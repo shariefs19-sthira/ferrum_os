@@ -1,40 +1,38 @@
 import Link from 'next/link';
 
+// W2-349 MEDIA_HONESTY (RULE 13 extrapolation): presented specific dates
+// and cities (Bengaluru, Mumbai) for a webinar, field clinic, and
+// roundtable, as if confirmed events — none have been organized, held, or
+// scheduled. Dates/cities removed, framing changed to planned topics.
 const events = [
   {
     label: 'Webinar',
-    date: '2026-09-18',
-    city: 'Online',
     name: 'BOQ drift diagnostics for site teams',
     summary:
-      'A 60-minute working session on detecting cost and quantity drift between the estimate, the site diary, and the running bill.'
+      'A working session on detecting cost and quantity drift between the estimate, the site diary, and the running bill.'
   },
   {
     label: 'Field clinic',
-    date: '2026-10-09',
-    city: 'Bengaluru',
     name: 'Field clinic: monsoon concreting decision tree',
     summary:
       'On-site walkthrough of the same monsoon-concreting decision tree we publish in our blog, applied to a live pour sequence.'
   },
   {
     label: 'Roundtable',
-    date: '2026-11-06',
-    city: 'Mumbai',
     name: 'Roundtable: standards as a procurement filter, not a checkbox',
     summary:
-      'Closed-door session with developers, contractors, and PMC leads on using IS Code alignment as a vendor-evaluation signal.'
+      'A session with developers, contractors, and PMC leads on using IS Code alignment as a vendor-evaluation signal.'
   }
 ];
 
 export const metadata = {
-  title: 'Events — Ferrum OS Resources',
+  title: 'Event Topics — Ferrum OS Resources',
   description:
-    'Upcoming webinars, field clinics, and roundtables where the Ferrum OS team works through land, design, and delivery decisions in public.',
+    'Planned webinars, field clinics, and roundtables — no session has been scheduled or confirmed yet.',
   openGraph: {
-    title: 'Events — Ferrum OS Resources',
+    title: 'Event Topics — Ferrum OS Resources',
     description:
-      'Upcoming webinars, field clinics, and roundtables from the Ferrum OS team.',
+      'Planned webinars, field clinics, and roundtables — no session has been scheduled or confirmed yet.',
     type: 'article',
     locale: 'en_US'
   }
@@ -47,11 +45,11 @@ export default function ResourcesEventsPage() {
         <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">Resources · Events</p>
           <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-relume-ink md:text-6xl">
-            Working sessions, not slide decks
+            Planned event topics
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-relume-muted">
-            Webinars, field clinics, and roundtables where the team walks through real land, design, and delivery
-            decisions. Each session is built around a working artefact — a BOQ, a memo, a decision tree — not a
+            No webinar, field clinic, or roundtable has been scheduled or held yet. These are the topics we plan
+            to build sessions around — each around a working artefact (a BOQ, a memo, a decision tree), not a
             product pitch.
           </p>
         </div>
@@ -64,12 +62,9 @@ export default function ResourcesEventsPage() {
               key={item.name}
               className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
             >
-              <div className="mb-4 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700">
-                {item.label}
+              <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">
+                {item.label} · Planned
               </div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-muted">
-                {item.date} · {item.city}
-              </p>
               <h2 className="mt-3 text-2xl font-semibold leading-tight text-relume-ink">{item.name}</h2>
               <p className="mt-4 text-sm leading-7 text-relume-muted">{item.summary}</p>
               <div className="mt-6 border-t border-relume-border pt-4">
@@ -77,7 +72,7 @@ export default function ResourcesEventsPage() {
                   href="/contact"
                   className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
                 >
-                  Request seat →
+                  Ask about this topic →
                 </Link>
               </div>
             </article>
@@ -85,12 +80,11 @@ export default function ResourcesEventsPage() {
         </div>
 
         <p className="mt-10 max-w-2xl text-sm leading-6 text-relume-muted">
-          Sessions are free for working teams in land, design, and delivery. Recording links and written summaries
-          are published under{' '}
+          None of these have been scheduled yet. Our written content on these topics lives in{' '}
           <Link href="/resources/blog" className="text-relume-ink hover:text-relume-ink">
             the blog
           </Link>{' '}
-          after each event.
+          today.
         </p>
       </section>
     </main>
