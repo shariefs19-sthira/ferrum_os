@@ -12,6 +12,7 @@ import { SITE_BASE_URL } from '../lib/siteConfig'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
+  manifest: '/manifest.webmanifest',
   metadataBase: new URL(SITE_BASE_URL),
   title: {
     default: 'Ferrum OS - AI-native construction platform for India',
