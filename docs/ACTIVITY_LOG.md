@@ -643,3 +643,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** ATLAS claims W2-345 and W2-349; CRANE claims W2-348.
 ---
+
+## 2026-09-02 09:20 - SCRIBE W2-347 reassignment (ATLAS → CRANE) + RULE 14 security-merge guard
+**Action:** Reassigned W2-347 (SITEWIDE_CLAIM_TRUTH, tools side) from ATLAS to CRANE — tools-side wiring means worker.ts/MCP territory, which is CRANE-only per the disjoint-ownership protocol; noted the reassignment inline on the row rather than deleting/rewriting it. Note: W2-347 was still unlanded (only on the pending w2-350/scribe-deadcode-copycount branch, not yet on main), so this branch was built on top of that branch rather than origin/main, to avoid landing a duplicate W2-347 row with conflicting assignments. Added AGENTS.md RULE 14 — SECURITY_MERGE_GUARD: any landing touching `_headers`, middleware, or rate-limit code must re-verify post-land that CSP is fully enforced (grep apps/web/out/_headers, Report-Only count = 0) and rate limits are still present; a silent regression on either is a REVERT verdict in the REGENT post-land checklist, not a PASS.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims W2-347 (reassigned); REGENT applies RULE 14 on the next landing touching _headers/middleware/rate-limits.
+---
