@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import MobileMenu from './MobileMenu'
+import BrandMark from './BrandMark'
 
 /**
  * W2-344: the site had NO header and NO navigation of any kind — not on
@@ -29,12 +30,7 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-relume-border bg-relume-surface/95 backdrop-blur">
       <div className="mx-auto flex max-w-relume-container items-center justify-between gap-6 px-6 py-4 md:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-3 whitespace-nowrap">
-          <span
-            className="flex h-9 w-9 items-center justify-center rounded-relume bg-relume-ink text-sm font-semibold text-white"
-            aria-hidden="true"
-          >
-            F
-          </span>
+          <BrandMark size={36} className="rounded-relume" />
           <span className="text-lg font-semibold tracking-relume-tight text-relume-ink">Ferrum OS</span>
         </Link>
 

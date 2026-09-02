@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import BrandMark from './BrandMark'
 
 // W2-344 RELUME_IDENTITY_PASS — footer redesign.
 //
@@ -86,12 +87,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))]">
           <div className="min-w-40">
             <div className="flex items-center gap-3">
-              <span
-                className="flex h-9 w-9 items-center justify-center rounded-relume bg-relume-ink text-sm font-semibold text-white"
-                aria-hidden="true"
-              >
-                F
-              </span>
+              <BrandMark size={36} className="rounded-relume" />
               <span className="text-lg font-semibold tracking-relume-tight text-relume-ink">Ferrum OS</span>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-6 text-relume-muted">
@@ -110,7 +106,7 @@ export default function Footer() {
           <p className="text-sm text-relume-muted">
             © {new Date().getFullYear()} Ferrum OS. All rights reserved.
           </p>
-          <p className="text-sm text-relume-muted">India-first construction &amp; investment platform</p>
+          <p className="text-sm text-relume-muted">Fe·26 — India-first construction &amp; investment platform. Launch 2026.</p>
         </div>
       </div>
     </footer>
