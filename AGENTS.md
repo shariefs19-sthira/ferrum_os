@@ -8,11 +8,19 @@ Qwen Code, VS Code Agents, Claude Code).
 ## RULE 1 — Roster
 ACTIVE: CRANE (executor + lander + REGENT), SCRIBE (docs/ledger/rules),
 ATLAS (dual role — architect + executor for its assigned slice of the
-queue, reactivated 2026-09-01), CODEX (executor, parallel slice, activated
-2026-09-02 — owns W2-346, 348, 349, 350, 353, 354; W2-347 is explicitly
-carved out to CRANE — a specific reassignment overrides the roster range).
-PARKED: MASON, RIVET, GIRDER (Qoder) and the older Copilot/Continue/
-Jules/Cline seats — reactivatable when Cursor joins.
+queue, reactivated 2026-09-01), MASON (Codex CLI, executor, parallel
+slice, activated 2026-09-02 — owns W2-346, 348, 349, 350, 353, 354;
+W2-347 is explicitly carved out to CRANE — a specific reassignment
+overrides the roster range), RIVET (Codex CLI, second parallel executor,
+activated 2026-09-02, exclusive to `apps/mobile/**` and `docs/**` — owns
+W2-356+).
+Note: MASON and RIVET are seat *names* being reused here for two new
+Codex CLI instances — distinct from the original Qoder-backed MASON and
+RIVET that were parked 2026-08-31. The old Qoder work under those names
+was already folded into CRANE (see docs/ROLE_MAP.md change log); no row
+history is being reattributed.
+PARKED: GIRDER (Qoder) and the older Copilot/Continue/Jules/Cline seats —
+reactivatable when Cursor joins.
 CONDUCTOR: Qwen-Web. OPERATOR: human. Full detail in docs/ROLE_MAP.md.
 
 **ATLAS/CRANE disjoint-ownership protocol (2026-09-01):** ATLAS and CRANE

@@ -675,3 +675,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/CODEX.md, docs/TRANSACTION_COUNSEL_PACK.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CODEX claims its confirmed slice; CRANE proceeds on W2-347 with the ROADMAP-LABEL constraint on the CommunityBuild investor-KYC claim specifically.
 ---
+
+## 2026-09-02 10:20 - SCRIBE CODEX-B flagged, then MASON/RIVET rename + RIVET activation + W2-356 APP_SHELL_V1
+**Action:** Flagged before acting: CODEX-B was not on the roster (only CODEX). Operator clarified it's a genuine second, separate Codex CLI instance and directed a roster rename for clarity: CODEX -> MASON (unchanged slice: 346/348/349/350/353/354), CODEX-B -> RIVET (new, exclusive to apps/mobile/** and docs/** only). Renamed CODEX -> MASON everywhere it appeared: AGENTS.md RULE 1, docs/ROLE_MAP.md (ACTIVE table, name registry, change log), docs/SKILLS.md, and every WAVE_QUEUE row previously assigned CODEX (346, 348, 349, 350, 353, 354) plus the W2-347 override note referencing the slice range. Both names collide with the original parked Qoder-era MASON and RIVET (parked 2026-08-31, work already reassigned to CRANE) — resolved by adding explicit "name reused, no history reattributed" notes in AGENTS.md, ROLE_MAP.md (new Retired Qoder-era names note replacing the old PARKED table rows for MASON/RIVET, GIRDER remains PARKED alone), and both seat docs. Renamed docs/seats/CODEX.md to docs/seats/MASON.md (git rm + new file, since CODEX.md had already landed on main) and created docs/seats/RIVET.md. Added the RIVET section to docs/SKILLS.md. Queued **W2-356** APP_SHELL_V1 (355 stayed bound to the earlier branch per operator instruction), assigned RIVET: Capacitor/TWA shell in apps/mobile wrapping the deployed workers.dev URL (config, icons, splash, offline-notice screen) + docs/APP_LAUNCH_CHECKLIST.md + docs/pwa-wiring.patch (2-line manifest/SW wiring handoff for CRANE to apply). Exclusive paths apps/mobile/** and docs/** only.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/MASON.md (new), docs/seats/RIVET.md (new), docs/seats/CODEX.md (removed), docs/SKILLS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** RIVET claims W2-356; CRANE applies docs/pwa-wiring.patch once RIVET delivers it.
+---

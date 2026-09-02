@@ -11,7 +11,8 @@ or in git history on `main`.
 | CRANE  | Executor + Lander + REGENT    | Writes code, lands branches via `scripts/land.ps1`, and runs REGENT quality gates on its own landings. 19+ `[AI: CRANE]` commits on `main` as of 2026-08-31. |
 | SCRIBE | Docs / Ledger / Rules / Registry | Owns AGENTS.md, ROLE_MAP.md, WAVE_QUEUE.md, docs/seats/*. Only seat permitted to commit rule changes (RULE 4). |
 | ATLAS  | Architect + Executor (dual role, assigned slice) | Reactivated 2026-09-01. Works WAVE_QUEUE rows in its assigned slice (see below); disjoint-ownership protocol with CRANE — see AGENTS.md RULE 1. |
-| CODEX  | Executor, parallel slice | Activated 2026-09-02. Owns W2-346, 348, 349, 350, 353, 354 per the operator's slice statement. W2-347 is explicitly carved out to CRANE (specific reassignment overrides the roster range) — see the ATLAS/CRANE disjoint-ownership protocol note below and the row itself. |
+| MASON  | Executor, parallel slice | Activated 2026-09-02 (Codex CLI). Owns W2-346, 348, 349, 350, 353, 354 per the operator's slice statement. W2-347 is explicitly carved out to CRANE (specific reassignment overrides the roster range) — see the ATLAS/CRANE disjoint-ownership protocol note below and the row itself. Name reused from the parked Qoder-era MASON — see Change log. |
+| RIVET  | Executor, exclusive paths | Activated 2026-09-02 (Codex CLI), second parallel Codex instance alongside MASON. Exclusive to `apps/mobile/**` and `docs/**` only — does not touch `apps/web/**`. Owns W2-356+. Name reused from the parked Qoder-era RIVET — see Change log. |
 
 ### ATLAS / CRANE disjoint-ownership protocol (2026-09-01)
 
@@ -44,9 +45,15 @@ or in git history on `main`.
 
 | Seat    | Origin       | Notes |
 |---------|--------------|-------|
-| MASON   | Qoder        | Held OPEN rows in WAVE_QUEUE (W2-120/121/123/124/126/128/129/131) before parking; reassign to CRANE. |
-| RIVET   | Qoder        | Held OPEN rows in WAVE_QUEUE (W2-122/125/127/130) before parking; reassign to CRANE. |
 | GIRDER  | Qoder        | No commits or WAVE_QUEUE rows found on `main` as of 2026-08-31; parked with the rest of the Qoder set pending verification of prior use. |
+
+**Retired Qoder-era names, now reused (2026-09-02):** The original
+Qoder-backed MASON held OPEN rows W2-120/121/123/124/126/128/129/131
+before parking 2026-08-31 (reassigned to CRANE); the original Qoder-backed
+RIVET held OPEN rows W2-122/125/127/130 (also reassigned to CRANE). Both
+names are now reused for two new, unrelated Codex CLI instances (see
+ACTIVE table above) — no row history is being reattributed between the
+old Qoder work and the new Codex seats.
 | Copilot / copilot-cli-vscode | VS Code Agent | Long history of `[AI: ...]`-tagged landings (W2-04 through W2-101 range); parked, reactivatable. |
 | Continue | VS Code Agent | Parked. |
 | Jules    | — | Parked (owner/fork observer roles). |
@@ -59,8 +66,9 @@ Seat name -> underlying tool, kept for audit purposes:
 - CRANE -> Claude Code (executor/lander/REGENT role for this fleet)
 - SCRIBE -> Claude Code (docs/rules seat, this session)
 - ATLAS -> Qoder-CN (active, dual role — see above)
-- CODEX -> Codex CLI (active 2026-09-02, executor, parallel slice)
-- MASON, RIVET, GIRDER -> Qoder (parked)
+- MASON -> Codex CLI (active 2026-09-02, executor, parallel slice; name reused, see PARKED note)
+- RIVET -> Codex CLI (active 2026-09-02, executor, exclusive apps/mobile/**+docs/**; name reused, see PARKED note)
+- GIRDER -> Qoder (parked)
 - Qwen-Web -> Qwen-Web-Conductor
 
 ## Change log
@@ -74,17 +82,24 @@ Seat name -> underlying tool, kept for audit purposes:
   executor for its assigned WAVE_QUEUE slice). Disjoint-ownership protocol
   established with CRANE (file-scope separation, CRANE-only deps, no
   self-certification on SWEEP_100). MASON, RIVET, GIRDER remain PARKED.
-- 2026-09-02: CODEX activated as ACTIVE, executor role, parallel slice
-  (operator directive). W2-353 (EMPTY_PLACEHOLDER_SWEEP) is CODEX's first
+- 2026-09-02: MASON activated as ACTIVE, executor role, parallel slice
+  (operator directive). W2-353 (EMPTY_PLACEHOLDER_SWEEP) is MASON's first
   assigned row. PARKED list heading updated to "reactivatable when Cursor
   joins" since Codex has now joined.
-- 2026-09-02 (later): Operator confirmed the exact CODEX slice as
+- 2026-09-02 (later): Operator confirmed the exact MASON slice as
   W2-346, 348, 349, 350, 353, 354 — narrower than the initial "346..350
   and 353+" range — and explicitly carved W2-347 out to CRANE (a specific
   reassignment overrides the roster range) because its tools-side wiring
   touches worker.ts/MCP territory. Rows 346, 349, 350 reassigned ATLAS ->
-  CODEX; row 348 confirmed CODEX (matching CRANE's own prior release-claim
+  MASON; row 348 confirmed MASON (matching CRANE's own prior release-claim
   landing); row 347 confirmed CRANE with a note that its CommunityBuild
   investor-KYC wiring is Stage-2, BLOCKED per docs/COMPLIANCE_GATE.md, and
   stays ROADMAP-LABEL rather than IMPLEMENT-MIN/WIRE — added to
   docs/TRANSACTION_COUNSEL_PACK.md as a Stage-2 candidate.
+- 2026-09-02 (later still): Operator activated a second Codex CLI
+  instance and renamed both for clarity: the executor with the
+  346/348/349/350/353/354 slice is now called MASON; the new second
+  instance is called RIVET, exclusive to `apps/mobile/**` and `docs/**`
+  only (first row: W2-356 APP_SHELL_V1). Both names are reused from the
+  parked Qoder-era MASON/RIVET (see PARKED section note) — no row history
+  is reattributed between the old Qoder work and these new Codex seats.
