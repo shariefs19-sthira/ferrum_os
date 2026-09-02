@@ -14,14 +14,20 @@ export default function LoginPage() {
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus("loading")
+    // W2-362: read live DOM values via FormData, not just React state —
+    // see signup/page.tsx for the full root-cause note (autofill/password
+    // managers can desync React's controlled-input state from the DOM).
+    const formData = new FormData(e.currentTarget)
+    const submittedEmail = (formData.get("email") as string) || email
+    const submittedPassword = (formData.get("password") as string) || password
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: submittedEmail, password: submittedPassword }),
       })
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
@@ -59,6 +65,7 @@ export default function LoginPage() {
               </label>
               <input
                 id="email"
+                name="email"
                 type="email"
                 required
                 value={email}
@@ -74,6 +81,7 @@ export default function LoginPage() {
               </label>
               <input
                 id="password"
+                name="password"
                 type="password"
                 required
                 value={password}
