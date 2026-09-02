@@ -286,6 +286,9 @@ landed, so W2-312 carries the real scope.
 | W2-350 | | B2 | J08 | ATLAS | OPEN | | DEAD_CODE_SWEEP — delete components/ProductPage.tsx + components/sections/Hero.tsx and every other never-imported component found by an import-graph sweep of the codebase. Build must stay green after removal. UNDO: git revert <sha>. |
 | W2-351 | | B2 | J08 | ATLAS | OPEN | | COPY_COUNT_SWEEP — fix "Nine products" → "Ten" in app/page.tsx and grep-fix all other stale product-count references site-wide (any copy still counting 9 products instead of the current 10). UNDO: git revert <sha>. |
 
+## 2026-09-02 — SCRIBE CODEX activation, empty-placeholder sweep
+| W2-353 | | B2 | J08 | CODEX | OPEN | | EMPTY_PLACEHOLDER_SWEEP — (1) every hero/section visual box contains a real composed visual or is removed — zero empty containers; (2) every product/resource card is fully clickable to its route (whole card = link, not just "Learn more"); (3) every button has a real handler or is removed; (4) every nav dropdown/menu lists real routes — no empty tabs. Acceptance: Playwright crawl of ALL routes reports zero empty containers, zero handler-less buttons, zero dead '#' links. UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

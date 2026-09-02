@@ -20,6 +20,10 @@ the seat best suited to them, not just whichever seat is free.
 - Ledger discipline
 - Row verification
 
+## CODEX
+- UI-affordance sweeps (empty containers, dead links, handler-less buttons)
+- E2E crawl/verification (Playwright)
+
 ## Maintenance
 Update this file whenever a seat's assigned slice (docs/ROLE_MAP.md)
 changes shape enough to add or drop a skill area. SCRIBE-only edit per

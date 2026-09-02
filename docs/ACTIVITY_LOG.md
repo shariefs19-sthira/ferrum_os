@@ -651,3 +651,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims W2-347 (reassigned); REGENT applies RULE 14 on the next landing touching _headers/middleware/rate-limits.
 ---
+
+## 2026-09-02 09:35 - SCRIBE CODEX activation + W2-353 EMPTY_PLACEHOLDER_SWEEP
+**Action:** Flagged before acting: the operator's original ask assigned a row to CODEX, but CODEX was not on the RULE 1 ACTIVE roster (only mentioned as parked/reactivatable-when-joining). Operator chose to activate CODEX now. Updated AGENTS.md RULE 1 to add CODEX (executor, parallel slice, owns W2-346..350 and W2-353+); updated the PARKED heading from "reactivatable when Codex/Cursor join" to "reactivatable when Cursor joins" since Codex has now joined. Updated docs/ROLE_MAP.md ACTIVE table, name registry, and change log with the same detail; did NOT retroactively rewrite the existing ATLAS/CRANE assignments on W2-346/348/350 (same precedent as W2-320/321 during ATLAS's reactivation) — the slice statement applies going forward only. Created docs/seats/CODEX.md. Added a CODEX section to docs/SKILLS.md (UI-affordance sweeps, Playwright E2E crawl/verification). Also renumbered the placeholder-sweep row per the operator's correction: W2-352 stays bound to the RULE 14 branch (already pushed); the placeholder sweep is queued as **W2-353** EMPTY_PLACEHOLDER_SWEEP, assigned CODEX, verbatim scope: (1) every hero/section visual box has a real composed visual or is removed; (2) every product/resource card is fully clickable to its route, not just "Learn more"; (3) every button has a real handler or is removed; (4) every nav dropdown/menu lists real routes, no empty tabs. Acceptance: Playwright crawl of all routes reports zero empty containers, zero handler-less buttons, zero dead '#' links.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/CODEX.md, docs/SKILLS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CODEX claims W2-353.
+---
