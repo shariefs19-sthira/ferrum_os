@@ -11,20 +11,20 @@ export default function ProductSpecs() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-10 max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-700">Product specs</p>
-        <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-relume-ink">Product specs</p>
+        <h2 className="mt-3 text-3xl font-bold tracking-tight text-relume-ink sm:text-4xl">
           Built to keep project decisions grounded in real plot intelligence.
         </h2>
       </div>
 
-      <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-3xl border border-relume-border bg-white">
         <table className="min-w-full divide-y divide-slate-200 text-left">
-          <thead className="bg-slate-50">
+          <thead className="bg-relume-surface-secondary">
             <tr>
-              <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+              <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-relume-muted">
                 Area
               </th>
-              <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+              <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-relume-muted">
                 Detail
               </th>
             </tr>
@@ -32,8 +32,8 @@ export default function ProductSpecs() {
           <tbody className="divide-y divide-slate-200">
             {specs.map((spec) => (
               <tr key={spec.label} className="align-top">
-                <td className="px-6 py-5 text-sm font-semibold text-slate-900">{spec.label}</td>
-                <td className="px-6 py-5 text-sm leading-6 text-slate-600">{spec.value}</td>
+                <td className="px-6 py-5 text-sm font-semibold text-relume-ink">{spec.label}</td>
+                <td className="px-6 py-5 text-sm leading-6 text-relume-muted">{spec.value}</td>
               </tr>
             ))}
           </tbody>

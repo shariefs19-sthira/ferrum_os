@@ -1,20 +1,20 @@
 export default function SteelPriceHedgesPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Hedging Steel Price Risk on Fixed-Price Contracts
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Why Steel Volatility Is a Contract Problem, Not Just a Market Problem
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Where the Exposure Actually Sits</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Where the Exposure Actually Sits</h2>
+            <p className="text-relume-muted">
               A fixed-price contract signed before a long procurement lead time locks the
               contractor into today's steel rate for tomorrow's delivery, and the gap between
               those two dates is exactly where margin gets eaten. The exposure is largest on
@@ -24,8 +24,8 @@ export default function SteelPriceHedgesPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Contractual Tools Before Financial Ones</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Contractual Tools Before Financial Ones</h2>
+            <p className="text-relume-muted">
               Before reaching for a financial hedge, the cheaper protection is contractual: a
               price-escalation clause tied to a published steel index, a defined procurement
               window written into the schedule, or early-purchase authority that lets the
@@ -37,8 +37,8 @@ export default function SteelPriceHedgesPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">When a Financial Hedge Makes Sense</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">When a Financial Hedge Makes Sense</h2>
+            <p className="text-relume-muted">
               A financial hedge — forward contracts or futures against a steel index — is
               worth the complexity only when the tonnage at risk is large enough that a bad move
               in price would materially damage the project's margin, and when no contractual

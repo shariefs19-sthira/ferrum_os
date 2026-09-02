@@ -1,20 +1,20 @@
 export default function GstForBuildersPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             GST for Builders and Developers
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Tax Credit, Reverse Charge, and the 80% ITC Rule in Practice
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">When GST Is One Percent and When It Is Five</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">When GST Is One Percent and When It Is Five</h2>
+            <p className="text-relume-muted">
               Under the GST regime for real estate, affordable housing projects are taxed at
               one percent without input tax credit, while non-affordable projects are taxed at
               five percent, again without ITC. The "affordable" classification tracks the
@@ -29,8 +29,8 @@ export default function GstForBuildersPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Reverse Charge on Sub-Contractor Work</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Reverse Charge on Sub-Contractor Work</h2>
+            <p className="text-relume-muted">
               Work contracts supplied by an unregistered sub-contractor to a registered builder
               attract reverse charge: the builder pays GST on the value of the sub-contracted
               service and can treat that tax as part of the project's input cost. In practice,
@@ -44,8 +44,8 @@ export default function GstForBuildersPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">ITC, Anti-Profiteering, and the Price-Benefit Audit</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">ITC, Anti-Profiteering, and the Price-Benefit Audit</h2>
+            <p className="text-relume-muted">
               For projects that remain on the pre-amendment five-percent-with-ITC regime, the
               builder must pass the tax benefit to the buyer in the form of reduced price. The
               National Anti-Profiteering Authority has repeatedly examined whether the ITC

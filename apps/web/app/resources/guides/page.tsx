@@ -39,14 +39,14 @@ export const metadata = {
 
 export default function ResourcesGuidesPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="border-b border-slate-200 bg-white">
+    <main className="min-h-screen bg-relume-surface-secondary text-relume-ink">
+      <section className="border-b border-relume-border bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">Resources · Guides</p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 md:text-6xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">Resources · Guides</p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-relume-ink md:text-6xl">
             A short reading path through the reference library
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-relume-muted">
             Three pages, one job: help you ground a decision in the right standard, the right term, and the right
             answer. Start with whichever fits the question in front of you.
           </p>
@@ -58,17 +58,17 @@ export default function ResourcesGuidesPage() {
           {guides.map((guide) => (
             <article
               key={guide.name}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
             >
-              <div className="mb-4 inline-flex rounded-full bg-blue-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-700">
+              <div className="mb-4 inline-flex rounded-full bg-relume-surface-secondary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
                 {guide.label}
               </div>
-              <h2 className="text-2xl font-semibold leading-tight text-slate-900">{guide.name}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{guide.summary}</p>
-              <div className="mt-6 border-t border-slate-200 pt-4">
+              <h2 className="text-2xl font-semibold leading-tight text-relume-ink">{guide.name}</h2>
+              <p className="mt-4 text-sm leading-7 text-relume-muted">{guide.summary}</p>
+              <div className="mt-6 border-t border-relume-border pt-4">
                 <Link
                   href={guide.href}
-                  className="text-sm font-medium text-blue-700 transition hover:text-blue-800"
+                  className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
                 >
                   Open {guide.name.toLowerCase()} →
                 </Link>
@@ -77,15 +77,15 @@ export default function ResourcesGuidesPage() {
           ))}
         </div>
 
-        <p className="mt-10 max-w-2xl text-sm leading-6 text-slate-500">
+        <p className="mt-10 max-w-2xl text-sm leading-6 text-relume-muted">
           Looking for articles or client stories instead?{' '}
-          <Link href="/resources/blog" className="font-medium text-blue-700 hover:text-blue-800">
+          <Link href="/resources/blog" className="font-medium text-relume-ink hover:text-relume-ink">
             Browse the blog
           </Link>{' '}
           or{' '}
           <Link
             href="/resources/case-studies"
-            className="font-medium text-blue-700 hover:text-blue-800"
+            className="font-medium text-relume-ink hover:text-relume-ink"
           >
             read a case study
           </Link>

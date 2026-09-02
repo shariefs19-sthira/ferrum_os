@@ -23,23 +23,23 @@ const features = [
 
 export default function HomeFeatureHighlights() {
   return (
-    <section className="border-t border-slate-200 bg-slate-50">
+    <section className="border-t border-relume-border bg-relume-surface-secondary">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-10 max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Built for operators</p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-relume-muted">Built for operators</p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-relume-ink sm:text-4xl">
             One operating system for construction and capital.
           </h2>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {features.map((feature) => (
-            <div key={feature.title} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-sm font-semibold text-blue-700">
+            <div key={feature.title} className="rounded-3xl border border-relume-border bg-white p-6">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-relume-surface-secondary text-sm font-semibold text-relume-ink">
                 {feature.icon}
               </div>
-              <h3 className="mt-5 text-xl font-semibold text-slate-900">{feature.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{feature.description}</p>
+              <h3 className="mt-5 text-xl font-semibold text-relume-ink">{feature.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-relume-muted">{feature.description}</p>
             </div>
           ))}
         </div>

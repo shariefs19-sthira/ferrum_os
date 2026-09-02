@@ -48,10 +48,10 @@ export default function AdminLeadsView() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-6 py-16">
+    <main className="min-h-screen bg-relume-surface-secondary px-6 py-16">
       <div className="mx-auto max-w-4xl">
-        <h1 className="text-2xl font-bold text-slate-900">Leads (operator view)</h1>
-        <p className="mt-2 text-sm text-slate-600">
+        <h1 className="text-2xl font-bold text-relume-ink">Leads (operator view)</h1>
+        <p className="mt-2 text-sm text-relume-muted">
           Internal tool — not a customer-facing page. Requires the operator token.
         </p>
 
@@ -62,9 +62,9 @@ export default function AdminLeadsView() {
               placeholder="Admin token"
               value={token}
               onChange={(e) => setToken(e.target.value)}
-              className="flex-1 rounded-lg border border-slate-300 px-4 py-2 text-sm"
+              className="flex-1 rounded-lg border border-relume-border px-4 py-2 text-sm"
             />
-            <button type="submit" disabled={status === "loading"} className="rounded-lg bg-slate-900 px-5 py-2 text-sm font-medium text-white disabled:opacity-60">
+            <button type="submit" disabled={status === "loading"} className="rounded-lg bg-relume-ink px-5 py-2 text-sm font-medium text-white disabled:opacity-60">
               {status === "loading" ? "Loading..." : "View leads"}
             </button>
           </form>
@@ -78,30 +78,30 @@ export default function AdminLeadsView() {
         {status === "error" && <p className="mt-4 text-sm text-red-600">Invalid token or request failed.</p>}
 
         {leads && (
-          <div className="mt-6 overflow-x-auto rounded-lg border border-slate-200 bg-white">
+          <div className="mt-6 overflow-x-auto rounded-lg border border-relume-border bg-white">
             <table className="min-w-full divide-y divide-slate-200 text-sm">
-              <thead className="bg-slate-50">
+              <thead className="bg-relume-surface-secondary">
                 <tr>
-                  <th className="px-4 py-2 text-left font-medium text-slate-600">Name</th>
-                  <th className="px-4 py-2 text-left font-medium text-slate-600">Email</th>
-                  <th className="px-4 py-2 text-left font-medium text-slate-600">Product</th>
-                  <th className="px-4 py-2 text-left font-medium text-slate-600">Source</th>
-                  <th className="px-4 py-2 text-left font-medium text-slate-600">Created</th>
+                  <th className="px-4 py-2 text-left font-medium text-relume-muted">Name</th>
+                  <th className="px-4 py-2 text-left font-medium text-relume-muted">Email</th>
+                  <th className="px-4 py-2 text-left font-medium text-relume-muted">Product</th>
+                  <th className="px-4 py-2 text-left font-medium text-relume-muted">Source</th>
+                  <th className="px-4 py-2 text-left font-medium text-relume-muted">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {leads.map((l) => (
                   <tr key={l.id}>
-                    <td className="px-4 py-2 text-slate-900">{l.name}</td>
-                    <td className="px-4 py-2 text-slate-700">{l.email}</td>
-                    <td className="px-4 py-2 text-slate-700">{l.product}</td>
-                    <td className="px-4 py-2 text-slate-700">{l.source_page}</td>
-                    <td className="px-4 py-2 text-slate-500">{new Date(l.created_at).toLocaleString()}</td>
+                    <td className="px-4 py-2 text-relume-ink">{l.name}</td>
+                    <td className="px-4 py-2 text-relume-muted">{l.email}</td>
+                    <td className="px-4 py-2 text-relume-muted">{l.product}</td>
+                    <td className="px-4 py-2 text-relume-muted">{l.source_page}</td>
+                    <td className="px-4 py-2 text-relume-muted">{new Date(l.created_at).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {leads.length === 0 && <p className="p-6 text-center text-sm text-slate-500">No leads yet.</p>}
+            {leads.length === 0 && <p className="p-6 text-center text-sm text-relume-muted">No leads yet.</p>}
           </div>
         )}
       </div>

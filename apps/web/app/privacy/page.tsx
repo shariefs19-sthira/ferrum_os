@@ -1,20 +1,20 @@
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Privacy Policy
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Last updated: January 1, 2024
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Information We Collect</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Information We Collect</h2>
+            <p className="text-relume-muted">
               We collect information you provide directly to us, such as when you create an account, 
               use our services, or contact us for support. This may include your name, email address, 
               and other relevant details.
@@ -22,8 +22,8 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">How We Use Your Information</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">How We Use Your Information</h2>
+            <p className="text-relume-muted">
               We use the information we collect to provide, maintain, and improve our services, 
               to process transactions, and to communicate with you about your use of our platform. 
               We may also use this information for analytics and to develop new products and services.
@@ -31,8 +31,8 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Data Security</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Data Security</h2>
+            <p className="text-relume-muted">
               We implement appropriate security measures to protect your personal information against 
               unauthorized access, alteration, disclosure, or destruction. We use industry-standard 
               encryption and security protocols to safeguard your data.
@@ -40,10 +40,10 @@ export default function PrivacyPage() {
           </section>
         </div>
 
-        <div className="mt-8 text-center text-sm text-gray-600">
+        <div className="mt-8 text-center text-sm text-relume-muted">
           <p>
             For questions about this Privacy Policy, please contact us at{' '}
-            <a href="mailto:privacy@ferrum_os.com" className="text-blue-600 hover:text-blue-500">
+            <a href="mailto:privacy@ferrum_os.com" className="text-relume-ink hover:text-relume-ink">
               privacy@ferrum_os.com
             </a>
           </p>

@@ -29,11 +29,11 @@ export default function NewsletterSignup() {
   }
 
   return (
-    <footer className="border-t border-slate-200 bg-slate-900 text-slate-100">
+    <footer className="border-t border-relume-border bg-relume-ink text-white">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">Newsletter</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Newsletter</p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-white">Stay in the loop on new product releases.</h2>
           </div>
 
@@ -49,18 +49,18 @@ export default function NewsletterSignup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="w-full rounded-full border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30"
+                className="w-full rounded-full border border-white/25 bg-white/10 px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/50 focus:border-white/60 focus:ring-2 focus:ring-relume-ink/30"
               />
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="rounded-full bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-400 disabled:opacity-60"
+                className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-relume-ink transition hover:opacity-90 disabled:opacity-60"
               >
                 {status === "loading" ? "Joining..." : "Join now"}
               </button>
             </div>
             {status === "done" && (
-              <p className="mt-2 text-sm text-blue-300">Thanks — you're on the list.</p>
+              <p className="mt-2 text-sm text-white/70">Thanks — you're on the list.</p>
             )}
             {status === "error" && (
               <p className="mt-2 text-sm text-red-300">Something went wrong. Please try again.</p>

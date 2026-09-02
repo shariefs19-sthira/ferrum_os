@@ -36,16 +36,16 @@ export const metadata = {
 
 export default function ToolsPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="border-b border-slate-200 bg-white">
+    <main className="min-h-screen bg-relume-surface-secondary text-relume-ink">
+      <section className="border-b border-relume-border bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">
             Tools
           </p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-relume-ink md:text-5xl">
             Calculators and quick-reference tables
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+          <p className="mt-4 max-w-2xl text-lg leading-8 text-relume-muted">
             Every tool on this page is wired to the same data model that powers
             Ferrum OS. Use them as a starting point for feasibility, structural
             sizing, and procurement sanity-checks.
@@ -58,31 +58,31 @@ export default function ToolsPage() {
           {tools.map((tool) => (
             <article
               key={tool.name}
-              className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              className="flex flex-col rounded-2xl border border-relume-border bg-white p-6"
             >
-              <span className="inline-flex w-fit items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+              <span className="inline-flex w-fit items-center rounded-full bg-relume-surface-secondary px-3 py-1 text-xs font-semibold text-relume-ink">
                 {tool.badge}
               </span>
-              <h2 className="mt-4 text-2xl font-semibold text-slate-900">{tool.name}</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{tool.summary}</p>
-              <div className="mt-5 space-y-2 text-sm text-slate-700">
+              <h2 className="mt-4 text-2xl font-semibold text-relume-ink">{tool.name}</h2>
+              <p className="mt-3 text-sm leading-7 text-relume-muted">{tool.summary}</p>
+              <div className="mt-5 space-y-2 text-sm text-relume-muted">
                 <p>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-relume-muted">
                     Inputs:
                   </span>{' '}
                   {tool.inputs}
                 </p>
                 <p>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-relume-muted">
                     Outputs:
                   </span>{' '}
                   {tool.outputs}
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-100">
+              <div className="mt-6 pt-4 border-t border-relume-border">
                 <a
                   href={tool.href}
-                  className="inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-800"
+                  className="inline-flex items-center text-sm font-semibold text-relume-ink hover:text-relume-ink"
                 >
                   Open {tool.name} →
                 </a>
@@ -92,25 +92,25 @@ export default function ToolsPage() {
         </div>
       </section>
 
-      <section className="bg-white border-t border-slate-200">
+      <section className="bg-white border-t border-relume-border">
         <div className="mx-auto max-w-7xl px-6 py-12 md:px-8">
-          <h2 className="text-2xl font-bold text-slate-900">How the tools stay in sync</h2>
+          <h2 className="text-2xl font-bold text-relume-ink">How the tools stay in sync</h2>
           <div className="mt-4 grid gap-6 md:grid-cols-3">
             <div>
-              <h3 className="text-sm font-semibold text-slate-900">Same data model</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
+              <h3 className="text-sm font-semibold text-relume-ink">Same data model</h3>
+              <p className="mt-2 text-sm leading-6 text-relume-muted">
                 Tool inputs are typed against the Ferrum OS schema, so a parcel area keyed into Plot Estimator is the same field that drives the BOQ.
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-slate-900">Auditable calculations</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
+              <h3 className="text-sm font-semibold text-relume-ink">Auditable calculations</h3>
+              <p className="mt-2 text-sm leading-6 text-relume-muted">
                 Every output is versioned with the formula reference (IS 456, IS 1200, FAR rules) and a date stamp so audit trails stay clean.
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-slate-900">Exportable</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
+              <h3 className="text-sm font-semibold text-relume-ink">Exportable</h3>
+              <p className="mt-2 text-sm leading-6 text-relume-muted">
                 Each tool returns a JSON or CSV payload that drops straight into a feasibility note, a vendor email, or a working spreadsheet.
               </p>
             </div>

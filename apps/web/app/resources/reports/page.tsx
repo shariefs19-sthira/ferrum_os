@@ -50,42 +50,42 @@ export const metadata = {
 
 export default function ReportsPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Reports
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Annual benchmarks, industry surveys, and field studies
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           {reports.map((report) => (
-            <article key={report.slug} className="border-b border-gray-200 pb-8 last:border-b-0 last:pb-0">
+            <article key={report.slug} className="border-b border-relume-border pb-8 last:border-b-0 last:pb-0">
               <div className="flex items-baseline justify-between flex-wrap gap-2">
-                <h2 className="text-2xl font-bold text-gray-900">{report.title}</h2>
-                <span className="text-sm font-medium text-gray-500">
+                <h2 className="text-2xl font-bold text-relume-ink">{report.title}</h2>
+                <span className="text-sm font-medium text-relume-muted">
                   {report.year} · {report.type}
                 </span>
               </div>
-              <p className="mt-3 text-gray-600">{report.summary}</p>
-              <p className="mt-4 text-sm text-gray-500">
+              <p className="mt-3 text-relume-muted">{report.summary}</p>
+              <p className="mt-4 text-sm text-relume-muted">
                 Reference this report with its Ferrum OS slug:{' '}
-                <code className="font-mono text-gray-700">{report.slug}</code>
+                <code className="font-mono text-relume-muted">{report.slug}</code>
               </p>
             </article>
           ))}
 
-          <div className="pt-4 border-t border-gray-200 text-sm text-gray-500">
+          <div className="pt-4 border-t border-relume-border text-sm text-relume-muted">
             <p>
               For shorter, working-team material, see the{' '}
-              <Link href="/resources/blog" className="text-blue-700 hover:underline">
+              <Link href="/resources/blog" className="text-relume-ink hover:underline">
                 blog
               </Link>{' '}
               or the{' '}
-              <Link href="/resources/whitepapers" className="text-blue-700 hover:underline">
+              <Link href="/resources/whitepapers" className="text-relume-ink hover:underline">
                 whitepapers
               </Link>
               .

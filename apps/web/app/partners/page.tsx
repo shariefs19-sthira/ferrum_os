@@ -73,26 +73,26 @@ const faqs = [
 
 export default function PartnersPage() {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <section className="border-b border-gray-200 bg-white">
+    <div className="min-h-screen bg-relume-surface-secondary text-relume-ink">
+      <section className="border-b border-relume-border bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">
             Partners
           </p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-gray-900 md:text-6xl">
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-relume-ink md:text-6xl">
             Build with the operating system for construction
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-600">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-relume-muted">
             We work with software vendors, delivery consultancies, and regional
             resellers who want to plug into a platform that is already running
             on real projects. Three partner tiers, one data model, one source of
             truth.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <a href="#tiers" className="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700">
+            <a href="#tiers" className="inline-flex items-center justify-center rounded-full bg-relume-ink px-5 py-3 text-sm font-medium text-white transition hover:bg-relume-ink">
               See the tiers
             </a>
-            <a href="mailto:partners@ferrum_os.com" className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-slate-900">
+            <a href="mailto:partners@ferrum_os.com" className="inline-flex items-center justify-center rounded-full border border-relume-border bg-white px-5 py-3 text-sm font-medium text-relume-muted transition hover:border-relume-border hover:text-relume-ink">
               Email partners@ferrum_os.com
             </a>
           </div>
@@ -102,44 +102,44 @@ export default function PartnersPage() {
       <section id="tiers" className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">
               The tiers
             </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-extrabold text-relume-ink sm:text-4xl">
               Three ways to partner
             </h2>
-            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500">
+            <p className="mt-3 max-w-2xl mx-auto text-xl text-relume-muted">
               Pick the track that matches what your organisation already does best.
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {tiers.map((tier) => (
-              <article key={tier.id} className="flex flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
-                <span className="inline-flex w-fit items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+              <article key={tier.id} className="flex flex-col rounded-2xl border border-relume-border bg-relume-surface-secondary p-6">
+                <span className="inline-flex w-fit items-center rounded-full bg-relume-surface-secondary px-3 py-1 text-xs font-semibold text-relume-ink">
                   {tier.tagline}
                 </span>
-                <h3 className="mt-4 text-xl font-semibold text-gray-900">
+                <h3 className="mt-4 text-xl font-semibold text-relume-ink">
                   {tier.name}
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-gray-600">
+                <p className="mt-3 text-sm leading-7 text-relume-muted">
                   {tier.intro}
                 </p>
-                <ul className="mt-4 space-y-2 text-sm text-gray-700">
+                <ul className="mt-4 space-y-2 text-sm text-relume-muted">
                   {tier.perks.map((perk) => (
                     <li key={perk} className="flex items-start">
-                      <svg className="mt-0.5 h-4 w-4 flex-none text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <svg className="mt-0.5 h-4 w-4 flex-none text-relume-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="ml-2">{perk}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="mt-5 rounded-md border border-slate-200 bg-white p-3 text-sm leading-6 text-gray-700">
-                  <span className="font-semibold text-gray-900">Best fit: </span>
+                <p className="mt-5 rounded-md border border-relume-border bg-white p-3 text-sm leading-6 text-relume-muted">
+                  <span className="font-semibold text-relume-ink">Best fit: </span>
                   {tier.fit}
                 </p>
-                <a href={`mailto:partners@ferrum_os.com?subject=Partner%20application%3A%20${encodeURIComponent(tier.name)}`} className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700">
+                <a href={`mailto:partners@ferrum_os.com?subject=Partner%20application%3A%20${encodeURIComponent(tier.name)}`} className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-relume-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-relume-ink">
                   {tier.cta}
                 </a>
               </article>
@@ -148,21 +148,21 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-relume-surface-secondary">
         <div className="mx-auto max-w-4xl px-6 md:px-8">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">
               Questions
             </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-extrabold text-relume-ink sm:text-4xl">
               Partner FAQ
             </h2>
           </div>
           <dl className="space-y-6">
             {faqs.map((item) => (
-              <div key={item.q} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <dt className="text-base font-semibold text-gray-900">{item.q}</dt>
-                <dd className="mt-2 text-sm leading-7 text-gray-600">{item.a}</dd>
+              <div key={item.q} className="rounded-2xl border border-relume-border bg-white p-6">
+                <dt className="text-base font-semibold text-relume-ink">{item.q}</dt>
+                <dd className="mt-2 text-sm leading-7 text-relume-muted">{item.a}</dd>
               </div>
             ))}
           </dl>

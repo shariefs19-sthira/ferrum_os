@@ -37,24 +37,24 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
+    <main className="min-h-screen bg-relume-surface-secondary text-relume-ink">
       <div className="mx-auto grid min-h-screen max-w-7xl items-center px-6 py-12 md:px-8 lg:grid-cols-2">
-        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+        <section className="rounded-3xl border border-relume-border bg-white p-8 md:p-10">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-base font-bold text-white">F</div>
-            <span className="text-lg font-semibold text-slate-900">Ferrum OS</span>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-relume-ink text-base font-bold text-white">F</div>
+            <span className="text-lg font-semibold text-relume-ink">Ferrum OS</span>
           </div>
 
-          <h1 className="mt-8 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
+          <h1 className="mt-8 text-4xl font-bold tracking-tight text-relume-ink md:text-5xl">
             Welcome back
           </h1>
-          <p className="mt-4 max-w-md text-base leading-7 text-slate-600">
+          <p className="mt-4 max-w-md text-base leading-7 text-relume-muted">
             Sign in to manage projects, land intelligence, and execution workflows from one place.
           </p>
 
           <form onSubmit={submit} className="mt-8 space-y-5">
             <div>
-              <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-relume-muted">
                 Email
               </label>
               <input
@@ -64,12 +64,12 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-base text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                className="w-full rounded-xl border border-relume-border bg-relume-surface-secondary px-4 py-3 text-base text-relume-ink outline-none transition focus:border-relume-ink focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">
+              <label htmlFor="password" className="mb-2 block text-sm font-medium text-relume-muted">
                 Password
               </label>
               <input
@@ -79,15 +79,15 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-base text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                className="w-full rounded-xl border border-relume-border bg-relume-surface-secondary px-4 py-3 text-base text-relume-ink outline-none transition focus:border-relume-ink focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
             <div className="flex items-center justify-between gap-3 pt-1">
-              <a href="/forgot-password" className="text-sm font-medium text-blue-700 transition hover:text-blue-800">
+              <a href="/forgot-password" className="text-sm font-medium text-relume-ink transition hover:text-relume-ink">
                 Forgot password?
               </a>
-              <a href="/get-started" className="text-sm font-medium text-slate-600 transition hover:text-slate-900">
+              <a href="/get-started" className="text-sm font-medium text-relume-muted transition hover:text-relume-ink">
                 Start Free Trial
               </a>
             </div>
@@ -97,7 +97,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700 disabled:opacity-60"
+              className="w-full rounded-full bg-relume-ink px-5 py-3 text-sm font-medium text-white transition hover:bg-relume-ink disabled:opacity-60"
             >
               {status === "loading" ? "Signing in..." : "Sign in"}
             </button>
@@ -105,12 +105,12 @@ export default function LoginPage() {
         </section>
 
         <aside className="hidden lg:block">
-          <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-600 p-8 text-white shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-100">Built for teams</p>
+          <div className="rounded-3xl border border-relume-border bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-600 p-8 text-white">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Built for teams</p>
             <h2 className="mt-5 text-3xl font-bold tracking-tight">Keep every decision aligned</h2>
             <ul className="mt-8 space-y-4">
               {features.map((feature) => (
-                <li key={feature} className="flex items-center gap-3 text-base text-blue-50">
+                <li key={feature} className="flex items-center gap-3 text-base text-white/70">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-sm font-semibold">✓</span>
                   {feature}
                 </li>

@@ -42,14 +42,14 @@ export const metadata = {
 
 export default function ResourcesEventsPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="border-b border-slate-200 bg-white">
+    <main className="min-h-screen bg-relume-surface-secondary text-relume-ink">
+      <section className="border-b border-relume-border bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">Resources · Events</p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 md:text-6xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">Resources · Events</p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-relume-ink md:text-6xl">
             Working sessions, not slide decks
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-relume-muted">
             Webinars, field clinics, and roundtables where the team walks through real land, design, and delivery
             decisions. Each session is built around a working artefact — a BOQ, a memo, a decision tree — not a
             product pitch.
@@ -62,20 +62,20 @@ export default function ResourcesEventsPage() {
           {events.map((item) => (
             <article
               key={item.name}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
             >
               <div className="mb-4 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700">
                 {item.label}
               </div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-muted">
                 {item.date} · {item.city}
               </p>
-              <h2 className="mt-3 text-2xl font-semibold leading-tight text-slate-900">{item.name}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{item.summary}</p>
-              <div className="mt-6 border-t border-slate-200 pt-4">
+              <h2 className="mt-3 text-2xl font-semibold leading-tight text-relume-ink">{item.name}</h2>
+              <p className="mt-4 text-sm leading-7 text-relume-muted">{item.summary}</p>
+              <div className="mt-6 border-t border-relume-border pt-4">
                 <Link
                   href="/contact"
-                  className="text-sm font-medium text-blue-700 transition hover:text-blue-800"
+                  className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
                 >
                   Request seat →
                 </Link>
@@ -84,10 +84,10 @@ export default function ResourcesEventsPage() {
           ))}
         </div>
 
-        <p className="mt-10 max-w-2xl text-sm leading-6 text-slate-500">
+        <p className="mt-10 max-w-2xl text-sm leading-6 text-relume-muted">
           Sessions are free for working teams in land, design, and delivery. Recording links and written summaries
           are published under{' '}
-          <Link href="/resources/blog" className="text-blue-700 hover:text-blue-800">
+          <Link href="/resources/blog" className="text-relume-ink hover:text-relume-ink">
             the blog
           </Link>{' '}
           after each event.

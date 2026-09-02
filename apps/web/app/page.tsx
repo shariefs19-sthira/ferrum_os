@@ -4,6 +4,7 @@ import SectionHeading from '../components/sections/SectionHeading'
 import { PrimaryButton, SecondaryButton } from '../components/sections/Buttons'
 import CardGrid from '../components/sections/CardGrid'
 import SliderLeaf from '../components/sections/SliderLeaf'
+import HeroComposite from '../components/sections/HeroComposite'
 
 // The protected /boq-pro app page still exists separately (RULE 6); this
 // card links to its Relume marketing page at /products/boq-pro (W2-250).
@@ -104,7 +105,7 @@ export default function HomePage() {
               <SecondaryButton href="/products">Explore Products</SecondaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <HeroComposite />
         </div>
       </SectionShell>
 

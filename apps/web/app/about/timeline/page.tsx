@@ -54,21 +54,21 @@ const milestones: Milestone[] = [
 
 export default function TimelinePage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="border-b border-slate-200 bg-white">
+    <main className="min-h-screen bg-relume-surface-secondary text-relume-ink">
+      <section className="border-b border-relume-border bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">About</p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 md:text-6xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">About</p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-relume-ink md:text-6xl">
             How Ferrum OS came together
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-relume-muted">
             A short timeline of the platforms, releases, and operating decisions that shaped the product from a single lookup tool into a connected construction operating system.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/about" className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-slate-900">
+            <Link href="/about" className="inline-flex items-center justify-center rounded-full border border-relume-border bg-white px-5 py-3 text-sm font-medium text-relume-muted transition hover:border-relume-border hover:text-relume-ink">
               About Ferrum OS
             </Link>
-            <Link href="/resources" className="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700">
+            <Link href="/resources" className="inline-flex items-center justify-center rounded-full bg-relume-ink px-5 py-3 text-sm font-medium text-white transition hover:bg-relume-ink">
               Explore resources
             </Link>
           </div>
@@ -76,16 +76,16 @@ export default function TimelinePage() {
       </section>
 
       <section className="mx-auto max-w-4xl px-6 py-16 md:px-8">
-        <ol className="relative space-y-12 border-l border-slate-200 pl-8">
+        <ol className="relative space-y-12 border-l border-relume-border pl-8">
           {milestones.map((m) => (
             <li key={m.title} className="relative">
-              <span className="absolute -left-[2.05rem] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 ring-4 ring-white" aria-hidden="true" />
+              <span className="absolute -left-[2.05rem] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-relume-ink ring-4 ring-white" aria-hidden="true" />
               <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">{m.year}</span>
-                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{m.phase}</span>
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-ink">{m.year}</span>
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-muted">{m.phase}</span>
               </div>
-              <h2 className="mt-2 text-2xl font-semibold leading-tight text-slate-900">{m.title}</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{m.detail}</p>
+              <h2 className="mt-2 text-2xl font-semibold leading-tight text-relume-ink">{m.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-relume-muted">{m.detail}</p>
             </li>
           ))}
         </ol>

@@ -17,7 +17,7 @@ export default function PlotEstimator() {
       return {
         label: "Balanced build zone",
         range: "₹1.8k–₹2.6k/sqft",
-        tone: "bg-blue-100 text-blue-900 border-blue-200",
+        tone: "bg-relume-surface-secondary text-relume-ink border-relume-border",
       }
     }
     if (plotAreaSqft < 4200) {
@@ -36,11 +36,11 @@ export default function PlotEstimator() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <div className="rounded-3xl border border-relume-border bg-white p-6 sm:p-8">
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-700">Plot estimator</p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">Estimate cost band by plot size</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-relume-ink">Plot estimator</p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight text-relume-ink">Estimate cost band by plot size</h2>
           </div>
           <div className={`inline-flex rounded-full border px-3 py-1.5 text-xs font-semibold ${costBand.tone}`}>
             {costBand.label}
@@ -49,7 +49,7 @@ export default function PlotEstimator() {
 
         <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <label htmlFor="plot-area" className="mb-2 block text-sm font-medium text-slate-700">
+            <label htmlFor="plot-area" className="mb-2 block text-sm font-medium text-relume-muted">
               Plot area (sqft)
             </label>
             <input
@@ -59,14 +59,14 @@ export default function PlotEstimator() {
               max={10000}
               value={plotAreaSqft}
               onChange={(event) => setPlotAreaSqft(Number(event.target.value) || 0)}
-              className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+              className="w-full rounded-xl border border-relume-border bg-relume-surface-secondary px-4 py-3 text-relume-ink outline-none transition focus:border-relume-ink focus:ring-2 focus:ring-blue-200"
             />
           </div>
 
-          <div className="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
-            <p className="text-sm font-medium text-slate-500">Estimated cost band</p>
-            <div className="mt-4 text-3xl font-black tracking-tight text-slate-900">{costBand.range}</div>
-            <p className="mt-3 text-sm leading-6 text-slate-600">
+          <div className="rounded-2xl bg-relume-surface-secondary p-5 ring-1 ring-slate-200">
+            <p className="text-sm font-medium text-relume-muted">Estimated cost band</p>
+            <div className="mt-4 text-3xl font-black tracking-tight text-relume-ink">{costBand.range}</div>
+            <p className="mt-3 text-sm leading-6 text-relume-muted">
               Suggested screening range for planning, budgeting, and early contractor alignment.
             </p>
           </div>

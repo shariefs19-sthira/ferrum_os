@@ -30,22 +30,22 @@ const pourReadinessSections = [
 
 export default function ConcretePourReadinessPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Concrete Pour Readiness Checklist
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Confirming a Pour Is Actually Ready Before It Starts
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           {pourReadinessSections.map((section) => (
             <section key={section.title}>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{section.title}</h2>
-              <ul className="list-disc list-inside space-y-2 text-gray-600">
+              <h2 className="text-2xl font-bold text-relume-ink mb-4">{section.title}</h2>
+              <ul className="list-disc list-inside space-y-2 text-relume-muted">
                 {section.items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}

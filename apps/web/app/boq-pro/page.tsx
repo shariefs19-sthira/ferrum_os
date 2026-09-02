@@ -78,13 +78,13 @@ export default function BOQProPage() {
   return (
     <div className="min-h-screen p-8">
       <h1 className="text-3xl font-bold">BOQ Pro - Quantity Takeoff</h1>
-      <p className="mt-2 text-sm text-gray-600">Save/load/clear estimates locally and export a print/PDF summary (GST 18%).</p>
+      <p className="mt-2 text-sm text-relume-muted">Save/load/clear estimates locally and export a print/PDF summary (GST 18%).</p>
 
       <div className="mt-6">
         <div className="overflow-x-auto">
           <table className="w-full table-auto border-collapse">
             <thead>
-              <tr className="bg-gray-100">
+              <tr className="bg-relume-surface-secondary">
                 <th className="p-2 text-left">Material</th>
                 <th className="p-2 text-right">Qty</th>
                 <th className="p-2 text-right">Rate</th>
@@ -150,7 +150,7 @@ export default function BOQProPage() {
                 <td className="p-2 text-right">{gst.toFixed(2)}</td>
                 <td className="no-print" />
               </tr>
-              <tr className="bg-gray-50">
+              <tr className="bg-relume-surface-secondary">
                 <td colSpan={3} className="p-2 text-right font-bold">Grand Total</td>
                 <td className="p-2 text-right font-bold">{grandTotal.toFixed(2)}</td>
                 <td className="no-print" />
@@ -160,7 +160,7 @@ export default function BOQProPage() {
         </div>
 
         <div className="mt-4 flex gap-3 flex-wrap no-print">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded" onClick={addRow}>
+          <button className="px-4 py-2 bg-relume-ink text-white rounded" onClick={addRow}>
             Add Material
           </button>
           <button className="px-4 py-2 bg-green-600 text-white rounded" onClick={saveEstimate}>
@@ -172,7 +172,7 @@ export default function BOQProPage() {
           <button className="px-4 py-2 bg-yellow-600 text-white rounded" onClick={clearEstimate}>
             Clear Estimate
           </button>
-          <button className="px-4 py-2 bg-gray-800 text-white rounded" onClick={printExport}>
+          <button className="px-4 py-2 bg-relume-ink text-white rounded" onClick={printExport}>
             Print / Export PDF
           </button>
         </div>

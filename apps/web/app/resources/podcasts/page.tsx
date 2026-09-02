@@ -50,46 +50,46 @@ export const metadata = {
 
 export default function PodcastsPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Podcasts
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Audio series on cost, schedule, standards, and procurement discipline
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           {podcasts.map((show) => (
-            <article key={show.slug} className="border-b border-gray-200 pb-8 last:border-b-0 last:pb-0">
+            <article key={show.slug} className="border-b border-relume-border pb-8 last:border-b-0 last:pb-0">
               <div className="flex items-baseline justify-between flex-wrap gap-2">
-                <h2 className="text-2xl font-bold text-gray-900">{show.title}</h2>
-                <span className="text-sm font-medium text-gray-500">
+                <h2 className="text-2xl font-bold text-relume-ink">{show.title}</h2>
+                <span className="text-sm font-medium text-relume-muted">
                   {show.episodes} episodes · {show.cadence}
                 </span>
               </div>
-              <p className="mt-3 text-gray-600">{show.summary}</p>
-              <p className="mt-4 text-sm text-gray-500">
+              <p className="mt-3 text-relume-muted">{show.summary}</p>
+              <p className="mt-4 text-sm text-relume-muted">
                 Reference this show with its Ferrum OS slug:{' '}
-                <code className="font-mono text-gray-700">{show.slug}</code>
+                <code className="font-mono text-relume-muted">{show.slug}</code>
               </p>
             </article>
           ))}
 
-          <div className="pt-4 border-t border-gray-200 text-sm text-gray-500">
+          <div className="pt-4 border-t border-relume-border text-sm text-relume-muted">
             <p>
               Prefer to read or watch? See the{' '}
-              <Link href="/resources/blog" className="text-blue-700 hover:underline">
+              <Link href="/resources/blog" className="text-relume-ink hover:underline">
                 blog
               </Link>
               ,{' '}
-              <Link href="/resources/videos" className="text-blue-700 hover:underline">
+              <Link href="/resources/videos" className="text-relume-ink hover:underline">
                 videos
               </Link>
               , or the{' '}
-              <Link href="/resources/whitepapers" className="text-blue-700 hover:underline">
+              <Link href="/resources/whitepapers" className="text-relume-ink hover:underline">
                 whitepapers
               </Link>
               .

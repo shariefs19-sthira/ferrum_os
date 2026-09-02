@@ -37,14 +37,14 @@ export const metadata = {
 
 export default function ResourcesChecklistsPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="border-b border-slate-200 bg-white">
+    <main className="min-h-screen bg-relume-surface-secondary text-relume-ink">
+      <section className="border-b border-relume-border bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">Resources · Checklists</p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 md:text-6xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">Resources · Checklists</p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-relume-ink md:text-6xl">
             Site-ready checklists
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-relume-muted">
             Structural handover, retrofit closeout, project documentation, and pre-pour readiness — each one built to
             be printed and carried to site.
           </p>
@@ -59,14 +59,14 @@ export default function ResourcesChecklistsPage() {
           {checklists.map((checklist) => (
             <article
               key={checklist.name}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
             >
-              <h2 className="text-2xl font-semibold leading-tight text-slate-900">{checklist.name}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{checklist.summary}</p>
-              <div className="mt-6 border-t border-slate-200 pt-4">
+              <h2 className="text-2xl font-semibold leading-tight text-relume-ink">{checklist.name}</h2>
+              <p className="mt-4 text-sm leading-7 text-relume-muted">{checklist.summary}</p>
+              <div className="mt-6 border-t border-relume-border pt-4">
                 <Link
                   href={checklist.href}
-                  className="text-sm font-medium text-blue-700 transition hover:text-blue-800"
+                  className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
                 >
                   Open {checklist.name.toLowerCase()} →
                 </Link>

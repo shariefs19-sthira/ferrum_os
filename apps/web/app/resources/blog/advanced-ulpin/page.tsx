@@ -1,20 +1,20 @@
 export default function AdvancedUlpinPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Advanced ULPIN Workflows
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Going Beyond the Basics of Land Parcel Identification
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Layered Geo-Referencing</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Layered Geo-Referencing</h2>
+            <p className="text-relume-muted">
               Advanced ULPIN workflows combine the base parcel identifier with high-resolution
               geo-referencing layers, including cadastral maps, drone-captured orthomosaics, and
               surveyed control points. By stacking these sources, teams can resolve boundary
@@ -24,8 +24,8 @@ export default function AdvancedUlpinPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Dispute Pre-emption</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Dispute Pre-emption</h2>
+            <p className="text-relume-muted">
               When ULPIN records are linked to mutation history, encumbrance certificates, and
               court-pending case data, the resulting parcel profile surfaces ownership conflicts
               long before acquisition. This pre-emption pattern lets project teams walk away from
@@ -35,8 +35,8 @@ export default function AdvancedUlpinPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Integration with Project Tools</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Integration with Project Tools</h2>
+            <p className="text-relume-muted">
               The most useful ULPIN pipelines feed parcel IDs directly into BOQ, permitting, and
               contractor onboarding tools. Once a parcel is selected, downstream artifacts such as
               feasibility reports, site photographs, and approval checklists can be regenerated
