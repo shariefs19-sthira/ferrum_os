@@ -1,48 +1,50 @@
 import Link from 'next/link';
 
+// W2-349 MEDIA_HONESTY: no podcast episode has ever been recorded for
+// Ferrum OS. These entries previously presented specific fabricated episode
+// counts ("24 episodes", "Bi-weekly") and phrases like "on the record" that
+// implied real recorded audio interviews exist — none do. Converted to
+// honest topic notes: no episode count, no cadence claim, no implication
+// that a recording exists.
 const podcasts = [
   {
     slug: 'boq-confessions',
     title: 'BOQ Confessions',
-    episodes: 24,
-    cadence: 'Bi-weekly',
+    status: 'Planned',
     summary:
-      'A bi-weekly audio series where project owners, contractors, and quantity surveyors talk — on the record — about the most expensive line items they have ever got wrong, and what the correction cycle looked like.'
+      'Project owners, contractors, and quantity surveyors on the most expensive line items they have gotten wrong, and what the correction cycle looked like.'
   },
   {
     slug: 'site-diaries',
     title: 'Site Diaries',
-    episodes: 18,
-    cadence: 'Weekly',
+    status: 'Planned',
     summary:
-      'A weekly audio series narrated by working site engineers, recording the actual decisions, weather deviations, and procurement surprises of one ongoing project, week by week, until handover.'
+      'A working project narrated by site engineers — the decisions, weather deviations, and procurement surprises of one ongoing build, through to handover.'
   },
   {
     slug: 'standards-after-five',
     title: 'Standards After Five',
-    episodes: 12,
-    cadence: 'Monthly',
+    status: 'Planned',
     summary:
-      'A monthly long-form interview series on how IS Codes, CESMM, NBC, and other standards actually get applied inside Indian project teams — with a strict no-academia rule and a working-practitioner guest list.'
+      'How IS Codes, CESMM, NBC, and other standards actually get applied inside Indian project teams — working-practitioner conversations, not academic ones.'
   },
   {
     slug: 'the-procurement-table',
     title: 'The Procurement Table',
-    episodes: 9,
-    cadence: 'Monthly',
+    status: 'Planned',
     summary:
-      'A monthly audio series on procurement discipline: how vendor shortlists are built, how awards are defended after the fact, and how the cycle is compressed without cutting corners.'
+      'Procurement discipline: how vendor shortlists get built, how awards get defended after the fact, and how the cycle compresses without cutting corners.'
   }
 ];
 
 export const metadata = {
   title: 'Podcasts — Ferrum OS Resources',
   description:
-    'Audio series from the Ferrum OS team on cost, schedule, standards, and procurement discipline, recorded in working teams, not in studios.',
+    'Planned podcast topics from the Ferrum OS team — no episode has been recorded yet.',
   openGraph: {
     title: 'Podcasts — Ferrum OS Resources',
     description:
-      'Audio series from the Ferrum OS team on cost, schedule, standards, and procurement discipline.',
+      'Planned podcast topics from the Ferrum OS team — no episode has been recorded yet.',
     type: 'article',
     locale: 'en_US'
   }
@@ -57,8 +59,14 @@ export default function PodcastsPage() {
             Podcasts
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
-            Audio series on cost, schedule, standards, and procurement discipline
+            Planned podcast topics — no episode has been recorded yet
           </p>
+        </div>
+
+        <div className="mb-8 rounded-relume border border-relume-border bg-relume-surface-secondary p-4 text-sm text-relume-muted">
+          No podcast episode has been produced. The shows below describe what
+          we plan to cover once we do — treat this as a roadmap, not a
+          library.
         </div>
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
@@ -66,13 +74,13 @@ export default function PodcastsPage() {
             <article key={show.slug} className="border-b border-relume-border pb-8 last:border-b-0 last:pb-0">
               <div className="flex items-baseline justify-between flex-wrap gap-2">
                 <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">{show.title}</h2>
-                <span className="text-sm font-medium text-relume-muted">
-                  {show.episodes} episodes · {show.cadence}
+                <span className="rounded-full border border-relume-border px-2 py-0.5 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
+                  {show.status}
                 </span>
               </div>
               <p className="mt-3 text-relume-muted">{show.summary}</p>
               <p className="mt-4 text-sm text-relume-muted">
-                Reference this show with its Ferrum OS slug:{' '}
+                Reference this topic with its Ferrum OS slug:{' '}
                 <code className="font-mono text-relume-muted">{show.slug}</code>
               </p>
             </article>
