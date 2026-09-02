@@ -11,6 +11,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
+  const [emailTaken, setEmailTaken] = useState(false)
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -35,6 +36,7 @@ export default function SignupPage() {
       })
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
+        setEmailTaken(data.error === "email_taken")
         setErrorMsg(
           data.error === "email_taken"
             ? "An account with this email already exists."
@@ -114,7 +116,19 @@ export default function SignupPage() {
               />
             </div>
 
-            {status === "error" && <p className="text-sm text-red-600">{errorMsg}</p>}
+            {status === "error" && (
+              <p className="text-sm text-red-600">
+                {errorMsg}
+                {emailTaken && (
+                  <>
+                    {" "}
+                    <Link href="/login" className="font-medium underline">
+                      Log in
+                    </Link>
+                  </>
+                )}
+              </p>
+            )}
 
             <button
               type="submit"
