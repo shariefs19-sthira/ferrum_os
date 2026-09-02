@@ -63,13 +63,13 @@ function FooterColumn({
   className?: string
 }) {
   return (
-    <div className={className}>
+    <div className={`min-w-40 ${className}`}>
       {/* Relume tagline token: Body font, Semibold, UPPERCASE. */}
-      <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-muted">{heading}</h3>
+      <h3 className="whitespace-nowrap text-xs font-semibold uppercase tracking-[0.18em] text-relume-muted">{heading}</h3>
       <ul className={`mt-4 space-y-3 ${columns === 2 ? 'sm:columns-2 sm:gap-8 sm:space-y-0' : ''}`}>
         {links.map((link) => (
           <li key={link.name} className={columns === 2 ? 'sm:mb-3' : ''}>
-            <Link href={link.href} className="text-sm text-relume-muted transition hover:text-relume-ink">
+            <Link href={link.href} className="inline-block whitespace-nowrap text-sm leading-6 text-relume-muted transition hover:text-relume-ink">
               {link.name}
             </Link>
           </li>
@@ -83,8 +83,8 @@ export default function Footer() {
   return (
     <footer className="border-t border-relume-border bg-relume-surface">
       <div className="mx-auto max-w-relume-container px-6 py-16 md:px-8">
-        <div className="grid gap-x-8 gap-y-12 lg:grid-cols-12">
-          <div className="lg:col-span-3">
+        <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))]">
+          <div className="min-w-40">
             <div className="flex items-center gap-3">
               <span
                 className="flex h-9 w-9 items-center justify-center rounded-relume bg-relume-ink text-sm font-semibold text-white"
@@ -100,10 +100,10 @@ export default function Footer() {
             </p>
           </div>
 
-          <FooterColumn heading="Products" links={products} columns={2} className="lg:col-span-4" />
-          <FooterColumn heading="Resources" links={resources} className="sm:col-span-1 lg:col-span-2" />
-          <FooterColumn heading="Company" links={company} className="sm:col-span-1 lg:col-span-2" />
-          <FooterColumn heading="Legal" links={legal} className="sm:col-span-1 lg:col-span-1" />
+          <FooterColumn heading="Products" links={products} columns={2} className="sm:col-span-2" />
+          <FooterColumn heading="Resources" links={resources} />
+          <FooterColumn heading="Company" links={company} />
+          <FooterColumn heading="Legal" links={legal} />
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-relume-border pt-6 sm:flex-row sm:items-center sm:justify-between">

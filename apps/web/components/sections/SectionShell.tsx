@@ -21,8 +21,8 @@ export default function SectionShell({
   const border = bordered ? 'border border-relume-border rounded-lg' : ''
 
   return (
-    <section id={id} className={`${bg} py-16 sm:py-20 md:px-8 ${className}`}>
-      <div className={`mx-auto max-w-7xl px-6 md:px-8 ${border}`}>{children}</div>
+    <section id={id} className={`${bg} py-relume-section sm:py-20 md:px-8 ${className}`}>
+      <div className={`mx-auto max-w-relume-container px-6 md:px-8 ${border}`}>{children}</div>
     </section>
   )
 }

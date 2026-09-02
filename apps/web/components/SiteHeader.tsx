@@ -28,7 +28,7 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-relume-border bg-relume-surface/95 backdrop-blur">
       <div className="mx-auto flex max-w-relume-container items-center justify-between gap-6 px-6 py-4 md:px-8">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex shrink-0 items-center gap-3 whitespace-nowrap">
           <span
             className="flex h-9 w-9 items-center justify-center rounded-relume bg-relume-ink text-sm font-semibold text-white"
             aria-hidden="true"
@@ -38,8 +38,8 @@ export default function SiteHeader() {
           <span className="text-lg font-semibold tracking-relume-tight text-relume-ink">Ferrum OS</span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center gap-8">
+        <nav aria-label="Primary" className="hidden min-w-0 md:block">
+          <ul className="flex items-center gap-5 whitespace-nowrap lg:gap-8">
             {navLinks.map((link) => (
               <li key={link.name}>
                 <Link
@@ -53,7 +53,7 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden shrink-0 items-center gap-3 whitespace-nowrap md:flex">
           <Link
             href="/login"
             className="inline-flex items-center justify-center rounded-full border border-relume-border px-5 py-2.5 text-sm font-medium text-relume-ink transition hover:bg-relume-surface-secondary"

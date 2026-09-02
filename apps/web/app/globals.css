@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+}
+
+/* W2-363: unlayered so page-level width/size utilities cannot silently
+   restore the 90-110ch measures and 1.0 display line-height found by the
+   route crawl. */
+main p:not(.uppercase) {
+  max-width: 62ch;
+  max-inline-size: 62ch;
+  overflow-wrap: break-word;
+}
+
+main .text-center > p {
+  margin-inline: auto;
+}
+
+main p a {
+  white-space: nowrap;
+}
+
+main p[class~="text-[11px]"] {
+  font-size: 0.75rem;
+}
+
+main h1[class],
+main h2[class],
+main h3[class],
+main h4[class] {
+  line-height: 1.2;
+}
