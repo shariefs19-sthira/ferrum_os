@@ -1,122 +1,17 @@
 import Link from 'next/link';
 
 const whitepapers = [
-  {
-    slug: 'boq-drift-diagnostics',
-    title: 'BOQ drift diagnostics: a field protocol',
-    year: '2026',
-    pages: 18,
-    summary:
-      'A working protocol for detecting cost and quantity drift between the estimate, the site diary, and the running bill, with worked examples from Indian mid-rise residential projects.'
-  },
-  {
-    slug: 'standards-as-procurement-filter',
-    title: 'Standards as a procurement filter, not a checkbox',
-    year: '2026',
-    pages: 22,
-    summary:
-      'Why IS Code alignment is a stronger vendor-evaluation signal than lowest-quote selection, and how to operationalise it inside a procurement workflow without slowing awards down.'
-  },
-  {
-    slug: 'is-1200-vs-cesmm4',
-    title: 'IS 1200 vs CESMM4: a measured comparison for Indian projects',
-    year: '2025',
-    pages: 14,
-    summary:
-      'Side-by-side comparison of measurement conventions, method-statement granularity, and risk allocation between the two civil-engineering measurement standards, with localisation notes.'
-  },
-  {
-    slug: 'monsoon-concreting-decision-tree',
-    title: 'Monsoon concreting decision tree for site engineers',
-    year: '2025',
-    pages: 11,
-    summary:
-      'A printable decision tree for sequencing pours, protecting curing, and documenting weather deviations during the Indian monsoon, derived from a year of field-clinic case logs.'
-  },
-  {
-    slug: 'thermal-envelope-cost-tradeoffs',
-    title: 'Thermal envelope design: cost tradeoffs for Indian climate zones',
-    year: '2026',
-    pages: 16,
-    summary:
-      'A comparison of insulation, glazing, and shading strategies across Indian climate zones, with the upfront-cost-versus-operating-cost tradeoff worked through for each envelope choice.'
-  },
-  {
-    slug: 'carbon-accounting-for-builders',
-    title: 'Carbon accounting for builders: a working method',
-    year: '2026',
-    pages: 20,
-    summary:
-      'A practical embodied-carbon accounting method for Indian construction projects, covering material-stage emissions factors, boundary-setting, and how to report a figure that survives audit.'
-  },
-  {
-    slug: 'retrofit-payback-models',
-    title: 'Retrofit payback models: comparing structural and energy retrofits',
-    year: '2026',
-    pages: 17,
-    summary:
-      'A worked comparison of payback-period models for structural versus energy-efficiency retrofits, with the assumptions each model depends on made explicit rather than buried in the spreadsheet.'
-  }
+  { slug: 'boq-drift-diagnostics', title: 'BOQ drift diagnostics: a working protocol', year: '2026', summary: 'An original working protocol for reconciling estimate, site record, and valuation definitions without presenting client examples or benchmarks.', href: '/assets/whitepapers/boq-drift-diagnostics.pdf' },
+  { slug: 'standards-as-procurement-filter', title: 'Standards as a procurement filter', year: '2026', summary: 'A framework for asking for standards evidence in procurement evaluation; it is not a certification or vendor recommendation.', href: '/assets/whitepapers/standards-as-procurement-filter.pdf' },
+  { slug: 'is-1200-vs-cesmm4', title: 'IS 1200 vs CESMM4: a comparison worksheet', year: '2025', summary: 'A neutral worksheet for recording a project measurement basis; confirm the governing contract documents before use.', href: '/assets/whitepapers/is-1200-vs-cesmm4.pdf' },
+  { slug: 'monsoon-concreting-decision-tree', title: 'Monsoon concreting decision tree', year: '2025', summary: 'A wet-weather planning prompt for site teams, not a mix-design approval or substitute for engineer instructions.', href: '/assets/whitepapers/monsoon-concreting-decision-tree.pdf' },
+  { slug: 'thermal-envelope-cost-tradeoffs', title: 'Thermal envelope design: trade-off prompts', year: '2026', summary: 'A decision framework for comparing envelope assumptions without asserting project-specific energy or cost performance.', href: '/assets/whitepapers/thermal-envelope-cost-tradeoffs.pdf' },
+  { slug: 'carbon-accounting-for-builders', title: 'Carbon accounting for builders: a working method', year: '2026', summary: 'An evidence-first checklist for building an embodied-carbon estimate; it contains no factors or certified project results.', href: '/assets/whitepapers/carbon-accounting-for-builders.pdf' },
+  { slug: 'retrofit-payback-models', title: 'Retrofit payback models: comparison prompts', year: '2026', summary: 'A framework for documenting intervention, baseline, lifecycle, and sensitivity assumptions before evaluating a retrofit.', href: '/assets/whitepapers/retrofit-payback-models.pdf' }
 ];
 
-export const metadata = {
-  title: 'Whitepapers — Ferrum OS Resources',
-  description:
-    'Long-form research from the Ferrum OS team on cost, quantity, and standards discipline in Indian construction projects. Read or download.',
-  openGraph: {
-    title: 'Whitepapers — Ferrum OS Resources',
-    description:
-      'Long-form research from the Ferrum OS team on cost, quantity, and standards discipline.',
-    type: 'article',
-    locale: 'en_US'
-  }
-};
+export const metadata = { title: 'Whitepapers - Ferrum OS Resources', description: 'Downloadable original working papers on cost, quantity, and standards discipline. Each is explicitly indicative.' };
 
 export default function WhitepapersPage() {
-  return (
-    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
-            Whitepapers
-          </h1>
-          <p className="mt-4 text-xl text-relume-muted">
-            Long-form research on cost, quantity, and standards discipline
-          </p>
-        </div>
-
-        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
-          {whitepapers.map((paper) => (
-            <article key={paper.slug} className="border-b border-relume-border pb-8 last:border-b-0 last:pb-0">
-              <div className="flex items-baseline justify-between flex-wrap gap-2">
-                <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">{paper.title}</h2>
-                <span className="text-sm font-medium text-relume-muted">
-                  {paper.year} · {paper.pages} pages
-                </span>
-              </div>
-              <p className="mt-3 text-relume-muted">{paper.summary}</p>
-              <p className="mt-4 text-sm text-relume-muted">
-                Reference this paper with its Ferrum OS slug:{' '}
-                <code className="font-mono text-relume-muted">{paper.slug}</code>
-              </p>
-            </article>
-          ))}
-
-          <div className="pt-4 border-t border-relume-border text-sm text-relume-muted">
-            <p>
-              Looking for shorter, working-team material? See the{' '}
-              <Link href="/resources/blog" className="text-relume-ink hover:underline">
-                blog
-              </Link>{' '}
-              or the{' '}
-              <Link href="/resources/templates" className="text-relume-ink hover:underline">
-                downloadable templates
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return <main className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8"><div className="max-w-4xl mx-auto"><div className="text-center mb-12"><h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">Whitepapers</h1><p className="mt-4 text-xl text-relume-muted">Original working papers on cost, quantity, and standards discipline</p></div><div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">{whitepapers.map((paper) => <article key={paper.slug} className="border-b border-relume-border pb-8 last:border-b-0 last:pb-0"><div className="flex items-baseline justify-between flex-wrap gap-2"><h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">{paper.title}</h2><span className="text-sm font-medium text-relume-muted">{paper.year} / INDICATIVE PDF</span></div><p className="mt-3 text-relume-muted">{paper.summary}</p><p className="mt-4 text-sm text-relume-muted"><Link href={paper.href} download className="font-medium text-relume-ink hover:underline">Download PDF</Link> / Reference this paper with its Ferrum OS slug: <code className="font-mono text-relume-muted">{paper.slug}</code></p></article>)}<div className="pt-4 border-t border-relume-border text-sm text-relume-muted"><p>Looking for shorter working-team material? See the <Link href="/resources/blog" className="text-relume-ink hover:underline">blog</Link> or <Link href="/resources/templates" className="text-relume-ink hover:underline">downloadable templates</Link>.</p></div></div></div></main>;
 }
