@@ -38,19 +38,19 @@ export default function DemoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-relume-surface-secondary">
       <div className="max-w-3xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Book a Demo
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             See how Ferrum OS can transform your construction projects
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        <div className="bg-white rounded-relume border border-relume-border p-8 mb-8">
+          <h2 className="text-2xl font-bold text-relume-ink mb-6">
             What you'll get from the demo:
           </h2>
           <ul className="space-y-4">
@@ -59,14 +59,14 @@ export default function DemoPage() {
                 <svg className="h-6 w-6 text-green-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700">{benefit}</span>
+                <span className="text-relume-muted">{benefit}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        <div className="bg-white rounded-relume border border-relume-border p-8">
+          <h2 className="text-2xl font-bold text-relume-ink mb-6">
             Request a Demo
           </h2>
           {status === "done" ? (
@@ -77,7 +77,7 @@ export default function DemoPage() {
             <form onSubmit={submit} className="space-y-6">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="firstName" className="block text-sm font-medium text-relume-muted">
                     First Name
                   </label>
                   <input
@@ -86,11 +86,11 @@ export default function DemoPage() {
                     required
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="mt-1 block w-full border border-relume-border rounded-md py-2 px-3 focus:outline-none focus:ring-relume-ink focus:border-relume-ink"
                   />
                 </div>
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="lastName" className="block text-sm font-medium text-relume-muted">
                     Last Name
                   </label>
                   <input
@@ -98,13 +98,13 @@ export default function DemoPage() {
                     id="lastName"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="mt-1 block w-full border border-relume-border rounded-md py-2 px-3 focus:outline-none focus:ring-relume-ink focus:border-relume-ink"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="block text-sm font-medium text-relume-muted">
                   Email Address
                 </label>
                 <input
@@ -113,12 +113,12 @@ export default function DemoPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full border border-relume-border rounded-md py-2 px-3 focus:outline-none focus:ring-relume-ink focus:border-relume-ink"
                 />
               </div>
 
               <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="company" className="block text-sm font-medium text-relume-muted">
                   Company
                 </label>
                 <input
@@ -126,12 +126,12 @@ export default function DemoPage() {
                   id="company"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full border border-relume-border rounded-md py-2 px-3 focus:outline-none focus:ring-relume-ink focus:border-relume-ink"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="message" className="block text-sm font-medium text-relume-muted">
                   Message (Optional)
                 </label>
                 <textarea
@@ -139,7 +139,7 @@ export default function DemoPage() {
                   rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full border border-relume-border rounded-md py-2 px-3 focus:outline-none focus:ring-relume-ink focus:border-relume-ink"
                 ></textarea>
               </div>
 
@@ -149,7 +149,7 @@ export default function DemoPage() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-60"
+                  className="w-full bg-relume-ink text-white py-3 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-relume-ink disabled:opacity-60"
                 >
                   {status === "loading" ? "Requesting..." : "Request Demo"}
                 </button>
@@ -158,10 +158,10 @@ export default function DemoPage() {
           )}
         </div>
 
-        <div className="mt-8 text-center text-sm text-gray-600">
+        <div className="mt-8 text-center text-sm text-relume-muted">
           <p>
             Have questions? Contact us at{' '}
-            <a href="mailto:demo@ferrum_os.com" className="text-blue-600 hover:text-blue-500">
+            <a href="mailto:demo@ferrum_os.com" className="text-relume-ink hover:text-relume-ink">
               demo@ferrum_os.com
             </a>
           </p>

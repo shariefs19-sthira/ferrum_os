@@ -1,20 +1,20 @@
 export default function PilingQualityGatesPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Quality Gates for Piling Work
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Catching a Bad Pile Before It's Buried Under a Foundation
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Verification During Installation</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Verification During Installation</h2>
+            <p className="text-relume-muted">
               Piling defects are hardest to fix after the fact, so the real quality control
               happens during installation, not after: monitoring driving resistance or bore
               verticality in real time, checking concrete volume against theoretical pile volume
@@ -24,8 +24,8 @@ export default function PilingQualityGatesPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Integrity Testing Before Load</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Integrity Testing Before Load</h2>
+            <p className="text-relume-muted">
               Low-strain integrity testing (sonic echo or similar) on a representative sample of
               piles, before any structural load is applied, is the gate that catches necking,
               voids, or discontinuities that installation records alone might miss. Skipping this
@@ -36,8 +36,8 @@ export default function PilingQualityGatesPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Documentation That Survives Handover</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Documentation That Survives Handover</h2>
+            <p className="text-relume-muted">
               Every pile needs an installation record, a concrete volume reconciliation, and an
               integrity test result (where tested) tied to its plan location, not just a summary
               log for the piling package as a whole. This is the record a structural engineer

@@ -1,20 +1,20 @@
 export default function ContractorFleetPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Contractor Fleet Management
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Optimizing Operations for a Multi-Site Construction Company
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Challenge</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Challenge</h2>
+            <p className="text-relume-muted">
               A mid-sized construction company with 25 sites and 150+ vehicles struggled 
               with fleet inefficiency, high maintenance costs, and poor utilization rates. 
               Manual tracking led to delays, disputes, and inconsistent service delivery 
@@ -23,8 +23,8 @@ export default function ContractorFleetPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Approach</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Approach</h2>
+            <p className="text-relume-muted">
               We implemented an integrated fleet management system with GPS tracking, 
               automated maintenance scheduling, and utilization analytics. The solution 
               provided real-time visibility into vehicle locations, driver behavior, 
@@ -33,8 +33,8 @@ export default function ContractorFleetPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Outcome</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Outcome</h2>
+            <p className="text-relume-muted">
               The company achieved 30% improvement in fleet utilization and 25% reduction 
               in maintenance costs within six months. Project timelines improved due to 
               better equipment availability, and client satisfaction increased with 

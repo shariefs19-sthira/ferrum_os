@@ -1,20 +1,20 @@
 export default function MunicipalMarketRetrofitPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Municipal Market Structural Retrofit
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Retrofitting a Trading Hall Without Closing the Traders' Livelihoods
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Challenge</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Challenge</h2>
+            <p className="text-relume-muted">
               A municipal market's ageing structural frame needed retrofit work, but the trading
               hall generated daily income for hundreds of vendors who could not simply relocate
               for the duration of construction. The retrofit had to be sequenced around active
@@ -24,8 +24,8 @@ export default function MunicipalMarketRetrofitPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Approach</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Approach</h2>
+            <p className="text-relume-muted">
               The project team mapped the trading hall into rotating work zones, closing one
               section at a time during the market's lowest-trading hours and temporarily
               relocating affected vendors to an adjacent open zone rather than off-site. Each
@@ -36,8 +36,8 @@ export default function MunicipalMarketRetrofitPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Outcome</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Outcome</h2>
+            <p className="text-relume-muted">
               The retrofit was completed with every vendor able to continue trading throughout,
               moved zone-to-zone rather than displaced. The rotating-zone approach, built around
               the market's actual trading patterns rather than a generic construction sequence,

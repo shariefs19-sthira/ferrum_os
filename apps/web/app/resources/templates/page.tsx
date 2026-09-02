@@ -46,14 +46,14 @@ export const metadata = {
 
 export default function ResourcesTemplatesPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="border-b border-slate-200 bg-white">
+    <main className="min-h-screen bg-relume-surface-secondary text-relume-ink">
+      <section className="border-b border-relume-border bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">Resources · Templates</p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 md:text-6xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">Resources · Templates</p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-relume-ink md:text-6xl">
             Templates we use on real projects
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-relume-muted">
             Distilled versions of the working artefacts we lean on — feasibility one-pagers, procurement comparison
             sheets, site diaries, handover checklists. Each one is shaped by what the next team downstream will
             need to read, not by what is convenient to fill in.
@@ -66,22 +66,22 @@ export default function ResourcesTemplatesPage() {
           {templates.map((item) => (
             <article
               key={item.name}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
             >
               <div className="mb-4 flex items-center justify-between gap-3">
                 <div className="inline-flex rounded-full bg-amber-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-700">
                   {item.label}
                 </div>
-                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
+                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-relume-muted">
                   {item.type}
                 </span>
               </div>
-              <h2 className="text-2xl font-semibold leading-tight text-slate-900">{item.name}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{item.summary}</p>
-              <div className="mt-6 border-t border-slate-200 pt-4">
+              <h2 className="text-2xl font-semibold leading-tight text-relume-ink">{item.name}</h2>
+              <p className="mt-4 text-sm leading-7 text-relume-muted">{item.summary}</p>
+              <div className="mt-6 border-t border-relume-border pt-4">
                 <Link
                   href="/contact"
-                  className="text-sm font-medium text-blue-700 transition hover:text-blue-800"
+                  className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
                 >
                   Request download →
                 </Link>
@@ -90,9 +90,9 @@ export default function ResourcesTemplatesPage() {
           ))}
         </div>
 
-        <p className="mt-10 max-w-2xl text-sm leading-6 text-slate-500">
+        <p className="mt-10 max-w-2xl text-sm leading-6 text-relume-muted">
           Templates are free for working teams. To request a copy, write to us from{' '}
-          <Link href="/contact" className="text-blue-700 hover:text-blue-800">
+          <Link href="/contact" className="text-relume-ink hover:text-relume-ink">
             the contact page
           </Link>{' '}
           with a one-line note on how you intend to use it.

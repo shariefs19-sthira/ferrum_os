@@ -22,16 +22,16 @@ export default function CookieConsent() {
     <aside
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white p-5 shadow-xl sm:inset-x-auto sm:right-6 sm:left-auto"
+      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-2xl border border-relume-border bg-white p-5 shadow-xl sm:inset-x-auto sm:right-6 sm:left-auto"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm leading-6 text-slate-600">
+        <p className="text-sm leading-6 text-relume-muted">
           We use essential cookies to keep Ferrum OS secure and improve your experience.
         </p>
         <button
           type="button"
           onClick={acceptCookies}
-          className="shrink-0 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+          className="shrink-0 rounded-full bg-relume-ink px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
         >
           Got it
         </button>

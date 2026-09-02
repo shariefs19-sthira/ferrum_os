@@ -74,42 +74,42 @@ export const metadata = {
 
 export default function WhitepapersPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Whitepapers
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Long-form research on cost, quantity, and standards discipline
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           {whitepapers.map((paper) => (
-            <article key={paper.slug} className="border-b border-gray-200 pb-8 last:border-b-0 last:pb-0">
+            <article key={paper.slug} className="border-b border-relume-border pb-8 last:border-b-0 last:pb-0">
               <div className="flex items-baseline justify-between flex-wrap gap-2">
-                <h2 className="text-2xl font-bold text-gray-900">{paper.title}</h2>
-                <span className="text-sm font-medium text-gray-500">
+                <h2 className="text-2xl font-bold text-relume-ink">{paper.title}</h2>
+                <span className="text-sm font-medium text-relume-muted">
                   {paper.year} · {paper.pages} pages
                 </span>
               </div>
-              <p className="mt-3 text-gray-600">{paper.summary}</p>
-              <p className="mt-4 text-sm text-gray-500">
+              <p className="mt-3 text-relume-muted">{paper.summary}</p>
+              <p className="mt-4 text-sm text-relume-muted">
                 Reference this paper with its Ferrum OS slug:{' '}
-                <code className="font-mono text-gray-700">{paper.slug}</code>
+                <code className="font-mono text-relume-muted">{paper.slug}</code>
               </p>
             </article>
           ))}
 
-          <div className="pt-4 border-t border-gray-200 text-sm text-gray-500">
+          <div className="pt-4 border-t border-relume-border text-sm text-relume-muted">
             <p>
               Looking for shorter, working-team material? See the{' '}
-              <Link href="/resources/blog" className="text-blue-700 hover:underline">
+              <Link href="/resources/blog" className="text-relume-ink hover:underline">
                 blog
               </Link>{' '}
               or the{' '}
-              <Link href="/resources/templates" className="text-blue-700 hover:underline">
+              <Link href="/resources/templates" className="text-relume-ink hover:underline">
                 downloadable templates
               </Link>
               .

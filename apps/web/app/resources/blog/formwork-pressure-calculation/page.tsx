@@ -1,20 +1,20 @@
 export default function FormworkPressureCalculationPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Formwork Pressure Calculation for Wall and Column Pours
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Getting the Design Pressure Right Before You Spec the Formwork
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Why Lateral Pressure Governs the Design</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Why Lateral Pressure Governs the Design</h2>
+            <p className="text-relume-muted">
               Fresh concrete behaves as a fluid until it sets, and the formwork has to resist the
               full lateral pressure of that fluid at the point of maximum head. Underestimating
               this pressure is one of the most common causes of formwork failure on site — a
@@ -25,8 +25,8 @@ export default function FormworkPressureCalculationPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">The Variables That Actually Move the Number</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">The Variables That Actually Move the Number</h2>
+            <p className="text-relume-muted">
               Pour rate is the single biggest lever: a faster pour rate means less time for the
               lower lifts to begin stiffening before the next lift adds load, so pressure rises
               with rate rather than staying constant with total pour height. Concrete temperature
@@ -39,8 +39,8 @@ export default function FormworkPressureCalculationPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Building in a Margin, Not a Guess</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Building in a Margin, Not a Guess</h2>
+            <p className="text-relume-muted">
               Reliable formwork design doesn't use a single fixed pressure value across every
               pour on a project — it recalculates for each pour's actual conditions and applies a
               documented safety margin on top of the calculated peak pressure, not on top of a

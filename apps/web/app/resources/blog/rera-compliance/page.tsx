@@ -1,20 +1,20 @@
 export default function ReraCompliancePage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             RERA Compliance for Project Teams
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Turning Statutory Reporting into a Continuous Discipline
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Quarterly Progress and Form-B Discipline</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Quarterly Progress and Form-B Discipline</h2>
+            <p className="text-relume-muted">
               The Real Estate (Regulation and Development) Act, 2016 obliges every registered
               project to publish quarterly progress on the state RERA portal, including the
               certified Form-B statement of receivables, construction status, and timeline
@@ -27,8 +27,8 @@ export default function ReraCompliancePage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Escrow, CAR, and the Seventy-Percent Rule</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Escrow, CAR, and the Seventy-Percent Rule</h2>
+            <p className="text-relume-muted">
               RERA's escrow mandate requires promoters to deposit seventy percent of buyer
               receivables into a designated project account, drawn against a Chartered Accountant
               certificate and a project-wise Cost of Construction (CAR) report. Mismanaging the
@@ -41,8 +41,8 @@ export default function ReraCompliancePage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Defect Liability, Title, and Post-Handover Records</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Defect Liability, Title, and Post-Handover Records</h2>
+            <p className="text-relume-muted">
               RERA's five-year defect liability window and its title-disclosure rules make
               handover-day documentation as important as the construction record itself. Project
               teams that close out the project with a structured defects register, a verified

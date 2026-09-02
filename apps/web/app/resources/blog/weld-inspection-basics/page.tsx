@@ -1,20 +1,20 @@
 export default function WeldInspectionBasicsPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Weld Inspection Basics for Site Teams
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             What a Non-Destructive Test Actually Tells You
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Visual Inspection First</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Visual Inspection First</h2>
+            <p className="text-relume-muted">
               Most weld defects that matter — undercut, porosity, incomplete fusion at the toe,
               excessive spatter — are visible to a trained inspector before any non-destructive
               test is run. A disciplined visual inspection against the approved weld procedure,
@@ -24,8 +24,8 @@ export default function WeldInspectionBasicsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Choosing the Right NDT Method</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Choosing the Right NDT Method</h2>
+            <p className="text-relume-muted">
               Ultrasonic testing finds subsurface defects in thicker sections that visual
               inspection can't reach, while dye penetrant and magnetic particle testing are
               better suited to surface-breaking defects on thinner welds. Radiography gives the
@@ -37,8 +37,8 @@ export default function WeldInspectionBasicsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Reading the Result, Not Just Filing It</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Reading the Result, Not Just Filing It</h2>
+            <p className="text-relume-muted">
               An NDT report that sits in a file without being reviewed against acceptance
               criteria by someone qualified to interpret it isn't quality control, it's
               paperwork. The reviewer needs to compare each indication against the applicable

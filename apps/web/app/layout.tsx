@@ -2,6 +2,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Footer from '../components/Footer'
+import SiteHeader from '../components/SiteHeader'
 import JsonLd from '../components/JsonLd'
 import NewsletterSignup from '../components/NewsletterSignup'
 import CookieConsent from '../components/CookieConsent'
@@ -33,7 +34,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
-      <body><JsonLd /><Footer />{children}<NewsletterSignup /><CookieConsent /><Concierge /></body>
+      {/*
+        W2-344: document order is header → content → footer. It previously read
+        <Footer />{children}, which painted the footer at the TOP of every page;
+        with no SiteHeader existing at all, that misplaced footer had been
+        doubling as the site's only navigation. Both halves are fixed together
+        here because neither makes sense alone — a redesigned footer is
+        meaningless while it renders above the content it belongs under.
+      */}
+      <body>
+        <JsonLd />
+        <SiteHeader />
+        {children}
+        <Footer />
+        <NewsletterSignup />
+        <CookieConsent />
+        <Concierge />
+      </body>
     </html>
   )
 }

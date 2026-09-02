@@ -1,20 +1,20 @@
 export default function ConstructionInsurance101Page() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             Construction Insurance 101 for Project Owners
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             The Policies That Actually Matter, and the Ones That Just Look Important
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Builder's Risk and CAR: the One Policy You Cannot Skip</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Builder's Risk and CAR: the One Policy You Cannot Skip</h2>
+            <p className="text-relume-muted">
               Construction All Risk (CAR), also called Builder's Risk in some markets, is the
               single policy that protects the project itself from physical loss or damage
               during the construction period — fire, flood, collapse, storm, theft of
@@ -28,8 +28,8 @@ export default function ConstructionInsurance101Page() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Third-Party Liability and Workmen's Compensation: the Two That Follow the People</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Third-Party Liability and Workmen's Compensation: the Two That Follow the People</h2>
+            <p className="text-relume-muted">
               A project does not just construct a building; it puts workers, neighbours, and
               passers-by into contact with a live construction site. Third-party liability
               covers injury or property damage to anyone who is not a worker on the project,
@@ -44,8 +44,8 @@ export default function ConstructionInsurance101Page() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">The Optional Policies That Look Important and Usually Are Not</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">The Optional Policies That Look Important and Usually Are Not</h2>
+            <p className="text-relume-muted">
               Project owners are routinely sold professional indemnity cover on the design
               team, delay-in-startup cover, and environmental liability cover on top of the
               three core policies. Some of these have a real place — a large public-private

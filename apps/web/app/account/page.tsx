@@ -22,7 +22,7 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-slate-50 px-6 py-24 text-center text-slate-600">
+      <main className="min-h-screen bg-relume-surface-secondary px-6 py-24 text-center text-relume-muted">
         Loading...
       </main>
     )
@@ -30,9 +30,9 @@ export default function AccountPage() {
 
   if (!user) {
     return (
-      <main className="min-h-screen bg-slate-50 px-6 py-24 text-center">
-        <p className="text-slate-700">You&apos;re not signed in.</p>
-        <a href="/login" className="mt-4 inline-block rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white hover:bg-slate-700">
+      <main className="min-h-screen bg-relume-surface-secondary px-6 py-24 text-center">
+        <p className="text-relume-muted">You&apos;re not signed in.</p>
+        <a href="/login" className="mt-4 inline-block rounded-full bg-relume-ink px-6 py-3 text-sm font-medium text-white hover:bg-relume-ink">
           Sign in
         </a>
       </main>
@@ -40,22 +40,22 @@ export default function AccountPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-6 py-24">
-      <div className="mx-auto max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h1 className="text-2xl font-bold text-slate-900">Your account</h1>
+    <main className="min-h-screen bg-relume-surface-secondary px-6 py-24">
+      <div className="mx-auto max-w-md rounded-3xl border border-relume-border bg-white p-8">
+        <h1 className="text-2xl font-bold text-relume-ink">Your account</h1>
         <dl className="mt-6 space-y-3 text-sm">
           <div className="flex justify-between">
-            <dt className="text-slate-500">Email</dt>
-            <dd className="font-medium text-slate-900">{user.email}</dd>
+            <dt className="text-relume-muted">Email</dt>
+            <dd className="font-medium text-relume-ink">{user.email}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-slate-500">Email verified</dt>
-            <dd className="font-medium text-slate-900">{user.email_verified ? "Yes" : "No"}</dd>
+            <dt className="text-relume-muted">Email verified</dt>
+            <dd className="font-medium text-relume-ink">{user.email_verified ? "Yes" : "No"}</dd>
           </div>
         </dl>
         <button
           onClick={logout}
-          className="mt-8 w-full rounded-full border border-slate-300 px-5 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+          className="mt-8 w-full rounded-full border border-relume-border px-5 py-3 text-sm font-medium text-relume-muted transition hover:bg-relume-surface-secondary"
         >
           Sign out
         </button>

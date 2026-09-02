@@ -1,20 +1,20 @@
 export default function FoundationRetrofitCostsPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
             What Drives Foundation Retrofit Costs
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-relume-muted">
             Reading a Foundation Assessment Before You Budget the Fix
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Assessment Scope Sets the Floor</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Assessment Scope Sets the Floor</h2>
+            <p className="text-relume-muted">
               The single biggest cost driver in a foundation retrofit is how much of the
               foundation needs investigation before a fix can even be designed: a soil report and
               a handful of test pits cost far less than the underpinning or piling work a bad
@@ -24,8 +24,8 @@ export default function FoundationRetrofitCostsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Access and Sequencing Costs More Than Materials</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Access and Sequencing Costs More Than Materials</h2>
+            <p className="text-relume-muted">
               Underpinning or piling beneath an occupied or structurally sensitive building costs
               more for access and sequencing than for the concrete and steel themselves — cramped
               working zones, staged excavation to avoid destabilising the existing footing, and
@@ -36,8 +36,8 @@ export default function FoundationRetrofitCostsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Where Contingency Actually Belongs</h2>
-            <p className="text-gray-600">
+            <h2 className="text-2xl font-bold text-relume-ink mb-4">Where Contingency Actually Belongs</h2>
+            <p className="text-relume-muted">
               Foundation work carries more uncertainty than almost any other structural retrofit
               category, because the actual soil and existing-footing condition is only fully
               known once excavation starts. A realistic budget puts a larger, explicit contingency

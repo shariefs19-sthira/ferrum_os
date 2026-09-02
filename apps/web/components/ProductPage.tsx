@@ -31,12 +31,12 @@ const ProductPage: React.FC<ProductPageProps> = ({
       case 'accent':
         return accentColor;
       default:
-        return 'bg-gray-50';
+        return 'bg-relume-surface-secondary';
     }
   };
 
   // Focus visible styles for better keyboard navigation
-  const focusVisibleStyle = "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500";
+  const focusVisibleStyle = "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-relume-ink";
 
   // Render individual Relume components
   const renderComponent = (component: RelumeComponent) => {
@@ -70,24 +70,24 @@ const ProductPage: React.FC<ProductPageProps> = ({
         return (
           <section className="py-12 px-4 max-w-7xl mx-auto" aria-labelledby="features-title">
             <div className="text-center mb-12">
-              <h2 id="features-title" className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 id="features-title" className="text-3xl font-bold text-relume-ink mb-4">
                 {component.props.title || `${productName} Features`}
               </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-relume-muted max-w-2xl mx-auto">
                 {component.props.description || 'Key features and capabilities'}
               </p>
             </div>
 
             <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8`}>
               {(component.props.features || []).map((feature: any, index: number) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-md border border-gray-200" tabIndex={0}>
+                <div key={index} className="bg-white p-6 rounded-relume border border-relume-border border border-relume-border" tabIndex={0}>
                   <div className={`${getColorClass('accent')} text-2xl mb-4`} role="img" aria-hidden="true">
                     {feature.icon || '✨'}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-xl font-bold text-relume-ink mb-2">
                     {feature.title || `Feature ${index + 1}`}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-relume-muted">
                     {feature.description || 'Feature description'}
                   </p>
                   {feature.imageSrc && (
@@ -109,19 +109,19 @@ const ProductPage: React.FC<ProductPageProps> = ({
 
       case 'pricing':
         return (
-          <section className={`py-12 px-4 ${component.props.backgroundColor || 'bg-gray-100'}`} aria-labelledby="pricing-title">
+          <section className={`py-12 px-4 ${component.props.backgroundColor || 'bg-relume-surface-secondary'}`} aria-labelledby="pricing-title">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 id="pricing-title" className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 id="pricing-title" className="text-3xl font-bold text-relume-ink mb-4">
                 {component.props.title || 'Pricing Plans'}
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-relume-muted mb-6">
                 {component.props.description || 'Choose the plan that works best for you'}
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {(component.props.plans || []).map((plan: any, index: number) => (
-                  <div key={index} className="bg-white p-6 rounded-lg shadow-md border border-gray-200" tabIndex={0}>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.name || `Plan ${index + 1}`}</h3>
+                  <div key={index} className="bg-white p-6 rounded-relume border border-relume-border border border-relume-border" tabIndex={0}>
+                    <h3 className="text-xl font-bold text-relume-ink mb-2">{plan.name || `Plan ${index + 1}`}</h3>
                     <p className="text-2xl font-bold mb-4">{plan.price || '$0'}/{plan.period || 'mo'}</p>
                     <ul className="text-left mb-4" aria-label={`${plan.name || `Plan ${index + 1}`} features`}>
                       {(plan.features || []).map((feature: string, idx: number) => (
@@ -158,7 +158,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" role="main">
+    <div className="min-h-screen bg-relume-surface-secondary" role="main">
       {components.map((component, index) => (
         <div key={component.id || index} className={index === 0 ? '' : 'pt-12'}>
           {renderComponent(component)}
@@ -183,11 +183,11 @@ const ProductPage: React.FC<ProductPageProps> = ({
         
         /* High contrast mode support */
         @media (prefers-contrast: high) {
-          .shadow-md {
+          .border border-relume-border {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
           }
           
-          .border-gray-200 {
+          .border-relume-border {
             border-color: #374151;
           }
         }
@@ -202,11 +202,11 @@ const ProductPage: React.FC<ProductPageProps> = ({
         }
         
         /* Color contrast improvements */
-        .text-gray-600 {
+        .text-relume-muted {
           color: #4b5563;
         }
         
-        .text-gray-900 {
+        .text-relume-ink {
           color: #111827;
         }
         
