@@ -1,9 +1,9 @@
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Terms of Service
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function TermsPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Acceptance of Terms</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Acceptance of Terms</h2>
             <p className="text-relume-muted">
               By accessing and using the Ferrum OS platform, you accept and agree to be bound 
               by the terms and provision of this agreement. If you do not agree to these terms, 
@@ -22,7 +22,7 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Intellectual Property</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Intellectual Property</h2>
             <p className="text-relume-muted">
               All content included on this site, such as text, graphics, logos, images, and 
               software, is the property of Ferrum OS or its content suppliers and is protected 
@@ -32,7 +32,7 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Limitation of Liability</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Limitation of Liability</h2>
             <p className="text-relume-muted">
               Ferrum OS shall not be liable for any damages arising out of or related to your 
               use of or inability to use the platform, including but not limited to direct, 

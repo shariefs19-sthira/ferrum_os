@@ -39,9 +39,9 @@ export default function DemoPage() {
 
   return (
     <div className="min-h-screen bg-relume-surface-secondary">
-      <div className="max-w-3xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-relume-prose mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Book a Demo
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -50,7 +50,7 @@ export default function DemoPage() {
         </div>
 
         <div className="bg-white rounded-relume border border-relume-border p-8 mb-8">
-          <h2 className="text-2xl font-bold text-relume-ink mb-6">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-6">
             What you'll get from the demo:
           </h2>
           <ul className="space-y-4">
@@ -66,7 +66,7 @@ export default function DemoPage() {
         </div>
 
         <div className="bg-white rounded-relume border border-relume-border p-8">
-          <h2 className="text-2xl font-bold text-relume-ink mb-6">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-6">
             Request a Demo
           </h2>
           {status === "done" ? (

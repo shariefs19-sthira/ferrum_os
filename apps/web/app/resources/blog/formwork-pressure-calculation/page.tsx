@@ -1,9 +1,9 @@
 export default function FormworkPressureCalculationPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Formwork Pressure Calculation for Wall and Column Pours
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function FormworkPressureCalculationPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Why Lateral Pressure Governs the Design</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Why Lateral Pressure Governs the Design</h2>
             <p className="text-relume-muted">
               Fresh concrete behaves as a fluid until it sets, and the formwork has to resist the
               full lateral pressure of that fluid at the point of maximum head. Underestimating
@@ -25,7 +25,7 @@ export default function FormworkPressureCalculationPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">The Variables That Actually Move the Number</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">The Variables That Actually Move the Number</h2>
             <p className="text-relume-muted">
               Pour rate is the single biggest lever: a faster pour rate means less time for the
               lower lifts to begin stiffening before the next lift adds load, so pressure rises
@@ -39,7 +39,7 @@ export default function FormworkPressureCalculationPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Building in a Margin, Not a Guess</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Building in a Margin, Not a Guess</h2>
             <p className="text-relume-muted">
               Reliable formwork design doesn't use a single fixed pressure value across every
               pour on a project — it recalculates for each pour's actual conditions and applies a

@@ -1,9 +1,9 @@
 export default function CementStorageHumidityPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Cement Storage and Humidity on Site
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function CementStorageHumidityPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">How Humidity Actually Degrades Cement</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">How Humidity Actually Degrades Cement</h2>
             <p className="text-relume-muted">
               Cement hydrates on contact with moisture, and once that reaction starts in the bag
               rather than in the mix, the resulting lumps and reduced reactivity quietly weaken
@@ -24,7 +24,7 @@ export default function CementStorageHumidityPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Storage Conditions That Actually Matter</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Storage Conditions That Actually Matter</h2>
             <p className="text-relume-muted">
               Stacking bags on a raised, dry platform away from external walls, keeping stacks
               below the height that risks bag rupture, and sequencing stock on a strict
@@ -35,7 +35,7 @@ export default function CementStorageHumidityPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">When to Reject a Bag</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">When to Reject a Bag</h2>
             <p className="text-relume-muted">
               A field test — checking for lumps that don't crumble under light hand pressure, or
               a visible loss of the powder's free-flowing texture — is a faster and more reliable

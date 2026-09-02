@@ -33,7 +33,7 @@ export default function WebinarsPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-12 md:px-8">
-        <h2 className="text-2xl font-bold text-relume-ink">Upcoming live sessions</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">Upcoming live sessions</h2>
         <p className="mt-1 text-sm text-relume-muted">All times shown in India Standard Time. Sessions are recorded and added to the on-demand library within 48 hours.</p>
         <div className="mt-6 grid gap-6 md:grid-cols-3">
           {upcoming.map((w) => (
@@ -56,7 +56,7 @@ export default function WebinarsPage() {
 
       <section className="bg-white border-t border-relume-border">
         <div className="mx-auto max-w-7xl px-6 py-12 md:px-8">
-          <h2 className="text-2xl font-bold text-relume-ink">On-demand library</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">On-demand library</h2>
           <p className="mt-1 text-sm text-relume-muted">Recordings of past sessions. Drop in for the relevant minute.</p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {onDemand.map((w) => (
