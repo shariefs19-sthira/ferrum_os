@@ -49,7 +49,7 @@ const faqItems = [
   },
   {
     question: "How is Pro pricing structured?",
-    answer: "Pro is ₹499 per product, and the same tiers apply across all 9 products — LandIntel, DesignStudio, Structura, BOQ Pro, ProMarket, BuildOS, ProcureHub, InvestFlow, and CommunityBuild.",
+    answer: "Pro is ₹499 per product, and the same tiers apply across all 9 subscription products — LandIntel, DesignStudio, Structura, BOQ Pro, ProMarket, BuildOS, ProcureHub, InvestFlow, and CommunityBuild. Transact is the tenth product on the platform but is not sold on these tiers: it currently offers informational estimators only and carries no subscription charge.",
   },
   {
     question: "When should I move to Enterprise?",
@@ -57,7 +57,7 @@ const faqItems = [
   },
   {
     question: "How does this compare to global tools?",
-    answer: "At ₹499 per product, pricing runs 60–90% below global construction-tech tools covering the same 9 products.",
+    answer: "At ₹499 per product, pricing runs 60–90% below global construction-tech tools covering the same 9 subscription products.",
   },
 ]
 
@@ -150,7 +150,7 @@ export default function PricingPage() {
               onClick={() => setShowAllProducts(true)}
               className="mt-6 text-sm font-medium text-relume-ink underline underline-offset-4"
             >
-              Show all 9 products
+              Show all 9 subscription products
             </button>
           )}
         </div>
@@ -173,7 +173,7 @@ export default function PricingPage() {
         <div className="mx-auto max-w-3xl text-center">
           <SectionHeading>Pricing that pays for itself</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            60–90% below global construction-tech tools — ₹499 per product, across 9 products.
+            60–90% below global construction-tech tools — ₹499 per product, across 9 subscription products.
           </p>
         </div>
       </SectionShell>
