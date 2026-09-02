@@ -48,7 +48,7 @@ const pricingPlans = [
     name: 'Pro',
     price: '₹499/mo',
     tag: 'Most popular',
-    features: ['Unlimited designs', 'AI generation', '3D viewer', 'DXF/PDF export'],
+    features: ['Unlimited designs', 'AI generation — roadmap', '3D viewer — roadmap', 'DXF export', 'PDF export — roadmap'],
     button: 'Start Free Trial',
   },
   {
@@ -70,7 +70,7 @@ const faqItems = [
   },
   {
     question: 'Can I edit the generated plans?',
-    answer: 'Yes — drag walls, rooms and doors to fine-tune the layout.',
+    answer: 'Not yet — a drag-edit plan editor (walls, rooms, doors) is on the roadmap. Today\'s test-fit tool is calculator-only: change the inputs and re-run it.',
   },
   {
     question: 'Do I need design experience?',
@@ -90,13 +90,13 @@ export default function DesignStudioPage() {
               Design your building with AI
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              Turn a simple brief into editable floor plans and elevations, then view in 3D and
-              export to DXF or PDF.
+              AI plan generation, editable floor plans, and a 3D viewer are on the roadmap.
+              Live today: a test-fit massing calculator with DXF export.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>AI plan generation</li>
-              <li>3D viewer</li>
-              <li>DXF/PDF export</li>
+              <li>AI plan generation — roadmap</li>
+              <li>3D viewer — roadmap</li>
+              <li>DXF export (live) / PDF export — roadmap</li>
             </ul>
             <div className="mt-8">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>

@@ -107,13 +107,14 @@ export default function StructuraPage() {
               Structural analysis you can sign off on
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              Analyse RCC and steel buildings in the cloud with IS 456/800 compliance, FEA,
-              design calculations and a professional sign-off workflow.
+              Live today: two textbook IS-code checks (IS 456 minimum reinforcement, IS 800
+              slenderness ratio) — not comprehensive code coverage. Full FEA analysis, broader
+              design calculations, and a professional sign-off workflow are on the roadmap.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>IS 456/800 compliance</li>
-              <li>FEA analysis</li>
-              <li>Professional sign-off</li>
+              <li>IS 456/800 spot checks (2 clauses, live)</li>
+              <li>FEA analysis — roadmap</li>
+              <li>Professional sign-off — roadmap</li>
             </ul>
             <div className="mt-8">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>

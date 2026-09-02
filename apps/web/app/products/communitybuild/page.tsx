@@ -58,9 +58,9 @@ export default function CommunityBuildPage() {
               Invest in real estate, fractionally
             </SectionHeading>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>SPV creation</li>
-              <li>KYC-AML verification</li>
-              <li>Profit distribution</li>
+              <li>SPV creation — roadmap</li>
+              <li>KYC-AML verification — roadmap</li>
+              <li>Profit distribution — roadmap</li>
             </ul>
             <div className="mt-8">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
