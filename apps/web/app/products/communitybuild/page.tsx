@@ -5,19 +5,29 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import CdeStatusMock from '../../../components/sections/CdeStatusMock'
 
+// W2-345: the "Construction tracking" card below is real code
+// (CdeStatusMock) but not what it's described as here — it returns one
+// fixed status regardless of which project you ask about (indicative-
+// labeled in the widget itself). SPV creation, investor commitments,
+// KYC/AML verification, profit distribution and investor reporting have
+// zero implementation. Real KYC infrastructure exists in this codebase
+// (worker.ts's kyc_submissions table) but is scoped to Transact's
+// buyer/seller case flow (W2-330) — it is not wired to CommunityBuild
+// investors, so the KYC/AML claim here was misattributed, not entirely
+// absent from the platform.
 const featureItems = [
-  { title: 'SPV creation', body: 'Set up a special purpose vehicle for the build.' },
-  { title: 'Investor commitments', body: 'Track commitments from every investor.' },
-  { title: 'KYC/AML verification', body: 'Verify investors before they commit.' },
-  { title: 'Construction tracking', body: 'Follow construction progress against the build.' },
-  { title: 'Profit distribution', body: 'Distribute profits to investors as the build progresses.' },
-  { title: 'Investor reporting', body: 'Report performance to your investor group.' },
+  { title: 'SPV creation', body: 'Set up a special purpose vehicle for the build — not yet built.' },
+  { title: 'Investor commitments', body: 'Track commitments from every investor — not yet built.' },
+  { title: 'KYC/AML verification', body: 'Verify investors before they commit — not yet built for CommunityBuild (KYC exists elsewhere on the platform, for Transact only).' },
+  { title: 'Construction status (demo)', body: 'A fixed sample status, not live per-project tracking — not yet built.' },
+  { title: 'Profit distribution', body: 'Distribute profits to investors as the build progresses — not yet built.' },
+  { title: 'Investor reporting', body: 'Report performance to your investor group — not yet built.' },
 ]
 
 const howItWorksSteps = [
-  { title: 'Create the SPV', body: 'Set up the special purpose vehicle for the build.' },
-  { title: 'Commit & verify', body: 'Investors commit and complete KYC/AML verification.' },
-  { title: 'Track & distribute', body: 'Track construction and distribute profits.' },
+  { title: 'Create the SPV', body: 'Set up the special purpose vehicle for the build — not yet built.' },
+  { title: 'Commit & verify', body: 'Investors commit and complete KYC/AML verification — not yet built.' },
+  { title: 'Track & distribute', body: 'Track construction and distribute profits — not yet built.' },
 ]
 
 const integrationItems = [

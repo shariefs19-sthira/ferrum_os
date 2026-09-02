@@ -5,19 +5,25 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 
+// W2-345: BuildOS has zero shipped tool of any kind — no task management,
+// no RFI/submittal tracking, no QA/QC or HSE checklists, no progress
+// tracking, no measurement books/RA billing, and no mobile app. Every
+// claim on this page previously described unbuilt capability as present
+// tense. All roadmap-labeled rather than deleted, since they describe the
+// product's real intended direction (docs/RELUME_HANDOFF.md §5).
 const featureItems = [
-  { title: 'Common data environment', body: 'One source of truth for the whole team.' },
-  { title: 'Task management', body: 'Assign, track and close out tasks.' },
-  { title: 'RFIs & submittals', body: 'Resolve questions and approvals in one place.' },
-  { title: 'QA/QC & HSE', body: 'Run checklists and safety logs on site.' },
-  { title: 'Progress tracking', body: 'See the build move in real time.' },
-  { title: 'Measurement books & RA bills', body: 'Bill accurately from measured work.' },
+  { title: 'Common data environment', body: 'One source of truth for the whole team — not yet built.' },
+  { title: 'Task management', body: 'Assign, track and close out tasks — not yet built.' },
+  { title: 'RFIs & submittals', body: 'Resolve questions and approvals in one place — not yet built.' },
+  { title: 'QA/QC & HSE', body: 'Run checklists and safety logs on site — not yet built.' },
+  { title: 'Progress tracking', body: 'See the build move in real time — not yet built.' },
+  { title: 'Measurement books & RA bills', body: 'Bill accurately from measured work — not yet built.' },
 ]
 
 const howItWorksSteps = [
-  { title: 'Set up your project', body: 'Create the workspace and invite your team.' },
-  { title: 'Track & manage', body: 'Run tasks, RFIs, QA/QC and progress.' },
-  { title: 'Bill & handover', body: 'Close out measurement books and RA bills.' },
+  { title: 'Set up your project', body: 'Create the workspace and invite your team — not yet built.' },
+  { title: 'Track & manage', body: 'Run tasks, RFIs, QA/QC and progress — not yet built.' },
+  { title: 'Bill & handover', body: 'Close out measurement books and RA bills — not yet built.' },
 ]
 
 const integrationItems = [
@@ -26,18 +32,20 @@ const integrationItems = [
   { title: 'ProMarket', body: 'Add hired pros to your project team.' },
 ]
 
+// W2-345: feature bullets rewritten — none of these are buildable today
+// (no tool exists on this page at all).
 const pricingPlans = [
   {
-    name: 'Free',
+    name: 'Free (roadmap)',
     price: 'Free',
-    features: ['1 active project', 'Task management', 'Basic CDE', 'Community support'],
+    features: ['Task management — roadmap', 'Basic CDE — roadmap', 'Community support'],
     button: 'Start Free Trial',
   },
   {
-    name: 'Pro',
+    name: 'Pro (roadmap)',
     price: '₹499/mo',
-    tag: 'Most popular',
-    features: ['Unlimited projects', 'RFIs & submittals', 'QA/QC & HSE', 'Priority support'],
+    tag: 'Not yet buildable',
+    features: ['RFIs & submittals — roadmap', 'QA/QC & HSE — roadmap', 'Priority support'],
     button: 'Start Free Trial',
   },
   {
@@ -53,20 +61,12 @@ const pricingPlans = [
 // on this page (Hero, Features, Pricing) — not new claims.
 const faqItems = [
   {
-    question: 'What is the common data environment (CDE)?',
-    answer: 'The CDE is BuildOS’s single source of truth for the whole team — tasks, RFIs, QA/QC, progress and measurement books all live in one shared environment.',
+    question: 'Is BuildOS live yet?',
+    answer: 'Not yet. Task management, RFIs, QA/QC, progress tracking and measurement books/RA billing are all on the roadmap. This page describes the intended product; nothing on it is buildable or usable today.',
   },
   {
     question: 'Is there a mobile app for the field?',
-    answer: 'Yes — BuildOS includes a mobile field app so site teams can work from the same data as the office.',
-  },
-  {
-    question: 'How do measurement books and RA bills work?',
-    answer: 'Measurement books and RA bills are billed accurately from measured work recorded in BuildOS, so billing stays tied to what was actually built.',
-  },
-  {
-    question: 'Is BuildOS suitable for small projects?',
-    answer: 'Yes — the Free plan covers 1 active project with task management and a basic CDE, so a small project can run on BuildOS without committing to a paid plan.',
+    answer: 'No. Ferrum OS is a web platform; no mobile app exists for any product, BuildOS included.',
   },
 ]
 

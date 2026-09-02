@@ -58,27 +58,6 @@ const pricingPlans = [
   },
 ]
 
-const testimonials = [
-  {
-    quote:
-      "Ferrum Build took us from a bare plot to a signed-off design in weeks. The ULPIN lookup alone saved us a month of due diligence.",
-    name: 'Rahul Mehta',
-    title: 'Developer, Bengaluru',
-  },
-  {
-    quote:
-      'BOQ Pro gave us a GST-compliant bill of quantities in an afternoon — what used to take our estimator a week.',
-    name: 'Priya Sharma',
-    title: 'Civil Engineer, Pune',
-  },
-  {
-    quote:
-      'We run three projects on BuildOS and ProcureHub. One source of truth for the whole team, from site to site.',
-    name: 'Arjun Nair',
-    title: 'Contractor, Kochi',
-  },
-]
-
 export default function HomePage() {
   return (
     <main>
@@ -190,27 +169,14 @@ export default function HomePage() {
         </div>
       </SectionShell>
 
-      {/* 6. Testimonials */}
-      <SectionShell background="surface-secondary">
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Testimonials</Eyebrow>
-          <SectionHeading className="mt-4">Trusted across the build</SectionHeading>
-          <p className="mt-6 text-base leading-7 text-relume-ink">
-            Builders, engineers and investors who run their work on Ferrum Build.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {testimonials.map((item) => (
-            <figure key={item.name} className="rounded-lg border border-relume-border bg-relume-surface p-6">
-              <blockquote className="text-sm leading-6 text-relume-ink">&ldquo;{item.quote}&rdquo;</blockquote>
-              <figcaption className="mt-6 border-t border-relume-border pt-4">
-                <div className="font-semibold text-relume-ink">{item.name}</div>
-                <div className="mt-1 text-sm text-relume-ink">{item.title}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </SectionShell>
+      {/* Testimonials section removed under W2-345 (SITEWIDE_CLAIM_TRUTH):
+          it presented three fabricated customer quotes attributed to
+          invented named individuals (Rahul Mehta, Priya Sharma, Arjun Nair)
+          who do not exist. Ferrum OS is pre-launch and has no real customers
+          to quote yet. This is a DELETE decision, not REWRITE/ROADMAP-LABEL —
+          there is no honest version of a customer testimonial section before
+          there are customers. Reinstate with real, attributed quotes once
+          they exist. */}
 
       {/* 7. Start Free Trial */}
       <SectionShell>

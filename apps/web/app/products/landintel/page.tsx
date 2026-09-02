@@ -57,15 +57,11 @@ const faqItems = [
   },
   {
     question: 'How accurate is the land data?',
-    answer: 'We source from official land records and verified surveys, updated regularly to keep reports reliable.',
+    answer: 'The live demo above runs on a small set of sample parcel records, clearly marked indicative. Live official land-records integration is on the roadmap and not yet connected.',
   },
   {
     question: 'Which cities are covered?',
-    answer: 'LandIntel covers major metros and tier-1 and tier-2 cities across India, with coverage expanding every quarter.',
-  },
-  {
-    question: 'Can I export the feasibility report?',
-    answer: 'Yes — generate a shareable PDF report you can send to stakeholders or use to start design and costing.',
+    answer: 'The current demo covers a handful of sample parcels used to show how the tool works. Broader city coverage depends on the live land-records integration above, which has not shipped yet.',
   },
 ]
 
@@ -129,8 +125,10 @@ export default function LandIntelPage() {
 
       {/* Try a lookup — the real, functional tool (not part of the wireframed
           marketing spec, preserved from the pre-Relume page rather than
-          dropped: a live backend-backed ULPIN lookup, PDF export, soil/zoning
-          data). Linked from the Hero's "Try a lookup" button. */}
+          dropped): a D1-backed ULPIN lookup against a small sample-parcel
+          seed set. W2-345 corrected this comment — it previously claimed
+          PDF export and soil/zoning data that UlpinDemoWidget never had.
+          Linked from the Hero's "Try a lookup" button. */}
       <SectionShell background="surface-secondary">
         <div id="try-a-lookup" className="mx-auto max-w-3xl scroll-mt-8 text-center">
           <Eyebrow>Try it now</Eyebrow>

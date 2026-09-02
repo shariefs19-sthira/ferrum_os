@@ -4,19 +4,24 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 
+// W2-345: ProcureHub has zero shipped tool — no material requests, purchase
+// orders, delivery tracking, supplier directory, bill reconciliation or
+// payment integration exist anywhere in the codebase. All roadmap-labeled
+// rather than deleted, since they describe the product's real intended
+// direction (docs/RELUME_HANDOFF.md §5).
 const featureItems = [
-  { title: 'Material requests', body: 'Raise material requests straight from your BOQ.' },
-  { title: 'Purchase orders', body: 'Issue purchase orders to your suppliers.' },
-  { title: 'Delivery tracking', body: 'Track deliveries from order to site.' },
-  { title: 'Supplier directory', body: 'Find and manage suppliers in one place.' },
-  { title: 'Bill reconciliation', body: 'Reconcile bills against orders and deliveries.' },
-  { title: 'Payment integration', body: 'Pay suppliers directly from ProcureHub.' },
+  { title: 'Material requests', body: 'Raise material requests straight from your BOQ — not yet built.' },
+  { title: 'Purchase orders', body: 'Issue purchase orders to your suppliers — not yet built.' },
+  { title: 'Delivery tracking', body: 'Track deliveries from order to site — not yet built.' },
+  { title: 'Supplier directory', body: 'Find and manage suppliers in one place — not yet built.' },
+  { title: 'Bill reconciliation', body: 'Reconcile bills against orders and deliveries — not yet built.' },
+  { title: 'Payment integration', body: 'Pay suppliers directly from ProcureHub — not yet built.' },
 ]
 
 const howItWorksSteps = [
-  { title: 'Request materials', body: 'Raise a request driven by your BOQ.' },
-  { title: 'Issue purchase orders', body: 'Send orders to your chosen suppliers.' },
-  { title: 'Track & pay', body: 'Track delivery and pay through ProcureHub.' },
+  { title: 'Request materials', body: 'Raise a request driven by your BOQ — not yet built.' },
+  { title: 'Issue purchase orders', body: 'Send orders to your chosen suppliers — not yet built.' },
+  { title: 'Track & pay', body: 'Track delivery and pay through ProcureHub — not yet built.' },
 ]
 
 const integrationItems = [
