@@ -691,3 +691,51 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/MASON.md (new), docs/seats/RIVET.md (new), docs/seats/CODEX.md (removed), docs/SKILLS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** RIVET claims W2-356; CRANE applies docs/pwa-wiring.patch once RIVET delivers it.
 ---
+
+## 2026-09-02 10:35 - SCRIBE LANDING_PIPELINE_FIX (W2-357) + new rebase-before-push protocol adopted immediately
+**Action:** Queued W2-357 LANDING_PIPELINE_FIX, assigned CRANE, to end the recurring squash-conflict hand-reconstruction seen across several landings this session: (1) SCRIBE rebases onto origin/main before every push, resolving shared docs files (WAVE_QUEUE.md, ACTIVITY_LOG.md) by keeping both additions in chronological order; (2) land.ps1 gains a rebase-then-squash path for docs-only branches and REPORTS a conflict instead of silently failing on it. Acceptance: next three docs branches land without manual reconstruction. Also codified the SCRIBE half of the new protocol as an addendum to AGENTS.md RULE 9. Tried to apply it to this very push — attempted `git rebase origin/main` on this branch (stacked atop several unlanded prior SCRIBE branches) and hit exactly the conflict class W2-357 targets: 3-way content conflicts in AGENTS.md/ACTIVITY_LOG.md/WAVE_QUEUE.md across multiple commits in the stack. Aborted the rebase rather than risk a bad manual resolution corrupting the ledger, and pushed this branch using the same stacked-branch pattern as every prior task this session instead. This is itself evidence for W2-357: the rebase protocol needs a flatter branch chain (i.e., earlier branches landed first) to actually work — CRANE's land.ps1 side of the fix should land the backlog before SCRIBE's rebase step becomes reliable.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE implements the land.ps1 rebase-then-squash path; SCRIBE follows the rebase-before-push protocol going forward.
+---
+
+## 2026-09-02 11:30 - SCRIBE W2-360 BOQ_PAGE_TRUTH (RULE 6 protected-path exception, explicit operator approval)
+**Action:** Queued W2-360 BOQ_PAGE_TRUTH, assigned ATLAS, applying the W2-345 claim-truth convention to BOQ Pro's remaining sections (featureItems, howItWorksSteps, pricingPlans, faqItems) — the only one of the 9 product pages that never got the W2-345 pass. Flagged on the row: `apps/web/app/boq-pro/**` is a RULE 6 protected path requiring explicit human approval before any modification; this row is queued only because the operator gave that approval directly for this specific task, and ATLAS is instructed to flag the touch when landing rather than treat it as a standing exception. Verification instructions carried verbatim: city-wise 3-city pricing and the three-mode calculator are confirmed real; auto take-off, brands, and GST computation are not — label/rewrite, no deletions, no new features.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** ATLAS claims W2-360, flags the protected-path touch to CRANE/REGENT when landing.
+---
+
+## 2026-09-02 11:45 - SCRIBE W2-361 EMPTY_CONTAINER_PURGE (overlap flagged with W2-353/W2-344)
+**Action:** Queued W2-361 EMPTY_CONTAINER_PURGE, assigned CRANE, per operator mandate: site-wide purge of every empty/placeholder container (example given: the /products/landintel hero gray box) — each gets a real composed visual (INDICATIVE-labeled where sample data) or is deleted outright. Flagged on the row rather than silently duplicating: this overlaps in intent with W2-353 EMPTY_PLACEHOLDER_SWEEP item (1), assigned MASON, and W2-344 RELUME_IDENTITY_PASS's hero-visual item, assigned ATLAS. This row is distinct in scope (CRANE-assigned, explicitly site-wide, verified against the DEPLOYED edge rather than local build) but CRANE should reconcile with MASON/ATLAS's work before re-doing anything already landed.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims W2-361, checks W2-353/W2-344 landing status first to avoid duplicate work.
+---
+
+## 2026-09-02 12:00 - SCRIBE W2-362 ALL_TOOLS_LIVE_SWEEP (deployed-edge verification)
+**Action:** Queued W2-362 ALL_TOOLS_LIVE_SWEEP, assigned CRANE: every interactive tool on every page must pass on the deployed edge (workers.dev), not just local. Scope list carried verbatim: test-fit massing (DesignStudio), ULPIN lookup + map (LandIntel), IS 456/800 checks (Structura), BOQ three-mode calculator, IRR/NPV (InvestFlow), GST/stone calculators, OCR spike, all forms, auth flow, payments test flow, artifacts CRUD, concierge catalog. Acceptance: Playwright tool × action × result table against the deployed edge, zero failed/error states, root causes fixed rather than hidden.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims W2-362.
+---
+
+## 2026-09-02 12:15 - SCRIBE W2-363 TYPOGRAPHY_LAYOUT_SWEEP (conditional assignment, no live signal on MASON's rate-limit status)
+**Action:** Queued W2-363 TYPOGRAPHY_LAYOUT_SWEEP, assigned MASON on the operator's stated assumption that its rate limit has reset — SCRIBE has no way to directly verify MASON's live rate-limit status, so the row carries an explicit note: whoever claims it should confirm and update Assigned To to CRANE first if MASON is still limited. Scope verbatim: no forced link/label wrapping below readable measure; footer columns get adequate min-width + gap (grid auto-fit minmax(160px,1fr) or wider); hero/body line-length 45-75ch; headings never wrap mid-phrase at standard widths; taglines one line on desktop. Site-wide (footer, heroes, cards, tables, tool panels, legal pages). Acceptance: Playwright screenshots at 1366 + 375 reviewed per route, zero wrapped-link/crushed-text instances, build + verify-static green.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** MASON (or CRANE, if MASON still rate-limited) claims W2-363, updating Assigned To first if reassigning.
+---
+
+## 2026-09-02 12:30 - SCRIBE W2-360 result annotation (RULE 6 approval unused, self-corrected GST/export claim)
+**Action:** Annotated W2-360 (still OPEN, not yet landed) with the result, notes only, no deletions: "narrow RULE 6 approval granted but UNUSED — ATLAS verified zero protected-path overlap before and after; no boq-pro/** file modified. GST/export claims rewritten to precise truth (separate disconnected tool has them), self-corrected from a draft that would have fabricated the opposite." Worth flagging: ATLAS caught its own draft heading toward a fabricated claim and corrected it before landing — exactly the RULE 5 no-fabrication discipline working as intended.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** None pending; W2-360 still awaits landing/DONE status.
+---

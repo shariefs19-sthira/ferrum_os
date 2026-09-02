@@ -77,7 +77,11 @@ Each seat commits only from its own git worktree, checked out from
 The shared main checkout at `D:\ferrum_os_recovered` is `scripts/land.ps1`
 territory only — no seat runs `git checkout`/`git switch` there. This
 keeps concurrent seats from colliding on HEAD in the one checkout CRANE's
-landing script depends on.
+landing script depends on. Per W2-357 (landing pipeline fix): SCRIBE
+rebases its docs branch onto `origin/main` before every push — shared
+docs files (WAVE_QUEUE.md, ACTIVITY_LOG.md) are resolved by keeping both
+additions, in chronological order — to end recurring squash-conflict
+hand-reconstruction on land.
 
 ## RULE 10 — Undo discipline
 Every docs/WAVE_QUEUE.md row includes an `UNDO:` field — a one-line
