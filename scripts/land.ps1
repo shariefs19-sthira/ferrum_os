@@ -2,8 +2,11 @@
 land.ps1 - squash-lands origin/w2-* branches onto main.
 For each remote branch matching origin/w2-*, skips it when the branch's tip
 is already fully represented on main (git diff main...origin/<branch> --stat
-is empty); otherwise squash-merges it, commits with an [AI: SCRIPT] tag, and
-skips (with a logged reason) on conflict. Branches matching a glob in
+is empty). Docs-only branches are first rebased onto current main from a
+detached checkout and then squash-merged; only independently appended shared
+docs additions are auto-combined. Any unresolved conflict emits REPORT and
+returns main to a clean state without a landing commit. Other branches squash
+merge, commit with an [AI: SCRIPT] tag, and REPORT on conflict. Branches matching a glob in
 docs/LAND_HOLD.txt are skipped by this catch-all loop entirely (a targeted
 `git merge --squash origin/<branch>` still works on a held branch — the hold
 only applies to the automatic sweep).
@@ -65,6 +68,44 @@ function Test-OnHold($shortName, $holdGlobs) {
     return $false
 }
 
+function Write-LandingReport($shortName, $phase, $files) {
+    $fileList = if ($files.Count -gt 0) { $files -join ', ' } else { 'none reported by git' }
+    Write-Host "REPORT (landing requires review): branch=$shortName phase=$phase files=$fileList"
+}
+
+function Get-RebaseIndexText($stage, $path) {
+    $lines = @(git show ":$stage`:$path")
+    if ($LASTEXITCODE -ne 0) { throw "Unable to read rebase index stage $stage for $path" }
+    return ($lines -join "`n") + "`n"
+}
+
+function Resolve-AppendOnlyDocsRebaseConflicts {
+    $conflicts = @(git diff --name-only --diff-filter=U)
+    if ($conflicts.Count -eq 0 -or @($conflicts | Where-Object { $_ -notmatch '^docs/' }).Count -gt 0) {
+        return @{ Resolved = $false; Files = $conflicts }
+    }
+
+    foreach ($path in $conflicts) {
+        $base = Get-RebaseIndexText 1 $path
+        $mainText = Get-RebaseIndexText 2 $path
+        $branchText = Get-RebaseIndexText 3 $path
+        # Rebase stage 2 is current main; stage 3 is the branch being replayed.
+        # Only append-only edits on both sides are safe to combine automatically.
+        if (-not $mainText.StartsWith($base, [System.StringComparison]::Ordinal) -or
+            -not $branchText.StartsWith($base, [System.StringComparison]::Ordinal)) {
+            return @{ Resolved = $false; Files = $conflicts }
+        }
+
+        $merged = $mainText + $branchText.Substring($base.Length)
+        $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+        [System.IO.File]::WriteAllText($path, $merged, $utf8NoBom)
+        git add -- $path
+        if ($LASTEXITCODE -ne 0) { throw "git add failed while resolving $path" }
+    }
+
+    return @{ Resolved = $true; Files = $conflicts }
+}
+
 Ensure-GitIdentity
 
 git fetch origin --prune
@@ -88,6 +129,7 @@ if ($holdGlobs.Count -gt 0) {
 $skipped = @()
 $landed = @()
 $held = @()
+$reported = @()
 
 foreach ($branch in $remoteBranches) {
     $shortName = $branch -replace '^origin/', ''
@@ -108,15 +150,75 @@ foreach ($branch in $remoteBranches) {
     # its own, since a branch can receive a second push with real new
     # content after its first commit already landed (W2-244 hit exactly
     # this: the tag grep skipped the branch's second commit).
-    $uniqueDiff = git diff "main...$branch" --stat
-    if (-not $uniqueDiff) {
+    $uniquePaths = @(git diff "main...$branch" --name-only)
+    if ($uniquePaths.Count -eq 0) {
         Write-Host "SKIPPED (no unique changes vs main): $shortName"
+        continue
+    }
+
+    $docsOnly = @($uniquePaths | Where-Object { $_ -notmatch '^docs/' }).Count -eq 0
+    if ($docsOnly) {
+        # Rebase a detached copy, so the remote branch is never rewritten.
+        git checkout --detach $branch
+        if ($LASTEXITCODE -ne 0) { throw "git checkout detached failed for $shortName" }
+        git rebase main
+        $rebaseExit = $LASTEXITCODE
+
+        while ($rebaseExit -ne 0) {
+            $resolution = Resolve-AppendOnlyDocsRebaseConflicts
+            if (-not $resolution.Resolved) {
+                Write-LandingReport $shortName 'docs-rebase-conflict' $resolution.Files
+                git rebase --abort
+                git checkout main
+                if ($LASTEXITCODE -ne 0) { throw "git checkout main failed after rebase report for $shortName" }
+                $reported += $shortName
+                continue 2
+            }
+
+            $previousEditor = $env:GIT_EDITOR
+            $env:GIT_EDITOR = 'true'
+            git rebase --continue
+            $rebaseExit = $LASTEXITCODE
+            if ($null -eq $previousEditor) { Remove-Item Env:GIT_EDITOR -ErrorAction SilentlyContinue } else { $env:GIT_EDITOR = $previousEditor }
+        }
+
+        $rebasedHead = (git rev-parse HEAD).Trim()
+        git checkout main
+        if ($LASTEXITCODE -ne 0) { throw "git checkout main failed after rebase for $shortName" }
+        git merge --squash $rebasedHead
+        if ($LASTEXITCODE -ne 0) {
+            $conflicts = @(git diff --name-only --diff-filter=U)
+            Write-LandingReport $shortName 'docs-squash-conflict-after-rebase' $conflicts
+            git reset --hard HEAD
+            $reported += $shortName
+            continue
+        }
+
+        $hasChanges = git diff --cached --name-only
+        if (-not $hasChanges) {
+            Write-Host "SKIPPED (no changes to land after docs rebase): $shortName"
+            git reset --hard HEAD
+            $skipped += $shortName
+            continue
+        }
+
+        git commit -m "feat: $tag [AI: SCRIPT]"
+        if ($LASTEXITCODE -ne 0) {
+            Write-LandingReport $shortName 'docs-commit-failed' @()
+            git reset --hard HEAD
+            $reported += $shortName
+            continue
+        }
+
+        Write-Host "LANDED (docs rebase-then-squash): $shortName"
+        $landed += $shortName
         continue
     }
 
     git merge --squash $branch
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "SKIPPED (conflict on squash): $shortName"
+        $conflicts = @(git diff --name-only --diff-filter=U)
+        Write-LandingReport $shortName 'squash-conflict' $conflicts
         # `git merge --squash` never sets MERGE_HEAD, so `git merge --abort`
         # always fails here ("There is no merge to abort") and leaves the
         # index/working tree dirty, corrupting every subsequent branch in
@@ -124,6 +226,7 @@ foreach ($branch in $remoteBranches) {
         git reset --hard HEAD
         git clean -fd
         $skipped += $shortName
+        $reported += $shortName
         continue
     }
 
@@ -151,11 +254,15 @@ Write-Host "---"
 Write-Host "Landed: $($landed.Count)"
 Write-Host "Skipped: $($skipped.Count)"
 Write-Host "Held: $($held.Count)"
+Write-Host "Reported: $($reported.Count)"
 if ($skipped.Count -gt 0) {
     $skipped | ForEach-Object { Write-Host "  SKIPPED: $_" }
 }
 if ($held.Count -gt 0) {
     $held | ForEach-Object { Write-Host "  HELD: $_" }
+}
+if ($reported.Count -gt 0) {
+    $reported | ForEach-Object { Write-Host "  REPORT: $_" }
 }
 
 if ($landed.Count -gt 0) {
