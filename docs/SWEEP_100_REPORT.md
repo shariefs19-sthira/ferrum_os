@@ -63,3 +63,32 @@ not re-run or re-checked here beyond confirming their current state:
 Re-run checks #2 and #11 once W2-333 lands; nothing else in this
 report needs re-verification unless a further landed change touches
 routes, forms, payments, auth, or MCP.
+
+## Addendum — W2-333 landed, both checks re-run: 13/13
+
+`w2-333/atlas-final` landed at `443767eb`. Re-verified `app/sitemap.ts`
+and `app/layout.tsx` actually changed on main (138 lines vs. the
+prior ~60 for sitemap.ts; a real `openGraph` block now in layout.tsx)
+before re-running anything — not just trusting the row status, which
+was still showing `OPEN` text at land time.
+
+Method: real static build against `443767eb` (88 pages, matching the
+original report), served through `wrangler dev` again — same
+methodology as the original run, not a different/looser check.
+
+| # | Check | Result | Evidence |
+|---|---|---|---|
+| 2 | Sitemap parity vs built routes | **PASS** | `sitemap.xml` now has 85 `<loc>` entries against 88 built pages. Diffed both route lists directly (`comm -23`/`comm -13`): the only 3 built pages absent from the sitemap are `/404` (not-found handler — standard to exclude), `/account` (auth-gated, no public content), and `/admin/leads` (already explicitly `noindex`ed in its own page metadata, W2-328). Zero entries in the sitemap that aren't real built pages. This is the correct shape for "parity" — a literal 88-of-88 would mean publicly indexing an internal admin tool and an auth-walled account page, which would be the actual bug. |
+| 11 | OG tags present | **PASS** | Real `og:title`/`og:description`/`og:locale`/`og:type` confirmed on the homepage, `/products/transact` (page-level override), and spot-checked on `/resources/blog`, `/resources/blog/monsoon-concreting`, `/pricing`, `/login`, `/contact` — each with a distinct, real `og:title` (not a repeated default), confirming this is wired site-wide via layout + per-page metadata, not a single hardcoded tag. Also confirmed live via `wrangler dev` (not just the static file), matching the static output exactly. |
+
+**Final: 13/13 PASS.**
+
+### Updated commit SHA table
+
+| Task | Landed SHA |
+|---|---|
+| SWEEP_100 initial report (11/13) | `815fbbf8` |
+| W2-333 SITE_SYSTEMS (ATLAS) | `443767eb` |
+
+CRANE's SWEEP_100 obligations are complete. Standing by for the
+operator's editing pass.
