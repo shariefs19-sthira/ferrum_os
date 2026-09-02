@@ -635,3 +635,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** ATLAS claims W2-344.
 ---
+
+## 2026-09-02 09:05 - SCRIBE main-state verification + RULE 13 + claim-truth/content-assets/media-honesty + dead-code/copy-count sweeps
+**Action:** Verified against `origin/main` (fetch + git show) before writing anything: W2-343 and W2-344 were already landed (land.ps1 picked them up since they were last checked); RULE 13 and W2-345 through W2-349 were absent. Queued the missing set verbatim: AGENTS.md RULE 13 — SCREENSHOT_EXTRAPOLATION (one flagged instance auto-scopes the fix to all similar instances site-wide). W2-345 SITEWIDE_CLAIM_TRUTH (ATLAS, audit) — inventory every claim on every page with backing status + decision (IMPLEMENT-MIN/WIRE/ROADMAP-LABEL/REWRITE/DELETE). W2-346 (ATLAS, copy side) — execute the REWRITE/ROADMAP-LABEL/DELETE decisions from W2-345. W2-347 (ATLAS, tools side) — execute the IMPLEMENT-MIN/WIRE decisions from W2-345. W2-348 CONTENT_ASSETS (CRANE) — real generated DXF/PDF/checklist downloads for templates/whitepapers/reports. W2-349 MEDIA_HONESTY (ATLAS) — videos/podcasts converted to article-format notes, roadmap-labeled, or deleted. Also added, per the same RULE 13 extrapolation: W2-350 DEAD_CODE_SWEEP (ATLAS) — delete components/ProductPage.tsx + components/sections/Hero.tsx + every other never-imported component found by import-graph sweep, build green after. W2-351 COPY_COUNT_SWEEP (ATLAS) — fix "Nine products" → "Ten" in app/page.tsx and grep-fix all stale product-count references site-wide.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** ATLAS claims W2-345/346/347/349/350/351; CRANE claims W2-348.
+---
