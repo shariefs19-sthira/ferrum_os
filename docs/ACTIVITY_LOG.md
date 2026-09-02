@@ -667,3 +667,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CODEX claims W2-353 then W2-354 in order.
 ---
+
+## 2026-09-02 11:15 - SCRIBE W2-347 audit note (partial, no deletions)
+**Action:** Annotated the already-landed, DONE W2-347 row with an audit finding, note only — no deletions: "Audit PARTIAL — tools-side = honest labeling, not wiring; hero-bullet overclaims resolved via ATLAS 346-convention follow-up." Built this branch fresh off origin/main (rather than stacking on an unlanded branch) since W2-347 was already landed there.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** None pending on this row beyond the noted ATLAS 346-convention follow-up.
+---
