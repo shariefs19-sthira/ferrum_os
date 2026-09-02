@@ -272,6 +272,9 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-02 — SCRIBE gap-closure (ATLAS cross-audit findings)
 | W2-343 | | B2 | J08 | CRANE | OPEN | | GAP_CLOSURE — close two partial-audit gaps from ATLAS's cross-audit of CRANE's landed rows: (1) W2-327 WORKSPACE_DATA — implement the missing Update op on saved-artifact CRUD (Create/Read/Delete confirmed present, Update was not); (2) W2-334 SECURITY_HARDENING — move CSP from Report-Only to fully enforced, resolving the doc/ledger contradiction between docs/SECURITY.md's CSP decision entry and the SECURITY_HARDENING row's DONE status. Acceptance: CRUD test proves Update persists; CSP header enforced (not report-only) in prod build; E2E pass shows no breakage from CSP enforcement (forms, auth, payments, workspace flows all still function). UNDO: git revert <sha>. |
 
+## 2026-09-02 — SCRIBE Relume identity pass
+| W2-344 | | B2 | J08 | ATLAS | OPEN | | RELUME_IDENTITY_PASS — site-wide visual identity per docs/RELUME_HANDOFF.md + docs/RELUME_SPECS.md (design tokens, type scale, spacing rhythm, button/card/section language). Scope: (1) footer redesign — balanced grid (brand block + PRODUCTS/RESOURCES/COMPANY/LEGAL columns evenly distributed, proper gutters, no corner-stacking); (2) hero visual — replace the empty placeholder box with a composed product preview built from REAL UI components (mini dashboard/test-fit/BOQ snippets), honest not fake; (3) unify section rhythm, headings, buttons, cards across all pages to the Relume component language. No logic changes. Acceptance: build + verify-static green, visual consistency table in report. UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
