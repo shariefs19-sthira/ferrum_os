@@ -707,3 +707,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** MASON (or CRANE, if MASON still rate-limited) claims W2-363, updating Assigned To first if reassigning.
 ---
+
+## 2026-09-02 12:30 - SCRIBE W2-360 result annotation (RULE 6 approval unused, self-corrected GST/export claim)
+**Action:** Annotated W2-360 (still OPEN, not yet landed) with the result, notes only, no deletions: "narrow RULE 6 approval granted but UNUSED — ATLAS verified zero protected-path overlap before and after; no boq-pro/** file modified. GST/export claims rewritten to precise truth (separate disconnected tool has them), self-corrected from a draft that would have fabricated the opposite." Worth flagging: ATLAS caught its own draft heading toward a fabricated claim and corrected it before landing — exactly the RULE 5 no-fabrication discipline working as intended.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** None pending; W2-360 still awaits landing/DONE status.
+---
