@@ -1,0 +1,11 @@
+{
+  "appId": "dev.ferrumos.shell",
+  "appName": "Ferrum OS",
+  "webDir": "web",
+  "server": {
+    "url": "https://ferrum-os.shariefsatyala.workers.dev",
+    "cleartext": false,
+    "androidScheme": "https",
+    "allowNavigation": ["ferrum-os.shariefsatyala.workers.dev"]
+  }
+}

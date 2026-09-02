@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Ferrum OS</string>
+    <string name="offline_title">You’re offline</string>
+    <string name="offline_message">Reconnect to the internet, then open Ferrum OS again.</string>
+</resources>
