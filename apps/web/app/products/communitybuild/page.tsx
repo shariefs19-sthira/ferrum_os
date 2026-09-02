@@ -4,6 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import CdeStatusMock from '../../../components/sections/CdeStatusMock'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: the "Construction tracking" card below is real code
 // (CdeStatusMock) but not what it's described as here — it returns one
@@ -66,7 +67,7 @@ export default function CommunityBuildPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="communitybuild" />
         </div>
       </SectionShell>
 

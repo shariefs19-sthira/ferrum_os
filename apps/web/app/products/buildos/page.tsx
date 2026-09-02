@@ -75,7 +75,7 @@ export default function BuildOSPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="max-w-3xl">
           <div>
             <Eyebrow>BuildOS</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -95,7 +95,6 @@ export default function BuildOSPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
         </div>
       </SectionShell>
 

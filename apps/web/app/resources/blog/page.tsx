@@ -47,18 +47,20 @@ export default function BlogPage() {
       <SectionShell id="latest-posts" background="surface-secondary">
         <div className="grid gap-6 md:grid-cols-3">
           {posts.map((post) => (
-            <article key={post.title} className="rounded-lg border border-relume-border bg-relume-surface p-6">
-              <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
-                {post.category}
-              </div>
-              <h2 className="text-2xl font-semibold tracking-relume-tight text-relume-ink">{post.title}</h2>
-              <p className="mt-4 text-sm leading-6 text-relume-ink">{post.summary}</p>
-              <div className="mt-6 border-t border-relume-border pt-4">
-                <Link href={post.href} className="text-sm font-medium text-relume-ink underline underline-offset-4">
+            <Link key={post.title} href={post.href} className="block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-relume-ink">
+              <article className="h-full rounded-lg border border-relume-border bg-relume-surface p-6 transition hover:-translate-y-0.5 hover:border-relume-ink/40">
+                <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
+                  {post.category}
+                </div>
+                <h2 className="text-2xl font-semibold tracking-relume-tight text-relume-ink">{post.title}</h2>
+                <p className="mt-4 text-sm leading-6 text-relume-ink">{post.summary}</p>
+                <div className="mt-6 border-t border-relume-border pt-4">
+                  <span className="text-sm font-medium text-relume-ink underline underline-offset-4">
                   Read article →
-                </Link>
-              </div>
-            </article>
+                  </span>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
       </SectionShell>

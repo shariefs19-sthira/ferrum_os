@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import TestFitCalculator from '../../../components/sections/TestFitCalculator'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: only "Test-fit massing" and "DXF export" are shipped and real
 // (the plot-massing calculator on this page, powered by /api/testfit, and
@@ -102,7 +103,7 @@ export default function DesignStudioPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="designstudio" />
         </div>
       </SectionShell>
 

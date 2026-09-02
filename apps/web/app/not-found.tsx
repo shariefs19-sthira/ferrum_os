@@ -1,19 +1,16 @@
 import Link from "next/link"
-import Image from "next/image"
 
 export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-relume-surface-secondary px-4">
       <div className="text-center max-w-md">
         <div className="mb-8">
-          <Image
-            src="/logo.png"
-            alt="Ferrum OS Logo"
-            width={120}
-            height={120}
-            className="mx-auto"
-            priority
-          />
+          <div
+            aria-label="Ferrum OS"
+            className="mx-auto flex h-20 w-20 items-center justify-center rounded-relume bg-relume-ink text-3xl font-semibold text-white"
+          >
+            F
+          </div>
         </div>
         
         <h1 className="text-9xl font-semibold tracking-relume-tight text-relume-ink mb-4">404</h1>

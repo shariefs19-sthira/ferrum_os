@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import ThreeModeCalculator from '../../../components/sections/ThreeModeCalculator'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 const featureItems = [
   { title: 'Quantity take-off', body: 'Automatically measure quantities from your design.' },
@@ -92,7 +93,7 @@ export default function BoqProMarketingPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="boq-pro" />
         </div>
       </SectionShell>
 

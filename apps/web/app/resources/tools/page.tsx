@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const tools = [
   {
     name: 'Plot Estimator',
@@ -56,38 +58,34 @@ export default function ToolsPage() {
       <section className="mx-auto max-w-7xl px-6 py-12 md:px-8">
         <div className="grid gap-6 md:grid-cols-3">
           {tools.map((tool) => (
-            <article
-              key={tool.name}
-              className="flex flex-col rounded-2xl border border-relume-border bg-white p-6"
-            >
-              <span className="inline-flex w-fit items-center rounded-full bg-relume-surface-secondary px-3 py-1 text-xs font-semibold text-relume-ink">
-                {tool.badge}
-              </span>
-              <h2 className="mt-4 text-2xl font-semibold text-relume-ink">{tool.name}</h2>
-              <p className="mt-3 text-sm leading-7 text-relume-muted">{tool.summary}</p>
-              <div className="mt-5 space-y-2 text-sm text-relume-muted">
-                <p>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-relume-muted">
-                    Inputs:
-                  </span>{' '}
-                  {tool.inputs}
-                </p>
-                <p>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-relume-muted">
-                    Outputs:
-                  </span>{' '}
-                  {tool.outputs}
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-relume-border">
-                <a
-                  href={tool.href}
-                  className="inline-flex items-center text-sm font-semibold text-relume-ink hover:text-relume-ink"
-                >
+            <Link key={tool.name} href={tool.href} className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-relume-ink">
+              <article className="flex h-full flex-col rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border-relume-ink/40">
+                <span className="inline-flex w-fit items-center rounded-full bg-relume-surface-secondary px-3 py-1 text-xs font-semibold text-relume-ink">
+                  {tool.badge}
+                </span>
+                <h2 className="mt-4 text-2xl font-semibold text-relume-ink">{tool.name}</h2>
+                <p className="mt-3 text-sm leading-7 text-relume-muted">{tool.summary}</p>
+                <div className="mt-5 space-y-2 text-sm text-relume-muted">
+                  <p>
+                    <span className="text-xs font-semibold uppercase tracking-wider text-relume-muted">
+                      Inputs:
+                    </span>{' '}
+                    {tool.inputs}
+                  </p>
+                  <p>
+                    <span className="text-xs font-semibold uppercase tracking-wider text-relume-muted">
+                      Outputs:
+                    </span>{' '}
+                    {tool.outputs}
+                  </p>
+                </div>
+                <div className="mt-6 border-t border-relume-border pt-4">
+                  <span className="inline-flex items-center text-sm font-semibold text-relume-ink">
                   Open {tool.name} →
-                </a>
-              </div>
-            </article>
+                  </span>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
       </section>

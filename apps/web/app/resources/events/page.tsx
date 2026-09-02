@@ -58,24 +58,20 @@ export default function ResourcesEventsPage() {
       <section className="mx-auto max-w-7xl px-6 py-16 md:px-8">
         <div className="grid gap-6 md:grid-cols-3">
           {events.map((item) => (
-            <article
-              key={item.name}
-              className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
-            >
-              <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">
-                {item.label} · Planned
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold leading-tight text-relume-ink">{item.name}</h2>
-              <p className="mt-4 text-sm leading-7 text-relume-muted">{item.summary}</p>
-              <div className="mt-6 border-t border-relume-border pt-4">
-                <Link
-                  href="/contact"
-                  className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
-                >
+            <Link key={item.name} href="/contact" className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-relume-ink">
+              <article className="h-full rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border-relume-ink/40">
+                <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">
+                  {item.label} · Planned
+                </div>
+                <h2 className="mt-3 text-2xl font-semibold leading-tight text-relume-ink">{item.name}</h2>
+                <p className="mt-4 text-sm leading-7 text-relume-muted">{item.summary}</p>
+                <div className="mt-6 border-t border-relume-border pt-4">
+                  <span className="text-sm font-medium text-relume-ink">
                   Ask about this topic →
-                </Link>
-              </div>
-            </article>
+                  </span>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
 

@@ -115,34 +115,40 @@ export default function PartnersPage() {
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {tiers.map((tier) => (
-              <article key={tier.id} className="flex flex-col rounded-2xl border border-relume-border bg-relume-surface-secondary p-6">
-                <span className="inline-flex w-fit items-center rounded-full bg-relume-surface-secondary px-3 py-1 text-xs font-semibold text-relume-ink">
-                  {tier.tagline}
-                </span>
-                <h3 className="mt-4 text-xl font-semibold text-relume-ink">
-                  {tier.name}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-relume-muted">
-                  {tier.intro}
-                </p>
-                <ul className="mt-4 space-y-2 text-sm text-relume-muted">
-                  {tier.perks.map((perk) => (
-                    <li key={perk} className="flex items-start">
-                      <svg className="mt-0.5 h-4 w-4 flex-none text-relume-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="ml-2">{perk}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-5 rounded-md border border-relume-border bg-white p-3 text-sm leading-6 text-relume-muted">
-                  <span className="font-semibold text-relume-ink">Best fit: </span>
-                  {tier.fit}
-                </p>
-                <a href={`mailto:partners@ferrum_os.com?subject=Partner%20application%3A%20${encodeURIComponent(tier.name)}`} className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-relume-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-relume-ink">
-                  {tier.cta}
-                </a>
-              </article>
+              <a
+                key={tier.id}
+                href={`mailto:partners@ferrum_os.com?subject=Partner%20application%3A%20${encodeURIComponent(tier.name)}`}
+                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-relume-ink"
+              >
+                <article className="flex h-full flex-col rounded-2xl border border-relume-border bg-relume-surface-secondary p-6 transition hover:-translate-y-0.5 hover:border-relume-ink/40">
+                  <span className="inline-flex w-fit items-center rounded-full border border-relume-border px-3 py-1 text-xs font-semibold text-relume-ink">
+                    {tier.tagline}
+                  </span>
+                  <h3 className="mt-4 text-xl font-semibold text-relume-ink">
+                    {tier.name}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-relume-muted">
+                    {tier.intro}
+                  </p>
+                  <ul className="mt-4 space-y-2 text-sm text-relume-muted">
+                    {tier.perks.map((perk) => (
+                      <li key={perk} className="flex items-start">
+                        <svg className="mt-0.5 h-4 w-4 flex-none text-relume-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="ml-2">{perk}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-5 rounded-md border border-relume-border bg-white p-3 text-sm leading-6 text-relume-muted">
+                    <span className="font-semibold text-relume-ink">Best fit: </span>
+                    {tier.fit}
+                  </p>
+                  <span className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-relume-ink px-4 py-2 text-sm font-medium text-white">
+                    {tier.cta}
+                  </span>
+                </article>
+              </a>
             ))}
           </div>
         </div>

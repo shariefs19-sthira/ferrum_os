@@ -131,49 +131,50 @@ export default function CareersPage() {
 
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
           {roles.map((role) => (
-            <article
+            <a
               key={role.title}
-              className="flex flex-col rounded-lg border border-relume-border bg-relume-surface p-6"
+              href={`mailto:careers@ferrum_os.com?subject=Application%3A%20${encodeURIComponent(role.title)}`}
+              className="block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-relume-ink"
             >
-              <span className="inline-flex w-fit items-center rounded-full border border-relume-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-relume-ink">
-                {role.badge}
-              </span>
-              <h3 className="mt-4 text-xl font-semibold tracking-relume-tight text-relume-ink">
-                {role.title}
-              </h3>
-              <p className="mt-2 text-sm text-relume-ink">
-                {role.location} &middot; {role.type}
-              </p>
-              <p className="mt-4 text-sm leading-6 text-relume-ink">
-                {role.summary}
-              </p>
-              <ul className="mt-4 space-y-2 text-sm text-relume-ink">
-                {role.requirements.map((req) => (
-                  <li key={req} className="flex items-start">
-                    <svg
-                      className="mt-0.5 h-4 w-4 flex-none text-relume-ink"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span className="ml-2">{req}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6">
-                <PrimaryButton href={`mailto:careers@ferrum_os.com?subject=Application%3A%20${encodeURIComponent(role.title)}`}>
+              <article className="flex h-full flex-col rounded-lg border border-relume-border bg-relume-surface p-6 transition hover:-translate-y-0.5 hover:border-relume-ink/40">
+                <span className="inline-flex w-fit items-center rounded-full border border-relume-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-relume-ink">
+                  {role.badge}
+                </span>
+                <h3 className="mt-4 text-xl font-semibold tracking-relume-tight text-relume-ink">
+                  {role.title}
+                </h3>
+                <p className="mt-2 text-sm text-relume-ink">
+                  {role.location} &middot; {role.type}
+                </p>
+                <p className="mt-4 text-sm leading-6 text-relume-ink">
+                  {role.summary}
+                </p>
+                <ul className="mt-4 space-y-2 text-sm text-relume-ink">
+                  {role.requirements.map((req) => (
+                    <li key={req} className="flex items-start">
+                      <svg
+                        className="mt-0.5 h-4 w-4 flex-none text-relume-ink"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span className="ml-2">{req}</span>
+                    </li>
+                  ))}
+                </ul>
+                <span className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-relume-ink px-6 py-3 text-sm font-medium text-white">
                   Apply for this role
-                </PrimaryButton>
-              </div>
-            </article>
+                </span>
+              </article>
+            </a>
           ))}
         </div>
       </SectionShell>

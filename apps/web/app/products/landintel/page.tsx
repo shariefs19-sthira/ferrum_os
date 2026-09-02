@@ -6,6 +6,7 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import UlpinDemoWidget from '../../../components/sections/UlpinDemoWidget'
 import ParcelMap from '../../../components/sections/ParcelMap'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
 // map (real Leaflet/OSM component) are real. Zoning, soil/hazard,
@@ -95,7 +96,7 @@ export default function LandIntelPage() {
               <SecondaryButton href="#try-a-lookup">Try a lookup</SecondaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="landintel" />
         </div>
       </SectionShell>
 

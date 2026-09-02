@@ -42,18 +42,20 @@ export default function ResourcesIndexPage() {
       <SectionShell background="surface-secondary">
         <div className="grid gap-6 md:grid-cols-3">
           {sections.map((section) => (
-            <article key={section.name} className="rounded-lg border border-relume-border bg-relume-surface p-6">
-              <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
-                {section.label}
-              </div>
-              <h2 className="text-2xl font-semibold tracking-relume-tight text-relume-ink">{section.name}</h2>
-              <p className="mt-4 text-sm leading-6 text-relume-ink">{section.summary}</p>
-              <div className="mt-6 border-t border-relume-border pt-4">
-                <Link href={section.href} className="text-sm font-medium text-relume-ink underline underline-offset-4">
+            <Link key={section.name} href={section.href} className="block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-relume-ink">
+              <article className="h-full rounded-lg border border-relume-border bg-relume-surface p-6 transition hover:-translate-y-0.5 hover:border-relume-ink/40">
+                <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
+                  {section.label}
+                </div>
+                <h2 className="text-2xl font-semibold tracking-relume-tight text-relume-ink">{section.name}</h2>
+                <p className="mt-4 text-sm leading-6 text-relume-ink">{section.summary}</p>
+                <div className="mt-6 border-t border-relume-border pt-4">
+                  <span className="text-sm font-medium text-relume-ink underline underline-offset-4">
                   Browse {section.name.toLowerCase()} →
-                </Link>
-              </div>
-            </article>
+                  </span>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
       </SectionShell>

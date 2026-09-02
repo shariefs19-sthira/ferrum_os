@@ -4,6 +4,7 @@ const templates = [
   {
     label: 'Feasibility',
     type: 'PDF · 4 pages',
+    href: '/contact',
     name: 'Land feasibility one-pager template',
     summary:
       'A single-page template for distilling site visits, soil notes, and access constraints into a decision-ready summary for an investment committee.'
@@ -11,6 +12,7 @@ const templates = [
   {
     label: 'Procurement',
     type: 'XLSX · 1 sheet',
+    href: '/contact',
     name: 'Rate-comparison sheet (item-rate vs lumpsum)',
     summary:
       'A spreadsheet that lines up vendor quotes on the same activity list, exposes hidden scope gaps, and flags unit-rate outliers before contract.'
@@ -18,6 +20,7 @@ const templates = [
   {
     label: 'Site',
     type: 'DOCX · 2 pages',
+    href: '/contact',
     name: 'Daily site diary template',
     summary:
       'A short-form diary that captures weather, labour, materials, and instructions-of-the-day in a way that maps cleanly to running bills and change orders.'
@@ -25,6 +28,7 @@ const templates = [
   {
     label: 'Handover',
     type: 'PDF · 3 pages',
+    href: '/contact',
     name: 'Project handover checklist',
     summary:
       'A structured handover packet covering as-built drawings, warranties, snag lists, and O&M documentation — designed for projects that need to be operable on day one.'
@@ -64,29 +68,25 @@ export default function ResourcesTemplatesPage() {
       <section className="mx-auto max-w-7xl px-6 py-16 md:px-8">
         <div className="grid gap-6 md:grid-cols-2">
           {templates.map((item) => (
-            <article
-              key={item.name}
-              className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
-            >
-              <div className="mb-4 flex items-center justify-between gap-3">
-                <div className="inline-flex rounded-full bg-amber-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-700">
-                  {item.label}
+            <Link key={item.name} href={item.href} className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-relume-ink">
+              <article className="h-full rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border-relume-ink/40">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div className="inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
+                    {item.label}
+                  </div>
+                  <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-relume-muted">
+                    {item.type}
+                  </span>
                 </div>
-                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-relume-muted">
-                  {item.type}
-                </span>
-              </div>
-              <h2 className="text-2xl font-semibold leading-tight text-relume-ink">{item.name}</h2>
-              <p className="mt-4 text-sm leading-7 text-relume-muted">{item.summary}</p>
-              <div className="mt-6 border-t border-relume-border pt-4">
-                <Link
-                  href="/contact"
-                  className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
-                >
+                <h2 className="text-2xl font-semibold leading-tight text-relume-ink">{item.name}</h2>
+                <p className="mt-4 text-sm leading-7 text-relume-muted">{item.summary}</p>
+                <div className="mt-6 border-t border-relume-border pt-4">
+                  <span className="text-sm font-medium text-relume-ink">
                   Request download →
-                </Link>
-              </div>
-            </article>
+                  </span>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
 
