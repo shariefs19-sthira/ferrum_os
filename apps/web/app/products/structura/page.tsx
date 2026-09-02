@@ -6,6 +6,7 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SpecTable from '../../../components/SpecTable'
 import IsCheckWidget from '../../../components/sections/IsCheckWidget'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: only IS-code checking is shipped and real — two clause families
 // (IS 456 RCC beam, IS 800 steel column) via lib/checks/isCode.ts, same
@@ -120,7 +121,7 @@ export default function StructuraPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="structura" />
         </div>
       </SectionShell>
 

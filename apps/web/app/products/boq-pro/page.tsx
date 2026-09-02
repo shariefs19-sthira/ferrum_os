@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import ThreeModeCalculator from '../../../components/sections/ThreeModeCalculator'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-360 BOQ_PAGE_TRUTH: applies the W2-345 claim-truth convention to this
 // page's remaining sections — it never got that pass (unlike the other 8
@@ -131,7 +132,7 @@ export default function BoqProMarketingPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="boq-pro" />
         </div>
       </SectionShell>
 

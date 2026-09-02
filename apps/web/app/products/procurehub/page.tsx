@@ -3,6 +3,7 @@ import Eyebrow from '../../../components/sections/Eyebrow'
 import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: ProcureHub has zero shipped tool — no material requests, purchase
 // orders, delivery tracking, supplier directory, bill reconciliation or
@@ -60,7 +61,7 @@ export default function ProcureHubPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="procurehub" />
         </div>
       </SectionShell>
 

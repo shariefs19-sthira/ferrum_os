@@ -4,13 +4,13 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton, SecondaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
-import UlpinDemoWidget from '../../../components/sections/UlpinDemoWidget'
-import ParcelMap from '../../../components/sections/ParcelMap'
+import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
+import UlpinMapExplorer from '../../../components/sections/UlpinMapExplorer'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
 // map (real Leaflet/OSM component) are real. Zoning, soil/hazard,
 // feasibility report, and investment forecasts have zero implementation —
-// UlpinDemoWidget returns state/district/area_sqm/land_use only, nothing
+// The lookup returns state/district/area_sqm/land_use only, nothing
 // else. Roadmap-labeled rather than deleted per RULE 13/W2-345's pattern.
 const featureItems = [
   { title: 'ULPIN lookup', body: 'Enter a 14-digit ULPIN and pull indicative sample land records instantly.' },
@@ -95,7 +95,7 @@ export default function LandIntelPage() {
               <SecondaryButton href="#try-a-lookup">Try a lookup</SecondaryButton>
             </div>
           </div>
-          <div className="rounded-lg border border-relume-border bg-relume-surface-secondary p-10" aria-hidden="true" />
+          <ProductHeroPreview product="landintel" />
         </div>
       </SectionShell>
 
@@ -132,7 +132,8 @@ export default function LandIntelPage() {
           marketing spec, preserved from the pre-Relume page rather than
           dropped): a D1-backed ULPIN lookup against a small sample-parcel
           seed set. W2-345 corrected this comment — it previously claimed
-          PDF export and soil/zoning data that UlpinDemoWidget never had.
+          PDF export and soil/zoning data the lookup never had. W2-367
+          synchronizes each seeded record to a clearly labeled city reference map.
           Linked from the Hero's "Try a lookup" button. */}
       <SectionShell background="surface-secondary">
         <div id="try-a-lookup" className="mx-auto max-w-3xl scroll-mt-8 text-center">
@@ -143,7 +144,7 @@ export default function LandIntelPage() {
           </p>
         </div>
         <div className="mt-12">
-          <UlpinDemoWidget />
+          <UlpinMapExplorer />
         </div>
       </SectionShell>
 
@@ -206,34 +207,6 @@ export default function LandIntelPage() {
         </div>
         <div className="mx-auto mt-12 max-w-2xl">
           <AccordionLeaf items={faqItems} />
-        </div>
-      </SectionShell>
-
-      {/* Try it: ULPIN demo, sample data (parity: W2-269) */}
-      <SectionShell>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Try it</Eyebrow>
-          <SectionHeading className="mt-4">Look up a sample ULPIN</SectionHeading>
-          <p className="mt-3 text-base leading-7 text-relume-ink">
-            Three sample parcels, live from the Ferrum OS data layer — indicative until the real ULPIN registry integration lands.
-          </p>
-        </div>
-        <div className="mx-auto mt-8 max-w-2xl">
-          <UlpinDemoWidget />
-        </div>
-      </SectionShell>
-
-      {/* Parcel map (parity: W2-309) */}
-      <SectionShell background="surface-secondary">
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Parcel map</Eyebrow>
-          <SectionHeading className="mt-4">See a parcel on the map</SectionHeading>
-          <p className="mt-3 text-base leading-7 text-relume-ink">
-            OpenStreetMap tiles, a sample parcel location — indicative until real parcel geometry is wired to a lookup.
-          </p>
-        </div>
-        <div className="mx-auto mt-8 max-w-2xl">
-          <ParcelMap label="Sample parcel — Bengaluru" />
         </div>
       </SectionShell>
 
