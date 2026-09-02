@@ -291,6 +291,9 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-02 — SCRIBE site-wide empty-container purge (overlaps W2-353/W2-344, see note)
 | W2-361 | | B2 | J08 | CRANE | OPEN | | EMPTY_CONTAINER_PURGE — site-wide purge of every empty/placeholder container, class example: the /products/landintel hero gray box. Rule (operator mandate): each container gets a real composed visual (per-product tool-snippet pattern; label INDICATIVE where sample data is used) OR is deleted outright — an absent box beats an empty one. Scope: ALL routes. Acceptance: Playwright sweep reports zero empty-rendering containers on every route checked against the DEPLOYED edge (not just local dev/build output); build + verify-static green. Note: overlaps in intent with W2-353 EMPTY_PLACEHOLDER_SWEEP item (1) (MASON) and W2-344 RELUME_IDENTITY_PASS's hero-visual item (ATLAS) — this row is the CRANE-assigned, deployed-edge-verified, site-wide version; CRANE should reconcile scope with MASON/ATLAS to avoid duplicate work rather than re-doing what's already landed. UNDO: git revert <sha>. |
 
+## 2026-09-02 — SCRIBE all-tools live sweep (deployed edge)
+| W2-362 | | B2 | J08 | CRANE | OPEN | | ALL_TOOLS_LIVE_SWEEP — every interactive tool on every page must PASS on the DEPLOYED edge (workers.dev), not just local. Scope: test-fit massing (DesignStudio), ULPIN lookup + map (LandIntel), IS 456/800 checks (Structura), BOQ three-mode calculator, IRR/NPV (InvestFlow), GST/stone calculators, OCR spike, all forms, auth flow, payments test flow, artifacts CRUD, concierge catalog. Acceptance: Playwright table of tool × action × result run against the deployed edge; zero failed/error states; root causes fixed, not hidden (no silent catch-and-mask). UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

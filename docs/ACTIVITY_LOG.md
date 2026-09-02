@@ -691,3 +691,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims W2-361, checks W2-353/W2-344 landing status first to avoid duplicate work.
 ---
+
+## 2026-09-02 12:00 - SCRIBE W2-362 ALL_TOOLS_LIVE_SWEEP (deployed-edge verification)
+**Action:** Queued W2-362 ALL_TOOLS_LIVE_SWEEP, assigned CRANE: every interactive tool on every page must pass on the deployed edge (workers.dev), not just local. Scope list carried verbatim: test-fit massing (DesignStudio), ULPIN lookup + map (LandIntel), IS 456/800 checks (Structura), BOQ three-mode calculator, IRR/NPV (InvestFlow), GST/stone calculators, OCR spike, all forms, auth flow, payments test flow, artifacts CRUD, concierge catalog. Acceptance: Playwright tool × action × result table against the deployed edge, zero failed/error states, root causes fixed rather than hidden.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims W2-362.
+---
