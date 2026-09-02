@@ -1,0 +1,12 @@
+diff --git a/apps/web/app/layout.tsx b/apps/web/app/layout.tsx
+--- a/apps/web/app/layout.tsx
++++ b/apps/web/app/layout.tsx
+@@ -14,2 +14,3 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+ export const metadata: Metadata = {
++  manifest: '/manifest.webmanifest',
+   metadataBase: new URL(SITE_BASE_URL),
+@@ -33,3 +34,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) {
+     <html lang="en" className={inter.variable}>
+       <head>
++        <script dangerouslySetInnerHTML={{ __html: "if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'))" }} />
+         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
