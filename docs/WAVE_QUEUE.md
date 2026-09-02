@@ -294,6 +294,9 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-02 — SCRIBE all-tools live sweep (deployed edge)
 | W2-362 | | B2 | J08 | CRANE | OPEN | | ALL_TOOLS_LIVE_SWEEP — every interactive tool on every page must PASS on the DEPLOYED edge (workers.dev), not just local. Scope: test-fit massing (DesignStudio), ULPIN lookup + map (LandIntel), IS 456/800 checks (Structura), BOQ three-mode calculator, IRR/NPV (InvestFlow), GST/stone calculators, OCR spike, all forms, auth flow, payments test flow, artifacts CRUD, concierge catalog. Acceptance: Playwright table of tool × action × result run against the deployed edge; zero failed/error states; root causes fixed, not hidden (no silent catch-and-mask). UNDO: git revert <sha>. |
 
+## 2026-09-02 — SCRIBE typography/layout sweep (conditional assignment: MASON if reset, else CRANE)
+| W2-363 | | B2 | J08 | MASON | OPEN | | TYPOGRAPHY_LAYOUT_SWEEP — assigned MASON on the assumption its rate limit has reset; whoever claims it (conductor reassigns to CRANE instead if MASON is still limited) should update this row's Assigned To before starting. Site-wide pass over cramped/crumpled text. Rules: no container may force link/label wrapping below readable measure; footer columns get adequate min-width + gap (grid `auto-fit, minmax(160px, 1fr)` or wider); hero/body line-length 45-75ch; headings never wrap mid-phrase at standard widths; taglines stay one line on desktop. Scope: ALL routes including footer, heroes, cards, tables, tool panels, legal pages. Acceptance: Playwright screenshots at 1366 and 375 reviewed per route; zero wrapped-link or crushed-text instances; build + verify-static green. UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

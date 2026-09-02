@@ -699,3 +699,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims W2-362.
 ---
+
+## 2026-09-02 12:15 - SCRIBE W2-363 TYPOGRAPHY_LAYOUT_SWEEP (conditional assignment, no live signal on MASON's rate-limit status)
+**Action:** Queued W2-363 TYPOGRAPHY_LAYOUT_SWEEP, assigned MASON on the operator's stated assumption that its rate limit has reset — SCRIBE has no way to directly verify MASON's live rate-limit status, so the row carries an explicit note: whoever claims it should confirm and update Assigned To to CRANE first if MASON is still limited. Scope verbatim: no forced link/label wrapping below readable measure; footer columns get adequate min-width + gap (grid auto-fit minmax(160px,1fr) or wider); hero/body line-length 45-75ch; headings never wrap mid-phrase at standard widths; taglines one line on desktop. Site-wide (footer, heroes, cards, tables, tool panels, legal pages). Acceptance: Playwright screenshots at 1366 + 375 reviewed per route, zero wrapped-link/crushed-text instances, build + verify-static green.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** MASON (or CRANE, if MASON still rate-limited) claims W2-363, updating Assigned To first if reassigning.
+---
