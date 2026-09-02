@@ -7,19 +7,28 @@ import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SpecTable from '../../../components/SpecTable'
 import IsCheckWidget from '../../../components/sections/IsCheckWidget'
 
+// W2-345: only IS-code checking is shipped and real — two clause families
+// (IS 456 RCC beam, IS 800 steel column) via lib/checks/isCode.ts, same
+// logic on REST and MCP. "Model importer", "FEA analysis", "Sign-off
+// workflow" and "Drawing generation" describe capability with zero
+// implementation anywhere in the codebase — no model import, no finite
+// element solver, no sign-off/approval flow, no drawing output. The full
+// solver-orchestration layer these imply is documented in
+// docs/ENGINE_ARCH.md as research-only, post-launch, with zero code
+// landed. Roadmap-labeled rather than deleted since they describe the
+// product's real intended direction.
 const featureItems = [
-  { title: 'Model importer', body: 'Bring in structural models from your design tools.' },
-  { title: 'FEA analysis', body: 'Run finite element analysis in the cloud.' },
-  { title: 'Design calculations', body: 'Get detailed RCC and steel design calculations.' },
-  { title: 'Sign-off workflow', body: 'Review, approve and sign off designs professionally.' },
-  { title: 'Drawing generation', body: 'Generate structural drawings from your analysis.' },
-  { title: 'IS code compliance', body: 'Stay aligned to IS 456 and IS 800 throughout.' },
+  { title: 'IS code checking (live)', body: 'Run real IS 456 (RCC beam) and IS 800 (steel column) clause checks with pass/fail and citations.' },
+  { title: 'Model importer (roadmap)', body: 'Bring in structural models from your design tools — not yet built.' },
+  { title: 'FEA analysis (roadmap)', body: 'Run finite element analysis in the cloud — not yet built.' },
+  { title: 'Sign-off workflow (roadmap)', body: 'Review, approve and sign off designs professionally — not yet built.' },
+  { title: 'Drawing generation (roadmap)', body: 'Generate structural drawings from your analysis — not yet built.' },
 ]
 
 const howItWorksSteps = [
-  { title: 'Import your model', body: 'Bring in your structural model from design tools.' },
-  { title: 'Run the analysis', body: 'Get FEA results and design calculations.' },
-  { title: 'Sign off & generate', body: 'Approve the design and generate drawings.' },
+  { title: 'Enter section parameters', body: 'Beam dimensions and reinforcement, or column slenderness and load.' },
+  { title: 'Run the check', body: 'Get a pass/fail result against the specific IS clause, with the clause cited.' },
+  { title: 'Iterate', body: 'Adjust parameters and re-check until the section passes.' },
 ]
 
 const integrationItems = [
@@ -53,15 +62,15 @@ const pricingPlans = [
 const faqItems = [
   {
     question: 'Which IS codes does Structura support?',
-    answer: 'Structura supports IS 456 for RCC and IS 800 for steel structures, with more codes on the way.',
+    answer: 'Today: one clause check each for IS 456 (RCC beam minimum reinforcement) and IS 800 (steel column slenderness), with the specific clause cited on every result. Broader clause coverage is on the roadmap.',
   },
   {
-    question: 'What model formats can I import?',
-    answer: 'Import structural models from common design tools and formats.',
+    question: 'Can I import a structural model?',
+    answer: 'Not yet — model import from design tools is on the roadmap. The live tool takes section parameters directly (dimensions, reinforcement, slenderness, load).',
   },
   {
-    question: 'Can I sign off designs professionally?',
-    answer: 'Yes — the sign-off workflow lets reviewers approve and certify designs.',
+    question: 'Is there a sign-off workflow?',
+    answer: 'Not yet — a review/approve/sign-off flow is on the roadmap. Today the tool returns a pass/fail result you can act on yourself.',
   },
   {
     question: 'Do I need engineering software experience?',

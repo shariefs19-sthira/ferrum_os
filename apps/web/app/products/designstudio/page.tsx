@@ -6,19 +6,29 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import TestFitCalculator from '../../../components/sections/TestFitCalculator'
 
+// W2-345: only "Test-fit massing" and "DXF export" are shipped and real
+// (the plot-massing calculator on this page, powered by /api/testfit, and
+// client-side DXF export). "AI plan generation", "Elevation library",
+// "Plan editor" and "3D viewer" describe capability that does not exist —
+// no AI/LLM plan generation, elevation library, drag-edit plan editor or
+// 3D viewer is implemented anywhere in the codebase. Roadmap-labeled
+// rather than deleted since they describe the product's real intended
+// direction, not an abandoned idea.
 const featureItems = [
-  { title: 'Brief input wizard', body: 'Describe your rooms, size and style in plain words.' },
-  { title: 'AI plan generation', body: 'Get floor plans and elevations generated from your brief.' },
-  { title: 'Elevation library', body: 'Browse and apply ready-made facade styles.' },
-  { title: 'Plan editor', body: 'Drag walls, rooms and doors to fine-tune the layout.' },
-  { title: '3D viewer', body: 'Walk through your design in three dimensions.' },
-  { title: 'DXF/PDF export', body: 'Export build-ready drawings to the formats you need.' },
+  { title: 'Test-fit massing (live)', body: 'Enter plot dimensions and floor count to get a real massing calculation.' },
+  { title: 'AI plan generation (roadmap)', body: 'Floor plans and elevations generated from a brief — not yet built.' },
+  { title: 'Elevation library (roadmap)', body: 'Browse and apply ready-made facade styles — not yet built.' },
+  { title: 'Plan editor (roadmap)', body: 'Drag walls, rooms and doors to fine-tune the layout — not yet built.' },
+  { title: '3D viewer (roadmap)', body: 'Walk through your design in three dimensions — not yet built.' },
+  { title: 'DXF export', body: 'Export the massing output as a build-ready DXF file.' },
 ]
 
+// W2-345: rewritten to describe the shipped test-fit tool rather than the
+// unbuilt AI brief-wizard workflow (see featureItems above).
 const howItWorksSteps = [
-  { title: 'Describe your brief', body: 'Tell the wizard your rooms, size and style.' },
-  { title: 'Generate & refine', body: 'AI drafts plans and elevations you can edit.' },
-  { title: 'Export & build', body: 'Send build-ready drawings to engineering and costing.' },
+  { title: 'Enter plot dimensions', body: 'Plot width, depth and floor count.' },
+  { title: 'Get a massing result', body: 'Buildable-area calculation and a visual massing output.' },
+  { title: 'Export DXF', body: 'Export the massing as a DXF file for engineering.' },
 ]
 
 const integrationItems = [
@@ -51,12 +61,12 @@ const pricingPlans = [
 
 const faqItems = [
   {
-    question: 'How accurate are the AI-generated plans?',
-    answer: 'Plans are generated to standard residential and commercial conventions, then fully editable in the plan editor.',
+    question: 'Is AI plan generation available yet?',
+    answer: 'Not yet — AI-generated plans, the elevation library and a drag-edit plan editor are on the roadmap. What is live today is a test-fit massing calculator (plot dimensions and floor count in, a buildable-area massing result out) with DXF export.',
   },
   {
     question: 'What file formats can I export?',
-    answer: 'Export to DXF and PDF for engineering, costing and construction.',
+    answer: 'The test-fit massing tool exports to DXF today. PDF export is on the roadmap.',
   },
   {
     question: 'Can I edit the generated plans?',

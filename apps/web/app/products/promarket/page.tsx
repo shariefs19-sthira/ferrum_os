@@ -6,19 +6,25 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import RateCompareCalculator from '../../../components/sections/RateCompareCalculator'
 
+// W2-345: only rate comparison is shipped and real (RateCompareCalculator
+// below, D1-backed). The marketplace itself — profiles, verification,
+// job posting, proposals, escrow — has zero implementation anywhere in
+// the codebase: no marketplace tables, no escrow integration, no review
+// system. Roadmap-labeled rather than deleted since this describes the
+// product's real intended direction.
 const featureItems = [
-  { title: 'Verified profiles', body: 'Profiles for architects, engineers and contractors.' },
-  { title: 'Verification badges', body: 'Know who is vetted and who is not.' },
-  { title: 'Job posting', body: 'Post a job and let pros come to you.' },
-  { title: 'Proposal system', body: 'Compare bids side by side.' },
-  { title: 'Escrow payments', body: 'Funds are released only on completion.' },
-  { title: 'Reviews & ratings', body: 'Hire on proven track records.' },
+  { title: 'Rate comparison (live)', body: 'Compare category rates across sample cities to sanity-check a quote.' },
+  { title: 'Verified profiles (roadmap)', body: 'Profiles for architects, engineers and contractors — not yet built.' },
+  { title: 'Job posting (roadmap)', body: 'Post a job and let pros come to you — not yet built.' },
+  { title: 'Proposal system (roadmap)', body: 'Compare bids side by side — not yet built.' },
+  { title: 'Escrow payments (roadmap)', body: 'Funds released only on completion — not yet built. See docs/ESCROW_DESIGN.md for the design.' },
+  { title: 'Reviews & ratings (roadmap)', body: 'Hire on proven track records — not yet built.' },
 ]
 
 const howItWorksSteps = [
-  { title: 'Post your job', body: 'Describe the work and set your budget.' },
-  { title: 'Compare proposals', body: 'Review verified pros and their bids.' },
-  { title: 'Pay securely', body: 'Funds release through escrow on completion.' },
+  { title: 'Pick a category', body: 'Choose a material or labor category.' },
+  { title: 'Compare cities', body: 'See how rates compare across sample locations.' },
+  { title: 'Sanity-check a quote', body: 'Use the comparison as a reference point, not a live market price.' },
 ]
 
 const integrationItems = [
@@ -27,18 +33,23 @@ const integrationItems = [
   { title: 'ProcureHub', body: 'Coordinate materials with your contractors.' },
 ]
 
+// W2-345: pricing tiers here describe the roadmap marketplace, not a
+// product that can be bought today — no SubscribeButton/Razorpay wiring
+// exists on this page (unlike pricing.tsx's real subscription tiers).
+// Feature bullets rewritten to stop implying job posting, verified pros
+// and escrow are purchasable now.
 const pricingPlans = [
   {
     name: 'Free',
     price: 'Free',
-    features: ['1 active job', 'Basic profiles', 'Standard support', 'Community support'],
+    features: ['Rate comparison tool', 'Standard support', 'Community support'],
     button: 'Start Free Trial',
   },
   {
-    name: 'Pro',
+    name: 'Pro (roadmap)',
     price: '₹499/mo',
-    tag: 'Most popular',
-    features: ['Unlimited jobs', 'Verified pros', 'Escrow payments', 'Priority support'],
+    tag: 'Marketplace not yet live',
+    features: ['Job posting — roadmap', 'Verified pros — roadmap', 'Escrow payments — roadmap', 'Priority support'],
     button: 'Start Free Trial',
   },
   {
@@ -51,20 +62,12 @@ const pricingPlans = [
 
 const faqItems = [
   {
-    question: 'How are professionals verified?',
-    answer: 'We verify credentials, licences and work history before professionals earn their badge.',
-  },
-  {
-    question: 'How does escrow work?',
-    answer: 'Funds are held securely and released to the professional only when the work is completed.',
-  },
-  {
-    question: 'Can I post a job for free?',
-    answer: 'Yes — posting a job is free on the Free plan.',
+    question: 'Is the professionals marketplace live yet?',
+    answer: 'Not yet. Verified profiles, job posting, proposals, escrow payments and reviews are all on the roadmap — see docs/ESCROW_DESIGN.md for how escrow is planned to work once it ships. What is live today is the rate comparison tool above.',
   },
   {
     question: 'What fees apply?',
-    answer: 'ProMarket charges a small service fee on completed escrow payments.',
+    answer: 'No marketplace fees apply yet, since the marketplace itself has not launched.',
   },
 ]
 
