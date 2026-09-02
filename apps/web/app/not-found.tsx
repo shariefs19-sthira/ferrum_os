@@ -16,7 +16,7 @@ export default function NotFound() {
           />
         </div>
         
-        <h1 className="text-9xl font-bold text-relume-ink mb-4">404</h1>
+        <h1 className="text-9xl font-semibold tracking-relume-tight text-relume-ink mb-4">404</h1>
         <h2 className="text-2xl font-semibold text-relume-muted mb-2">
           Oops! Page not found
         </h2>

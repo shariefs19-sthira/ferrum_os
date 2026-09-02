@@ -1,88 +1,139 @@
 import Link from 'next/link'
+import { computeFerrumRate } from '../../lib/rateEngine/ferrumRateEngine'
 
 /**
- * W2-344: the Home hero's right-hand media slot (docs/RELUME_HANDOFF.md §3
- * HOME — "Layout: horizontal, content left + media right") was an empty
- * placeholder:
- *   <div className="rounded-lg ... bg-relume-surface-secondary p-10" aria-hidden />
+ * W2-344 RELUME_IDENTITY_PASS — Home hero media slot
+ * (docs/RELUME_HANDOFF.md §3 HOME: "content left + media right").
  *
- * This replaces it with a real composition rather than a mock screenshot or a
- * decorative image. Every stage, product name and capability line below is the
- * platform's actual structure, taken from the same source of truth as the rest
- * of the page (RELUME_HANDOFF §2/§5 and the Value Proposition copy directly to
- * its left), and each row links to the product page it names — so the visual is
- * navigable, not a picture of a product.
+ * Was a literal empty placeholder box. This is a composed preview of four
+ * real product surfaces: LandIntel/ULPIN, BOQ Pro rate band, workspace
+ * status, and Transact stamp duty.
  *
- * Deliberately shows NO computed figures. A hero is the one place a
- * sample number would be read as a real result, and every real figure on this
- * site carries an INDICATIVE label for exactly that reason; rather than put a
- * labelled sample in the hero, it shows capability structure and no numbers.
+ * HONESTY RULES APPLIED HERE:
+ * - Every value shown is a REAL row from the shipped seed data
+ *   (migrations/0002_seed.sql, 0003_transact.sql), not invented for display.
+ * - The rate band is not typed by hand: it is computed at build time by the
+ *   SHIPPED engine (lib/rateEngine/ferrumRateEngine.ts) from those seeded
+ *   values, so what the hero shows is what the product actually computes.
+ * - Every card carries an INDICATIVE badge, matching the labeling every one
+ *   of these surfaces uses in-product, per docs/COMPLIANCE_GATE.md.
+ * - Nothing here claims to be live registry, market, or project data.
  */
 
-const stages = [
-  {
-    stage: 'Land',
-    product: 'LandIntel',
-    href: '/products/landintel',
-    capability: 'Feasibility, zoning and risk before you buy',
-  },
-  {
-    stage: 'Design',
-    product: 'DesignStudio · Structura',
-    href: '/products/designstudio',
-    capability: 'Plans generated, then engineered to IS codes',
-  },
-  {
-    stage: 'Build',
-    product: 'BOQ Pro · ProcureHub · BuildOS',
-    href: '/products/boq-pro',
-    capability: 'Estimate, procure, manage and track to handover',
-  },
-  {
-    stage: 'Invest',
-    product: 'InvestFlow · CommunityBuild',
-    href: '/products/investflow',
-    capability: 'Model returns and raise capital',
-  },
-]
+// Real seeded parcel — migrations/0002_seed.sql.
+const PARCEL = {
+  ulpin: 'KA-BLR-0001-2024',
+  district: 'Bengaluru Urban',
+  areaSqm: 1200.5,
+  landUse: 'Residential',
+}
+
+// Real seeded cement rates — migrations/0002_seed.sql: Bengaluru 420,
+// Pune 405, Chennai 415 (per 50kg bag). Fed to the real engine as the
+// govt / market / user inputs at the default 40-40-20 weighting.
+const RATE = computeFerrumRate(420.0, 415.0, 405.0, 'buyer')
+
+// Real seeded stamp duty — migrations/0003_transact.sql, Karnataka.
+const STAMP = { state: 'Karnataka', ratePct: 5.0, registrationPct: 1.0 }
+
+function IndicativeBadge() {
+  return (
+    <span className="rounded-full border border-relume-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">
+      Indicative
+    </span>
+  )
+}
+
+function PreviewCard({
+  product,
+  href,
+  children,
+}: {
+  product: string
+  href: string
+  children: React.ReactNode
+}) {
+  return (
+    <Link
+      href={href}
+      className="group block rounded-relume border border-relume-border bg-relume-surface p-4 transition hover:border-relume-ink/40"
+    >
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
+          {product}
+        </span>
+        <IndicativeBadge />
+      </div>
+      <div className="mt-3">{children}</div>
+    </Link>
+  )
+}
 
 export default function HeroComposite() {
+  const inr = (n: number) =>
+    `₹${n.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`
+
   return (
-    <div className="rounded-relume border border-relume-border bg-relume-surface-secondary p-6 sm:p-8">
+    <div className="rounded-relume border border-relume-border bg-relume-surface-secondary p-4 sm:p-6">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-muted">
-        Land → Design → Build → Invest
+        Sample project surfaces
       </p>
 
-      <ol className="mt-6 space-y-px">
-        {stages.map((item, index) => (
-          <li key={item.stage}>
-            <Link
-              href={item.href}
-              className="group flex gap-4 rounded-relume bg-relume-surface p-4 transition hover:bg-relume-ink/[0.04]"
-            >
-              <div className="flex flex-col items-center" aria-hidden="true">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-relume-border text-xs font-semibold text-relume-ink">
-                  {index + 1}
-                </span>
-                {index < stages.length - 1 && <span className="mt-1 w-px flex-1 bg-relume-border" />}
-              </div>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <PreviewCard product="LandIntel" href="/products/landintel">
+          <p className="font-mono text-sm text-relume-ink">{PARCEL.ulpin}</p>
+          <dl className="mt-2 space-y-1 text-xs text-relume-muted">
+            <div className="flex justify-between gap-2">
+              <dt>District</dt>
+              <dd className="text-relume-ink">{PARCEL.district}</dd>
+            </div>
+            <div className="flex justify-between gap-2">
+              <dt>Area</dt>
+              <dd className="text-relume-ink">{PARCEL.areaSqm} m²</dd>
+            </div>
+            <div className="flex justify-between gap-2">
+              <dt>Land use</dt>
+              <dd className="text-relume-ink">{PARCEL.landUse}</dd>
+            </div>
+          </dl>
+        </PreviewCard>
 
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-baseline gap-x-2">
-                  <span className="text-sm font-semibold tracking-relume-tight text-relume-ink">
-                    {item.stage}
-                  </span>
-                  <span className="text-xs text-relume-muted">{item.product}</span>
-                </div>
-                <p className="mt-1 text-sm leading-6 text-relume-muted">{item.capability}</p>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ol>
+        <PreviewCard product="BOQ Pro" href="/products/boq-pro">
+          <p className="text-xs text-relume-muted">Cement (OPC 53) · per 50kg bag</p>
+          <p className="mt-1 text-lg font-semibold tracking-relume-tight text-relume-ink">
+            {inr(RATE.band.p50)}
+          </p>
+          <div className="mt-2 flex items-center gap-2 text-[11px] text-relume-muted">
+            <span>P25 {inr(RATE.band.p25)}</span>
+            <span className="h-px flex-1 bg-relume-border" aria-hidden="true" />
+            <span>P75 {inr(RATE.band.p75)}</span>
+          </div>
+        </PreviewCard>
 
-      <p className="mt-6 border-t border-relume-border pt-4 text-xs text-relume-muted">
-        Ten products, one shared data model — nothing is re-entered between stages.
+        <PreviewCard product="Workspace" href="/project-workspace">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-relume-ink" aria-hidden="true" />
+            <p className="text-sm text-relume-ink">Design Development</p>
+          </div>
+          <p className="mt-2 text-xs text-relume-muted">
+            Saved artifacts, exports and shared links in one workspace.
+          </p>
+        </PreviewCard>
+
+        <PreviewCard product="Transact" href="/products/transact">
+          <p className="text-xs text-relume-muted">Stamp duty · {STAMP.state}</p>
+          <p className="mt-1 text-lg font-semibold tracking-relume-tight text-relume-ink">
+            {STAMP.ratePct}%
+          </p>
+          <p className="mt-2 text-[11px] text-relume-muted">
+            + {STAMP.registrationPct}% registration · verify with your sub-registrar
+          </p>
+        </PreviewCard>
+      </div>
+
+      <p className="mt-4 text-[11px] leading-5 text-relume-muted">
+        Sample records from seeded reference data — not live registry, market or project
+        data. Figures are indicative and not a legal or valuation opinion.
       </p>
     </div>
   )

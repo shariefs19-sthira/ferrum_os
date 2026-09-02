@@ -1,9 +1,9 @@
 export default function WeldInspectionBasicsPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Weld Inspection Basics for Site Teams
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function WeldInspectionBasicsPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Visual Inspection First</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Visual Inspection First</h2>
             <p className="text-relume-muted">
               Most weld defects that matter — undercut, porosity, incomplete fusion at the toe,
               excessive spatter — are visible to a trained inspector before any non-destructive
@@ -24,7 +24,7 @@ export default function WeldInspectionBasicsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Choosing the Right NDT Method</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Choosing the Right NDT Method</h2>
             <p className="text-relume-muted">
               Ultrasonic testing finds subsurface defects in thicker sections that visual
               inspection can't reach, while dye penetrant and magnetic particle testing are
@@ -37,7 +37,7 @@ export default function WeldInspectionBasicsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Reading the Result, Not Just Filing It</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Reading the Result, Not Just Filing It</h2>
             <p className="text-relume-muted">
               An NDT report that sits in a file without being reviewed against acceptance
               criteria by someone qualified to interpret it isn't quality control, it's

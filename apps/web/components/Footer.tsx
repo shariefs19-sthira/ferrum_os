@@ -1,23 +1,22 @@
 import Link from 'next/link'
 
-// W2-344 footer redesign. Previously: a two-column (Products / Resources)
-// flex row on off-token slate/blue colors, with all 10 products in a single
-// tall column. Now a 4-column grid on Relume tokens, products split across
-// two balanced columns so the footer stops being one long list.
+// W2-344 RELUME_IDENTITY_PASS — footer redesign.
 //
-// The Legal column is intentionally absent here: /refunds, /disclaimers and
-// /dpdp do not exist on main yet (they ship with the pending W2-332 branch),
-// and linking to them now would create dead links. W2-332 adds that column.
+// Before: a two-column flex row on off-token slate/blue colors with all ten
+// products in one tall column, which stacked into a narrow corner list on
+// every viewport — the specific complaint this pass was opened for.
+//
+// After: brand block + PRODUCTS (spanning two tracks, so ten items read as a
+// balanced two-up list instead of a corner stack) + RESOURCES + COMPANY +
+// LEGAL, on a single grid with consistent gutters and Relume tokens
+// throughout.
 
-const productsPrimary = [
+const products = [
   { name: 'LandIntel', href: '/products/landintel' },
   { name: 'DesignStudio', href: '/products/designstudio' },
   { name: 'Structura', href: '/products/structura' },
   { name: 'BOQ Pro', href: '/products/boq-pro' },
   { name: 'ProMarket', href: '/products/promarket' },
-]
-
-const productsSecondary = [
   { name: 'BuildOS', href: '/products/buildos' },
   { name: 'ProcureHub', href: '/products/procurehub' },
   { name: 'InvestFlow', href: '/products/investflow' },
@@ -31,6 +30,7 @@ const resources = [
   { name: 'IS Code Guides', href: '/resources/is-code-guides' },
   { name: 'Checklists', href: '/resources/checklists' },
   { name: 'Glossary', href: '/resources/glossary' },
+  { name: 'FAQ', href: '/resources/faq' },
 ]
 
 const company = [
@@ -39,22 +39,36 @@ const company = [
   { name: 'Careers', href: '/careers' },
   { name: 'Partners', href: '/partners' },
   { name: 'Contact', href: '/contact' },
+  { name: 'Documentation', href: '/documentation' },
+]
+
+// Only routes that exist on main are listed. /refunds, /disclaimers and /dpdp
+// ship with the pending W2-332 branch — that branch appends them to THIS
+// array; linking them before they exist would create dead links and fail the
+// zero-dead-links certification.
+const legal = [
+  { name: 'Terms', href: '/terms' },
+  { name: 'Privacy', href: '/privacy' },
 ]
 
 function FooterColumn({
   heading,
   links,
+  columns = 1,
+  className = '',
 }: {
   heading: string
   links: { name: string; href: string }[]
+  columns?: 1 | 2
+  className?: string
 }) {
   return (
-    <div>
+    <div className={className}>
       {/* Relume tagline token: Body font, Semibold, UPPERCASE. */}
       <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-muted">{heading}</h3>
-      <ul className="mt-4 space-y-3">
+      <ul className={`mt-4 space-y-3 ${columns === 2 ? 'sm:columns-2 sm:gap-8 sm:space-y-0' : ''}`}>
         {links.map((link) => (
-          <li key={link.name}>
+          <li key={link.name} className={columns === 2 ? 'sm:mb-3' : ''}>
             <Link href={link.href} className="text-sm text-relume-muted transition hover:text-relume-ink">
               {link.name}
             </Link>
@@ -69,8 +83,8 @@ export default function Footer() {
   return (
     <footer className="border-t border-relume-border bg-relume-surface">
       <div className="mx-auto max-w-relume-container px-6 py-16 md:px-8">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,20rem)_1fr]">
-          <div>
+        <div className="grid gap-x-8 gap-y-12 lg:grid-cols-12">
+          <div className="lg:col-span-3">
             <div className="flex items-center gap-3">
               <span
                 className="flex h-9 w-9 items-center justify-center rounded-relume bg-relume-ink text-sm font-semibold text-white"
@@ -80,36 +94,23 @@ export default function Footer() {
               </span>
               <span className="text-lg font-semibold tracking-relume-tight text-relume-ink">Ferrum OS</span>
             </div>
-            <p className="mt-4 max-w-sm text-sm leading-6 text-relume-muted">
+            <p className="mt-4 max-w-xs text-sm leading-6 text-relume-muted">
               End-to-end tools for the construction lifecycle, from land intelligence to project
               delivery.
             </p>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            <FooterColumn heading="Products" links={productsPrimary} />
-            <FooterColumn heading="More products" links={productsSecondary} />
-            <FooterColumn heading="Resources" links={resources} />
-            <FooterColumn heading="Company" links={company} />
-          </div>
+          <FooterColumn heading="Products" links={products} columns={2} className="lg:col-span-4" />
+          <FooterColumn heading="Resources" links={resources} className="sm:col-span-1 lg:col-span-2" />
+          <FooterColumn heading="Company" links={company} className="sm:col-span-1 lg:col-span-2" />
+          <FooterColumn heading="Legal" links={legal} className="sm:col-span-1 lg:col-span-1" />
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-relume-border pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-relume-muted">
             © {new Date().getFullYear()} Ferrum OS. All rights reserved.
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            <li>
-              <Link href="/terms" className="text-sm text-relume-muted transition hover:text-relume-ink">
-                Terms
-              </Link>
-            </li>
-            <li>
-              <Link href="/privacy" className="text-sm text-relume-muted transition hover:text-relume-ink">
-                Privacy
-              </Link>
-            </li>
-          </ul>
+          <p className="text-sm text-relume-muted">India-first construction &amp; investment platform</p>
         </div>
       </div>
     </footer>

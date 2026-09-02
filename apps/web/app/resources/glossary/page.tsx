@@ -131,7 +131,7 @@ export default function GlossaryPage() {
         <div className="space-y-12">
           {groups.map((group) => (
             <div key={group.letter}>
-              <h2 className="text-3xl font-bold tracking-tight text-relume-ink">{group.letter}</h2>
+              <h2 className="text-3xl sm:text-4xl font-semibold tracking-relume-tight text-relume-ink">{group.letter}</h2>
               <div className="mt-6 grid gap-6 md:grid-cols-2">
                 {group.items.map((item) => (
                   <article key={item.term} className="rounded-2xl border border-relume-border bg-white p-6">

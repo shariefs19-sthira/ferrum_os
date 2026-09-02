@@ -1,9 +1,9 @@
 export default function SeismicRetrofitTimelinePage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Seismic Retrofit Timelines for Occupied Structures
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function SeismicRetrofitTimelinePage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Assessment Before Sequencing</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Assessment Before Sequencing</h2>
             <p className="text-relume-muted">
               A retrofit timeline is only as reliable as the structural assessment it is built on.
               Rapid visual screening under IS 13935 gives a first-pass vulnerability rating, but
@@ -25,7 +25,7 @@ export default function SeismicRetrofitTimelinePage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Phasing Work Around Occupancy</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Phasing Work Around Occupancy</h2>
             <p className="text-relume-muted">
               Occupied retrofits succeed or fail on sequencing discipline: isolating one structural
               bay or floor plate at a time, scheduling the noisiest and most disruptive work
@@ -38,7 +38,7 @@ export default function SeismicRetrofitTimelinePage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Communicating Slippage Early</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Communicating Slippage Early</h2>
             <p className="text-relume-muted">
               Retrofit schedules slip more often from access and utility-shutdown conflicts than
               from the structural work itself. The teams that hold credibility with occupants are

@@ -1,9 +1,9 @@
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Privacy Policy
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function PrivacyPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Information We Collect</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Information We Collect</h2>
             <p className="text-relume-muted">
               We collect information you provide directly to us, such as when you create an account, 
               use our services, or contact us for support. This may include your name, email address, 
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">How We Use Your Information</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">How We Use Your Information</h2>
             <p className="text-relume-muted">
               We use the information we collect to provide, maintain, and improve our services, 
               to process transactions, and to communicate with you about your use of our platform. 
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Data Security</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Data Security</h2>
             <p className="text-relume-muted">
               We implement appropriate security measures to protect your personal information against 
               unauthorized access, alteration, disclosure, or destruction. We use industry-standard 

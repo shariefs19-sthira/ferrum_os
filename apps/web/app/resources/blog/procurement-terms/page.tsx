@@ -1,9 +1,9 @@
 export default function ProcurementTermsPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Procurement Terms for Indian Construction
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function ProcurementTermsPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Rate-Only vs Item-Rate vs Lumpsum</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Rate-Only vs Item-Rate vs Lumpsum</h2>
             <p className="text-relume-muted">
               The three most common Indian procurement forms look interchangeable on paper but carry very
               different risk profiles. Rate-only tenders leave the owner exposed to quantity variation, item-rate
@@ -24,7 +24,7 @@ export default function ProcurementTermsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">EPC, PMC, and the Risk Vocabulary</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">EPC, PMC, and the Risk Vocabulary</h2>
             <p className="text-relume-muted">
               EPC (Engineering, Procurement, Construction) bundles design and execution under a single
               contractor who carries both delivery and performance risk. PMC (Project Management Consultancy)
@@ -36,7 +36,7 @@ export default function ProcurementTermsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Clauses That Quietly Decide the Project</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Clauses That Quietly Decide the Project</h2>
             <p className="text-relume-muted">
               Variation clauses, escalation indices, retention terms, and defect-liability periods decide
               more project outcomes than the headline rate. A 5% retention held for 24 months changes

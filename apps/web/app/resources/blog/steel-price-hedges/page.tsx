@@ -1,9 +1,9 @@
 export default function SteelPriceHedgesPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Hedging Steel Price Risk on Fixed-Price Contracts
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function SteelPriceHedgesPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Where the Exposure Actually Sits</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Where the Exposure Actually Sits</h2>
             <p className="text-relume-muted">
               A fixed-price contract signed before a long procurement lead time locks the
               contractor into today's steel rate for tomorrow's delivery, and the gap between
@@ -24,7 +24,7 @@ export default function SteelPriceHedgesPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Contractual Tools Before Financial Ones</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Contractual Tools Before Financial Ones</h2>
             <p className="text-relume-muted">
               Before reaching for a financial hedge, the cheaper protection is contractual: a
               price-escalation clause tied to a published steel index, a defined procurement
@@ -37,7 +37,7 @@ export default function SteelPriceHedgesPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">When a Financial Hedge Makes Sense</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">When a Financial Hedge Makes Sense</h2>
             <p className="text-relume-muted">
               A financial hedge — forward contracts or futures against a steel index — is
               worth the complexity only when the tonnage at risk is large enough that a bad move

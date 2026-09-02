@@ -42,7 +42,7 @@ export default function AccountPage() {
   return (
     <main className="min-h-screen bg-relume-surface-secondary px-6 py-24">
       <div className="mx-auto max-w-md rounded-3xl border border-relume-border bg-white p-8">
-        <h1 className="text-2xl font-bold text-relume-ink">Your account</h1>
+        <h1 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">Your account</h1>
         <dl className="mt-6 space-y-3 text-sm">
           <div className="flex justify-between">
             <dt className="text-relume-muted">Email</dt>

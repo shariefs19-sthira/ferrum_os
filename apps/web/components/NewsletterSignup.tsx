@@ -34,7 +34,7 @@ export default function NewsletterSignup() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Newsletter</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white">Stay in the loop on new product releases.</h2>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-relume-tight text-white">Stay in the loop on new product releases.</h2>
           </div>
 
           <form className="w-full max-w-lg" onSubmit={submit}>

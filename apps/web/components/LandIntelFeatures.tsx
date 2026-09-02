@@ -12,7 +12,7 @@ export default function LandIntelFeatures() {
     <section className="mt-8 rounded-3xl border border-relume-border bg-white p-6 sm:p-8">
       <div className="mb-6">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-ink">LandIntel</p>
-        <h2 className="mt-2 text-3xl font-bold tracking-tight text-relume-ink">From parcel intelligence to investment clarity</h2>
+        <h2 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-relume-tight text-relume-ink">From parcel intelligence to investment clarity</h2>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

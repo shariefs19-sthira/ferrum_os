@@ -33,9 +33,9 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-relume-surface-secondary">
-      <div className="max-w-3xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-relume-prose mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Contact Us
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -44,7 +44,7 @@ export default function ContactPage() {
         </div>
 
         <div className="bg-white rounded-relume border border-relume-border p-8 mb-8">
-          <h2 className="text-2xl font-bold text-relume-ink mb-6">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-6">
             Get in Touch
           </h2>
           
@@ -79,7 +79,7 @@ export default function ContactPage() {
         </div>
 
         <div className="bg-white rounded-relume border border-relume-border p-8">
-          <h2 className="text-2xl font-bold text-relume-ink mb-6">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-6">
             Our Offices & Hours
           </h2>
 
@@ -140,7 +140,7 @@ export default function ContactPage() {
         </div>
 
         <div className="bg-white rounded-relume border border-relume-border p-8 mt-8">
-          <h2 className="text-2xl font-bold text-relume-ink mb-6">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-6">
             Find Us
           </h2>
           <div
@@ -180,7 +180,7 @@ export default function ContactPage() {
         </div>
 
         <div className="bg-white rounded-relume border border-relume-border p-8">
-          <h2 className="text-2xl font-bold text-relume-ink mb-6">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-6">
             Send us a Message
           </h2>
           {status === "done" ? (

@@ -107,7 +107,7 @@ export default function LoginPage() {
         <aside className="hidden lg:block">
           <div className="rounded-3xl border border-relume-border bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-600 p-8 text-white">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Built for teams</p>
-            <h2 className="mt-5 text-3xl font-bold tracking-tight">Keep every decision aligned</h2>
+            <h2 className="mt-5 text-3xl sm:text-4xl font-semibold tracking-relume-tight">Keep every decision aligned</h2>
             <ul className="mt-8 space-y-4">
               {features.map((feature) => (
                 <li key={feature} className="flex items-center gap-3 text-base text-white/70">

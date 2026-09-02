@@ -94,7 +94,7 @@ export default function ToolsPage() {
 
       <section className="bg-white border-t border-relume-border">
         <div className="mx-auto max-w-7xl px-6 py-12 md:px-8">
-          <h2 className="text-2xl font-bold text-relume-ink">How the tools stay in sync</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">How the tools stay in sync</h2>
           <div className="mt-4 grid gap-6 md:grid-cols-3">
             <div>
               <h3 className="text-sm font-semibold text-relume-ink">Same data model</h3>

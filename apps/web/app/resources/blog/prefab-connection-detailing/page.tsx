@@ -1,9 +1,9 @@
 export default function PrefabConnectionDetailingPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="max-w-relume-prose mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-relume-ink sm:text-5xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
             Connection Detailing for Prefabricated Elements
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
@@ -13,7 +13,7 @@ export default function PrefabConnectionDetailingPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Tolerance Stacking Across Trades</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Tolerance Stacking Across Trades</h2>
             <p className="text-relume-muted">
               A precast or prefab connection has to absorb manufacturing tolerance, erection
               tolerance, and in-situ foundation tolerance all at the same joint — and each of
@@ -25,7 +25,7 @@ export default function PrefabConnectionDetailingPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Detailing the Connection, Not Just the Element</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Detailing the Connection, Not Just the Element</h2>
             <p className="text-relume-muted">
               Shop drawings that fully detail the precast element but leave the connection as a
               generic callout push the real engineering decision onto whoever's erecting the
@@ -37,7 +37,7 @@ export default function PrefabConnectionDetailingPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-relume-ink mb-4">Sequencing the Erection to Match the Detail</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Sequencing the Erection to Match the Detail</h2>
             <p className="text-relume-muted">
               A connection detail that works on paper can still fail if the erection sequence
               doesn't match the assumptions it was designed around — temporary bracing removed

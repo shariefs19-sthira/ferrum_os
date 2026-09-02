@@ -105,7 +105,7 @@ export default function PartnersPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">
               The tiers
             </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-relume-ink sm:text-4xl">
+            <h2 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-relume-tight text-relume-ink">
               Three ways to partner
             </h2>
             <p className="mt-3 max-w-2xl mx-auto text-xl text-relume-muted">
@@ -154,7 +154,7 @@ export default function PartnersPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-relume-ink">
               Questions
             </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-relume-ink sm:text-4xl">
+            <h2 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-relume-tight text-relume-ink">
               Partner FAQ
             </h2>
           </div>
