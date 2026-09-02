@@ -20,9 +20,13 @@ the seat best suited to them, not just whichever seat is free.
 - Ledger discipline
 - Row verification
 
-## CODEX
+## MASON
 - UI-affordance sweeps (empty containers, dead links, handler-less buttons)
 - E2E crawl/verification (Playwright)
+
+## RIVET
+- Mobile app-shell (Capacitor/TWA)
+- PWA manifest/service-worker wiring handoff
 
 ## Maintenance
 Update this file whenever a seat's assigned slice (docs/ROLE_MAP.md)

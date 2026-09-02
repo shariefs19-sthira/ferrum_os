@@ -675,3 +675,19 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** None pending on this row beyond the noted ATLAS 346-convention follow-up.
 ---
+
+## 2026-09-02 10:05 - SCRIBE CODEX slice confirmed (346/348/349/350/353/354) + W2-347 CRANE override + Stage-2 counsel-pack entry
+**Action:** Operator confirmed the exact CODEX slice — W2-346, 348, 349, 350, 353, 354 — narrower than the initial "346..350 and 353+" statement, and explicitly carved W2-347 out to CRANE (a specific reassignment overrides the general roster range). Also noticed in passing that CRANE had already self-reassigned W2-348 from CLAIMED-CRANE to CODEX/OPEN on main (commit 179f849c, `feat: [land:w2-348/crane-release-claim]`) — consistent with this confirmation, not contradicting it. Annotated rows: W2-346 ATLAS→CODEX, W2-349 ATLAS→CODEX, W2-350 ATLAS→CODEX (all noted inline, not deleted); W2-348 confirmed CODEX; W2-347 confirmed CRANE with an explicit override note plus the compliance finding — CommunityBuild investor-KYC wiring is Stage-2, BLOCKED per docs/COMPLIANCE_GATE.md, stays ROADMAP-LABEL rather than IMPLEMENT-MIN/WIRE. Added docs/TRANSACTION_COUNSEL_PACK.md §7 "Stage-2 candidates flagged during Stage-1 build" logging this item for future counsel review. Updated AGENTS.md RULE 1, docs/ROLE_MAP.md (ACTIVE table + change log), and docs/seats/CODEX.md to state the confirmed slice and the W2-347 carve-out.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/CODEX.md, docs/TRANSACTION_COUNSEL_PACK.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CODEX claims its confirmed slice; CRANE proceeds on W2-347 with the ROADMAP-LABEL constraint on the CommunityBuild investor-KYC claim specifically.
+---
+
+## 2026-09-02 10:20 - SCRIBE CODEX-B flagged, then MASON/RIVET rename + RIVET activation + W2-356 APP_SHELL_V1
+**Action:** Flagged before acting: CODEX-B was not on the roster (only CODEX). Operator clarified it's a genuine second, separate Codex CLI instance and directed a roster rename for clarity: CODEX -> MASON (unchanged slice: 346/348/349/350/353/354), CODEX-B -> RIVET (new, exclusive to apps/mobile/** and docs/** only). Renamed CODEX -> MASON everywhere it appeared: AGENTS.md RULE 1, docs/ROLE_MAP.md (ACTIVE table, name registry, change log), docs/SKILLS.md, and every WAVE_QUEUE row previously assigned CODEX (346, 348, 349, 350, 353, 354) plus the W2-347 override note referencing the slice range. Both names collide with the original parked Qoder-era MASON and RIVET (parked 2026-08-31, work already reassigned to CRANE) — resolved by adding explicit "name reused, no history reattributed" notes in AGENTS.md, ROLE_MAP.md (new Retired Qoder-era names note replacing the old PARKED table rows for MASON/RIVET, GIRDER remains PARKED alone), and both seat docs. Renamed docs/seats/CODEX.md to docs/seats/MASON.md (git rm + new file, since CODEX.md had already landed on main) and created docs/seats/RIVET.md. Added the RIVET section to docs/SKILLS.md. Queued **W2-356** APP_SHELL_V1 (355 stayed bound to the earlier branch per operator instruction), assigned RIVET: Capacitor/TWA shell in apps/mobile wrapping the deployed workers.dev URL (config, icons, splash, offline-notice screen) + docs/APP_LAUNCH_CHECKLIST.md + docs/pwa-wiring.patch (2-line manifest/SW wiring handoff for CRANE to apply). Exclusive paths apps/mobile/** and docs/** only.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/MASON.md (new), docs/seats/RIVET.md (new), docs/seats/CODEX.md (removed), docs/SKILLS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** RIVET claims W2-356; CRANE applies docs/pwa-wiring.patch once RIVET delivers it.
+---
