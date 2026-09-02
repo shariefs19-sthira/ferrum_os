@@ -47,14 +47,20 @@ export default function CaseStudiesPage() {
       <SectionShell id="stories" background="surface-secondary">
         <div className="grid gap-6 md:grid-cols-3">
           {caseStudies.map((item) => (
-            <article key={item.name} className="rounded-lg border border-relume-border bg-relume-surface p-6">
+            <article
+              key={item.name}
+              className="relative rounded-lg border border-relume-border bg-relume-surface p-6 transition hover:-translate-y-0.5 hover:shadow-md has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-relume-ink has-[a:focus-visible]:ring-offset-2"
+            >
               <div className="mb-4 inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
                 {item.label}
               </div>
               <h2 className="text-2xl font-semibold tracking-relume-tight text-relume-ink">{item.name}</h2>
               <p className="mt-4 text-sm leading-6 text-relume-ink">{item.summary}</p>
               <div className="mt-6 border-t border-relume-border pt-4">
-                <Link href={item.href} className="text-sm font-medium text-relume-ink underline underline-offset-4">
+                <Link
+                  href={item.href}
+                  className="z-10 text-sm font-medium text-relume-ink underline underline-offset-4 outline-none after:absolute after:inset-0 after:content-['']"
+                >
                   Read story →
                 </Link>
               </div>
