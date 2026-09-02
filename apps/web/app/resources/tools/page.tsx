@@ -58,7 +58,7 @@ export default function ToolsPage() {
           {tools.map((tool) => (
             <article
               key={tool.name}
-              className="flex flex-col rounded-2xl border border-relume-border bg-white p-6"
+              className="relative flex flex-col rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:shadow-md has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-relume-ink has-[a:focus-visible]:ring-offset-2"
             >
               <span className="inline-flex w-fit items-center rounded-full bg-relume-surface-secondary px-3 py-1 text-xs font-semibold text-relume-ink">
                 {tool.badge}
@@ -82,7 +82,7 @@ export default function ToolsPage() {
               <div className="mt-6 pt-4 border-t border-relume-border">
                 <a
                   href={tool.href}
-                  className="inline-flex items-center text-sm font-semibold text-relume-ink hover:text-relume-ink"
+                  className="z-10 inline-flex items-center text-sm font-semibold text-relume-ink hover:text-relume-ink outline-none after:absolute after:inset-0 after:content-['']"
                 >
                   Open {tool.name} →
                 </a>

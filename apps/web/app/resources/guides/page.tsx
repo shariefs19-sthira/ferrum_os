@@ -58,7 +58,7 @@ export default function ResourcesGuidesPage() {
           {guides.map((guide) => (
             <article
               key={guide.name}
-              className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
+              className="relative rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:shadow-md has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-relume-ink has-[a:focus-visible]:ring-offset-2"
             >
               <div className="mb-4 inline-flex rounded-full bg-relume-surface-secondary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink">
                 {guide.label}
@@ -68,7 +68,7 @@ export default function ResourcesGuidesPage() {
               <div className="mt-6 border-t border-relume-border pt-4">
                 <Link
                   href={guide.href}
-                  className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
+                  className="z-10 text-sm font-medium text-relume-ink transition hover:text-relume-ink outline-none after:absolute after:inset-0 after:content-['']"
                 >
                   Open {guide.name.toLowerCase()} →
                 </Link>

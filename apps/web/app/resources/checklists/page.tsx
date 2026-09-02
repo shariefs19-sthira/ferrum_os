@@ -59,14 +59,14 @@ export default function ResourcesChecklistsPage() {
           {checklists.map((checklist) => (
             <article
               key={checklist.name}
-              className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
+              className="relative rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:shadow-md has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-relume-ink has-[a:focus-visible]:ring-offset-2"
             >
               <h2 className="text-2xl font-semibold leading-tight text-relume-ink">{checklist.name}</h2>
               <p className="mt-4 text-sm leading-7 text-relume-muted">{checklist.summary}</p>
               <div className="mt-6 border-t border-relume-border pt-4">
                 <Link
                   href={checklist.href}
-                  className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
+                  className="z-10 text-sm font-medium text-relume-ink transition hover:text-relume-ink outline-none after:absolute after:inset-0 after:content-['']"
                 >
                   Open {checklist.name.toLowerCase()} →
                 </Link>

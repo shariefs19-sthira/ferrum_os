@@ -66,7 +66,7 @@ export default function ResourcesTemplatesPage() {
           {templates.map((item) => (
             <article
               key={item.name}
-              className="rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:border border-relume-border"
+              className="relative rounded-2xl border border-relume-border bg-white p-6 transition hover:-translate-y-0.5 hover:shadow-md has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-relume-ink has-[a:focus-visible]:ring-offset-2"
             >
               <div className="mb-4 flex items-center justify-between gap-3">
                 <div className="inline-flex rounded-full bg-amber-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-700">
@@ -81,7 +81,7 @@ export default function ResourcesTemplatesPage() {
               <div className="mt-6 border-t border-relume-border pt-4">
                 <Link
                   href="/contact"
-                  className="text-sm font-medium text-relume-ink transition hover:text-relume-ink"
+                  className="z-10 text-sm font-medium text-relume-ink transition hover:text-relume-ink outline-none after:absolute after:inset-0 after:content-['']"
                 >
                   Request download →
                 </Link>
