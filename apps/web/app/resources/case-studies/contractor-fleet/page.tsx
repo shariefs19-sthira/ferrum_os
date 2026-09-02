@@ -9,6 +9,9 @@ export default function ContractorFleetPage() {
           <p className="mt-4 text-xl text-relume-muted">
             Optimizing Operations for a Multi-Site Construction Company
           </p>
+          <span className="mt-4 inline-block rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+            Illustrative case study — composite scenario, not an actual named client
+          </span>
         </div>
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
