@@ -104,6 +104,17 @@ re-verify post-land that security posture didn't silently regress: grep
 present. A silent revert of either one is a REVERT verdict in the REGENT
 post-land checklist (RULE 5), not a PASS.
 
+## RULE 16 — Always engaged
+No seat waits on another seat; blocked target → immediate side-hustle from
+approved menu (edge LCP/perf audit, a11y pass, SEO/OG audit, vitest
+coverage gaps, docs completeness) or a RULE 17 proposal; state the switch
+in one line; idle = defect.
+
+## RULE 17 — Propose freely, execute on approval
+Any seat may surface operator-facing improvements as proposals
+(target/rationale/cost); nothing proposed executes without explicit
+operator approval via conductor.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

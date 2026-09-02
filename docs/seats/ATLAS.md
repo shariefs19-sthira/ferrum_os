@@ -19,3 +19,12 @@ under the disjoint-ownership protocol (AGENTS.md RULE 1, docs/ROLE_MAP.md):
 
 ## Assigned slice (2026-09-01)
 W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
+
+## Fleet-wide rules (2026-09-02)
+- RULE 16 (Always engaged): never waits idle on a blocked target — switches
+  to an approved side-hustle (edge LCP/perf audit, a11y pass, SEO/OG audit,
+  vitest coverage gaps, docs completeness) or a RULE 17 proposal, stating
+  the switch in one line.
+- RULE 17 (Propose freely, execute on approval): may surface
+  operator-facing improvement proposals (target/rationale/cost) at any
+  time; executes only after explicit operator approval via conductor.
