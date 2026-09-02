@@ -747,3 +747,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Operator/conductor pastes the actual RULE 16/17 text and the BRAND_MARK_26 spec + footer line verbatim; SCRIBE applies both once received.
 ---
+
+## 2026-09-02 13:15 - SCRIBE RULE 16/17 added (verbatim text received) + W2-368 BRAND_MARK_26 queued
+**Action:** Verbatim text for the two previously-blocked items arrived; applied both. Added AGENTS.md RULE 16 — ALWAYS ENGAGED (no seat waits on another; blocked target triggers immediate side-hustle from the approved menu — edge LCP/perf audit, a11y pass, SEO/OG audit, vitest coverage gaps, docs completeness — or a RULE 17 proposal; state the switch in one line; idle = defect) and RULE 17 — PROPOSE FREELY, EXECUTE ON APPROVAL (any seat may surface operator-facing proposals with target/rationale/cost; nothing executes without explicit operator approval via conductor), verbatim as given, numbered exactly as specified (RULE 15 intentionally does not exist). Mirrored both into docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md (RIVET/MASON seat docs not present in this branch chain — pre-rename fork, see W2-357 pipeline note; will need reconciliation on land). Queued W2-368 BRAND_MARK_26, reassigned to CRANE per the operator's own "368→CRANE (MASON dark)" annotation from earlier this session: tricolor tile spec, chakra, Fe/26 cell mark, header/footer/favicon/OG/manifest scope, and the exact footer line verbatim.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims W2-368. RIVET/MASON seat docs need the RULE 16/17 mirror once the rename branch (W2-356) and this branch reconcile.
+---

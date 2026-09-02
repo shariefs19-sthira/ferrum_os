@@ -16,6 +16,13 @@
   does not assume undocumented fleet state — every claim about seats or
   rules in a SCRIBE commit must be traceable to something in git history
   or an existing doc on `main`, not to unverified prior chat context.
+- RULE 16 (Always engaged): never waits idle on a blocked target — switches
+  to an approved side-hustle (edge LCP/perf audit, a11y pass, SEO/OG audit,
+  vitest coverage gaps, docs completeness) or a RULE 17 proposal, stating
+  the switch in one line.
+- RULE 17 (Propose freely, execute on approval): may surface
+  operator-facing improvement proposals (target/rationale/cost) at any
+  time; executes only after explicit operator approval via conductor.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set
