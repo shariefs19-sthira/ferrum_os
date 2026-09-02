@@ -627,3 +627,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims and lands W2-343; ATLAS re-audits both gaps once W2-343 is DONE.
 ---
+
+## 2026-09-02 08:25 - SCRIBE Relume identity pass row (W2-344)
+**Action:** Added W2-344 RELUME_IDENTITY_PASS, assigned ATLAS (falls in ATLAS's site-systems/content slice per the disjoint-ownership protocol). Scope per operator spec: site-wide visual identity pass against docs/RELUME_HANDOFF.md and docs/RELUME_SPECS.md — footer redesign (balanced grid, no corner-stacking), hero visual (real composed UI components replacing the empty placeholder box, honest not fake), and unified section rhythm/headings/buttons/cards to the Relume component language. No logic changes. Acceptance: build + verify-static green, visual consistency table in report.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** ATLAS claims W2-344.
+---
