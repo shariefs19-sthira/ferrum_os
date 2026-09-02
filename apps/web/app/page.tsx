@@ -28,12 +28,16 @@ const valuePropItems = [
   { title: 'Invest', body: 'Model returns and raise capital with confidence.' },
 ]
 
+// W2-347: rewritten to match each linked product page's real vs. roadmap
+// split (LandIntel/DesignStudio/ProcureHub/CommunityBuild steps were
+// overstating unbuilt capability as present-tense, same defect class
+// W2-345 found and fixed on the product pages themselves).
 const howItWorksSteps = [
-  { title: 'Look up your land', body: 'Enter a ULPIN and get feasibility, zoning and risk in minutes.' },
-  { title: 'Design it', body: 'Turn a brief into plans with AI, then refine and export.' },
-  { title: 'Engineer it', body: 'Run structural analysis and IS code checks.' },
-  { title: 'Build & manage', body: 'Estimate, procure and track progress to handover.' },
-  { title: 'Invest & grow', body: 'Model returns and raise capital.' },
+  { title: 'Look up your land', body: 'Enter a ULPIN for indicative sample land details — zoning/risk data on the roadmap.' },
+  { title: 'Design it', body: 'Test-fit massing and DXF export today; AI-generated plans on the roadmap.' },
+  { title: 'Engineer it', body: 'Two textbook IS-code checks today (IS 456, IS 800); full FEA on the roadmap.' },
+  { title: 'Build & manage', body: 'BOQ estimation today; procurement and project tracking on the roadmap.' },
+  { title: 'Invest & grow', body: 'Model IRR/NPV today; capital-raising and fractional investment on the roadmap.' },
 ]
 
 const pricingPlans = [

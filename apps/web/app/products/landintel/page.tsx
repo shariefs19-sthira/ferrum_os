@@ -7,13 +7,18 @@ import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import UlpinDemoWidget from '../../../components/sections/UlpinDemoWidget'
 import ParcelMap from '../../../components/sections/ParcelMap'
 
+// W2-347: only ULPIN lookup (indicative sample data) and the interactive
+// map (real Leaflet/OSM component) are real. Zoning, soil/hazard,
+// feasibility report, and investment forecasts have zero implementation —
+// UlpinDemoWidget returns state/district/area_sqm/land_use only, nothing
+// else. Roadmap-labeled rather than deleted per RULE 13/W2-345's pattern.
 const featureItems = [
-  { title: 'ULPIN lookup', body: 'Enter a 14-digit ULPIN and pull official land records instantly.' },
+  { title: 'ULPIN lookup', body: 'Enter a 14-digit ULPIN and pull indicative sample land records instantly.' },
   { title: 'Interactive maps', body: 'See boundaries, surroundings and access on live maps.' },
-  { title: 'Zoning summary', body: 'Know what you can build before you buy.' },
-  { title: 'Soil & hazard data', body: 'Understand ground conditions and flood or seismic risk.' },
-  { title: 'Feasibility report', body: 'A shareable report that sizes up the whole deal.' },
-  { title: 'Investment forecasts', body: 'Project land value and returns over time.' },
+  { title: 'Zoning summary', body: 'Know what you can build before you buy — not yet built.' },
+  { title: 'Soil & hazard data', body: 'Understand ground conditions and flood or seismic risk — not yet built.' },
+  { title: 'Feasibility report', body: 'A shareable report that sizes up the whole deal — not yet built.' },
+  { title: 'Investment forecasts', body: 'Project land value and returns over time — not yet built.' },
 ]
 
 const howItWorksSteps = [
@@ -77,13 +82,13 @@ export default function LandIntelPage() {
               Know your land before you buy or build
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              Enter a 14-digit ULPIN and get land details, zoning, soil and hazard data, and
-              investment forecasts — in minutes.
+              Enter a 14-digit ULPIN and get indicative sample land details today. Zoning, soil
+              and hazard data, and investment forecasts are on the roadmap.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>ULPIN land lookup</li>
-              <li>Zoning &amp; soil data</li>
-              <li>Investment forecasts</li>
+              <li>ULPIN land lookup (indicative)</li>
+              <li>Zoning &amp; soil data — roadmap</li>
+              <li>Investment forecasts — roadmap</li>
             </ul>
             <div className="mt-8 flex flex-wrap gap-4">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>

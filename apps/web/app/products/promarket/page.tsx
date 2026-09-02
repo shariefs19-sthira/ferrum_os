@@ -83,13 +83,13 @@ export default function ProMarketPage() {
               Hire verified professionals you can trust
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              Find verified architects, engineers and contractors, post jobs, compare proposals
-              and pay securely through escrow.
+              Verified profiles, job posting, proposals and escrow payments are on the roadmap.
+              Live today: an indicative material/labor rate comparison tool.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>Verified professionals</li>
-              <li>Escrow payments</li>
-              <li>Reviews &amp; ratings</li>
+              <li>Verified professionals — roadmap</li>
+              <li>Escrow payments — roadmap</li>
+              <li>Reviews &amp; ratings — roadmap</li>
             </ul>
             <div className="mt-8">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>

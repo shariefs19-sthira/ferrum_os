@@ -83,12 +83,13 @@ export default function BuildOSPage() {
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
               A common data environment for construction project management — tasks, RFIs,
-              QA/QC, measurement books and RA bills, with a mobile field app.
+              QA/QC, measurement books and RA bills. Not yet built — this page describes the
+              intended product.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>Common data environment</li>
-              <li>QA/QC &amp; HSE</li>
-              <li>Mobile field app</li>
+              <li>Common data environment — roadmap</li>
+              <li>QA/QC &amp; HSE — roadmap</li>
+              <li>Task management — roadmap</li>
             </ul>
             <div className="mt-8">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>

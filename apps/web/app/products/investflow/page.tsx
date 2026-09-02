@@ -54,8 +54,8 @@ export default function InvestFlowPage() {
             </SectionHeading>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
               <li>Cash-flow modeling</li>
-              <li>IRR/NPV/yield</li>
-              <li>Sensitivity analysis</li>
+              <li>IRR/NPV (live) — yield is not computed</li>
+              <li>Sensitivity analysis — roadmap</li>
             </ul>
             <div className="mt-8">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>

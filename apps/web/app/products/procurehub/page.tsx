@@ -52,9 +52,9 @@ export default function ProcureHubPage() {
               Get materials on site, on time
             </SectionHeading>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>BOQ-driven requests</li>
-              <li>Delivery tracking</li>
-              <li>Supplier directory</li>
+              <li>BOQ-driven requests — roadmap</li>
+              <li>Delivery tracking — roadmap</li>
+              <li>Supplier directory — roadmap</li>
             </ul>
             <div className="mt-8">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
