@@ -712,6 +712,69 @@ app.post('/api/auth/reset-password', async (c) => {
   return c.json({ ok: true })
 })
 
+// Command Deck project contract (W2-365). Every lookup is ownership-scoped;
+// unknown and cross-user project/artifact IDs deliberately share a 404.
+async function loadOwnedProject(env: Env, userId: string, projectId: string) {
+  return env.DB.prepare('SELECT id, name, city, ulpin, created_at FROM projects WHERE id = ? AND user_id = ?')
+    .bind(projectId, userId).first<{ id: string; name: string; city: string; ulpin: string | null; created_at: string }>()
+}
+
+app.get('/api/projects', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const rows = await c.env.DB.prepare('SELECT id, name, city, ulpin FROM projects WHERE user_id = ? ORDER BY created_at DESC').bind(user.id).all()
+  return c.json({ projects: rows.results })
+})
+
+app.post('/api/projects', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.name !== 'string' || !body.name.trim() || typeof body.city !== 'string' || !body.city.trim() || (body.ulpin !== undefined && typeof body.ulpin !== 'string')) return c.json({ error: 'invalid_input' }, 400)
+  const id = crypto.randomUUID(), name = body.name.trim(), city = body.city.trim(), ulpin = body.ulpin?.trim() || null
+  await c.env.DB.batch([
+    c.env.DB.prepare('INSERT INTO projects (id, user_id, name, city, ulpin) VALUES (?, ?, ?, ?, ?)').bind(id, user.id, name, city, ulpin),
+    c.env.DB.prepare('INSERT INTO project_activity (id, user_id, project_id, type, message) VALUES (?, ?, ?, ?, ?)').bind(crypto.randomUUID(), user.id, id, 'project.created', `Project created: ${name}`),
+  ])
+  return c.json({ id, name, city, ulpin }, 201)
+})
+
+app.get('/api/projects/:id', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const project = await loadOwnedProject(c.env, user.id, c.req.param('id'))
+  if (!project) return c.json({ error: 'not_found' }, 404)
+  const rows = await c.env.DB.prepare(`SELECT a.id, a.type, a.title, a.data, a.created_at FROM project_artifacts pa JOIN saved_artifacts a ON a.id = pa.artifact_id WHERE pa.project_id = ? AND a.user_id = ? ORDER BY pa.attached_at DESC`).bind(project.id, user.id).all<{ id: string; type: string; title: string; data: string; created_at: string }>()
+  const artifacts = rows.results.map((artifact) => {
+    let data: unknown = {}
+    try { data = JSON.parse(artifact.data) } catch { data = {} }
+    const input = data && typeof data === 'object' && !Array.isArray(data) && 'input' in data ? (data as { input: unknown }).input : data
+    return { id: artifact.id, type: artifact.type, title: artifact.title, input, created_at: artifact.created_at }
+  })
+  return c.json({ ...project, artifacts })
+})
+
+app.post('/api/projects/:id/attach', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const project = await loadOwnedProject(c.env, user.id, c.req.param('id'))
+  if (!project) return c.json({ error: 'not_found' }, 404)
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.artifact_id !== 'string' || !body.artifact_id) return c.json({ error: 'invalid_input' }, 400)
+  const artifact = await loadOwnedArtifact(c.env, user.id, body.artifact_id)
+  if (!artifact) return c.json({ error: 'not_found' }, 404)
+  const attached = await c.env.DB.prepare('INSERT OR IGNORE INTO project_artifacts (project_id, artifact_id) VALUES (?, ?)').bind(project.id, artifact.id).run()
+  if (attached.meta.changes > 0) await c.env.DB.prepare('INSERT INTO project_activity (id, user_id, project_id, type, message) VALUES (?, ?, ?, ?, ?)').bind(crypto.randomUUID(), user.id, project.id, 'artifact.attached', `${artifact.title} attached`).run()
+  return c.json({ project_id: project.id, artifact_id: artifact.id, attached: attached.meta.changes > 0 })
+})
+
+app.get('/api/activity', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const rows = await c.env.DB.prepare(`SELECT a.id, a.type, a.message, a.project_id, p.name AS project_name, a.created_at FROM project_activity a LEFT JOIN projects p ON p.id = a.project_id AND p.user_id = a.user_id WHERE a.user_id = ? ORDER BY a.created_at DESC LIMIT 100`).bind(user.id).all()
+  return c.json({ activity: rows.results })
+})
+
 // Saved-artifact workspace (W2-327), tied to W2-326 auth. `data` is
 // stored/returned as an opaque JSON blob — see migrations/0008_workspace.sql
 // for why it isn't normalized per artifact type.
