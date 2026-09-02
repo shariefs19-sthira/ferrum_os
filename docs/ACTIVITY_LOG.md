@@ -683,3 +683,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** ATLAS claims W2-360, flags the protected-path touch to CRANE/REGENT when landing.
 ---
+
+## 2026-09-02 11:45 - SCRIBE W2-361 EMPTY_CONTAINER_PURGE (overlap flagged with W2-353/W2-344)
+**Action:** Queued W2-361 EMPTY_CONTAINER_PURGE, assigned CRANE, per operator mandate: site-wide purge of every empty/placeholder container (example given: the /products/landintel hero gray box) — each gets a real composed visual (INDICATIVE-labeled where sample data) or is deleted outright. Flagged on the row rather than silently duplicating: this overlaps in intent with W2-353 EMPTY_PLACEHOLDER_SWEEP item (1), assigned MASON, and W2-344 RELUME_IDENTITY_PASS's hero-visual item, assigned ATLAS. This row is distinct in scope (CRANE-assigned, explicitly site-wide, verified against the DEPLOYED edge rather than local build) but CRANE should reconcile with MASON/ATLAS's work before re-doing anything already landed.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims W2-361, checks W2-353/W2-344 landing status first to avoid duplicate work.
+---
