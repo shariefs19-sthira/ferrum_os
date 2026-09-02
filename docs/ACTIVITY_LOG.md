@@ -675,3 +675,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** None pending on this row beyond the noted ATLAS 346-convention follow-up.
 ---
+
+## 2026-09-02 11:30 - SCRIBE W2-360 BOQ_PAGE_TRUTH (RULE 6 protected-path exception, explicit operator approval)
+**Action:** Queued W2-360 BOQ_PAGE_TRUTH, assigned ATLAS, applying the W2-345 claim-truth convention to BOQ Pro's remaining sections (featureItems, howItWorksSteps, pricingPlans, faqItems) — the only one of the 9 product pages that never got the W2-345 pass. Flagged on the row: `apps/web/app/boq-pro/**` is a RULE 6 protected path requiring explicit human approval before any modification; this row is queued only because the operator gave that approval directly for this specific task, and ATLAS is instructed to flag the touch when landing rather than treat it as a standing exception. Verification instructions carried verbatim: city-wise 3-city pricing and the three-mode calculator are confirmed real; auto take-off, brands, and GST computation are not — label/rewrite, no deletions, no new features.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** ATLAS claims W2-360, flags the protected-path touch to CRANE/REGENT when landing.
+---
