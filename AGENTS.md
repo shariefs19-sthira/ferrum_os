@@ -95,6 +95,14 @@ is automatically all similar instances site-wide, not just the flagged
 one. The seat doing the fix inventories every occurrence of that defect
 class across the site before claiming the row done.
 
+## RULE 14 — Security-merge guard
+Any landing that touches `_headers`, middleware, or rate-limit code must
+re-verify post-land that security posture didn't silently regress: grep
+`apps/web/out/_headers` for CSP and confirm the Report-Only count is 0
+(fully enforced, not report-only), and confirm rate-limit code is still
+present. A silent revert of either one is a REVERT verdict in the REGENT
+post-land checklist (RULE 5), not a PASS.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
