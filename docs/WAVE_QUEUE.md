@@ -281,6 +281,9 @@ landed, so W2-312 carries the real scope.
 | W2-348 | | B2 | J08 | CODEX | OPEN | | CONTENT_ASSETS — templates/whitepapers/reports pages currently promise downloadable assets; make them real. Generate actual DXF/PDF/checklist files server-side or as static assets so every "download" affordance on those three resource hubs produces a real file, not a dead link or placeholder. UNDO: git revert <sha>. |
 | W2-349 | | B2 | J08 | ATLAS | OPEN | | MEDIA_HONESTY — videos/podcasts pages: no recorded media exists and none can be faked. Convert each entry to article-format episode notes (real written content), OR roadmap-label it as not-yet-available, OR delete the watch/listen affordance entirely — no page may present a play/watch/listen control that doesn't play anything. UNDO: git revert <sha>. |
 
+## 2026-09-02 — SCRIBE CODEX activation, empty-placeholder sweep
+| W2-353 | | B2 | J08 | CODEX | OPEN | | EMPTY_PLACEHOLDER_SWEEP — (1) every hero/section visual box contains a real composed visual or is removed — zero empty containers; (2) every product/resource card is fully clickable to its route (whole card = link, not just "Learn more"); (3) every button has a real handler or is removed; (4) every nav dropdown/menu lists real routes — no empty tabs. Acceptance: Playwright crawl of ALL routes reports zero empty containers, zero handler-less buttons, zero dead '#' links. UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

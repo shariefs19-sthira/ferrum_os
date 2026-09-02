@@ -11,6 +11,7 @@ or in git history on `main`.
 | CRANE  | Executor + Lander + REGENT    | Writes code, lands branches via `scripts/land.ps1`, and runs REGENT quality gates on its own landings. 19+ `[AI: CRANE]` commits on `main` as of 2026-08-31. |
 | SCRIBE | Docs / Ledger / Rules / Registry | Owns AGENTS.md, ROLE_MAP.md, WAVE_QUEUE.md, docs/seats/*. Only seat permitted to commit rule changes (RULE 4). |
 | ATLAS  | Architect + Executor (dual role, assigned slice) | Reactivated 2026-09-01. Works WAVE_QUEUE rows in its assigned slice (see below); disjoint-ownership protocol with CRANE — see AGENTS.md RULE 1. |
+| CODEX  | Executor, parallel slice | Activated 2026-09-02. Owns W2-346..350 and W2-353+ per the operator's slice statement (existing Assigned To values on W2-346..350 are not retroactively rewritten — see Change log). |
 
 ### ATLAS / CRANE disjoint-ownership protocol (2026-09-01)
 
@@ -39,7 +40,7 @@ or in git history on `main`.
 |-------|------|
 | Human | Final authority; approves consolidation and rule changes. |
 
-## PARKED (reactivatable when Codex/Cursor join)
+## PARKED (reactivatable when Cursor joins)
 
 | Seat    | Origin       | Notes |
 |---------|--------------|-------|
@@ -58,6 +59,7 @@ Seat name -> underlying tool, kept for audit purposes:
 - CRANE -> Claude Code (executor/lander/REGENT role for this fleet)
 - SCRIBE -> Claude Code (docs/rules seat, this session)
 - ATLAS -> Qoder-CN (active, dual role — see above)
+- CODEX -> Codex CLI (active 2026-09-02, executor, parallel slice)
 - MASON, RIVET, GIRDER -> Qoder (parked)
 - Qwen-Web -> Qwen-Web-Conductor
 
@@ -72,3 +74,11 @@ Seat name -> underlying tool, kept for audit purposes:
   executor for its assigned WAVE_QUEUE slice). Disjoint-ownership protocol
   established with CRANE (file-scope separation, CRANE-only deps, no
   self-certification on SWEEP_100). MASON, RIVET, GIRDER remain PARKED.
+- 2026-09-02: CODEX activated as ACTIVE, executor role, parallel slice
+  (operator directive). Operator stated CODEX owns W2-346..350 and
+  W2-353+; W2-346, 348, 350 already carried ATLAS/CRANE assignments from
+  prior rows and were NOT retroactively rewritten (same precedent as
+  W2-320/321 during ATLAS's 2026-09-01 reactivation) — the slice statement
+  applies going forward. W2-353 (EMPTY_PLACEHOLDER_SWEEP) is CODEX's first
+  assigned row. PARKED list heading updated to "reactivatable when Cursor
+  joins" since Codex has now joined.
