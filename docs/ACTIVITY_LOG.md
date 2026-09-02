@@ -635,3 +635,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** ATLAS claims W2-344.
 ---
+
+## 2026-09-02 08:40 - SCRIBE RULE 13 (screenshot extrapolation) + sitewide claim-truth/content-assets/media-honesty rows
+**Action:** Added AGENTS.md RULE 13 — SCREENSHOT_EXTRAPOLATION: when the operator flags one instance of a defect from a screenshot/spot-check, the fix scope is automatically all similar instances site-wide; the fixing seat inventories every occurrence of that defect class before claiming done. Applied it directly: added W2-345 SITEWIDE_CLAIM_TRUTH (ATLAS) — full-site inventory of every claim (feature cards, marketing bullets, hero claims, FAQ, pricing promises, how-it-works, resources descriptions) with backing-status + decision (IMPLEMENT-MIN/WIRE/ROADMAP-LABEL/REWRITE/DELETE) per claim, then execute. Added W2-348 CONTENT_ASSETS (CRANE) — real generated DXF/PDF/checklist downloads for templates/whitepapers/reports so every download affordance produces a real file. Added W2-349 MEDIA_HONESTY (ATLAS) — videos/podcasts pages get converted to article-format episode notes, roadmap-labeled, or have the watch/listen affordance deleted, since no recorded media exists or can be faked. Row numbers 346/347 intentionally left open (not used).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** ATLAS claims W2-345 and W2-349; CRANE claims W2-348.
+---

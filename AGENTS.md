@@ -88,6 +88,13 @@ gate to the conductor, which dispatches the unblocking sub-task to the
 seat that owns that kind of work — ATLAS for research/design questions,
 SCRIBE for docs/queue questions — instead of CRANE idling on its own row.
 
+## RULE 13 — Screenshot extrapolation
+When the operator flags one instance of a defect (a placeholder, a fake
+claim, an unwired feature) from a screenshot or spot-check, the fix scope
+is automatically all similar instances site-wide, not just the flagged
+one. The seat doing the fix inventories every occurrence of that defect
+class across the site before claiming the row done.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
