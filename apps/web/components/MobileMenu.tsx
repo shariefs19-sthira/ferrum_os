@@ -113,7 +113,7 @@ export default function MobileMenu() {
           className="fixed left-4 right-4 top-20 z-50 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-2xl border border-relume-border bg-relume-surface p-3 shadow-xl sm:left-auto sm:right-6 sm:w-80"
         >
           <div className="space-y-3">
-            <Link href="/" onClick={closeMenu} className="block rounded-xl px-3 py-2 text-base font-medium text-relume-ink transition hover:bg-relume-surface-secondary">
+            <Link href="/" onClick={closeMenu} className="flex min-h-11 items-center rounded-xl px-3 py-2 text-base font-medium text-relume-ink transition hover:bg-relume-surface-secondary">
               Home
             </Link>
 
@@ -125,7 +125,7 @@ export default function MobileMenu() {
                     key={link.name}
                     href={link.href}
                     onClick={closeMenu}
-                    className="block rounded-xl px-3 py-2 text-sm text-relume-muted transition hover:bg-relume-surface-secondary hover:text-relume-ink"
+                    className="flex min-h-11 items-center rounded-xl px-3 py-2 text-sm text-relume-muted transition hover:bg-relume-surface-secondary hover:text-relume-ink"
                   >
                     {link.name}
                   </Link>
@@ -140,7 +140,7 @@ export default function MobileMenu() {
                     key={link.name}
                     href={link.href}
                     onClick={closeMenu}
-                    className="block rounded-xl px-3 py-2 text-sm text-relume-muted transition hover:bg-relume-surface-secondary hover:text-relume-ink"
+                    className="flex min-h-11 items-center rounded-xl px-3 py-2 text-sm text-relume-muted transition hover:bg-relume-surface-secondary hover:text-relume-ink"
                   >
                     {link.name}
                   </Link>
@@ -150,10 +150,10 @@ export default function MobileMenu() {
 
             <div className="border-t border-relume-border pt-3">
               <div className="space-y-2">
-                <Link href="/login" onClick={closeMenu} className="block rounded-xl border border-relume-border px-3 py-2.5 text-sm font-medium text-relume-muted transition hover:bg-relume-surface-secondary">
+                <Link href="/login" onClick={closeMenu} className="flex min-h-11 items-center rounded-xl border border-relume-border px-3 py-2.5 text-sm font-medium text-relume-muted transition hover:bg-relume-surface-secondary">
                   Log in
                 </Link>
-                <Link href="/signup" onClick={closeMenu} className="block rounded-xl bg-relume-ink px-3 py-2.5 text-sm font-medium text-white transition hover:opacity-90">
+                <Link href="/signup" onClick={closeMenu} className="flex min-h-11 items-center rounded-xl bg-relume-ink px-3 py-2.5 text-sm font-medium text-white transition hover:opacity-90">
                   Start Free Trial
                 </Link>
               </div>

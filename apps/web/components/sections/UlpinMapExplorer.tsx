@@ -91,7 +91,7 @@ export default function UlpinMapExplorer() {
               type="button"
               onClick={() => selectSample(sample)}
               aria-pressed={ulpin === sample}
-              className={`rounded-full border px-3 py-1 text-xs font-medium ${ulpin === sample ? "border-relume-ink bg-relume-ink text-white" : "border-relume-border text-relume-ink"}`}
+              className={`min-h-11 rounded-full border px-3 py-1 text-xs font-medium ${ulpin === sample ? "border-relume-ink bg-relume-ink text-white" : "border-relume-border text-relume-ink"}`}
             >
               {sample}
             </button>

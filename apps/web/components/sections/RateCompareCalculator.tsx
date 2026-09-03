@@ -40,24 +40,26 @@ export default function RateCompareCalculator() {
         {loading ? "Comparing..." : "Compare rates"}
       </button>
       {result && result.rates.length > 0 && (
-        <table className="mt-6 w-full text-left text-sm">
-          <thead>
-            <tr className="border-b border-relume-border">
-              <th className="py-2 pr-4 font-semibold text-relume-ink">Region</th>
-              <th className="py-2 pr-4 font-semibold text-relume-ink">Rate</th>
-              <th className="py-2 font-semibold text-relume-ink">Unit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {result.rates.map((row) => (
-              <tr key={row.region} className="border-b border-relume-border">
-                <td className="py-2 pr-4 text-relume-ink">{row.region}</td>
-                <td className="py-2 pr-4 text-relume-ink">₹{row.rate}</td>
-                <td className="py-2 text-relume-ink">{row.unit}</td>
+        <div className="mt-6 overflow-x-auto">
+          <table className="w-full min-w-[28rem] text-left text-sm">
+            <thead>
+              <tr className="border-b border-relume-border">
+                <th className="py-2 pr-4 font-semibold text-relume-ink">Region</th>
+                <th className="py-2 pr-4 font-semibold text-relume-ink">Rate</th>
+                <th className="py-2 font-semibold text-relume-ink">Unit</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {result.rates.map((row) => (
+                <tr key={row.region} className="border-b border-relume-border">
+                  <td className="py-2 pr-4 text-relume-ink">{row.region}</td>
+                  <td className="py-2 pr-4 text-relume-ink">₹{row.rate}</td>
+                  <td className="py-2 text-relume-ink">{row.unit}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   )

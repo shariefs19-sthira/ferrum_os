@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+  button,
+  input:not([type='hidden']):not([type='radio']):not([type='checkbox']),
+  select,
+  textarea {
+    min-height: 2.75rem;
+  }
+
   h1,
   h2,
   h3,
