@@ -11,9 +11,10 @@ is recorded. A `PENDING` row authorizes no implementation work.
 > “indicative vs verified” status inline; improves decision confidence. Cost:
 > medium.
 
-**Operator decision:** PENDING
-**Envelope if approved:** user-facing presentation only; separate task and
-acceptance evidence required before implementation.
+**Operator decision:** EXECUTED
+**Execution evidence:** CRANE `226cf5a80a6571175996ac4bc4325ea933aa0d23`
+(W2-387 provenance strips on LandIntel and Analysis Engine). The later S4
+DesignStudio extension remains within W2-387's separately sequenced scope.
 
 ### AQ-RIVET-002 — Cross-tool resume
 
@@ -27,6 +28,15 @@ acceptance evidence required before implementation.
 
 > Mobile release readiness view — expose the release checklist’s actual
 > evidence gates to internal operators, not a generic green status. Cost: low.
+
+**Operator decision:** PENDING
+**Envelope if approved:** separate task; no execution from this proposal.
+
+### AQ-RIVET-004 — App-link continuity diagnostic
+
+> App-link continuity diagnostic — when a Ferrum link cannot stay in the
+> shell, explain the handoff and offer one direct return action; improves
+> mobile navigation confidence. Cost: low.
 
 **Operator decision:** PENDING
 **Envelope if approved:** separate task; no execution from this proposal.

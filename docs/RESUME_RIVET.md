@@ -14,13 +14,16 @@
 ## Current state
 
 - Branch: `rivet/w2-356-app-shell`.
-- Three RIVET operator-facing proposals are recorded as `PENDING` in
-  `docs/APPROVAL_QUEUE.md`; none has implementation authority.
+- AQ-RIVET-001 is executed by CRANE in
+  `226cf5a80a6571175996ac4bc4325ea933aa0d23` (W2-387 provenance strip).
+  AQ-RIVET-002, AQ-RIVET-003, and AQ-RIVET-004 remain `PENDING`.
+- S4 mobile-asset preparation is documented in `docs/seats/RIVET.md`; it
+  changes no Android resource and remains LOCKED on MASON's S4 implementation.
 - W2-356 is not recorded as LIVE: it has neither a main landing nor deployed
   first-viewport mobile proof.
 
 ## Next milestone
 
-Wait for S4 to land, then assess only the corresponding `apps/mobile/**`
-assets and report a milestone. Before any new work, read this file and
-`docs/APPROVAL_QUEUE.md`.
+When MASON lands S4, use the manifest in `docs/seats/RIVET.md` to wire the
+approved mobile asset treatment mechanically. Before any new work, read this
+file and `docs/APPROVAL_QUEUE.md`.
