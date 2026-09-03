@@ -966,3 +966,27 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** None pending; W2-360 still awaits landing/DONE status.
 ---
+
+## 2026-09-03 09:30 - SCRIBE RULE 18 (Self-landing, bounded) added + seats mirror
+**Action:** Added AGENTS.md RULE 18 — SELF_LANDING_BOUNDED: seats self-land their own branches once past their gates (RULE 4 stage-gate, RULE 5 quality, RULE 14 security-merge guard where applicable), rather than waiting on CRANE for routine landings. Mechanically bounded (not just policy-bounded): protected paths, worker.ts, database migrations, and _headers stay CRANE-only to land, no exceptions. CRANE batch-reviews the landing log once per turn instead of gating every self-land in real time. ATLAS post-audits self-landed work identically to any other landing — self-landing is not an audit exemption. Mirrored into docs/seats/CRANE.md, ATLAS.md, MASON.md, RIVET.md, and SCRIBE.md.
+**By:** SCRIBE (Claude Code)
+**Status:** Complete
+**Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Seats begin self-landing routine work; CRANE adds a once-per-turn batch log review to its own workflow.
+---
+
+## 2026-09-03 09:45 - SCRIBE RULE 19 (Limit handoff) added + RULE 17 amended (mandatory UX proposal line) + seats mirror
+**Action:** Added AGENTS.md RULE 19 — LIMIT_HANDOFF: when a seat hits its usage/rate limit mid-task, the active seat takes over the stopped task regardless of role, resuming from the completed state rather than restarting — no seat waits for another's reset. On return, the originally-limited seat exits the taken-over task and picks up the next open row instead. Amended RULE 17: every seat report must include at least one UX-improving proposal or an explicit "no better alternative found" line. Mirrored both into docs/seats/CRANE.md, ATLAS.md, MASON.md, RIVET.md, and SCRIBE.md.
+**By:** SCRIBE (Claude Code)
+**Status:** Complete
+**Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Every future report includes the RULE 17 UX-proposal line; seats begin practicing RULE 19 handoff behavior on the next limit event.
+---
+
+## 2026-09-03 10:00 - SCRIBE annotation bundle: W2-380 scale dimension, W2-372 ratification, new approval queue, MASON/RIVET section-10 reminder logged
+**Action:** Notes only, no deletions. (1) Annotated W2-380 with the operator's scale dimension, verbatim: "scale-continuous from outskirts house to 10,000-unit towers/malls; sky is the limit" — no S1-S6 milestone design should assume a small-plot ceiling. (2) Annotated W2-372 with the conductor's ratification: APPROVED on the full five-point rubric table. (3) Created a new "Approval Queue" section in docs/WAVE_QUEUE.md tracking RULE 17 proposals pending decision: the Ctrl+K palette fuzzy row-ID search (PENDING, silence=skip) and the devDependencies typescript/@types/node addition (PENDING ATLAS approval). (4) Logged the reminder to collect MASON's and RIVET's playbook section-10 lesson paragraphs after 1:09.
+**By:** SCRIBE (Claude Code)
+**Status:** Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor decides the two pending approval-queue items; collect MASON/RIVET section-10 paragraphs after 1:09.
+---

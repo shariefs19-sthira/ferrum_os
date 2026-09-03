@@ -28,3 +28,15 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
 - RULE 17 (Propose freely, execute on approval): may surface
   operator-facing improvement proposals (target/rationale/cost) at any
   time; executes only after explicit operator approval via conductor.
+  Amended 2026-09-03: every report includes ≥1 UX-improving proposal or
+  an explicit "no better alternative found" line — never silent on this.
+- RULE 18 (Self-landing, bounded): may self-land its own branches once
+  past gates, except protected paths/worker.ts/migrations/_headers, which
+  stay CRANE-only regardless of who authored the branch. Post-audits
+  self-landed work the same as any other landing — self-landing carries
+  no audit exemption.
+- RULE 19 (Limit handoff): if another seat hits its limit mid-task, ATLAS
+  (if active) takes over the stopped task from its completed state, no
+  restart, no waiting for the reset. If ATLAS itself hits limit, exits
+  any taken-over task on return and picks up the next open row rather
+  than reclaiming it.
