@@ -60,3 +60,11 @@ supporting middleware were retired for the static launch. The static
 `_headers` CSP uses `unsafe-inline`, accepted consciously as a
 launch-scoped tradeoff, not an oversight. **W2-240** is queued for
 post-launch hardening back to hash-based or edge-nonce CSP.
+
+## CSP decisions
+
+**2026-08-31 — CSP decision (launch-scoped):** The nonce-based CSP and its
+supporting middleware were retired for the static launch. The static
+`_headers` CSP uses `unsafe-inline`, accepted consciously as a
+launch-scoped tradeoff, not an oversight. **W2-240** is queued for
+post-launch hardening back to hash-based or edge-nonce CSP.
