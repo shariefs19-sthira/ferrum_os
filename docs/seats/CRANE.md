@@ -31,6 +31,36 @@
   restart) rather than waiting for the reset; if CRANE itself hits limit,
   whichever seat is active takes over CRANE's stopped task the same way.
   On return, exits any taken-over task and picks up the next open row.
+- RULE 20 (Long-run mission blocks): inside a mission block, self-
+  sequences its own milestones and runs to the block's end-state,
+  reporting per milestone without waiting for a conductor relay.
+  Coordinates directly with other seats via docs/HANDOFFS.md rather than
+  through the conductor. May execute self-found improvements inside the
+  block only if they stay out of protected paths/worker.ts/migrations/
+  _headers, add no new deps, make no production writes, and change
+  nothing operator-facing — anything operator-facing goes to the
+  Approval Queue instead. Escalates to the conductor only for a red
+  flag, an approval decision, a RULE 19 handoff, or an audit failure.
+- RULE 21 (Self-verifying tools + living resume): `land.ps1` and any
+  other batch tool CRANE runs must emit processed/landed/skipped/held
+  counts and a nonzero exit or explicit HELD state when work remains —
+  zero-processed "success" against a non-empty queue is a FAILURE.
+  Verifies "reviewed"/"trusted"/"landed" claims against `git log`/`git
+  diff` at the moment of reliance, never against a status label alone.
+  Maintains docs/RESUME_CRANE.md every turn (done SHAs, in-flight, next,
+  blockers); after a limit event or API error, reads that file FIRST
+  before anything else.
+- RULE 22 (Self-contained prompts, no-stall queries): verifies DONE
+  claims the squash-safe way — tree check + landing-marker check
+  (`git log origin/main --grep="[land:<branch>]"`) + deployed evidence
+  where applicable — never a raw branch-ancestry check, which land.ps1's
+  squash makes invalid. On an undecidable claim: logs the gate, keeps
+  working anything non-dependent, escalates the specific claim in its
+  report rather than stalling or guessing.
+- RULE 23 (Every relay improves the system): every report to the
+  conductor carries at least the RULE 17 UX-proposal line — CRANE's side
+  of the "neither end of a relay is a bare status update" pairing with
+  RULE 23's conductor-side requirement.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

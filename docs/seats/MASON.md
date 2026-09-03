@@ -35,6 +35,25 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   takes over from the completed state, no waiting for the reset; on
   return this seat exits the taken-over task and picks up the next open
   row instead of reclaiming it.
+- RULE 20 (Long-run mission blocks): inside a mission block, self-
+  sequences milestones and reports per milestone without waiting for a
+  conductor relay; coordinates with other seats via docs/HANDOFFS.md
+  directly. Self-found improvements executed inline must stay out of
+  protected paths/worker.ts/migrations/_headers, add no new deps, make
+  no production writes, and change nothing operator-facing — anything
+  operator-facing goes to the Approval Queue instead.
+- RULE 21 (Self-verifying tools + living resume): any batch script this
+  seat runs (sweeps, audits) emits processed/skipped/held counts and a
+  nonzero exit or explicit HELD state when work remains. Maintains
+  docs/RESUME_MASON.md every turn — particularly important given this
+  seat's own history of hitting rate limits mid-task (RULE 19); after a
+  limit event or API error, reads that file FIRST before anything else.
+- RULE 22 (Self-contained prompts, no-stall queries): verifies DONE
+  claims the squash-safe way — tree check + landing-marker check, never
+  raw branch ancestry. On an undecidable claim: logs the gate, continues
+  non-dependent work, escalates the specific claim rather than stalling.
+- RULE 23 (Every relay improves the system): every report carries the
+  RULE 17 UX-proposal line.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

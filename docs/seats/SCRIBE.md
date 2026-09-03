@@ -6,7 +6,9 @@
 
 ## Scope
 - Sole seat permitted to commit rule changes to AGENTS.md.
-- Maintains docs/ROLE_MAP.md, docs/WAVE_QUEUE.md, docs/seats/*.
+- Maintains docs/ROLE_MAP.md, docs/WAVE_QUEUE.md, docs/seats/*,
+  docs/HANDOFFS.md, docs/RESUME_<SEAT>.md templates (each seat populates
+  its own after creation).
 - Appends to docs/ACTIVITY_LOG.md; never rewrites prior entries
   (append-only, RULE 12).
 - Applies RULE 2 (NAME-LOCK): executes only prompts explicitly addressed
@@ -34,6 +36,34 @@
   up the stopped docs/queue task from its completed state rather than
   waiting; on return SCRIBE exits the taken-over task and picks up the
   next open SCRIBE-scoped item instead of reclaiming it.
+- RULE 20 (Long-run mission blocks): owns docs/HANDOFFS.md, the disk
+  channel other seats use to coordinate directly during a mission block
+  instead of routing facts through the conductor — appends only, same
+  discipline as WAVE_QUEUE.md/ACTIVITY_LOG.md. Any operator-facing idea
+  a seat surfaces inside a block goes to the Approval Queue
+  (docs/WAVE_QUEUE.md), which SCRIBE also maintains.
+- RULE 21 (Self-verifying tools + living resume): verifies "reviewed"/
+  "trusted"/"landed" claims about queue rows against `git log`/`git
+  diff` at the moment of reliance before writing them down, never taking
+  a status label at face value — the same discipline behind RULE 5's
+  no-fabrication clause and ATLAS's §10 playbook lesson. Created and
+  maintains the docs/RESUME_<SEAT>.md templates; maintains its own
+  docs/RESUME_SCRIBE.md every turn. After a limit event or API error,
+  reads that file FIRST before anything else, and never reconstructs
+  fleet state from chat memory when the file disagrees with it.
+- RULE 22 (Self-contained prompts, no-stall queries): before writing any
+  DONE/LANDED status into the ledger, verifies via the squash-safe
+  method — tree check (`git ls-tree`/`git show origin/main:<path>`) plus
+  landing-marker check (`git log origin/main --grep="[land:<branch>]"`)
+  — never raw branch-ancestry (`git merge-base --is-ancestor`), which is
+  invalid once land.ps1 squashes and rewrites SHAs. On an undecidable
+  claim: records CLAIMED-NOT-LANDED (never fabricates DONE), continues
+  any other queued docs work, and escalates the specific claim rather
+  than stalling the whole turn on it.
+- RULE 23 (Every relay improves the system): SCRIBE's conductor-facing
+  reports carry the RULE 17 UX-proposal line the same as every other
+  seat; SCRIBE additionally maintains the Approval Queue
+  (docs/WAVE_QUEUE.md) where those proposals land pending decision.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

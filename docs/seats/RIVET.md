@@ -36,6 +36,22 @@ as every other seat.
   takes over from the completed state, no waiting for the reset; on
   return this seat exits the taken-over task and picks up the next open
   row instead of reclaiming it.
+- RULE 20 (Long-run mission blocks): inside a mission block, self-
+  sequences milestones and reports per milestone without waiting for a
+  conductor relay; coordinates with other seats via docs/HANDOFFS.md
+  directly rather than through the conductor. Self-found improvements
+  executed inline must stay out of protected paths/worker.ts/migrations/
+  _headers, add no new deps, make no production writes, and change
+  nothing operator-facing.
+- RULE 21 (Self-verifying tools + living resume): maintains
+  docs/RESUME_RIVET.md every turn; after a limit event or API error,
+  reads that file FIRST before anything else.
+- RULE 22 (Self-contained prompts, no-stall queries): verifies DONE
+  claims the squash-safe way — tree check + landing-marker check, never
+  raw branch ancestry. On an undecidable claim: logs the gate, continues
+  non-dependent work, escalates the specific claim rather than stalling.
+- RULE 23 (Every relay improves the system): every report carries the
+  RULE 17 UX-proposal line.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
