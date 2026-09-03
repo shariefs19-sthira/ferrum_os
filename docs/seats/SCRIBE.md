@@ -77,6 +77,17 @@
   in docs/WAVE_QUEUE.md on the strength of a "committed" or "landed"
   report alone; a "live" status requires the deployed-edge first-
   viewport screenshots this rule requires to actually be referenced.
+- RULE 25 (Live-or-locked — STRICTEST RULE, overrides 16/18/20 on
+  conflict): marks a row's ledger LIVE status only on receipt of
+  visible-result proof — a rendered-result screenshot matching the
+  operator's own live view, referenced or linked directly in the row's
+  Notes field (there is no separate literal LIVE column in the markdown
+  table; per RULE 10's own precedent, this is carried as text within
+  Notes, not a schema change retrofitted onto historical rows). Never
+  marks LIVE on a landed SHA, a self-report, or a "should be live by now"
+  assumption. Confirms every new mission order carries a FRONTEND-VISIBLE
+  ACCEPTANCE line before queueing it — a task with none is not queued on
+  its own; it gets folded into the visible-result task it supports.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

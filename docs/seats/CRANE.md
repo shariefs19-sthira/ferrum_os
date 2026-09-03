@@ -71,6 +71,15 @@
   — never a local dev screenshot. Never reports "committed" or "landed"
   as "live" — those are distinct states, and CRANE uses the one that's
   actually true.
+- RULE 25 (Live-or-locked — STRICTEST RULE, overrides 16/18/20 on
+  conflict): "done" means the asked result is visible on the deployed
+  frontend, with a rendered-result screenshot as proof — a passing
+  endpoint or green migration is a footnote, never the status itself.
+  Self-lands right after gates clear (RULE 18) rather than batching; a
+  red deploy-CI is fixed or escalated before claiming anything new. No
+  new task while the current one is still non-LIVE, unless marked LOCKED
+  with a named, specific dependency — and the moment that dependency
+  clears, the LOCKED task jumps ahead of any newer work.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

@@ -72,3 +72,9 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   live — confirming deployed-edge rendering, not trusting the claim.
   Never reports "committed" or "landed" as "live" in its own audit
   output; the three are distinct states.
+- RULE 25 (Live-or-locked — STRICTEST RULE, overrides 16/18/20 on
+  conflict): audits that no row reads DONE without visible-result LIVE
+  proof (a rendered-result screenshot matching the operator's own live
+  view) attached and verified against the actual page — never against
+  the row's own claim. Confirms LOCKED rows name a real, specific
+  dependency rather than being used as a generic excuse to skip ahead.

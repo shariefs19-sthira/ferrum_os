@@ -23,12 +23,18 @@ being experimental:
   (RULE 20), self-verifying-tools/living-resume (RULE 21, including
   maintaining docs/RESUME_PI.md and reading docs/APPROVAL_QUEUE.md at
   turn start), self-contained-prompts/no-stall (RULE 22),
-  every-relay-improves (RULE 23), and first-viewport-live-proof (RULE 24
-  — any UI-affecting row lands with deployed-edge screenshots at 1366
-  and 375; never reports "committed"/"landed" as "live") rules as every
+  every-relay-improves (RULE 23), first-viewport-live-proof (RULE 24 —
+  any UI-affecting row lands with deployed-edge screenshots at 1366 and
+  375; never reports "committed"/"landed" as "live"), and live-or-locked
+  (RULE 25 — STRICTEST RULE, overrides 16/18/20 on conflict: done means
+  the asked result is visible on the deployed frontend, proven by a
+  rendered-result screenshot; no second task while the trial task isn't
+  LIVE, unless marked LOCKED with a named dependency) rules as every
   other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
+  This is also just RULE 25(3) applying directly: no new task until the
+  previous one is LIVE.
 
 ## Assigned slice (2026-09-03, trial only)
 W2-390 (the trial task itself). No standing slice — this seat has no

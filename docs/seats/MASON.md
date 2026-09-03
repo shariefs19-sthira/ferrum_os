@@ -61,6 +61,13 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
 - RULE 24 (First-viewport live proof): a UI row's landing report carries
   deployed-edge first-viewport screenshots at 1366 and 375 — never a
   local dev screenshot. Never reports "committed" or "landed" as "live".
+- RULE 25 (Live-or-locked — STRICTEST RULE, overrides 16/18/20 on
+  conflict): done means the asked result is visible on the deployed
+  frontend, proven by a rendered-result screenshot — not a passing
+  endpoint or a green build. Self-lands immediately after gates clear.
+  No new task while the current one isn't LIVE, unless marked LOCKED
+  with a named dependency; once that clears, the LOCKED task jumps ahead
+  of anything newer.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is
