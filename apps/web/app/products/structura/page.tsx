@@ -6,7 +6,6 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SpecTable from '../../../components/SpecTable'
 import IsCheckWidget from '../../../components/sections/IsCheckWidget'
-import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: only IS-code checking is shipped and real — two clause families
 // (IS 456 RCC beam, IS 800 steel column) via lib/checks/isCode.ts, same
@@ -121,7 +120,7 @@ export default function StructuraPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <ProductHeroPreview product="structura" />
+          <IsCheckWidget />
         </div>
       </SectionShell>
 
@@ -238,19 +237,8 @@ export default function StructuraPage() {
         </div>
       </SectionShell>
 
-      {/* Try it: IS 456/800 checker (parity: W2-268) */}
-      <SectionShell>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Try it</Eyebrow>
-          <SectionHeading className="mt-4">Run an IS-code check</SectionHeading>
-          <p className="mt-3 text-base leading-7 text-relume-ink">
-            A working preview: minimum reinforcement (IS 456 Cl 26.5.1.1) and slenderness ratio (IS 800 Cl 3.8) checks.
-          </p>
-        </div>
-        <div className="mx-auto mt-8 max-w-2xl">
-          <IsCheckWidget />
-        </div>
-      </SectionShell>
+      {/* W2-373 INTERACTION_FIRST: IsCheckWidget now lives in the hero
+          above (parity: W2-268) — no second render of the same tool here. */}
 
       {/* 7. CTA */}
       <SectionShell background="surface-secondary">

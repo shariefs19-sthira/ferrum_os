@@ -1,10 +1,9 @@
 import SectionShell from '../../../components/sections/SectionShell'
 import Eyebrow from '../../../components/sections/Eyebrow'
 import SectionHeading from '../../../components/sections/SectionHeading'
-import { PrimaryButton, SecondaryButton } from '../../../components/sections/Buttons'
+import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
-import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 import UlpinMapExplorer from '../../../components/sections/UlpinMapExplorer'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
@@ -92,10 +91,9 @@ export default function LandIntelPage() {
             </ul>
             <div className="mt-8 flex flex-wrap gap-4">
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
-              <SecondaryButton href="#try-a-lookup">Try a lookup</SecondaryButton>
             </div>
           </div>
-          <ProductHeroPreview product="landintel" />
+          <UlpinMapExplorer />
         </div>
       </SectionShell>
 
@@ -128,25 +126,8 @@ export default function LandIntelPage() {
         </div>
       </SectionShell>
 
-      {/* Try a lookup — the real, functional tool (not part of the wireframed
-          marketing spec, preserved from the pre-Relume page rather than
-          dropped): a D1-backed ULPIN lookup against a small sample-parcel
-          seed set. W2-345 corrected this comment — it previously claimed
-          PDF export and soil/zoning data the lookup never had. W2-367
-          synchronizes each seeded record to a clearly labeled city reference map.
-          Linked from the Hero's "Try a lookup" button. */}
-      <SectionShell background="surface-secondary">
-        <div id="try-a-lookup" className="mx-auto max-w-3xl scroll-mt-8 text-center">
-          <Eyebrow>Try it now</Eyebrow>
-          <SectionHeading className="mt-4">Run a real ULPIN lookup</SectionHeading>
-          <p className="mt-6 text-base leading-7 text-relume-ink">
-            No account needed to try it — enter a ULPIN below.
-          </p>
-        </div>
-        <div className="mt-12">
-          <UlpinMapExplorer />
-        </div>
-      </SectionShell>
+      {/* W2-373 INTERACTION_FIRST: the real UlpinMapExplorer tool now lives
+          in the hero above — no second render of the same tool here. */}
 
       {/* 4. Integration */}
       <SectionShell>

@@ -4,7 +4,6 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import CdeStatusMock from '../../../components/sections/CdeStatusMock'
-import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: the "Construction tracking" card below is real code
 // (CdeStatusMock) but not what it's described as here — it returns one
@@ -67,7 +66,7 @@ export default function CommunityBuildPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <ProductHeroPreview product="communitybuild" />
+          <CdeStatusMock />
         </div>
       </SectionShell>
 
@@ -130,19 +129,8 @@ export default function CommunityBuildPage() {
         </div>
       </SectionShell>
 
-      {/* Try it: CDE dashboard mock (parity: W2-272) */}
-      <SectionShell>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Try it</Eyebrow>
-          <SectionHeading className="mt-4">Check a project's CDE status</SectionHeading>
-          <p className="mt-3 text-base leading-7 text-relume-ink">
-            A working preview of the common-data-environment status read — indicative mock data.
-          </p>
-        </div>
-        <div className="mx-auto mt-8 max-w-2xl">
-          <CdeStatusMock />
-        </div>
-      </SectionShell>
+      {/* W2-373 INTERACTION_FIRST: CdeStatusMock (parity: W2-272) now
+          lives in the hero above — no second render of the same tool here. */}
 
       {/* 6. CTA */}
       <SectionShell background="surface-secondary">

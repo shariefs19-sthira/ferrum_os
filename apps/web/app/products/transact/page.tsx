@@ -9,7 +9,6 @@ import WaitlistCapture from '../../../components/sections/WaitlistCapture'
 import OcrSpike from '../../../components/sections/OcrSpike'
 import TransactCaseFlow from '../../../components/sections/TransactCaseFlow'
 import PaymentDemo from '../../../components/sections/PaymentDemo'
-import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 export const metadata = {
   title: 'Transact — Ferrum OS',
@@ -67,7 +66,7 @@ export default function TransactPage() {
               Stamp-duty and ask-band estimates to help you plan — informational only, not legal or financial advice.
             </p>
           </div>
-          <ProductHeroPreview product="transact" />
+          <StampDutyEstimator />
         </div>
       </SectionShell>
 
@@ -114,7 +113,8 @@ export default function TransactPage() {
           <SectionHeading className="mt-4">Run an indicative estimate</SectionHeading>
         </div>
         <div className="mx-auto mt-8 max-w-2xl space-y-8">
-          <StampDutyEstimator />
+          {/* W2-373 INTERACTION_FIRST: StampDutyEstimator now lives in the
+              hero above — no second render of the same tool here. */}
           <AskBandEstimator />
           <OcrSpike />
           <TransactCaseFlow />

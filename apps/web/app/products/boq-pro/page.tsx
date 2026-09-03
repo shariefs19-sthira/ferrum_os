@@ -5,7 +5,6 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import ThreeModeCalculator from '../../../components/sections/ThreeModeCalculator'
-import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-360 BOQ_PAGE_TRUTH: applies the W2-345 claim-truth convention to this
 // page's remaining sections — it never got that pass (unlike the other 8
@@ -132,7 +131,7 @@ export default function BoqProMarketingPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <ProductHeroPreview product="boq-pro" />
+          <ThreeModeCalculator />
         </div>
       </SectionShell>
 
@@ -228,19 +227,8 @@ export default function BoqProMarketingPage() {
         </div>
       </SectionShell>
 
-      {/* Try it: three-mode rate calculator (W2-311) */}
-      <SectionShell>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Try it</Eyebrow>
-          <SectionHeading className="mt-4">Rate your build, three ways</SectionHeading>
-          <p className="mt-3 text-base leading-7 text-relume-ink">
-            Government reference rates, your own assumptions, or the Ferrum weighted engine — pick the mode that fits how you work.
-          </p>
-        </div>
-        <div className="mx-auto mt-8 max-w-2xl">
-          <ThreeModeCalculator />
-        </div>
-      </SectionShell>
+      {/* W2-373 INTERACTION_FIRST: ThreeModeCalculator (W2-311) now lives
+          in the hero above — no second render of the same tool here. */}
 
       {/* 7. CTA */}
       <SectionShell>

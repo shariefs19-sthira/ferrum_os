@@ -4,7 +4,6 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import IrrNpvModeler from '../../../components/sections/IrrNpvModeler'
-import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: cash-flow modeling and IRR/NPV are shipped and real
 // (IrrNpvModeler below, lib/finance/irrNpv.ts, indicative labeled). Yield
@@ -62,7 +61,7 @@ export default function InvestFlowPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <ProductHeroPreview product="investflow" />
+          <IrrNpvModeler />
         </div>
       </SectionShell>
 
@@ -125,19 +124,8 @@ export default function InvestFlowPage() {
         </div>
       </SectionShell>
 
-      {/* Try it: IRR/NPV modeler (parity: W2-270) */}
-      <SectionShell>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Try it</Eyebrow>
-          <SectionHeading className="mt-4">Model IRR and NPV</SectionHeading>
-          <p className="mt-3 text-base leading-7 text-relume-ink">
-            Enter a cash-flow series and discount rate — real Newton's-method IRR and discounted NPV.
-          </p>
-        </div>
-        <div className="mx-auto mt-8 max-w-2xl">
-          <IrrNpvModeler />
-        </div>
-      </SectionShell>
+      {/* W2-373 INTERACTION_FIRST: IrrNpvModeler (parity: W2-270) now
+          lives in the hero above — no second render of the same tool here. */}
 
       {/* 6. CTA */}
       <SectionShell background="surface-secondary">

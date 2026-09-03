@@ -5,7 +5,6 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import TestFitCalculator from '../../../components/sections/TestFitCalculator'
-import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: only "Test-fit massing" and "DXF export" are shipped and real
 // (the plot-massing calculator on this page, powered by /api/testfit, and
@@ -103,7 +102,7 @@ export default function DesignStudioPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <ProductHeroPreview product="designstudio" />
+          <TestFitCalculator />
         </div>
       </SectionShell>
 
@@ -197,19 +196,8 @@ export default function DesignStudioPage() {
         </div>
       </SectionShell>
 
-      {/* Try it: test-fit + DXF export (parity: W2-266/267) */}
-      <SectionShell background="surface-secondary">
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Try it</Eyebrow>
-          <SectionHeading className="mt-4">Generate a test-fit</SectionHeading>
-          <p className="mt-3 text-base leading-7 text-relume-ink">
-            A working preview of the plan generator — real SVG massing and DXF export, indicative data.
-          </p>
-        </div>
-        <div className="mx-auto mt-8 max-w-2xl">
-          <TestFitCalculator />
-        </div>
-      </SectionShell>
+      {/* W2-373 INTERACTION_FIRST: TestFitCalculator (parity: W2-266/267)
+          now lives in the hero above — no second render of the same tool here. */}
 
       {/* 7. CTA */}
       <SectionShell>

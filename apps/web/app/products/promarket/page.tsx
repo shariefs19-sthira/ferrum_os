@@ -5,7 +5,6 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import RateCompareCalculator from '../../../components/sections/RateCompareCalculator'
-import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 
 // W2-345: only rate comparison is shipped and real (RateCompareCalculator
 // below, D1-backed). The marketplace itself — profiles, verification,
@@ -96,7 +95,7 @@ export default function ProMarketPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <ProductHeroPreview product="promarket" />
+          <RateCompareCalculator />
         </div>
       </SectionShell>
 
@@ -190,19 +189,8 @@ export default function ProMarketPage() {
         </div>
       </SectionShell>
 
-      {/* Try it: rate-compare calculator (parity: W2-271) */}
-      <SectionShell background="surface-secondary">
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Try it</Eyebrow>
-          <SectionHeading className="mt-4">Compare material & labor rates</SectionHeading>
-          <p className="mt-3 text-base leading-7 text-relume-ink">
-            Indicative rates across regions, live from the Ferrum OS data layer.
-          </p>
-        </div>
-        <div className="mx-auto mt-8 max-w-2xl">
-          <RateCompareCalculator />
-        </div>
-      </SectionShell>
+      {/* W2-373 INTERACTION_FIRST: RateCompareCalculator (parity: W2-271)
+          now lives in the hero above — no second render of the same tool here. */}
 
       {/* 7. CTA */}
       <SectionShell>
