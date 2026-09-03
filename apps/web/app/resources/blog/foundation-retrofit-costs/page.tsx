@@ -42,7 +42,7 @@ export default function FoundationRetrofitCostsPage() {
               category, because the actual soil and existing-footing condition is only fully
               known once excavation starts. A realistic budget puts a larger, explicit contingency
               against the foundation line item specifically — not spread thinly across the whole
-              retrofit — so a genuine surprise below grade doesn't force a scope cut somewhere
+              retrofit — so a genuine surprise below grade doesn&apos;t force a scope cut somewhere
               else in the project.
             </p>
           </section>

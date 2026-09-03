@@ -110,7 +110,7 @@ export default function ProjectWorkspacePage() {
           <Eyebrow>Early access</Eyebrow>
           <SectionHeading className="mt-4">Get early access to Project Workspace</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            This is a preview. Join the early-access list to be notified when it's ready.
+            This is a preview. Join the early-access list to be notified when it&apos;s ready.
           </p>
         </div>
         <div className="mt-8">

@@ -27,7 +27,7 @@ export default function WeldInspectionBasicsPage() {
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Choosing the Right NDT Method</h2>
             <p className="text-relume-muted">
               Ultrasonic testing finds subsurface defects in thicker sections that visual
-              inspection can't reach, while dye penetrant and magnetic particle testing are
+              inspection can&apos;t reach, while dye penetrant and magnetic particle testing are
               better suited to surface-breaking defects on thinner welds. Radiography gives the
               clearest record but is slower and carries safety and access requirements that make
               it impractical for most site welds outside of critical, code-mandated locations.
@@ -40,9 +40,9 @@ export default function WeldInspectionBasicsPage() {
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Reading the Result, Not Just Filing It</h2>
             <p className="text-relume-muted">
               An NDT report that sits in a file without being reviewed against acceptance
-              criteria by someone qualified to interpret it isn't quality control, it's
+              criteria by someone qualified to interpret it isn&apos;t quality control, it&apos;s
               paperwork. The reviewer needs to compare each indication against the applicable
-              code's acceptance limits and make an explicit accept/repair/reject call — not just
+              code&apos;s acceptance limits and make an explicit accept/repair/reject call — not just
               record that a test was performed.
             </p>
           </section>

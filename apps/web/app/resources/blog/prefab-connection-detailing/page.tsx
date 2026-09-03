@@ -28,7 +28,7 @@ export default function PrefabConnectionDetailingPage() {
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Detailing the Connection, Not Just the Element</h2>
             <p className="text-relume-muted">
               Shop drawings that fully detail the precast element but leave the connection as a
-              generic callout push the real engineering decision onto whoever's erecting the
+              generic callout push the real engineering decision onto whoever&apos;s erecting the
               piece on site — exactly the wrong point in the process to be resolving load path,
               bearing, and grout-pad specifics. A connection detail needs the same rigor as the
               element itself: bearing pad material and thickness, weld or bolt specification,
@@ -40,7 +40,7 @@ export default function PrefabConnectionDetailingPage() {
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Sequencing the Erection to Match the Detail</h2>
             <p className="text-relume-muted">
               A connection detail that works on paper can still fail if the erection sequence
-              doesn't match the assumptions it was designed around — temporary bracing removed
+              doesn&apos;t match the assumptions it was designed around — temporary bracing removed
               too early, or an adjacent element not yet in place to provide the lateral restraint
               the connection relies on during the interim condition. The erection sequence and
               the connection detail need to be reviewed together, not handed off as two separate

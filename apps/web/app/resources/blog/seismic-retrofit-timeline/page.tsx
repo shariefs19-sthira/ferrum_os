@@ -33,7 +33,7 @@ export default function SeismicRetrofitTimelinePage() {
               to the next zone until inspection sign-off is recorded. Treating each zone as its
               own mini-project — with its own start, inspection, and handback date — keeps the
               published timeline honest instead of collapsing into a single undifferentiated
-              "retrofit in progress" period.
+              &quot;retrofit in progress&quot; period.
             </p>
           </section>
 
@@ -43,7 +43,7 @@ export default function SeismicRetrofitTimelinePage() {
               Retrofit schedules slip more often from access and utility-shutdown conflicts than
               from the structural work itself. The teams that hold credibility with occupants are
               the ones that flag a zone delay the day it happens, not at the next scheduled
-              update, and that keep a visible buffer between the retrofit engineer's technical
+              update, and that keep a visible buffer between the retrofit engineer&apos;s technical
               milestone dates and the dates communicated to building occupants.
             </p>
           </section>

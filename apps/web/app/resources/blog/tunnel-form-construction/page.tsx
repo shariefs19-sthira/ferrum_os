@@ -27,7 +27,7 @@ export default function TunnelFormConstructionPage() {
           <section>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Holding a One-Day Cycle</h2>
             <p className="text-relume-muted">
-              The method's economics live or die on cycle time: strip, clean, oil, reposition, pour,
+              The method&apos;s economics live or die on cycle time: strip, clean, oil, reposition, pour,
               cure, strip again. A disciplined crew holds a 24-hour cycle by running curing
               accelerators, staging rebar cages a full cycle ahead, and treating any deviation from
               the sequence — a late concrete pour, a crane conflict — as a scheduling emergency

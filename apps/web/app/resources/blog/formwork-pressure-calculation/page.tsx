@@ -19,7 +19,7 @@ export default function FormworkPressureCalculationPage() {
               full lateral pressure of that fluid at the point of maximum head. Underestimating
               this pressure is one of the most common causes of formwork failure on site — a
               blowout mid-pour is expensive, dangerous, and always traces back to a design
-              pressure that didn't account for real pour rate, concrete temperature, or mix
+              pressure that didn&apos;t account for real pour rate, concrete temperature, or mix
               consistency.
             </p>
           </section>
@@ -41,8 +41,8 @@ export default function FormworkPressureCalculationPage() {
           <section>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Building in a Margin, Not a Guess</h2>
             <p className="text-relume-muted">
-              Reliable formwork design doesn't use a single fixed pressure value across every
-              pour on a project — it recalculates for each pour's actual conditions and applies a
+              Reliable formwork design doesn&apos;t use a single fixed pressure value across every
+              pour on a project — it recalculates for each pour&apos;s actual conditions and applies a
               documented safety margin on top of the calculated peak pressure, not on top of a
               rule-of-thumb number carried over from a different mix or season. Recording the
               pour rate, mix design, and ambient temperature against each formwork calculation

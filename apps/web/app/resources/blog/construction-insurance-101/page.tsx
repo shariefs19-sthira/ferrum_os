@@ -13,9 +13,9 @@ export default function ConstructionInsurance101Page() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
           <section>
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Builder's Risk and CAR: the One Policy You Cannot Skip</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Builder&apos;s Risk and CAR: the One Policy You Cannot Skip</h2>
             <p className="text-relume-muted">
-              Construction All Risk (CAR), also called Builder's Risk in some markets, is the
+              Construction All Risk (CAR), also called Builder&apos;s Risk in some markets, is the
               single policy that protects the project itself from physical loss or damage
               during the construction period — fire, flood, collapse, storm, theft of
               materials in situ. Every well-run project, whether a single-villa self-build
@@ -28,17 +28,17 @@ export default function ConstructionInsurance101Page() {
           </section>
 
           <section>
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Third-Party Liability and Workmen's Compensation: the Two That Follow the People</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Third-Party Liability and Workmen&apos;s Compensation: the Two That Follow the People</h2>
             <p className="text-relume-muted">
               A project does not just construct a building; it puts workers, neighbours, and
               passers-by into contact with a live construction site. Third-party liability
               covers injury or property damage to anyone who is not a worker on the project,
-              while Workmen's Compensation (or the equivalent Employee State Insurance
+              while Workmen&apos;s Compensation (or the equivalent Employee State Insurance
               coverage in India) covers the workers themselves. Both are non-negotiable
               under Indian labour law for any project that hires even one contracted
               worker, and both should be checked at the start of every contract rather than
               at the start of the project. A subcontractor who arrives on site with
-              expired workmen's compensation is a problem the principal contractor is
+              expired workmen&apos;s compensation is a problem the principal contractor is
               responsible for, not the sub.
             </p>
           </section>
@@ -52,7 +52,7 @@ export default function ConstructionInsurance101Page() {
               partnership with tight revenue milestones genuinely needs delay-in-startup
               cover — but for the average Indian project owner the marginal premium buys
               protection against scenarios that are already addressed by the CAR, the
-              contract conditions, or the contractor's own policies. The right time to
+              contract conditions, or the contractor&apos;s own policies. The right time to
               discuss the optional policies is after the three core ones are confirmed in
               writing, with a clear broker explanation of what scenario each one is meant
               to cover, and what the project would do if the scenario actually occurred.

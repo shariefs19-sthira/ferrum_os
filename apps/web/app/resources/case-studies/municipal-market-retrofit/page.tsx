@@ -7,7 +7,7 @@ export default function MunicipalMarketRetrofitPage() {
             Municipal Market Structural Retrofit
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
-            Retrofitting a Trading Hall Without Closing the Traders' Livelihoods
+            Retrofitting a Trading Hall Without Closing the Traders&apos; Livelihoods
           </p>
           <span className="mt-4 inline-block rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
             Illustrative case study — composite scenario, not an actual named client
@@ -18,7 +18,7 @@ export default function MunicipalMarketRetrofitPage() {
           <section>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Challenge</h2>
             <p className="text-relume-muted">
-              A municipal market's ageing structural frame needed retrofit work, but the trading
+              A municipal market&apos;s ageing structural frame needed retrofit work, but the trading
               hall generated daily income for hundreds of vendors who could not simply relocate
               for the duration of construction. The retrofit had to be sequenced around active
               trading hours in a building with no real spare capacity to shift vendors out of a
@@ -30,10 +30,10 @@ export default function MunicipalMarketRetrofitPage() {
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Approach</h2>
             <p className="text-relume-muted">
               The project team mapped the trading hall into rotating work zones, closing one
-              section at a time during the market's lowest-trading hours and temporarily
+              section at a time during the market&apos;s lowest-trading hours and temporarily
               relocating affected vendors to an adjacent open zone rather than off-site. Each
-              zone's structural work was compressed into the shortest defensible window and
-              signed off before vendors returned, with the next zone's closure announced well in
+              zone&apos;s structural work was compressed into the shortest defensible window and
+              signed off before vendors returned, with the next zone&apos;s closure announced well in
               advance.
             </p>
           </section>
@@ -43,7 +43,7 @@ export default function MunicipalMarketRetrofitPage() {
             <p className="text-relume-muted">
               The retrofit was completed with every vendor able to continue trading throughout,
               moved zone-to-zone rather than displaced. The rotating-zone approach, built around
-              the market's actual trading patterns rather than a generic construction sequence,
+              the market&apos;s actual trading patterns rather than a generic construction sequence,
               is now the reference model for retrofit work on other occupied public markets.
             </p>
           </section>

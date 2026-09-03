@@ -18,7 +18,7 @@ export default function LibraryRetrofitPage() {
           <section>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Challenge</h2>
             <p className="text-relume-muted">
-              A public library's foundation assessment uncovered soil conditions worse than the
+              A public library&apos;s foundation assessment uncovered soil conditions worse than the
               original design assumed, well after the retrofit budget had already been set
               against a materials-only estimate. The project needed a revised budget that could
               absorb the underpinning scope without stalling the wider building programme.
@@ -41,8 +41,8 @@ export default function LibraryRetrofitPage() {
             <p className="text-relume-muted">
               The revised budget held through the underpinning work without a further scope cut
               elsewhere in the project, and the library reopened on the reset schedule. The
-              separated foundation-contingency approach is now the team's standard practice for
-              any retrofit where the below-grade condition isn't fully known before design.
+              separated foundation-contingency approach is now the team&apos;s standard practice for
+              any retrofit where the below-grade condition isn&apos;t fully known before design.
             </p>
           </section>
         </div>

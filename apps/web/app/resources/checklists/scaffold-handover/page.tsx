@@ -37,7 +37,7 @@ export default function ScaffoldHandoverPage() {
             Scaffold Handover Checklist
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
-            Confirming a Scaffold Is Ready Before It's Handed Over for Use
+            Confirming a Scaffold Is Ready Before It&apos;s Handed Over for Use
           </p>
         </div>
 

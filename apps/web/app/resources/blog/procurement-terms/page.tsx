@@ -31,7 +31,7 @@ export default function ProcurementTermsPage() {
               keeps design ownership with the owner and uses the consultant as an extension of the project
               management office. The two words overlap in casual conversation but produce different insurance
               requirements, different approval chains, and different cash-flow curves — pick the model that
-              matches the capability you actually have on the owner's side, not the label that sounds modern.
+              matches the capability you actually have on the owner&apos;s side, not the label that sounds modern.
             </p>
           </section>
 

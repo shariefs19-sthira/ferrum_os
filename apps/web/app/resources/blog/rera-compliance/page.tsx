@@ -29,7 +29,7 @@ export default function ReraCompliancePage() {
           <section>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Escrow, CAR, and the Seventy-Percent Rule</h2>
             <p className="text-relume-muted">
-              RERA's escrow mandate requires promoters to deposit seventy percent of buyer
+              RERA&apos;s escrow mandate requires promoters to deposit seventy percent of buyer
               receivables into a designated project account, drawn against a Chartered Accountant
               certificate and a project-wise Cost of Construction (CAR) report. Mismanaging the
               CAR is the single most common cause of RERA non-compliance penalties, because the
@@ -43,7 +43,7 @@ export default function ReraCompliancePage() {
           <section>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Defect Liability, Title, and Post-Handover Records</h2>
             <p className="text-relume-muted">
-              RERA's five-year defect liability window and its title-disclosure rules make
+              RERA&apos;s five-year defect liability window and its title-disclosure rules make
               handover-day documentation as important as the construction record itself. Project
               teams that close out the project with a structured defects register, a verified
               encumbrance certificate dated to the day of registration, and a digital copy of the

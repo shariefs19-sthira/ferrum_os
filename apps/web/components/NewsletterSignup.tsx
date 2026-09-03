@@ -60,7 +60,7 @@ export default function NewsletterSignup() {
               </button>
             </div>
             {status === "done" && (
-              <p className="mt-2 text-sm text-white/70">Thanks — you're on the list.</p>
+              <p className="mt-2 text-sm text-white/70">Thanks — you&apos;re on the list.</p>
             )}
             {status === "error" && (
               <p className="mt-2 text-sm text-red-300">Something went wrong. Please try again.</p>

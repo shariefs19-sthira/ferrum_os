@@ -7,7 +7,7 @@ export default function PilingQualityGatesPage() {
             Quality Gates for Piling Work
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
-            Catching a Bad Pile Before It's Buried Under a Foundation
+            Catching a Bad Pile Before It&apos;s Buried Under a Foundation
           </p>
         </div>
 
@@ -41,7 +41,7 @@ export default function PilingQualityGatesPage() {
               Every pile needs an installation record, a concrete volume reconciliation, and an
               integrity test result (where tested) tied to its plan location, not just a summary
               log for the piling package as a whole. This is the record a structural engineer
-              needs years later if settlement or performance questions come up, and it's cheap to
+              needs years later if settlement or performance questions come up, and it&apos;s cheap to
               capture at the time and expensive to reconstruct afterward.
             </p>
           </section>

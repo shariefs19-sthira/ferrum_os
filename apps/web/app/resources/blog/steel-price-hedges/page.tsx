@@ -16,7 +16,7 @@ export default function SteelPriceHedgesPage() {
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">Where the Exposure Actually Sits</h2>
             <p className="text-relume-muted">
               A fixed-price contract signed before a long procurement lead time locks the
-              contractor into today's steel rate for tomorrow's delivery, and the gap between
+              contractor into today&apos;s steel rate for tomorrow&apos;s delivery, and the gap between
               those two dates is exactly where margin gets eaten. The exposure is largest on
               projects with a long gap between bid submission and steel procurement, and smallest
               where reinforcement is bought and fixed in price early in the project timeline.
@@ -41,7 +41,7 @@ export default function SteelPriceHedgesPage() {
             <p className="text-relume-muted">
               A financial hedge — forward contracts or futures against a steel index — is
               worth the complexity only when the tonnage at risk is large enough that a bad move
-              in price would materially damage the project's margin, and when no contractual
+              in price would materially damage the project&apos;s margin, and when no contractual
               protection is available. Smaller contractors rarely have the treasury function to
               manage a hedge position correctly, so for most fixed-price work, the priority is
               getting the contractual protection right before treating price risk as a market

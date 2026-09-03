@@ -17,7 +17,7 @@ export default function GstForBuildersPage() {
             <p className="text-relume-muted">
               Under the GST regime for real estate, affordable housing projects are taxed at
               one percent without input tax credit, while non-affordable projects are taxed at
-              five percent, again without ITC. The "affordable" classification tracks the
+              five percent, again without ITC. The &quot;affordable&quot; classification tracks the
               carpet-area threshold, the unit value cap, and the central-state definition in
               force on the date of commencement. Project teams that misclassify a tower
               under-charge the tax but lose the right to claim ITC, while teams that over-
@@ -33,7 +33,7 @@ export default function GstForBuildersPage() {
             <p className="text-relume-muted">
               Work contracts supplied by an unregistered sub-contractor to a registered builder
               attract reverse charge: the builder pays GST on the value of the sub-contracted
-              service and can treat that tax as part of the project's input cost. In practice,
+              service and can treat that tax as part of the project&apos;s input cost. In practice,
               the reverse-charge invoice must be self-generated, recorded in GSTR-1 as a
               reverse-charge supply, and reflected in GSTR-3B as tax payable. Teams that
               fail to maintain a register of sub-contractor GSTINs end up discovering the

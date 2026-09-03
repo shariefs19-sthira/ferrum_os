@@ -31,10 +31,10 @@ export default function DashboardPage() {
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>Dashboard</Eyebrow>
           <SectionHeading as="h1" className="mt-4">
-            Everything you've run, in one place
+            Everything you&apos;ve run, in one place
           </SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            A preview of the Dashboard — saved test-fits, BOQ estimates, rate comparisons, and ULPIN reports, alongside every project you're running.
+            A preview of the Dashboard — saved test-fits, BOQ estimates, rate comparisons, and ULPIN reports, alongside every project you&apos;re running.
           </p>
         </div>
       </SectionShell>
@@ -42,7 +42,7 @@ export default function DashboardPage() {
       {/* 2. Feature blocks */}
       <SectionShell background="surface-secondary">
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>What's here</Eyebrow>
+          <Eyebrow>What&apos;s here</Eyebrow>
           <SectionHeading className="mt-4">Your work, saved and searchable</SectionHeading>
         </div>
         <div className="mt-12">
@@ -95,7 +95,7 @@ export default function DashboardPage() {
           <Eyebrow>Early access</Eyebrow>
           <SectionHeading className="mt-4">Get early access to the dashboard</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            This is a preview. Join the early-access list to be notified when it's ready.
+            This is a preview. Join the early-access list to be notified when it&apos;s ready.
           </p>
         </div>
         <div className="mt-8">

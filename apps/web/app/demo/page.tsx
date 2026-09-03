@@ -51,7 +51,7 @@ export default function DemoPage() {
 
         <div className="bg-white rounded-relume border border-relume-border p-8 mb-8">
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-6">
-            What you'll get from the demo:
+            What you&apos;ll get from the demo:
           </h2>
           <ul className="space-y-4">
             {benefits.map((benefit, index) => (

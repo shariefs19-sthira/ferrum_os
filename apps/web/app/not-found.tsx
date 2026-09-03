@@ -21,7 +21,7 @@ export default function NotFound() {
           Oops! Page not found
         </h2>
         <p className="text-relume-muted mb-8">
-          We're sorry, but the page you're looking for seems to have wandered off.
+          We&apos;re sorry, but the page you&apos;re looking for seems to have wandered off.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -21,7 +21,7 @@ export default function AirportCargoBayPage() {
               A cargo terminal operator needed to add a new bay to an active airside facility
               without interrupting freight throughput. Every structural pour, crane lift, and
               utility tie-in had to be scheduled around live aircraft turnaround windows, and a
-              single missed handback deadline risked cascading delays across the terminal's
+              single missed handback deadline risked cascading delays across the terminal&apos;s
               existing bays.
             </p>
           </section>
@@ -43,7 +43,7 @@ export default function AirportCargoBayPage() {
             <p className="text-relume-muted">
               The new bay was handed back to cargo operations on the scheduled date with no
               disruption to existing freight throughput during construction. The zone-locked
-              sequencing model built for this project became the team's standard approach for
+              sequencing model built for this project became the team&apos;s standard approach for
               subsequent live-airside structural work.
             </p>
           </section>

@@ -7,7 +7,7 @@ export default function CementStorageHumidityPage() {
             Cement Storage and Humidity on Site
           </h1>
           <p className="mt-4 text-xl text-relume-muted">
-            Why Cement Age Alone Doesn't Tell You Whether a Bag Is Usable
+            Why Cement Age Alone Doesn&apos;t Tell You Whether a Bag Is Usable
           </p>
         </div>
 
@@ -37,8 +37,8 @@ export default function CementStorageHumidityPage() {
           <section>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-4">When to Reject a Bag</h2>
             <p className="text-relume-muted">
-              A field test — checking for lumps that don't crumble under light hand pressure, or
-              a visible loss of the powder's free-flowing texture — is a faster and more reliable
+              A field test — checking for lumps that don&apos;t crumble under light hand pressure, or
+              a visible loss of the powder&apos;s free-flowing texture — is a faster and more reliable
               signal than the manufacture date alone. Site teams that reject on texture rather
               than age avoid both false confidence in old-but-well-stored cement and false
               rejection of recent-but-badly-stored cement.

@@ -141,7 +141,7 @@ export default function BoqProMarketingPage() {
       <SectionShell background="surface-secondary">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>Features</Eyebrow>
-          <SectionHeading className="mt-4">What's live, and what's next</SectionHeading>
+          <SectionHeading className="mt-4">What&apos;s live, and what&apos;s next</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
             A real three-mode rate calculator today. Design import, brand-wise pricing, and a
             connected GST/export flow are on the roadmap.
@@ -173,7 +173,7 @@ export default function BoqProMarketingPage() {
           <SectionHeading className="mt-4">The roadmap connects the platform</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
             None of these cross-product integrations are built yet — DesignStudio, ProcureHub and
-            BuildOS don't yet exchange data with this calculator.
+            BuildOS don&apos;t yet exchange data with this calculator.
           </p>
         </div>
         <div className="mt-12">
