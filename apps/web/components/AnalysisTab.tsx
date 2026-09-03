@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { ProvenanceStrip } from "./ProvenanceStrip"
 
 type SubScore = { label: string; weight: number; score: number; note: string }
 type PricedLineItem = { category: string; quantity: number; unit: string; rate: number; line_total: number; matched_govt_rate: boolean; taxable: boolean }
@@ -115,7 +116,11 @@ export default function AnalysisTab({ projectId }: { projectId: string }) {
       <div className="print-watermark hidden text-center text-xs font-semibold uppercase tracking-[0.2em] text-relume-muted">
         Indicative — Ferrum Analysis Engine report, {new Date(data.computed_at).toLocaleDateString()}
       </div>
-      <div className="no-print flex justify-end">
+      <div className="no-print flex flex-wrap items-center justify-between gap-3">
+        <ProvenanceStrip
+          source="Ferrum Analysis Engine (in-repo calculators)"
+          freshness={new Date(data.computed_at).toLocaleString()}
+        />
         <button
           type="button"
           onClick={() => window.print()}

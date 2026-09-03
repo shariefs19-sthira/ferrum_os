@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import ParcelMap from "./ParcelMap"
 import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
+import { ProvenanceStrip } from "../ProvenanceStrip"
 
 // Rough India bounding box, used only to place an unlabeled preview pin
 // before any lookup — never presented as a parcel or a real location.
@@ -15,6 +16,10 @@ function randomIndiaPoint() {
   }
 }
 
+type PlotIntel = {
+  ruleset: { version: string; source_note: string } | null
+}
+
 type ParcelResult = {
   ulpin: string
   state: string
@@ -22,6 +27,7 @@ type ParcelResult = {
   area_sqm: number
   land_use: string
   indicative: boolean
+  plot_intel?: PlotIntel | null
 }
 
 const SAMPLE_ULPINS = ["KA-BLR-0001-2024", "MH-PUN-0002-2024", "TN-CHN-0003-2024"]
@@ -118,6 +124,14 @@ export default function UlpinMapExplorer() {
             <p><strong>District:</strong> {result.district}</p>
             <p><strong>Area:</strong> {result.area_sqm} m²</p>
             <p><strong>Land use:</strong> {result.land_use}</p>
+          </div>
+        )}
+        {result?.plot_intel?.ruleset && (
+          <div className="mt-3">
+            <ProvenanceStrip
+              source={result.plot_intel.ruleset.source_note}
+              freshness={result.plot_intel.ruleset.version}
+            />
           </div>
         )}
         {result && (
