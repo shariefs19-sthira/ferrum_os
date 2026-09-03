@@ -108,15 +108,26 @@ function Get-SensitivePathMatches($paths) {
 function Get-RebaseIndexText($stage, $path) {
     # A genuine add/add conflict (the path has no common ancestor version —
     # e.g. two branches independently created the same new file) has no
-    # stage-1 entry at all; `git show :1:path` fails with a non-zero exit.
-    # That is a real, expected case here (hit for real 2026-09-03 on an old
-    # branch chain), not a script bug — return $null so the caller treats
-    # it as unresolvable-by-this-heuristic and reports, instead of an
-    # uncaught throw crashing the whole run mid-loop and leaving the
-    # working tree in an in-progress-rebase state for every branch after it.
-    $lines = @(git show ":$stage`:$path" 2>$null)
-    if ($LASTEXITCODE -ne 0) { return $null }
-    return ($lines -join "`n") + "`n"
+    # stage-1 entry at all; `git show :1:path` fails. That is a real,
+    # expected case here (hit for real 2026-09-03 on an old branch chain),
+    # not a script bug. First attempt at this fix only checked
+    # $LASTEXITCODE after redirecting stderr to $null — insufficient: with
+    # this script's own $ErrorActionPreference = "Stop" in effect, a
+    # failing native command's stderr write becomes a terminating
+    # NativeCommandError BEFORE the $LASTEXITCODE check line ever runs, so
+    # it crashed exactly the same way a second time (root-caused live
+    # 2026-09-03: reproduced with a direct PowerShell repro against the
+    # real conflicted docs/REUSE_MAP.md add/add state). A try/catch is the
+    # only thing that actually stops the terminating error from
+    # propagating; returns $null either way so the caller reports instead
+    # of the whole run dying mid-sweep.
+    try {
+        $lines = @(git show ":$stage`:$path" 2>$null)
+        if ($LASTEXITCODE -ne 0) { return $null }
+        return ($lines -join "`n") + "`n"
+    } catch {
+        return $null
+    }
 }
 
 function Resolve-AppendOnlyDocsRebaseConflicts {
