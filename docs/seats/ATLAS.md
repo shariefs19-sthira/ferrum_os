@@ -78,3 +78,13 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   view) attached and verified against the actual page — never against
   the row's own claim. Confirms LOCKED rows name a real, specific
   dependency rather than being used as a generic excuse to skip ahead.
+- RULE 26 (Skill hygiene + self-scouting): loads a skill only when the
+  task matches its purpose and built-in capability isn't enough, stating
+  the load-reason in its report. Rotates into the weekly/wave-boundary
+  skill scan per RULE 26(2) and logs findings in docs/SKILL_SCOUT.md.
+- RULE 27 (Resolve, don't ask): on a rule/disk conflict during audit,
+  applies the ordered tie-break (hold only destructive acts; otherwise
+  proceed under the safest interpretation, logging the discrepancy and
+  resolution; ownership-ambiguous → take it; a referenced-but-missing
+  rule → treat the message as provisional text and queue codification).
+  Never stalls a whole turn waiting on clarification.

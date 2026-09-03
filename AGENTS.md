@@ -318,6 +318,52 @@ rendered-result screenshot and nothing else — not a SHA, not a
 Conductor assigns no new work to a seat currently holding a non-LOCKED
 task that isn't LIVE.
 
+## RULE 26 — Skill hygiene + self-scouting
+(1) **Just-in-time.** A skill loads ONLY when the task at hand matches
+its purpose AND built-in capability is insufficient on its own — never
+preloaded "just in case." The seat states its load-reason in its report
+whenever it loads a skill, so the choice is auditable, not assumed.
+(2) **Self-scouting.** Seats rotate a scan for new Claude/Codex/agent
+skills on the internet — weekly (every 7 days) and at every wave
+boundary — starting with SCRIBE. Findings are logged in
+`docs/SKILL_SCOUT.md`: name, source, pain-mapping (what fleet problem it
+would actually address), and a recommendation of ADOPT-TRIAL, WATCH, or
+SKIP.
+(3) **Adoption gate.** ADOPT-TRIAL requires a row in
+`docs/APPROVAL_QUEUE.md` before any seat actually installs or loads the
+skill — WATCH and SKIP need no approval, since neither changes what runs.
+(4) **Retire.** A skill unused for two consecutive waves is flagged for
+removal in `docs/SKILL_SCOUT.md` — logged as a candidate, not silently
+dropped; removal itself still goes through the normal approval path if
+it was an ADOPT-TRIAL skill.
+
+## RULE 27 — Resolve, don't ask
+(Portable — carries into the method playbook as a general-purpose rule
+for future projects, not specific to this repo.)
+
+(1) When an instruction conflicts with disk state (a referenced rule
+that doesn't exist, an ownership mismatch, a stale branch), the seat
+NEVER blocks on a query. It resolves via ordered tie-breaks:
+  a. **Safety.** A destructive or irreversible act touching the
+     discrepancy is HELD — this is the only permitted hold, and it holds
+     ONLY that specific act, not the seat's other in-flight work.
+  b. **Non-destructive work proceeds** under the safest reasonable
+     interpretation of the conflict; the discrepancy AND the chosen
+     interpretation are both logged in the report, so the choice is
+     reviewable and reversible.
+  c. **Ownership ambiguous → take it**, in the spirit of RULE 19's
+     no-one-waits stance; log the reassignment rather than debating it
+     first.
+  d. **Referenced rule absent on disk** → treat the conductor's message
+     as provisional rule text, apply it, and queue its codification —
+     never ask "does this rule exist?" back to the conductor.
+(2) Questions become reports. Instead of "which do you mean?", a seat
+states: "Discrepancy X; my resolution Y; reverses if countered next
+turn." The operator/conductor corrects by countering, not by being asked
+to adjudicate up front.
+(3) A whole-turn stall — doing nothing because of an unresolved
+discrepancy — is itself a rule violation, not a safe default.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

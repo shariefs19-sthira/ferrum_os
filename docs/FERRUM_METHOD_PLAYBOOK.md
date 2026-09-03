@@ -47,19 +47,21 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — twenty-four numbered rules were actually adopted (numbered
-1–14, 16–25 — RULE 15 was never assigned; leave gaps in your own
+matured — twenty-six numbered rules were actually adopted (numbered
+1–14, 16–27 — RULE 15 was never assigned; leave gaps in your own
 numbering rather than force sequential renumbering when a rule is
 superseded or dropped). Rules 1–17 are detailed below, each with the
 one-line rationale that justified adopting it — carry the rationale
 forward even when you reword the rule for a new repo, because the
 rationale is what tells a future reader whether the rule still applies
-to their situation. Rules 18–25, added later in the same engagement as
-the fleet's landing pipeline and DONE-verification discipline matured,
-are summarized in the addendum immediately after the numbered list
-rather than restated in full — see AGENTS.md for their exact current
-text, since 18 and 21 were themselves amended after first being written
-and a summary would otherwise drift from the authoritative source.
+to their situation. Rules 18–27, added later in the same engagement as
+the fleet's landing pipeline, DONE-verification, skill-hygiene, and
+conflict-resolution discipline matured, are summarized in the addendum
+immediately after the numbered list rather than restated in full — see
+AGENTS.md for their exact current text, since 18 and 21 were themselves
+amended after first being written and a summary would otherwise drift
+from the authoritative
+source.
 
 1. **Roster** — a single source of truth for which seats are active,
    parked, or reassigned, and their non-overlapping scopes.
@@ -135,7 +137,7 @@ and a summary would otherwise drift from the authoritative source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–25 (added later, summarized)
+### Addendum: rules 18–27 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -190,6 +192,47 @@ and a summary would otherwise drift from the authoritative source.
     though nothing had actually landed, deployed, or rendered — each of
     these rules closes one specific gap in that drift, discovered in
     the order the engagement actually hit it.*
+26. **Skill hygiene + self-scouting** — a skill loads only when the task
+    at hand matches its purpose and built-in capability isn't already
+    enough, with the load-reason stated in the seat's report; seats
+    rotate a weekly-plus-wave-boundary scan for new agent skills, log
+    findings (name, source, the specific fleet pain it maps to,
+    ADOPT-TRIAL/WATCH/SKIP) in a dedicated scouting file; adopting a
+    skill for real use requires an approval-queue row first, while
+    watching or skipping needs no approval; a skill unused for two
+    consecutive waves is flagged as a retirement candidate.
+    *Rationale: preloading every plausible skill "just in case" wastes
+    context and obscures which capability actually did the work; a
+    lightweight, logged scouting cadence keeps the fleet's tool
+    inventory current without letting adoption bypass the same approval
+    discipline every other operator-facing change goes through.*
+27. **Resolve, don't ask** — portable to any future project, not
+    specific to this repo's stack or domain. When an instruction
+    conflicts with disk state (a referenced rule that doesn't exist yet,
+    an ownership mismatch, a stale branch), a seat never blocks the
+    whole turn on a clarifying question. It resolves via an ordered
+    tie-break: hold only a destructive/irreversible act touching the
+    specific discrepancy (the one permitted hold, and it holds only that
+    act); otherwise proceed under the safest reasonable interpretation
+    and log both the discrepancy and the interpretation chosen;
+    ambiguous ownership gets taken and logged rather than debated first;
+    a rule referenced in an instruction but absent from the actual
+    rulebook is treated as provisional text, applied, with its
+    codification queued — never met with "does this rule exist?" back to
+    whoever gave the instruction. A clarifying question becomes a report
+    instead: "Discrepancy X; my resolution Y; reverses if countered next
+    turn." A whole-turn stall caused by an unresolved discrepancy is
+    itself a rule violation, not a safe default.
+    *Rationale: an agent fleet that pauses every turn a disk state
+    doesn't perfectly match an instruction grinds to a halt under
+    realistic operating conditions — branches go stale, ownership shifts,
+    rules get referenced before they're written down. Treating the
+    mismatch as something to resolve-and-report, with a narrow safety
+    valve for genuinely destructive acts, keeps the fleet moving while
+    keeping every resolution reviewable and reversible. This is the one
+    rule in this playbook explicitly designed to travel unchanged to a
+    different project — it isn't about this fleet's specific tools or
+    domain.*
 
 ## 3. Ledger formats
 
