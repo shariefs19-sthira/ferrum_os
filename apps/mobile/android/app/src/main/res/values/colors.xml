@@ -1,5 +1,5 @@
 <resources>
     <color name="ink">#070707</color>
-    <color name="splash_background">#F7F4EA</color>
-    <color name="icon_background">#F7F4EA</color>
+    <color name="splash_background">#FFFFFF</color>
+    <color name="icon_background">#FFFFFF</color>
 </resources>

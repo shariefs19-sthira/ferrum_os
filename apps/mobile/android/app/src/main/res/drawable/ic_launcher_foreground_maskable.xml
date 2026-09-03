@@ -1,8 +1,13 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
-    <!-- Wider adaptive treatment: the complete Fe/26 mark remains in Android's 66dp maskable safe zone. -->
-    <path android:fillColor="#D85F2A" android:pathData="M23,21H48V30H34V41H45V50H34V74H23Z" />
-    <path android:fillColor="#007F73" android:pathData="M84,56H60C61,62 64,65 69,65C73,65 76,63 78,61L84,67C80,72 75,75 69,75C57,75 51,67 51,56C51,44 58,36 69,36C79,36 84,44 84,54ZM60,49H75C74,45 72,43 68,43C64,43 61,45 60,49Z" />
-    <path android:fillColor="#1E5A9F" android:pathData="M53,88V84L62,79C64,78 65,76 65,74C65,72 63,71 61,71C58,71 57,72 56,75L52,72C54,68 57,67 61,67C66,67 70,70 70,74C70,78 67,81 64,83L61,84H70V88ZM85,71C83,69 81,68 78,68C73,68 71,72 71,78C73,75 75,74 79,74C84,74 87,78 87,82C87,87 83,90 78,90C72,90 68,85 68,79C68,70 72,65 78,65C82,65 85,67 87,70ZM77,78C74,78 73,80 73,82C73,85 75,86 77,86C80,86 81,85 81,82C81,80 80,78 77,78Z" android:fillType="evenOdd" />
+    <!-- Canonical Fe·26 tile, expanded for Android's launcher masks. -->
+    <group android:translateX="10.8" android:translateY="10.8" android:scaleX="1.35" android:scaleY="1.35">
+        <clip-path android:pathData="M10,0H54C59.523,0 64,4.477 64,10V54C64,59.523 59.523,64 54,64H10C4.477,64 0,59.523 0,54V10C0,4.477 4.477,0 10,0Z" />
+        <path android:fillColor="#FF9933" android:pathData="M0,0H64V21.33H0Z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M0,21.33H64V42.67H0Z" />
+        <path android:fillColor="#138808" android:pathData="M0,42.67H64V64H0Z" />
+        <path android:fillColor="#0B1F3A" android:pathData="M13,13H31L32,19H30C29.4,16 27.6,15 24.5,15H20.5V25H24C26,25 27.2,23.7 27.5,21H29V31H27.5C27.1,28.3 26,27 24,27H20.5V37H23.5C28,37 30.5,35.5 32,32H33L32.3,40H13V38H15V15H13ZM51,28H36C36.2,33 38.5,36 42.2,36C45.1,36 47.4,34.8 49.2,32.8L51,34.7C48.8,38.2 45.5,40 41.6,40C34.9,40 30.5,35.2 30.5,27.8C30.5,20.3 35.1,14 41.9,14C47.5,14 51,18.4 51,24.4ZM36,25H45.6C45.3,20.7 44.1,17.7 41.2,17.7C38.3,17.7 36.4,20.4 36,25Z" android:fillType="evenOdd" />
+        <path android:fillColor="#FFFFFF" android:pathData="M25,57.5V56L29,52.5C30,51.6 30.3,51.1 30.3,50.3C30.3,49.2 29.5,48.5 28.5,48.5C27.4,48.5 26.7,49.1 26.2,50.3L24.8,49.5C25.5,47.8 26.8,47 28.6,47C30.8,47 32.2,48.3 32.2,50.2C32.2,51.7 31.4,52.8 30.1,53.9L27.8,56H32.4V57.5ZM41,49.4C40.4,48.7 39.6,48.3 38.6,48.3C36.5,48.3 35.2,50.1 35.2,52.7C35.7,51.6 36.8,51 38.1,51C40.5,51 42.1,52.5 42.1,54.6C42.1,56.8 40.4,58.3 38.1,58.3C35,58.3 33.2,56.1 33.2,52.8C33.2,49 35.2,47 38.5,47C40.1,47 41.4,47.6 42.2,48.7ZM38,52.5C36.6,52.5 35.7,53.4 35.7,54.6C35.7,56 36.6,56.8 38,56.8C39.4,56.8 40.3,56 40.3,54.6C40.3,53.4 39.4,52.5 38,52.5Z" android:fillType="evenOdd" />
+    </group>
 </vector>
