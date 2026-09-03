@@ -270,6 +270,54 @@ as "live" — those are three distinct, non-interchangeable states
 the deployed edge, per this rule's screenshot requirement) and a report
 must use the word that's actually true, not the most favorable one.
 
+## RULE 25 — Live-or-locked
+**STRICTEST RULE ON THE PROJECT. Overrides all cadence rules (16/18/20)
+where they conflict with it.**
+
+(1) **Live is the only done, and "live" means the asked result visible on
+the deployed frontend.** Amended 2026-09-03: LIVE proof is a screenshot
+of the rendered result exactly as the operator's own live view shows it
+— not a code-level or API-level check standing in for it. Backend
+internals (a passing endpoint, a green migration, a correct data shape)
+are footnotes attached to the row for context; they are never themselves
+reported as the row's status. Per-artifact-type proof, in service of
+that same visible-result standard: UI — first-viewport screenshots at
+1366 and 375 of the actual rendered page; API — a live edge call whose
+response is what makes some frontend-visible result correct (the call
+itself is the footnote, the visible result it produces is the proof);
+asset — a resolvable URL AND the visible place that URL renders. Proof is
+posted to the ledger row. "Committed," "landed," "pushed," and "gates
+green" are NOT done — see RULE 24's three-states distinction, which this
+rule extends with "live" specifically meaning visible-result-live, not
+merely edge-deployed.
+(2) **Every mission order must carry a FRONTEND-VISIBLE ACCEPTANCE
+line.** Amended 2026-09-03: a task with no visible-result acceptance
+criterion is not a task in its own right — it is an internal chore, and
+gets folded into whichever task it supports that does have a visible
+result. An internal chore is never reported on its own; its completion
+shows up only as a footnote on the visible-result task it enabled.
+(3) **No new task until the seat's previous task is LIVE**, per (1)'s
+visible-result definition — not merely landed or gates-green.
+(4) **The only exception is LOCKED**: a seat blocked on another agent's
+artifact or an operator decision may take the next task, marking the
+blocked row LOCKED with its specific dependency named. The instant that
+dependency clears, the LOCKED task outranks every newly-available task —
+it is worked next, before anything else queued in the meantime.
+(5) **Live immediately.** A seat self-lands right after clearing its
+gates (RULE 18) rather than batching landings — the gap between
+gates-green and landed is not itself a state to linger in. A red
+deploy-CI is fixed or escalated before the seat picks up any new task;
+it does not sit alongside new work.
+(6) **Enforcement.** ATLAS audits: no row reads DONE without visible-
+result LIVE proof attached, verified against the actual rendered page,
+not the row's own claim. SCRIBE marks a row's ledger LIVE column only on
+receipt of that proof — never on a status label, a "should be live by
+now" assumption, or a landed SHA alone. The ledger's LIVE column holds a
+rendered-result screenshot and nothing else — not a SHA, not a
+"confirmed" note, the screenshot itself (or a direct link to it).
+Conductor assigns no new work to a seat currently holding a non-LOCKED
+task that isn't LIVE.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
