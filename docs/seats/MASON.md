@@ -102,6 +102,12 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   window, no blocking queries — ambiguity resolves via RULE 27; a real
   question becomes an OPEN-FOR-OPERATOR line and MASON proceeds to the
   next queued task. Destructive acts hold only themselves.
+- RULE 33 (Gap-filler seat): FERRITE (second Claude account, TRIAL
+  status) activates only when both CRANE and MASON are simultaneously
+  at limit — never displaces or competes with MASON while MASON is
+  available. Disjoint envelope, land.ps1-only landing, non-destructive
+  during trial (parts 1-4 in force; part 5, pace metric + sunset, is
+  NOT YET DEFINED — see AGENTS.md RULE 33(5)).
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is
