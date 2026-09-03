@@ -787,3 +787,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/FERRUM_METHOD_PLAYBOOK.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Conductor collects MASON/RIVET lesson paragraphs after 1:09; SCRIBE inserts via follow-up row. ATLAS audits W2-372 against the five-point rubric once MASON claims and lands it.
 ---
+
+## 2026-09-03 09:30 - SCRIBE RULE 18 (Self-landing, bounded) added + seats mirror
+**Action:** Added AGENTS.md RULE 18 — SELF_LANDING_BOUNDED: seats self-land their own branches once past their gates (RULE 4 stage-gate, RULE 5 quality, RULE 14 security-merge guard where applicable), rather than waiting on CRANE for routine landings. Mechanically bounded (not just policy-bounded): protected paths, worker.ts, database migrations, and _headers stay CRANE-only to land, no exceptions. CRANE batch-reviews the landing log once per turn instead of gating every self-land in real time. ATLAS post-audits self-landed work identically to any other landing — self-landing is not an audit exemption. Mirrored into docs/seats/CRANE.md (framed as CRANE being the exclusive landing path for the bounded categories), docs/seats/ATLAS.md, docs/seats/CODEX.md, and docs/seats/SCRIBE.md (framed as SCRIBE's docs-branch self-landing via the existing rebase-then-squash path, with the bounded categories being out of SCRIBE's scope entirely rather than merely CRANE-gated). RIVET/MASON seat docs still absent from this branch chain (pre-rename fork, per the ongoing W2-357 reconciliation note).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Seats begin self-landing routine work; CRANE adds a once-per-turn batch log review to its own workflow.
+---

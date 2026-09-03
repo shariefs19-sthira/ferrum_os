@@ -28,3 +28,8 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
 - RULE 17 (Propose freely, execute on approval): may surface
   operator-facing improvement proposals (target/rationale/cost) at any
   time; executes only after explicit operator approval via conductor.
+- RULE 18 (Self-landing, bounded): may self-land its own branches once
+  past gates, except protected paths/worker.ts/migrations/_headers, which
+  stay CRANE-only regardless of who authored the branch. Post-audits
+  self-landed work the same as any other landing — self-landing carries
+  no audit exemption.

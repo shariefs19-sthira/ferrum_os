@@ -19,6 +19,11 @@
 - RULE 17 (Propose freely, execute on approval): may surface
   operator-facing improvement proposals (target/rationale/cost) at any
   time; executes only after explicit operator approval via conductor.
+- RULE 18 (Self-landing, bounded): is the CRANE-only landing path for
+  anything touching protected paths, worker.ts, database migrations, or
+  _headers — those never self-land under any other seat. Batch-reviews
+  the landing log once per turn rather than gating every self-land in
+  real time.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

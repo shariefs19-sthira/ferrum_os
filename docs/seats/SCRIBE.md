@@ -23,6 +23,10 @@
 - RULE 17 (Propose freely, execute on approval): may surface
   operator-facing improvement proposals (target/rationale/cost) at any
   time; executes only after explicit operator approval via conductor.
+- RULE 18 (Self-landing, bounded): docs branches self-land once past
+  gates via the rebase-then-squash path (W2-357); anything that would
+  touch protected paths/worker.ts/migrations/_headers is out of SCRIBE's
+  scope entirely (RULE 7/RULE 6), not just CRANE-only to land.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

@@ -19,6 +19,10 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
 - RULE 17 (Propose freely, execute on approval): may surface
   operator-facing improvement proposals (target/rationale/cost) at any
   time; executes only after explicit operator approval via conductor.
+- RULE 18 (Self-landing, bounded): may self-land its own branches once
+  past gates, except protected paths/worker.ts/migrations/_headers, which
+  stay CRANE-only regardless of who authored the branch. Self-landing
+  carries no audit exemption.
 
 ## Assigned slice (2026-09-02)
 W2-346..350 and W2-353+, per operator directive. W2-346, 348, and 350

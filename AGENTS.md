@@ -115,6 +115,17 @@ Any seat may surface operator-facing improvements as proposals
 (target/rationale/cost); nothing proposed executes without explicit
 operator approval via conductor.
 
+## RULE 18 — Self-landing, bounded
+Seats self-land their own branches once past their gates (RULE 4 stage-
+gate, RULE 5 quality, RULE 14 security-merge guard where applicable) —
+they don't wait on CRANE to land routine work. This is mechanically
+blocked (not just policy) for anything touching protected paths (RULE 6),
+`worker.ts`, database migrations, or `_headers` — those stay CRANE-only
+to land, no exceptions. CRANE batch-reviews the landing log once per
+turn rather than gating every individual self-land in real time. ATLAS
+post-audits self-landed work same as everything else — self-landing
+does not exempt a row from audit.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
