@@ -56,6 +56,10 @@ as every other seat.
   non-dependent work, escalates the specific claim rather than stalling.
 - RULE 23 (Every relay improves the system): every report carries the
   RULE 17 UX-proposal line.
+- RULE 24 (First-viewport live proof): any UI-affecting row (e.g. the
+  mobile app-shell) lands its report with deployed-edge first-viewport
+  screenshots at 1366 and 375. Never reports "committed" or "landed" as
+  "live".
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

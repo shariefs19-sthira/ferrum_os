@@ -66,6 +66,11 @@
   conductor carries at least the RULE 17 UX-proposal line — CRANE's side
   of the "neither end of a relay is a bare status update" pairing with
   RULE 23's conductor-side requirement.
+- RULE 24 (First-viewport live proof): a UI row lands its landing report
+  with deployed-edge first-viewport screenshots at 1366 and 375 attached
+  — never a local dev screenshot. Never reports "committed" or "landed"
+  as "live" — those are distinct states, and CRANE uses the one that's
+  actually true.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)
