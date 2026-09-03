@@ -835,3 +835,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** All seats apply the RULE 22 squash-safe verification method going forward; SCRIBE's own RULE 21(2) practice corrected to match RULE 22 exactly.
 ---
+
+## 2026-09-03 11:00 - SCRIBE two operator approvals annotated verbatim + W2-387 PROVENANCE_STRIP queued
+**Action:** Annotated the Approval Queue with two new decision lines (append-only — did not edit the existing pending devDeps entry). (1) "devDeps removal authorized," verbatim — flagged rather than silently reconciled: the existing pending entry was framed as a proposed *addition* of typescript/@types/node, while this approval authorizes a *removal*, so whoever executes must confirm which action/packages this actually covers before proceeding. (2) "provenance strip approved per RIVET proposal 1," verbatim — noted that RIVET's actual proposal text isn't on disk anywhere in this ledger, so execution should locate it (docs/HANDOFFS.md, a RIVET branch, or direct clarification) to confirm scope rather than assume. Queued W2-387 PROVENANCE_STRIP with the split scope given: CRANE strips provenance now on LandIntel/Analysis Engine surfaces; MASON extends the same strip into the DesignStudio W2-380 block specifically at S4 STUDIO_3D, once that milestone is reached (S4 already sequenced after W2-372's conductor sign-off, so this doesn't move MASON's timeline up).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims the landintel/analysis provenance strip now; MASON claims its S4 piece when S4 is reached; whoever executes either confirms the flagged scope ambiguities first.
+---

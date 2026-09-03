@@ -345,12 +345,31 @@ recorded as a new line, not by editing the pending entry.
   landing. Per RULE 1, dependency additions are otherwise CRANE-only —
   this pending item is tracked here rather than assumed approved by
   default.
+- **APPROVED** (operator, 2026-09-03), verbatim: "devDeps removal
+  authorized." Recorded as a new decision line rather than editing the
+  entry above, per this section's own append-only rule — flagging the
+  discrepancy rather than silently reconciling it: the pending entry
+  above was framed as a proposed *addition* of `typescript`/`@types/node`,
+  while this approval authorizes a *removal*. Whoever executes should
+  confirm against the actual current devDependencies list which action
+  (add or remove, and of which packages) this approval is meant to cover
+  before proceeding.
+- **APPROVED** (operator, 2026-09-03), verbatim: "provenance strip
+  approved per RIVET proposal 1." Note: "RIVET proposal 1" is not itself
+  on disk in this Approval Queue or elsewhere in docs/WAVE_QUEUE.md —
+  SCRIBE has no prior record of it. Recording the approval verbatim as
+  given; whoever executes should locate RIVET's actual proposal text
+  (docs/HANDOFFS.md, a RIVET branch, or direct operator clarification)
+  to confirm scope before acting on this approval.
 
 ## 2026-09-03 — SCRIBE W2-370 ANALYSIS_ENGINE, disk-verified per RULE 22 (squash-safe method)
 | W2-370 | | B2 | J08 | CRANE | LANDED-ON-MAIN (M1-M4) / DONE (M5) | a56cbad3, b4c03309, 52cdd434, c5dba000 | ANALYSIS_ENGINE — created this row retroactively; it was never queued in WAVE_QUEUE.md despite the work landing. Verified per RULE 22's squash-safe method (tree check + landing-marker check on origin/main, NOT branch-ancestry — an earlier ancestor check on this same row falsely read NOT-LANDED because land.ps1's squash rewrites SHAs). M1 CORE_CALCULATORS (pure TS, zero deps, 57 unit tests) — landing marker a56cbad3, branch-tip provenance 8b523b21. M2 API_SURFACE + save-to-workspace prerequisite wiring — landing marker b4c03309, branch-tip provenance bad84ba9. M3 COMMAND_DECK_ANALYSIS_TAB — landing marker 52cdd434, branch-tip provenance 2e2f12fd. M4 PRINT_PDF_EXPORT for the Analysis tab — landing marker c5dba000, branch-tip provenance 6542b373. Tree check confirmed apps/web/lib/analysis/** (7 modules + sampleData + types), apps/web/components/AnalysisTab.tsx (including M4's print addition), and apps/web/__tests__/analysis/** all present on origin/main. M5 VERIFICATION — DONE as a verification milestone, not a build milestone; footprint = hotfix commits fc5445df and 861c67bb (both confirmed present in origin/main's own log — duplicate INDIA_BOUNDS/randomIndiaPoint block removed, twice, plus deletion of the stale branch causing the recurrence) plus ATLAS audit entries. UNDO: git revert <sha> per milestone (see landing-marker SHAs above). |
 
 ## 2026-09-03 — SCRIBE conductor-error log (prompt-level, no repo artifact)
 **Icon-patch vs studio-docs attribution conflation (2026-09-03):** the conductor conflated RIVET's already-pushed icon patch (commit 7c73ca66, +240/-240) with RIVET's separate, uncommitted studio-docs work (+225/-0 across 3 files) when relaying a task to CRANE. CRANE's new session caught the scope mismatch on inspection and held rather than acting on the conflated instruction. The conductor logged the attribution conflation as its own error — this was a prompt-level mistake with no faulty repo artifact behind it (both the icon patch and the studio docs are independently fine; the error was in which one the conductor referred to when instructing CRANE).
+
+## 2026-09-03 — SCRIBE PROVENANCE_STRIP (per RIVET proposal 1, operator-approved)
+| W2-387 | | B2 | J08 | CRANE (now) + MASON (S4) | OPEN | | PROVENANCE_STRIP — approved per RIVET proposal 1 (see Approval Queue entry above; proposal text itself not on disk in this ledger, confirm scope against RIVET's actual proposal before executing). Split scope: CRANE strips provenance now on the LandIntel and Analysis Engine surfaces. MASON extends the same strip into the DesignStudio W2-380 mission block, specifically S4 STUDIO_3D, once that milestone is reached — not before, since S4 itself is sequenced after the W2-372 sweep gets conductor sign-off. UNDO: git revert <sha> per surface (CRANE's landintel/analysis piece and MASON's S4 piece land and revert independently). |
 
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
