@@ -80,6 +80,18 @@
   new task while the current one is still non-LIVE, unless marked LOCKED
   with a named, specific dependency — and the moment that dependency
   clears, the LOCKED task jumps ahead of any newer work.
+- RULE 26 (Skill hygiene + self-scouting): loads a skill only when the
+  task matches its purpose and built-in capability isn't enough, stating
+  the load-reason in its report. Rotates into the skill-scouting cycle
+  per RULE 26(2), logging findings in docs/SKILL_SCOUT.md.
+- RULE 27 (Resolve, don't ask): on a landing-time conflict (a stale
+  branch, an ownership mismatch, a rule referenced in a mission order
+  that isn't on disk), applies the ordered tie-break instead of pausing
+  the landing pipeline: hold only the specific destructive act; otherwise
+  proceed under the safest interpretation and log discrepancy +
+  resolution; take ambiguous ownership and log it; treat a missing
+  referenced rule as provisional and queue its codification to SCRIBE.
+  Never lets an unresolved question stall a whole turn.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

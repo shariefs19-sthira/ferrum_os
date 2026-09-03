@@ -65,6 +65,15 @@ as every other seat.
   frontend, proven by a rendered-result screenshot. Self-lands
   immediately after gates clear. No new task while the current one isn't
   LIVE, unless marked LOCKED with a named dependency.
+- RULE 26 (Skill hygiene + self-scouting): loads a skill only when the
+  task matches its purpose and built-in capability isn't enough, stating
+  the load-reason in its report. Rotates into the skill-scouting cycle,
+  logging findings in docs/SKILL_SCOUT.md.
+- RULE 27 (Resolve, don't ask): on a conflict with disk, applies the
+  ordered tie-break instead of stalling: hold only a destructive act;
+  otherwise proceed under the safest interpretation and log discrepancy
+  + resolution; take ambiguous ownership and log it; treat a missing
+  referenced rule as provisional and queue codification to SCRIBE.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
