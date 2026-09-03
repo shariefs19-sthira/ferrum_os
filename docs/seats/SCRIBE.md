@@ -145,6 +145,15 @@
   with the next queued docs task. Never blocks its own queue on an
   unanswered line; a destructive/irreversible act (there are essentially
   none in SCRIBE's docs-only scope) would hold only itself.
+- RULE 33 (Gap-filler seat): FERRITE (second Claude account, TRIAL
+  status) activates only when both CRANE and MASON are simultaneously
+  at limit; disjoint envelope, land.ps1-only landing, non-destructive
+  during trial. Parts (1)-(4) are in force; part (5) (pace metric +
+  sunset) is NOT YET DEFINED — the operator referenced it twice but
+  never supplied the actual criteria; SCRIBE has flagged this rather
+  than fabricating it, per RULE 5/RULE 27's PROVISIONAL-TEXT
+  LIMITATION. SCRIBE maintains docs/seats/FERRITE.md and
+  docs/RESUME_FERRITE.md as it does for every other seat.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

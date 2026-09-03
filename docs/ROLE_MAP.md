@@ -14,6 +14,7 @@ or in git history on `main`.
 | MASON  | Executor, parallel slice | Activated 2026-09-02 (Codex CLI). Owns W2-346, 348, 349, 350, 353, 354 per the operator's slice statement. W2-347 is explicitly carved out to CRANE (specific reassignment overrides the roster range) — see the ATLAS/CRANE disjoint-ownership protocol note below and the row itself. Name reused from the parked Qoder-era MASON — see Change log. |
 | RIVET  | Executor, exclusive paths | Activated 2026-09-02 (Codex CLI), second parallel Codex instance alongside MASON. Exclusive to `apps/mobile/**` and `docs/**` only — does not touch `apps/web/**`. Owns W2-356+. Name reused from the parked Qoder-era RIVET — see Change log. |
 | PI     | Executor (experimental) — TRIAL status | Activated 2026-09-03, one-wave bounded trial on W2-390 (a vitest vector batch or docs sweep). Same rules, same landing path (land.ps1 only) as every other seat — no seat-specific exception for being experimental. Claims exactly one row, then stops until a verdict is recorded. Not yet a standing seat. |
+| FERRITE | Gap-filler executor (second Claude account) — TRIAL status | Activated 2026-09-03. Activates ONLY when both CRANE and MASON are simultaneously at limit (RULE 33(1)) — never competes with an available primary. Disjoint envelope, land.ps1-only landing, non-destructive during trial (RULE 33(2)-(4)). RULE 33(5) — pace metric + sunset — is NOT YET DEFINED; the operator referenced it but the actual criteria never arrived in any message SCRIBE received. Trial baseline logged: 52 commits landed on origin/main since 2026-09-03 00:00 (36 with an explicit [land:] marker). |
 
 ### ATLAS / CRANE disjoint-ownership protocol (2026-09-01)
 
@@ -70,6 +71,7 @@ Seat name -> underlying tool, kept for audit purposes:
 - MASON -> Codex CLI (active 2026-09-02, executor, parallel slice; name reused, see PARKED note)
 - RIVET -> Codex CLI (active 2026-09-02, executor, exclusive apps/mobile/**+docs/**; name reused, see PARKED note)
 - PI -> (underlying tool not yet specified beyond "Pi"; TRIAL status 2026-09-03, one-wave bounded trial on W2-390)
+- FERRITE -> second Claude account (TRIAL status 2026-09-03, gap-filler executor, RULE 33)
 - GIRDER -> Qoder (parked)
 - Qwen-Web -> Qwen-Web-Conductor
 
@@ -111,3 +113,12 @@ Seat name -> underlying tool, kept for audit purposes:
   as every other seat — no exception carved out for being experimental.
   Claims exactly one row, then stops until a verdict is recorded on
   whether Pi becomes a standing seat with its own slice.
+- 2026-09-03 (later): FERRITE (a second Claude account) activated as a
+  gap-filler executor seat, TRIAL status, per AGENTS.md RULE 33.
+  Activates only when both CRANE and MASON are simultaneously at limit;
+  disjoint envelope; land.ps1-only landing; non-destructive during
+  trial. RULE 33's pace-metric and sunset provision (part 5) was never
+  actually defined in any message SCRIBE received despite being
+  referenced twice — flagged, not fabricated; tracked as a TODO. Trial
+  baseline logged at activation: 52 commits landed on origin/main since
+  2026-09-03 00:00 (36 with an explicit [land:] marker).

@@ -57,8 +57,11 @@ being experimental:
   overnight-autonomy (RULE 31 — during a declared operator-absent
   window, no blocking queries; ambiguity resolves via RULE 27; a real
   question becomes an OPEN-FOR-OPERATOR line, then proceed to the next
-  queued task; destructive acts hold only themselves) rules as every
-  other seat.
+  queued task; destructive acts hold only themselves), and gap-filler-
+  seat (RULE 33 — FERRITE, a second Claude account, activates only when
+  both CRANE and MASON are simultaneously at limit; disjoint envelope,
+  land.ps1-only landing, non-destructive during trial; part 5, pace
+  metric + sunset, is NOT YET DEFINED) rules as every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the
