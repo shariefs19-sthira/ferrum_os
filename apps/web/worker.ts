@@ -39,6 +39,7 @@ import { computeRiskFlags } from './lib/analysis/riskFlags'
 import { computeCityComparison } from './lib/analysis/cityComparison'
 import { SAMPLE_GOVT_RATES, SAMPLE_STAMP_DUTY, SAMPLE_ALLOWABLE_FSI, SAMPLE_MIN_SETBACK_M, CITIES } from './lib/analysis/sampleData'
 import type { City, BoqItem, LandData, RegulatoryData } from './lib/analysis/types'
+import { computePlotIntel } from './lib/parcelIntel/parcelIntel'
 
 async function requireUser(env: Env, cookieHeader: string | undefined) {
   const sessionId = parseSessionCookie(cookieHeader)
@@ -92,7 +93,11 @@ app.get('/api/ulpin/:id', async (c) => {
   const provider = new LiveLandRecordsProvider(c.env.DB, c.env.OGD_API_KEY)
   const parcel = await provider.lookup(c.req.param('id'))
   if (!parcel) return c.json({ error: 'not_found' }, 404)
-  return c.json({ ...parcel, indicative: true })
+  // S1 PARCEL_INTEL (W2-381): additive field, zoning/FAR/advisable-types
+  // derived from the SAMPLE DCR ruleset — computePlotIntel is pure and
+  // never touches D1 itself, see lib/parcelIntel/parcelIntel.ts.
+  const plot_intel = computePlotIntel(parcel)
+  return c.json({ ...parcel, indicative: true, plot_intel })
 })
 
 app.post('/api/testfit', async (c) => {
