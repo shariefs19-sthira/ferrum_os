@@ -318,6 +318,19 @@ rendered-result screenshot and nothing else — not a SHA, not a
 Conductor assigns no new work to a seat currently holding a non-LOCKED
 task that isn't LIVE.
 
+**Exemplar (2026-09-03, MASON via W2-354):** a static-server Playwright
+crawl reported 609/609 route×viewport combinations passing with zero
+responsive violations — a real, substantial result — but two routes'
+Worker-owned API calls (`/api/auth/session`) can't be exercised by a
+static file server at all. MASON's own finding — "unlock only from
+rendered edge," i.e. don't treat a static-server pass as LIVE proof for
+functionality a static server structurally cannot serve — is exactly
+what this rule already requires; it's absorbed here as the canonical
+example rather than spun into a separate rule. A static-server or
+build-output crawl is strong evidence for what it actually tests, but is
+never substituted for edge/Worker-backed verification of routes whose
+correctness depends on backend behavior the static server can't provide.
+
 ## RULE 26 — Skill hygiene + self-scouting
 (1) **Just-in-time.** A skill loads ONLY when the task at hand matches
 its purpose AND built-in capability is insufficient on its own — never
