@@ -755,3 +755,59 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims W2-368. RIVET/MASON seat docs need the RULE 16/17 mirror once the rename branch (W2-356) and this branch reconcile.
 ---
+
+## 2026-09-03 08:00 - SCRIBE W2-372 UI_UX_MODERNIZATION (RULE 17 sign-off gate)
+**Action:** Queued W2-372 UI_UX_MODERNIZATION, assigned MASON, sequenced after W2-354 (RESPONSIVE_SWEEP) and the og:image work. Encoded the operator's RULE 17 note directly on the row: this is a design-directive task, so the conductor must sign off on the modernization direction/scope before the sweep starts — MASON does not begin execution on approval-pending scope, per RULE 17 (propose freely, execute on approval).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor sign-off required before MASON begins W2-372.
+---
+
+## 2026-09-03 08:15 - SCRIBE W2-373 INTERACTION_FIRST (sequenced before the W2-372 sweep)
+**Action:** Queued W2-373 INTERACTION_FIRST, assigned MASON, sequenced after og:image work and BEFORE W2-372 (UI_UX_MODERNIZATION) — updated W2-372's own sequencing note to reference W2-373 as a predecessor rather than leaving the two rows silently inconsistent. Scope verbatim: on every product page the real working tool is the first thing in the first viewport (hero hosts the full interaction, replacing the W2-361 mini); explanatory content only follows if the tool isn't self-evident; duplicate "try it" sections further down are removed — no tool twice per page.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** MASON claims W2-373 (after og:image); W2-372 still gated on conductor sign-off per RULE 17.
+---
+
+## 2026-09-03 08:30 - SCRIBE W2-374 METHOD_PLAYBOOK — authored docs/FERRUM_METHOD_PLAYBOOK.md (self-assigned)
+**Action:** Queued and authored W2-374 METHOD_PLAYBOOK directly (assigned SCRIBE, not queued to CRANE for research) — this is meta-documentation about the fleet's own operating process, which sits inside SCRIBE's own domain expertise (RULE 7 docs ownership), unlike a technical/architecture doc requiring code research SCRIBE would otherwise queue to CRANE. Authored docs/FERRUM_METHOD_PLAYBOOK.md covering sections 1-9 as specified (seat model with the three-condition test for adding a second executor; the actual 16 adopted rules — 1-14, 16, 17, with RULE 15 explicitly noted as never assigned rather than fabricated — each with a one-line rationale; ledger row schema + annotation protocol + activity-log format; the 7-field mission-order format with single-target-vs-batch guidance; the landing pipeline pattern including the rebase-then-squash fix from W2-357; honesty conventions (RULE 13 extrapolation, no-fabrication, INDICATIVE/ROADMAP/TEST labeling, deployed-edge-as-truth, audit false-positive/shallow-selector discipline); operator gates (protected paths, production-write protocol, narrow conditional approvals); capacity contingency (dark-window fallback assignees, single-target cadence, RULE 16/17); and a new-repo bootstrap checklist. Section 10 (Lessons Appendix) is explicitly marked incomplete — it requires one paragraph of real input from each seat (CRANE, ATLAS, MASON/CODEX, RIVET), which SCRIBE did not fabricate; instead populated it with a defect-class checklist derived from this engagement's actual git/ledger history (placeholders, claim-truth drift, fabricated individuals, deploy≠local, DB migration gaps, brand-spec verbatim drift, squash drift, empty containers, hardcoded maps, false-positive selectors) as a starting point for the conductor to collect the real per-seat paragraphs against.
+**By:** SCRIBE (Claude Code)
+**Status:** ⚠️ Partial — document authored and pushed, but Section 10 awaits real per-seat lesson paragraphs from the conductor
+**Files Modified:** docs/FERRUM_METHOD_PLAYBOOK.md (new), docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor collects one lesson paragraph from each of CRANE, ATLAS, MASON/CODEX, RIVET; SCRIBE inserts them into Section 10 in a follow-up row once received.
+---
+
+## 2026-09-03 08:45 - SCRIBE W2-375 TYPOGRAPHY_SECOND_PASS (queue-jump, operator's repeated grievance)
+**Action:** Queued W2-375 TYPOGRAPHY_SECOND_PASS, assigned MASON, marked as jumping the queue ahead of MASON's other OPEN rows per the operator's stated repeated grievance — gave it status PRIORITY-JUMP rather than OPEN and an explicit instruction on the row to claim it before anything else in the MASON slice, since the append-only ledger has no native row-reordering mechanism (per the method playbook's own §3 annotation protocol: priority is carried as a note/status, not by physically moving the row). Scope verbatim: zero crumpled text at any standard width; footer brand tagline ≤2 lines, ≥24ch measure at widths ≥1024; links/labels never wrap below readable measure. Acceptance: screenshots at 1280/1366/1440/1920 and 1024/768/375 on home, products/landintel, resources index, and one tool page; MCP re-sweep of all routes at 1440 added to the existing 1366/375 corpus.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** MASON claims W2-375 immediately, ahead of W2-363/W2-366/W2-372/W2-373.
+---
+
+## 2026-09-03 09:00 - SCRIBE STUDIO_ENGINE queued (W2-380 parent + W2-381..386 milestones S1-S6)
+**Action:** Queued the DesignStudio engine rebuild as one parent row (W2-380) plus six milestone child rows (W2-381..386, each carrying W2-380 in the Parent column) using the ledger's existing Parent field rather than inventing a new structure. Parent row records the two operator approvals verbatim — three.js approved as a single new dependency for S4 (CRANE-only to add per RULE 1), and S5's demographic/preference capture approved as consent-gated/never-mandatory — plus the binding honesty condition: all sample FAR/DCR/neighbour data stays labeled INDICATIVE until real per-city/per-parcel sources land, on every milestone, no exceptions. Milestones: S1 PARCEL_INTEL (CRANE) and S2 STRUCTURAL_LIVE (CRANE) both sequenced after CRANE's M5 milestone; S3 STYLE_LIBRARY (MASON) after W2-373; S4 STUDIO_3D (MASON) after W2-372 gets conductor sign-off; S5 PREFERENCE_LAYER (MASON) after S4; S6 FREEZE_SIGNOFF (CRANE backend + MASON UI) after S5. Noted ATLAS audits each milestone, and that "RIVET docs now" (first in the operator's sequencing list) refers to RIVET's existing queued work, not a new row — no content was given for a new RIVET task, so none was fabricated.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims S1/S2 after M5; MASON claims S3 after W2-373; ATLAS audits each milestone as it lands.
+---
+
+## 2026-09-03 09:15 - SCRIBE playbook §10 CRANE/ATLAS lessons inserted; W2-372 annotated with five-point approval rubric
+**Action:** (1) Inserted CRANE's and ATLAS's Section 10 lesson paragraphs into docs/FERRUM_METHOD_PLAYBOOK.md, composed from the operator's one-line summaries ("stale-branch re-landing rule", "trust-disk-over-labels rule") expanded against the actual documented incidents that produced each lesson — no fabricated first-person quotes. CRANE's paragraph cites the CODEX→MASON/RIVET rename (W2-356) not propagating into the parallel w2-359..380 branch chain, causing W2-354's stale "CODEX" assignee to persist past the rename and need re-correction; ties directly to why W2-357 (LANDING_PIPELINE_FIX) exists. ATLAS's paragraph cites W2-347's label-vs-actual-result gap, W2-360's RULE 6 approval-granted-but-unused finding, and the self-corrected GST/export draft, producing the rule that audits verify against disk state, never against status labels or self-reports. MASON's and RIVET's paragraphs remain pending, explicitly still marked so, to be inserted via a follow-up row once collected (operator's target: after 1:09). (2) Annotated W2-372 with the conductor's five-point approval rubric verbatim: dynamic graphics substantive; attractive + modern tech roots; honesty survives; no new deps beyond the approved three; database-traceable selections — so ATLAS's audit of W2-372 has an explicit, disk-checkable rubric rather than relying on the row's own status.
+**By:** SCRIBE (Claude Code)
+**Status:** ⚠️ Partial — playbook §10 still awaits MASON/RIVET paragraphs
+**Files Modified:** docs/FERRUM_METHOD_PLAYBOOK.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor collects MASON/RIVET lesson paragraphs after 1:09; SCRIBE inserts via follow-up row. ATLAS audits W2-372 against the five-point rubric once MASON claims and lands it.
+---
+
+## 2026-09-03 09:00 - CRANE W2-374 Section 10 — CRANE's lesson paragraph delivered
+**Action:** Per the operator's request during W2-370's milestone reporting, CRANE delivered one real lesson paragraph (the land.ps1 stale-branch re-landing scar hit twice during W2-370 M3/M4 landings, and the rule to delete rather than re-patch). Inserted verbatim into docs/FERRUM_METHOD_PLAYBOOK.md §10 under a new "Per-seat lessons (collected as delivered)" subsection, alongside the existing defect-class checklist rather than replacing it.
+**By:** CRANE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/FERRUM_METHOD_PLAYBOOK.md
+**Next Steps:** ATLAS, MASON/CODEX, RIVET lessons still pending collection.
+---
