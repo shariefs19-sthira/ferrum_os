@@ -795,3 +795,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Seats begin self-landing routine work; CRANE adds a once-per-turn batch log review to its own workflow.
 ---
+
+## 2026-09-03 09:45 - SCRIBE RULE 19 (Limit handoff) added + RULE 17 amended (mandatory UX proposal line) + seats mirror
+**Action:** Added AGENTS.md RULE 19 — LIMIT_HANDOFF: when a seat hits its usage/rate limit mid-task, the active seat takes over the stopped task regardless of role, resuming from the completed state rather than restarting — no seat waits for another's reset. On return, the originally-limited seat exits the taken-over task (does not reclaim mid-stream work) and picks up the next open row instead. Amended RULE 17 — PROPOSE FREELY, EXECUTE ON APPROVAL: every seat report must now include at least one UX-improving proposal (web search and general project experience both encouraged as sources) OR an explicit "no better alternative found" line; a proposal must genuinely improve user experience, and — unchanged from the original rule — never executes without explicit operator approval via conductor. Mirrored both into docs/seats/CRANE.md, ATLAS.md, CODEX.md, and SCRIBE.md, each scoped to that seat's actual role (e.g. CODEX's mirror notes its own known rate-limiting is exactly what RULE 19 addresses; SCRIBE's mirror scopes the handoff to docs/queue work specifically). RIVET/MASON seat docs still absent from this branch chain (pre-rename fork, ongoing W2-357 reconciliation).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Every future SCRIBE (and other seat) report includes the RULE 17 UX-proposal line going forward; seats begin practicing RULE 19 handoff behavior on the next limit event.
+---

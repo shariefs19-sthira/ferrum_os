@@ -19,10 +19,17 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
 - RULE 17 (Propose freely, execute on approval): may surface
   operator-facing improvement proposals (target/rationale/cost) at any
   time; executes only after explicit operator approval via conductor.
+  Amended 2026-09-03: every report includes ≥1 UX-improving proposal or
+  an explicit "no better alternative found" line — never silent on this.
 - RULE 18 (Self-landing, bounded): may self-land its own branches once
   past gates, except protected paths/worker.ts/migrations/_headers, which
   stay CRANE-only regardless of who authored the branch. Self-landing
   carries no audit exemption.
+- RULE 19 (Limit handoff): this seat's known rate-limiting is exactly
+  what RULE 19 addresses — if it hits limit mid-task, the active seat
+  takes over from the completed state, no waiting for the reset; on
+  return this seat exits the taken-over task and picks up the next open
+  row instead of reclaiming it.
 
 ## Assigned slice (2026-09-02)
 W2-346..350 and W2-353+, per operator directive. W2-346, 348, and 350
