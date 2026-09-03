@@ -316,6 +316,9 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-03 — SCRIBE method playbook (self-assigned, meta-documentation)
 | W2-374 | | B2 | J08 | SCRIBE | OPEN | | METHOD_PLAYBOOK — author docs/FERRUM_METHOD_PLAYBOOK.md: a repo-agnostic blueprint for rebuilding this fleet workflow on any future project. 10 sections per operator spec: seat model, ruleset template (all 17 rules + rationale), ledger formats, mission-order format, landing pipeline pattern, honesty conventions, operator gates, capacity contingency, bootstrap checklist, lessons appendix. Section 10 requires one paragraph of lessons collected from each seat first — not fabricated by SCRIBE. UNDO: git revert <sha> (or delete docs/FERRUM_METHOD_PLAYBOOK.md). |
 
+## 2026-09-03 — SCRIBE typography second pass (PRIORITY: JUMPS THE QUEUE — operator's repeated grievance)
+| W2-375 | | B2 | J08 | MASON | PRIORITY-JUMP | | TYPOGRAPHY_SECOND_PASS — jumps the queue ahead of other MASON-assigned OPEN rows; claim and work this before anything else in the MASON slice. Class rule: zero crumpled text at ANY standard width. Explicit: footer brand tagline renders ≤2 lines with ≥24ch measure at all widths ≥1024; links/labels never wrap below readable measure. Acceptance: screenshots at 1280/1366/1440/1920 AND 1024/768/375 on home + products/landintel + resources index + one tool page; MCP re-sweep of all routes at 1440 added to the existing 1366/375 corpus. UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

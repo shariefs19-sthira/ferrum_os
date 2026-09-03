@@ -763,3 +763,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/FERRUM_METHOD_PLAYBOOK.md (new), docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Conductor collects one lesson paragraph from each of CRANE, ATLAS, MASON/CODEX, RIVET; SCRIBE inserts them into Section 10 in a follow-up row once received.
 ---
+
+## 2026-09-03 08:45 - SCRIBE W2-375 TYPOGRAPHY_SECOND_PASS (queue-jump, operator's repeated grievance)
+**Action:** Queued W2-375 TYPOGRAPHY_SECOND_PASS, assigned MASON, marked as jumping the queue ahead of MASON's other OPEN rows per the operator's stated repeated grievance — gave it status PRIORITY-JUMP rather than OPEN and an explicit instruction on the row to claim it before anything else in the MASON slice, since the append-only ledger has no native row-reordering mechanism (per the method playbook's own §3 annotation protocol: priority is carried as a note/status, not by physically moving the row). Scope verbatim: zero crumpled text at any standard width; footer brand tagline ≤2 lines, ≥24ch measure at widths ≥1024; links/labels never wrap below readable measure. Acceptance: screenshots at 1280/1366/1440/1920 and 1024/768/375 on home, products/landintel, resources index, and one tool page; MCP re-sweep of all routes at 1440 added to the existing 1366/375 corpus.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** MASON claims W2-375 immediately, ahead of W2-363/W2-366/W2-372/W2-373.
+---
