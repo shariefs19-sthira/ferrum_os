@@ -208,6 +208,12 @@ session reads its own resume file FIRST, before anything else, and
 resumes exactly from what it says — no reconstructing state from chat
 memory. Conductor resume prompts are generated from the resume file's
 actual content, never from a remembered summary of the conversation.
+(4) **Approval queue at turn start.** Amended 2026-09-03: every seat
+reads `docs/APPROVAL_QUEUE.md` at the start of its turn and executes any
+row whose OPERATOR DECISION is APPROVED, within that row's stated
+envelope (RULE 20(3) bounds where a mission block applies) — approved
+work sitting unexecuted because no one re-checked the queue is itself a
+RULE 16 idle-time defect.
 
 ## RULE 22 — Self-contained prompts, no-stall queries
 Conductor prompts attach a verification method AND a fallback
