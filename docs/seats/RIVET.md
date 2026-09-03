@@ -27,10 +27,12 @@ as every other seat.
   time; executes only after explicit operator approval via conductor.
   Amended 2026-09-03: every report includes ≥1 UX-improving proposal or
   an explicit "no better alternative found" line — never silent on this.
-- RULE 18 (Self-landing, bounded): may self-land its own branches once
-  past gates, except protected paths/worker.ts/migrations/_headers, which
-  stay CRANE-only regardless of who authored the branch. Self-landing
-  carries no audit exemption.
+- RULE 18 (Self-landing, bounded; amended 2026-09-03): "self-land" means
+  push to its own branch and qualify for land.ps1's next sweep — never a
+  direct push to `main`, which the harness classifier blocks for every
+  seat. Once past gates, except protected paths/worker.ts/migrations/
+  _headers, which stay CRANE-only regardless of who authored the branch.
+  Self-landing carries no audit exemption.
 - RULE 19 (Limit handoff): this seat's known rate-limiting is exactly
   what RULE 19 addresses — if it hits limit mid-task, the active seat
   takes over from the completed state, no waiting for the reset; on

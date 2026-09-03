@@ -27,10 +27,14 @@
   time; executes only after explicit operator approval via conductor.
   Amended 2026-09-03: every report includes ≥1 UX-improving proposal or
   an explicit "no better alternative found" line — never silent on this.
-- RULE 18 (Self-landing, bounded): docs branches self-land once past
-  gates via the rebase-then-squash path (W2-357); anything that would
-  touch protected paths/worker.ts/migrations/_headers is out of SCRIBE's
-  scope entirely (RULE 7/RULE 6), not just CRANE-only to land.
+- RULE 18 (Self-landing, bounded; amended 2026-09-03): direct push-to-
+  main is not a fleet primitive — tested and confirmed blocked by the
+  harness classifier for every seat, SCRIBE included. Docs branches
+  self-land once past gates via the rebase-then-squash path (W2-357) by
+  pushing to a branch that qualifies for land.ps1's next sweep — never
+  by pushing straight to `main`. Anything that would touch protected
+  paths/worker.ts/migrations/_headers is out of SCRIBE's scope entirely
+  (RULE 7/RULE 6), not just CRANE-only to land.
 - RULE 19 (Limit handoff): applies within SCRIBE's own scope (docs/queue
   work) — if SCRIBE hits limit mid-task, whichever seat is active picks
   up the stopped docs/queue task from its completed state rather than

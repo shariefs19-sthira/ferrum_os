@@ -134,16 +134,27 @@ acceptable report. A proposal must genuinely improve user experience,
 not just add scope, and — as with any RULE 17 proposal — never executes
 without explicit operator approval via conductor.
 
-## RULE 18 — Self-landing, bounded
+## RULE 18 — Self-landing, bounded (amended 2026-09-03 per RULE 23)
+Amendment: direct push-to-main is NOT a fleet primitive. The Claude Code
+auto-mode classifier blocks a direct push to `main` for every seat,
+without exception — this was tested and confirmed, not assumed.
+`scripts/land.ps1` (a targeted merge, not a raw push) is the ONLY landing
+path onto `main`, including for docs self-landing. "Self-landing" in this
+rule means a seat pushes its own branch and triggers/qualifies for
+land.ps1's next sweep without waiting on another seat to review or
+initiate that sweep — it never means the seat pushes straight to `main`
+itself.
+
 Seats self-land their own branches once past their gates (RULE 4 stage-
 gate, RULE 5 quality, RULE 14 security-merge guard where applicable) —
-they don't wait on CRANE to land routine work. This is mechanically
-blocked (not just policy) for anything touching protected paths (RULE 6),
-`worker.ts`, database migrations, or `_headers` — those stay CRANE-only
-to land, no exceptions. CRANE batch-reviews the landing log once per
-turn rather than gating every individual self-land in real time. ATLAS
-post-audits self-landed work same as everything else — self-landing
-does not exempt a row from audit.
+they push to their own branch and land.ps1 picks it up, rather than
+waiting on CRANE to manually review and initiate that landing. This is
+mechanically blocked (not just policy) for anything touching protected
+paths (RULE 6), `worker.ts`, database migrations, or `_headers` — those
+stay CRANE-only to land, no exceptions. CRANE batch-reviews the landing
+log once per turn rather than gating every individual self-land in real
+time. ATLAS post-audits self-landed work same as everything else —
+self-landing does not exempt a row from audit.
 
 ## RULE 19 — Limit handoff
 When a seat hits its usage/rate limit mid-task, the active (non-limited)
