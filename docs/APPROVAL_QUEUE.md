@@ -38,6 +38,7 @@ row's stated envelope (RULE 20(3) bounds where a mission block applies).
 | CI-ROOT-SCRIPTS | Add root proxy scripts (`lint`/`type-check`/`test`/`build`) that forward to `pnpm --filter ./apps/web` | YES | (blank — pending) | (not executed) |
 | SITE_BASE_URL-INTERIM | Point `NEXT_PUBLIC_SITE_URL` at the live workers.dev URL until ferrumos.com DNS exists | YES (ATLAS: social shares currently show NO preview image — this is a live defect, not a cosmetic gap) | (blank — pending) | (not executed) — domain purchase stays the standing gate; this is an interim measure only, not a substitute for the real domain once purchased |
 | WEB-IFC-DEP | Add `web-ifc` as a new dependency, for open BIM (IFC format) export interop from the DesignStudio/Analysis Engine surfaces | YES — open BIM export interop | APPROVED (operator, via chat, 2026-09-03) | pending — verified via RULE 22 (tree check + landing-marker check on `origin/main`) as of this entry: NOT yet landed, no `web-ifc` in package.json, no matching commit on main. SHA to be filled in when CRANE reports the landing — not fabricated ahead of it. |
+| MCP-HEADLESS | Set the Playwright MCP server's launch config to `headless: true` (an operator config file, not repo code) | YES | (blank — pending) | (not executed) — execution only after explicit operator yes; directly implements RULE 28's headless-only verification requirement once approved |
 
 ## Migration note (2026-09-03)
 

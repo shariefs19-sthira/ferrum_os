@@ -1259,3 +1259,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/APPROVAL_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE adds web-ifc (now approved) and lands it; SCRIBE fills in the EXECUTED SHA on that report, verified per RULE 22 before writing it.
 ---
+
+## 2026-09-03 14:15 - SCRIBE MCP-HEADLESS approval-queue row added
+**Action:** Added MCP-HEADLESS to docs/APPROVAL_QUEUE.md: set the Playwright MCP server's launch config to `headless: true` (an operator config file, not repo code), recommendation YES, decision blank pending explicit operator yes before execution. Noted this row directly implements RULE 28's headless-only verification requirement once approved.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/APPROVAL_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Operator decides MCP-HEADLESS.
+---
