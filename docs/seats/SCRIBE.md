@@ -51,6 +51,19 @@
   docs/RESUME_SCRIBE.md every turn. After a limit event or API error,
   reads that file FIRST before anything else, and never reconstructs
   fleet state from chat memory when the file disagrees with it.
+- RULE 22 (Self-contained prompts, no-stall queries): before writing any
+  DONE/LANDED status into the ledger, verifies via the squash-safe
+  method — tree check (`git ls-tree`/`git show origin/main:<path>`) plus
+  landing-marker check (`git log origin/main --grep="[land:<branch>]"`)
+  — never raw branch-ancestry (`git merge-base --is-ancestor`), which is
+  invalid once land.ps1 squashes and rewrites SHAs. On an undecidable
+  claim: records CLAIMED-NOT-LANDED (never fabricates DONE), continues
+  any other queued docs work, and escalates the specific claim rather
+  than stalling the whole turn on it.
+- RULE 23 (Every relay improves the system): SCRIBE's conductor-facing
+  reports carry the RULE 17 UX-proposal line the same as every other
+  seat; SCRIBE additionally maintains the Approval Queue
+  (docs/WAVE_QUEUE.md) where those proposals land pending decision.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

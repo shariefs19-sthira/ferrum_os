@@ -50,6 +50,17 @@
   Maintains docs/RESUME_CRANE.md every turn (done SHAs, in-flight, next,
   blockers); after a limit event or API error, reads that file FIRST
   before anything else.
+- RULE 22 (Self-contained prompts, no-stall queries): verifies DONE
+  claims the squash-safe way — tree check + landing-marker check
+  (`git log origin/main --grep="[land:<branch>]"`) + deployed evidence
+  where applicable — never a raw branch-ancestry check, which land.ps1's
+  squash makes invalid. On an undecidable claim: logs the gate, keeps
+  working anything non-dependent, escalates the specific claim in its
+  report rather than stalling or guessing.
+- RULE 23 (Every relay improves the system): every report to the
+  conductor carries at least the RULE 17 UX-proposal line — CRANE's side
+  of the "neither end of a relay is a bare status update" pairing with
+  RULE 23's conductor-side requirement.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

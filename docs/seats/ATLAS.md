@@ -55,3 +55,11 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   §10 playbook lesson (trust-disk-over-labels). Maintains
   docs/RESUME_ATLAS.md every turn; after a limit event or API error,
   reads that file FIRST before anything else.
+- RULE 22 (Self-contained prompts, no-stall queries): audits DONE claims
+  the squash-safe way — tree check + landing-marker check, never raw
+  branch ancestry (invalid once land.ps1 squashes). On an undecidable
+  claim: logs the gate, continues non-dependent audit work, escalates
+  the specific claim rather than stalling.
+- RULE 23 (Every relay improves the system): every audit report carries
+  the RULE 17 UX-proposal line — ATLAS's side of the relay-improvement
+  pairing.

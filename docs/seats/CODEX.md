@@ -43,6 +43,12 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   docs/RESUME_CODEX.md every turn — particularly important given this
   seat's own history of hitting rate limits mid-task (RULE 19); after a
   limit event or API error, reads that file FIRST before anything else.
+- RULE 22 (Self-contained prompts, no-stall queries): verifies DONE
+  claims the squash-safe way — tree check + landing-marker check, never
+  raw branch ancestry. On an undecidable claim: logs the gate, continues
+  non-dependent work, escalates the specific claim rather than stalling.
+- RULE 23 (Every relay improves the system): every report carries the
+  RULE 17 UX-proposal line.
 
 ## Assigned slice (2026-09-02)
 W2-346..350 and W2-353+, per operator directive. W2-346, 348, and 350

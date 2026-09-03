@@ -185,6 +185,48 @@ resumes exactly from what it says — no reconstructing state from chat
 memory. Conductor resume prompts are generated from the resume file's
 actual content, never from a remembered summary of the conversation.
 
+## RULE 22 — Self-contained prompts, no-stall queries
+Conductor prompts attach a verification method AND a fallback
+adjudication to every factual claim they carry — a seat should never
+need to ask "how do I check this" or "what do I do if it's false." Seats
+never stall on a query when a disk method plus a fallback already exist
+for it; they run the method and act on the result.
+
+**The squash-landing SHA-rewrite problem, and its method:** land.ps1
+squashes and rewrites SHAs, so `git merge-base --is-ancestor
+<branch-tip-sha> origin/main` is INVALID for DONE-verification — a
+squashed commit's original tip SHA is never an ancestor of main even
+when the work fully landed, producing false NOT-LANDED readings. The
+correct method, in order: (1) **tree check** — confirm the expected
+files/paths actually exist in `origin/main`'s tree (`git ls-tree -r
+origin/main --name-only`, `git show origin/main:<path>`); (2)
+**landing-marker check** — search `origin/main`'s own log for the
+landing script's marker commits (`git log origin/main --grep="\[land:
+<branch>\]"`) rather than branch ancestry; (3) **deployed evidence**
+where applicable — the actual running edge, not just the repo tree. When
+these agree work is present, record LANDED-ON-MAIN, citing the
+landing-marker SHA as disk proof and the original branch-tip SHA as
+authorship provenance only — never present a rewritten branch SHA as
+the SHA that landed.
+
+**Fallback, always attached:** if the checks disagree or neither
+confirms presence, the claim is UNDECIDABLE from disk alone. A seat
+hitting this: (a) logs the gate rather than guessing or stalling, (b)
+continues any other work in its block that doesn't depend on the
+undecided claim, (c) escalates the specific undecidable claim in its
+report rather than burying it. Never record DONE/LANDED on an
+undecidable claim, and never block all forward progress waiting for an
+answer that a disk check plus this fallback can already resolve.
+
+## RULE 23 — Every relay improves the system
+Each conductor relay to a seat carries at least one workflow or quality
+improvement item — a process fix, a tooling gap closed, a rule
+clarified — not just task assignment. This is the conductor-side
+counterpart to RULE 17's seat-side requirement (every seat report
+carries a UX-improving proposal or an explicit "no better alternative
+found" line): together, RULE 17 and RULE 23 mean neither side of a
+relay is ever just a status update with nothing added.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
