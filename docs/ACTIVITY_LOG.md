@@ -313,9 +313,12 @@ cd C:\Users\user\ferrum_os
 * 2026-08-29: [INCIDENT-1] / **Action:** docs trio committed from w1-17/cline-perf (silent-checkout landmine) / **By:** [AI: Copilot] / **Status:** ?? corrected via Qoder cherry-pick to main / **Files Modified:** IDEAS_LOG.md, AI_HANDOFF.md, METHOD_LOG.md / **Next Steps:** always git branch --show-current before commit (AGENTS.md).
 * 2026-08-29: [W1-17] / **Action:** Completed DISPATCH-v2/CLINE tasks: fixed build in worktree, updated PR #8 body with "HUMAN-APPROVED + [task:W1-17]", performed W1-11 BOQ recon (SHAs: 5348c6f, 4671590, 2c2f584), claimed W1-20 / **By:** [AI: Cline-GLM-Flash] / **Status:** Complete / **Files Modified:** docs/AGENT_BOARD.md, docs/ACTIVITY_LOG.md / **Next Steps:** await conductor verification.
 ## 20:55 - [W2-01] / **Action:** LandIntel fallback state now renders a visible amber FALLBACK chip and Retry action on the page; built green / **By:** [AI: Copilot] / **Status:** ? Complete / **Files Modified:** apps/web/app/landintel/page.tsx / **Next Steps:** await Qoder review and landing.
-# #   2 1 : 1 4   -   L I V E - S M O K E   /   / l a n d i n t e l   / s t r u c t u r a   / b o q - p r o   / p r o m a r k e t   / i n v e s t f l o w   / c o m m u n i t y b u i l d   / b u i l d o s   - >   a l l   2 0 0 ;   C S P - R P   h e a d e r s   p r e s e n t  
- # #   2 1 : 2 0   -   L I V E - S M O K E   /   / l a n d i n t e l   / s t r u c t u r a   / b o q - p r o   / p r o m a r k e t   / i n v e s t f l o w   / c o m m u n i t y b u i l d   / b u i l d o s   - >   a l l   2 0 0 ;   s e c u r i t y   h e a d e r s   p r e s e n t  
- # #   2 3 : 2 9   -   L I V E - S M O K E   p o s t   W 2 - 1 0 / W 2 - 1 2   -   a l l   2 0 0   +   h e a d e r s  
+# #   2 1 : 1 4   -   L I V E - S M O K E   /   / l a n d i n t e l   / s t r u c t u r a   / b o q - p r o   / p r o m a r k e t   / i n v e s t f l o w   / c o m m u n i t y b u i l d   / b u i l d o s   - >   a l l   2 0 0 ;   C S P - R P   h e a d e r s   p r e s e n t 
+ 
+ # #   2 1 : 2 0   -   L I V E - S M O K E   /   / l a n d i n t e l   / s t r u c t u r a   / b o q - p r o   / p r o m a r k e t   / i n v e s t f l o w   / c o m m u n i t y b u i l d   / b u i l d o s   - >   a l l   2 0 0 ;   s e c u r i t y   h e a d e r s   p r e s e n t 
+ 
+ # #   2 3 : 2 9   -   L I V E - S M O K E   p o s t   W 2 - 1 0 / W 2 - 1 2   -   a l l   2 0 0   +   h e a d e r s 
+ 
  
 ## 11:30 - LANDER squashed 6 branches to main: W2-48 (copilot headerfix), W2-49 (cline demo layouts), W2-50 (cline buildos+designstudio), W2-51 (cline sitemap articles), W2-52 (copilot FAQ), W2-53 (copilot HomeFeatureHighlights; conflict resolved by integrating <HomeFeatureHighlights/> before the FAQ section). All builds green, smoke 200/200. / By: Cline-GLM-Flash (LANDER).
 ## 11:55 - LANDER cherry-pick loop: cherry-picked 4 ready commits from w2-54/cline-layouts13 (W2-52 FAQ, W2-53 highlights+closeout, W2-54 case-study subpage layouts) plus origin/w2-49/cline-layouts11 (W2-49 demo+get-started metadata) and origin/w2-51/cline-sitemap2 (W2-51 6 article routes) onto main. Skipped W2-31 (stale sweep branch — would clobber landed layouts) and W2-48 (header→layout refactor — conflicted with W2-40 MobileMenu). Build green 35/35, smoke 32/33 (only /resources 404 — pre-existing, no page.tsx; out of scope). W2-61 added to WAVE_QUEUE (already done via W2-54 cherry-pick). / By: Cline-GLM-Flash (LANDER).
@@ -810,4 +813,12 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** docs/FERRUM_METHOD_PLAYBOOK.md
 **Next Steps:** ATLAS, MASON/CODEX, RIVET lessons still pending collection.
+---
+
+## 21:00 - SCRIBE CSP decision (W2-240)
+**Action:** Recorded the CSP decision in docs/SECURITY.md: the nonce-based CSP and its middleware were retired for the static launch; the static _headers CSP uses unsafe-inline, accepted consciously as a launch-scoped tradeoff. Queued W2-240 in docs/WAVE_QUEUE.md for post-launch hardening to hash-based or edge-nonce CSP, assigned CRANE.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/SECURITY.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE picks up W2-240 post-launch.
 ---

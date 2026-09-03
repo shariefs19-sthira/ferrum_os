@@ -170,6 +170,9 @@ dependency and can run anytime.
 | W2-285 | | B2 | J08 | CRANE | DONE | e6658a6 | ask-band estimator + urgency slider (sample comparables) — under W2-287 |
 | W2-286 | | B2 | J08 | CRANE | DONE | e6658a6 | demand-token waitlist capture (extend D1 leads schema) — under W2-287 |
 
+## 2026-08-31 — SCRIBE CSP hardening (post-launch)
+| W2-240 | | B2 | J08 | CRANE | OPEN | | security: post-launch CSP hardening — replace static _headers unsafe-inline with hash-based or edge-nonce CSP; see docs/SECURITY.md CSP decisions |
+
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to

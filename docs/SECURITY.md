@@ -52,3 +52,11 @@ approval RULE 6 requires. Fixed via a clean revert; see the ACTIVITY_LOG
 postmortem entry for the full timeline. `docs/LAND_HOLD.txt` (added as
 part of the fix) is now the mechanism that keeps held branches like this
 one out of the catch-all loop.
+
+## CSP decisions
+
+**2026-08-31 — CSP decision (launch-scoped):** The nonce-based CSP and its
+supporting middleware were retired for the static launch. The static
+`_headers` CSP uses `unsafe-inline`, accepted consciously as a
+launch-scoped tradeoff, not an oversight. **W2-240** is queued for
+post-launch hardening back to hash-based or edge-nonce CSP.
