@@ -63,6 +63,29 @@ export default function ThreeModeCalculator() {
   )
 }
 
+/**
+ * Display-only normalization for the trust-share labels: three raw
+ * slider values (independently 0-100, not required to sum to 100) into
+ * three integers that always sum to exactly 100. Largest-remainder
+ * method rather than plain rounding, since rounding three independent
+ * percentages can land on 99 or 101 (e.g. 33.33/33.33/33.33 -> 33/33/33
+ * = 99). Display-only: the raw govt/market/userWeight state driving the
+ * actual /api/ferrum-rate call is untouched.
+ */
+export function trustShares(govt: number, market: number, user: number): [number, number, number] {
+  const total = govt + market + user
+  if (total <= 0) return [34, 33, 33]
+  const raw = [govt, market, user].map((w) => (w / total) * 100)
+  const floored = raw.map(Math.floor)
+  let remainder = 100 - floored.reduce((a, b) => a + b, 0)
+  const order = raw
+    .map((v, i) => ({ i, frac: v - Math.floor(v) }))
+    .sort((a, b) => b.frac - a.frac)
+  const shares = [...floored]
+  for (let k = 0; k < remainder; k++) shares[order[k % 3].i] += 1
+  return shares as [number, number, number]
+}
+
 function FerrumMode() {
   const [category, setCategory] = useState(CATEGORIES[0])
   const [region, setRegion] = useState(REGIONS[0])
@@ -123,20 +146,33 @@ function FerrumMode() {
         </label>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-4">
-        <label className="text-xs text-relume-ink">
-          Govt weight: {govtWeight}%
-          <input type="range" min={0} max={100} value={govtWeight} onChange={(e) => setGovtWeight(Number(e.target.value))} className="mt-1 w-full" />
-        </label>
-        <label className="text-xs text-relume-ink">
-          Market weight: {marketWeight}%
-          <input type="range" min={0} max={100} value={marketWeight} onChange={(e) => setMarketWeight(Number(e.target.value))} className="mt-1 w-full" />
-        </label>
-        <label className="text-xs text-relume-ink">
-          User weight: {userWeight}%
-          <input type="range" min={0} max={100} value={userWeight} onChange={(e) => setUserWeight(Number(e.target.value))} className="mt-1 w-full" />
-        </label>
-      </div>
+      {(() => {
+        const [govtShare, marketShare, userShare] = trustShares(govtWeight, marketWeight, userWeight)
+        return (
+          <>
+            <div className="mt-4 flex items-center gap-2">
+              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-relume-muted">Trust share</span>
+              <span className="rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-amber-800">
+                Indicative
+              </span>
+            </div>
+            <div className="mt-2 grid grid-cols-3 gap-4">
+              <label className="text-xs text-relume-ink">
+                Govt trust share: {govtShare}%
+                <input type="range" min={0} max={100} value={govtWeight} onChange={(e) => setGovtWeight(Number(e.target.value))} className="mt-1 w-full" />
+              </label>
+              <label className="text-xs text-relume-ink">
+                Market trust share: {marketShare}%
+                <input type="range" min={0} max={100} value={marketWeight} onChange={(e) => setMarketWeight(Number(e.target.value))} className="mt-1 w-full" />
+              </label>
+              <label className="text-xs text-relume-ink">
+                User trust share: {userShare}%
+                <input type="range" min={0} max={100} value={userWeight} onChange={(e) => setUserWeight(Number(e.target.value))} className="mt-1 w-full" />
+              </label>
+            </div>
+          </>
+        )
+      })()}
 
       <button
         type="button"
