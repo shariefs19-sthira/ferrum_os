@@ -56,7 +56,9 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   self-report alone — this is the same discipline behind ATLAS's own
   §10 playbook lesson (trust-disk-over-labels). Maintains
   docs/RESUME_ATLAS.md every turn; after a limit event or API error,
-  reads that file FIRST before anything else.
+  reads that file FIRST before anything else. Amended 2026-09-03: reads
+  docs/APPROVAL_QUEUE.md at turn start and executes any APPROVED row
+  within its stated envelope.
 - RULE 22 (Self-contained prompts, no-stall queries): audits DONE claims
   the squash-safe way — tree check + landing-marker check, never raw
   branch ancestry (invalid once land.ps1 squashes). On an undecidable
