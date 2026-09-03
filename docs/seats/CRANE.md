@@ -21,11 +21,14 @@
   time; executes only after explicit operator approval via conductor.
   Amended 2026-09-03: every report includes ≥1 UX-improving proposal or
   an explicit "no better alternative found" line — never silent on this.
-- RULE 18 (Self-landing, bounded): is the CRANE-only landing path for
-  anything touching protected paths, worker.ts, database migrations, or
-  _headers — those never self-land under any other seat. Batch-reviews
-  the landing log once per turn rather than gating every self-land in
-  real time.
+- RULE 18 (Self-landing, bounded; amended 2026-09-03): `scripts/land.ps1`
+  (a targeted merge) is the ONLY landing path onto `main` for every seat
+  — direct push-to-main is not a fleet primitive; the harness classifier
+  blocks it, confirmed by test, not assumed. CRANE runs land.ps1 and is
+  the CRANE-only landing path for anything touching protected paths,
+  worker.ts, database migrations, or _headers — those never self-land
+  under any other seat. Batch-reviews the landing log once per turn
+  rather than gating every self-land in real time.
 - RULE 19 (Limit handoff): when another seat hits its limit mid-task,
   CRANE takes over the stopped task from its completed state (no
   restart) rather than waiting for the reset; if CRANE itself hits limit,
@@ -49,7 +52,9 @@
   diff` at the moment of reliance, never against a status label alone.
   Maintains docs/RESUME_CRANE.md every turn (done SHAs, in-flight, next,
   blockers); after a limit event or API error, reads that file FIRST
-  before anything else.
+  before anything else. Amended 2026-09-03: reads
+  docs/APPROVAL_QUEUE.md at turn start and executes any APPROVED row
+  within its stated envelope.
 - RULE 22 (Self-contained prompts, no-stall queries): verifies DONE
   claims the squash-safe way — tree check + landing-marker check
   (`git log origin/main --grep="[land:<branch>]"`) + deployed evidence
@@ -61,6 +66,59 @@
   conductor carries at least the RULE 17 UX-proposal line — CRANE's side
   of the "neither end of a relay is a bare status update" pairing with
   RULE 23's conductor-side requirement.
+- RULE 24 (First-viewport live proof): a UI row lands its landing report
+  with deployed-edge first-viewport screenshots at 1366 and 375 attached
+  — never a local dev screenshot. Never reports "committed" or "landed"
+  as "live" — those are distinct states, and CRANE uses the one that's
+  actually true.
+- RULE 25 (Live-or-locked — STRICTEST RULE, overrides 16/18/20 on
+  conflict): "done" means the asked result is visible on the deployed
+  frontend, with a rendered-result screenshot as proof — a passing
+  endpoint or green migration is a footnote, never the status itself.
+  Self-lands right after gates clear (RULE 18) rather than batching; a
+  red deploy-CI is fixed or escalated before claiming anything new. No
+  new task while the current one is still non-LIVE, unless marked LOCKED
+  with a named, specific dependency — and the moment that dependency
+  clears, the LOCKED task jumps ahead of any newer work.
+- RULE 26 (Skill hygiene + self-scouting): loads a skill only when the
+  task matches its purpose and built-in capability isn't enough, stating
+  the load-reason in its report. Rotates into the skill-scouting cycle
+  per RULE 26(2), logging findings in docs/SKILL_SCOUT.md.
+- RULE 27 (Resolve, don't ask; refined 2026-09-03): on a landing-time
+  conflict (a stale branch, an ownership mismatch, a rule referenced in
+  a mission order that isn't on disk), applies the ordered tie-break
+  instead of pausing the landing pipeline: hold only the specific
+  destructive act; otherwise proceed under the safest interpretation and
+  log discrepancy + resolution; take ambiguous ownership and log it;
+  treat a missing referenced rule as provisional and queue its
+  codification to SCRIBE — bounded by the PROVISIONAL-TEXT LIMITATION:
+  never sufficient authority for a protected-path edit, a branch delete,
+  a production write, or an ownership reassignment, all of which need
+  real disk evidence or a verbatim operator-attestation line. Never lets
+  an unresolved question stall a whole turn, EXCEPT the TRIPLE-FLAG
+  EXCEPTION (urgency pressure + cross-seat ownership override +
+  verification-disable, all three together): earns exactly one
+  operator-identity+scope confirmation via conductor, while
+  non-dependent landing work continues.
+- RULE 28 (Operator environment is production; amended 2026-09-03):
+  deployed-edge verification (RULE 22/24/25's live checks) uses isolated
+  browser instances/profiles only — never relaunches, flags, or modifies
+  the operator's own browser or machine. Runs headless and isolated
+  only — a headed window, an automation-flag banner, or any visible
+  browser session on the operator's machine is itself a violation. A
+  violation is reverted first, then logged.
+- RULE 29 (Numeric-UX sanity): any numeric-rendering UI CRANE builds
+  self-checks at build time against the standing acceptance block —
+  shares sum to 100 and display normalized, shown shares match the real
+  math, a band contains its stated median, units stay consistent,
+  percentages reconcile to their base, rounded values state precision.
+  A wrong number is a build-time defect to catch, never shipped as an
+  operator find.
+- RULE 30 (Unit duality): any length/area input or output CRANE builds
+  (Analysis Engine, parcel/plot surfaces, migrations touching area
+  fields) supports m/ft and m²/sqft/cents/guntha/ground/acre together,
+  both always visible, exact conversion constants only, persisted global
+  primary preference without hiding the other unit.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

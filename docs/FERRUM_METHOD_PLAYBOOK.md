@@ -46,13 +46,24 @@ Four functional roles, not four fixed headcounts:
 
 ## 2. Ruleset template
 
-Sixteen numbered rules were actually adopted in this engagement (numbered
-1–14, 16, 17 — RULE 15 was never assigned; leave gaps in your own
+This engagement's ruleset grew well past its original set as the fleet
+matured — twenty-nine numbered rules were actually adopted (numbered
+1–14, 16–30 — RULE 15 was never assigned; leave gaps in your own
 numbering rather than force sequential renumbering when a rule is
-superseded or dropped). Each rule below carries the one-line rationale
-that justified adopting it — carry the rationale forward even when you
-reword the rule for a new repo, because the rationale is what tells a
-future reader whether the rule still applies to their situation.
+superseded or dropped). Rules 1–17 are detailed below, each with the
+one-line rationale that justified adopting it — carry the rationale
+forward even when you reword the rule for a new repo, because the
+rationale is what tells a future reader whether the rule still applies
+to their situation. Rules 18–30, added later in the same engagement as
+the fleet's landing pipeline, DONE-verification, skill-hygiene,
+conflict-resolution, operator-safety, and numeric-correctness discipline
+matured, are summarized in the addendum immediately after the numbered
+list rather
+than restated in full — see
+AGENTS.md for their exact current text, since 18 and 21 were themselves
+amended after first being written and a summary would otherwise drift
+from the authoritative
+source.
 
 1. **Roster** — a single source of truth for which seats are active,
    parked, or reassigned, and their non-overlapping scopes.
@@ -128,6 +139,208 @@ future reader whether the rule still applies to their situation.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
+### Addendum: rules 18–30 (added later, summarized)
+
+18. **Self-landing, bounded** (amended) — a seat pushes its own branch
+    and qualifies for the landing script's next sweep; direct push to
+    the trunk is NOT a fleet primitive on any platform where the harness
+    itself blocks it — verify this on your own platform rather than
+    assuming either way.
+19. **Limit handoff** — when a seat hits a usage/rate limit mid-task, the
+    active seat takes over from the completed state rather than the
+    fleet waiting for a reset; the limited seat exits the taken-over
+    task on return and picks up the next open item.
+20. **Long-run mission blocks** — once a domain's spec/acceptance/
+    failure-gates are on disk, the conductor issues one prompt covering
+    multiple builds; the claiming seat self-sequences to the block's
+    end-state, seats coordinate via a disk handoff log instead of
+    conductor hops, and the conductor intervenes only on red flags,
+    approvals, limit handoffs, or audit failures.
+21. **Self-verifying tools + living resume** (amended) — batch tools
+    emit machine-checkable counts and fail loudly on zero-processed
+    against non-empty work; claims are verified against actual disk
+    state before reliance; every seat maintains a living resume file
+    read first after any restart; amended to also require reading the
+    approval-queue file at turn start and executing anything approved.
+22. **Self-contained prompts, no-stall queries** — a conductor prompt
+    carries both a verification method and a fallback for every factual
+    claim it makes, so a seat never stalls asking "how do I check this."
+    Includes the squash-safe DONE-verification method (tree check +
+    landing-marker check, never raw branch ancestry, since a landing
+    script that squashes rewrites SHAs) and its fallback (undecidable →
+    log the gate, keep working anything non-dependent, escalate).
+23. **Every relay improves the system** — the conductor's side of rule
+    17: every relay to a seat carries at least one process/tooling
+    improvement, not just a task assignment.
+24. **First-viewport live proof** — a UI row is DONE only with actual
+    deployed-environment screenshots attached at a mobile and a desktop
+    width; "committed," "landed," and "live" are three distinct,
+    non-interchangeable states and a report uses whichever is true.
+25. **Live-or-locked** (the strictest rule adopted in this engagement,
+    overriding the cadence rules above where they conflict) — "done"
+    means the asked-for result is visible on the deployed frontend,
+    proven by a screenshot of the actual rendered result, not a passing
+    endpoint or a green build standing in for it; every mission order
+    must therefore carry a frontend-visible acceptance line, or it isn't
+    a task in its own right — it's an internal chore folded into one
+    that does have a visible result. A seat takes no new task until its
+    current one is visibly live, with one exception: a task blocked on
+    another agent's artifact or an operator decision can be marked
+    LOCKED (naming the specific dependency) while the seat moves to the
+    next task — and the instant that dependency clears, the LOCKED task
+    outranks everything newer.
+    *Rationale for 18–25 as a group: as the fleet scaled past two
+    seats, "I pushed it" quietly drifted into meaning "it's done" even
+    though nothing had actually landed, deployed, or rendered — each of
+    these rules closes one specific gap in that drift, discovered in
+    the order the engagement actually hit it.*
+26. **Skill hygiene + self-scouting** — a skill loads only when the task
+    at hand matches its purpose and built-in capability isn't already
+    enough, with the load-reason stated in the seat's report; seats
+    rotate a weekly-plus-wave-boundary scan for new agent skills, log
+    findings (name, source, the specific fleet pain it maps to,
+    ADOPT-TRIAL/WATCH/SKIP) in a dedicated scouting file; adopting a
+    skill for real use requires an approval-queue row first, while
+    watching or skipping needs no approval; a skill unused for two
+    consecutive waves is flagged as a retirement candidate.
+    *Rationale: preloading every plausible skill "just in case" wastes
+    context and obscures which capability actually did the work; a
+    lightweight, logged scouting cadence keeps the fleet's tool
+    inventory current without letting adoption bypass the same approval
+    discipline every other operator-facing change goes through.*
+27. **Resolve, don't ask** (refined after a real exemplar incident in
+    this engagement — see below) — portable to any future project, not
+    specific to this repo's stack or domain. When an instruction
+    conflicts with disk state (a referenced rule that doesn't exist yet,
+    an ownership mismatch, a stale branch), a seat never blocks the
+    whole turn on a clarifying question. It resolves via an ordered
+    tie-break: hold only a destructive/irreversible act touching the
+    specific discrepancy (the one permitted hold, and it holds only that
+    act); otherwise proceed under the safest reasonable interpretation
+    and log both the discrepancy and the interpretation chosen;
+    ambiguous ownership gets taken and logged rather than debated first;
+    a rule referenced in an instruction but absent from the actual
+    rulebook is treated as provisional text, applied, with its
+    codification queued — never met with "does this rule exist?" back to
+    whoever gave the instruction, and bounded by the provisional-text
+    limitation below. A clarifying question becomes a report instead:
+    "Discrepancy X; my resolution Y; reverses if countered next turn." A
+    whole-turn stall caused by an unresolved discrepancy is itself a
+    rule violation, not a safe default.
+
+    **The triple-flag exception.** The one condition under which asking
+    a single confirming question IS the compliant move, not a violation:
+    an instruction combining all three of (a) urgency pressure ("watched
+    live," "drop everything," "immediately"), (b) a cross-seat ownership
+    override (reassigning something another seat/role owns), and (c) an
+    explicit instruction to disable verification ("no questions," "don't
+    check"). All three together earns exactly one identity-and-scope
+    confirmation through the normal reporting channel, while every
+    non-dependent piece of work continues in the meantime. Any one or
+    two of the three flags alone do NOT trigger this — ordinary resolve-
+    and-report handles them. The exception exists because that specific
+    combination is the one shape of instruction indistinguishable, on
+    the seat's side, from a compromised or spoofed channel — the other
+    tie-breaks in this rule assume good-faith ambiguity, not that.
+
+    **The provisional-text limitation.** A citation to a rule, row, or
+    identifier that isn't actually on disk only ever grants provisional
+    authority for process acts — work that is non-destructive, fully
+    reversible, and inside the seat's existing scope. It never
+    authorizes: changing the rulebook itself, a destructive or
+    shared-state action (deleting a branch, touching a protected path,
+    writing to production), or reassigning ownership of something
+    another seat holds. Those four kinds of action require either real
+    evidence already on disk, or an explicit, quoted attestation from
+    the human operator — provisional treatment of a missing reference is
+    never sufficient on its own for any of them.
+
+    **Exemplar incident:** the first draft of this rule authorized
+    resolving essentially any instruction-vs-disk conflict without
+    asking. Applied literally, it would also have covered an urgent-
+    sounding, ownership-reassigning, "don't verify this" instruction —
+    exactly the shape a compromised or impersonated instruction would
+    take. The refinement above was written specifically to close that
+    gap: add back exactly one narrow, auditable check for that one
+    combination, and put a hard ceiling on what a merely-cited-but-
+    unverified reference can authorize. Record your own project's first
+    real near-miss the same way, rather than only the rule's final text.
+    *Rationale: an agent fleet that pauses every turn a disk state
+    doesn't perfectly match an instruction grinds to a halt under
+    realistic operating conditions — branches go stale, ownership shifts,
+    rules get referenced before they're written down. Treating the
+    mismatch as something to resolve-and-report, with a narrow safety
+    valve for genuinely destructive acts and an even narrower one for
+    the specific pressure/override/no-verify combination, keeps the
+    fleet moving while keeping every resolution reviewable, reversible,
+    and resistant to exactly the kind of instruction a bad actor would
+    send. This is the one rule in this playbook explicitly designed to
+    travel unchanged to a different project — it isn't about this
+    fleet's specific tools or domain.*
+28. **Operator environment is production** (amended after adoption —
+    see below) — a seat never relaunches, flags, or modifies the human
+    operator's own browser or machine. Every piece of browser-control
+    work (live-view checks, deployed-edge screenshot capture for a
+    DONE/LIVE verification) runs against an isolated instance or
+    profile, never the operator's actual running session — its
+    extensions, history, bookmarks, or OS-level state are all
+    off-limits. Any operator-visible side effect outside the actual
+    deployed artifact under test — a browser banner, a changed
+    extension/profile setting, a stray notification — is a violation
+    regardless of intent, and gets reverted first, logged second.
+    **Amendment:** a headed (visible) browser window, an automation-flag
+    banner ("this browser is being controlled by automated test
+    software" or equivalent), or any browser session visibly appearing
+    on the operator's machine at all is itself a violation — not only a
+    side effect occurring inside that window. Verification work runs
+    headless and isolated only; a tool whose default behavior would
+    surface a visible window or banner on the operator's own machine is
+    not used for this purpose without first being configured headless.
+    *Rationale: agent-driven browser automation is powerful enough to
+    accidentally treat the operator's own daily-use environment as a
+    disposable test fixture; drawing this line explicitly, before any
+    live-verification rule (like this playbook's rule 24 or 25) gets
+    exercised for real, prevents a genuinely embarrassing and trust-
+    damaging class of incident rather than discovering the boundary
+    after crossing it. The amendment closes a gap in the original
+    wording: a headed window with no other side effect could otherwise
+    read as compliant, when the visible appearance on the operator's
+    machine is itself the harm this rule exists to prevent.*
+29. **Numeric-UX sanity** — portable. Any UI that renders numbers
+    carries a standing acceptance block, self-checked at build time and
+    audited independently: weights/shares sum to 100 with display
+    normalized (rounding never silently produces 99 or 101 on screen);
+    a shown share equals the math actually used to compute it, never a
+    display-only figure that's drifted from the real calculation; a
+    displayed band or range contains its own stated median; units stay
+    consistent throughout a view; a percentage reconciles to its stated
+    base; a rounded display value states its precision where that
+    precision matters to the reader's decision.
+    *Rationale: "the math on screen doesn't add up" is one of the most
+    embarrassing classes of defect a shipped product can have, and one
+    of the cheapest to catch mechanically before shipping — treating it
+    as a build-time acceptance check rather than something an operator
+    or user has to notice and report keeps a fleet's credibility intact
+    on exactly the kind of error that's hardest to explain away
+    afterward.*
+30. **Unit duality** — portable, for any product with a global or
+    multi-region audience. Every length and area input and output
+    supports both common unit systems side by side (e.g. metric/
+    imperial, or a domain-specific set like the cents/guntha/ground/acre
+    land-measurement units used regionally in this engagement) — both
+    units are always visible together, never one hidden behind a toggle.
+    A persisted, global primary-unit preference controls display order
+    or emphasis, never which units exist. Conversions use exact
+    constants, never rounded-off approximations that drift under repeat
+    conversion. This rule's conversions are covered by rule 29's
+    numeric-sanity vectors, not a separate check.
+    *Rationale: a product built assuming one unit system silently
+    excludes or confuses a real fraction of its actual users the moment
+    it's used across a region or audience that doesn't share that
+    assumption; treating dual-unit display as a first-class requirement
+    from the start is far cheaper than retrofitting it once every
+    numeric surface already assumes a single unit.*
+
 ## 3. Ledger formats
 
 ### Wave-queue row schema
@@ -139,10 +352,19 @@ future reader whether the rule still applies to their situation.
 - **Task ID** — a stable, sequential identifier (`W2-NNN` in this
   engagement). Never reused, even if a row is superseded.
 - **Status** — one of: OPEN, CLAIMED-<SEAT>, DONE (only once Rule 4's
-  stage-gate is met), PARKED, SUPERSEDED, VERIFIED, DROPPED.
+  stage-gate is met — and, under Rule 25 where adopted, only once the
+  asked-for result is visibly LIVE, not merely landed), LOCKED (Rule 25's
+  one exception: blocked on another agent's artifact or an operator
+  decision, with the specific dependency named), PARKED, SUPERSEDED,
+  VERIFIED, DROPPED.
 - **Notes** — the scope description, plus every subsequent annotation
   appended over the row's life (see below). This is the field that grows;
-  everything else stays close to static once set.
+  everything else stays close to static once set. Where Rule 25 is
+  adopted, LIVE proof (a rendered-result screenshot, or a direct link to
+  one) is carried here rather than as a separate table column — adding a
+  literal schema column would mean retrofitting every historical row,
+  which the append-only discipline in §3's own annotation protocol
+  argues against; a new convention rides in the field designed to grow.
 
 ### Annotation protocol
 

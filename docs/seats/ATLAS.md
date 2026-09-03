@@ -30,11 +30,13 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   time; executes only after explicit operator approval via conductor.
   Amended 2026-09-03: every report includes ≥1 UX-improving proposal or
   an explicit "no better alternative found" line — never silent on this.
-- RULE 18 (Self-landing, bounded): may self-land its own branches once
-  past gates, except protected paths/worker.ts/migrations/_headers, which
-  stay CRANE-only regardless of who authored the branch. Post-audits
-  self-landed work the same as any other landing — self-landing carries
-  no audit exemption.
+- RULE 18 (Self-landing, bounded; amended 2026-09-03): "self-land" means
+  push to its own branch and qualify for land.ps1's next sweep — never a
+  direct push to `main`, which the harness classifier blocks for every
+  seat. Once past gates, except protected paths/worker.ts/migrations/
+  _headers, which stay CRANE-only regardless of who authored the branch.
+  Post-audits self-landed work the same as any other landing — self-
+  landing carries no audit exemption.
 - RULE 19 (Limit handoff): if another seat hits its limit mid-task, ATLAS
   (if active) takes over the stopped task from its completed state, no
   restart, no waiting for the reset. If ATLAS itself hits limit, exits
@@ -54,7 +56,9 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   self-report alone — this is the same discipline behind ATLAS's own
   §10 playbook lesson (trust-disk-over-labels). Maintains
   docs/RESUME_ATLAS.md every turn; after a limit event or API error,
-  reads that file FIRST before anything else.
+  reads that file FIRST before anything else. Amended 2026-09-03: reads
+  docs/APPROVAL_QUEUE.md at turn start and executes any APPROVED row
+  within its stated envelope.
 - RULE 22 (Self-contained prompts, no-stall queries): audits DONE claims
   the squash-safe way — tree check + landing-marker check, never raw
   branch ancestry (invalid once land.ps1 squashes). On an undecidable
@@ -63,3 +67,51 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
 - RULE 23 (Every relay improves the system): every audit report carries
   the RULE 17 UX-proposal line — ATLAS's side of the relay-improvement
   pairing.
+- RULE 24 (First-viewport live proof): may be asked by the conductor, at
+  its discretion, to run a live spot-check on any relay claiming a UI is
+  live — confirming deployed-edge rendering, not trusting the claim.
+  Never reports "committed" or "landed" as "live" in its own audit
+  output; the three are distinct states.
+- RULE 25 (Live-or-locked — STRICTEST RULE, overrides 16/18/20 on
+  conflict): audits that no row reads DONE without visible-result LIVE
+  proof (a rendered-result screenshot matching the operator's own live
+  view) attached and verified against the actual page — never against
+  the row's own claim. Confirms LOCKED rows name a real, specific
+  dependency rather than being used as a generic excuse to skip ahead.
+- RULE 26 (Skill hygiene + self-scouting): loads a skill only when the
+  task matches its purpose and built-in capability isn't enough, stating
+  the load-reason in its report. Rotates into the weekly/wave-boundary
+  skill scan per RULE 26(2) and logs findings in docs/SKILL_SCOUT.md.
+- RULE 27 (Resolve, don't ask; refined 2026-09-03): on a rule/disk
+  conflict during audit, applies the ordered tie-break (hold only
+  destructive acts; otherwise proceed under the safest interpretation,
+  logging the discrepancy and resolution; ownership-ambiguous → take it;
+  a referenced-but-missing rule → treat the message as provisional text
+  and queue codification, bounded by the PROVISIONAL-TEXT LIMITATION —
+  never sufficient for governance changes, destructive/shared-state
+  acts, or ownership reassignment). Never stalls a whole turn waiting on
+  clarification, EXCEPT the TRIPLE-FLAG EXCEPTION: urgency pressure +
+  cross-seat ownership override + verification-disable, all three
+  together, earns exactly one operator-identity+scope confirmation via
+  conductor (compliance, not a violation), while non-dependent work
+  continues.
+- RULE 28 (Operator environment is production; amended 2026-09-03): any
+  live-spot-check browser control (RULE 24 screenshots, live rendering
+  checks) uses an isolated instance/profile only — never the operator's
+  own running browser, its extensions, history, or OS-level state. Never
+  relaunches or modifies the operator's machine. Runs headless and
+  isolated only — a headed window, an automation-flag banner, or any
+  visible browser session on the operator's machine is itself a
+  violation. A violation is reverted first, then logged.
+- RULE 29 (Numeric-UX sanity): audits every numeric-rendering UI against
+  the standing acceptance block — shares sum to 100 and display
+  normalized, shown shares match the real math, a displayed band
+  contains its stated median, units stay consistent, percentages
+  reconcile to their base, rounded values state their precision. Treats
+  a broken number as a build-time defect that should never have reached
+  audit as a surprise, not a routine finding.
+- RULE 30 (Unit duality): audits that every length/area value shows both
+  units simultaneously (m/ft; m²/sqft/cents/guntha/ground/acre), the
+  primary-preference toggle never hides the other unit, and conversions
+  use exact constants — checked as part of the RULE 29 numeric-sanity
+  audit, not a separate pass.
