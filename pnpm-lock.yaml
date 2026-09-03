@@ -31,6 +31,9 @@ importers:
       tesseract.js:
         specifier: 7.0.0
         version: 7.0.0
+      web-ifc:
+        specifier: ^0.0.77
+        version: 0.0.77
       zod:
         specifier: 4.5.4
         version: 4.5.4
@@ -3269,6 +3272,9 @@ packages:
 
   wasm-feature-detect@1.9.0:
     resolution: {integrity: sha512-zonE+xlIIYtxPy++L24ow0hAD8CICb4+FgPyROd3buyXIqsJvUEDkBgfCCoXOd1Hu3DUr0GOfnPIdcGV+YpNaA==}
+
+  web-ifc@0.0.77:
+    resolution: {integrity: sha512-VzQ0W/Iiqbidxn1ECUvz6qJ6p2sXBVNcOsUOBCETzy77psAH6yFLKQm74aXabkx3JH4OvFVHe8k1qS6+Z2zl1w==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -6828,6 +6834,8 @@ snapshots:
       xml-name-validator: 5.0.0
 
   wasm-feature-detect@1.9.0: {}
+
+  web-ifc@0.0.77: {}
 
   webidl-conversions@3.0.1: {}
 

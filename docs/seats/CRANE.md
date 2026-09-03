@@ -128,3 +128,56 @@ and W2-122, W2-125, W2-127, W2-130 (from RIVET) — see docs/WAVE_QUEUE.md.
 19+ `[AI: CRANE]`-tagged commits on `main` as of 2026-08-31 (`git log --all
 --oneline -i --grep="\[AI: CRANE\]"`), including W2-186/187/188 and
 W2-212/w2-215 lineage work.
+
+## Handoff: lib/ifc-export.ts — export API for MASON's S4 PLAN_GEN work
+
+`apps/web/lib/ifc-export.ts`, no UI/worker.ts wiring yet (explicitly out of
+scope for this landing).
+
+```ts
+export type MassingModel = {
+  plot_width_m: number
+  plot_depth_m: number
+  floors: number
+  floor_height_m?: number   // default 3
+  wall_thickness_m?: number // default 0.23
+  slab_thickness_m?: number // default 0.15
+}
+
+export function exportMassingToIfc(model: MassingModel): Uint8Array
+// Returns raw .ifc (STEP/SPFF text, IFC4 schema) file bytes — hand it
+// straight to a Blob/download, no further encoding needed.
+
+export type GeometryCounts = { walls: number; slabs: number; spaces: number; openings: number }
+export async function countIfcGeometry(bytes: Uint8Array): Promise<GeometryCounts>
+// Parses .ifc bytes back via web-ifc and counts element types — used by
+// the round-trip tests, also usable as a general validity check.
+```
+
+Per floor: 4 perimeter walls (rectangle from plot_width_m x plot_depth_m),
+1 slab, 1 space, 1 door-sized opening (via IfcRelVoidsElement — related,
+not boolean-subtracted). `floors` rounds to the nearest integer, clamped
+to >= 1.
+
+**Important gotcha for whoever wires this into UI/worker.ts next:**
+web-ifc 0.0.77's typed schema classes (IfcCartesianPoint,
+IfcWallStandardCase, etc. — documented in `ifc-schema.d.ts`) are **not
+runtime-constructable** in this package version — only `IfcAPI`, `Handle`,
+and the numeric `IFC*` type-ID constants actually exist at runtime
+(verified directly: `typeof WebIFC.IfcCartesianPoint` is `undefined`).
+This module writes plain STEP/SPFF text directly instead (the actual
+`.ifc` file format), using the `.d.ts`'s attribute order as reference
+(still correct per the IFC4 spec) — and reads back via the real
+`OpenModel`/`GetLineIDsWithType` API for the round-trip. Also: the
+package's `exports` map routes ESM `import` to a browser build that
+fetches its `.wasm` by URL (doesn't work under plain Node) — this module
+forces the `require` condition via `createRequire` to get the Node
+build. **Untested**: browser/Cloudflare Workers bundling of the WASM
+binary itself — this landing only proves the Node-side round-trip
+(vitest), not that `web-ifc.wasm` loads correctly once this is actually
+wired into a page or worker.ts route. Check that before shipping a UI.
+
+Mapping is deliberately coarse: no per-wall/per-room "draggable element"
+model exists anywhere in the repo yet (DesignStudio's TestFitCalculator
+only emits the plot_width_m/plot_depth_m/floors envelope) — this defines
+the minimal shape a richer massing model would need to fill in.
