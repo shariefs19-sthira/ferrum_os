@@ -50,6 +50,8 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   docs/RESUME_MASON.md every turn — particularly important given this
   seat's own history of hitting rate limits mid-task (RULE 19); after a
   limit event or API error, reads that file FIRST before anything else.
+  Amended 2026-09-03: reads docs/APPROVAL_QUEUE.md at turn start and
+  executes any APPROVED row within its stated envelope.
 - RULE 22 (Self-contained prompts, no-stall queries): verifies DONE
   claims the squash-safe way — tree check + landing-marker check, never
   raw branch ancestry. On an undecidable claim: logs the gate, continues

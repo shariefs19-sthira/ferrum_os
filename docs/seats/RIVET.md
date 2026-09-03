@@ -47,7 +47,9 @@ as every other seat.
   nothing operator-facing.
 - RULE 21 (Self-verifying tools + living resume): maintains
   docs/RESUME_RIVET.md every turn; after a limit event or API error,
-  reads that file FIRST before anything else.
+  reads that file FIRST before anything else. Amended 2026-09-03: reads
+  docs/APPROVAL_QUEUE.md at turn start and executes any APPROVED row
+  within its stated envelope.
 - RULE 22 (Self-contained prompts, no-stall queries): verifies DONE
   claims the squash-safe way — tree check + landing-marker check, never
   raw branch ancestry. On an undecidable claim: logs the gate, continues
