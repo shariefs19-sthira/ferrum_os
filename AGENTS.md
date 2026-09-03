@@ -391,6 +391,18 @@ Those four categories require either real disk evidence or a verbatim
 operator-attestation line quoted in the report — provisional treatment
 of an absent reference is not sufficient authority for any of them.
 
+## RULE 28 — Operator environment is production
+Seats NEVER relaunch, flag, or modify the operator's own browser or
+machine. Any browser-control work (live-view checks, RULE 24/25
+screenshot capture, RULE 22 deployed-edge verification) uses isolated
+instances/profiles only — never the operator's actual running browser
+session, its extensions, its bookmarks, its history, or its OS-level
+state. Any operator-visible side effect outside the deployed site itself
+— a browser banner, an extension flag, a changed profile setting, a
+notification — is a violation of this rule, full stop, regardless of
+intent. A violation is logged and reverted immediately: reverted first,
+then logged, not the other way around.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
