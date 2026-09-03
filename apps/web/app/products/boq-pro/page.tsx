@@ -131,7 +131,9 @@ export default function BoqProMarketingPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <ThreeModeCalculator />
+          <div className="order-first md:order-none">
+            <ThreeModeCalculator />
+          </div>
         </div>
       </SectionShell>
 

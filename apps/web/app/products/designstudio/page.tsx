@@ -102,7 +102,9 @@ export default function DesignStudioPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <TestFitCalculator />
+          <div className="order-first md:order-none">
+            <TestFitCalculator />
+          </div>
         </div>
       </SectionShell>
 

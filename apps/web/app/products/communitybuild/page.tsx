@@ -66,7 +66,9 @@ export default function CommunityBuildPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <CdeStatusMock />
+          <div className="order-first md:order-none">
+            <CdeStatusMock />
+          </div>
         </div>
       </SectionShell>
 

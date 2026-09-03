@@ -61,7 +61,9 @@ export default function InvestFlowPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <IrrNpvModeler />
+          <div className="order-first md:order-none">
+            <IrrNpvModeler />
+          </div>
         </div>
       </SectionShell>
 

@@ -120,7 +120,9 @@ export default function StructuraPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <IsCheckWidget />
+          <div className="order-first md:order-none">
+            <IsCheckWidget />
+          </div>
         </div>
       </SectionShell>
 

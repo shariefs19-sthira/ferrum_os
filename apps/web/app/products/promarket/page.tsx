@@ -95,7 +95,9 @@ export default function ProMarketPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <RateCompareCalculator />
+          <div className="order-first md:order-none">
+            <RateCompareCalculator />
+          </div>
         </div>
       </SectionShell>
 

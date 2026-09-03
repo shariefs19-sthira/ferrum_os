@@ -93,7 +93,9 @@ export default function LandIntelPage() {
               <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             </div>
           </div>
-          <UlpinMapExplorer />
+          <div className="order-first md:order-none">
+            <UlpinMapExplorer />
+          </div>
         </div>
       </SectionShell>
 

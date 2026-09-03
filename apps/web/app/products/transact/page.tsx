@@ -66,7 +66,9 @@ export default function TransactPage() {
               Stamp-duty and ask-band estimates to help you plan — informational only, not legal or financial advice.
             </p>
           </div>
-          <StampDutyEstimator />
+          <div className="order-first md:order-none">
+            <StampDutyEstimator />
+          </div>
         </div>
       </SectionShell>
 
