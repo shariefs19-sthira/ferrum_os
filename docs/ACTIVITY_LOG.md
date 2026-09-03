@@ -803,3 +803,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Every future SCRIBE (and other seat) report includes the RULE 17 UX-proposal line going forward; seats begin practicing RULE 19 handoff behavior on the next limit event.
 ---
+
+## 2026-09-03 10:00 - SCRIBE annotation bundle: W2-380 scale dimension, W2-372 ratification, new approval queue, MASON/RIVET §10 reminder logged
+**Action:** Notes only, no deletions. (1) Annotated W2-380 with the operator's scale dimension, verbatim: "scale-continuous from outskirts house to 10,000-unit towers/malls; sky is the limit" — flagging that no S1-S6 milestone design should assume a small-plot ceiling. (2) Annotated W2-372 with the conductor's ratification: APPROVED on the full five-point rubric table (all five points cleared); noted the failure gate stays hard — any single point failing ATLAS's disk-verified audit fails the row, not a partial pass. (3) Created a new "Approval Queue" section in docs/WAVE_QUEUE.md to track RULE 17 proposals pending decision, append-only like the main ledger: logged the Ctrl+K palette fuzzy row-ID search (attached to W2-366) as PENDING with an explicit silence=skip fallback, and the devDependencies typescript/@types/node addition as PENDING ATLAS approval. (4) Logged the reminder to collect MASON's and RIVET's playbook §10 lesson paragraphs after 1:09 and insert them via a follow-up row — no new content written to the playbook itself yet, since those paragraphs haven't been collected.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor decides the two pending approval-queue items (or lets the palette one lapse to skip); collect MASON/RIVET §10 paragraphs after 1:09.
+---
