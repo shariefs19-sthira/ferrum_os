@@ -21,11 +21,14 @@
   time; executes only after explicit operator approval via conductor.
   Amended 2026-09-03: every report includes ≥1 UX-improving proposal or
   an explicit "no better alternative found" line — never silent on this.
-- RULE 18 (Self-landing, bounded): is the CRANE-only landing path for
-  anything touching protected paths, worker.ts, database migrations, or
-  _headers — those never self-land under any other seat. Batch-reviews
-  the landing log once per turn rather than gating every self-land in
-  real time.
+- RULE 18 (Self-landing, bounded; amended 2026-09-03): `scripts/land.ps1`
+  (a targeted merge) is the ONLY landing path onto `main` for every seat
+  — direct push-to-main is not a fleet primitive; the harness classifier
+  blocks it, confirmed by test, not assumed. CRANE runs land.ps1 and is
+  the CRANE-only landing path for anything touching protected paths,
+  worker.ts, database migrations, or _headers — those never self-land
+  under any other seat. Batch-reviews the landing log once per turn
+  rather than gating every self-land in real time.
 - RULE 19 (Limit handoff): when another seat hits its limit mid-task,
   CRANE takes over the stopped task from its completed state (no
   restart) rather than waiting for the reset; if CRANE itself hits limit,
