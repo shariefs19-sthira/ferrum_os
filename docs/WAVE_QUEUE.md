@@ -351,6 +351,9 @@ landed, so W2-312 carries the real scope.
 | W2-385 | W2-380 | B2 | J08 | MASON | OPEN | | S5 PREFERENCE_LAYER — consent-gated preference capture (age band, optional self-ID ethnicity, style/layout choices); per-user store + an aggregate (anonymized) endpoint; privacy note linked inline; every field skippable, none mandatory (operator-approved condition). Sequencing: after S4. UNDO: git revert <sha> + drop preference-capture table via paired down-migration. |
 | W2-386 | W2-380 | B2 | J08 | CRANE (backend) + MASON (UI) | OPEN | | S6 FREEZE_SIGNOFF — freeze a design → generate a technical pack (reuses the existing Analysis Engine) → route to either the in-house sign-off queue or a ProMarket freelance-engineer request; status timeline visible to the user. Sequencing: after S5. UNDO: git revert <sha>. |
 
+## 2026-09-02 — SCRIBE BOQ Pro claim-truth (RULE 6 protected-path exception: explicit operator approval)
+| W2-360 | | B2 | J08 | ATLAS | OPEN | | BOQ_PAGE_TRUTH — apply the W2-345 claim-truth convention to BOQ Pro's remaining sections (featureItems, howItWorksSteps, pricingPlans, faqItems) — this page never got the W2-345 pass unlike the other 8. Verify each claim against the real backend before labeling: city-wise 3-city pricing and the three-mode calculator are real (confirmed implemented); auto take-off, brands, and GST computation are NOT real — label/rewrite accordingly. Notes/rewrites only, no new features. RULE 6 note: apps/web/app/boq-pro/** is a protected path — this row is queued only because the operator gave explicit approval to touch it for this specific task; ATLAS should still flag the touch when landing. UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
