@@ -58,6 +58,9 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   non-dependent work, escalates the specific claim rather than stalling.
 - RULE 23 (Every relay improves the system): every report carries the
   RULE 17 UX-proposal line.
+- RULE 24 (First-viewport live proof): a UI row's landing report carries
+  deployed-edge first-viewport screenshots at 1366 and 375 — never a
+  local dev screenshot. Never reports "committed" or "landed" as "live".
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

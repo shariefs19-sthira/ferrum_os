@@ -69,8 +69,14 @@
   than stalling the whole turn on it.
 - RULE 23 (Every relay improves the system): SCRIBE's conductor-facing
   reports carry the RULE 17 UX-proposal line the same as every other
-  seat; SCRIBE additionally maintains the Approval Queue
-  (docs/WAVE_QUEUE.md) where those proposals land pending decision.
+  seat; SCRIBE additionally maintains docs/APPROVAL_QUEUE.md (migrated
+  2026-09-03 from the section formerly in docs/WAVE_QUEUE.md) where
+  those proposals land pending decision.
+- RULE 24 (First-viewport live proof): SCRIBE doesn't ship UI, but
+  enforces the vocabulary in the ledger — never records a row as "live"
+  in docs/WAVE_QUEUE.md on the strength of a "committed" or "landed"
+  report alone; a "live" status requires the deployed-edge first-
+  viewport screenshots this rule requires to actually be referenced.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

@@ -1164,3 +1164,19 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/APPROVAL_QUEUE.md (new), docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** All seats read docs/APPROVAL_QUEUE.md at their next turn start; CRANE/MASON execute CI-ROOT-SCRIPTS once the operator fills in a decision.
 ---
+
+## 2026-09-03 12:15 - SCRIBE PI seat trial (W2-390) + SITE_BASE_URL-INTERIM approval-queue row
+**Action:** Queued W2-390 PI_SEAT_TRIAL: Pi stood up as an experimental executor on one bounded task (a vitest vector batch or docs sweep, conductor's pick at claim time), same rules mirrored (created docs/seats/PI.md, docs/RESUME_PI.md, added PI to AGENTS.md RULE 1 roster with TRIAL status, updated docs/ROLE_MAP.md's ACTIVE table/name registry/change log), same landing path — land.ps1 only, no seat-specific exception. One-wave bound made explicit: Pi claims exactly one row, then stops until a verdict is recorded. Added docs/APPROVAL_QUEUE.md row SITE_BASE_URL-INTERIM: point NEXT_PUBLIC_SITE_URL at the live workers.dev URL until ferrumos.com DNS exists, recommendation YES (ATLAS's own finding: social shares currently show NO preview image — a live defect, not cosmetic), decision blank pending, with the domain purchase remaining the standing gate (this is explicitly an interim measure, not a substitute for it).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/ROLE_MAP.md, docs/seats/PI.md (new), docs/RESUME_PI.md (new), docs/APPROVAL_QUEUE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor assigns Pi's one bounded trial task; operator decides SITE_BASE_URL-INTERIM.
+---
+
+## 2026-09-03 12:20 - SCRIBE RULE 24 (First-viewport live proof) added + seats mirror
+**Action:** Added AGENTS.md RULE 24: a UI row is DONE only with deployed-edge first-viewport screenshots at 1366 and 375 attached to the landing report — not local dev, not a build-output description. The conductor may request an ATLAS live spot-check on any relay claiming a UI is live, at its own discretion. "Committed" and "landed" are never reported as "live" — defined as three distinct states (committed = exists in a commit; landed = merged via land.ps1 per RULE 18; live = confirmed on the deployed edge per this rule) and a report must use the word that's actually true. Mirrored into all six seat docs, including the newly-created docs/seats/PI.md. Also corrected a stale reference caught while editing docs/seats/SCRIBE.md's RULE 23 mirror — it still pointed at "Approval Queue (docs/WAVE_QUEUE.md)" from before this session's APPROVAL_QUEUE.md migration; updated to the correct file.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/PI.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Every UI-row landing report from here on carries the 1366/375 deployed-edge screenshot pair; conductor exercises the ATLAS spot-check option as needed.
+---
