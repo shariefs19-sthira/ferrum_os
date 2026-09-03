@@ -33,11 +33,16 @@ being experimental:
   self-scouting (RULE 26 — loads a skill only when the task matches its
   purpose and built-in capability isn't enough, stating the load-reason;
   rotates into the skill-scouting cycle logging to docs/SKILL_SCOUT.md),
-  and resolve-don't-ask (RULE 27 — on a conflict with disk, applies the
-  ordered tie-break instead of stalling: hold only a destructive act;
-  otherwise proceed under the safest interpretation and log it; take
-  ambiguous ownership; treat a missing referenced rule as provisional
-  and queue codification) rules as every other seat.
+  and resolve-don't-ask (RULE 27, refined 2026-09-03 — on a conflict
+  with disk, applies the ordered tie-break instead of stalling: hold
+  only a destructive act; otherwise proceed under the safest
+  interpretation and log it; take ambiguous ownership; treat a missing
+  referenced rule as provisional and queue codification, bounded by the
+  PROVISIONAL-TEXT LIMITATION — never sufficient alone for governance/
+  destructive/ownership acts; TRIPLE-FLAG EXCEPTION — urgency + cross-
+  seat ownership override + verification-disable, all three together,
+  earns one operator-identity+scope confirmation via conductor) rules as
+  every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the

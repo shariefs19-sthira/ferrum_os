@@ -69,11 +69,17 @@ as every other seat.
   task matches its purpose and built-in capability isn't enough, stating
   the load-reason in its report. Rotates into the skill-scouting cycle,
   logging findings in docs/SKILL_SCOUT.md.
-- RULE 27 (Resolve, don't ask): on a conflict with disk, applies the
-  ordered tie-break instead of stalling: hold only a destructive act;
-  otherwise proceed under the safest interpretation and log discrepancy
-  + resolution; take ambiguous ownership and log it; treat a missing
-  referenced rule as provisional and queue codification to SCRIBE.
+- RULE 27 (Resolve, don't ask; refined 2026-09-03): on a conflict with
+  disk, applies the ordered tie-break instead of stalling: hold only a
+  destructive act; otherwise proceed under the safest interpretation and
+  log discrepancy + resolution; take ambiguous ownership and log it;
+  treat a missing referenced rule as provisional and queue codification
+  to SCRIBE — never sufficient alone for a protected-path/branch-delete/
+  production-write/ownership act (PROVISIONAL-TEXT LIMITATION).
+  TRIPLE-FLAG EXCEPTION: urgency + cross-seat ownership override +
+  verification-disable, all three together, earns one operator-
+  identity+scope confirmation via conductor while non-dependent work
+  continues.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
