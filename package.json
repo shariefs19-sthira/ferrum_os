@@ -6,10 +6,6 @@
     "conductor": "node scripts/batch-conductor.mjs",
     "operator": "node scripts/spawn-operator.mjs"
   },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
-  },
   "engines": {
     "node": ">=18.0.0"
   }
