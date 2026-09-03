@@ -185,7 +185,7 @@ $landed = @()
 $held = @()
 $reported = @()
 
-foreach ($branch in $remoteBranches) {
+:branchLoop foreach ($branch in $remoteBranches) {
     $shortName = $branch -replace '^origin/', ''
 
     if (Test-OnHold $shortName $holdGlobs) {
@@ -233,7 +233,19 @@ foreach ($branch in $remoteBranches) {
                 git checkout main
                 if ($LASTEXITCODE -ne 0) { throw "git checkout main failed after rebase report for $shortName" }
                 $reported += $shortName
-                continue 2
+                # `continue 2` here (skip the while, continue the foreach)
+                # is a real PowerShell gotcha: from a while nested inside a
+                # foreach, `continue <N>` does NOT count loop levels the way
+                # a first read suggests — it silently terminated the WHOLE
+                # foreach instead of continuing it (confirmed live
+                # 2026-09-03: every previous run of this script silently
+                # stopped processing the branch list at the very first
+                # docs-rebase-conflict it hit, with no error and no
+                # indication anything was wrong — likely truncating every
+                # sweep all session). A labeled loop + `continue branchLoop`
+                # is the only construct that reliably continues the correct
+                # loop level in PowerShell.
+                continue branchLoop
             }
 
             $previousEditor = $env:GIT_EDITOR
