@@ -46,13 +46,20 @@ Four functional roles, not four fixed headcounts:
 
 ## 2. Ruleset template
 
-Sixteen numbered rules were actually adopted in this engagement (numbered
-1–14, 16, 17 — RULE 15 was never assigned; leave gaps in your own
+This engagement's ruleset grew well past its original set as the fleet
+matured — twenty-four numbered rules were actually adopted (numbered
+1–14, 16–25 — RULE 15 was never assigned; leave gaps in your own
 numbering rather than force sequential renumbering when a rule is
-superseded or dropped). Each rule below carries the one-line rationale
-that justified adopting it — carry the rationale forward even when you
-reword the rule for a new repo, because the rationale is what tells a
-future reader whether the rule still applies to their situation.
+superseded or dropped). Rules 1–17 are detailed below, each with the
+one-line rationale that justified adopting it — carry the rationale
+forward even when you reword the rule for a new repo, because the
+rationale is what tells a future reader whether the rule still applies
+to their situation. Rules 18–25, added later in the same engagement as
+the fleet's landing pipeline and DONE-verification discipline matured,
+are summarized in the addendum immediately after the numbered list
+rather than restated in full — see AGENTS.md for their exact current
+text, since 18 and 21 were themselves amended after first being written
+and a summary would otherwise drift from the authoritative source.
 
 1. **Roster** — a single source of truth for which seats are active,
    parked, or reassigned, and their non-overlapping scopes.
@@ -128,6 +135,62 @@ future reader whether the rule still applies to their situation.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
+### Addendum: rules 18–25 (added later, summarized)
+
+18. **Self-landing, bounded** (amended) — a seat pushes its own branch
+    and qualifies for the landing script's next sweep; direct push to
+    the trunk is NOT a fleet primitive on any platform where the harness
+    itself blocks it — verify this on your own platform rather than
+    assuming either way.
+19. **Limit handoff** — when a seat hits a usage/rate limit mid-task, the
+    active seat takes over from the completed state rather than the
+    fleet waiting for a reset; the limited seat exits the taken-over
+    task on return and picks up the next open item.
+20. **Long-run mission blocks** — once a domain's spec/acceptance/
+    failure-gates are on disk, the conductor issues one prompt covering
+    multiple builds; the claiming seat self-sequences to the block's
+    end-state, seats coordinate via a disk handoff log instead of
+    conductor hops, and the conductor intervenes only on red flags,
+    approvals, limit handoffs, or audit failures.
+21. **Self-verifying tools + living resume** (amended) — batch tools
+    emit machine-checkable counts and fail loudly on zero-processed
+    against non-empty work; claims are verified against actual disk
+    state before reliance; every seat maintains a living resume file
+    read first after any restart; amended to also require reading the
+    approval-queue file at turn start and executing anything approved.
+22. **Self-contained prompts, no-stall queries** — a conductor prompt
+    carries both a verification method and a fallback for every factual
+    claim it makes, so a seat never stalls asking "how do I check this."
+    Includes the squash-safe DONE-verification method (tree check +
+    landing-marker check, never raw branch ancestry, since a landing
+    script that squashes rewrites SHAs) and its fallback (undecidable →
+    log the gate, keep working anything non-dependent, escalate).
+23. **Every relay improves the system** — the conductor's side of rule
+    17: every relay to a seat carries at least one process/tooling
+    improvement, not just a task assignment.
+24. **First-viewport live proof** — a UI row is DONE only with actual
+    deployed-environment screenshots attached at a mobile and a desktop
+    width; "committed," "landed," and "live" are three distinct,
+    non-interchangeable states and a report uses whichever is true.
+25. **Live-or-locked** (the strictest rule adopted in this engagement,
+    overriding the cadence rules above where they conflict) — "done"
+    means the asked-for result is visible on the deployed frontend,
+    proven by a screenshot of the actual rendered result, not a passing
+    endpoint or a green build standing in for it; every mission order
+    must therefore carry a frontend-visible acceptance line, or it isn't
+    a task in its own right — it's an internal chore folded into one
+    that does have a visible result. A seat takes no new task until its
+    current one is visibly live, with one exception: a task blocked on
+    another agent's artifact or an operator decision can be marked
+    LOCKED (naming the specific dependency) while the seat moves to the
+    next task — and the instant that dependency clears, the LOCKED task
+    outranks everything newer.
+    *Rationale for 18–25 as a group: as the fleet scaled past two
+    seats, "I pushed it" quietly drifted into meaning "it's done" even
+    though nothing had actually landed, deployed, or rendered — each of
+    these rules closes one specific gap in that drift, discovered in
+    the order the engagement actually hit it.*
+
 ## 3. Ledger formats
 
 ### Wave-queue row schema
@@ -139,10 +202,19 @@ future reader whether the rule still applies to their situation.
 - **Task ID** — a stable, sequential identifier (`W2-NNN` in this
   engagement). Never reused, even if a row is superseded.
 - **Status** — one of: OPEN, CLAIMED-<SEAT>, DONE (only once Rule 4's
-  stage-gate is met), PARKED, SUPERSEDED, VERIFIED, DROPPED.
+  stage-gate is met — and, under Rule 25 where adopted, only once the
+  asked-for result is visibly LIVE, not merely landed), LOCKED (Rule 25's
+  one exception: blocked on another agent's artifact or an operator
+  decision, with the specific dependency named), PARKED, SUPERSEDED,
+  VERIFIED, DROPPED.
 - **Notes** — the scope description, plus every subsequent annotation
   appended over the row's life (see below). This is the field that grows;
-  everything else stays close to static once set.
+  everything else stays close to static once set. Where Rule 25 is
+  adopted, LIVE proof (a rendered-result screenshot, or a direct link to
+  one) is carried here rather than as a separate table column — adding a
+  literal schema column would mean retrofitting every historical row,
+  which the append-only discipline in §3's own annotation protocol
+  argues against; a new convention rides in the field designed to grow.
 
 ### Annotation protocol
 

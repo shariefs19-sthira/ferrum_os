@@ -60,6 +60,11 @@ as every other seat.
   mobile app-shell) lands its report with deployed-edge first-viewport
   screenshots at 1366 and 375. Never reports "committed" or "landed" as
   "live".
+- RULE 25 (Live-or-locked — STRICTEST RULE, overrides 16/18/20 on
+  conflict): done means the asked result is visible on the deployed
+  frontend, proven by a rendered-result screenshot. Self-lands
+  immediately after gates clear. No new task while the current one isn't
+  LIVE, unless marked LOCKED with a named dependency.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
