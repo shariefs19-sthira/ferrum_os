@@ -6,9 +6,9 @@
 
 ## Scope
 - Sole seat permitted to commit rule changes to AGENTS.md.
-- Maintains docs/ROLE_MAP.md, docs/WAVE_QUEUE.md, docs/seats/*,
-  docs/HANDOFFS.md, docs/RESUME_<SEAT>.md templates (each seat populates
-  its own after creation).
+- Maintains docs/ROLE_MAP.md, docs/WAVE_QUEUE.md, docs/APPROVAL_QUEUE.md,
+  docs/seats/*, docs/HANDOFFS.md, docs/RESUME_<SEAT>.md templates (each
+  seat populates its own after creation).
 - Appends to docs/ACTIVITY_LOG.md; never rewrites prior entries
   (append-only, RULE 12).
 - Applies RULE 2 (NAME-LOCK): executes only prompts explicitly addressed
@@ -54,7 +54,10 @@
   maintains the docs/RESUME_<SEAT>.md templates; maintains its own
   docs/RESUME_SCRIBE.md every turn. After a limit event or API error,
   reads that file FIRST before anything else, and never reconstructs
-  fleet state from chat memory when the file disagrees with it.
+  fleet state from chat memory when the file disagrees with it. Amended
+  2026-09-03: reads docs/APPROVAL_QUEUE.md at turn start and executes
+  any APPROVED row within its stated envelope — for SCRIBE this means
+  applying an approved docs/ledger change, not code.
 - RULE 22 (Self-contained prompts, no-stall queries): before writing any
   DONE/LANDED status into the ledger, verifies via the squash-safe
   method — tree check (`git ls-tree`/`git show origin/main:<path>`) plus

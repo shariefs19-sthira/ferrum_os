@@ -52,7 +52,9 @@
   diff` at the moment of reliance, never against a status label alone.
   Maintains docs/RESUME_CRANE.md every turn (done SHAs, in-flight, next,
   blockers); after a limit event or API error, reads that file FIRST
-  before anything else.
+  before anything else. Amended 2026-09-03: reads
+  docs/APPROVAL_QUEUE.md at turn start and executes any APPROVED row
+  within its stated envelope.
 - RULE 22 (Self-contained prompts, no-stall queries): verifies DONE
   claims the squash-safe way — tree check + landing-marker check
   (`git log origin/main --grep="[land:<branch>]"`) + deployed evidence
