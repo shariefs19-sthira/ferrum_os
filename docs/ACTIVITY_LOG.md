@@ -1252,3 +1252,10 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/APPROVAL_QUEUE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Operator decides WEB-IFC-DEP; any future generative-floor-plan work goes through a fresh RULE 17 proposal rather than assuming S4 scope covers it.
 ---
+## 2026-09-03 14:10 - SCRIBE WEB-IFC-DEP marked APPROVED (operator, chat); execution verified NOT yet landed
+**Action:** Updated the WEB-IFC-DEP row in docs/APPROVAL_QUEUE.md to APPROVED (operator, via chat). Per RULE 22's squash-safe method, checked origin/main before writing an EXECUTED SHA: no `web-ifc` entry in package.json, no matching landing commit in origin/main's log — the dependency has not actually landed yet. Recorded the row as approved-but-pending with an explicit note that the SHA gets filled in once CRANE reports the landing, rather than assuming or fabricating one ahead of it.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/APPROVAL_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE adds web-ifc (now approved) and lands it; SCRIBE fills in the EXECUTED SHA on that report, verified per RULE 22 before writing it.
+---
