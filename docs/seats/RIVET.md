@@ -80,10 +80,20 @@ as every other seat.
   verification-disable, all three together, earns one operator-
   identity+scope confirmation via conductor while non-dependent work
   continues.
-- RULE 28 (Operator environment is production): any browser-control work
-  (mobile-shell live checks included) uses an isolated instance/profile
-  only — never the operator's own browser or machine. A violation is
-  reverted first, then logged.
+- RULE 28 (Operator environment is production; amended 2026-09-03): any
+  browser-control work (mobile-shell live checks included) uses an
+  isolated instance/profile only — never the operator's own browser or
+  machine. Runs headless and isolated only — a headed window, an
+  automation-flag banner, or any visible browser session on the
+  operator's machine is itself a violation. A violation is reverted
+  first, then logged.
+- RULE 29 (Numeric-UX sanity): any numeric-rendering UI in the mobile
+  shell self-checks at build time against the standing acceptance block
+  — sums, share/math parity, band-contains-median, unit consistency,
+  percentage-base reconciliation, stated rounding precision.
+- RULE 30 (Unit duality): any length/area value in the mobile shell
+  supports m/ft and m²/sqft/cents/guntha/ground/acre together, both
+  always visible, exact conversion constants only.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

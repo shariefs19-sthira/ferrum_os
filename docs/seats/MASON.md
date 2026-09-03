@@ -83,10 +83,21 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   EXCEPTION: urgency + cross-seat ownership override + verification-
   disable, all three together, earns one operator-identity+scope
   confirmation via conductor while non-dependent work continues.
-- RULE 28 (Operator environment is production): any live/deployed-edge
-  browser verification uses an isolated instance/profile only — never
-  the operator's own browser or machine. A violation is reverted first,
-  then logged.
+- RULE 28 (Operator environment is production; amended 2026-09-03): any
+  live/deployed-edge browser verification uses an isolated
+  instance/profile only — never the operator's own browser or machine.
+  Runs headless and isolated only — a headed window, an automation-flag
+  banner, or any visible browser session on the operator's machine is
+  itself a violation. A violation is reverted first, then logged.
+- RULE 29 (Numeric-UX sanity): any numeric-rendering UI MASON builds
+  self-checks at build time against the standing acceptance block —
+  shares sum to 100 and display normalized, shown shares match the real
+  math, a band contains its stated median, units stay consistent,
+  percentages reconcile to their base, rounded values state precision.
+- RULE 30 (Unit duality): any length/area input or output MASON builds
+  (DesignStudio S1 parcel areas included) supports m/ft and m²/sqft/
+  cents/guntha/ground/acre together, both always visible, exact
+  conversion constants only.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

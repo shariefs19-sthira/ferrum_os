@@ -1220,3 +1220,35 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/PI.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Any seat doing browser-control verification work confirms it's using an isolated instance/profile before running RULE 24/25 checks.
 ---
+
+## 2026-09-03 13:30 - SCRIBE RULE 29 (Numeric-UX sanity) added, mirrored, playbooked
+**Action:** Added AGENTS.md RULE 29: any UI rendering numbers carries a standing acceptance block, self-checked at build time and audited by ATLAS — weights/shares sum to 100 with display normalized; shown shares equal the real math, not a drifted display-only figure; a displayed band contains its stated median; units stay consistent (₹/m², kWh, %); percentages reconcile to their stated base; rounded display values state their precision. "Basic math is wrong" is explicitly a build-time duty to catch, never an acceptable operator find. Mirrored into all six seat docs, each scoped to that seat's own numeric-UI work or (for SCRIBE) the ledger-level enforcement of stating the acceptance block on every relevant row. Updated docs/FERRUM_METHOD_PLAYBOOK.md: rule count corrected to 28, addendum range extended to 18-29, RULE 29 given its own rationale.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/PI.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Every future numeric-rendering UI row states its RULE 29 acceptance block explicitly; ATLAS audits against it.
+---
+
+## 2026-09-03 13:40 - SCRIBE RULE 30 (Unit duality) added + W2-380/W2-372 annotated + mirror + playbook
+**Action:** Added AGENTS.md RULE 30: every length/area input and output on every product supports m/ft (length) and m²/sqft/cents/guntha/ground/acre (area) together, both units always visible, persisted global primary preference (display order only, never hides a unit), exact conversion constants only, with RULE 29's numeric-sanity vectors extended to cover unit conversions rather than a separate check. Annotated W2-380 (STUDIO_ENGINE parent) noting the requirement applies retroactively to S1's already-landed parcel areas (W2-381) as a gap to close, not just S2-S6 going forward; annotated W2-372 (UI_UX_MODERNIZATION) noting the sweep's scope includes verifying dual-unit display on every length/area figure it touches. Mirrored into all six seat docs. Updated docs/FERRUM_METHOD_PLAYBOOK.md: rule count corrected to 29, addendum range extended to 18-30, RULE 30 given its own rationale.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/PI.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE closes the S1 (W2-381) dual-unit gap; MASON/CRANE build dual-unit support into S2-S6 and the W2-372 sweep from the start.
+---
+
+## 2026-09-03 13:50 - SCRIBE RULE 28 amended: headed windows/automation banners are violations, headless-only verification
+**Action:** Amended AGENTS.md RULE 28 explicitly: a headed (visible) browser window, an automation-flag banner, or any browser session visibly appearing on the operator's machine at all is itself a violation — not only a side effect occurring inside that window. Seat verification runs headless and isolated only; a tool whose default behavior would surface a visible window/banner on the operator's machine isn't used for this purpose without a headless/isolated configuration first. Closes a gap in the original wording, where a headed window with no other visible side effect could otherwise have read as technically compliant. Mirrored into all six seat docs and the playbook's RULE 28 summary, with the playbook version explaining the amendment's own rationale for future adopters.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/PI.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Any seat's browser-control tooling is confirmed headless/isolated before its next verification run.
+---
+
+## 2026-09-03 14:00 - SCRIBE web-ifc approval-queue row + W2-380 S4 PLAN_GEN scope/HouseGAN++ note
+**Action:** Added a WEB-IFC-DEP row to docs/APPROVAL_QUEUE.md: proposed new dependency `web-ifc` for open BIM (IFC format) export interop from the DesignStudio/Analysis Engine surfaces, recommendation YES, decision blank pending, noted as a new-dependency addition (CRANE-only to add per RULE 1) once approved. Annotated W2-384 (S4 STUDIO_3D, under the W2-380 parent) with a PLAN_GEN scope clarification: S4 covers the configurator itself (styling, structural drag, HUD), not automated floor-plan generation; HouseGAN++-style generative layout is logged as an experimental-later candidate requiring its own RULE 17 proposal and Approval Queue row, not something that gets folded into S4 by default.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/APPROVAL_QUEUE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Operator decides WEB-IFC-DEP; any future generative-floor-plan work goes through a fresh RULE 17 proposal rather than assuming S4 scope covers it.
+---

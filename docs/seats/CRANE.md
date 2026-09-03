@@ -100,11 +100,25 @@
   verification-disable, all three together): earns exactly one
   operator-identity+scope confirmation via conductor, while
   non-dependent landing work continues.
-- RULE 28 (Operator environment is production): deployed-edge
-  verification (RULE 22/24/25's live checks) uses isolated browser
-  instances/profiles only — never relaunches, flags, or modifies the
-  operator's own browser or machine. A violation is reverted first, then
-  logged.
+- RULE 28 (Operator environment is production; amended 2026-09-03):
+  deployed-edge verification (RULE 22/24/25's live checks) uses isolated
+  browser instances/profiles only — never relaunches, flags, or modifies
+  the operator's own browser or machine. Runs headless and isolated
+  only — a headed window, an automation-flag banner, or any visible
+  browser session on the operator's machine is itself a violation. A
+  violation is reverted first, then logged.
+- RULE 29 (Numeric-UX sanity): any numeric-rendering UI CRANE builds
+  self-checks at build time against the standing acceptance block —
+  shares sum to 100 and display normalized, shown shares match the real
+  math, a band contains its stated median, units stay consistent,
+  percentages reconcile to their base, rounded values state precision.
+  A wrong number is a build-time defect to catch, never shipped as an
+  operator find.
+- RULE 30 (Unit duality): any length/area input or output CRANE builds
+  (Analysis Engine, parcel/plot surfaces, migrations touching area
+  fields) supports m/ft and m²/sqft/cents/guntha/ground/acre together,
+  both always visible, exact conversion constants only, persisted global
+  primary preference without hiding the other unit.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

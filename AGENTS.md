@@ -391,7 +391,7 @@ Those four categories require either real disk evidence or a verbatim
 operator-attestation line quoted in the report — provisional treatment
 of an absent reference is not sufficient authority for any of them.
 
-## RULE 28 — Operator environment is production
+## RULE 28 — Operator environment is production (amended 2026-09-03)
 Seats NEVER relaunch, flag, or modify the operator's own browser or
 machine. Any browser-control work (live-view checks, RULE 24/25
 screenshot capture, RULE 22 deployed-edge verification) uses isolated
@@ -402,6 +402,50 @@ state. Any operator-visible side effect outside the deployed site itself
 notification — is a violation of this rule, full stop, regardless of
 intent. A violation is logged and reverted immediately: reverted first,
 then logged, not the other way around.
+
+Amendment, explicit: a headed (visible) browser window, an automation-
+flag banner ("Chrome is being controlled by automated test software" or
+equivalent), or any browser session visibly appearing on the operator's
+machine at all is itself a violation — not just a side effect inside
+that window. Seat verification runs headless and isolated only; if a
+tool's default behavior would surface a visible window or banner on the
+operator's own machine, that tool is not used for this purpose without
+a headless/isolated configuration first.
+
+## RULE 29 — Numeric-UX sanity (portable)
+Any UI that renders numbers carries a standing acceptance block,
+self-checked at build time and audited by ATLAS:
+
+- Weights/shares sum to 100 and display normalized (rounding doesn't
+  silently produce 99 or 101 on screen).
+- Shown shares equal the math actually used to compute them — no
+  display-only figure that diverges from the real calculation behind it.
+- A displayed band/range contains its own stated median.
+- Units are consistent throughout (₹/m², kWh, %, etc.) — no silent unit
+  mismatch between a value and its label, or between two values compared
+  side by side.
+- Percentages reconcile to their stated base (a percentage of what, and
+  does that base actually match the number it's computed from).
+- A rounded display value states its precision (a shown "12.3%" doesn't
+  hide a "12.34567%" without saying so, where precision matters to the
+  reader's decision).
+
+"Basic math is wrong" is a build-time duty to catch, never an acceptable
+operator find — if a number on screen doesn't add up, that's a defect
+this rule exists to have caught before it shipped, not a bug report to
+wait for.
+
+## RULE 30 — Unit duality (portable)
+Every length/area input and output on every product supports both unit
+systems: length in m and ft; area in m², sqft, cents, guntha, ground, and
+acre. Both units are always visible together — never a single unit with
+the other only available behind a toggle or a tooltip. A persisted
+global primary-unit preference decides which unit displays first/larger,
+but never removes the other from view. Conversions use exact constants
+only — no rounded-off approximations that drift across repeated
+conversions. RULE 29's numeric-UX sanity vectors cover unit conversions
+explicitly: a converted value is still subject to RULE 29's precision-
+stated and reconciles-to-base requirements.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum

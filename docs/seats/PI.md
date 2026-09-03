@@ -41,11 +41,20 @@ being experimental:
   PROVISIONAL-TEXT LIMITATION — never sufficient alone for governance/
   destructive/ownership acts; TRIPLE-FLAG EXCEPTION — urgency + cross-
   seat ownership override + verification-disable, all three together,
-  earns one operator-identity+scope confirmation via conductor), and
-  operator-environment-is-production (RULE 28 — any browser-control work
-  uses an isolated instance/profile only, never the operator's own
-  browser/machine; a violation is reverted first, then logged) rules as
-  every other seat.
+  earns one operator-identity+scope confirmation via conductor),
+  operator-environment-is-production (RULE 28, amended 2026-09-03 — any
+  browser-control work uses an isolated instance/profile only, never the
+  operator's own browser/machine, and runs headless and isolated only: a
+  headed window, an automation-flag banner, or any visible browser
+  session on the operator's machine is itself a violation; a violation
+  is reverted first, then logged), and
+  numeric-ux-sanity (RULE 29 — any numeric-rendering UI self-checks at
+  build time: sums to 100, shown-vs-real-math parity, band-contains-
+  median, unit consistency, percentage-base reconciliation, stated
+  rounding precision), and unit-duality (RULE 30 — any length/area
+  input/output supports m/ft and m²/sqft/cents/guntha/ground/acre
+  together, both always visible, exact conversion constants only) rules
+  as every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the
