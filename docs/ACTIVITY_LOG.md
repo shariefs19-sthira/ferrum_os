@@ -771,3 +771,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** MASON claims W2-375 immediately, ahead of W2-363/W2-366/W2-372/W2-373.
 ---
+
+## 2026-09-03 09:00 - SCRIBE STUDIO_ENGINE queued (W2-380 parent + W2-381..386 milestones S1-S6)
+**Action:** Queued the DesignStudio engine rebuild as one parent row (W2-380) plus six milestone child rows (W2-381..386, each carrying W2-380 in the Parent column) using the ledger's existing Parent field rather than inventing a new structure. Parent row records the two operator approvals verbatim — three.js approved as a single new dependency for S4 (CRANE-only to add per RULE 1), and S5's demographic/preference capture approved as consent-gated/never-mandatory — plus the binding honesty condition: all sample FAR/DCR/neighbour data stays labeled INDICATIVE until real per-city/per-parcel sources land, on every milestone, no exceptions. Milestones: S1 PARCEL_INTEL (CRANE) and S2 STRUCTURAL_LIVE (CRANE) both sequenced after CRANE's M5 milestone; S3 STYLE_LIBRARY (MASON) after W2-373; S4 STUDIO_3D (MASON) after W2-372 gets conductor sign-off; S5 PREFERENCE_LAYER (MASON) after S4; S6 FREEZE_SIGNOFF (CRANE backend + MASON UI) after S5. Noted ATLAS audits each milestone, and that "RIVET docs now" (first in the operator's sequencing list) refers to RIVET's existing queued work, not a new row — no content was given for a new RIVET task, so none was fabricated.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims S1/S2 after M5; MASON claims S3 after W2-373; ATLAS audits each milestone as it lands.
+---
