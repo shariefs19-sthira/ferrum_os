@@ -307,6 +307,9 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-02 — SCRIBE brand mark (Fe·26)
 | W2-368 | | B2 | J08 | CRANE | OPEN | | BRAND_MARK_26 — reassigned MASON → CRANE (MASON dark). Tile: tricolor bands #FF9933/#FFFFFF/#138808; navy #000080 24-spoke chakra in the white band; "Fe" bold navy centered; "26" white on green as the cell footer. Wordmark unchanged. Applies to header + footer on all routes; favicon.svg replaced; OG image + manifest icons updated. Footer bottom-right line, verbatim: "Fe·26 — India-first construction & investment platform. Launch 2026." UNDO: git revert <sha>. |
 
+## 2026-09-03 — SCRIBE UI/UX modernization (RULE 17 sign-off gate)
+| W2-372 | | B2 | J08 | MASON | OPEN | | UI_UX_MODERNIZATION — sequenced after W2-354 (RESPONSIVE_SWEEP) and og:image work. RULE 17 note: this is a design-directive row — the conductor must sign off on the modernization direction/scope BEFORE the sweep starts; MASON does not begin execution on approval-pending scope, per RULE 17 (propose freely, execute on approval). UNDO: git revert <sha>. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|

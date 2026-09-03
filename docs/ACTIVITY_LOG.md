@@ -739,3 +739,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims W2-368. RIVET/MASON seat docs need the RULE 16/17 mirror once the rename branch (W2-356) and this branch reconcile.
 ---
+
+## 2026-09-03 08:00 - SCRIBE W2-372 UI_UX_MODERNIZATION (RULE 17 sign-off gate)
+**Action:** Queued W2-372 UI_UX_MODERNIZATION, assigned MASON, sequenced after W2-354 (RESPONSIVE_SWEEP) and the og:image work. Encoded the operator's RULE 17 note directly on the row: this is a design-directive task, so the conductor must sign off on the modernization direction/scope before the sweep starts — MASON does not begin execution on approval-pending scope, per RULE 17 (propose freely, execute on approval).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor sign-off required before MASON begins W2-372.
+---
