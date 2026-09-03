@@ -120,3 +120,9 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   logs an OPEN-FOR-OPERATOR line and moves to the next audit rather than
   waiting. A destructive finding still holds only itself, never the rest
   of the audit queue.
+- RULE 33 (Gap-filler seat): FERRITE (second Claude account, TRIAL
+  status) activates only when both CRANE and MASON are simultaneously
+  at limit, works a disjoint envelope, lands via land.ps1 only, and
+  stays non-destructive during trial — parts (1)-(4) are in force; part
+  (5) (pace metric + sunset) is NOT YET DEFINED, see AGENTS.md RULE
+  33(5).

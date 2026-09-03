@@ -125,6 +125,12 @@
   and CRANE proceeds to the next queued task immediately. Destructive
   acts still hold only themselves, never the rest of the queue. Keeps
   at least 3 sequenced tasks queued so a "next" always exists.
+- RULE 33 (Gap-filler seat): FERRITE (second Claude account, TRIAL
+  status) activates only when both CRANE and MASON are simultaneously
+  at limit — never displaces or competes with CRANE while CRANE is
+  available. Disjoint envelope, land.ps1-only landing, non-destructive
+  during trial (parts 1-4 in force; part 5, pace metric + sunset, is
+  NOT YET DEFINED — see AGENTS.md RULE 33(5)).
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

@@ -47,18 +47,18 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty numbered rules were actually adopted (numbered
-1–14, 16–31 — RULE 15 was never assigned; leave gaps in your own
-numbering rather than force sequential renumbering when a rule is
-superseded or dropped). Rules 1–17 are detailed below, each with the
-one-line rationale that justified adopting it — carry the rationale
+matured — thirty-one numbered rules were actually adopted (numbered
+1–14, 16–31, 33 — RULE 15 and RULE 32 were never assigned; leave gaps
+in your own numbering rather than force sequential renumbering when a
+rule is superseded or dropped). Rules 1–17 are detailed below, each with
+the one-line rationale that justified adopting it — carry the rationale
 forward even when you reword the rule for a new repo, because the
 rationale is what tells a future reader whether the rule still applies
-to their situation. Rules 18–31, added later in the same engagement as
-the fleet's landing pipeline, DONE-verification, skill-hygiene,
-conflict-resolution, operator-safety, and numeric-correctness discipline
-matured, are summarized in the addendum immediately after the numbered
-list rather
+to their situation. Rules 18–31 and 33, added later in the same
+engagement as the fleet's landing pipeline, DONE-verification,
+skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
+and gap-filler-seat discipline matured, are summarized in the addendum
+immediately after the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -139,7 +139,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31 (added later, summarized)
+### Addendum: rules 18–31, 33 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -361,6 +361,33 @@ source.
     unchanged destructive-act safety valve and the OPEN-FOR-OPERATOR
     trail mean nothing risky happens unsupervised and nothing gets lost
     for the operator to review at the start of the next session.*
+33. **Gap-filler seat** (protocol partial — see below) — portable to any
+    fleet running two or more primary executors. A gap-filler seat
+    activates only when every primary executor is simultaneously at
+    limit — it never displaces or competes with a primary that's
+    actually available. Once active it works a disjoint file/path
+    envelope, never overlapping a primary's current scope; lands
+    exclusively through the fleet's normal landing path, with no
+    seat-specific shortcut for being a gap-filler; and stays
+    non-destructive for the length of its trial — no protected paths,
+    no schema/infra changes, no exception to any other seat's bounds.
+    **Known gap:** this engagement's adoption of the rule referenced a
+    pace-metric and sunset provision ("as above") that was never
+    actually supplied in any message the docs seat received, checked
+    twice. Rather than inventing numbers or a formula, the docs seat
+    left that fifth part explicitly marked NOT YET DEFINED and logged
+    the gap in the seat's own doc and the fleet ledger. Treat this as
+    the template for handling any adopted rule whose text partially
+    fails to arrive: land the parts you actually have, mark the missing
+    part as a named TODO rather than filling it in, and never let an
+    incomplete rule block adopting the parts that are real.
+    *Rationale: as a fleet's primary executors approach capacity limits
+    more often, an idle-until-needed extra seat recovers throughput
+    without adding a standing competitor for work a primary would
+    otherwise claim — but only if its activation condition, scope, and
+    landing discipline are as strict as any other seat's, and only if
+    a fleet's docs discipline holds even when an instruction adopting a
+    new rule arrives incomplete.*
 
 ## 3. Ledger formats
 

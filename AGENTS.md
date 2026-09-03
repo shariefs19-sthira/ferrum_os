@@ -14,7 +14,11 @@ W2-347 is explicitly carved out to CRANE — a specific reassignment
 overrides the roster range), RIVET (Codex CLI, second parallel executor,
 activated 2026-09-02, exclusive to `apps/mobile/**` and `docs/**` — owns
 W2-356+), PI (experimental executor, TRIAL status 2026-09-03 — one-wave
-bounded trial on W2-390; standing status pending the trial's verdict).
+bounded trial on W2-390; standing status pending the trial's verdict),
+FERRITE (second Claude account, gap-filler executor, TRIAL status
+2026-09-03 — activates only when both CRANE and MASON are simultaneously
+at limit, per RULE 33; pace-metric/sunset criteria not yet defined, see
+RULE 33(5)).
 Note: MASON and RIVET are seat *names* being reused here for two new
 Codex CLI instances — distinct from the original Qoder-backed MASON and
 RIVET that were parked 2026-08-31. The old Qoder work under those names
@@ -484,6 +488,29 @@ avoid, not something to discover at 2am.
 8 hours) is treated as a build window by default — this doesn't require
 a fresh declaration each night, only a queue deep enough to fill it per
 (4).
+
+## RULE 33 — Gap-filler seat (protocol partial — see (5) below)
+(1) **Activation gate.** A gap-filler seat (e.g. FERRITE) activates ONLY
+when both primary executors (CRANE and MASON) are simultaneously at
+limit — it never displaces or competes with a primary that's actually
+available.
+(2) **Disjoint envelope.** It works its own file/path scope, not
+overlapping either primary's.
+(3) **Landing path.** Lands exclusively via `scripts/land.ps1` — no
+seat-specific landing exception, same as every other seat under RULE 18.
+(4) **Non-destructive during trial.** No protected paths, no
+`worker.ts`, no migrations, no `_headers` — same bounds as RULE 18/20's
+self-landing envelope, for the entire trial period.
+(5) **Pace metric + sunset — NOT YET DEFINED.** The instruction adopting
+this rule referred to "pace metric + sunset as above," but no actual
+pace-metric definition or sunset criteria were present in any message
+SCRIBE received — checked across two separate messages, and the
+referenced content never arrived either time. Per RULE 5's
+no-fabrication clause and RULE 27's PROVISIONAL-TEXT LIMITATION (a
+citation to content not actually on disk/in-context grants no authority
+to invent the missing substance), SCRIBE has not invented specific
+numbers or a sunset formula here. Parts (1)-(4) are in force now; (5) is
+a TODO pending the operator supplying the actual text.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
