@@ -1275,3 +1275,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/APPROVAL_QUEUE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** None pending on either item; W2-387's MASON/S4 provenance-strip half remains open and tracked separately.
 ---
+
+## 2026-09-03 14:50 - SCRIBE created docs/WORKSPACE_SPEC.md v1, queued W2-400/401, folded S4 into W2-401 (two content gaps flagged, not fabricated)
+**Action:** Created docs/WORKSPACE_SPEC.md v1 with the object model exactly as the operator supplied it (WorkspaceProject 1—N Artifact, the 8 artifact types, the two API routes). Built §2's per-product artifact-type table from real disk rows: PARCEL→W2-381 (DONE, ea32064d), MASSING→W2-380/383, PLAN→W2-384/W2-387's landed ifc-export.ts, STRUCTURAL→W2-382, BOQ→W2-311/312, INVEST→W2-254 (flagged: IRR/NPV computation itself has no landed row yet), MARKET→W2-251, PROCURE→W2-253 — each with its RULE 29/30 provenance and units obligations spelled out. Flagged, not fabricated: the operator's later message referenced "the sketch mapping above (5 regions → components)," but no sketch content was actually visible in this session — §3 is an explicit placeholder rather than invented regions. Queued W2-400 WORKSPACE_BACKEND (CRANE) implementing the object model + API surface. Queued W2-401 WORKSPACE_SHELL (MASON), marked UNBLOCKED per the operator's statement that the sketch arrived — noted on the row that SCRIBE itself hasn't seen or verified that sketch content, so MASON should confirm it's actually available before starting rather than assume WORKSPACE_SPEC.md §3 has it (it doesn't). Folded W2-384 (S4 STUDIO_3D) into W2-401 as its 3D-space component per the operator's direction — W2-384 marked FOLDED INTO W2-401, no longer a standalone milestone, its three.js configurator scope now lives inside W2-401.
+**By:** SCRIBE (Claude Code)
+**Status:** ⚠️ Partial — spec and rows complete; WORKSPACE_SPEC.md §3 (sketch mapping) remains an unfilled placeholder pending real content
+**Files Modified:** docs/WORKSPACE_SPEC.md (new), docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE claims W2-400; MASON confirms the actual sketch is available (not just SCRIBE's spec doc) before claiming W2-401; whoever has the sketch supplies it so §3 can be completed for real.
+---
