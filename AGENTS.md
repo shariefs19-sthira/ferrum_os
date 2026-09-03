@@ -126,7 +126,33 @@ in one line; idle = defect.
 ## RULE 17 — Propose freely, execute on approval
 Any seat may surface operator-facing improvements as proposals
 (target/rationale/cost); nothing proposed executes without explicit
-operator approval via conductor.
+operator approval via conductor. Amended 2026-09-03: every seat report
+must include at least one UX-improving proposal (web search and general
+project experience are both encouraged as sources) OR an explicit "no
+better alternative found" line — silence on this point is not an
+acceptable report. A proposal must genuinely improve user experience,
+not just add scope, and — as with any RULE 17 proposal — never executes
+without explicit operator approval via conductor.
+
+## RULE 18 — Self-landing, bounded
+Seats self-land their own branches once past their gates (RULE 4 stage-
+gate, RULE 5 quality, RULE 14 security-merge guard where applicable) —
+they don't wait on CRANE to land routine work. This is mechanically
+blocked (not just policy) for anything touching protected paths (RULE 6),
+`worker.ts`, database migrations, or `_headers` — those stay CRANE-only
+to land, no exceptions. CRANE batch-reviews the landing log once per
+turn rather than gating every individual self-land in real time. ATLAS
+post-audits self-landed work same as everything else — self-landing
+does not exempt a row from audit.
+
+## RULE 19 — Limit handoff
+When a seat hits its usage/rate limit mid-task, the active (non-limited)
+seat takes over the stopped task regardless of role — resuming from the
+completed state, not restarting it. No seat sits waiting for another
+seat's limit to reset. When the originally-limited seat becomes available
+again, it EXITS the task that was taken over (it does not reclaim
+mid-stream work someone else is now carrying) and picks up the next open
+row instead.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum

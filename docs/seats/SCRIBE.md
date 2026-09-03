@@ -23,6 +23,17 @@
 - RULE 17 (Propose freely, execute on approval): may surface
   operator-facing improvement proposals (target/rationale/cost) at any
   time; executes only after explicit operator approval via conductor.
+  Amended 2026-09-03: every report includes ≥1 UX-improving proposal or
+  an explicit "no better alternative found" line — never silent on this.
+- RULE 18 (Self-landing, bounded): docs branches self-land once past
+  gates via the rebase-then-squash path (W2-357); anything that would
+  touch protected paths/worker.ts/migrations/_headers is out of SCRIBE's
+  scope entirely (RULE 7/RULE 6), not just CRANE-only to land.
+- RULE 19 (Limit handoff): applies within SCRIBE's own scope (docs/queue
+  work) — if SCRIBE hits limit mid-task, whichever seat is active picks
+  up the stopped docs/queue task from its completed state rather than
+  waiting; on return SCRIBE exits the taken-over task and picks up the
+  next open SCRIBE-scoped item instead of reclaiming it.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

@@ -313,13 +313,13 @@ cd C:\Users\user\ferrum_os
 * 2026-08-29: [INCIDENT-1] / **Action:** docs trio committed from w1-17/cline-perf (silent-checkout landmine) / **By:** [AI: Copilot] / **Status:** ?? corrected via Qoder cherry-pick to main / **Files Modified:** IDEAS_LOG.md, AI_HANDOFF.md, METHOD_LOG.md / **Next Steps:** always git branch --show-current before commit (AGENTS.md).
 * 2026-08-29: [W1-17] / **Action:** Completed DISPATCH-v2/CLINE tasks: fixed build in worktree, updated PR #8 body with "HUMAN-APPROVED + [task:W1-17]", performed W1-11 BOQ recon (SHAs: 5348c6f, 4671590, 2c2f584), claimed W1-20 / **By:** [AI: Cline-GLM-Flash] / **Status:** Complete / **Files Modified:** docs/AGENT_BOARD.md, docs/ACTIVITY_LOG.md / **Next Steps:** await conductor verification.
 ## 20:55 - [W2-01] / **Action:** LandIntel fallback state now renders a visible amber FALLBACK chip and Retry action on the page; built green / **By:** [AI: Copilot] / **Status:** ? Complete / **Files Modified:** apps/web/app/landintel/page.tsx / **Next Steps:** await Qoder review and landing.
-# #   2 1 : 1 4   -   L I V E - S M O K E   /   / l a n d i n t e l   / s t r u c t u r a   / b o q - p r o   / p r o m a r k e t   / i n v e s t f l o w   / c o m m u n i t y b u i l d   / b u i l d o s   - >   a l l   2 0 0 ;   C S P - R P   h e a d e r s   p r e s e n t 
- 
- # #   2 1 : 2 0   -   L I V E - S M O K E   /   / l a n d i n t e l   / s t r u c t u r a   / b o q - p r o   / p r o m a r k e t   / i n v e s t f l o w   / c o m m u n i t y b u i l d   / b u i l d o s   - >   a l l   2 0 0 ;   s e c u r i t y   h e a d e r s   p r e s e n t 
- 
- # #   2 3 : 2 9   -   L I V E - S M O K E   p o s t   W 2 - 1 0 / W 2 - 1 2   -   a l l   2 0 0   +   h e a d e r s 
- 
- 
+## 21:14 - LIVE-SMOKE / /landintel /structura /boq-pro /promarket /investflow /communitybuild /buildos -> all 200; CSP-RP headers present
+
+## 21:20 - LIVE-SMOKE / /landintel /structura /boq-pro /promarket /investflow /communitybuild /buildos -> all 200; security headers present
+
+## 23:29 - LIVE-SMOKE post W2-10/W2-12 - all 200 + headers
+
+
 ## 11:30 - LANDER squashed 6 branches to main: W2-48 (copilot headerfix), W2-49 (cline demo layouts), W2-50 (cline buildos+designstudio), W2-51 (cline sitemap articles), W2-52 (copilot FAQ), W2-53 (copilot HomeFeatureHighlights; conflict resolved by integrating <HomeFeatureHighlights/> before the FAQ section). All builds green, smoke 200/200. / By: Cline-GLM-Flash (LANDER).
 ## 11:55 - LANDER cherry-pick loop: cherry-picked 4 ready commits from w2-54/cline-layouts13 (W2-52 FAQ, W2-53 highlights+closeout, W2-54 case-study subpage layouts) plus origin/w2-49/cline-layouts11 (W2-49 demo+get-started metadata) and origin/w2-51/cline-sitemap2 (W2-51 6 article routes) onto main. Skipped W2-31 (stale sweep branch — would clobber landed layouts) and W2-48 (header→layout refactor — conflicted with W2-40 MobileMenu). Build green 35/35, smoke 32/33 (only /resources 404 — pre-existing, no page.tsx; out of scope). W2-61 added to WAVE_QUEUE (already done via W2-54 cherry-pick). / By: Cline-GLM-Flash (LANDER).
 ## 12:10 - Cline-B executor seat session: W2-50 + W2-54 claimed and executed. W2-50 added buildos+designstudio layout.tsx (commit 7f7b601, branch w2-50/cline-layouts12, pushed). W2-54 added 3 case-study subpage layout.tsx (commit b14fab1, branch w2-54/cline-layouts13, pushed; later cherry-picked to main as 2ca6c04 by LANDER). Both builds green: 35 static pages, /buildos 1.02 kB, /designstudio 249 B, /resources/case-studies/* 252-253 B. No protected paths touched (boq-pro/**, package.json, pnpm-lock.yaml, next.config.js, middleware.ts — all untouched). WAVE-2 column now DONE through W2-61; remaining OPEN tasks are J15/J16 (policy+research) — out of static-content scope. Reporting Cline-B seat empty for static-content lane; await human dispatch or queue refresh. / By: [AI: Cline-GLM-Flash] (Cline-B executor).
@@ -1117,4 +1117,26 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** None pending; W2-360 still awaits landing/DONE status.
+## 2026-09-03 09:30 - SCRIBE RULE 18 (Self-landing, bounded) added + seats mirror
+**Action:** Added AGENTS.md RULE 18 — SELF_LANDING_BOUNDED: seats self-land their own branches once past their gates (RULE 4 stage-gate, RULE 5 quality, RULE 14 security-merge guard where applicable), rather than waiting on CRANE for routine landings. Mechanically bounded (not just policy-bounded): protected paths, worker.ts, database migrations, and _headers stay CRANE-only to land, no exceptions. CRANE batch-reviews the landing log once per turn instead of gating every self-land in real time. ATLAS post-audits self-landed work identically to any other landing — self-landing is not an audit exemption. Mirrored into docs/seats/CRANE.md, ATLAS.md, MASON.md, RIVET.md, and SCRIBE.md.
+**By:** SCRIBE (Claude Code)
+**Status:** Complete
+**Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Seats begin self-landing routine work; CRANE adds a once-per-turn batch log review to its own workflow.
+---
+
+## 2026-09-03 09:45 - SCRIBE RULE 19 (Limit handoff) added + RULE 17 amended (mandatory UX proposal line) + seats mirror
+**Action:** Added AGENTS.md RULE 19 — LIMIT_HANDOFF: when a seat hits its usage/rate limit mid-task, the active seat takes over the stopped task regardless of role, resuming from the completed state rather than restarting — no seat waits for another's reset. On return, the originally-limited seat exits the taken-over task and picks up the next open row instead. Amended RULE 17: every seat report must include at least one UX-improving proposal or an explicit "no better alternative found" line. Mirrored both into docs/seats/CRANE.md, ATLAS.md, MASON.md, RIVET.md, and SCRIBE.md.
+**By:** SCRIBE (Claude Code)
+**Status:** Complete
+**Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Every future report includes the RULE 17 UX-proposal line; seats begin practicing RULE 19 handoff behavior on the next limit event.
+---
+
+## 2026-09-03 10:00 - SCRIBE annotation bundle: W2-380 scale dimension, W2-372 ratification, new approval queue, MASON/RIVET section-10 reminder logged
+**Action:** Notes only, no deletions. (1) Annotated W2-380 with the operator's scale dimension, verbatim: "scale-continuous from outskirts house to 10,000-unit towers/malls; sky is the limit" — no S1-S6 milestone design should assume a small-plot ceiling. (2) Annotated W2-372 with the conductor's ratification: APPROVED on the full five-point rubric table. (3) Created a new "Approval Queue" section in docs/WAVE_QUEUE.md tracking RULE 17 proposals pending decision: the Ctrl+K palette fuzzy row-ID search (PENDING, silence=skip) and the devDependencies typescript/@types/node addition (PENDING ATLAS approval). (4) Logged the reminder to collect MASON's and RIVET's playbook section-10 lesson paragraphs after 1:09.
+**By:** SCRIBE (Claude Code)
+**Status:** Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor decides the two pending approval-queue items; collect MASON/RIVET section-10 paragraphs after 1:09.
 ---

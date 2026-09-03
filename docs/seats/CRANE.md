@@ -19,6 +19,18 @@
 - RULE 17 (Propose freely, execute on approval): may surface
   operator-facing improvement proposals (target/rationale/cost) at any
   time; executes only after explicit operator approval via conductor.
+  Amended 2026-09-03: every report includes ≥1 UX-improving proposal or
+  an explicit "no better alternative found" line — never silent on this.
+- RULE 18 (Self-landing, bounded): is the CRANE-only landing path for
+  anything touching protected paths, worker.ts, database migrations, or
+  _headers — those never self-land under any other seat. Batch-reviews
+  the landing log once per turn rather than gating every self-land in
+  real time.
+- RULE 19 (Limit handoff): when another seat hits its limit mid-task,
+  CRANE takes over the stopped task from its completed state (no
+  restart) rather than waiting for the reset; if CRANE itself hits limit,
+  whichever seat is active takes over CRANE's stopped task the same way.
+  On return, exits any taken-over task and picks up the next open row.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)
