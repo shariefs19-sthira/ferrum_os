@@ -22,8 +22,8 @@ export default function CdeStatusMock() {
 
   return (
     <div className="rounded-lg border border-relume-border bg-relume-surface p-6">
-      <div className="flex gap-3">
-        <input value={projectId} onChange={(e) => setProjectId(e.target.value)} className="flex-1 rounded-lg border border-relume-border px-3 py-2 text-sm" />
+      <div className="flex min-w-0 flex-col gap-3 sm:flex-row">
+        <input value={projectId} onChange={(e) => setProjectId(e.target.value)} className="min-w-0 w-full flex-1 rounded-lg border border-relume-border px-3 py-2 text-sm" />
         <button
           type="button"
           onClick={handleFetch}

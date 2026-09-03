@@ -26,6 +26,8 @@ Checks cover HTTP status, viewport metadata, horizontal document overflow, clipp
 | Partner application CTAs | 36px high | 44px minimum height |
 | LandIntel Leaflet zoom controls | 30 × 30px | 44 × 44px |
 | LandIntel map marker target | 25 × 41px | 44 × 44px minimum target with artwork contained |
+| LandIntel hero at 768px | ULPIN/map tool forced its grid track 13px beyond the viewport | Hero and tool grid tracks can shrink without clipping |
+| CommunityBuild status control at 375/390px | Project ID and action shared one unshrinkable row, overflowing by 17px/2px | Controls stack below 640px and retain a 44px target floor |
 | Resource tool card links | Link text box appeared undersized to the first detector | Confirmed whole-card pseudo-element hit area; detector now recognises the existing expanded target |
 | ProcureHub roadmap page | No calculator control | Not a responsive violation; W2-354 does not create product functionality |
 
@@ -38,3 +40,9 @@ The report retains 14 console messages: `/account` and `/project-workspace` requ
 - `after.json` — all 609 route/viewport records and measurements.
 - `screenshots/` — every required viewport on home plus all ten product first viewports at 375px (17 PNGs).
 - `scripts/w2-354-responsive-audit.mjs` — reproducible audit harness.
+
+The harness declares reduced-data mode in its isolated headless context so
+Next.js does not prefetch every linked route during a route-by-route crawl.
+This preserves rendered-page behavior while preventing prefetch traffic from
+exhausting local test-server sockets; console evidence therefore contains only
+the Worker-owned API diagnostics described above.

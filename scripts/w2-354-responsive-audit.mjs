@@ -12,7 +12,7 @@ const appRoot = path.resolve('apps', 'web', 'app')
 const evidenceRoot = path.resolve('docs', 'evidence', 'w2-354')
 const screenshotRoot = path.join(evidenceRoot, 'screenshots')
 
-const viewports = [
+const allViewports = [
   { name: 'phone-375', width: 375, height: 667 },
   { name: 'phone-390', width: 390, height: 844 },
   { name: 'tablet-768', width: 768, height: 1024 },
@@ -21,6 +21,8 @@ const viewports = [
   { name: 'desktop-1920', width: 1920, height: 1080 },
   { name: 'phone-landscape-844', width: 844, height: 390 },
 ]
+const viewportFilter = process.env.FERRUM_AUDIT_VIEWPORT
+const viewports = viewportFilter ? allViewports.filter(({ name }) => name === viewportFilter) : allViewports
 
 async function collectPageFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true })
@@ -45,7 +47,9 @@ function routeSlug(route) {
 }
 
 const pageFiles = await collectPageFiles(appRoot)
-const routes = [...new Set(pageFiles.map(routeFromPage).filter(Boolean))].sort()
+const allRoutes = [...new Set(pageFiles.map(routeFromPage).filter(Boolean))].sort()
+const routeFilter = process.env.FERRUM_AUDIT_ROUTE
+const routes = routeFilter ? allRoutes.filter((route) => route === routeFilter) : allRoutes
 const productRoutes = routes.filter((route) => /^\/products\/[^/]+$/.test(route))
 
 await mkdir(screenshotRoot, { recursive: true })
@@ -56,6 +60,10 @@ let completed = 0
 
 for (const viewport of viewports) {
   const context = await browser.newContext({ viewport })
+  await context.addInitScript(() => {
+    const connection = { saveData: true, effectiveType: '4g' }
+    Object.defineProperty(navigator, 'connection', { configurable: true, value: connection })
+  })
   const page = await context.newPage()
 
   for (const route of routes) {
@@ -132,6 +140,12 @@ for (const viewport of viewports) {
         const footer = document.querySelector('footer')
         const footerRect = footer?.getBoundingClientRect()
         const footerClipped = Boolean(footerRect && (footerRect.left < -1 || footerRect.right > width + 1))
+        const overflowElements = [...document.querySelectorAll('body *')]
+          .filter(visible)
+          .map((element) => ({ element, rect: element.getBoundingClientRect() }))
+          .filter(({ rect }) => rect.left < -1 || rect.right > width + 1)
+          .slice(0, 12)
+          .map(({ element, rect }) => ({ target: descriptor(element), className: element.className?.toString().slice(0, 120) ?? '', left: Math.round(rect.left), right: Math.round(rect.right) }))
 
         return {
           viewportMeta: document.querySelector('meta[name="viewport"]')?.getAttribute('content') ?? null,
@@ -142,6 +156,7 @@ for (const viewport of viewports) {
           tableFailures,
           tinyText,
           footerClipped,
+          overflowElements,
           mainControls: [...document.querySelectorAll('main button,main input:not([type="hidden"]),main select,main textarea')].filter(visible).length,
         }
       }, { width: viewport.width, mobile: viewport.width < 1024 })
