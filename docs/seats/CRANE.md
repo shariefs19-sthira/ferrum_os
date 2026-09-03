@@ -41,6 +41,15 @@
   nothing operator-facing — anything operator-facing goes to the
   Approval Queue instead. Escalates to the conductor only for a red
   flag, an approval decision, a RULE 19 handoff, or an audit failure.
+- RULE 21 (Self-verifying tools + living resume): `land.ps1` and any
+  other batch tool CRANE runs must emit processed/landed/skipped/held
+  counts and a nonzero exit or explicit HELD state when work remains —
+  zero-processed "success" against a non-empty queue is a FAILURE.
+  Verifies "reviewed"/"trusted"/"landed" claims against `git log`/`git
+  diff` at the moment of reliance, never against a status label alone.
+  Maintains docs/RESUME_CRANE.md every turn (done SHAs, in-flight, next,
+  blockers); after a limit event or API error, reads that file FIRST
+  before anything else.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

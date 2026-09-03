@@ -37,6 +37,12 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   protected paths/worker.ts/migrations/_headers, add no new deps, make
   no production writes, and change nothing operator-facing — anything
   operator-facing goes to the Approval Queue instead.
+- RULE 21 (Self-verifying tools + living resume): any batch script this
+  seat runs (sweeps, audits) emits processed/skipped/held counts and a
+  nonzero exit or explicit HELD state when work remains. Maintains
+  docs/RESUME_CODEX.md every turn — particularly important given this
+  seat's own history of hitting rate limits mid-task (RULE 19); after a
+  limit event or API error, reads that file FIRST before anything else.
 
 ## Assigned slice (2026-09-02)
 W2-346..350 and W2-353+, per operator directive. W2-346, 348, and 350

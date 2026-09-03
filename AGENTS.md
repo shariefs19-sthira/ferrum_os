@@ -162,6 +162,29 @@ of being executed inline.
 a RULE 19 limit handoff, or an audit failure. Everything else inside an
 active mission block runs without conductor mediation.
 
+## RULE 21 — Self-verifying tools + living resume
+(1) **Batch tools self-verify.** Any script processing a batch
+(`land.ps1`, sweeps, audits, migrations) emits machine-checkable counts
+— processed / landed / skipped / held — and returns a nonzero exit code
+or an explicit HELD state whenever work remains. "Success" reported with
+zero items processed against a non-empty queue is a FAILURE, never a
+pass. Expected-vs-actual counts are logged on every run, not just on
+failure.
+(2) **Disk-verify before reliance.** A claim that something was
+"reviewed," "trusted," or "landed" is verified against the actual tree
+(`git log`/`git diff`, not a status label) at the moment another seat
+relies on it — this generalizes the W2-357 never-merged scar (a branch
+believed landed that wasn't) from code review to tooling and process
+claims generally. Trusting a label instead of checking disk is exactly
+the failure mode this rule closes.
+(3) **Living resume.** Every seat maintains `docs/RESUME_<SEAT>.md`,
+updated every turn: done work (with SHAs), in-flight work, next planned
+step, and current blockers. After any limit event or API error, the new
+session reads its own resume file FIRST, before anything else, and
+resumes exactly from what it says — no reconstructing state from chat
+memory. Conductor resume prompts are generated from the resume file's
+actual content, never from a remembered summary of the conversation.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

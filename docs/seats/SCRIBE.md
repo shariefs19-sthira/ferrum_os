@@ -7,7 +7,8 @@
 ## Scope
 - Sole seat permitted to commit rule changes to AGENTS.md.
 - Maintains docs/ROLE_MAP.md, docs/WAVE_QUEUE.md, docs/seats/*,
-  docs/HANDOFFS.md.
+  docs/HANDOFFS.md, docs/RESUME_<SEAT>.md templates (each seat populates
+  its own after creation).
 - Appends to docs/ACTIVITY_LOG.md; never rewrites prior entries
   (append-only, RULE 12).
 - Applies RULE 2 (NAME-LOCK): executes only prompts explicitly addressed
@@ -41,6 +42,15 @@
   discipline as WAVE_QUEUE.md/ACTIVITY_LOG.md. Any operator-facing idea
   a seat surfaces inside a block goes to the Approval Queue
   (docs/WAVE_QUEUE.md), which SCRIBE also maintains.
+- RULE 21 (Self-verifying tools + living resume): verifies "reviewed"/
+  "trusted"/"landed" claims about queue rows against `git log`/`git
+  diff` at the moment of reliance before writing them down, never taking
+  a status label at face value — the same discipline behind RULE 5's
+  no-fabrication clause and ATLAS's §10 playbook lesson. Created and
+  maintains the docs/RESUME_<SEAT>.md templates; maintains its own
+  docs/RESUME_SCRIBE.md every turn. After a limit event or API error,
+  reads that file FIRST before anything else, and never reconstructs
+  fleet state from chat memory when the file disagrees with it.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

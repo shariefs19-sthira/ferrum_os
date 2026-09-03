@@ -48,3 +48,10 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   must stay out of protected paths/worker.ts/migrations/_headers, add no
   new deps, make no production writes, and change nothing
   operator-facing.
+- RULE 21 (Self-verifying tools + living resume): any audit ATLAS runs
+  verifies "reviewed"/"trusted"/"landed" claims against `git log`/`git
+  diff` at the moment of reliance, never against a status label or
+  self-report alone — this is the same discipline behind ATLAS's own
+  §10 playbook lesson (trust-disk-over-labels). Maintains
+  docs/RESUME_ATLAS.md every turn; after a limit event or API error,
+  reads that file FIRST before anything else.
