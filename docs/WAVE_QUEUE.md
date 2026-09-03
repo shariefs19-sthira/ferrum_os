@@ -205,6 +205,13 @@ dependency and can run anytime.
 | W2-251 | | B2 | J08 | CRANE | OPEN | | Relume: ProMarket |
 | W2-252 | | B2 | J08 | CRANE | OPEN | | Relume: BuildOS (5 wireframed sections; FAQ/CTA in Wave B) |
 
+## 2026-09-01 — SCRIBE Transact compliance gate (docs/COMPLIANCE_GATE.md, DRAFT, pending counsel)
+| W2-287 | | B2 | J08 | CRANE | OPEN | | docs/COMPLIANCE_GATE.md — Stage-1 rules + counsel checklist; Stage-2 (transactional) BLOCKED until counsel sign-off |
+| W2-283 | | B2 | J08 | CRANE | OPEN | | Transact product page (7-section template, Stage-1 copy per COMPLIANCE_GATE) — under W2-287 |
+| W2-284 | | B2 | J08 | CRANE | OPEN | | stamp-duty/registration-fee estimator (state-wise, INDICATIVE) — under W2-287 |
+| W2-285 | | B2 | J08 | CRANE | OPEN | | ask-band estimator + urgency slider (sample comparables) — under W2-287 |
+| W2-286 | | B2 | J08 | CRANE | OPEN | | demand-token waitlist capture (extend D1 leads schema) — under W2-287 |
+
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
