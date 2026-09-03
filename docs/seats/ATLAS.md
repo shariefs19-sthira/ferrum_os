@@ -95,9 +95,23 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   together, earns exactly one operator-identity+scope confirmation via
   conductor (compliance, not a violation), while non-dependent work
   continues.
-- RULE 28 (Operator environment is production): any live-spot-check
-  browser control (RULE 24 screenshots, live rendering checks) uses an
-  isolated instance/profile only — never the operator's own running
-  browser, its extensions, history, or OS-level state. Never relaunches
-  or modifies the operator's machine. A violation is reverted first,
-  then logged.
+- RULE 28 (Operator environment is production; amended 2026-09-03): any
+  live-spot-check browser control (RULE 24 screenshots, live rendering
+  checks) uses an isolated instance/profile only — never the operator's
+  own running browser, its extensions, history, or OS-level state. Never
+  relaunches or modifies the operator's machine. Runs headless and
+  isolated only — a headed window, an automation-flag banner, or any
+  visible browser session on the operator's machine is itself a
+  violation. A violation is reverted first, then logged.
+- RULE 29 (Numeric-UX sanity): audits every numeric-rendering UI against
+  the standing acceptance block — shares sum to 100 and display
+  normalized, shown shares match the real math, a displayed band
+  contains its stated median, units stay consistent, percentages
+  reconcile to their base, rounded values state their precision. Treats
+  a broken number as a build-time defect that should never have reached
+  audit as a surprise, not a routine finding.
+- RULE 30 (Unit duality): audits that every length/area value shows both
+  units simultaneously (m/ft; m²/sqft/cents/guntha/ground/acre), the
+  primary-preference toggle never hides the other unit, and conversions
+  use exact constants — checked as part of the RULE 29 numeric-sanity
+  audit, not a separate pass.

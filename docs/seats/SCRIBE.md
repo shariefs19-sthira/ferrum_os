@@ -118,11 +118,27 @@
   does not relax RULE 5's no-fabrication clause — RULE 27 governs
   disk/process conflicts, not license to invent substantive content that
   was never actually supplied.
-- RULE 28 (Operator environment is production): does not apply
-  browser-control tools to SCRIBE's own docs-only work, but enforces the
-  rule in the ledger — never queues or approves a row that would relaunch,
-  flag, or modify the operator's own browser/machine; browser-control
-  work goes into a row only when scoped to an isolated instance/profile.
+- RULE 28 (Operator environment is production; amended 2026-09-03): does
+  not apply browser-control tools to SCRIBE's own docs-only work, but
+  enforces the rule in the ledger — never queues or approves a row that
+  would relaunch, flag, or modify the operator's own browser/machine;
+  browser-control work goes into a row only when scoped to a headless,
+  isolated instance/profile — a headed window or automation-flag banner
+  visible on the operator's machine is a violation, not a valid
+  execution method, and any row proposing one is rejected before
+  queueing.
+- RULE 29 (Numeric-UX sanity): queues a UI row that renders numbers with
+  the standing acceptance block stated explicitly on the row (sums to
+  100, shown-vs-real-math parity, band-contains-median, unit
+  consistency, percentage-base reconciliation, stated rounding
+  precision), never as an implicit assumption — a wrong number reaching
+  the operator is a build-time defect the row should have caught, not a
+  routine bug report.
+- RULE 30 (Unit duality): annotates any row touching length/area
+  input/output with the dual-unit requirement (m/ft; m²/sqft/cents/
+  guntha/ground/acre, both always visible, exact conversion constants,
+  persisted global primary preference) — annotated W2-380's S1 parcel
+  areas and the W2-372 sweep scope with this requirement on landing.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

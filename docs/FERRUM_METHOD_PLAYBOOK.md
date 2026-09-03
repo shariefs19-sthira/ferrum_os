@@ -47,17 +47,18 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — twenty-seven numbered rules were actually adopted (numbered
-1–14, 16–28 — RULE 15 was never assigned; leave gaps in your own
+matured — twenty-nine numbered rules were actually adopted (numbered
+1–14, 16–30 — RULE 15 was never assigned; leave gaps in your own
 numbering rather than force sequential renumbering when a rule is
 superseded or dropped). Rules 1–17 are detailed below, each with the
 one-line rationale that justified adopting it — carry the rationale
 forward even when you reword the rule for a new repo, because the
 rationale is what tells a future reader whether the rule still applies
-to their situation. Rules 18–28, added later in the same engagement as
+to their situation. Rules 18–30, added later in the same engagement as
 the fleet's landing pipeline, DONE-verification, skill-hygiene,
-conflict-resolution, and operator-safety discipline matured, are
-summarized in the addendum immediately after the numbered list rather
+conflict-resolution, operator-safety, and numeric-correctness discipline
+matured, are summarized in the addendum immediately after the numbered
+list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -138,7 +139,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–28 (added later, summarized)
+### Addendum: rules 18–30 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -276,23 +277,69 @@ source.
     send. This is the one rule in this playbook explicitly designed to
     travel unchanged to a different project — it isn't about this
     fleet's specific tools or domain.*
-28. **Operator environment is production** — a seat never relaunches,
-    flags, or modifies the human operator's own browser or machine.
-    Every piece of browser-control work (live-view checks, deployed-edge
-    screenshot capture for a DONE/LIVE verification) runs against an
-    isolated instance or profile, never the operator's actual running
-    session — its extensions, history, bookmarks, or OS-level state are
-    all off-limits. Any operator-visible side effect outside the actual
+28. **Operator environment is production** (amended after adoption —
+    see below) — a seat never relaunches, flags, or modifies the human
+    operator's own browser or machine. Every piece of browser-control
+    work (live-view checks, deployed-edge screenshot capture for a
+    DONE/LIVE verification) runs against an isolated instance or
+    profile, never the operator's actual running session — its
+    extensions, history, bookmarks, or OS-level state are all
+    off-limits. Any operator-visible side effect outside the actual
     deployed artifact under test — a browser banner, a changed
     extension/profile setting, a stray notification — is a violation
     regardless of intent, and gets reverted first, logged second.
+    **Amendment:** a headed (visible) browser window, an automation-flag
+    banner ("this browser is being controlled by automated test
+    software" or equivalent), or any browser session visibly appearing
+    on the operator's machine at all is itself a violation — not only a
+    side effect occurring inside that window. Verification work runs
+    headless and isolated only; a tool whose default behavior would
+    surface a visible window or banner on the operator's own machine is
+    not used for this purpose without first being configured headless.
     *Rationale: agent-driven browser automation is powerful enough to
     accidentally treat the operator's own daily-use environment as a
     disposable test fixture; drawing this line explicitly, before any
     live-verification rule (like this playbook's rule 24 or 25) gets
     exercised for real, prevents a genuinely embarrassing and trust-
     damaging class of incident rather than discovering the boundary
-    after crossing it.*
+    after crossing it. The amendment closes a gap in the original
+    wording: a headed window with no other side effect could otherwise
+    read as compliant, when the visible appearance on the operator's
+    machine is itself the harm this rule exists to prevent.*
+29. **Numeric-UX sanity** — portable. Any UI that renders numbers
+    carries a standing acceptance block, self-checked at build time and
+    audited independently: weights/shares sum to 100 with display
+    normalized (rounding never silently produces 99 or 101 on screen);
+    a shown share equals the math actually used to compute it, never a
+    display-only figure that's drifted from the real calculation; a
+    displayed band or range contains its own stated median; units stay
+    consistent throughout a view; a percentage reconciles to its stated
+    base; a rounded display value states its precision where that
+    precision matters to the reader's decision.
+    *Rationale: "the math on screen doesn't add up" is one of the most
+    embarrassing classes of defect a shipped product can have, and one
+    of the cheapest to catch mechanically before shipping — treating it
+    as a build-time acceptance check rather than something an operator
+    or user has to notice and report keeps a fleet's credibility intact
+    on exactly the kind of error that's hardest to explain away
+    afterward.*
+30. **Unit duality** — portable, for any product with a global or
+    multi-region audience. Every length and area input and output
+    supports both common unit systems side by side (e.g. metric/
+    imperial, or a domain-specific set like the cents/guntha/ground/acre
+    land-measurement units used regionally in this engagement) — both
+    units are always visible together, never one hidden behind a toggle.
+    A persisted, global primary-unit preference controls display order
+    or emphasis, never which units exist. Conversions use exact
+    constants, never rounded-off approximations that drift under repeat
+    conversion. This rule's conversions are covered by rule 29's
+    numeric-sanity vectors, not a separate check.
+    *Rationale: a product built assuming one unit system silently
+    excludes or confuses a real fraction of its actual users the moment
+    it's used across a region or audience that doesn't share that
+    assumption; treating dual-unit display as a first-class requirement
+    from the start is far cheaper than retrofitting it once every
+    numeric surface already assumes a single unit.*
 
 ## 3. Ledger formats
 
