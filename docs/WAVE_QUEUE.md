@@ -469,6 +469,9 @@ recorded as a new line, not by editing the pending entry.
 ## 2026-09-03 — SCRIBE PROVENANCE_STRIP (per RIVET proposal 1, operator-approved)
 | W2-387 | | B2 | J08 | CRANE (now) + MASON (S4) | OPEN | | PROVENANCE_STRIP — approved per RIVET proposal 1 (see Approval Queue entry above; proposal text itself not on disk in this ledger, confirm scope against RIVET's actual proposal before executing). Split scope: CRANE strips provenance now on the LandIntel and Analysis Engine surfaces. MASON extends the same strip into the DesignStudio W2-380 mission block, specifically S4 STUDIO_3D, once that milestone is reached — not before, since S4 itself is sequenced after the W2-372 sweep gets conductor sign-off. UNDO: git revert <sha> per surface (CRANE's landintel/analysis piece and MASON's S4 piece land and revert independently). |
 
+## 2026-09-03 — SCRIBE PI seat trial (experimental, one-wave, bounded)
+| W2-390 | | B2 | J08 | PI (new, experimental) | OPEN | | PI_SEAT_TRIAL — stand up Pi as an experimental executor seat on ONE bounded task (a vitest vector batch or a docs sweep — conductor picks whichever is queued and ready at claim time), same rules as every other seat (mirrored to docs/seats/PI.md), same landing path (land.ps1 only — RULE 18 applies identically, no seat-specific exception). One-wave trial: Pi claims and lands exactly one row, then stops — no second row claimed until a verdict is recorded. A verdict row follows this one after the trial task lands (or fails to), assessing whether Pi becomes a standing seat. UNDO: git revert <sha> (the trial task's own landing); dissolve docs/seats/PI.md and this row's PI assignment if the verdict is negative. |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
