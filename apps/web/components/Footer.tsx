@@ -84,19 +84,19 @@ export default function Footer() {
   return (
     <footer className="border-t border-relume-border bg-relume-surface">
       <div className="mx-auto max-w-relume-container px-6 py-16 md:px-8">
-        <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))]">
-          <div className="min-w-40">
+        <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[minmax(22rem,1.35fr)_minmax(20rem,2fr)_repeat(3,minmax(8rem,1fr))]">
+          <div className="min-w-0 sm:col-span-2 lg:col-span-4 xl:col-span-1">
             <div className="flex items-center gap-3">
               <BrandMark size={36} className="rounded-relume" />
               <span className="text-lg font-semibold tracking-relume-tight text-relume-ink">Ferrum OS</span>
             </div>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-relume-muted">
+            <p className="mt-4 max-w-[48ch] text-sm leading-6 text-relume-muted">
               End-to-end tools for the construction lifecycle, from land intelligence to project
               delivery.
             </p>
           </div>
 
-          <FooterColumn heading="Products" links={products} columns={2} className="sm:col-span-2" />
+          <FooterColumn heading="Products" links={products} columns={2} className="sm:col-span-2 lg:col-span-2 xl:col-span-1" />
           <FooterColumn heading="Resources" links={resources} />
           <FooterColumn heading="Company" links={company} />
           <FooterColumn heading="Legal" links={legal} />

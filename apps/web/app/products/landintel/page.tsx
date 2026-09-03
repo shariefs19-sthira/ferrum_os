@@ -171,7 +171,7 @@ export default function LandIntelPage() {
             Start free with a few lookups a month, and scale as your portfolio grows.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {pricingPlans.map((plan) => (
             <div key={plan.name} className="rounded-lg border border-relume-border bg-relume-surface p-8">
               {plan.tag && (

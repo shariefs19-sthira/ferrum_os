@@ -67,7 +67,7 @@ export default function HomePage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-10 xl:grid-cols-2 xl:items-center">
           <div>
             <Eyebrow>The complete build platform</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -148,7 +148,7 @@ export default function HomePage() {
             Start free. Scale as you build. Plans from ₹499/month — 60–90% below global tools.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {pricingPlans.map((plan) => (
             <div key={plan.name} className="rounded-lg border border-relume-border bg-relume-surface p-8">
               {plan.tag && (

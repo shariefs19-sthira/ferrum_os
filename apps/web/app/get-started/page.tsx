@@ -40,7 +40,7 @@ export default function GetStartedPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-16 md:px-8">
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {steps.map((step) => (
             <article key={step.number} className="rounded-2xl border border-relume-border bg-white p-6">
               <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-full bg-relume-surface-secondary text-sm font-semibold text-relume-ink">

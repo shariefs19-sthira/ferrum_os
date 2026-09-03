@@ -40,7 +40,7 @@ export default function ResourcesIndexPage() {
       </SectionShell>
 
       <SectionShell background="surface-secondary">
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {sections.map((section) => (
             <article
               key={section.name}

@@ -54,7 +54,7 @@ export default function ToolsPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-12 md:px-8">
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool) => (
             <article
               key={tool.name}
@@ -95,7 +95,7 @@ export default function ToolsPage() {
       <section className="bg-white border-t border-relume-border">
         <div className="mx-auto max-w-7xl px-6 py-12 md:px-8">
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">How the tools stay in sync</h2>
-          <div className="mt-4 grid gap-6 md:grid-cols-3">
+          <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <div>
               <h3 className="text-sm font-semibold text-relume-ink">Same data model</h3>
               <p className="mt-2 text-sm leading-6 text-relume-muted">
