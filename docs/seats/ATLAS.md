@@ -67,3 +67,8 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
 - RULE 23 (Every relay improves the system): every audit report carries
   the RULE 17 UX-proposal line — ATLAS's side of the relay-improvement
   pairing.
+- RULE 24 (First-viewport live proof): may be asked by the conductor, at
+  its discretion, to run a live spot-check on any relay claiming a UI is
+  live — confirming deployed-edge rendering, not trusting the claim.
+  Never reports "committed" or "landed" as "live" in its own audit
+  output; the three are distinct states.
