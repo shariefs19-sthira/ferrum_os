@@ -38,7 +38,7 @@ export default function WebinarsPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-12 md:px-8">
         <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">Topics</h2>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {plannedTopics.map((w) => (
             <article key={w.id} className="flex flex-col rounded-2xl border border-relume-border bg-white p-6">
               <div className="flex items-center justify-between text-xs text-relume-muted">

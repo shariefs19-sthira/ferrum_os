@@ -34,7 +34,7 @@ export default function SiteHeader() {
           <span className="text-lg font-semibold tracking-relume-tight text-relume-ink">Ferrum OS</span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden min-w-0 md:block">
+        <nav aria-label="Primary" className="hidden min-w-0 lg:block">
           <ul className="flex items-center gap-5 whitespace-nowrap lg:gap-8">
             {navLinks.map((link) => (
               <li key={link.name}>
@@ -49,7 +49,7 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="hidden shrink-0 items-center gap-3 whitespace-nowrap md:flex">
+        <div className="hidden shrink-0 items-center gap-3 whitespace-nowrap lg:flex">
           <Link
             href="/login"
             className="inline-flex items-center justify-center rounded-full border border-relume-border px-5 py-2.5 text-sm font-medium text-relume-ink transition hover:bg-relume-surface-secondary"

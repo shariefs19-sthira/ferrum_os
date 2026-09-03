@@ -151,7 +151,7 @@ export default function ProMarketPage() {
             Start free with a job or two, and scale as your projects grow.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {pricingPlans.map((plan) => (
             <div key={plan.name} className="rounded-lg border border-relume-border bg-relume-surface p-8">
               {plan.tag && (

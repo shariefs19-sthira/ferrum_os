@@ -1,0 +1,5004 @@
+{
+  "phase": "before",
+  "baseUrl": "http://127.0.0.1:4175",
+  "routes": 88,
+  "allRoutes": [
+    {
+      "route": "/",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "India’s first end-to-end construction & investment platform",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/about",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/about",
+      "title": "About - Ferrum OS | Ferrum OS",
+      "h1": "Building the future of construction",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/about/timeline",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/about/timeline",
+      "title": "Our Story - Ferrum OS",
+      "h1": "How Ferrum OS came together",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/account",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/account",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "/admin/leads",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/admin/leads",
+      "title": "Leads — Ferrum OS (internal) | Ferrum OS",
+      "h1": "Leads (operator view)",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/boq-pro",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/boq-pro",
+      "title": "BOQ Pro Calculator - Ferrum OS | Ferrum OS",
+      "h1": "BOQ Pro - Quantity Takeoff",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/careers",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/careers",
+      "title": "Careers — Ferrum OS | Ferrum OS",
+      "h1": "Build the operating system for construction",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/contact",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/contact",
+      "title": "Contact - Ferrum OS | Ferrum OS",
+      "h1": "Contact Us",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Contact Us",
+          "width": 704,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/dashboard",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/dashboard",
+      "title": "Dashboard — Ferrum OS | Ferrum OS",
+      "h1": "Everything you've run, in one place",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/demo",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/demo",
+      "title": "Demo - Ferrum OS | Ferrum OS",
+      "h1": "Book a Demo",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Book a Demo",
+          "width": 704,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/documentation",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/documentation",
+      "title": "Documentation - Ferrum OS | Ferrum OS",
+      "h1": "Documentation Hub",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/forgot-password",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/forgot-password",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "Reset your password",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/get-started",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/get-started",
+      "title": "Get Started - Ferrum OS | Ferrum OS",
+      "h1": "Start building with confidence",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/login",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/login",
+      "title": "Login - Ferrum OS | Ferrum OS",
+      "h1": "Welcome back",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/partners",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/partners",
+      "title": "Partners — Ferrum OS | Ferrum OS",
+      "h1": "Build with the operating system for construction",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Build with the operating system for construction",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Three ways to partner",
+          "width": 1216,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Partner FAQ",
+          "width": 832,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/pricing",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/pricing",
+      "title": "Pricing - Ferrum OS | Ferrum OS",
+      "h1": "Simple, SMB-friendly pricing",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "p",
+          "text": "Free",
+          "width": 323,
+          "lines": 1
+        },
+        {
+          "tag": "p",
+          "text": "₹499",
+          "width": 323,
+          "lines": 1
+        },
+        {
+          "tag": "p",
+          "text": "₹9,999",
+          "width": 323,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/privacy",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/privacy",
+      "title": "Privacy Policy - Ferrum OS | Ferrum OS",
+      "h1": "Privacy Policy",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Privacy Policy",
+          "width": 768,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products",
+      "title": "Products - Ferrum OS | Ferrum OS",
+      "h1": "Ten products. One platform.",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/boq-pro",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/boq-pro",
+      "title": "BOQ Pro - Ferrum OS",
+      "h1": "Know exactly what your build will cost",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/buildos",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/buildos",
+      "title": "Build OS - Ferrum OS",
+      "h1": "Run your whole project on one system",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/communitybuild",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/communitybuild",
+      "title": "Communitybuild - Ferrum OS",
+      "h1": "Invest in real estate, fractionally",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/designstudio",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/designstudio",
+      "title": "Design Studio - Ferrum OS",
+      "h1": "Design your building with AI",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/investflow",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/investflow",
+      "title": "Investflow - Ferrum OS",
+      "h1": "Know if your investment is worth it",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/landintel",
+      "title": "LandIntel - Ferrum OS",
+      "h1": "Know your land before you buy or build",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Sample ULPIN",
+          "width": 1,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/procurehub",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/procurehub",
+      "title": "Procurehub - Ferrum OS",
+      "h1": "Get materials on site, on time",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/promarket",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/promarket",
+      "title": "Promarket - Ferrum OS",
+      "h1": "Hire verified professionals you can trust",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/structura",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/structura",
+      "title": "Structura - Ferrum OS",
+      "h1": "Structural analysis you can sign off on",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/transact",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/transact",
+      "title": "Transact — Ferrum OS",
+      "h1": "Indicative estimates for your next property transaction",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/project-workspace",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/project-workspace",
+      "title": "Project Workspace — Ferrum OS | Ferrum OS",
+      "h1": "One workspace per project",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "/resources",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources",
+      "title": "Resources - Ferrum OS | Ferrum OS",
+      "h1": "Everything you need to plan, build, and decide with clarity",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog",
+      "title": "Blog - Ferrum OS",
+      "h1": "Insights for smarter construction decisions",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/_template",
+      "viewport": "1440x900",
+      "status": 404,
+      "finalPath": "/resources/blog/_template",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "404",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "404",
+          "width": 448,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "route": "/resources/blog/advanced-ulpin",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/advanced-ulpin",
+      "title": "Advanced ULPIN Workflows - Ferrum OS",
+      "h1": "Advanced ULPIN Workflows",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Advanced ULPIN Workflows",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/cement-storage-humidity",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/cement-storage-humidity",
+      "title": "Cement Storage and Humidity on Site - Ferrum OS",
+      "h1": "Cement Storage and Humidity on Site",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Cement Storage and Humidity on Site",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/construction-insurance-101",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/construction-insurance-101",
+      "title": "Construction Insurance 101 for Project Owners - Ferrum OS",
+      "h1": "Construction Insurance 101 for Project Owners",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Construction Insurance 101 for Project Owners",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/formwork-pressure-calculation",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/formwork-pressure-calculation",
+      "title": "Formwork Pressure Calculation for Wall and Column Pours - Ferrum OS",
+      "h1": "Formwork Pressure Calculation for Wall and Column Pours",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Formwork Pressure Calculation for Wall and Column Pours",
+          "width": 768,
+          "lines": 3
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/foundation-retrofit-costs",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/foundation-retrofit-costs",
+      "title": "What Drives Foundation Retrofit Costs - Ferrum OS",
+      "h1": "What Drives Foundation Retrofit Costs",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "What Drives Foundation Retrofit Costs",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/gst-for-builders",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/gst-for-builders",
+      "title": "GST for Builders and Developers - Ferrum OS",
+      "h1": "GST for Builders and Developers",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "GST for Builders and Developers",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/home-loan-margins",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/home-loan-margins",
+      "title": "Home Loan Margins and the Builder's Cash-Flow Curve - Ferrum OS",
+      "h1": "Home Loan Margins and the Builder's Cash-Flow Curve",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Home Loan Margins and the Builder's Cash-Flow Curve",
+          "width": 768,
+          "lines": 3
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/is-1200-vs-cesmm4",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/is-1200-vs-cesmm4",
+      "title": "IS 1200 vs CESMM4 - Ferrum OS",
+      "h1": "IS 1200 vs CESMM4",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "IS 1200 vs CESMM4",
+          "width": 768,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/monsoon-concreting",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/monsoon-concreting",
+      "title": "Monsoon Concreting - Ferrum OS",
+      "h1": "Monsoon Concreting",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Monsoon Concreting",
+          "width": 768,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/monsoon-structural-checks",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/monsoon-structural-checks",
+      "title": "Structural Checks Before and After Monsoon - Ferrum OS",
+      "h1": "Structural Checks Before and After Monsoon",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Structural Checks Before and After Monsoon",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/piling-quality-gates",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/piling-quality-gates",
+      "title": "Quality Gates for Piling Work - Ferrum OS",
+      "h1": "Quality Gates for Piling Work",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Quality Gates for Piling Work",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/prefab-connection-detailing",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/prefab-connection-detailing",
+      "title": "Connection Detailing for Prefabricated Elements - Ferrum OS",
+      "h1": "Connection Detailing for Prefabricated Elements",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Connection Detailing for Prefabricated Elements",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/procurement-terms",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/procurement-terms",
+      "title": "Procurement Terms for Indian Construction - Ferrum OS",
+      "h1": "Procurement Terms for Indian Construction",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Procurement Terms for Indian Construction",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/rera-compliance",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/rera-compliance",
+      "title": "RERA Compliance for Project Teams - Ferrum OS",
+      "h1": "RERA Compliance for Project Teams",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "RERA Compliance for Project Teams",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/seismic-retrofit-timeline",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/seismic-retrofit-timeline",
+      "title": "Seismic Retrofit Timelines for Occupied Structures - Ferrum OS",
+      "h1": "Seismic Retrofit Timelines for Occupied Structures",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Seismic Retrofit Timelines for Occupied Structures",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/site-safety-checklist",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/site-safety-checklist",
+      "title": "Site Safety Checklist for Working Project Teams - Ferrum OS",
+      "h1": "Site Safety Checklist for Working Project Teams",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Site Safety Checklist for Working Project Teams",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/steel-price-hedges",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/steel-price-hedges",
+      "title": "Hedging Steel Price Risk on Fixed-Price Contracts - Ferrum OS",
+      "h1": "Hedging Steel Price Risk on Fixed-Price Contracts",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Hedging Steel Price Risk on Fixed-Price Contracts",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/tunnel-form-construction",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/tunnel-form-construction",
+      "title": "Tunnel-Form Construction for Repetitive Floor Plates - Ferrum OS",
+      "h1": "Tunnel-Form Construction for Repetitive Floor Plates",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Tunnel-Form Construction for Repetitive Floor Plates",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/ulin-explained",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/ulin-explained",
+      "title": "ULPIN Explained - Ferrum OS",
+      "h1": "ULPIN Explained",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "ULPIN Explained",
+          "width": 768,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/blog/weld-inspection-basics",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/blog/weld-inspection-basics",
+      "title": "Weld Inspection Basics for Site Teams - Ferrum OS",
+      "h1": "Weld Inspection Basics for Site Teams",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Weld Inspection Basics for Site Teams",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/case-studies",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/case-studies",
+      "title": "Case Studies - Ferrum OS",
+      "h1": "Case studies that turn complex projects into clearer decisions",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/case-studies/airport-cargo-bay",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/case-studies/airport-cargo-bay",
+      "title": "Airport Cargo Bay Expansion Case Study - Ferrum OS",
+      "h1": "Airport Cargo Bay Expansion",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Airport Cargo Bay Expansion",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/case-studies/clinic-retrofit",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/case-studies/clinic-retrofit",
+      "title": "Community Clinic Seismic Retrofit Case Study - Ferrum OS",
+      "h1": "Community Clinic Seismic Retrofit",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Community Clinic Seismic Retrofit",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/case-studies/contractor-fleet",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/case-studies/contractor-fleet",
+      "title": "Contractor Fleet Management Case Study - Ferrum OS",
+      "h1": "Contractor Fleet Management",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Contractor Fleet Management",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/case-studies/greenfield-developer",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/case-studies/greenfield-developer",
+      "title": "Greenfield Development Case Study - Ferrum OS",
+      "h1": "Greenfield Development Project",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Greenfield Development Project",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/case-studies/infrastructure-contractor",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/case-studies/infrastructure-contractor",
+      "title": "Infrastructure Contractor Case Study - Ferrum OS",
+      "h1": "Infrastructure Contractor Engagement",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Infrastructure Contractor Engagement",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/case-studies/library-retrofit",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/case-studies/library-retrofit",
+      "title": "Public Library Foundation Retrofit Case Study - Ferrum OS",
+      "h1": "Public Library Foundation Retrofit",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Public Library Foundation Retrofit",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/case-studies/municipal-market-retrofit",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/case-studies/municipal-market-retrofit",
+      "title": "Municipal Market Structural Retrofit Case Study - Ferrum OS",
+      "h1": "Municipal Market Structural Retrofit",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Municipal Market Structural Retrofit",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/case-studies/self-build-family",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/case-studies/self-build-family",
+      "title": "Self-Build Family Home Case Study - Ferrum OS",
+      "h1": "Self-Build Family Home",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Self-Build Family Home",
+          "width": 768,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/checklists",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/checklists",
+      "title": "Checklists — Ferrum OS Resources",
+      "h1": "Site-ready checklists",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/checklists/concrete-pour-readiness",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/checklists/concrete-pour-readiness",
+      "title": "Concrete Pour Readiness Checklist - Ferrum OS",
+      "h1": "Concrete Pour Readiness Checklist",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Concrete Pour Readiness Checklist",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/checklists/crane-lift-plan",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/checklists/crane-lift-plan",
+      "title": "Crane Lift Plan Checklist - Ferrum OS",
+      "h1": "Crane Lift Plan Checklist",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Crane Lift Plan Checklist",
+          "width": 768,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/checklists/crane-maintenance",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/checklists/crane-maintenance",
+      "title": "Crane Maintenance Checklist - Ferrum OS",
+      "h1": "Crane Maintenance Checklist",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Crane Maintenance Checklist",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/checklists/handover-documents",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/checklists/handover-documents",
+      "title": "Handover Documents Checklist - Ferrum OS",
+      "h1": "Handover Documents Checklist",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Handover Documents Checklist",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/checklists/material-receiving",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/checklists/material-receiving",
+      "title": "Material Receiving Checklist - Ferrum OS",
+      "h1": "Material Receiving Checklist",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Material Receiving Checklist",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/checklists/retrofit-handover",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/checklists/retrofit-handover",
+      "title": "Retrofit Handover Checklist - Ferrum OS",
+      "h1": "Retrofit Handover Checklist",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Retrofit Handover Checklist",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/checklists/scaffold-handover",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/checklists/scaffold-handover",
+      "title": "Scaffold Handover Checklist - Ferrum OS",
+      "h1": "Scaffold Handover Checklist",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Scaffold Handover Checklist",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/checklists/structural-punch-list",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/checklists/structural-punch-list",
+      "title": "Structural Punch List Checklist - Ferrum OS",
+      "h1": "Structural Punch List Checklist",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Structural Punch List Checklist",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/events",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/events",
+      "title": "Event Topics — Ferrum OS Resources",
+      "h1": "Planned event topics",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/events/webinars-2026",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/events/webinars-2026",
+      "title": "Webinar Topics — Ferrum OS Resources",
+      "h1": "Planned webinar topics",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/faq",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/faq",
+      "title": "FAQ - Ferrum OS",
+      "h1": "Frequently asked questions",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/glossary",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/glossary",
+      "title": "Glossary - Ferrum OS",
+      "h1": "Glossary of land, design, and delivery terms",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/guides",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/guides",
+      "title": "Guides — Ferrum OS Resources",
+      "h1": "A short reading path through the reference library",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/guides/contractor-onboarding",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/guides/contractor-onboarding",
+      "title": "Contractor Onboarding Guide - Ferrum OS",
+      "h1": "Contractor Onboarding Guide",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Contractor Onboarding Guide",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/guides/monsoon-preparedness-audit",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/guides/monsoon-preparedness-audit",
+      "title": "Monsoon Preparedness Audit Guide - Ferrum OS",
+      "h1": "Monsoon Preparedness Audit Guide",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Monsoon Preparedness Audit Guide",
+          "width": 768,
+          "lines": 2
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/guides/site-handover-playbook",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/guides/site-handover-playbook",
+      "title": "Site Handover Playbook - Ferrum OS",
+      "h1": "Site Handover Playbook",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Site Handover Playbook",
+          "width": 768,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/is-code-guides",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/is-code-guides",
+      "title": "IS Code Guides - Ferrum OS",
+      "h1": "IS Code Guides",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/podcasts",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/podcasts",
+      "title": "Podcasts — Ferrum OS Resources",
+      "h1": "Podcasts",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Podcasts",
+          "width": 896,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/reports",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/reports",
+      "title": "Reports — Ferrum OS Resources",
+      "h1": "Reports",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Reports",
+          "width": 896,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/templates",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/templates",
+      "title": "Templates — Ferrum OS Resources",
+      "h1": "Templates we use on real projects",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/tools",
+      "title": "Tools — Ferrum OS Resources",
+      "h1": "Calculators and quick-reference tables",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/videos",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/videos",
+      "title": "Videos — Ferrum OS Resources",
+      "h1": "Videos",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Videos",
+          "width": 896,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/webinars",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/webinars",
+      "title": "Webinars — Ferrum OS Resources",
+      "h1": "Planned webinar topics",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/whitepapers",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/whitepapers",
+      "title": "Whitepapers — Ferrum OS Resources",
+      "h1": "Whitepapers",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Whitepapers",
+          "width": 896,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/signup",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/signup",
+      "title": "Sign Up - Ferrum OS | Ferrum OS",
+      "h1": "Sign Up",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/terms",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/terms",
+      "title": "Terms of Service - Ferrum OS | Ferrum OS",
+      "h1": "Terms of Service",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h1",
+          "text": "Terms of Service",
+          "width": 768,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    }
+  ],
+  "focal": [
+    {
+      "route": "/",
+      "viewport": "1920x1080",
+      "status": 200,
+      "finalPath": "/",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "India’s first end-to-end construction & investment platform",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": "1920x1080",
+      "status": 200,
+      "finalPath": "/products/landintel",
+      "title": "LandIntel - Ferrum OS",
+      "h1": "Know your land before you buy or build",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Sample ULPIN",
+          "width": 1,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources",
+      "viewport": "1920x1080",
+      "status": 200,
+      "finalPath": "/resources",
+      "title": "Resources - Ferrum OS | Ferrum OS",
+      "h1": "Everything you need to plan, build, and decide with clarity",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": "1920x1080",
+      "status": 200,
+      "finalPath": "/resources/tools",
+      "title": "Tools — Ferrum OS Resources",
+      "h1": "Calculators and quick-reference tables",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "India’s first end-to-end construction & investment platform",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/products/landintel",
+      "title": "LandIntel - Ferrum OS",
+      "h1": "Know your land before you buy or build",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Sample ULPIN",
+          "width": 1,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources",
+      "title": "Resources - Ferrum OS | Ferrum OS",
+      "h1": "Everything you need to plan, build, and decide with clarity",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": "1440x900",
+      "status": 200,
+      "finalPath": "/resources/tools",
+      "title": "Tools — Ferrum OS Resources",
+      "h1": "Calculators and quick-reference tables",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/",
+      "viewport": "1366x768",
+      "status": 200,
+      "finalPath": "/",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "India’s first end-to-end construction & investment platform",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": "1366x768",
+      "status": 200,
+      "finalPath": "/products/landintel",
+      "title": "LandIntel - Ferrum OS",
+      "h1": "Know your land before you buy or build",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Sample ULPIN",
+          "width": 1,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources",
+      "viewport": "1366x768",
+      "status": 200,
+      "finalPath": "/resources",
+      "title": "Resources - Ferrum OS | Ferrum OS",
+      "h1": "Everything you need to plan, build, and decide with clarity",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": "1366x768",
+      "status": 200,
+      "finalPath": "/resources/tools",
+      "title": "Tools — Ferrum OS Resources",
+      "h1": "Calculators and quick-reference tables",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/",
+      "viewport": "1280x800",
+      "status": 200,
+      "finalPath": "/",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "India’s first end-to-end construction & investment platform",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": "1280x800",
+      "status": 200,
+      "finalPath": "/products/landintel",
+      "title": "LandIntel - Ferrum OS",
+      "h1": "Know your land before you buy or build",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Sample ULPIN",
+          "width": 1,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources",
+      "viewport": "1280x800",
+      "status": 200,
+      "finalPath": "/resources",
+      "title": "Resources - Ferrum OS | Ferrum OS",
+      "h1": "Everything you need to plan, build, and decide with clarity",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": "1280x800",
+      "status": 200,
+      "finalPath": "/resources/tools",
+      "title": "Tools — Ferrum OS Resources",
+      "h1": "Calculators and quick-reference tables",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 19.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/",
+      "viewport": "1024x768",
+      "status": 200,
+      "finalPath": "/",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "India’s first end-to-end construction & investment platform",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "a",
+          "text": "LandIntelIndicativeKA-BLR-0001-2024DistrictBengaluru UrbanArea1200.5 m²Land useResidential",
+          "width": 183,
+          "lines": 5
+        },
+        {
+          "tag": "a",
+          "text": "WorkspaceIndicativeDesign DevelopmentSaved artifacts, exports and shared links in one workspace.",
+          "width": 183,
+          "lines": 6
+        },
+        {
+          "tag": "a",
+          "text": "TransactIndicativeStamp duty · Karnataka5%+ 1% registration · verify with your sub-registrar",
+          "width": 183,
+          "lines": 5
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 400,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 18.1,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": "1024x768",
+      "status": 200,
+      "finalPath": "/products/landintel",
+      "title": "LandIntel - Ferrum OS",
+      "h1": "Know your land before you buy or build",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Sample ULPIN",
+          "width": 1,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 400,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 18.1,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources",
+      "viewport": "1024x768",
+      "status": 200,
+      "finalPath": "/resources",
+      "title": "Resources - Ferrum OS | Ferrum OS",
+      "h1": "Everything you need to plan, build, and decide with clarity",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 400,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 18.1,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": "1024x768",
+      "status": 200,
+      "finalPath": "/resources/tools",
+      "title": "Tools — Ferrum OS Resources",
+      "h1": "Calculators and quick-reference tables",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 400,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 18.1,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/",
+      "viewport": "768x1024",
+      "status": 200,
+      "finalPath": "/",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "India’s first end-to-end construction & investment platform",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        },
+        {
+          "tag": "a",
+          "text": "LandIntelIndicativeKA-BLR-0001-2024DistrictBengaluru UrbanArea1200.5 m²Land useResidential",
+          "width": 119,
+          "lines": 9
+        },
+        {
+          "tag": "a",
+          "text": "BOQ ProIndicativeCement (OPC 53) · per 50kg bag₹413P25 ₹406P75 ₹417",
+          "width": 119,
+          "lines": 9
+        },
+        {
+          "tag": "a",
+          "text": "WorkspaceIndicativeDesign DevelopmentSaved artifacts, exports and shared links in one workspace.",
+          "width": 119,
+          "lines": 9
+        },
+        {
+          "tag": "a",
+          "text": "TransactIndicativeStamp duty · Karnataka5%+ 1% registration · verify with your sub-registrar",
+          "width": 119,
+          "lines": 9
+        },
+        {
+          "tag": "a",
+          "text": "Start Free Trial",
+          "width": 131,
+          "lines": 2
+        },
+        {
+          "tag": "a",
+          "text": "Start Free Trial",
+          "width": 131,
+          "lines": 2
+        },
+        {
+          "tag": "a",
+          "text": "Contact sales",
+          "width": 131,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "a",
+          "text": "LandIntelIndicativeKA-BLR-0001-2024DistrictBengaluru UrbanArea1200.5 m²Land useResidential",
+          "width": 119,
+          "lines": 9
+        },
+        {
+          "tag": "a",
+          "text": "BOQ ProIndicativeCement (OPC 53) · per 50kg bag₹413P25 ₹406P75 ₹417",
+          "width": 119,
+          "lines": 9
+        },
+        {
+          "tag": "a",
+          "text": "WorkspaceIndicativeDesign DevelopmentSaved artifacts, exports and shared links in one workspace.",
+          "width": 119,
+          "lines": 9
+        },
+        {
+          "tag": "a",
+          "text": "TransactIndicativeStamp duty · Karnataka5%+ 1% registration · verify with your sub-registrar",
+          "width": 119,
+          "lines": 9
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 23.6,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": "768x1024",
+      "status": 200,
+      "finalPath": "/products/landintel",
+      "title": "LandIntel - Ferrum OS",
+      "h1": "Know your land before you buy or build",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        },
+        {
+          "tag": "a",
+          "text": "Start Free Trial",
+          "width": 131,
+          "lines": 2
+        },
+        {
+          "tag": "a",
+          "text": "Start Free Trial",
+          "width": 131,
+          "lines": 2
+        },
+        {
+          "tag": "a",
+          "text": "Contact sales",
+          "width": 131,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Sample ULPIN",
+          "width": 1,
+          "lines": 1
+        },
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 23.6,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources",
+      "viewport": "768x1024",
+      "status": 200,
+      "finalPath": "/resources",
+      "title": "Resources - Ferrum OS | Ferrum OS",
+      "h1": "Everything you need to plan, build, and decide with clarity",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        },
+        {
+          "tag": "a",
+          "text": "Browse case studies →",
+          "width": 138,
+          "lines": 2
+        },
+        {
+          "tag": "a",
+          "text": "Browse is code guides →",
+          "width": 102,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 23.6,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": "768x1024",
+      "status": 200,
+      "finalPath": "/resources/tools",
+      "title": "Tools — Ferrum OS Resources",
+      "h1": "Calculators and quick-reference tables",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "h2",
+          "text": "Stay in the loop on new product releases.",
+          "width": 570,
+          "lines": 2
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 4,
+        "measureCh": 23.6,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/",
+      "viewport": "375x812",
+      "status": 200,
+      "finalPath": "/",
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "h1": "India’s first end-to-end construction & investment platform",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 2,
+        "measureCh": 36.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": "375x812",
+      "status": 200,
+      "finalPath": "/products/landintel",
+      "title": "LandIntel - Ferrum OS",
+      "h1": "Know your land before you buy or build",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Sample ULPIN",
+          "width": 1,
+          "lines": 1
+        },
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 2,
+        "measureCh": 36.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources",
+      "viewport": "375x812",
+      "status": 200,
+      "finalPath": "/resources",
+      "title": "Resources - Ferrum OS | Ferrum OS",
+      "h1": "Everything you need to plan, build, and decide with clarity",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 2,
+        "measureCh": 36.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": "375x812",
+      "status": 200,
+      "finalPath": "/resources/tools",
+      "title": "Tools — Ferrum OS Resources",
+      "h1": "Calculators and quick-reference tables",
+      "horizontalOverflow": false,
+      "wrappedLinks": [
+        {
+          "tag": "a",
+          "text": "Fe26Ferrum OS",
+          "width": 139,
+          "lines": 2
+        }
+      ],
+      "crampedLabels": [],
+      "orphanHeadings": [],
+      "clippedText": [
+        {
+          "tag": "label",
+          "text": "Email address",
+          "width": 1,
+          "lines": 1
+        }
+      ],
+      "footer": {
+        "lines": 2,
+        "measureCh": 36.2,
+        "text": "End-to-end tools for the construction lifecycle, from land intelligence to project delivery."
+      },
+      "consoleErrors": []
+    }
+  ]
+}
