@@ -843,3 +843,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims the landintel/analysis provenance strip now; MASON claims its S4 piece when S4 is reached; whoever executes either confirms the flagged scope ambiguities first.
 ---
+
+## 2026-09-03 11:15 - SCRIBE reference amendment annotated on W2-372 + W2-373 (notes only)
+**Action:** Notes only, no deletions. Annotated both W2-372 (UI_UX_MODERNIZATION) and W2-373 (INTERACTION_FIRST) with the operator's reference amendment: interaction vocabulary per sundaygrids.com — stepped slider forecast modules with live-updating result cards, big tabular figures, a CTA appearing after interaction. Made explicit on both rows that palette/tokens remain exactly the already-approved W2-372 directive — this amendment changes interaction pattern only, not the design system. Also carried forward the honesty condition onto the new interaction pattern specifically: honesty chips (INDICATIVE/ROADMAP/TEST) ride on every slider-derived figure, since a live-updating result card is not exempt from labeling discipline just because it's dynamic.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** MASON builds W2-373's tool-in-hero interaction using the stepped-slider vocabulary; W2-372's sweep (once conductor-approved to start) applies the same vocabulary consistently, with honesty chips intact.
+---
