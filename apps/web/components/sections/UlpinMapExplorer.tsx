@@ -15,6 +15,17 @@ function randomIndiaPoint() {
   }
 }
 
+// Rough India bounding box, used only to place an unlabeled preview pin
+// before any lookup — never presented as a parcel or a real location.
+const INDIA_BOUNDS = { latMin: 8, latMax: 35, lngMin: 68, lngMax: 97 }
+
+function randomIndiaPoint() {
+  return {
+    lat: INDIA_BOUNDS.latMin + Math.random() * (INDIA_BOUNDS.latMax - INDIA_BOUNDS.latMin),
+    lng: INDIA_BOUNDS.lngMin + Math.random() * (INDIA_BOUNDS.lngMax - INDIA_BOUNDS.lngMin),
+  }
+}
+
 type ParcelResult = {
   ulpin: string
   state: string
