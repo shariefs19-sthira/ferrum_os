@@ -24,7 +24,7 @@ export default function SliderLeaf({ items }: SliderLeafProps) {
         <h3 className="mt-3 text-xl font-semibold tracking-relume-tight text-relume-ink">{item.title}</h3>
         <p className="mt-3 text-sm leading-6 text-relume-ink">{item.body}</p>
       </div>
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-4 grid grid-cols-2 items-center gap-3 sm:flex sm:justify-between">
         <button
           type="button"
           onClick={() => setIndex((i) => Math.max(0, i - 1))}
@@ -33,22 +33,28 @@ export default function SliderLeaf({ items }: SliderLeafProps) {
         >
           Previous
         </button>
-        <div className="flex gap-2">
+        <div className="order-last col-span-2 flex justify-center gap-1 sm:order-none">
           {items.map((slide, i) => (
             <button
               key={slide.title}
               type="button"
               onClick={() => setIndex(i)}
               aria-label={`Go to step ${i + 1}`}
-              className={`h-2 w-2 rounded-full ${i === index ? 'bg-relume-ink' : 'bg-relume-border'}`}
-            />
+              aria-current={i === index ? 'step' : undefined}
+              className="grid h-11 w-11 place-items-center rounded-full"
+            >
+              <span
+                aria-hidden="true"
+                className={`h-2 w-2 rounded-full ${i === index ? 'bg-relume-ink' : 'bg-relume-border'}`}
+              />
+            </button>
           ))}
         </div>
         <button
           type="button"
           onClick={() => setIndex((i) => Math.min(items.length - 1, i + 1))}
           disabled={index === items.length - 1}
-          className="rounded-full border border-relume-border px-4 py-2 text-sm font-medium text-relume-ink disabled:opacity-40"
+          className="justify-self-end rounded-full border border-relume-border px-4 py-2 text-sm font-medium text-relume-ink disabled:opacity-40"
         >
           Next
         </button>

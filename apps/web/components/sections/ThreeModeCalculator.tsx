@@ -30,25 +30,28 @@ export default function ThreeModeCalculator() {
 
   return (
     <div className="rounded-lg border border-relume-border bg-relume-surface p-6">
-      <div className="flex gap-2">
+      <div className="grid gap-2 sm:grid-cols-3" role="group" aria-label="Rate calculation mode">
         <button
           type="button"
           onClick={() => setMode("ferrum")}
-          className={`rounded-full border px-4 py-2 text-sm font-medium ${mode === "ferrum" ? "border-relume-ink bg-relume-ink text-white" : "border-relume-border text-relume-ink"}`}
+          aria-pressed={mode === "ferrum"}
+          className={`min-h-11 w-full rounded-full border px-4 py-2 text-sm font-medium ${mode === "ferrum" ? "border-relume-ink bg-relume-ink text-white" : "border-relume-border text-relume-ink"}`}
         >
           Mode 1 · Ferrum
         </button>
         <button
           type="button"
           onClick={() => setMode("govt")}
-          className={`rounded-full border px-4 py-2 text-sm font-medium ${mode === "govt" ? "border-relume-ink bg-relume-ink text-white" : "border-relume-border text-relume-ink"}`}
+          aria-pressed={mode === "govt"}
+          className={`min-h-11 w-full rounded-full border px-4 py-2 text-sm font-medium ${mode === "govt" ? "border-relume-ink bg-relume-ink text-white" : "border-relume-border text-relume-ink"}`}
         >
           Mode 2 · Govt reference
         </button>
         <button
           type="button"
           onClick={() => setMode("custom")}
-          className={`rounded-full border px-4 py-2 text-sm font-medium ${mode === "custom" ? "border-relume-ink bg-relume-ink text-white" : "border-relume-border text-relume-ink"}`}
+          aria-pressed={mode === "custom"}
+          className={`min-h-11 w-full rounded-full border px-4 py-2 text-sm font-medium ${mode === "custom" ? "border-relume-ink bg-relume-ink text-white" : "border-relume-border text-relume-ink"}`}
         >
           Mode 3 · Custom
         </button>
@@ -156,7 +159,7 @@ function FerrumMode() {
                 Indicative
               </span>
             </div>
-            <div className="mt-2 grid grid-cols-3 gap-4">
+            <div className="mt-2 grid gap-4 sm:grid-cols-3">
               <label className="text-xs text-relume-ink">
                 Govt trust share: {govtShare}%
                 <input type="range" min={0} max={100} value={govtWeight} onChange={(e) => setGovtWeight(Number(e.target.value))} className="mt-1 w-full" />
@@ -191,7 +194,7 @@ function FerrumMode() {
               Your view ({result.role_output.role}): <strong>₹{result.role_output.value}</strong> — {result.role_output.label}
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-2 text-xs">
+          <div className="grid gap-2 text-xs sm:grid-cols-3">
             {result.sources.map((s) => (
               <div key={s.name} className="rounded-lg border border-relume-border p-2 text-center">
                 <p className="font-semibold uppercase">{s.name}</p>

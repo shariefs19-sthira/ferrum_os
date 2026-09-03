@@ -80,7 +80,7 @@ export default function Concierge() {
       aria-label="Ferrum OS concierge"
       aria-modal="false"
       tabIndex={-1}
-      className="fixed bottom-6 right-6 z-50 flex h-[28rem] w-[22rem] max-w-[calc(100vw-3rem)] flex-col rounded-lg border border-relume-border bg-relume-surface shadow-xl"
+      className="fixed bottom-6 right-6 z-50 flex h-[28rem] max-h-[calc(100dvh-3rem)] w-[22rem] max-w-[calc(100vw-3rem)] flex-col rounded-lg border border-relume-border bg-relume-surface shadow-xl"
     >
       <div className="flex items-center justify-between border-b border-relume-border px-4 py-3">
         <span className="text-sm font-semibold text-relume-ink">Ferrum OS Concierge</span>
@@ -88,7 +88,7 @@ export default function Concierge() {
           type="button"
           onClick={() => setOpen(false)}
           aria-label="Close concierge"
-          className="text-relume-ink"
+          className="inline-flex h-11 w-11 items-center justify-center text-relume-ink"
         >
           ✕
         </button>
@@ -115,7 +115,7 @@ export default function Concierge() {
               key={q.label}
               type="button"
               onClick={() => handleSend(q.query)}
-              className="rounded-full border border-relume-border px-3 py-1 text-xs font-medium text-relume-ink"
+              className="min-h-11 rounded-full border border-relume-border px-3 py-1 text-xs font-medium text-relume-ink"
             >
               {q.label}
             </button>
@@ -127,7 +127,7 @@ export default function Concierge() {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about a product or tool..."
             aria-label="Message"
-            className="flex-1 rounded-lg border border-relume-border px-3 py-2 text-sm"
+            className="min-w-0 flex-1 rounded-lg border border-relume-border px-3 py-2 text-sm"
           />
           <button
             type="submit"

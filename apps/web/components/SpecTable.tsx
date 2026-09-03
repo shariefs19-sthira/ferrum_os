@@ -11,8 +11,8 @@ type SpecTableProps = {
 
 export default function SpecTable({ columns, rows, rowKey }: SpecTableProps) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-relume-border">
-      <table className="min-w-full divide-y divide-gray-200 text-left">
+    <div className="overflow-x-auto rounded-2xl border border-relume-border">
+      <table className="min-w-[40rem] divide-y divide-gray-200 text-left">
         <thead className="bg-relume-surface-secondary">
           <tr>
             {columns.map((col) => (

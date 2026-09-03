@@ -88,10 +88,10 @@ export default function TransactCaseFlow() {
       {!caseState ? (
         <form onSubmit={startCase} className="mt-4 space-y-4">
           <div className="flex gap-3">
-            <label className="flex items-center gap-2 text-sm">
+            <label className="flex min-h-11 items-center gap-2 text-sm">
               <input type="radio" checked={role === "buyer"} onChange={() => setRole("buyer")} /> Buyer
             </label>
-            <label className="flex items-center gap-2 text-sm">
+            <label className="flex min-h-11 items-center gap-2 text-sm">
               <input type="radio" checked={role === "seller"} onChange={() => setRole("seller")} /> Seller
             </label>
           </div>
