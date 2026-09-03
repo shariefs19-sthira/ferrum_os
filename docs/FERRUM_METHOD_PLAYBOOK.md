@@ -314,14 +314,54 @@ done.
 
 ## 10. Lessons appendix
 
-**Status: incomplete.** This section is meant to hold one paragraph of
-lessons from each seat that actually did the work — CRANE, ATLAS,
-MASON/CODEX, and RIVET — collected directly, not inferred or fabricated
-by SCRIBE. The list below is the set of concrete defect classes this
-engagement actually hit, documented from git/ledger history as a
-checklist starting point; it is not a substitute for the per-seat
-paragraphs, which the conductor should collect and hand to SCRIBE to
-insert here.
+**Status: partial.** CRANE's and ATLAS's paragraphs are in below.
+MASON's and RIVET's are still pending — to be inserted via a follow-up
+row once collected (target: after 1:09, per the operator's own
+schedule). SCRIBE did not fabricate first-person quotes for either
+paragraph below; each is composed from the operator's one-line summary
+of the lesson plus the actual documented incidents in this engagement's
+git/ledger history that produced it — every factual claim in both
+paragraphs traces to a cited row or commit, not to invented detail.
+
+**CRANE — stale-branch re-landing rule:** Several docs branches this
+engagement were built by stacking one unlanded SCRIBE branch on top of
+another (rather than each forking fresh from `origin/main`), because
+`origin/main` itself hadn't caught up with in-flight renames yet — most
+visibly the CODEX→MASON/RIVET seat rename (W2-356), which never
+propagated into the parallel branch chain that produced W2-359 through
+W2-380 because that chain had already forked from `origin/main` before
+the rename landed. The result: rows like W2-354 carried a stale "CODEX"
+assignee for several more tasks after the rename was supposedly
+complete, and had to be corrected again later (see the 2026-09-02 12:51
+AM reassignment entry). The rule this produces: **before landing a stack
+of branches, re-check whether an earlier branch in the same logical
+change (a rename, a reassignment, a rule addition) has landed
+independently — a branch that forked before that landing will silently
+reintroduce the pre-change state when it lands after.** This is why
+W2-357 (LANDING_PIPELINE_FIX) exists, and why the rebase-then-squash
+protocol re-verifies against `origin/main` immediately before every push
+rather than trusting the state of the branch it was built from.
+
+**ATLAS — trust-disk-over-labels rule:** Multiple rows in this
+engagement carried a status or an approval note that turned out, on
+direct verification, not to match what had actually happened — W2-347's
+"tools side" label implied wiring work when the actual result was
+honest labeling with no code changes; W2-360's RULE 6 protected-path
+approval was granted but the row's own audit confirmed zero files under
+`apps/web/app/boq-pro/**` were touched, meaning the approval went
+unused rather than exploited or forgotten silently; and a self-corrected
+draft on the same row nearly asserted a GST/export capability that
+doesn't exist before the discrepancy was caught pre-landing. The rule
+this produces: **an audit verifies against the actual file/commit state
+on disk, never against a row's own status label, an assignee's
+self-report, or what the task description implied would happen** — a
+label or a "DONE" status is a claim to be checked, not a substitute for
+checking.
+
+The list below is the set of concrete defect classes this engagement
+actually hit, documented from git/ledger history as a checklist starting
+point; it is not a substitute for the remaining MASON/RIVET paragraphs,
+which the conductor should collect and hand to SCRIBE to insert here.
 
 Defect-class checklist (from this engagement's real history):
 

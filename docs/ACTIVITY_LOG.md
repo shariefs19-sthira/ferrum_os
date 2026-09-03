@@ -779,3 +779,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims S1/S2 after M5; MASON claims S3 after W2-373; ATLAS audits each milestone as it lands.
 ---
+
+## 2026-09-03 09:15 - SCRIBE playbook §10 CRANE/ATLAS lessons inserted; W2-372 annotated with five-point approval rubric
+**Action:** (1) Inserted CRANE's and ATLAS's Section 10 lesson paragraphs into docs/FERRUM_METHOD_PLAYBOOK.md, composed from the operator's one-line summaries ("stale-branch re-landing rule", "trust-disk-over-labels rule") expanded against the actual documented incidents that produced each lesson — no fabricated first-person quotes. CRANE's paragraph cites the CODEX→MASON/RIVET rename (W2-356) not propagating into the parallel w2-359..380 branch chain, causing W2-354's stale "CODEX" assignee to persist past the rename and need re-correction; ties directly to why W2-357 (LANDING_PIPELINE_FIX) exists. ATLAS's paragraph cites W2-347's label-vs-actual-result gap, W2-360's RULE 6 approval-granted-but-unused finding, and the self-corrected GST/export draft, producing the rule that audits verify against disk state, never against status labels or self-reports. MASON's and RIVET's paragraphs remain pending, explicitly still marked so, to be inserted via a follow-up row once collected (operator's target: after 1:09). (2) Annotated W2-372 with the conductor's five-point approval rubric verbatim: dynamic graphics substantive; attractive + modern tech roots; honesty survives; no new deps beyond the approved three; database-traceable selections — so ATLAS's audit of W2-372 has an explicit, disk-checkable rubric rather than relying on the row's own status.
+**By:** SCRIBE (Claude Code)
+**Status:** ⚠️ Partial — playbook §10 still awaits MASON/RIVET paragraphs
+**Files Modified:** docs/FERRUM_METHOD_PLAYBOOK.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor collects MASON/RIVET lesson paragraphs after 1:09; SCRIBE inserts via follow-up row. ATLAS audits W2-372 against the five-point rubric once MASON claims and lands it.
+---
