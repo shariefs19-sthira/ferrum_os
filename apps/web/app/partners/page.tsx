@@ -139,7 +139,7 @@ export default function PartnersPage() {
                   <span className="font-semibold text-relume-ink">Best fit: </span>
                   {tier.fit}
                 </p>
-                <a href={`mailto:partners@ferrum_os.com?subject=Partner%20application%3A%20${encodeURIComponent(tier.name)}`} className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-relume-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-relume-ink">
+                <a href={`mailto:partners@ferrum_os.com?subject=Partner%20application%3A%20${encodeURIComponent(tier.name)}`} className="mt-6 inline-flex min-h-11 w-fit items-center justify-center rounded-full bg-relume-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-relume-ink">
                   {tier.cta}
                 </a>
               </article>

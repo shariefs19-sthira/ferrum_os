@@ -8,6 +8,7 @@
   select,
   textarea {
     min-height: 2.75rem;
+    min-width: 2.75rem;
   }
 
   h1,
@@ -16,6 +17,20 @@
   h4 {
     text-wrap: balance;
   }
+}
+
+/* Leaflet's stock 30px zoom controls and 25px marker target are undersized
+   for touch. Preserve the icon artwork while expanding the interactive box. */
+.leaflet-control-zoom a {
+  width: 2.75rem !important;
+  height: 2.75rem !important;
+  line-height: 2.75rem !important;
+}
+
+.leaflet-marker-icon[role='button'] {
+  min-width: 2.75rem !important;
+  min-height: 2.75rem !important;
+  object-fit: contain;
 }
 
 /* W2-363: unlayered so page-level width/size utilities cannot silently
