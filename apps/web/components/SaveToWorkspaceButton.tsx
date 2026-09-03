@@ -6,8 +6,25 @@ import { useState } from "react"
  * Generic "save this result to my workspace" action (W2-327), tied to
  * W2-326 auth. Drop into any calculator's result panel — it doesn't
  * know or care about the shape of `data`, it just stores it as JSON.
+ *
+ * provenanceSource/provenanceFreshness (W2-400) are optional and stored
+ * as their own columns (see migrations/0013_artifact_provenance.sql) —
+ * pass them only when the caller has something real to say (a source
+ * name, a computed-at timestamp); omit rather than invent one.
  */
-export default function SaveToWorkspaceButton({ type, title, data }: { type: string; title: string; data: unknown }) {
+export default function SaveToWorkspaceButton({
+  type,
+  title,
+  data,
+  provenanceSource,
+  provenanceFreshness,
+}: {
+  type: string
+  title: string
+  data: unknown
+  provenanceSource?: string
+  provenanceFreshness?: string
+}) {
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "unauthorized" | "error">("idle")
 
   const save = async () => {
@@ -16,7 +33,13 @@ export default function SaveToWorkspaceButton({ type, title, data }: { type: str
       const res = await fetch("/api/workspace/artifacts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type, title, data }),
+        body: JSON.stringify({
+          type,
+          title,
+          data,
+          ...(provenanceSource ? { provenance_source: provenanceSource } : {}),
+          ...(provenanceFreshness ? { provenance_freshness: provenanceFreshness } : {}),
+        }),
       })
       if (res.status === 401) {
         setStatus("unauthorized")

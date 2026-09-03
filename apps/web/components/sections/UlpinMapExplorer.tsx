@@ -136,7 +136,13 @@ export default function UlpinMapExplorer() {
         )}
         {result && (
           <div className="mt-4">
-            <SaveToWorkspaceButton type="ulpin_lookup" title={`ULPIN — ${result.ulpin}`} data={result} />
+            <SaveToWorkspaceButton
+              type="ulpin_lookup"
+              title={`ULPIN — ${result.ulpin}`}
+              data={result}
+              provenanceSource={result.plot_intel?.ruleset?.source_note}
+              provenanceFreshness={result.plot_intel?.ruleset?.version}
+            />
           </div>
         )}
         <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-relume-muted">

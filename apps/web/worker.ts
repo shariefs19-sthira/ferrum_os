@@ -757,7 +757,7 @@ app.get('/api/projects/:id', async (c) => {
   if (!user) return c.json({ error: 'unauthorized' }, 401)
   const project = await loadOwnedProject(c.env, user.id, c.req.param('id'))
   if (!project) return c.json({ error: 'not_found' }, 404)
-  const rows = await c.env.DB.prepare(`SELECT a.id, a.type, a.title, a.data, a.created_at FROM project_artifacts pa JOIN saved_artifacts a ON a.id = pa.artifact_id WHERE pa.project_id = ? AND a.user_id = ? ORDER BY pa.attached_at DESC`).bind(project.id, user.id).all<{ id: string; type: string; title: string; data: string; created_at: string }>()
+  const rows = await c.env.DB.prepare(`SELECT a.id, a.type, a.title, a.data, a.created_at, a.provenance_source, a.provenance_freshness FROM project_artifacts pa JOIN saved_artifacts a ON a.id = pa.artifact_id WHERE pa.project_id = ? AND a.user_id = ? ORDER BY pa.attached_at DESC`).bind(project.id, user.id).all<{ id: string; type: string; title: string; data: string; created_at: string; provenance_source: string | null; provenance_freshness: string | null }>()
   const artifacts = rows.results.map((artifact) => {
     let data: unknown = {}
     try { data = JSON.parse(artifact.data) } catch { data = {} }
@@ -941,17 +941,27 @@ app.post('/api/workspace/artifacts', async (c) => {
   if (!body || typeof body.type !== 'string' || typeof body.title !== 'string' || body.data === undefined) {
     return c.json({ error: 'invalid_input' }, 400)
   }
+  // W2-400: optional, structured provenance (source + freshness), consistent
+  // with the ProvenanceStrip pattern (W2-387). Nullable — most artifact
+  // types have no real source/freshness concept and this must never invent
+  // one; callers only send it when they have something honest to say.
+  const provenanceSource = typeof body.provenance_source === 'string' ? body.provenance_source : null
+  const provenanceFreshness = typeof body.provenance_freshness === 'string' ? body.provenance_freshness : null
   const id = crypto.randomUUID()
-  await c.env.DB.prepare('INSERT INTO saved_artifacts (id, user_id, type, title, data) VALUES (?, ?, ?, ?, ?)')
-    .bind(id, user.id, body.type, body.title, JSON.stringify(body.data))
+  await c.env.DB.prepare(
+    'INSERT INTO saved_artifacts (id, user_id, type, title, data, provenance_source, provenance_freshness) VALUES (?, ?, ?, ?, ?, ?, ?)',
+  )
+    .bind(id, user.id, body.type, body.title, JSON.stringify(body.data), provenanceSource, provenanceFreshness)
     .run()
-  return c.json({ id, type: body.type, title: body.title })
+  return c.json({ id, type: body.type, title: body.title, provenance_source: provenanceSource, provenance_freshness: provenanceFreshness })
 })
 
 app.get('/api/workspace/artifacts', async (c) => {
   const user = await requireUser(c.env, c.req.header('Cookie'))
   if (!user) return c.json({ error: 'unauthorized' }, 401)
-  const rows = await c.env.DB.prepare('SELECT id, type, title, created_at FROM saved_artifacts WHERE user_id = ? ORDER BY created_at DESC')
+  const rows = await c.env.DB.prepare(
+    'SELECT id, type, title, created_at, provenance_source, provenance_freshness FROM saved_artifacts WHERE user_id = ? ORDER BY created_at DESC',
+  )
     .bind(user.id)
     .all()
   return c.json({ artifacts: rows.results })
@@ -965,6 +975,8 @@ async function loadOwnedArtifact(env: Env, userId: string, artifactId: string) {
     title: string
     data: string
     created_at: string
+    provenance_source: string | null
+    provenance_freshness: string | null
   }>()
 }
 

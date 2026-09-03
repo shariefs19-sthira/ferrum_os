@@ -61,6 +61,8 @@ export default function IrrNpvModeler() {
               type="irr_npv"
               title={`IRR/NPV — discount rate ${discountRate}%`}
               data={{ ...result, cash_flows: cashFlows.split(",").map((v) => Number(v.trim())), discount_rate: Number(discountRate) / 100 }}
+              provenanceSource="Ferrum Analysis Engine (IRR/NPV calculator)"
+              provenanceFreshness={new Date().toISOString()}
             />
           </div>
         </div>

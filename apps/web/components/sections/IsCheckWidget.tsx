@@ -107,7 +107,12 @@ export default function IsCheckWidget() {
               <p className="mt-1 text-relume-ink">{check.note}</p>
             </div>
           ))}
-          <SaveToWorkspaceButton type="is_check" title={`${result.code} check — ${structureType}`} data={result} />
+          <SaveToWorkspaceButton
+            type="is_check"
+            title={`${result.code} check — ${structureType}`}
+            data={result}
+            provenanceSource={result.code}
+          />
         </div>
       )}
     </div>

@@ -99,6 +99,8 @@ export default function TestFitCalculator() {
                   floors: Number(floors),
                   setback_m: Number(setback),
                 }}
+                provenanceSource="Ferrum DesignStudio test-fit calculator"
+                provenanceFreshness={new Date().toISOString()}
               />
             </div>
           </div>

@@ -205,7 +205,12 @@ function FerrumMode() {
           <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs">
             INDICATIVE — {result.why_this_band}
           </p>
-          <SaveToWorkspaceButton type="ferrum_rate" title={`${category} — ${region} (${role})`} data={result} />
+          <SaveToWorkspaceButton
+            type="ferrum_rate"
+            title={`${category} — ${region} (${role})`}
+            data={result}
+            provenanceSource="Ferrum Rate Engine (weighted govt/market/user band)"
+          />
         </div>
       )}
     </div>
