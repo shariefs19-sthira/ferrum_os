@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 
 type ArtifactSummary = { id: string; type: string; title: string; created_at: string }
+type ProjectSummary = { id: string; name: string; city: string }
 
 /**
  * Real saved-artifact list (W2-327) — CRUD/export/share against the
@@ -13,6 +14,9 @@ export default function SavedArtifactsPanel() {
   const [artifacts, setArtifacts] = useState<ArtifactSummary[] | null>(null)
   const [authed, setAuthed] = useState<boolean | null>(null)
   const [shareUrls, setShareUrls] = useState<Record<string, string>>({})
+  const [projects, setProjects] = useState<ProjectSummary[]>([])
+  const [attachTarget, setAttachTarget] = useState<Record<string, string>>({})
+  const [attachStatus, setAttachStatus] = useState<Record<string, "idle" | "attached" | "error">>({})
 
   const load = async () => {
     const sessionRes = await fetch("/api/auth/session")
@@ -25,6 +29,20 @@ export default function SavedArtifactsPanel() {
     const res = await fetch("/api/workspace/artifacts")
     const data = await res.json()
     setArtifacts(data.artifacts ?? [])
+    const projectsRes = await fetch("/api/projects")
+    const projectsData = await projectsRes.json()
+    setProjects(projectsData.projects ?? [])
+  }
+
+  const attach = async (artifactId: string) => {
+    const projectId = attachTarget[artifactId]
+    if (!projectId) return
+    const res = await fetch(`/api/projects/${encodeURIComponent(projectId)}/attach`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ artifact_id: artifactId }),
+    })
+    setAttachStatus((prev) => ({ ...prev, [artifactId]: res.ok ? "attached" : "error" }))
   }
 
   useEffect(() => {
@@ -97,6 +115,29 @@ export default function SavedArtifactsPanel() {
             </div>
             {shareUrls[a.id] && (
               <p className="w-full break-all text-xs text-relume-ink opacity-70">Share link: {shareUrls[a.id]}</p>
+            )}
+            {projects.length > 0 && (
+              <div className="flex w-full flex-wrap items-center gap-2">
+                <select
+                  value={attachTarget[a.id] ?? ""}
+                  onChange={(e) => setAttachTarget((prev) => ({ ...prev, [a.id]: e.target.value }))}
+                  className="rounded-lg border border-relume-border px-2 py-1 text-xs"
+                >
+                  <option value="">Attach to project...</option>
+                  {projects.map((p) => (
+                    <option key={p.id} value={p.id}>{p.name} ({p.city})</option>
+                  ))}
+                </select>
+                <button
+                  onClick={() => attach(a.id)}
+                  disabled={!attachTarget[a.id]}
+                  className="rounded-full border border-relume-border px-3 py-1 text-xs hover:bg-relume-ink hover:text-white disabled:opacity-50"
+                >
+                  Attach
+                </button>
+                {attachStatus[a.id] === "attached" && <span className="text-xs text-emerald-700">Attached.</span>}
+                {attachStatus[a.id] === "error" && <span className="text-xs text-red-600">Failed to attach.</span>}
+              </div>
             )}
           </li>
         ))}

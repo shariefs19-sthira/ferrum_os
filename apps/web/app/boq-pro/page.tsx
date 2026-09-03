@@ -1,6 +1,7 @@
 ﻿"use client"
 
 import React, { useEffect, useState } from "react";
+import SaveToWorkspaceButton from "../../components/SaveToWorkspaceButton";
 
 type Material = {
   id: string;
@@ -175,6 +176,11 @@ export default function BOQProPage() {
           <button className="px-4 py-2 bg-relume-ink text-white rounded" onClick={printExport}>
             Print / Export PDF
           </button>
+          <SaveToWorkspaceButton
+            type="boq"
+            title={`BOQ — ${materials.length} item(s), ₹${grandTotal.toLocaleString("en-IN")}`}
+            data={{ materials, subtotal, gst, grand_total: grandTotal }}
+          />
         </div>
 
         <div className="mt-6 print-summary">

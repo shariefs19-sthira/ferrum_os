@@ -36,3 +36,13 @@ export const SAMPLE_BRAND_MULTIPLIERS: Record<string, number> = {
   standard: 1.0,
   premium: 1.15,
 }
+
+// No real municipal DCR/zoning data source exists anywhere in this repo
+// (confirmed by inventory during W2-361) — there is no "allowable FSI" or
+// "minimum setback" lookup by city/zone. These are explicitly-labeled
+// SAMPLE assumptions used ONLY so regulatoryFit has something to compare
+// a test-fit's achieved FSI/setback against; they are not a real
+// development-control-rules figure for any city and must be surfaced with
+// an INDICATIVE chip wherever shown (see riskFlags.ts).
+export const SAMPLE_ALLOWABLE_FSI = 2.0
+export const SAMPLE_MIN_SETBACK_M = 1.5

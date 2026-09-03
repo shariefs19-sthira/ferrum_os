@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import ParcelMap from "./ParcelMap"
+import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
 
 // Rough India bounding box, used only to place an unlabeled preview pin
 // before any lookup — never presented as a parcel or a real location.
@@ -117,6 +118,11 @@ export default function UlpinMapExplorer() {
             <p><strong>District:</strong> {result.district}</p>
             <p><strong>Area:</strong> {result.area_sqm} m²</p>
             <p><strong>Land use:</strong> {result.land_use}</p>
+          </div>
+        )}
+        {result && (
+          <div className="mt-4">
+            <SaveToWorkspaceButton type="ulpin_lookup" title={`ULPIN — ${result.ulpin}`} data={result} />
           </div>
         )}
         <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-relume-muted">

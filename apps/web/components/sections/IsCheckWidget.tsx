@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
 
 type IsCheckResult = {
   code: string
@@ -106,6 +107,7 @@ export default function IsCheckWidget() {
               <p className="mt-1 text-relume-ink">{check.note}</p>
             </div>
           ))}
+          <SaveToWorkspaceButton type="is_check" title={`${result.code} check — ${structureType}`} data={result} />
         </div>
       )}
     </div>

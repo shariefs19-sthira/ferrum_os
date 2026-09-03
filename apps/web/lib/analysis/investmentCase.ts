@@ -69,3 +69,34 @@ export function computeInvestmentCase(
 
   return { scenarios, discount_rate: discountRate, indicative: true }
 }
+
+/**
+ * Alternate entry point for M2's API layer: when a project has a real
+ * user-entered irr_npv artifact (raw cash_flows from the actual
+ * InvestFlow tool), scenario them directly by shifting each flow's
+ * magnitude ±deltaPct, rather than reconstructing a phasing schedule and
+ * an exit-revenue assumption neither of which has a real data source yet.
+ * Positive flows (revenue) move with bull/bear the same direction as
+ * buildCashFlowCurve's exit revenue; negative flows (spend) move opposite,
+ * same convention as computeInvestmentCase's cost/revenue split.
+ */
+export function scenariosFromCashFlows(cashFlows: number[], discountRate: number, deltaPct = 10): InvestmentCaseResult {
+  const shift = deltaPct / 100
+  const scenarioInputs: { scenario: InvestmentScenarioResult['scenario']; multiplier: (v: number) => number }[] = [
+    { scenario: 'bear', multiplier: (v) => (v >= 0 ? v * (1 - shift) : v * (1 + shift)) },
+    { scenario: 'base', multiplier: (v) => v },
+    { scenario: 'bull', multiplier: (v) => (v >= 0 ? v * (1 + shift) : v * (1 - shift)) },
+  ]
+
+  const scenarios = scenarioInputs.map(({ scenario, multiplier }) => {
+    const cash_flows = cashFlows.map((v) => Math.round(multiplier(v) * 100) / 100)
+    return {
+      scenario,
+      cash_flows,
+      irr: estimateIrr(cash_flows),
+      npv: Math.round(computeNpv(cash_flows, discountRate) * 100) / 100,
+    }
+  })
+
+  return { scenarios, discount_rate: discountRate, indicative: true }
+}

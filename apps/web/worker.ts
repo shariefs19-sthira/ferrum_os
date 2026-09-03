@@ -31,6 +31,14 @@ import { sendVerificationEmail, sendResetEmail } from './lib/auth/email'
 import { checkRateLimit } from './lib/auth/rateLimit'
 import { checkIpRateLimit } from './lib/auth/ipRateLimit'
 import { sendCaseNotification } from './lib/transact/notifications'
+import { computeFeasibilityScore, type FeasibilityInputs } from './lib/analysis/feasibilityScore'
+import { computeCostBreakdown, type CostMode } from './lib/analysis/costEngine'
+import { computeSensitivity } from './lib/analysis/sensitivity'
+import { scenariosFromCashFlows } from './lib/analysis/investmentCase'
+import { computeRiskFlags } from './lib/analysis/riskFlags'
+import { computeCityComparison } from './lib/analysis/cityComparison'
+import { SAMPLE_GOVT_RATES, SAMPLE_STAMP_DUTY, SAMPLE_ALLOWABLE_FSI, SAMPLE_MIN_SETBACK_M, CITIES } from './lib/analysis/sampleData'
+import type { City, BoqItem, LandData, RegulatoryData } from './lib/analysis/types'
 
 async function requireUser(env: Env, cookieHeader: string | undefined) {
   const sessionId = parseSessionCookie(cookieHeader)
@@ -773,6 +781,148 @@ app.get('/api/activity', async (c) => {
   if (!user) return c.json({ error: 'unauthorized' }, 401)
   const rows = await c.env.DB.prepare(`SELECT a.id, a.type, a.message, a.project_id, p.name AS project_name, a.created_at FROM project_activity a LEFT JOIN projects p ON p.id = a.project_id AND p.user_id = a.user_id WHERE a.user_id = ? ORDER BY a.created_at DESC LIMIT 100`).bind(user.id).all()
   return c.json({ activity: rows.results })
+})
+
+// Ferrum Analysis Engine (W2-370 M2). Every calculator call below is the
+// exact same pure function M1's vitest suite exercises — this route only
+// loads real attached-artifact data and feeds it in. No new table: the
+// snapshot is cached as a project_activity row (type
+// 'analysis.snapshot'), same shape as every other activity entry.
+type ParsedArtifact = { id: string; type: string; title: string; data: unknown; created_at: string }
+
+function latestByType(artifacts: ParsedArtifact[], type: string): ParsedArtifact | undefined {
+  return artifacts.find((a) => a.type === type)
+}
+
+app.get('/api/projects/:id/analysis', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const project = await loadOwnedProject(c.env, user.id, c.req.param('id'))
+  if (!project) return c.json({ error: 'not_found' }, 404)
+
+  const rows = await c.env.DB.prepare(
+    `SELECT a.id, a.type, a.title, a.data, a.created_at FROM project_artifacts pa JOIN saved_artifacts a ON a.id = pa.artifact_id WHERE pa.project_id = ? AND a.user_id = ? ORDER BY pa.attached_at DESC`,
+  )
+    .bind(project.id, user.id)
+    .all<{ id: string; type: string; title: string; data: string; created_at: string }>()
+
+  const artifacts: ParsedArtifact[] = rows.results.map((row) => {
+    let data: unknown = {}
+    try {
+      data = JSON.parse(row.data)
+    } catch {
+      data = {}
+    }
+    return { id: row.id, type: row.type, title: row.title, data, created_at: row.created_at }
+  })
+
+  const ulpinArtifact = latestByType(artifacts, 'ulpin_lookup')
+  const testfitArtifact = latestByType(artifacts, 'testfit')
+  const boqArtifact = latestByType(artifacts, 'boq')
+  const irrNpvArtifact = latestByType(artifacts, 'irr_npv')
+
+  const land: LandData = ulpinArtifact
+    ? {
+        ulpin: (ulpinArtifact.data as { ulpin?: string }).ulpin,
+        district: (ulpinArtifact.data as { district?: string }).district,
+        area_sqm: (ulpinArtifact.data as { area_sqm?: number }).area_sqm,
+        land_use: (ulpinArtifact.data as { land_use?: string }).land_use,
+      }
+    : {}
+
+  let regulatory: RegulatoryData | null = null
+  if (testfitArtifact) {
+    const tf = testfitArtifact.data as { floor_area_sqm?: number; plot_width_m?: number; plot_depth_m?: number; floors?: number; setback_m?: number }
+    const plotArea = (tf.plot_width_m ?? 0) * (tf.plot_depth_m ?? 0)
+    const totalFloorArea = (tf.floor_area_sqm ?? 0) * (tf.floors ?? 1)
+    const achieved_fsi = plotArea > 0 ? totalFloorArea / plotArea : 0
+    const setbackPass = (tf.setback_m ?? 0) >= SAMPLE_MIN_SETBACK_M ? 1 : 0
+    regulatory = { achieved_fsi, allowable_fsi: SAMPLE_ALLOWABLE_FSI, setbacks_pass: setbackPass, setbacks_total: 1 }
+  }
+
+  const boqItems: BoqItem[] = boqArtifact
+    ? (boqArtifact.data as { materials?: { name: string; qty: number; rate: number }[] }).materials?.map((m) => ({
+        category: m.name,
+        quantity: m.qty,
+        unit: 'each',
+        rate: m.rate,
+      })) ?? []
+    : []
+
+  const projectCity = CITIES.includes(project.city as City) ? (project.city as City) : 'Bengaluru'
+  const cost = computeCostBreakdown(boqItems, SAMPLE_GOVT_RATES, projectCity, 'govt' as CostMode)
+  const matchedItems = cost.line_items.filter((li) => li.matched_govt_rate).length
+  const sensitivity = computeSensitivity(boqItems, SAMPLE_GOVT_RATES, projectCity, 'govt')
+
+  const irrNpvData = irrNpvArtifact ? (irrNpvArtifact.data as { cash_flows?: number[]; discount_rate?: number }) : null
+  const investmentCase = irrNpvData?.cash_flows
+    ? scenariosFromCashFlows(irrNpvData.cash_flows, irrNpvData.discount_rate ?? 0.1)
+    : null
+  const baseNpv = investmentCase?.scenarios.find((s) => s.scenario === 'base')?.npv ?? 0
+  const totalInvestment = irrNpvData?.cash_flows
+    ? Math.abs(irrNpvData.cash_flows.filter((v) => v < 0).reduce((sum, v) => sum + v, 0))
+    : 0
+
+  const govtBandRow = SAMPLE_GOVT_RATES.find((r) => r.region === projectCity)
+  const band = govtBandRow ? { p25: govtBandRow.rate * 0.95, p50: govtBandRow.rate, p75: govtBandRow.rate * 1.05 } : { p25: 0, p50: 0, p75: 0 }
+
+  const feasibilityInputs: FeasibilityInputs = {
+    land,
+    regulatory: regulatory ?? { achieved_fsi: 0, allowable_fsi: 0, setbacks_pass: 0, setbacks_total: 0 },
+    boq: { matchedItems, totalItems: boqItems.length },
+    market: { targetRate: govtBandRow?.rate ?? 0, band },
+    investment: { npv: baseNpv, totalInvestment },
+  }
+  const feasibility = computeFeasibilityScore(feasibilityInputs)
+
+  const riskFlags = computeRiskFlags({
+    land,
+    regulatory,
+    boq: { matchedItems, totalItems: boqItems.length },
+    usesSampleGovtRates: true,
+    usesSampleStampDuty: true,
+    gatedFeatures: irrNpvArtifact ? [] : ['Investment case (no IRR/NPV artifact attached)'],
+  })
+
+  const cityComparison = computeCityComparison(boqItems, SAMPLE_GOVT_RATES, 'govt', (city, cityCost) => ({
+    land,
+    regulatory: regulatory ?? { achieved_fsi: 0, allowable_fsi: 0, setbacks_pass: 0, setbacks_total: 0 },
+    boq: { matchedItems: cityCost.line_items.filter((li) => li.matched_govt_rate).length, totalItems: boqItems.length },
+    market: { targetRate: SAMPLE_GOVT_RATES.find((r) => r.region === city)?.rate ?? 0, band },
+    investment: { npv: baseNpv, totalInvestment },
+  }))
+
+  const result = {
+    project_id: project.id,
+    feasibility,
+    cost,
+    sensitivity,
+    investment_case: investmentCase,
+    risk_flags: riskFlags,
+    city_comparison: cityComparison,
+    stamp_duty_table_used: SAMPLE_STAMP_DUTY,
+    computed_at: new Date().toISOString(),
+  }
+
+  // Snapshot cache — reuses project_activity, no new table. Analysis is
+  // always recomputed fresh (it's pure JS over a handful of rows, well
+  // under 200ms), but a ledger entry is only written when the last one
+  // for this project is more than 5 minutes old, so viewing the same
+  // project repeatedly doesn't spam the activity feed with a new row per
+  // page load.
+  const lastSnapshot = await c.env.DB.prepare(
+    `SELECT created_at FROM project_activity WHERE project_id = ? AND type = 'analysis.snapshot' ORDER BY created_at DESC LIMIT 1`,
+  )
+    .bind(project.id)
+    .first<{ created_at: string }>()
+  const staleMs = lastSnapshot ? Date.now() - new Date(lastSnapshot.created_at + 'Z').getTime() : Infinity
+  if (staleMs > 5 * 60 * 1000) {
+    await c.env.DB.prepare('INSERT INTO project_activity (id, user_id, project_id, type, message) VALUES (?, ?, ?, ?, ?)')
+      .bind(crypto.randomUUID(), user.id, project.id, 'analysis.snapshot', JSON.stringify({ feasibility_score: feasibility.score, computed_at: result.computed_at }))
+      .run()
+  }
+
+  return c.json(result)
 })
 
 // Saved-artifact workspace (W2-327), tied to W2-326 auth. `data` is

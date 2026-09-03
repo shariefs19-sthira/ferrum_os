@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import DxfExportButton from "./DxfExportButton"
+import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
 
 type TestFitResult = {
   testfit_id: string
@@ -85,6 +86,19 @@ export default function TestFitCalculator() {
                 plot_depth_m={Number(plotDepth)}
                 setback_m={Number(setback)}
                 filename={`testfit-${result.testfit_id}.dxf`}
+              />
+            </div>
+            <div className="mt-4">
+              <SaveToWorkspaceButton
+                type="testfit"
+                title={`Test-fit — ${plotWidth}×${plotDepth}m, ${floors} floors`}
+                data={{
+                  ...result,
+                  plot_width_m: Number(plotWidth),
+                  plot_depth_m: Number(plotDepth),
+                  floors: Number(floors),
+                  setback_m: Number(setback),
+                }}
               />
             </div>
           </div>

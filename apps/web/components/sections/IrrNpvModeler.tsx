@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
 
 type IrrNpvResult = { irr: number | null; npv: number; indicative: boolean }
 
@@ -55,6 +56,13 @@ export default function IrrNpvModeler() {
         <div className="mt-6 grid grid-cols-2 gap-4 text-sm text-relume-ink">
           <p><strong>IRR:</strong> {result.irr !== null ? `${(result.irr * 100).toFixed(2)}%` : "Did not converge"}</p>
           <p><strong>NPV:</strong> ₹{result.npv.toLocaleString("en-IN")}</p>
+          <div className="col-span-2">
+            <SaveToWorkspaceButton
+              type="irr_npv"
+              title={`IRR/NPV — discount rate ${discountRate}%`}
+              data={{ ...result, cash_flows: cashFlows.split(",").map((v) => Number(v.trim())), discount_rate: Number(discountRate) / 100 }}
+            />
+          </div>
         </div>
       )}
     </div>
