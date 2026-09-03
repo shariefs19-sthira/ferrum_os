@@ -811,3 +811,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Conductor decides the two pending approval-queue items (or lets the palette one lapse to skip); collect MASON/RIVET §10 paragraphs after 1:09.
 ---
+
+## 2026-09-03 10:15 - SCRIBE RULE 20 (Long-run mission blocks) added + docs/HANDOFFS.md created + seats mirror
+**Action:** Added AGENTS.md RULE 20 — LONG_RUN_MISSION_BLOCKS, four parts: (1) once a domain's vision is on disk (spec + acceptance + failure gates), the conductor issues one prompt covering multiple builds; the claiming seat self-sequences and runs to the block's end-state, reporting per milestone without waiting for conductor relays; (2) seats coordinate directly via disk — reading each other's branches/specs and leaving handoff notes in the newly-created docs/HANDOFFS.md — rather than routing inter-seat facts through a conductor hop; (3) inside a block, a seat may execute self-found improvements that stay strictly in-envelope (no protected paths/worker.ts/migrations/_headers, no new deps, no production writes, no operator-facing change) — anything operator-facing goes to the Approval Queue instead; (4) the conductor intervenes only on a red flag, an approval decision, a RULE 19 handoff, or an audit failure. Created docs/HANDOFFS.md with an append-only format (mirroring WAVE_QUEUE.md/ACTIVITY_LOG.md discipline) and an empty log ready for the next active mission block. Mirrored RULE 20 into docs/seats/CRANE.md, ATLAS.md, CODEX.md, and SCRIBE.md — SCRIBE's own mirror notes it now owns docs/HANDOFFS.md alongside the other ledger docs.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/HANDOFFS.md (new), docs/seats/ATLAS.md, docs/seats/CODEX.md, docs/seats/CRANE.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Conductor can now issue mission-block prompts once a domain's spec/acceptance/failure-gates are on disk (e.g. the STUDIO_ENGINE W2-380 block); seats begin using docs/HANDOFFS.md on the next cross-seat dependency.
+---

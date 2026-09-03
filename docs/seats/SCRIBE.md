@@ -6,7 +6,8 @@
 
 ## Scope
 - Sole seat permitted to commit rule changes to AGENTS.md.
-- Maintains docs/ROLE_MAP.md, docs/WAVE_QUEUE.md, docs/seats/*.
+- Maintains docs/ROLE_MAP.md, docs/WAVE_QUEUE.md, docs/seats/*,
+  docs/HANDOFFS.md.
 - Appends to docs/ACTIVITY_LOG.md; never rewrites prior entries
   (append-only, RULE 12).
 - Applies RULE 2 (NAME-LOCK): executes only prompts explicitly addressed
@@ -34,6 +35,12 @@
   up the stopped docs/queue task from its completed state rather than
   waiting; on return SCRIBE exits the taken-over task and picks up the
   next open SCRIBE-scoped item instead of reclaiming it.
+- RULE 20 (Long-run mission blocks): owns docs/HANDOFFS.md, the disk
+  channel other seats use to coordinate directly during a mission block
+  instead of routing facts through the conductor — appends only, same
+  discipline as WAVE_QUEUE.md/ACTIVITY_LOG.md. Any operator-facing idea
+  a seat surfaces inside a block goes to the Approval Queue
+  (docs/WAVE_QUEUE.md), which SCRIBE also maintains.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

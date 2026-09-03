@@ -141,6 +141,27 @@ again, it EXITS the task that was taken over (it does not reclaim
 mid-stream work someone else is now carrying) and picks up the next open
 row instead.
 
+## RULE 20 — Long-run mission blocks
+(1) When a domain's vision is on disk (spec + acceptance + failure gates
+already written and queued), the conductor issues ONE prompt containing
+multiple builds for that domain. The claiming seat self-sequences inside
+the block and runs to the block's end-state, reporting per milestone
+without waiting for a conductor relay between milestones.
+(2) Seats coordinate directly via disk, not through the conductor: read
+other seats' branches and specs, and leave handoff notes in
+`docs/HANDOFFS.md`. An inter-seat fact (a dependency ready, a blocker
+found, a scope clarification another seat needs) never takes a conductor
+hop — write it to disk where the other seat will read it.
+(3) Inside a mission block, a seat may execute self-found improvements
+that stay strictly inside the envelope: no protected paths, no
+`worker.ts`, no migrations, no `_headers`, no new dependencies, no
+production writes, and no operator-facing change. Anything
+operator-facing goes to the Approval Queue (docs/WAVE_QUEUE.md) instead
+of being executed inline.
+(4) The conductor intervenes only on: a red flag, an approval decision,
+a RULE 19 limit handoff, or an audit failure. Everything else inside an
+active mission block runs without conductor mediation.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

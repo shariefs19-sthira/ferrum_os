@@ -40,3 +40,11 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   restart, no waiting for the reset. If ATLAS itself hits limit, exits
   any taken-over task on return and picks up the next open row rather
   than reclaiming it.
+- RULE 20 (Long-run mission blocks): audits are one of the four things
+  that still pulls the conductor in mid-block (audit failure). Otherwise
+  reads other seats' branches/specs and leaves handoff notes in
+  docs/HANDOFFS.md directly rather than routing findings through the
+  conductor. Self-found improvements executed inside a mission block
+  must stay out of protected paths/worker.ts/migrations/_headers, add no
+  new deps, make no production writes, and change nothing
+  operator-facing.

@@ -30,6 +30,13 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   takes over from the completed state, no waiting for the reset; on
   return this seat exits the taken-over task and picks up the next open
   row instead of reclaiming it.
+- RULE 20 (Long-run mission blocks): inside a mission block, self-
+  sequences milestones and reports per milestone without waiting for a
+  conductor relay; coordinates with other seats via docs/HANDOFFS.md
+  directly. Self-found improvements executed inline must stay out of
+  protected paths/worker.ts/migrations/_headers, add no new deps, make
+  no production writes, and change nothing operator-facing — anything
+  operator-facing goes to the Approval Queue instead.
 
 ## Assigned slice (2026-09-02)
 W2-346..350 and W2-353+, per operator directive. W2-346, 348, and 350
