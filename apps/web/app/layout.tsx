@@ -7,7 +7,7 @@ import JsonLd from '../components/JsonLd'
 import NewsletterSignup from '../components/NewsletterSignup'
 import CookieConsent from '../components/CookieConsent'
 import Concierge from '../components/Concierge'
-import { SITE_BASE_URL } from '../lib/siteConfig'
+import { SITE_BASE_URL, SOCIAL_CARD_ALT, SOCIAL_CARD_PATH } from '../lib/siteConfig'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -27,6 +27,12 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ferrum OS - AI-native construction platform for India',
+    description:
+      'Ferrum OS is an India-first, AI-native construction platform covering land intelligence, design, structural checks, BOQ, procurement, and project finance.',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -35,6 +41,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: "if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'))" }} />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        {/* Route-level Open Graph objects replace inherited image fields, so the
+            canonical social card belongs in the shared document head. */}
+        <meta property="og:image" content={`${SITE_BASE_URL}${SOCIAL_CARD_PATH}`} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={SOCIAL_CARD_ALT} />
+        {/* twitter:card itself now comes from the metadata.twitter export
+            above — a duplicate raw tag here would emit two conflicting
+            twitter:card values in the built head. */}
+        <meta name="twitter:image" content={`${SITE_BASE_URL}${SOCIAL_CARD_PATH}`} />
+        <meta name="twitter:image:alt" content={SOCIAL_CARD_ALT} />
       </head>
       {/*
         W2-344: document order is header → content → footer. It previously read
