@@ -313,6 +313,9 @@ landed, so W2-312 carries the real scope.
 ## 2026-09-03 — SCRIBE interaction-first product pages (sequenced before the 372 sweep)
 | W2-373 | | B2 | J08 | MASON | OPEN | | INTERACTION_FIRST — sequenced after og:image work and BEFORE W2-372 (UI_UX_MODERNIZATION). On every product page, the REAL working tool is the first thing in the first viewport — the hero hosts the full interaction, replacing the W2-361 mini version. Explanatory content follows only if the tool isn't self-evident. Duplicate "try it" sections further down the page are REMOVED — no tool appears twice per page. UNDO: git revert <sha>. |
 
+## 2026-09-03 — SCRIBE method playbook (self-assigned, meta-documentation)
+| W2-374 | | B2 | J08 | SCRIBE | OPEN | | METHOD_PLAYBOOK — author docs/FERRUM_METHOD_PLAYBOOK.md: a repo-agnostic blueprint for rebuilding this fleet workflow on any future project. 10 sections per operator spec: seat model, ruleset template (all 17 rules + rationale), ledger formats, mission-order format, landing pipeline pattern, honesty conventions, operator gates, capacity contingency, bootstrap checklist, lessons appendix. Section 10 requires one paragraph of lessons collected from each seat first — not fabricated by SCRIBE. UNDO: git revert <sha> (or delete docs/FERRUM_METHOD_PLAYBOOK.md). |
+
 ## Copilot W2 series (recovered branch provenance)
 | Task ID | Parent | Batch | J/Domain | Assigned To | Status | Est. Duration |
 |---------|--------|-------|----------|-------------|--------|---------------|
