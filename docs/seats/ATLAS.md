@@ -115,3 +115,8 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   primary-preference toggle never hides the other unit, and conversions
   use exact constants — checked as part of the RULE 29 numeric-sanity
   audit, not a separate pass.
+- RULE 31 (Overnight autonomy): during a declared operator-absent
+  window, audits proceed without blocking queries — genuine ambiguity
+  logs an OPEN-FOR-OPERATOR line and moves to the next audit rather than
+  waiting. A destructive finding still holds only itself, never the rest
+  of the audit queue.

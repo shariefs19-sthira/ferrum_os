@@ -47,14 +47,14 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — twenty-nine numbered rules were actually adopted (numbered
-1–14, 16–30 — RULE 15 was never assigned; leave gaps in your own
+matured — thirty numbered rules were actually adopted (numbered
+1–14, 16–31 — RULE 15 was never assigned; leave gaps in your own
 numbering rather than force sequential renumbering when a rule is
 superseded or dropped). Rules 1–17 are detailed below, each with the
 one-line rationale that justified adopting it — carry the rationale
 forward even when you reword the rule for a new repo, because the
 rationale is what tells a future reader whether the rule still applies
-to their situation. Rules 18–30, added later in the same engagement as
+to their situation. Rules 18–31, added later in the same engagement as
 the fleet's landing pipeline, DONE-verification, skill-hygiene,
 conflict-resolution, operator-safety, and numeric-correctness discipline
 matured, are summarized in the addendum immediately after the numbered
@@ -139,7 +139,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–30 (added later, summarized)
+### Addendum: rules 18–31 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -340,6 +340,27 @@ source.
     assumption; treating dual-unit display as a first-class requirement
     from the start is far cheaper than retrofitting it once every
     numeric surface already assumes a single unit.*
+31. **Overnight autonomy** — portable. During a declared operator-absent
+    window: no blocking queries — any ambiguity resolves via rule 27's
+    tie-breaks, exactly as it would with the operator present. A
+    genuine question for the operator becomes a logged
+    OPEN-FOR-OPERATOR line in both the report and the relevant ledger
+    row, and the seat immediately moves to the next queued task rather
+    than waiting on it. A destructive/irreversible act still holds — the
+    safety exception doesn't relax overnight — but the hold covers only
+    that one act, never the rest of the queue behind it. Any queue
+    worked overnight carries at least 3 sequenced tasks, so a "next"
+    always exists when the current one hits an OPEN-FOR-OPERATOR line or
+    a LOCKED dependency. By default, treat every operator rest window
+    (roughly 8 hours) as a build window — this doesn't need a fresh
+    declaration each time, only a queue deep enough to fill it.
+    *Rationale: an unattended window is exactly when "stall and wait for
+    an answer" is most expensive — hours of idle time instead of minutes.
+    Converting a would-be question into a logged, resolvable line and
+    moving on keeps the fleet productive through the gap, while the
+    unchanged destructive-act safety valve and the OPEN-FOR-OPERATOR
+    trail mean nothing risky happens unsupervised and nothing gets lost
+    for the operator to review at the start of the next session.*
 
 ## 3. Ledger formats
 
