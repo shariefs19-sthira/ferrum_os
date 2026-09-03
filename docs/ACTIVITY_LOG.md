@@ -1283,3 +1283,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WORKSPACE_SPEC.md (new), docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE claims W2-400; MASON confirms the actual sketch is available (not just SCRIBE's spec doc) before claiming W2-401; whoever has the sketch supplies it so §3 can be completed for real.
 ---
+
+## 2026-09-03 15:00 - SCRIBE RULE 31 (Overnight autonomy) added + mirror + playbook (note: a CRANE-addressed message held per RULE 2)
+**Action:** Added AGENTS.md RULE 31, five parts, verbatim: (1) no blocking queries during a declared operator-absent window — ambiguity resolves via RULE 27's existing tie-breaks; (2) a genuine question becomes an OPEN-FOR-OPERATOR line in the report and the relevant ledger row, with the seat proceeding immediately to the next queued task rather than stalling; (3) destructive acts still hold, but the hold covers only that specific act, never the rest of the queue; (4) any overnight queue carries at least 3 sequenced tasks so a "next" always exists; (5) every operator rest window (~8h) is treated as a build window by default, no fresh declaration required each time. Mirrored into all six seat docs. Updated docs/FERRUM_METHOD_PLAYBOOK.md: rule count corrected to 30, addendum range extended to 18-31, RULE 31 given its own rationale. Separately: a message arrived mid-turn addressed "CRANE:" invoking RULE 31 for tonight's window — held per RULE 2 (NAME-LOCK), no action taken on its contents; noted here only because it arrived in the same turn as this rule's own creation.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/PI.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Any seat working an operator-absent window applies RULE 31's OPEN-FOR-OPERATOR convention and maintains a ≥3-deep queue.
+---

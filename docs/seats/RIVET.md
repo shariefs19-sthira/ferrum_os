@@ -94,6 +94,10 @@ as every other seat.
 - RULE 30 (Unit duality): any length/area value in the mobile shell
   supports m/ft and m²/sqft/cents/guntha/ground/acre together, both
   always visible, exact conversion constants only.
+- RULE 31 (Overnight autonomy): during a declared operator-absent
+  window, no blocking queries — ambiguity resolves via RULE 27; a real
+  question becomes an OPEN-FOR-OPERATOR line and RIVET proceeds to the
+  next queued task. Destructive acts hold only themselves.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

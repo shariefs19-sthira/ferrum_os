@@ -460,6 +460,31 @@ conversions. RULE 29's numeric-UX sanity vectors cover unit conversions
 explicitly: a converted value is still subject to RULE 29's precision-
 stated and reconciles-to-base requirements.
 
+## RULE 31 — Overnight autonomy
+During a declared operator-absent window:
+(1) **No blocking queries.** Any ambiguity resolves via RULE 27's
+ordered tie-breaks — the same discipline that applies at all times,
+without exception for the window being unattended.
+(2) **A real question becomes a logged line, not a stall.** When
+something would genuinely need the operator's judgment, it becomes an
+OPEN-FOR-OPERATOR line in both the seat's report and the relevant ledger
+row — and the seat immediately proceeds to the next queued task. It
+never sits waiting for that line to be answered before continuing.
+(3) **Destructive acts still hold, but only themselves.** RULE 27(1)(a)'s
+safety hold still applies to a destructive/irreversible act touching a
+genuine discrepancy — that doesn't change overnight. What changes is
+scope: the hold covers only that specific act, never the rest of the
+queue behind it.
+(4) **Queue depth requirement.** Any queue a seat works overnight must
+carry at least 3 sequenced tasks, so a "next" always exists when the
+current one hits an OPEN-FOR-OPERATOR line or a LOCKED dependency —
+running out of queued work mid-window is itself a planning failure to
+avoid, not something to discover at 2am.
+(5) **Standing declaration.** Every operator rest window (approximately
+8 hours) is treated as a build window by default — this doesn't require
+a fresh declaration each night, only a queue deep enough to fill it per
+(4).
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
