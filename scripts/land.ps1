@@ -106,8 +106,16 @@ function Get-SensitivePathMatches($paths) {
 }
 
 function Get-RebaseIndexText($stage, $path) {
-    $lines = @(git show ":$stage`:$path")
-    if ($LASTEXITCODE -ne 0) { throw "Unable to read rebase index stage $stage for $path" }
+    # A genuine add/add conflict (the path has no common ancestor version —
+    # e.g. two branches independently created the same new file) has no
+    # stage-1 entry at all; `git show :1:path` fails with a non-zero exit.
+    # That is a real, expected case here (hit for real 2026-09-03 on an old
+    # branch chain), not a script bug — return $null so the caller treats
+    # it as unresolvable-by-this-heuristic and reports, instead of an
+    # uncaught throw crashing the whole run mid-loop and leaving the
+    # working tree in an in-progress-rebase state for every branch after it.
+    $lines = @(git show ":$stage`:$path" 2>$null)
+    if ($LASTEXITCODE -ne 0) { return $null }
     return ($lines -join "`n") + "`n"
 }
 
@@ -121,6 +129,9 @@ function Resolve-AppendOnlyDocsRebaseConflicts {
         $base = Get-RebaseIndexText 1 $path
         $mainText = Get-RebaseIndexText 2 $path
         $branchText = Get-RebaseIndexText 3 $path
+        if ($null -eq $base -or $null -eq $mainText -or $null -eq $branchText) {
+            return @{ Resolved = $false; Files = $conflicts }
+        }
         # Rebase stage 2 is current main; stage 3 is the branch being replayed.
         # Only append-only edits on both sides are safe to combine automatically.
         if (-not $mainText.StartsWith($base, [System.StringComparison]::Ordinal) -or
