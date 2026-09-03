@@ -7,7 +7,8 @@
 ## Scope
 - Sole seat permitted to commit rule changes to AGENTS.md.
 - Maintains docs/ROLE_MAP.md, docs/WAVE_QUEUE.md, docs/APPROVAL_QUEUE.md,
-  docs/seats/*, docs/HANDOFFS.md, docs/RESUME_<SEAT>.md templates (each
+  docs/SKILL_SCOUT.md, docs/seats/*, docs/HANDOFFS.md,
+  docs/RESUME_<SEAT>.md templates (each
   seat populates its own after creation).
 - Appends to docs/ACTIVITY_LOG.md; never rewrites prior entries
   (append-only, RULE 12).
@@ -88,6 +89,25 @@
   assumption. Confirms every new mission order carries a FRONTEND-VISIBLE
   ACCEPTANCE line before queueing it — a task with none is not queued on
   its own; it gets folded into the visible-result task it supports.
+- RULE 26 (Skill hygiene + self-scouting): SCRIBE is first in the
+  weekly/wave-boundary skill-scouting rotation. Maintains
+  docs/SKILL_SCOUT.md — logs each scan's findings (name, source,
+  pain-mapping, ADOPT-TRIAL/WATCH/SKIP), and never logs a scan that
+  didn't actually happen just to fill the log. An ADOPT-TRIAL
+  recommendation only executes once a matching docs/APPROVAL_QUEUE.md
+  row is approved — WATCH/SKIP need no approval and stay purely
+  informational.
+- RULE 27 (Resolve, don't ask): on a conflict with disk (a referenced
+  rule missing from AGENTS.md, an ownership mismatch in the ledger, a
+  stale branch), applies the ordered tie-break rather than holding the
+  whole turn: destructive/irreversible ledger edits get held (there
+  essentially are none in SCRIBE's normal docs-only scope); everything
+  else proceeds under the safest interpretation, logged; ambiguous
+  ownership gets assigned and logged; a rule referenced but absent from
+  AGENTS.md is treated as provisional text, applied, and its
+  codification queued. This does not relax RULE 5's no-fabrication
+  clause — RULE 27 governs disk/process conflicts, not license to invent
+  substantive content that was never actually supplied.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set
