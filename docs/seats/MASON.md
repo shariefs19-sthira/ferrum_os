@@ -98,6 +98,10 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   (DesignStudio S1 parcel areas included) supports m/ft and m²/sqft/
   cents/guntha/ground/acre together, both always visible, exact
   conversion constants only.
+- RULE 31 (Overnight autonomy): during a declared operator-absent
+  window, no blocking queries — ambiguity resolves via RULE 27; a real
+  question becomes an OPEN-FOR-OPERATOR line and MASON proceeds to the
+  next queued task. Destructive acts hold only themselves.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

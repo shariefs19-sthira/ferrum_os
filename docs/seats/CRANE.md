@@ -119,6 +119,12 @@
   fields) supports m/ft and m²/sqft/cents/guntha/ground/acre together,
   both always visible, exact conversion constants only, persisted global
   primary preference without hiding the other unit.
+- RULE 31 (Overnight autonomy): during a declared operator-absent
+  window, no blocking queries — ambiguity resolves via RULE 27; a real
+  question becomes an OPEN-FOR-OPERATOR line in the report and ledger,
+  and CRANE proceeds to the next queued task immediately. Destructive
+  acts still hold only themselves, never the rest of the queue. Keeps
+  at least 3 sequenced tasks queued so a "next" always exists.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

@@ -139,6 +139,12 @@
   guntha/ground/acre, both always visible, exact conversion constants,
   persisted global primary preference) — annotated W2-380's S1 parcel
   areas and the W2-372 sweep scope with this requirement on landing.
+- RULE 31 (Overnight autonomy): during a declared operator-absent
+  window, does not stall the ledger on a would-be question — logs it as
+  an OPEN-FOR-OPERATOR line directly on the relevant row and continues
+  with the next queued docs task. Never blocks its own queue on an
+  unanswered line; a destructive/irreversible act (there are essentially
+  none in SCRIBE's docs-only scope) would hold only itself.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

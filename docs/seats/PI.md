@@ -51,10 +51,14 @@ being experimental:
   numeric-ux-sanity (RULE 29 — any numeric-rendering UI self-checks at
   build time: sums to 100, shown-vs-real-math parity, band-contains-
   median, unit consistency, percentage-base reconciliation, stated
-  rounding precision), and unit-duality (RULE 30 — any length/area
+  rounding precision), unit-duality (RULE 30 — any length/area
   input/output supports m/ft and m²/sqft/cents/guntha/ground/acre
-  together, both always visible, exact conversion constants only) rules
-  as every other seat.
+  together, both always visible, exact conversion constants only), and
+  overnight-autonomy (RULE 31 — during a declared operator-absent
+  window, no blocking queries; ambiguity resolves via RULE 27; a real
+  question becomes an OPEN-FOR-OPERATOR line, then proceed to the next
+  queued task; destructive acts hold only themselves) rules as every
+  other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the
