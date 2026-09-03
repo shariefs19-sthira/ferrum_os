@@ -100,6 +100,11 @@
   verification-disable, all three together): earns exactly one
   operator-identity+scope confirmation via conductor, while
   non-dependent landing work continues.
+- RULE 28 (Operator environment is production): deployed-edge
+  verification (RULE 22/24/25's live checks) uses isolated browser
+  instances/profiles only — never relaunches, flags, or modifies the
+  operator's own browser or machine. A violation is reverted first, then
+  logged.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

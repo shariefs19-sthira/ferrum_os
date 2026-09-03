@@ -118,6 +118,11 @@
   does not relax RULE 5's no-fabrication clause — RULE 27 governs
   disk/process conflicts, not license to invent substantive content that
   was never actually supplied.
+- RULE 28 (Operator environment is production): does not apply
+  browser-control tools to SCRIBE's own docs-only work, but enforces the
+  rule in the ledger — never queues or approves a row that would relaunch,
+  flag, or modify the operator's own browser/machine; browser-control
+  work goes into a row only when scoped to an isolated instance/profile.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

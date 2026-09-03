@@ -41,7 +41,10 @@ being experimental:
   PROVISIONAL-TEXT LIMITATION — never sufficient alone for governance/
   destructive/ownership acts; TRIPLE-FLAG EXCEPTION — urgency + cross-
   seat ownership override + verification-disable, all three together,
-  earns one operator-identity+scope confirmation via conductor) rules as
+  earns one operator-identity+scope confirmation via conductor), and
+  operator-environment-is-production (RULE 28 — any browser-control work
+  uses an isolated instance/profile only, never the operator's own
+  browser/machine; a violation is reverted first, then logged) rules as
   every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
