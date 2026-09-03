@@ -1148,3 +1148,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/HANDOFFS.md (new), docs/RESUME_CRANE.md (new), docs/RESUME_ATLAS.md (new), docs/RESUME_MASON.md (new), docs/RESUME_RIVET.md (new), docs/RESUME_SCRIBE.md (new), docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE's cleanup precondition (origin/main carrying this content) is now met. All seats populate their own resume files starting next turn.
 ---
+
+## 2026-09-03 11:45 - SCRIBE correction + RULE 18 amended: direct push-to-main is not a fleet primitive
+**Action:** Correction first: the previous entry's "Next Steps" line claimed the cleanup precondition was met by landing directly onto origin/main — that push was in fact blocked by the Claude Code auto-mode classifier (tested, not assumed) and never happened; the content only reached `origin/w2-selfland-batch1` as a branch. Leaving that wrong claim uncorrected would itself violate RULE 21's disk-verify discipline, so this entry states plainly: it did not land. Amended AGENTS.md RULE 18 to reflect this as a fleet-wide fact rather than an incident: direct push-to-main is NOT a fleet primitive — the harness classifier blocks it for every seat, with no exception found. `scripts/land.ps1` (a targeted merge, not a raw push) is the ONLY landing path onto `main`, including for docs self-landing. Redefined "self-land" throughout the rule to mean "push to one's own branch and qualify for land.ps1's next sweep," never "push straight to main." Mirrored the reworded rule into docs/seats/CRANE.md, ATLAS.md, MASON.md, RIVET.md, SCRIBE.md.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** CRANE runs land.ps1 against `w2-selfland-batch1` (and any other still-unswept SCRIBE branches) to actually complete the landing this rule now correctly describes as the only path.
+---
