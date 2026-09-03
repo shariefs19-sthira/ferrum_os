@@ -47,17 +47,18 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — twenty-six numbered rules were actually adopted (numbered
-1–14, 16–27 — RULE 15 was never assigned; leave gaps in your own
+matured — twenty-seven numbered rules were actually adopted (numbered
+1–14, 16–28 — RULE 15 was never assigned; leave gaps in your own
 numbering rather than force sequential renumbering when a rule is
 superseded or dropped). Rules 1–17 are detailed below, each with the
 one-line rationale that justified adopting it — carry the rationale
 forward even when you reword the rule for a new repo, because the
 rationale is what tells a future reader whether the rule still applies
-to their situation. Rules 18–27, added later in the same engagement as
-the fleet's landing pipeline, DONE-verification, skill-hygiene, and
-conflict-resolution discipline matured, are summarized in the addendum
-immediately after the numbered list rather than restated in full — see
+to their situation. Rules 18–28, added later in the same engagement as
+the fleet's landing pipeline, DONE-verification, skill-hygiene,
+conflict-resolution, and operator-safety discipline matured, are
+summarized in the addendum immediately after the numbered list rather
+than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
 from the authoritative
@@ -137,7 +138,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–27 (added later, summarized)
+### Addendum: rules 18–28 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -275,6 +276,23 @@ source.
     send. This is the one rule in this playbook explicitly designed to
     travel unchanged to a different project — it isn't about this
     fleet's specific tools or domain.*
+28. **Operator environment is production** — a seat never relaunches,
+    flags, or modifies the human operator's own browser or machine.
+    Every piece of browser-control work (live-view checks, deployed-edge
+    screenshot capture for a DONE/LIVE verification) runs against an
+    isolated instance or profile, never the operator's actual running
+    session — its extensions, history, bookmarks, or OS-level state are
+    all off-limits. Any operator-visible side effect outside the actual
+    deployed artifact under test — a browser banner, a changed
+    extension/profile setting, a stray notification — is a violation
+    regardless of intent, and gets reverted first, logged second.
+    *Rationale: agent-driven browser automation is powerful enough to
+    accidentally treat the operator's own daily-use environment as a
+    disposable test fixture; drawing this line explicitly, before any
+    live-verification rule (like this playbook's rule 24 or 25) gets
+    exercised for real, prevents a genuinely embarrassing and trust-
+    damaging class of incident rather than discovering the boundary
+    after crossing it.*
 
 ## 3. Ledger formats
 

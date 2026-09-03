@@ -1212,3 +1212,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/PI.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** None pending — RULE 27 is now in its refined, final-for-this-session form across AGENTS.md, all seat docs, and the playbook.
 ---
+
+## 2026-09-03 13:20 - SCRIBE RULE 28 (Operator environment is production) added + mirror + playbook
+**Action:** Added AGENTS.md RULE 28: seats never relaunch, flag, or modify the operator's own browser or machine; any browser-control work (live-view checks, RULE 24/25 deployed-edge screenshot capture) runs against an isolated instance/profile only — never the operator's actual running session, extensions, history, bookmarks, or OS-level state. Any operator-visible side effect outside the deployed site itself (a banner, an extension flag, a profile change, a notification) is a violation regardless of intent, and is reverted first, then logged. Mirrored into all six seat docs, each scoped to that seat's actual browser-touching work (CRANE/MASON/RIVET/ATLAS's live-verification duties under RULE 22/24/25; SCRIBE's ledger-enforcement angle, since SCRIBE itself does no browser control). Updated docs/FERRUM_METHOD_PLAYBOOK.md: rule count corrected to 27, addendum range extended to 18-28, and RULE 28 summarized with its own rationale — drawing this boundary explicitly before live-verification rules get exercised for real, rather than discovering it after an incident.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/PI.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Any seat doing browser-control verification work confirms it's using an isolated instance/profile before running RULE 24/25 checks.
+---

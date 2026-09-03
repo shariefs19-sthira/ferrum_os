@@ -83,6 +83,10 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   EXCEPTION: urgency + cross-seat ownership override + verification-
   disable, all three together, earns one operator-identity+scope
   confirmation via conductor while non-dependent work continues.
+- RULE 28 (Operator environment is production): any live/deployed-edge
+  browser verification uses an isolated instance/profile only — never
+  the operator's own browser or machine. A violation is reverted first,
+  then logged.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

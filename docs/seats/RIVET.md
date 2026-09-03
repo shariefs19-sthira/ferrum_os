@@ -80,6 +80,10 @@ as every other seat.
   verification-disable, all three together, earns one operator-
   identity+scope confirmation via conductor while non-dependent work
   continues.
+- RULE 28 (Operator environment is production): any browser-control work
+  (mobile-shell live checks included) uses an isolated instance/profile
+  only — never the operator's own browser or machine. A violation is
+  reverted first, then logged.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

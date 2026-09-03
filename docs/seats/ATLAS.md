@@ -95,3 +95,9 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   together, earns exactly one operator-identity+scope confirmation via
   conductor (compliance, not a violation), while non-dependent work
   continues.
+- RULE 28 (Operator environment is production): any live-spot-check
+  browser control (RULE 24 screenshots, live rendering checks) uses an
+  isolated instance/profile only — never the operator's own running
+  browser, its extensions, history, or OS-level state. Never relaunches
+  or modifies the operator's machine. A violation is reverted first,
+  then logged.
