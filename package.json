@@ -4,7 +4,11 @@
   "scripts": {
     "fleet-status": "node scripts/fleet-status.mjs",
     "conductor": "node scripts/batch-conductor.mjs",
-    "operator": "node scripts/spawn-operator.mjs"
+    "operator": "node scripts/spawn-operator.mjs",
+    "lint": "pnpm --filter ./apps/web lint",
+    "type-check": "pnpm --filter ./apps/web exec tsc --noEmit",
+    "test": "pnpm --filter ./apps/web test:run",
+    "build": "pnpm --filter ./apps/web build"
   },
   "engines": {
     "node": ">=18.0.0"
