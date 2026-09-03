@@ -40,6 +40,7 @@ import { computeCityComparison } from './lib/analysis/cityComparison'
 import { SAMPLE_GOVT_RATES, SAMPLE_STAMP_DUTY, SAMPLE_ALLOWABLE_FSI, SAMPLE_MIN_SETBACK_M, CITIES } from './lib/analysis/sampleData'
 import type { City, BoqItem, LandData, RegulatoryData } from './lib/analysis/types'
 import { computePlotIntel } from './lib/parcelIntel/parcelIntel'
+import { checkStructuralLive, type MassingElement } from './lib/studio/structuralLive'
 
 async function requireUser(env: Env, cookieHeader: string | undefined) {
   const sessionId = parseSessionCookie(cookieHeader)
@@ -124,6 +125,21 @@ app.post('/api/is-check', async (c) => {
     return c.json({ error: 'invalid_input' }, 400)
   }
   return c.json(runIsCheck(body.structure_type, body.params))
+})
+
+// S2 STRUCTURAL_LIVE (W2-382): pure constraint checks for DesignStudio
+// massing elements a user drags — same shape as is-check above.
+app.post('/api/studio/structural-check', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'structural-check', 60, 60))) return c.json({ error: 'rate_limited' }, 429)
+  const body = await c.req.json().catch(() => null)
+  if (
+    !body ||
+    !Array.isArray(body.elements) ||
+    body.elements.some((el: unknown) => typeof el !== 'object' || el === null || ((el as Record<string, unknown>).kind !== 'beam' && (el as Record<string, unknown>).kind !== 'column'))
+  ) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  return c.json(checkStructuralLive(body.elements as MassingElement[]))
 })
 
 app.post('/api/boq-estimate', async (c) => {
