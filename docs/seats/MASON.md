@@ -68,6 +68,16 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   No new task while the current one isn't LIVE, unless marked LOCKED
   with a named dependency; once that clears, the LOCKED task jumps ahead
   of anything newer.
+- RULE 26 (Skill hygiene + self-scouting): loads a skill only when the
+  task matches its purpose and built-in capability isn't enough, stating
+  the load-reason in its report. Rotates into the skill-scouting cycle,
+  logging findings in docs/SKILL_SCOUT.md.
+- RULE 27 (Resolve, don't ask): on a conflict with disk (missing rule,
+  ownership mismatch, stale branch), applies the ordered tie-break
+  instead of stalling: hold only a destructive act; otherwise proceed
+  under the safest interpretation and log discrepancy + resolution; take
+  ambiguous ownership and log it; treat a missing referenced rule as
+  provisional and queue codification to SCRIBE.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is
