@@ -1,6 +1,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
-    <path android:fillColor="#070707" android:pathData="M26,18h56v12H38v18h34v12H38v30H26z" />
-    <path android:fillColor="#FFFFFF" android:pathData="M43,35h30v10H43zM43,55h22v10H43z" />
+    <!-- Fe/26: ferric orange, mineral teal, and structural blue. Kept inside the adaptive safe zone. -->
+    <path android:fillColor="#D85F2A" android:pathData="M29,26H49V34H38V43H47V51H38V70H29Z" />
+    <path android:fillColor="#007F73" android:pathData="M78,56H58C59,61 62,63 66,63C69,63 71,62 73,60L78,65C75,69 71,71 66,71C56,71 50,64 50,54C50,44 56,37 65,37C74,37 78,44 78,53ZM58,50H70C69,46 68,44 64,44C61,44 59,46 58,50Z" />
+    <path android:fillColor="#1E5A9F" android:pathData="M51,82V79L59,75C60,74 61,73 61,72C61,71 60,70 58,70C56,70 55,71 54,73L51,71C52,68 55,66 58,66C62,66 65,68 65,72C65,75 63,77 60,79L58,80H66V82ZM78,70C77,68 75,67 73,67C69,67 67,70 67,75C68,73 70,72 73,72C77,72 80,75 80,79C80,83 77,85 73,85C68,85 64,81 64,76C64,69 68,64 73,64C76,64 79,66 80,68ZM72,75C70,75 69,77 69,79C69,81 70,82 72,82C74,82 75,81 75,79C75,77 74,75 72,75Z" android:fillType="evenOdd" />
 </vector>

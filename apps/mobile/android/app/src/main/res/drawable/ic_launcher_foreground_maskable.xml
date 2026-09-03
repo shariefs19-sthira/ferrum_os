@@ -1,0 +1,8 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- Wider adaptive treatment: the complete Fe/26 mark remains in Android's 66dp maskable safe zone. -->
+    <path android:fillColor="#D85F2A" android:pathData="M23,21H48V30H34V41H45V50H34V74H23Z" />
+    <path android:fillColor="#007F73" android:pathData="M84,56H60C61,62 64,65 69,65C73,65 76,63 78,61L84,67C80,72 75,75 69,75C57,75 51,67 51,56C51,44 58,36 69,36C79,36 84,44 84,54ZM60,49H75C74,45 72,43 68,43C64,43 61,45 60,49Z" />
+    <path android:fillColor="#1E5A9F" android:pathData="M53,88V84L62,79C64,78 65,76 65,74C65,72 63,71 61,71C58,71 57,72 56,75L52,72C54,68 57,67 61,67C66,67 70,70 70,74C70,78 67,81 64,83L61,84H70V88ZM85,71C83,69 81,68 78,68C73,68 71,72 71,78C73,75 75,74 79,74C84,74 87,78 87,82C87,87 83,90 78,90C72,90 68,85 68,79C68,70 72,65 78,65C82,65 85,67 87,70ZM77,78C74,78 73,80 73,82C73,85 75,86 77,86C80,86 81,85 81,82C81,80 80,78 77,78Z" android:fillType="evenOdd" />
+</vector>
