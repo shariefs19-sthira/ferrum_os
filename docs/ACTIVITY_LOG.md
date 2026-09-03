@@ -1291,3 +1291,12 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/PI.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Any seat working an operator-absent window applies RULE 31's OPEN-FOR-OPERATOR convention and maintains a ≥3-deep queue.
 ---
+
+## 2026-09-03 15:15 - SCRIBE wrote overnight_codex.md (outside repo) + docs/OVERNIGHT_CODEX_MISSION.md mirror
+**Action:** Wrote `D:\ferrum_os\overnight_codex.md` — deliberately outside the repo so it's readable without waiting on any branch to land — and mirrored the identical content into `docs/OVERNIGHT_CODEX_MISSION.md` for the permanent ledger record. Content, grounded in actual disk state (not invented): §0 resume-from-disk-first (read RESUME_MASON.md/RESUME_RIVET.md first; RULE 22's squash-safe verification method spelled out explicitly, including the exact wrong-method warning; read APPROVAL_QUEUE.md at turn start). §1 MASON chain sweep-support → S3 (W2-383) → S4 PLAN_GEN with IFC — explicitly noted S4/W2-384 is FOLDED into W2-401 per the earlier fold decision, not a standalone row, and that web-ifc export (lib/ifc-export.ts, landed 1cde1750) is in scope while HouseGAN++ generation stays proposal-gated. §2 RIVET items — S4 mobile wiring (once MASON's component exists) and proposals status, noting AQ-RIVET-001's CRANE-now half is closed (226cf5a8) while the MASON/S4 half from W2-387 is still open and now maps to "inside W2-401" per the fold — flagged as needing confirmation on pickup rather than assumed. §3 RULE 25/27/28/31 compliance restated in full for the overnight context. §4 milestone-only reporting format.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified (outside repo):** D:\ferrum_os\overnight_codex.md (new, not tracked by this repo's git)
+**Files Modified (this repo):** docs/OVERNIGHT_CODEX_MISSION.md (new), docs/ACTIVITY_LOG.md
+**Next Steps:** MASON and RIVET read their resume files first, then this mission file, before starting overnight work.
+---
