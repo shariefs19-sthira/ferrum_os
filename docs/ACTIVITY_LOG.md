@@ -747,3 +747,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Conductor sign-off required before MASON begins W2-372.
 ---
+
+## 2026-09-03 08:15 - SCRIBE W2-373 INTERACTION_FIRST (sequenced before the W2-372 sweep)
+**Action:** Queued W2-373 INTERACTION_FIRST, assigned MASON, sequenced after og:image work and BEFORE W2-372 (UI_UX_MODERNIZATION) — updated W2-372's own sequencing note to reference W2-373 as a predecessor rather than leaving the two rows silently inconsistent. Scope verbatim: on every product page the real working tool is the first thing in the first viewport (hero hosts the full interaction, replacing the W2-361 mini); explanatory content only follows if the tool isn't self-evident; duplicate "try it" sections further down are removed — no tool twice per page.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** MASON claims W2-373 (after og:image); W2-372 still gated on conductor sign-off per RULE 17.
+---
