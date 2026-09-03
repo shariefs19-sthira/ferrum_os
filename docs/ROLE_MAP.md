@@ -13,6 +13,7 @@ or in git history on `main`.
 | ATLAS  | Architect + Executor (dual role, assigned slice) | Reactivated 2026-09-01. Works WAVE_QUEUE rows in its assigned slice (see below); disjoint-ownership protocol with CRANE — see AGENTS.md RULE 1. |
 | MASON  | Executor, parallel slice | Activated 2026-09-02 (Codex CLI). Owns W2-346, 348, 349, 350, 353, 354 per the operator's slice statement. W2-347 is explicitly carved out to CRANE (specific reassignment overrides the roster range) — see the ATLAS/CRANE disjoint-ownership protocol note below and the row itself. Name reused from the parked Qoder-era MASON — see Change log. |
 | RIVET  | Executor, exclusive paths | Activated 2026-09-02 (Codex CLI), second parallel Codex instance alongside MASON. Exclusive to `apps/mobile/**` and `docs/**` only — does not touch `apps/web/**`. Owns W2-356+. Name reused from the parked Qoder-era RIVET — see Change log. |
+| PI     | Executor (experimental) — TRIAL status | Activated 2026-09-03, one-wave bounded trial on W2-390 (a vitest vector batch or docs sweep). Same rules, same landing path (land.ps1 only) as every other seat — no seat-specific exception for being experimental. Claims exactly one row, then stops until a verdict is recorded. Not yet a standing seat. |
 
 ### ATLAS / CRANE disjoint-ownership protocol (2026-09-01)
 
@@ -68,6 +69,7 @@ Seat name -> underlying tool, kept for audit purposes:
 - ATLAS -> Qoder-CN (active, dual role — see above)
 - MASON -> Codex CLI (active 2026-09-02, executor, parallel slice; name reused, see PARKED note)
 - RIVET -> Codex CLI (active 2026-09-02, executor, exclusive apps/mobile/**+docs/**; name reused, see PARKED note)
+- PI -> (underlying tool not yet specified beyond "Pi"; TRIAL status 2026-09-03, one-wave bounded trial on W2-390)
 - GIRDER -> Qoder (parked)
 - Qwen-Web -> Qwen-Web-Conductor
 
@@ -103,3 +105,9 @@ Seat name -> underlying tool, kept for audit purposes:
   only (first row: W2-356 APP_SHELL_V1). Both names are reused from the
   parked Qoder-era MASON/RIVET (see PARKED section note) — no row history
   is reattributed between the old Qoder work and these new Codex seats.
+- 2026-09-03: PI activated as an experimental executor seat, TRIAL
+  status, for a single one-wave bounded task (W2-390: a vitest vector
+  batch or docs sweep). Same rules and same landing path (land.ps1 only)
+  as every other seat — no exception carved out for being experimental.
+  Claims exactly one row, then stops until a verdict is recorded on
+  whether Pi becomes a standing seat with its own slice.

@@ -13,7 +13,8 @@ slice, activated 2026-09-02 — owns W2-346, 348, 349, 350, 353, 354;
 W2-347 is explicitly carved out to CRANE — a specific reassignment
 overrides the roster range), RIVET (Codex CLI, second parallel executor,
 activated 2026-09-02, exclusive to `apps/mobile/**` and `docs/**` — owns
-W2-356+).
+W2-356+), PI (experimental executor, TRIAL status 2026-09-03 — one-wave
+bounded trial on W2-390; standing status pending the trial's verdict).
 Note: MASON and RIVET are seat *names* being reused here for two new
 Codex CLI instances — distinct from the original Qoder-backed MASON and
 RIVET that were parked 2026-08-31. The old Qoder work under those names
@@ -256,6 +257,18 @@ counterpart to RULE 17's seat-side requirement (every seat report
 carries a UX-improving proposal or an explicit "no better alternative
 found" line): together, RULE 17 and RULE 23 mean neither side of a
 relay is ever just a status update with nothing added.
+
+## RULE 24 — First-viewport live proof
+A UI row is DONE only with deployed-edge first-viewport screenshots at
+1366 and 375 attached to the landing report — not a local dev screenshot,
+not a build-output description, the actual deployed edge. The conductor
+may request an ATLAS live spot-check on any relay that claims a UI is
+live, at its own discretion. "Committed" and "landed" are never reported
+as "live" — those are three distinct, non-interchangeable states
+(committed = exists in a commit; landed = merged to `main` via
+`scripts/land.ps1`, per RULE 18; live = confirmed rendering correctly on
+the deployed edge, per this rule's screenshot requirement) and a report
+must use the word that's actually true, not the most favorable one.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
