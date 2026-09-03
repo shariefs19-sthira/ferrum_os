@@ -98,7 +98,32 @@ export default function AnalysisTab({ projectId }: { projectId: string }) {
   if (status === "error" || !data) return <p className="text-sm text-relume-muted">Analysis is not available for this project yet — attach a ULPIN lookup, test-fit, or BOQ to get started.</p>
 
   return (
-    <div className="space-y-8">
+    <div id="analysis-report" className="space-y-8">
+      {/* M4: print/export — same window.print() pattern as apps/web/app/boq-pro/page.tsx,
+          plus the classic "print just this element" CSS trick (hide everything,
+          re-show #analysis-report) so the header/footer/tab-nav/cookie banner
+          don't end up in the printed report. No new dependency. */}
+      <style>{`
+        @media print {
+          body * { visibility: hidden; }
+          #analysis-report, #analysis-report * { visibility: visible; }
+          #analysis-report { position: absolute; left: 0; top: 0; width: 100%; }
+          .no-print { display: none !important; }
+          .print-watermark { display: block !important; }
+        }
+      `}</style>
+      <div className="print-watermark hidden text-center text-xs font-semibold uppercase tracking-[0.2em] text-relume-muted">
+        Indicative — Ferrum Analysis Engine report, {new Date(data.computed_at).toLocaleDateString()}
+      </div>
+      <div className="no-print flex justify-end">
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="rounded-full border border-relume-border px-4 py-2 text-sm font-medium text-relume-ink hover:bg-relume-ink hover:text-white"
+        >
+          Print / Export PDF
+        </button>
+      </div>
       <div className="rounded-relume border border-relume-border bg-relume-surface p-relume-card">
         <ScoreGauge score={data.feasibility.score} />
         <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
