@@ -194,6 +194,17 @@ dependency and can run anytime.
 ## 2026-08-31 — SCRIBE CSP hardening (post-launch)
 | W2-240 | | B2 | J08 | CRANE | OPEN | | security: post-launch CSP hardening — replace static _headers unsafe-inline with hash-based or edge-nonce CSP; see docs/SECURITY.md CSP decisions |
 
+## 2026-09-01 — SCRIBE Relume rebuild (docs/RELUME_HANDOFF.md, docs/RELUME_ROUTE_MAP.md)
+| W2-244 | | B2 | J08 | CRANE | OPEN | | Relume: tokens + shared section primitives (SectionShell/Eyebrow/card-grid/accordion-leaf/slider-leaf) |
+| W2-245 | | B2 | J08 | CRANE | OPEN | | Relume: Home (7 sections) |
+| W2-246 | | B2 | J08 | CRANE | OPEN | | Relume: products route move + _redirects |
+| W2-247 | | B2 | J08 | CRANE | OPEN | | Relume: LandIntel |
+| W2-248 | | B2 | J08 | CRANE | OPEN | | Relume: DesignStudio (new page) |
+| W2-249 | | B2 | J08 | CRANE | OPEN | | Relume: Structura |
+| W2-250 | | B2 | J08 | CRANE | OPEN | | Relume: BOQ-Pro marketing page |
+| W2-251 | | B2 | J08 | CRANE | OPEN | | Relume: ProMarket |
+| W2-252 | | B2 | J08 | CRANE | OPEN | | Relume: BuildOS (5 wireframed sections; FAQ/CTA in Wave B) |
+
 ## 2026-08-31 — SCRIBE consolidation note
 MASON and RIVET parked (Qoder, reactivatable when Codex/Cursor join); their
 OPEN rows (W2-120 through W2-131) reassigned to CRANE. No rows renamed to
