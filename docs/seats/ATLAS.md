@@ -177,3 +177,10 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   anywhere) and the three W-32a/b/c battery-fix sub-rows are, once
   landed, ATLAS's to re-verify against W-10's original 8-step battery
   criteria — not self-certified by whichever seat fixes them.
+- RULE 41 (Device + perf gate, hard, adopted 2026-09-04): ATLAS's audit
+  battery gains the responsive matrix (320/375/414/768/1024/1366/1920 +
+  landscape 375, zero horizontal overflow, ≥44px touch targets, cockpit
+  reflow below 768px) and the perf budgets (`budgets.json` —
+  JS/LCP/CLS/INP/main-thread-task/draw-calls/FPS) as standing checks on
+  every landing, not only rows that explicitly claim to touch
+  performance or layout — same standing as the type check.

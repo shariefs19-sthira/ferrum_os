@@ -84,8 +84,10 @@ being experimental:
   citation-absent — execute, flag the gap, continue), and facts-only-
   reporting (RULE 40 — serious, no exceptions, adopted 2026-09-04; only
   verifiable facts — SHAs, deployed responses, gate outputs, named
-  blockers — no forecasts, assurances, or progress-as-completion)
-  rules as every other seat.
+  blockers — no forecasts, assurances, or progress-as-completion), and
+  device-plus-perf-gate (RULE 41 — hard, adopted 2026-09-04; blocks
+  landing like the type check — PI has no landing row to gate while
+  W2-390 stays DEFERRED-per-RULE-34) rules as every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the

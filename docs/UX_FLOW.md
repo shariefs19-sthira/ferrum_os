@@ -2,7 +2,7 @@
 
 Reference document for the Workspace experience, cited as the acceptance
 standard for docs/TASK_BOARD.md rows W-16, W-19, W-21, W-22, W-24,
-W-25, W-26, W-27, W-28, W-29, W-30, and W-31 (see
+W-25, W-26, W-27, W-28, W-29, W-30, W-31, and W-33 (see
 Notes at the end — W-19 and W-21 are referenced here as the operator's
 own citations but are not yet seeded rows on the board as of this
 writing; SCRIBE has not invented their scope beyond what's named below).
@@ -12,7 +12,13 @@ The ULPIN/Bhu-Aadhaar lookup is the primary hero interaction (per
 AGENTS.md RULE 29's Feature Conservation addendum and
 docs/TASK_BOARD.md's W-16). A successful lookup produces a land record
 card carrying its provenance (source, freshness, INDICATIVE/VERIFIED
-status per docs/WORKSPACE_SPEC.md's Artifact model).
+status per docs/WORKSPACE_SPEC.md's Artifact model). Per docs/TASK_BOARD.md
+W-33 LANDINTEL_BRIDGE (2026-09-04), the card carries two actions: **Save**
+(existing — persists the artifact to the shelf, unchanged) and **Move to
+Workspace** (new — creates a workspace artifact carrying the parcel
+context and routes straight into the cockpit at `/project-workspace/:id`,
+skipping ahead of phases (2)/(2.5) for a user who already knows they want
+to build on this parcel).
 
 ## (2) Location-aware forecast
 From the land record: a pin/buffer interaction over the parcel drives a
@@ -40,13 +46,24 @@ is the default view. Per docs/TASK_BOARD.md W-26 ROUTING_FLIP
 renders the cockpit immediately, with a preview session auto-created
 so there's always a real project to render into — the project list
 that used to live at `/project-workspace` demotes to
-`/project-workspace/projects`. Five sketch regions:
+`/project-workspace/projects`. Region law, updated 2026-09-04 per
+docs/TASK_BOARD.md W-33 LANDINTEL_BRIDGE:
+- **Left edge** (new, W-33) — a read-only side panel, present when the
+  project has a source parcel (opened via the Move-to-Workspace bridge
+  in phase (1)): owner, survey no, area (dual units, RULE 30), location,
+  zoning/FAR/coverage, water-body buffer status, NDZ flag, flood-zone,
+  and provenance chips (source + freshness). Reference only — the
+  command bar (phase 4) stays the primary way to act, the side panel
+  never becomes an input surface.
 - **Top strip** — a 10-tab rail (per RIVET's `TabRail` component).
 - **Right** — a tools ruler (`ToolsRuler`).
 - **Center** — the 3D archviz space, with plan and axonometric ("axo")
   viewports (per docs/TASK_BOARD.md W-22's ARCHVIZ_GRAPHICS quality
   bar: PBR materials, an IBL sun, a reflective podium surface,
-  instanced greenery, within an fps budget).
+  instanced greenery, within an fps budget). When opened via W-33's
+  bridge, the space starts pre-seeded: plot grid from the parcel's real
+  dimensions, proposed building type from the location-aware forecast
+  (phase 2) where available.
 - **Bottom-left** — a more-tools drawer (`MoreDrawer`).
 - **Bottom, full-width** — a data-extract panel for whichever product
   is currently highlighted (`ExtractPanel`).

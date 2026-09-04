@@ -47,20 +47,20 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty-eight numbered rules were actually adopted (numbered
-1–14, 16–31, 33–40 — RULE 15 and RULE 32 were never assigned; leave
+matured — thirty-nine numbered rules were actually adopted (numbered
+1–14, 16–31, 33–41 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–40, added later in the
+applies to their situation. Rules 18–31 and 33–41, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
-timed-stop-single-inbox, fleet-watch, relay-discipline, and honesty-
-reporting matured, are summarized in the addendum immediately after
-the numbered list rather
+timed-stop-single-inbox, fleet-watch, relay-discipline, honesty-
+reporting, and device/perf-gate discipline matured, are summarized in
+the addendum immediately after the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -141,7 +141,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–40 (added later, summarized)
+### Addendum: rules 18–31, 33–41 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -581,6 +581,36 @@ source.
     possible, not just discouraging it, and giving violations their own
     tracked consequence, is what keeps a large, mostly-autonomous fleet
     safe to actually rely on.*
+41. **Device + perf gate** — portable, and hard: a failure here blocks
+    landing exactly the way a failing type check does, regardless of
+    how correct the feature's own logic is. A responsive matrix runs at
+    a fixed set of widths plus a landscape phone case, checking zero
+    horizontal overflow and real interaction, with touch targets sized
+    for touch and a documented reflow rule for how a complex layout
+    collapses below a tablet breakpoint. A floor device (a real,
+    named mid-range phone and a real, named older laptop, on a
+    named-speed mobile network) sets the actual performance bar, not an
+    idealized one — and a capability-gated degradation profile (for a
+    graphics feature) keeps low-end hardware functional and honestly
+    labeled rather than either broken or silently claiming full
+    fidelity it can't deliver. Concrete, CI-enforced budgets (bundle
+    size, paint/interaction timing, layout stability, main-thread
+    responsiveness, draw calls, frame rate on both the floor device and
+    desktop-class hardware) live in one versioned file, and every
+    feature-carrying row gets its own before/after perf comparison — a
+    regression blocks that row specifically. An audit role's checklist
+    carries this matrix and these budgets as a standing check on every
+    landing, not only landings that explicitly claim to touch
+    performance.
+    *Rationale: "works on my machine" and "works on the desktop I
+    tested" are two different, both-incomplete claims, and a feature
+    that quietly degrades to unusable on the actual floor device a real
+    user carries is exactly the kind of regression a fleet running on
+    reports rather than constant human spot-checks will not otherwise
+    catch — making the floor device, the budgets, and the check
+    frequency explicit and CI-enforced (not just documented) is what
+    turns "should perform fine" into something actually verified before
+    it ships.*
 
 ## 3. Ledger formats
 

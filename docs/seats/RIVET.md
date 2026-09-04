@@ -149,6 +149,15 @@ as every other seat.
   (RIVET-PUSH-W16-CHROME) — RIVET's own landing report remains the
   authoritative statement of that push's actual content and live-proof
   status.
+- RIVET's piece of W-33 LANDINTEL_BRIDGE (2026-09-04, split with CRANE
+  and MASON): add the MOVE TO WORKSPACE action to the LandIntel result
+  card (Save stays unchanged), routing into the cockpit at
+  `/project-workspace/:id`.
+- RULE 41 (Device + perf gate, hard, adopted 2026-09-04): every RIVET
+  landing passes the responsive matrix and stays within `budgets.json`
+  (W-34) — this blocks landing like the type check. RIVET's rows
+  (W-07, W-09, W-11, W-14, W-16, W-17, W-28, W-33's card piece) each
+  carry a perf-delta check once W-34 exists.
 - RIVET is also eligible (alongside MASON) for W-28 GUIDED_OPTIONS
   (2026-09-04): constrained option chips per decision point (use →
   floors → massing style → rooms split → compliance add-ons), each

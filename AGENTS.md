@@ -759,6 +759,34 @@ recorded here as an operator approval of record; RIVET's own landing
 report is the authoritative statement of what that push actually
 contained and its live-proof status, per RULE 40(1)/(3) above.
 
+## RULE 41 — Device + perf gate (hard, adopted 2026-09-04)
+Blocks landing exactly like the type check — a row that fails this gate
+does not land, regardless of how correct its logic is.
+(1) **Responsive matrix.** Every landing passes zero-horizontal-overflow
+and interaction checks at 320/375/414/768/1024/1366/1920 plus landscape
+375. Touch targets are ≥44px on touch devices. The cockpit's region law
+reflows below 768px: side panel → drawer, tools ruler → bottom sheet,
+extract panel → swipe cards.
+(2) **Floor device.** Design/test floor is a 2022 mid-range Android
+(4GB RAM, Snapdragon 6xx-class) or a 2018 Intel i5 with integrated GPU,
+on a 4G/10Mbps network, on evergreen browsers. WebGL2-capable devices
+get the full rendering profile; WebGL1-only or no-WebGL devices get a
+degradation profile (shadows off, reflections off, pixelRatio 1, single
+viewport) — functional and honestly labeled as a reduced mode, never
+silently broken or silently full-fidelity-claimed.
+(3) **Perf budgets, CI-enforced per landing**, tracked in `budgets.json`:
+initial JS ≤350KB gzipped (the cockpit route ≤600KB gzipped, `three`
+lazy-loaded); LCP ≤2.5s on the 4G floor network; CLS ≤0.1; INP ≤200ms;
+main-thread task length ≤50ms; draw calls ≤200; FPS ≥30 on the floor
+device under the degradation profile, ≥60 on desktop-class hardware.
+(4) **Every feature row carries a perf-delta check** — a before/after
+bundle-size comparison plus an fps probe. A regression against the
+budgets in (3) blocks that row's landing, the same way a failing test
+would.
+ATLAS's audit battery gains the responsive matrix and the perf budgets
+as standing checks, run on every landing, not only rows that explicitly
+claim to touch performance or layout.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

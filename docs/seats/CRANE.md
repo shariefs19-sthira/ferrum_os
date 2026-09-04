@@ -198,7 +198,16 @@
   also shares W-29 KNOWLEDGE_BASE (2026-09-04, split envelope with
   MASON): the versioned structured code corpus (NBC/IS codes/SP 7/DCR
   samples/dimensional-standards), every fact carrying a clause ID,
-  version, and VERIFIED-SAMPLE/INDICATIVE status chip.
+  version, and VERIFIED-SAMPLE/INDICATIVE status chip. CRANE's piece of
+  W-33 LANDINTEL_BRIDGE (split with RIVET/MASON): the `/project-workspace/:id`
+  route, the cockpit's new left-edge side panel component, and the
+  parcel-context pre-seed logic that feeds it.
+- RULE 41 (Device + perf gate, hard, adopted 2026-09-04): CRANE owns
+  W-34 PERF_INFRA — `budgets.json`, Lighthouse CI on key routes, the
+  degradation-profile toggle (WebGL2 full profile / WebGL1-or-none
+  reduced profile), and a real-device spot-check protocol. This gate
+  blocks landing like the type check; every feature row (including
+  CRANE's own) carries a perf-delta check once W-34 exists.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

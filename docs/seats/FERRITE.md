@@ -63,7 +63,9 @@ gap-filler:
   and facts-only-reporting (RULE 40 — serious, no exceptions, adopted
   2026-09-04; only verifiable facts — SHAs, deployed responses, gate
   outputs, named blockers — no forecasts, assurances, or progress-as-
-  completion) as every other seat.
+  completion), and device-plus-perf-gate (RULE 41 — hard, adopted
+  2026-09-04; blocks landing like the type check — FERRITE has no
+  landing row to gate while it has no board row) as every other seat.
 
 ## Assigned slice (2026-09-03, trial)
 None yet — no task has been assigned as of activation. Per RULE 33(1),

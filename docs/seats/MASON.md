@@ -165,7 +165,15 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   envelope with CRANE) and owns W-30 VOCAB_ONTOLOGY solo: the
   professional-terminology mapping (setback=margins=build-line,
   FAR=FSI=plot-ratio, etc.) consumed by W-27's intent parser and the
-  assistant's own reply templates.
+  assistant's own reply templates. MASON's piece of W-33
+  LANDINTEL_BRIDGE (split with RIVET/CRANE): pre-seed the 3D space's
+  plot grid from the parcel's real dimensions and the proposed building
+  type from the forecast, once CRANE's route/panel land.
+- RULE 41 (Device + perf gate, hard, adopted 2026-09-04): every MASON
+  landing passes the responsive matrix and stays within `budgets.json`
+  (W-34) — this blocks landing like the type check. MASON's rows
+  (W-05, W-06, W-27's UI half, W-28, W-33's pre-seed piece) each carry
+  a perf-delta check once W-34 exists.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is
