@@ -47,19 +47,20 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty-six numbered rules were actually adopted (numbered
-1–14, 16–31, 33–38 — RULE 15 and RULE 32 were never assigned; leave
+matured — thirty-eight numbered rules were actually adopted (numbered
+1–14, 16–31, 33–40 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–38, added later in the
+applies to their situation. Rules 18–31 and 33–40, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
-timed-stop-single-inbox, and fleet-watch discipline matured, are
-summarized in the addendum immediately after the numbered list rather
+timed-stop-single-inbox, fleet-watch, relay-discipline, and honesty-
+reporting matured, are summarized in the addendum immediately after
+the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -140,7 +141,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–38 (added later, summarized)
+### Addendum: rules 18–31, 33–40 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -529,6 +530,57 @@ source.
     alert channel exist for the same reason rule 37's single inbox
     does: multiple places to look for "is everything actually OK"
     is worse than one place, checked reliably.*
+39. **Self-contained relays + pre-adjudication** — portable, and the
+    conductor-side complement to a seat's own resolve-don't-ask
+    discipline (rule 27). Every relay to a seat carries the full,
+    verbatim task text — a row or ticket ID is a cross-reference
+    annotation, never the actual authority for what to do. A relay also
+    states, in advance, how its own foreseeable blockers resolve: a
+    citation to a row that isn't actually on the board yet means the
+    relay's own inline text still governs, with the gap flagged, not a
+    reason to stop; a missing or unmet dependency that wasn't meant to
+    block means move to the next task; genuine scope ambiguity resolves
+    to the narrowest reading of the literal text; a step that would
+    require an unauthorized production write gets held and flagged,
+    never silently skipped or silently executed. Doc-dependent relays
+    (ones that need a rule or board change the docs seat just made) are
+    sequenced after that seat's own landing proof, not before. On the
+    receiving side, a seat treats unambiguous inline intent as
+    executable even when the citation behind it is absent — execute,
+    flag the gap, continue, rather than stalling on a missing reference
+    that doesn't actually block understanding the instruction.
+    *Rationale: this engagement hit the same shape of problem
+    repeatedly — an instruction citing a row, rule, or file that turned
+    out not to exist on disk yet — and each time the correct move
+    turned out to be the same: treat the actually-given inline content
+    as authoritative, flag the gap for the record, and keep moving,
+    never invent the missing reference and never stall the whole task
+    waiting for it. Writing that pattern down as a standing rule, with
+    the specific foreseeable-blocker cases named in advance, turns a
+    recurring judgment call into a pre-agreed default — faster for the
+    seat, and no less safe, since the flag still happens every time.*
+40. **Facts-only reporting** — portable, and applied to every role
+    without exception, including the conductor. A report states only
+    what's verifiable: a landing SHA, a deployed SHA with its actual
+    live-edge response, a real gate/test output, or a blocked state
+    named together with the one specific action that clears it. Banned
+    outright: forecasts, unearned assurances, adjectives standing in
+    for a measurement, progress described as completion, and partial-
+    credit summaries that don't name which specific criteria are met
+    and how. Incomplete work is reported as what's missing, not as
+    what was attempted. An independent audit role logs violations as
+    their own class of incident, separate from ordinary findings, with
+    a standing consequence (repeated violations trigger a full
+    re-onboarding pass) rather than a single silent correction.
+    *Rationale: a fleet that runs on written reports rather than a
+    human watching every action live is only as trustworthy as those
+    reports are literal — the moment "in progress" quietly starts
+    meaning "attempted" or "nearly there" starts meaning "there," every
+    downstream decision built on that report inherits the same
+    unearned confidence. Banning the vocabulary that makes that drift
+    possible, not just discouraging it, and giving violations their own
+    tracked consequence, is what keeps a large, mostly-autonomous fleet
+    safe to actually rely on.*
 
 ## 3. Ledger formats
 

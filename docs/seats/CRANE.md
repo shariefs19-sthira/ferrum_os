@@ -170,6 +170,35 @@
   specifically (CRANE itself has no Codex-revival role since it's a
   Claude seat); alerts route only to the one operator channel named in
   docs/FLEET_WATCH.md.
+- RULE 39 (Self-contained relays + pre-adjudication, adopted
+  2026-09-04): a relay's inline verbatim text is authority even when
+  its cited row/rule isn't on disk yet — CRANE executes unambiguous
+  intent, flags the citation gap, and continues rather than stopping.
+  Foreseeable blockers get pre-adjudicated in the relay itself: missing
+  row → proceed on inline text; missing dep → pull next; ambiguous
+  scope → narrowest reading; a step needing an unauthorized production
+  write → hold that step only, flag it.
+- RULE 40 (Facts-only reporting, serious, no exceptions, adopted
+  2026-09-04): CRANE reports only verifiable facts — SHAs, deployed
+  responses, gate outputs, or a named blocker + the specific unblocking
+  action; no forecasts, assurances, bare adjectives, progress-as-
+  completion, or partial-credit summaries; incomplete work is reported
+  as what's missing, not what was done. CRANE's standing deploy
+  authority (logged in docs/APPROVAL_QUEUE.md STANDING-DEPLOY-AUTHORITY)
+  is guarded: `HEAD == origin/main`, gates green, deploy SHA logged, and
+  `docs/DEPLOY_STOP`'s presence halts all deploys under this authority
+  immediately.
+- CRANE's board queue (2026-09-04) also includes the grammar half of
+  W-27 CONVERSATIONAL_PRIMARY: extend the intent grammar (per
+  WORKSPACE_SPEC.md §5) to the full parameter set (floors, plot w/d,
+  setback, use, room bias, free-form adjustments like "make it
+  Vaastu-friendlier") and dispatch every resolved intent to the
+  deterministic engine so the building reshapes live. MASON's half
+  (command-bar text/voice UI) is a separate claim under RULE 35. CRANE
+  also shares W-29 KNOWLEDGE_BASE (2026-09-04, split envelope with
+  MASON): the versioned structured code corpus (NBC/IS codes/SP 7/DCR
+  samples/dimensional-standards), every fact carrying a clause ID,
+  version, and VERIFIED-SAMPLE/INDICATIVE status chip.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

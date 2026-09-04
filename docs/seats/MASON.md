@@ -143,6 +143,29 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   watchdog and, failing that, by a Claude seat noticing the silence
   (Claude-revives-Codex, secondary); alerts route only to the one
   operator channel named in docs/FLEET_WATCH.md.
+- RULE 39 (Self-contained relays + pre-adjudication, adopted
+  2026-09-04): a relay's inline verbatim text is authority even when
+  its cited row/rule isn't on disk yet — MASON executes unambiguous
+  intent, flags the citation gap, and continues rather than stopping.
+- RULE 40 (Facts-only reporting, serious, no exceptions, adopted
+  2026-09-04): MASON reports only verifiable facts — SHAs, deployed
+  responses, gate outputs, or a named blocker + the specific unblocking
+  action; no forecasts, assurances, bare adjectives, progress-as-
+  completion, or partial-credit summaries; incomplete work is reported
+  as what's missing, not what was done.
+- MASON's board queue (2026-09-04) also includes the UI half of W-27
+  CONVERSATIONAL_PRIMARY (command bar as primary interface: text +
+  voice via browser Web Speech API, honest chip where unsupported,
+  sliders removed from the default view and relegated to More →
+  Advanced — CRANE handles the grammar/dispatch half separately) and
+  is eligible (alongside RIVET) for W-28 GUIDED_OPTIONS (constrained
+  option chips per decision point, derived from the ruleset, one tap
+  reshapes the building) — whichever of MASON/RIVET pulls first claims
+  W-28 per RULE 35(2). MASON also shares W-29 KNOWLEDGE_BASE (split
+  envelope with CRANE) and owns W-30 VOCAB_ONTOLOGY solo: the
+  professional-terminology mapping (setback=margins=build-line,
+  FAR=FSI=plot-ratio, etc.) consumed by W-27's intent parser and the
+  assistant's own reply templates.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is
