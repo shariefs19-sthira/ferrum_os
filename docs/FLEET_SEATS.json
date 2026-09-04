@@ -1,0 +1,12 @@
+{
+  "_comment": "W-50 HARNESS_24x7 seats config. worktreeGlob is a prefix pattern under D:\\ferrum_os.worktrees, not a single fixed path - each seat has many numbered worktrees over time; the harness resolves the most-recently-modified match at revival time. Verified against disk 2026-09-04: atlas/mason/rivet/crane/scribe all have real matching worktrees; ferrite/pi have none observed - left null rather than invented.",
+  "seats": [
+    { "id": "CRANE",   "adapter": "claude", "worktreeGlob": "crane-*",  "missionFile": "docs/seats/CRANE.md",   "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null },
+    { "id": "MASON",   "adapter": "codex",  "worktreeGlob": "mason-*",  "missionFile": "docs/seats/MASON.md",   "heartbeatFile": null, "reviveCmdTemplate": "codex exec --full-auto -C \"{repoRoot}\" - < \"{missionFile}\"", "lastStop": null, "nextReviveAt": null },
+    { "id": "RIVET",   "adapter": "codex",  "worktreeGlob": "rivet-*",  "missionFile": "docs/seats/RIVET.md",   "heartbeatFile": null, "reviveCmdTemplate": "codex exec --full-auto -C \"{repoRoot}\" - < \"{missionFile}\"", "lastStop": null, "nextReviveAt": null },
+    { "id": "ATLAS",   "adapter": "claude", "worktreeGlob": "atlas-*",  "missionFile": "docs/seats/ATLAS.md",   "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null },
+    { "id": "SCRIBE",  "adapter": "claude", "worktreeGlob": "scribe-*", "missionFile": "docs/seats/SCRIBE.md",  "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null },
+    { "id": "FERRITE", "adapter": "claude", "worktreeGlob": null,       "missionFile": "docs/seats/FERRITE.md", "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null },
+    { "id": "PI",      "adapter": "claude", "worktreeGlob": null,       "missionFile": "docs/seats/PI.md",      "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null }
+  ]
+}

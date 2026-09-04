@@ -1,4 +1,40 @@
 <#
+FLEET_WATCH.ps1 - fleet watch v3 (AGENTS.md RULE 38, amended W2-410;
+W-50 HARNESS_24x7 additions below the v2 doc comment).
+
+W-50 additions (seat-agnostic harness, built on top of v2's Codex-only
+watch loop):
+- SEATS CONFIG: docs/FLEET_SEATS.json - id/worktreeGlob/missionFile/
+  reviveCmdTemplate/adapter/lastStop/nextReviveAt per seat, loaded at
+  the top of every cycle so editing the file changes behavior without
+  a script edit.
+- CODEX ADAPTER (active): Get-CodexResetTime parses a "try again at
+  <time>" limit message into an exact next-revive timestamp, recorded
+  into FLEET_SCHEDULE.md and the seat's nextReviveAt. Test-DueForRevival
+  compares the clock every cycle and fires exactly once the current
+  time has reached that recorded minute (not a coarse "past reset +
+  grace window" heuristic - this is the operator's recorded-time
+  requirement).
+- CLAUDE ADAPTER (wired, gated): Start-ClaudeSeat builds a real
+  `claude -p` command from the seat's brief + dispatched task row, but
+  is only ever called when -EnableClaudeAdapter is passed - "wired now,
+  used after operator flip" per the operator's own framing, not
+  auto-armed by landing this file.
+- DISPATCH: Get-TopReadyRow reads docs/TASK_BOARD.md and returns the
+  first row whose Status column contains READY, in table order (the
+  board's own priority order - no separate P1-P14 column exists on
+  disk, so table order is what "priority order" means here; noted
+  rather than inventing a numeric field the board doesn't have).
+- DRY RUN: -DryRun runs one full cycle against a synthetic Codex probe
+  string (so a real live limit isn't required to prove the logic) and
+  a real read of TASK_BOARD.md, logs every decision, and never calls
+  Start-Process for any adapter - proves the scheduling/dispatch logic
+  without taking a live action. Landing this script does not start a
+  persistent scheduled task; it still only runs inside the existing
+  keep-awake window per v2's own model, one cycle or -Loop at a time.
+#>
+
+<#
 FLEET_WATCH.ps1 - fleet watch v2 (AGENTS.md RULE 38, amended W2-410).
 
 Runs inside the existing keep-awake PowerShell window (scheduler v1 per
@@ -40,7 +76,11 @@ param(
     [int]$IntervalMinutes = 60,
     [string[]]$KnownCodexResetTimes = @(),  # e.g. @('00:00','12:00') in 24h HH:mm, local time - operator-configurable, empty by default (no invented schedule)
     [int]$KnownResetGraceMinutes = 10,
-    [int]$StalledAlertMinutes = 45
+    [int]$StalledAlertMinutes = 45,
+    [switch]$DryRun,                        # W-50: run one cycle against a synthetic probe, log decisions, never Start-Process
+    [switch]$EnableClaudeAdapter,            # W-50: claude adapter is wired but inert until this is passed explicitly
+    [string]$SeatsConfigPath,                 # W-50: defaults to docs/FLEET_SEATS.json under $repoRoot
+    [string]$DryRunCodexProbeOutput = ''     # W-50: inject a synthetic Codex CLI response for -DryRun instead of calling the real CLI
 )
 
 $ErrorActionPreference = "Stop"
@@ -49,9 +89,116 @@ $missionFile = "D:\ferrum_os\overnight_codex.md"
 $killSwitchPath = Join-Path $repoRoot "docs\FLEET_WATCH_STOP"
 $scheduleFile = Join-Path $repoRoot "docs\FLEET_SCHEDULE.md"
 $stateFile = Join-Path $repoRoot ".fleet-watch-state.json"
+$taskBoardFile = Join-Path $repoRoot "docs\TASK_BOARD.md"
+$worktreeRoot = "D:\ferrum_os.worktrees"
+if ([string]::IsNullOrWhiteSpace($SeatsConfigPath)) { $SeatsConfigPath = Join-Path $repoRoot "docs\FLEET_SEATS.json" }
 
 $seats = @('CRANE', 'MASON', 'RIVET', 'ATLAS', 'SCRIBE', 'FERRITE', 'PI')
 $codexBackedSeats = @('MASON', 'RIVET')  # per docs/seats/*.md - these run on Codex CLI, not Claude
+
+function Get-FleetSeatsConfig {
+    if (-not (Test-Path $SeatsConfigPath)) {
+        Write-Host "No seats config at $SeatsConfigPath - W-50 adapter/dispatch features are inert without it."
+        return $null
+    }
+    try {
+        return (Get-Content $SeatsConfigPath -Raw | ConvertFrom-Json).seats
+    } catch {
+        Write-Host "Failed to parse $($SeatsConfigPath): $($_.Exception.Message)"
+        return $null
+    }
+}
+
+function Save-FleetSeatsConfig($SeatsArray) {
+    $wrapper = [PSCustomObject]@{
+        _comment = "W-50 HARNESS_24x7 seats config. worktreeGlob is a prefix pattern under D:\ferrum_os.worktrees, not a single fixed path - each seat has many numbered worktrees over time; the harness resolves the most-recently-modified match at revival time."
+        seats    = $SeatsArray
+    }
+    $wrapper | ConvertTo-Json -Depth 6 | Set-Content -Path $SeatsConfigPath -Encoding utf8
+}
+
+# CODEX ADAPTER: parse a "try again at <time>" limit message into an
+# exact next-revive DateTime. Handles both 12h ("9:41 PM") and 24h
+# ("21:41") forms since Codex CLI's exact wording isn't fixed by this
+# script - unparseable input returns $null rather than guessing a time.
+function Get-CodexResetTime([string]$ProbeOutput) {
+    if ($ProbeOutput -notmatch 'try again at\s+([0-9]{1,2}:[0-9]{2}(?:\s*[APap][Mm])?)') { return $null }
+    $timeText = $matches[1].Trim()
+    $now = Get-Date
+    $parsed = $null
+    foreach ($fmt in @('h:mm tt', 'H:mm')) {
+        try {
+            $parsed = [datetime]::ParseExact($timeText, $fmt, [System.Globalization.CultureInfo]::InvariantCulture)
+            break
+        } catch { }
+    }
+    if (-not $parsed) { return $null }
+    $resetToday = Get-Date -Year $now.Year -Month $now.Month -Day $now.Day -Hour $parsed.Hour -Minute $parsed.Minute -Second 0
+    # "try again at" a clock time that's already passed today means
+    # tomorrow, not a time already behind us.
+    if ($resetToday -lt $now) { $resetToday = $resetToday.AddDays(1) }
+    return $resetToday
+}
+
+# Fires only once the clock has actually reached the recorded minute,
+# within a short window so a cycle that runs a little late still fires
+# (a cycle that runs early must not fire ahead of the recorded time).
+function Test-DueForRevival([datetime]$NextReviveAt, [int]$WindowMinutes = 5) {
+    $now = Get-Date
+    return ($now -ge $NextReviveAt) -and ($now -lt $NextReviveAt.AddMinutes($WindowMinutes))
+}
+
+function Resolve-SeatWorktree([string]$Glob) {
+    if ([string]::IsNullOrWhiteSpace($Glob)) { return $null }
+    if (-not (Test-Path $worktreeRoot)) { return $null }
+    $match = Get-ChildItem -Path $worktreeRoot -Directory -Filter $Glob -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1
+    if ($match) { return $match.FullName }
+    return $null
+}
+
+# DISPATCH: table order in docs/TASK_BOARD.md is the board's own
+# priority order (RULE 35(2): a seat claims the TOP ready row it's
+# eligible for) - no separate numeric priority column exists on disk,
+# so this reads table order rather than inventing one.
+function Get-TopReadyRow {
+    if (-not (Test-Path $taskBoardFile)) { return $null }
+    $lines = Get-Content $taskBoardFile
+    foreach ($line in $lines) {
+        if ($line -notmatch '^\|\s*(W-\d+[a-z]?)\s*\|') { continue }
+        $cells = $line -split '\|'
+        if ($cells.Count -lt 8) { continue }
+        $id = $cells[1].Trim()
+        $title = $cells[2].Trim()
+        $status = $cells[7].Trim()
+        if ($status -match '^READY') {
+            return [PSCustomObject]@{ Id = $id; Title = $title; Status = $status }
+        }
+    }
+    return $null
+}
+
+# CLAUDE ADAPTER (wired, gated behind -EnableClaudeAdapter - "used
+# after operator flip" per the operator's own instruction). Builds the
+# real command; only runs it in a real (non-dry-run) cycle with the
+# flag passed.
+function Start-ClaudeSeat($Seat, $DispatchedRow) {
+    $brief = "You are seat $($Seat.id). Read $($Seat.missionFile) for your standing brief."
+    if ($DispatchedRow) {
+        $brief += " Top READY board row to pull: $($DispatchedRow.Id) - $($DispatchedRow.Title)."
+    }
+    $cmd = $Seat.reviveCmdTemplate -replace '\{brief\}', $brief -replace '\{repoRoot\}', $repoRoot -replace '\{missionFile\}', $Seat.missionFile
+    if ($DryRun) {
+        Write-Host "[DRY-RUN] would run claude adapter for $($Seat.id): $cmd"
+        return
+    }
+    if (-not $EnableClaudeAdapter) {
+        Write-Host "Claude adapter for $($Seat.id) built but not fired (-EnableClaudeAdapter not passed): $cmd"
+        return
+    }
+    Write-Host "Launching Claude seat $($Seat.id) headless: $cmd"
+    Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $cmd -WindowStyle Hidden
+}
 
 function Test-KillSwitch {
     if (Test-Path $killSwitchPath) {
@@ -150,27 +297,42 @@ function Write-FleetSchedule([hashtable]$Heartbeats) {
 }
 
 function Test-CodexProbe {
-    # Returns $true if Codex responded normally, $false if the output
-    # indicates a rate/usage limit. A probe that errors outright (Codex
-    # not installed, process failure) is treated as dark, same as a
-    # limit response - this script cannot distinguish "Codex is fine but
-    # unreachable" from "Codex is limited" any more precisely than that.
-    try {
-        $output = cmd /c 'codex exec "reply OK"' 2>&1 | Out-String
-    } catch {
-        return $false
+    # Returns @{ Ok; Output }. Ok=$false when the output indicates a
+    # rate/usage limit (or the probe errored outright - Codex not
+    # installed, process failure - treated as dark, same as a limit
+    # response: this script cannot distinguish "fine but unreachable"
+    # from "limited" any more precisely than that). Output is the raw
+    # text so the codex adapter can parse a "try again at" time out of
+    # it. -DryRun substitutes -DryRunCodexProbeOutput instead of
+    # calling the real CLI, so the scheduling logic is provable without
+    # needing a live limit response to test against.
+    if ($DryRun) {
+        $output = $DryRunCodexProbeOutput
+        Write-Host "[DRY-RUN] using injected probe output instead of calling codex."
+    } else {
+        try {
+            $output = cmd /c 'codex exec "reply OK"' 2>&1 | Out-String
+        } catch {
+            return @{ Ok = $false; Output = '' }
+        }
     }
     if ($output -match 'limit') {
         Write-Host "Codex probe: LIMIT detected in output."
-        return $false
+        return @{ Ok = $false; Output = $output }
     }
     Write-Host "Codex probe: OK."
-    return $true
+    return @{ Ok = $true; Output = $output }
 }
 
-function Start-CodexMission {
-    Write-Host "Launching Codex mission file headless: $missionFile"
+function Start-CodexMission($DispatchedRow) {
     $cmd = "codex exec --full-auto -C `"$repoRoot`" - < `"$missionFile`""
+    if ($DryRun) {
+        $rowText = if ($DispatchedRow) { "$($DispatchedRow.Id) - $($DispatchedRow.Title)" } else { "(no READY row found)" }
+        Write-Host "[DRY-RUN] would launch Codex mission headless: $cmd"
+        Write-Host "[DRY-RUN] dispatched top READY row injected into mission context: $rowText"
+        return
+    }
+    Write-Host "Launching Codex mission file headless: $missionFile"
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $cmd -WindowStyle Hidden
 }
 
@@ -234,15 +396,53 @@ function Invoke-WatchCycle {
         }
     }
 
-    $codexOk = Test-CodexProbe
+    $probe = Test-CodexProbe
+    $codexOk = $probe.Ok
+    $dispatchedRow = Get-TopReadyRow
+    if ($dispatchedRow) {
+        Write-Host "DISPATCH: top READY row is $($dispatchedRow.Id) - $($dispatchedRow.Title)"
+    } else {
+        Write-Host "DISPATCH: no READY row found on the board."
+    }
+
+    # W-50 seats config + codex adapter: record an exact next-revive
+    # time from a real "try again at <time>" message, then fire only
+    # once the clock reaches that exact recorded minute - not a coarse
+    # "past reset + grace" guess.
+    $seatConfigs = Get-FleetSeatsConfig
+    if ($seatConfigs) {
+        $codexSeats = $seatConfigs | Where-Object { $_.adapter -eq 'codex' }
+        foreach ($seatCfg in $codexSeats) {
+            if (-not $codexOk) {
+                $resetTime = Get-CodexResetTime -ProbeOutput $probe.Output
+                if ($resetTime -and $seatCfg.nextReviveAt -ne $resetTime.ToString('o')) {
+                    $seatCfg.nextReviveAt = $resetTime.ToString('o')
+                    $seatCfg.lastStop = (Get-Date).ToString('o')
+                    Write-Host "CODEX ADAPTER: parsed 'try again at' -> nextReviveAt=$($seatCfg.nextReviveAt) for $($seatCfg.id)"
+                }
+            }
+            if ($seatCfg.nextReviveAt) {
+                $nextReviveAt = [datetime]$seatCfg.nextReviveAt
+                if (Test-DueForRevival -NextReviveAt $nextReviveAt) {
+                    Write-Host "CODEX ADAPTER: $($seatCfg.id) is due for revival now (scheduled $($seatCfg.nextReviveAt))."
+                    Send-NtfyAlert -Title "Scheduled revival" -Message "$($seatCfg.id): recorded reset time reached, launching."
+                    Start-CodexMission -DispatchedRow $dispatchedRow
+                    $seatCfg.nextReviveAt = $null
+                } elseif ($DryRun) {
+                    Write-Host "[DRY-RUN] $($seatCfg.id) next revive at $($seatCfg.nextReviveAt), not due yet (now=$(Get-Date -Format o))."
+                }
+            }
+        }
+        Save-FleetSeatsConfig -SeatsArray $seatConfigs
+    }
 
     if (-not $codexOk) {
-        Write-Host "Codex still limited - staying dark, no launch attempted."
+        Write-Host "Codex still limited - staying dark, no immediate launch (scheduled revival, if any, handled above)."
         $state.CodexWasDark = $true
     } else {
         if ($state.CodexWasDark) {
             Send-NtfyAlert -Title "Codex limit lifted" -Message "Probe succeeded after a prior limit - launching the overnight mission."
-            Start-CodexMission
+            Start-CodexMission -DispatchedRow $dispatchedRow
             Send-NtfyAlert -Title "Codex revived" -Message "Mission launched headless: $missionFile"
         }
         $state.CodexWasDark = $false
@@ -255,7 +455,21 @@ function Invoke-WatchCycle {
     # ongoing limit the schedule already accounts for.
     if (-not $codexOk -and (Test-PastKnownReset -ResetTimes $KnownCodexResetTimes -GraceMinutes $KnownResetGraceMinutes)) {
         Send-NtfyAlert -Title "Claude-revives-Codex" -Message "Past a known reset + grace period and Codex is still dark - launching anyway (RULE 38(1) secondary path)."
-        Start-CodexMission
+        Start-CodexMission -DispatchedRow $dispatchedRow
+    }
+
+    # Claude adapter (wired, gated): claude-backed seats due for
+    # revival get the same exact-time + dispatch treatment.
+    if ($seatConfigs) {
+        $claudeSeats = $seatConfigs | Where-Object { $_.adapter -eq 'claude' -and $_.nextReviveAt }
+        foreach ($seatCfg in $claudeSeats) {
+            $nextReviveAt = [datetime]$seatCfg.nextReviveAt
+            if (Test-DueForRevival -NextReviveAt $nextReviveAt) {
+                Start-ClaudeSeat -Seat $seatCfg -DispatchedRow $dispatchedRow
+                $seatCfg.nextReviveAt = $null
+                Save-FleetSeatsConfig -SeatsArray $seatConfigs
+            }
+        }
     }
 
     $state = Invoke-InboxAlertCheck -State $state
