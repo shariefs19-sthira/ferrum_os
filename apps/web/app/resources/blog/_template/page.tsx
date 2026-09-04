@@ -5,7 +5,7 @@ export default function BlogArticleTemplatePage() {
   return (
     <main className="min-h-screen bg-relume-surface-secondary text-relume-ink">
       <ReadingProgress />
-      <section className="bg-gradient-to-r from-blue-700 via-indigo-700 to-violet-700 px-4 py-20 text-white sm:px-6 lg:px-8">
+      <section className="command-surface px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/70">Ferrum OS</p>
           <h1 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">

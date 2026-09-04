@@ -4,7 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
-import UlpinMapExplorer from '../../../components/sections/UlpinMapExplorer'
+import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
 // map (real Leaflet/OSM component) are real. Zoning, soil/hazard,
@@ -12,8 +12,8 @@ import UlpinMapExplorer from '../../../components/sections/UlpinMapExplorer'
 // The lookup returns state/district/area_sqm/land_use only, nothing
 // else. Roadmap-labeled rather than deleted per RULE 13/W2-345's pattern.
 const featureItems = [
-  { title: 'ULPIN lookup', body: 'Enter a 14-digit ULPIN and pull indicative sample land records instantly.' },
-  { title: 'Interactive maps', body: 'See boundaries, surroundings and access on live maps.' },
+  { title: 'Scenario forecast (live)', body: 'Move area and land-use controls to model built-up potential against a sample Karnataka FAR ruleset.' },
+  { title: 'Interactive preview map (live)', body: 'See a randomized India map preview, clearly identified as neither a parcel nor a lookup result.' },
   { title: 'Zoning summary', body: 'Know what you can build before you buy — not yet built.' },
   { title: 'Soil & hazard data', body: 'Understand ground conditions and flood or seismic risk — not yet built.' },
   { title: 'Feasibility report', body: 'A shareable report that sizes up the whole deal — not yet built.' },
@@ -21,9 +21,9 @@ const featureItems = [
 ]
 
 const howItWorksSteps = [
-  { title: 'Enter the ULPIN', body: 'Type the 14-digit land ID and hit look up.' },
-  { title: 'Review the report', body: 'Get zoning, soil, hazard and feasibility in one view.' },
-  { title: 'Decide with confidence', body: 'Export the report and move on to design or invest.' },
+  { title: 'Set a plot area', body: 'Use the labeled slider and compare the same area across metric and Indian land units.' },
+  { title: 'Choose sample land use', body: 'Move the land-use control to apply the disclosed indicative FAR and coverage assumptions.' },
+  { title: 'Review the scenario', body: 'Read the live built-up result and preview map before moving into a real due-diligence workflow.' },
 ]
 
 const integrationItems = [
@@ -61,11 +61,11 @@ const faqItems = [
   },
   {
     question: 'How accurate is the land data?',
-    answer: 'The live demo above runs on a small set of sample parcel records, clearly marked indicative. Live official land-records integration is on the roadmap and not yet connected.',
+    answer: 'The live module above is an indicative scenario, not parcel data. It applies a disclosed sample Karnataka FAR ruleset to the area and land-use values you choose. Official land-record integration is on the roadmap and is not connected.',
   },
   {
     question: 'Which cities are covered?',
-    answer: 'The current demo covers a handful of sample parcels used to show how the tool works. Broader city coverage depends on the live land-records integration above, which has not shipped yet.',
+    answer: 'The current forecast is not a city-coverage service. It uses one sample Karnataka ruleset to demonstrate the interaction; broader official coverage depends on land-record and planning-data integrations that have not shipped.',
   },
 ]
 
@@ -74,27 +74,24 @@ export default function LandIntelPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <Eyebrow>LandIntel</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
               Know your land before you buy or build
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              Enter a 14-digit ULPIN and get indicative sample land details today. Zoning, soil
-              and hazard data, and investment forecasts are on the roadmap.
+              Explore plot area and land-use scenarios against a clearly labeled sample FAR
+              ruleset. Official zoning, soil, hazard, and entitlement data remain on the roadmap.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>ULPIN land lookup (indicative)</li>
+              <li>Sample FAR and coverage forecast (indicative)</li>
               <li>Zoning &amp; soil data — roadmap</li>
               <li>Investment forecasts — roadmap</li>
             </ul>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
-            </div>
           </div>
-          <div className="order-first min-w-0 md:order-none">
-            <UlpinMapExplorer />
+          <div className="order-first min-w-0 lg:order-none">
+            <SteppedForecastModule product="landintel" />
           </div>
         </div>
       </SectionShell>
@@ -105,8 +102,8 @@ export default function LandIntelPage() {
           <Eyebrow>Features</Eyebrow>
           <SectionHeading className="mt-4">Everything you need to evaluate a plot</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            One lookup surfaces everything that decides whether a plot is worth buying or
-            building on.
+            The live scenario covers area, sample FAR, coverage and built-up potential. The
+            remaining due-diligence surfaces below are explicitly marked as roadmap work.
           </p>
         </div>
         <div className="mt-12">
@@ -118,7 +115,7 @@ export default function LandIntelPage() {
       <SectionShell>
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>How it works</Eyebrow>
-          <SectionHeading className="mt-4">From ULPIN to decision in minutes</SectionHeading>
+          <SectionHeading className="mt-4">From area inputs to a transparent scenario</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
             Three steps between you and a confident land decision.
           </p>

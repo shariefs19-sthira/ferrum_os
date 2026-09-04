@@ -139,46 +139,6 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-relume border border-relume-border p-8 mt-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-6">
-            Find Us
-          </h2>
-          <div
-            role="img"
-            aria-label="Map placeholder showing Bengaluru headquarters location"
-            className="w-full h-64 rounded-md border border-relume-border bg-gradient-to-br from-blue-50 via-white to-gray-100 flex items-center justify-center"
-          >
-            <div className="text-center px-6">
-              <svg
-                className="mx-auto h-10 w-10 text-relume-ink"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              <p className="mt-3 text-sm font-medium text-relume-muted">
-                Interactive map placeholder
-              </p>
-              <p className="mt-1 text-xs text-relume-muted">
-                Embedded map will load here (Google Maps / Mapbox) with HQ pin and directions.
-              </p>
-            </div>
-          </div>
-        </div>
-
         <div className="bg-white rounded-relume border border-relume-border p-8">
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink mb-6">
             Send us a Message

@@ -4,7 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
-import RateCompareCalculator from '../../../components/sections/RateCompareCalculator'
+import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 
 // W2-345: only rate comparison is shipped and real (RateCompareCalculator
 // below, D1-backed). The marketplace itself — profiles, verification,
@@ -76,11 +76,11 @@ export default function ProMarketPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <Eyebrow>ProMarket</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
-              Hire verified professionals you can trust
+              Compare project rates before the marketplace arrives
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
               Verified profiles, job posting, proposals and escrow payments are on the roadmap.
@@ -91,12 +91,9 @@ export default function ProMarketPage() {
               <li>Escrow payments — roadmap</li>
               <li>Reviews &amp; ratings — roadmap</li>
             </ul>
-            <div className="mt-8">
-              <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
-            </div>
           </div>
-          <div className="order-first md:order-none">
-            <RateCompareCalculator />
+          <div className="order-first min-w-0 lg:order-none">
+            <SteppedForecastModule product="promarket" />
           </div>
         </div>
       </SectionShell>

@@ -3,6 +3,62 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --fe-ink: #070707;
+    --fe-command: #0b1f3a;
+    --fe-steel: #64748b;
+    --fe-steel-soft: #94a3b8;
+    --fe-canvas: #f8fafc;
+    --fe-surface: #ffffff;
+    --fe-surface-muted: #ebf0f5;
+    --fe-text: #334155;
+    --fe-text-muted: #475569;
+    --fe-border: #e2e8f0;
+    --fe-accent: #ff9933;
+    --fe-success: #138808;
+    --fe-danger: #dc2626;
+    --fe-on-accent: #070707;
+    --fe-on-command: #ffffff;
+    --fe-focus: #64748b;
+    --fe-focus-dark: #ff9933;
+    --relume-surface-secondary: var(--fe-surface-muted);
+    --motion-ui: 220ms;
+    --motion-enter: 360ms;
+    --motion-data: 600ms;
+    --motion-stagger: 40ms;
+    --ease-arrive: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--fe-canvas);
+    color: var(--fe-text);
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    font-variant-numeric: proportional-nums;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--fe-ink);
+    font-family: var(--font-space-grotesk), system-ui, sans-serif;
+    text-wrap: balance;
+  }
+
+  code,
+  kbd,
+  pre,
+  samp,
+  .font-mono,
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+
   button,
   input:not([type='hidden']):not([type='radio']):not([type='checkbox']),
   select,
@@ -11,11 +67,142 @@
     min-width: 2.75rem;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    text-wrap: balance;
+  :focus-visible {
+    outline: 2px solid var(--fe-focus);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--fe-accent);
+    color: var(--fe-on-accent);
+  }
+}
+
+main > section {
+  position: relative;
+  isolation: isolate;
+}
+
+main > section + section {
+  border-top: 1px solid var(--fe-border);
+}
+
+.ferrum-section::before {
+  position: absolute;
+  top: -1px;
+  left: max(1.5rem, calc((100% - 80rem) / 2));
+  width: 3rem;
+  height: 3px;
+  background: var(--fe-accent);
+  content: '';
+}
+
+.ferrum-card,
+main article,
+main form,
+main figure {
+  box-shadow: 0 1px 0 rgba(11, 31, 58, 0.04);
+}
+
+.ferrum-card-grid > :nth-child(3n + 1) {
+  border-top-color: var(--fe-command);
+}
+
+.command-surface {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: var(--fe-command);
+  color: var(--fe-on-command);
+}
+
+/* RULE 6 leaves the protected legacy BOQ class in place; its rendered token
+   is retargeted here so the modernization does not leak a purple default. */
+.bg-indigo-600 {
+  background-color: var(--fe-command) !important;
+}
+
+[data-reveal][data-reveal-state='pending'] {
+  opacity: 0;
+  transform: translateY(0.75rem);
+}
+
+[data-reveal][data-reveal-state='visible'] {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--motion-enter) var(--ease-arrive),
+    transform var(--motion-enter) var(--ease-arrive);
+  transition-delay: calc(var(--reveal-order, 0) * var(--motion-stagger));
+}
+
+.system-path {
+  animation: system-path-in var(--motion-data) var(--ease-arrive) both;
+  stroke-dasharray: 520;
+  stroke-dashoffset: 520;
+}
+
+.system-node {
+  animation: system-node-in var(--motion-enter) var(--ease-arrive) both;
+  animation-delay: calc(var(--node-order, 0) * var(--motion-stagger));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.analysis-bar {
+  animation: analysis-bar-in var(--motion-data) var(--ease-arrive) both;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+
+.analysis-horizontal-bar {
+  animation: analysis-horizontal-bar-in var(--motion-data) var(--ease-arrive) both;
+  transform-origin: left;
+}
+
+@keyframes system-path-in {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes system-node-in {
+  from { opacity: 0; transform: scale(0.88); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes analysis-bar-in {
+  from { opacity: 0.35; transform: scaleY(0.08); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes analysis-horizontal-bar-in {
+  from { opacity: 0.35; transform: scaleX(0.08); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ferrum-card,
+  main article,
+  main figure,
+  main a[class*='rounded'] {
+    transition-duration: var(--motion-ui);
+    transition-timing-function: var(--ease-arrive);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

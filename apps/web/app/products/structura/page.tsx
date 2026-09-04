@@ -5,7 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SpecTable from '../../../components/SpecTable'
-import IsCheckWidget from '../../../components/sections/IsCheckWidget'
+import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 
 // W2-345: only IS-code checking is shipped and real — two clause families
 // (IS 456 RCC beam, IS 800 steel column) via lib/checks/isCode.ts, same
@@ -100,11 +100,11 @@ export default function StructuraPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <Eyebrow>Structura</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
-              Structural analysis you can sign off on
+              Structural checks with explicit limits
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
               Live today: two textbook IS-code checks (IS 456 minimum reinforcement, IS 800
@@ -116,12 +116,9 @@ export default function StructuraPage() {
               <li>FEA analysis — roadmap</li>
               <li>Professional sign-off — roadmap</li>
             </ul>
-            <div className="mt-8">
-              <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
-            </div>
           </div>
-          <div className="order-first md:order-none">
-            <IsCheckWidget />
+          <div className="order-first min-w-0 lg:order-none">
+            <SteppedForecastModule product="structura" />
           </div>
         </div>
       </SectionShell>

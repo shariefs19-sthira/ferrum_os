@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import BrandMark from "../../components/BrandMark"
 
 const features = [
   'Multi-site visibility',
@@ -47,7 +48,7 @@ export default function LoginPage() {
       <div className="mx-auto grid min-h-screen max-w-7xl items-center px-6 py-12 md:px-8 lg:grid-cols-2">
         <section className="rounded-3xl border border-relume-border bg-white p-8 md:p-10">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-relume-ink text-base font-bold text-white">F</div>
+            <BrandMark size={40} />
             <span className="text-lg font-semibold text-relume-ink">Ferrum OS</span>
           </div>
 
@@ -71,7 +72,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="w-full rounded-xl border border-relume-border bg-relume-surface-secondary px-4 py-3 text-base text-relume-ink outline-none transition focus:border-relume-ink focus:ring-2 focus:ring-blue-100"
+                className="w-full rounded-xl border border-relume-border bg-relume-surface-secondary px-4 py-3 text-base text-relume-ink outline-none transition focus:border-relume-command focus:ring-2 focus:ring-relume-steel/30"
               />
             </div>
 
@@ -87,7 +88,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full rounded-xl border border-relume-border bg-relume-surface-secondary px-4 py-3 text-base text-relume-ink outline-none transition focus:border-relume-ink focus:ring-2 focus:ring-blue-100"
+                className="w-full rounded-xl border border-relume-border bg-relume-surface-secondary px-4 py-3 text-base text-relume-ink outline-none transition focus:border-relume-command focus:ring-2 focus:ring-relume-steel/30"
               />
             </div>
 
@@ -113,13 +114,13 @@ export default function LoginPage() {
         </section>
 
         <aside className="hidden lg:block">
-          <div className="rounded-3xl border border-relume-border bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-600 p-8 text-white">
+          <div data-dynamic-graphic="command-deck-preview" className="command-surface rounded-relume border p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Built for teams</p>
             <h2 className="mt-5 text-3xl sm:text-4xl font-semibold tracking-relume-tight">Keep every decision aligned</h2>
             <ul className="mt-8 space-y-4">
               {features.map((feature) => (
                 <li key={feature} className="flex items-center gap-3 text-base text-white/70">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-sm font-semibold">✓</span>
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/25 text-sm font-semibold">✓</span>
                   {feature}
                 </li>
               ))}
