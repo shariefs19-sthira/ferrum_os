@@ -180,6 +180,14 @@ as every other seat.
   MASON's demo-mode 3D): first-viewport narrative line + sticky "Open
   Workspace" pill + nav CTA on every marketing route, with the page's
   existing live tool kept as proof, not replaced.
+- RIVET's piece of W-40 SUTRA_SIDE_PANEL (2026-09-04, split with
+  MASON): the persistent right-side SUTRA agent panel (default open
+  desktop, bottom-sheet mobile) and relocating the tools ruler to the
+  canvas-left slim strip inside the center region.
+- RIVET owns W-42 PRELOOKUP_CARD (2026-09-04): LandIntel shows the
+  full record-card structure before any lookup, PREVIEW-labeled sample
+  values with source/freshness chips, swapped for real values on an
+  actual lookup.
 - RIVET's board queue (2026-09-04) also includes W-16 LANDINTEL
   RESTORE: return `UlpinMapExplorer` as LandIntel's PRIMARY hero tool
   (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature

@@ -216,6 +216,14 @@
   gz cockpit budget, reconstruction method, output contract), reaching
   one of adopt-as-dep / adopt-pattern / reject from the actual
   inspection, not pre-decided.
+- CRANE owns W-41 KB_EXHAUSTIVE (2026-09-04): extends the existing
+  W-29 knowledge base with a public coverage manifest across the whole
+  architecture subject (design theory, planning, RCC/steel/masonry,
+  soil/foundation, MEP, materials, quantities/rates, contracts/
+  tendering, approvals/NOCs per city, finance, sustainability, safety,
+  and Vaastu — labeled traditional practice, never as code); the
+  manifest shows seeded vs. roadmap topics honestly, matching the
+  actual fact count per topic, not a hand-typed claim.
 - RULE 42 (Seat-push standing, operator approval 2026-09-04): CRANE
   pushes its own branches without per-branch approval; this does not
   touch CRANE's separate standing deploy authority (RULE 40), which

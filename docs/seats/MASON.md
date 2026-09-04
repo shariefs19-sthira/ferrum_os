@@ -174,6 +174,9 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   (W-34) — this blocks landing like the type check. MASON's rows
   (W-05, W-06, W-27's UI half, W-28, W-33's pre-seed piece) each carry
   a perf-delta check once W-34 exists.
+- MASON's piece of W-40 SUTRA_SIDE_PANEL (2026-09-04, split with
+  RIVET): mounting the existing W-27 chat engine inside the new SUTRA
+  panel location — not a new chat implementation, a relocation.
 - MASON also owns W-35 PHOTO_ENTRY integration (2026-09-04): a
   no-ULPIN workspace entry — upload a photo of a plot/building, a
   browser-side reconstruction (method decided by CRANE's W-35a
