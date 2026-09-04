@@ -9,6 +9,7 @@ import WaitlistCapture from '../../../components/sections/WaitlistCapture'
 import OcrSpike from '../../../components/sections/OcrSpike'
 import TransactCaseFlow from '../../../components/sections/TransactCaseFlow'
 import PaymentDemo from '../../../components/sections/PaymentDemo'
+import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 
 export const metadata = {
   title: 'Transact — Ferrum OS',
@@ -56,7 +57,7 @@ export default function TransactPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1.45fr)] lg:items-start">
           <div>
             <Eyebrow>Transact</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -67,7 +68,9 @@ export default function TransactPage() {
             </p>
           </div>
           <div className="order-first md:order-none">
-            <StampDutyEstimator />
+            <ProductCockpitPreview product="transact" label="Transact">
+              <StampDutyEstimator />
+            </ProductCockpitPreview>
           </div>
         </div>
       </SectionShell>
