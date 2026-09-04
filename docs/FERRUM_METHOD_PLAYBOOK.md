@@ -47,20 +47,21 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — forty numbered rules were actually adopted (numbered
-1–14, 16–31, 33–42 — RULE 15 and RULE 32 were never assigned; leave
+matured — forty-one numbered rules were actually adopted (numbered
+1–14, 16–31, 33–43 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–42, added later in the
+applies to their situation. Rules 18–31 and 33–43, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
 timed-stop-single-inbox, fleet-watch, relay-discipline, honesty-
-reporting, device/perf-gate, and push-authority discipline matured, are
-summarized in the addendum immediately after the numbered list rather
+reporting, device/perf-gate, push-authority, and citation-sequencing
+discipline matured, are summarized in the addendum immediately after
+the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -141,7 +142,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–42 (added later, summarized)
+### Addendum: rules 18–31, 33–43 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -629,6 +630,32 @@ source.
     makes this a safe loosening rather than a blanket one: the
     irreversible, high-stakes action stays exactly as protected as
     before.*
+43. **Citation-on-main** — portable, and the direct fix for a specific
+    failure mode a fast-moving fleet's docs seat will hit: a conductor
+    relay cites a row ID before that row's own seeding has actually
+    landed on the shared branch, because the docs seat's landing was
+    still queued behind other seats' faster-moving work. The fix: a
+    relay may cite a row ID only once that row is verified landed on
+    the shared main branch — not merely committed, not merely pushed,
+    not merely described earlier in conversation. A task handed down
+    before its row has landed travels with the full instruction text
+    and no row number at all, so the seat executing it never has to
+    resolve a citation that doesn't yet point anywhere real. The docs
+    seat's own responsibility under this rule is symmetric: land its
+    row seedings before the conductor sequences any relay that cites
+    them, rather than treating its own docs work as exempt from the
+    same landing discipline everyone else follows.
+    *Rationale: discovered directly, in this engagement, in real time:
+    the docs seat kept several branches deep in its own unlanded stack
+    while other seats landed faster and more often, so several row
+    citations went out to seats before the cited row actually existed
+    on the shared branch. Every one of those rows turned out fine once
+    it landed — the content wasn't the problem — but the citation
+    timing was, and it's exactly the kind of gap that's invisible until
+    a seat tries to look up a row that isn't there yet. Naming the rule
+    after the fix (cite only what's actually on main) makes the
+    discipline checkable in one glance at any relay, rather than
+    something that has to be remembered.*
 
 ## 3. Ledger formats
 

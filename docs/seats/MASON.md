@@ -182,6 +182,19 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   and the missing-item request loop. MASON also owns W-44
   BOQ_MEASURED, which reads W-43 only per its ONE-LIBRARY note — no
   second catalog maintained.
+- MASON owns W-47 COCKPIT_FULLSCREEN (2026-09-04): the cockpit becomes
+  a full-viewport surface (canvas ~100dvh minus a slim tab strip,
+  auto-fit on load/mutation), SUTRA/extract/territorial panels become
+  collapsible overlay drawers/sheets, canvas ≥70% of viewport at 1366
+  / ≥60% at 375, headless-measured.
+- MASON owns W-48 PLUGGABLE_CONTROLS (2026-09-04): a config-driven
+  tool/slider registry (id, plain-language label, type, param mapping,
+  ruleset-sourced min/max/step, layman help line) — new tools are
+  registry entries, not code changes. This supersedes part of W-27's
+  own acceptance: registry controls, not raw sliders, are now the
+  visible manipulation layer in the default cockpit view alongside
+  conversation. MASON amended W-27's row text directly to reflect
+  this rather than leave a contradicted acceptance line standing.
 - MASON also owns W-35 PHOTO_ENTRY integration (2026-09-04): a
   no-ULPIN workspace entry — upload a photo of a plot/building, a
   browser-side reconstruction (method decided by CRANE's W-35a
@@ -196,6 +209,10 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
 - RULE 42 (Seat-push standing, operator approval 2026-09-04): MASON
   pushes its own branches without per-branch approval; production
   deploy authority stays CRANE's unchanged guarded standing grant.
+- RULE 43 (Citation-on-main, adopted 2026-09-04): MASON treats a
+  relay's cited row ID as authoritative only if it's actually verified
+  landed on `origin/main`; a task with no landed row is an OPERATOR
+  VERBATIM TASK with no number, per RULE 39.
 - MASON's piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
   RIVET): the demo-mode Space3D — the real cockpit 3D canvas playing a
   scripted intent loop ("add 2 floors" → massing grows, "setback 3m" →

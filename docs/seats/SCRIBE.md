@@ -222,6 +222,14 @@
   docs/APPROVAL_QUEUE.md — seats push their own branches without
   per-branch approval; production deploy authority is explicitly
   unchanged, still the guarded standing grant under RULE 40.
+- RULE 43 (Citation-on-main, adopted 2026-09-04): SCRIBE lands its own
+  row seedings (docs-only, via `scripts/land.ps1`) before the conductor
+  sequences any relay citing that row's ID to a seat — this is the rule
+  that directly targets the six mistimed citations SCRIBE itself
+  logged as a conductor-side incident (W-27, W-29, W-32, W-35a, W-41,
+  W-43) in docs/TASK_REPORTS.md, all caused by SCRIBE's own docs
+  branches stacking several deep behind faster-landing CRANE/MASON
+  work this session.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

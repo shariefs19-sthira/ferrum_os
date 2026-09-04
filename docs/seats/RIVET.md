@@ -176,6 +176,10 @@ as every other seat.
 - RULE 42 (Seat-push standing, operator approval 2026-09-04): RIVET
   pushes its own branches without per-branch approval; production
   deploy authority stays CRANE's unchanged guarded standing grant.
+- RULE 43 (Citation-on-main, adopted 2026-09-04): RIVET treats a
+  relay's cited row ID as authoritative only if it's actually verified
+  landed on `origin/main`; a task with no landed row is an OPERATOR
+  VERBATIM TASK with no number, per RULE 39.
 - RIVET's UI piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
   MASON's demo-mode 3D): first-viewport narrative line + sticky "Open
   Workspace" pill + nav CTA on every marketing route, with the page's

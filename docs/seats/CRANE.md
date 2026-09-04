@@ -234,6 +234,15 @@
   pushes its own branches without per-branch approval; this does not
   touch CRANE's separate standing deploy authority (RULE 40), which
   stays guarded and unchanged.
+- RULE 43 (Citation-on-main, adopted 2026-09-04): CRANE treats a
+  relay's cited row ID as authoritative only if it's actually verified
+  landed on `origin/main`; a task with no landed row is an OPERATOR
+  VERBATIM TASK with no number, per RULE 39. CRANE owns W-46
+  RATE_ENGINE (a pluggable source-adapter pipeline for streamed rates
+  — govt PDF/vendor-API/manual-feed adapters, each rate carrying
+  source ID + fetch date + a VERIFIED-PUBLIC/REFERENCE-ONLY/CONCEPT/
+  LIVE status chip — engine source-agnostic now, real sources wired in
+  later without a rewrite).
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)
