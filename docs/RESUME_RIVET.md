@@ -22,6 +22,12 @@
 - W2-356 is not recorded as LIVE: it has neither a main landing nor deployed
   first-viewport mobile proof.
 
+## Latest research
+
+- MODEL_BENCH_2026: vendor/evaluation and Ferrum disk evidence compiled;
+  recommends FERRITE on Claude Sonnet 5 and a bounded GPT-5.6 Sol Codex trial.
+  No production-model change has been made.
+
 ## Next milestone
 
 When MASON lands S4, use the manifest in `docs/seats/RIVET.md` to wire the
