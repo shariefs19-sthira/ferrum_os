@@ -127,6 +127,24 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   `lib/ifc-export.ts` decides whether W-06 wires that file in as-is or
   waits for MASON's proposed browser-only STEP writer instead — MASON
   does not start a parallel rewrite before W-20's result is known.
+  MASON also has W-22 ARCHVIZ_GRAPHICS queued: the 3D configurator's
+  center-viewport rendering (plan + axo viewports, PBR materials, an
+  IBL sun, a reflective podium, instanced greenery, within an fps
+  budget), acceptance = the described quality bar + a headless
+  screenshot + an fps probe (no reference-image dependency, per the
+  operator's own amendment), reference docs/UX_FLOW.md phase (3). Its
+  cited dependency W-21 is not yet a seeded row — MASON should not
+  block on a dependency that doesn't exist; flag it if reached before
+  W-21 is defined. (MASON's own docs/RESUME_MASON.md separately claims
+  a W-21/W-22 cockpit canvas was already implemented on branch
+  `w2-401-cockpit` — real code may exist for this row already,
+  unverified by SCRIBE against `origin/main` as of this writing.)
+  MASON is also an eligible seat (alongside CRANE, for
+  W-24, and alongside RIVET, for W-25) on the new compliance/permits
+  pair (2026-09-04): W-24 COMPLIANCE_ENGINE (deterministic parcel +
+  building-type ruleset engine off the real `2026.1-SAMPLE` set) and
+  W-25 PERMISSIONS_TABS (DILIGENCE + PERMITS cockpit tabs, dep W-24) —
+  whichever eligible seat pulls first per RULE 35(2) claims each.
 - RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): MASON
   now also pulls live-observation rows the operator reports directly
   (currently W-12 keyboard fit-model control, W-13 view-state
@@ -143,6 +161,10 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   watchdog and, failing that, by a Claude seat noticing the silence
   (Claude-revives-Codex, secondary); alerts route only to the one
   operator channel named in docs/FLEET_WATCH.md.
+- RULE 39 (Self-contained relays + pre-adjudication, adopted
+  2026-09-04): a relay's inline verbatim text is authority even when
+  its cited row/rule isn't on disk yet — MASON executes unambiguous
+  intent, flags the citation gap, and continues rather than stopping.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

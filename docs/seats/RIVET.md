@@ -136,11 +136,20 @@ as every other seat.
   watchdog and, failing that, by a Claude seat noticing the silence
   (Claude-revives-Codex, secondary); alerts route only to the one
   operator channel named in docs/FLEET_WATCH.md.
+- RULE 39 (Self-contained relays + pre-adjudication, adopted
+  2026-09-04): a relay's inline verbatim text is authority even when
+  its cited row/rule isn't on disk yet — RIVET executes unambiguous
+  intent, flags the citation gap, and continues rather than stopping.
 - RIVET's board queue (2026-09-04) also includes W-16 LANDINTEL
   RESTORE: return `UlpinMapExplorer` as LandIntel's PRIMARY hero tool
   (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature
   Conservation addendum), keeping `SteppedForecastModule` live as a
   SECONDARY panel — both live, dual units, honesty chips.
+- RIVET is also an eligible seat (alongside MASON) on W-25
+  PERMISSIONS_TABS (2026-09-04): two new cockpit tabs, DILIGENCE (buy)
+  and PERMITS (build), in the 10-slot top strip, with the bottom
+  extract panel rendering W-24's compliance table per highlighted tab
+  — whichever of RIVET/MASON pulls first per RULE 35(2) claims it.
 - W-17 AUTH-PREVIEW: strip all credential inputs from `/signup` and
   `/login`, replacing both with an honest preview gate ("Accounts
   arrive with the live release — explore everything now in preview",

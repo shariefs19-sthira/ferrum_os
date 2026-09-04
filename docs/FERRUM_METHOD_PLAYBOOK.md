@@ -47,18 +47,18 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty-six numbered rules were actually adopted (numbered
-1–14, 16–31, 33–38 — RULE 15 and RULE 32 were never assigned; leave
+matured — thirty-seven numbered rules were actually adopted (numbered
+1–14, 16–31, 33–39 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–38, added later in the
+applies to their situation. Rules 18–31 and 33–39, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
-timed-stop-single-inbox, and fleet-watch discipline matured, are
+timed-stop-single-inbox, fleet-watch, and relay-discipline matured, are
 summarized in the addendum immediately after the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
@@ -140,7 +140,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–38 (added later, summarized)
+### Addendum: rules 18–31, 33–39 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -529,6 +529,35 @@ source.
     alert channel exist for the same reason rule 37's single inbox
     does: multiple places to look for "is everything actually OK"
     is worse than one place, checked reliably.*
+39. **Self-contained relays + pre-adjudication** — portable, and the
+    conductor-side complement to a seat's own resolve-don't-ask
+    discipline (rule 27). Every relay to a seat carries the full,
+    verbatim task text — a row or ticket ID is a cross-reference
+    annotation, never the actual authority for what to do. A relay also
+    states, in advance, how its own foreseeable blockers resolve: a
+    citation to a row that isn't actually on the board yet means the
+    relay's own inline text still governs, with the gap flagged, not a
+    reason to stop; a missing or unmet dependency that wasn't meant to
+    block means move to the next task; genuine scope ambiguity resolves
+    to the narrowest reading of the literal text; a step that would
+    require an unauthorized production write gets held and flagged,
+    never silently skipped or silently executed. Doc-dependent relays
+    (ones that need a rule or board change the docs seat just made) are
+    sequenced after that seat's own landing proof, not before. On the
+    receiving side, a seat treats unambiguous inline intent as
+    executable even when the citation behind it is absent — execute,
+    flag the gap, continue, rather than stalling on a missing reference
+    that doesn't actually block understanding the instruction.
+    *Rationale: this engagement hit the same shape of problem
+    repeatedly — an instruction citing a row, rule, or file that turned
+    out not to exist on disk yet — and each time the correct move
+    turned out to be the same: treat the actually-given inline content
+    as authoritative, flag the gap for the record, and keep moving,
+    never invent the missing reference and never stall the whole task
+    waiting for it. Writing that pattern down as a standing rule, with
+    the specific foreseeable-blocker cases named in advance, turns a
+    recurring judgment call into a pre-agreed default — faster for the
+    seat, and no less safe, since the flag still happens every time.*
 
 ## 3. Ledger formats
 

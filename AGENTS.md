@@ -675,6 +675,45 @@ watchdog or the revival paths. A human can still halt fleet watch
 entirely at any time; RULE 38 governs the *watching*, never a substitute
 for that override.
 
+## RULE 39 — Self-contained relays + pre-adjudication (adopted 2026-09-04)
+(1) **Full verbatim text, not a row number.** Every conductor relay to a
+seat carries the FULL verbatim task text. A row ID (W-NN, W2-NNN) is an
+annotation for cross-referencing the ledger — never the authority for
+what to do. A seat that receives only a row number with no verbatim
+text is receiving an incomplete relay, not a complete one with a
+shorthand pointer.
+(2) **Pre-adjudicate foreseeable blockers.** Every relay states, in
+advance, how to handle the blockers that are foreseeable for that task:
+- **Missing row** (the relay cites an ID that isn't on the board/ledger
+  yet): the relay's own inline text is authority regardless — flag the
+  citation gap (on the row, in the report), do not stop the task over
+  it. This codifies the practice already used this session for
+  AQ-RIVET-004, GPT-5.6-SOL-TRIAL, W-19/W-21, etc.
+- **Missing dependency** (a cited dep row doesn't exist or isn't DONE
+  and wasn't meant to block): proceed to the next task per RULE 35,
+  don't stall waiting on a dependency that was never going to resolve.
+- **Ambiguous scope**: take the narrowest reading that satisfies the
+  relay's literal text, not the broadest one that might also satisfy
+  it — consistent with RULE 27's safest-reasonable-interpretation
+  tie-break.
+- **A step would require a production write** the relay didn't
+  explicitly authorize: hold that specific step and flag it — never
+  silently skip the whole task, never silently execute the write.
+(3) **Doc-dependent relays sequence after SCRIBE's landing proof.** If a
+relay depends on a SCRIBE-authored doc/ledger change (a new rule, a new
+board row, an amended acceptance criterion), the conductor sequences
+that relay after SCRIBE's own push+proof for the dependency, not before
+— a relay referencing not-yet-pushed SCRIBE content is itself a form of
+the "missing row" case in (2).
+(4) **Seats: unambiguous inline intent is executable even citation-
+absent.** When an operator's inline instruction is unambiguous on its
+own terms, a seat executes it even if the row/rule it's supposed to be
+attached to isn't actually on disk yet — execute, flag the citation
+gap, continue. This is the seat-side mirror of (2)'s "missing row"
+pre-adjudication and RULE 27's provisional-text limitation: unambiguous
+executable intent needs no citation to be actionable, but the gap still
+gets logged, never silently absorbed.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
