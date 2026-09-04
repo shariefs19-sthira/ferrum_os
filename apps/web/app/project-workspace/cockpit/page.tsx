@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import type { WorkspaceProduct, WorkspaceTool, WorkspaceMoreAction, WorkspaceExtract, WorkspaceProvenance } from "../../../lib/types"
 import TabRail from "../../../components/workspace/TabRail"
@@ -28,15 +28,28 @@ import CommandBar from "../../../components/workspace/CommandBar"
  * projects — caught by actually running the build, which failed with
  * the missing-generateStaticParams error on the first attempt. The
  * project id is read client-side from ?project= instead.
+ *
+ * No ?project= (the direct-entry route, /project-workspace itself,
+ * operator W-26 routing flip): falls back to a stable 'preview' id and
+ * sets the same 'ferrum-preview-session' localStorage flag PreviewGate
+ * uses, rather than blocking on "no project selected" — there is no
+ * server-side auth middleware on this static-export site to bypass
+ * (checked: no middleware.ts exists; requireUser() only gates the
+ * Worker's D1 API routes, never page rendering), so this flag is the
+ * whole "preview session" concept.
  */
 export default function ProjectWorkspaceCockpit() {
   const searchParams = useSearchParams()
-  const projectId = searchParams.get('project')
+  const projectId = searchParams.get('project') ?? 'preview'
 
   const [activeProduct, setActiveProduct] = useState<WorkspaceProduct>("Land")
   const [activeTool, setActiveTool] = useState<WorkspaceTool>("select")
   const [extractOpen, setExtractOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
+
+  useEffect(() => {
+    window.localStorage.setItem('ferrum-preview-session', 'active')
+  }, [])
 
   const handleMoreAction = (action: WorkspaceMoreAction) => {
     // Real actions (activity ledger, extract export, contextual help) are
@@ -53,14 +66,6 @@ export default function ProjectWorkspaceCockpit() {
 
   const noExtracts: WorkspaceExtract[] = []
   const noProvenance: WorkspaceProvenance = { source: "Not yet wired", freshness: "N/A", status: "ROADMAP" }
-
-  if (!projectId) {
-    return (
-      <div className="flex h-screen items-center justify-center text-sm text-relume-muted">
-        No project selected — open the cockpit from a project link (?project=&lt;id&gt;).
-      </div>
-    )
-  }
 
   return (
     <div className="flex h-screen flex-col">
