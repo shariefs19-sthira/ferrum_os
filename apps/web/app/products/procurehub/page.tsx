@@ -4,6 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
+import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 
 // W2-345: ProcureHub has zero shipped tool — no material requests, purchase
 // orders, delivery tracking, supplier directory, bill reconciliation or
@@ -46,7 +47,7 @@ export default function ProcureHubPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1.45fr)] lg:items-start">
           <div>
             <Eyebrow>ProcureHub</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -59,7 +60,9 @@ export default function ProcureHubPage() {
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
-            <SteppedForecastModule product="procurehub" />
+            <ProductCockpitPreview product="procurehub" label="ProcureHub">
+              <SteppedForecastModule product="procurehub" />
+            </ProductCockpitPreview>
           </div>
         </div>
       </SectionShell>
