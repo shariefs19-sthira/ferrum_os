@@ -127,6 +127,15 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   `lib/ifc-export.ts` decides whether W-06 wires that file in as-is or
   waits for MASON's proposed browser-only STEP writer instead — MASON
   does not start a parallel rewrite before W-20's result is known.
+  MASON also has W-22 ARCHVIZ_GRAPHICS queued: the 3D configurator's
+  center-viewport rendering (plan + axo viewports, PBR materials, an
+  IBL sun, a reflective podium, instanced greenery, within an fps
+  budget), acceptance = the described quality bar + a headless
+  screenshot + an fps probe (no reference-image dependency, per the
+  operator's own amendment), reference docs/UX_FLOW.md phase (3). Its
+  cited dependency W-21 is not yet a seeded row — MASON should not
+  block on a dependency that doesn't exist; flag it if reached before
+  W-21 is defined.
 - RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): MASON
   now also pulls live-observation rows the operator reports directly
   (currently W-12 keyboard fit-model control, W-13 view-state
