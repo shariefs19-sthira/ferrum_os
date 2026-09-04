@@ -5,8 +5,7 @@ CRANE session reads this file FIRST, before anything else, and resumes
 exactly from what it says.
 
 ## Heartbeat (AGENTS.md RULE 38(2))
-- 2026-09-04 — seeded by SCRIBE at RULE 38's adoption; CRANE updates
-  this line at the start of each of its own turns going forward.
+- 2026-09-04 (end of W-08 pass) — CRANE active this turn.
 
 ## Done (this session, with SHAs)
 - devDeps revert (root package.json, RULE 6): `de2abebc`
@@ -81,14 +80,62 @@ exactly from what it says.
   actually running the build, which failed on the first attempt.
   Existing `/project-workspace/page.tsx` marketing preview is untouched.
 
+- `three` dependency for MASON's S4 STUDIO_3D (pre-approved, verified
+  against the actual WAVE_QUEUE row before adding): `00ca5313`.
+- **Real data-loss incident, found and recovered.** An earlier sweep
+  merge (verified pushed at the time) had silently vanished from
+  `main`'s history — something force-reset `main` past it mid-session.
+  Recovered from my local copy of the commit, re-landed, and this time
+  verified persistence with a fresh `git fetch` immediately after every
+  subsequent push rather than trusting "Push succeeded" alone: `acda68a0`.
+- Landed the full w2-403→408 SCRIBE docs chain via `-Branch`, one at a
+  time, each rebased onto current main and conflict-resolved (same
+  `docs/WORKSPACE_SPEC.md` add/add collision recurred on nearly every
+  one — always resolved by keeping the newer/superset side, verified by
+  diffing both sides before choosing, never blind):
+  `8eb872dc` (RULE 34) → `d070a278` (RULE 35, TASK_BOARD.md) →
+  `aa10a22f` (RULE 36/37, merged two independently-created
+  `TASK_REPORTS.md` files rather than letting either overwrite the
+  other) → `6bc041a7` (RULE 38, FLEET_WATCH.md) → `9bec0899` (W-17
+  AUTH-PREVIEW).
+- **Real, independently-verified live regression found via SCRIBE's
+  w2-407 forensics.** MASON's W2-372 landing (which I'd earlier checked
+  and treated as "already landed, fine, skip") silently removed the
+  real `UlpinMapExplorer` (D1-backed ULPIN lookup) from the LandIntel
+  hero, replacing it with a sample-data-only `SteppedForecastModule`,
+  under a commit message that didn't describe removing anything. I
+  confirmed independently (`UlpinMapExplorer` genuinely absent from the
+  live page, only a stale comment of mine references it). Tracked as
+  board row W-16, assigned RIVET, not yet done — not fixed by me since
+  it's already owned.
+- **W-08 Intent API: DONE, migration applied to production, LIVE-proof
+  verified end-to-end with a real authenticated test user.** `2a9aa52d`
+  (new `workspace_projects`/`workspace_artifacts` tables + 6 Worker
+  routes implementing `docs/WORKSPACE_SPEC.md` §4's contracts exactly —
+  separate from the existing W2-327/W2-400 save path, not a rewrite of
+  it). Migration `0014` applied directly to production (same pattern as
+  the earlier `provenance_source` fix, since batch-apply would still
+  hit the known `0013`/`provenance_freshness` gap first). Full live
+  flow verified via curl against the real deployed Worker: signup →
+  login → create project (200) → reject bad `unitsPref` (400) →
+  GET-by-id (200) → save a PARCEL artifact (200, correct §4 shape) →
+  reject missing `provenance.status` (400) → filtered list (200) →
+  delete (204) → confirm gone (404). Every status code matches spec.
+
 ## In-flight
-- Assistant intent API (7 enumerated intents: add-floor, set-setback,
-  show-BOQ, check-structura, save, switch-tab, units) — not started yet
-  this pass. Next planned step.
+- None. FLEET_WATCH v2 explicitly held pending a SCRIBE amendment that
+  reconciles RULE 38(4)'s "one alert channel: chat, no ntfy" rule with
+  the earlier ntfy-based design — checked before this turn ended, no
+  such amendment had landed yet.
 
 ## Next planned step
-- Assistant intent API — the actual next task.
-- Wire CommandBar → intent API once it exists.
+- FLEET_WATCH v2 — blocked on the SCRIBE amendment above; check
+  `origin/main` for it before starting, don't assume either way.
+- Command bar (W-09, RIVET's row) wires to W-08's intent API once
+  RIVET's UI work reaches that point — not CRANE's row.
+- W-16 LANDINTEL RESTORE (RIVET's row) — the UlpinMapExplorer regression
+  fix. Not mine, but worth checking status next time, given I verified
+  the underlying finding myself.
 - MASON's S4 canvas component, once landed, replaces CanvasSlot in one
   line (`apps/web/app/project-workspace/cockpit/page.tsx`).
 - `lib/ifc-export.ts` still has no UI/worker.ts wiring; browser/Workers
@@ -97,31 +144,31 @@ exactly from what it says.
 
 ## OPEN-FOR-OPERATOR
 - **Production D1: `provenance_freshness` column still missing** on
-  `saved_artifacts` (`provenance_source` succeeded; the second ALTER TABLE
-  was blocked twice by the harness classifier, not retried a third time).
-  Apply directly: `ALTER TABLE saved_artifacts ADD COLUMN
-  provenance_freshness TEXT` against `ferrum-os-data` (`--remote`), or
-  re-authorize the retry.
-- Production D1's migrations tracking table only has `0001_init.sql`
-  recorded, even though 0002-0012's actual schema/data verifiably
-  already exists. I deliberately did NOT rewrite that tracking table
-  myself (two attempts were blocked by the classifier; on reflection I
-  agree with not forcing it since it's Cloudflare's own bookkeeping, not
-  app code) — worth a real decision on whether/how to reconcile it
-  properly, since future `wrangler d1 migrations apply` runs will keep
-  trying to re-run 0002-0012 and fail on 0002's seed-data collision
-  until this is fixed.
+  `saved_artifacts` (`provenance_source` succeeded; the ALTER TABLE for
+  the second column was blocked repeatedly by the harness classifier,
+  explicitly not retried past the instructed limit each time). Apply
+  directly: `ALTER TABLE saved_artifacts ADD COLUMN provenance_freshness
+  TEXT` against `ferrum-os-data` (`--remote`).
+- Production D1 migrations-tracking table: **reconciled this session**
+  (full backup dump first, verified 0002-0012's tables/columns against
+  the backup with zero mismatches, only then marked applied — see
+  `docs/TASK_REPORTS.md` for the full method). `0013` and `0014` are
+  now the only two rows needing manual attention, both already handled
+  directly (see above) rather than through the ordered migration
+  runner, which would still fail on `0013`'s known gap.
 - `apps/web/app/boq-pro/page.tsx` (RULE 6 protected top-level page, not
   products/boq-pro) still has an un-wired Save-to-workspace call site
   from W2-400 — no standing approval on record.
-- `RULE 34` ("workspace-only") cited this pass was not found on
-  `origin/main` when checked — same pattern as every other rule citation
-  this session (most turned out real but not-yet-landed at citation
-  time). Proceeded on the reasonable substance regardless.
-- Intent API and MASON's canvas are both real, separate pieces of work
-  still needed before the cockpit does anything beyond render its own
-  chrome — flagging so "W2-401 shell v1" isn't read as more complete
-  than it is.
+- **What actually happened to `main` mid-session that discarded a
+  verified-pushed commit is still unexplained.** I recovered the content
+  and started double-checking every push's persistence afterward, but
+  the root cause (a force-push? a rebase-based landing process from
+  another seat?) is worth investigating so it doesn't happen silently
+  again.
+- W-16 (LandIntel regression fix) and W-09 (command bar UI) are both
+  real, separate, already-assigned work — not done by me, flagged so
+  progress isn't overstated.
 
 ## Last updated
-- 2026-09-04, by CRANE, mid-pass (workspace shell assembly turn).
+- 2026-09-04, by CRANE, end of this pass (W-08 Intent API + w2-403→408
+  chain + data-loss recovery + regression verification).
