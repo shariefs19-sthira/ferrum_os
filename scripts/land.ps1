@@ -41,7 +41,21 @@ hold applied cleanly on the next run.) If you need a hold to apply
 immediately, don't rely on this script landing it for you mid-run — commit
 docs/LAND_HOLD.txt directly to main first, then run this script.
 After the loop: type-checks apps/web, then pushes main with rebase-retry.
+
+-Branch <name> (W2-398): restricts the whole run to that one branch
+(short name, no origin/ prefix, e.g. "w2-373/crane-interaction-first")
+instead of sweeping every origin/w2-* branch. Every other check (hold
+list, sensitive-path pre-flight, docs-vs-non-docs handling, skip-if-
+already-landed) applies identically — this only narrows which branch(es)
+enter the loop. Lets a seat self-land its own single row safely without
+touching anything else in flight, so routine self-landing (RULE 18)
+doesn't need the catch-all sweep. Errors out immediately if the branch
+doesn't exist on origin, rather than silently landing nothing.
 #>
+
+param(
+    [string]$Branch
+)
 
 $ErrorActionPreference = "Stop"
 
@@ -174,7 +188,18 @@ if ($currentBranch -ne "main") {
 git pull --rebase origin main
 if ($LASTEXITCODE -ne 0) { throw "initial git pull --rebase origin main failed" }
 
-$remoteBranches = git branch -r | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^origin/w2-' -and $_ -ne 'origin/HEAD' }
+if ($Branch) {
+    $normalizedBranch = $Branch -replace '^origin/', ''
+    $targetRef = "origin/$normalizedBranch"
+    git show-ref --verify --quiet "refs/remotes/$targetRef"
+    if ($LASTEXITCODE -ne 0) {
+        throw "Branch '$targetRef' not found on origin (fetch already ran above) - check the name, no origin/ prefix needed."
+    }
+    $remoteBranches = @($targetRef)
+    Write-Host "Single-branch mode: $targetRef"
+} else {
+    $remoteBranches = git branch -r | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^origin/w2-' -and $_ -ne 'origin/HEAD' }
+}
 $holdGlobs = Get-HoldGlobs
 if ($holdGlobs.Count -gt 0) {
     Write-Host "Hold list active ($($holdGlobs.Count) pattern(s)): $($holdGlobs -join ', ')"
