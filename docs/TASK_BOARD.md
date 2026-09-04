@@ -11,6 +11,18 @@ RULE 35(4): seats update this board only on DONE or STUCK.
 
 | ID | Title | Envelope (files) | Eligible seats | Acceptance | Deps | Status |
 |----|-------|-------------------|-----------------|------------|------|--------|
+| W-26 | ROUTING_FLIP | `apps/web/app/project-workspace/page.tsx` (route swap: cockpit becomes the default), new `apps/web/app/project-workspace/projects/page.tsx` (demoted project-list shelf) | CRANE | **TOP OF BOARD — nothing outranks it, per the operator (2026-09-04); placed as this table's first row for that reason, not appended at the end.** `/project-workspace` renders the cockpit immediately: a preview session is auto-created (per W-17's preview-mode convention, `localStorage` flag, zero credential collection) so the cockpit has a real project to render into rather than an empty state; all five sketch regions (top-strip tabs, right tools ruler, center 3D space, bottom-left more-tools drawer, bottom-full-width extract panel) are visible in one viewport. The project list (previously at `/project-workspace`) demotes to `/project-workspace/projects`. Acceptance: opening `/project-workspace` shows tabs + ruler + 3D space + extract panel + command bar together in one viewport, verified at both 1366 and 375 on the deployed edge. | — | Commit `86ef5791` ("[land:crane/w26-cockpit-route-flip]") present on `origin/main`, touching exactly the two files this row's envelope names. Per RULE 40 (facts-only): this is the verifiable fact — SCRIBE has not independently checked the deployed edge at 1366/375, so this row is not marked DONE here; CRANE's own DONE report (with live proof) is the authoritative closure. |
+| W-27 | CONVERSATIONAL_PRIMARY | command-bar UI (text + voice input) — MASON's piece; intent grammar + deterministic-engine dispatch — CRANE's piece; existing slider-based default view (demoted, not deleted, into More → Advanced) | MASON (UI) + CRANE (grammar) | The command bar (per W-09) becomes THE primary interface, not one option among several: text input plus voice input (browser Web Speech API where supported; an honest chip/fallback where it isn't — RULE 5/29 style, no silent no-op). Voice transcript feeds the same intent pipeline as typed text, not a separate path. Intent grammar (per WORKSPACE_SPEC.md §5) is extended to the full parameter set: floors, plot width/depth, setback, use, room bias, and free-form adjustments like "make it Vaastu-friendlier." Every resolved intent drives the deterministic engine (W-24's COMPLIANCE_ENGINE where relevant, the existing structural/massing engines otherwise) and the building reshapes live in the 3D space — not a form submit, a live update. Sliders are REMOVED from the default cockpit view; they relegate to More → Advanced (per RIVET's `MoreDrawer`), for power users, not deleted from the app. Acceptance: a typed and a spoken instance of the same intent produce the same reshaped result on the deployed edge; the default view at 1366+375 shows no sliders; Advanced still has them. **Perf-delta check added (RULE 41(4), 2026-09-04):** before/after bundle-size comparison + fps probe against `budgets.json` (W-34); a regression blocks this row's landing. | W-09 | READY |
+| W-28 | GUIDED_OPTIONS | option-chip UI surfaced by the command bar/cockpit when no text/voice input is given; option generation logic reading the ruleset (W-24 COMPLIANCE_ENGINE + existing FAR/DCR/setback data) | RIVET or MASON | When the user gives no text/voice input, the site offers constrained option chips, one decision point at a time, in this order: use → floors → massing style → rooms split → compliance add-ons. Each option set is derived from the ruleset, not free-form — only legally/feasibly buildable options are offered (e.g. max floors computed from FAR, setbacks computed from DCR for the parcel in context), so an infeasible choice is never presented as tappable. One tap reshapes the building live, same deterministic-engine path as W-27's typed/voice intents. This is the flow's stand-out claim: the website does the modelling, the user picks constrained real options rather than operating raw controls. Acceptance: for a given parcel, the offered floor-count options on screen match what the ruleset actually permits (spot-checked against W-24's output, not just the UI's own claim); one tap visibly reshapes the model on the deployed edge. **Perf-delta check added (RULE 41(4), 2026-09-04):** before/after bundle-size comparison + fps probe against `budgets.json` (W-34); a regression blocks this row's landing. | W-24 | READY |
+| W-29 | KNOWLEDGE_BASE | new versioned data module(s) — structured code corpus, not scraped/copied text | CRANE + MASON | A versioned, structured code corpus covering: NBC 2016 core clauses, IS 456/875/1893 key tables, SP 7, four city DCR samples, and dimensional-standards tables — as our own structured data (fields/tables we author), not copied source text. Every fact carries a clause ID, a version tag, and a status chip (VERIFIED-SAMPLE or INDICATIVE per RULE 5/29 — no fact reads as more authoritative than its actual sourcing). Assistant answers (W-27's conversational layer) and W-28's option chips cite the specific clause when relevant (e.g. "IS 456 §26.5.3", "DCR 2025 T4.2") rather than asserting a number with no traceable source. Split envelope: CRANE and MASON each claim their own structural slice under RULE 35, not a joint claim. | — | READY |
+| W-30 | VOCAB_ONTOLOGY | new ontology/terminology-mapping module, consumed by the intent parser and reply templates | MASON | A professional-terminology ontology, mapping equivalent terms across the stages a user moves through: setback = margins = build-line; FAR = FSI = plot-ratio; sanction = plan-approval; limit-state/spans/loads (structural vocabulary); fixtures/connected-load (MEP vocabulary); NOC/OC (approvals vocabulary); IRR/ticket (finance vocabulary). The intent parser (W-27's grammar) and the assistant's replies both resolve through this ontology, so the site speaks each professional's own language at each stage rather than forcing one vocabulary on every user. | W-27 (grammar half) | READY |
+| W-31 | GROUNDED_LLM_LAYER | n/a — roadmap only, no envelope claimed until an LLM seat trial is approved | (unassigned) | When a trial LLM seat is approved (a separate, future decision — not implied or pre-approved by this row), that seat acts strictly as a LANGUAGE layer over the existing deterministic engine and W-29's knowledge base: retrieval-augmented generation with clause citations (per W-29), never a source of a number or an option on its own. **Status: ROADMAP-LABEL, as given** — not a pull-eligible row under RULE 35 until the underlying LLM-seat approval exists. | W-29 | ROADMAP-LABEL |
+| W-32 | BATTERY_FAILS | three independent fix rows, one per failing check — see sub-rows below; each is its own envelope, not a joint claim | (per sub-row) | Umbrella row for ATLAS's 8-step battery (W-10) failures, cited by the operator as check numbers (2), (5), (8). **Flagged, not fabricated (RULE 39):** docs/TASK_BOARD.md's own W-10 row is still READY, with no battery run or results actually logged on disk as of this writing — SCRIBE has not seen the full 8-step battery output, only the three failing item names given directly in this instruction. Recorded as given; whoever ran the battery should log its full results on W-10 for real. | W-10 | (see sub-rows) |
+| W-32a | Fix: artifact-appears readback (battery check 2) | the artifact-save→readback path (workspace artifact GET after a POST) | (board-pull — any eligible seat) | A saved artifact reliably appears on readback (GET) immediately after its save (POST), verified against the deployed edge — the specific failure named as battery check (2). | W-32 | READY |
+| W-32b | Fix: extract-updates-on-mutate (battery check 5) | the bottom extract panel's data-binding to its source artifact/state | (board-pull — any eligible seat) | The bottom extract panel updates when its underlying artifact/state mutates, without requiring a manual refresh — the specific failure named as battery check (5). | W-32 | READY |
+| W-32c | Fix: share-opens (battery check 8) | the share action's generated link/route | (board-pull — any eligible seat) | A share action produces a link that actually opens to the shared content when followed, verified against the deployed edge — the specific failure named as battery check (8). | W-32 | READY |
+| W-33 | LANDINTEL_BRIDGE | LandIntel result card (`apps/web/app/products/landintel/page.tsx` + `UlpinMapExplorer`'s result rendering) — RIVET's piece; `/project-workspace/:id` route + cockpit LEFT SIDE PANEL component + pre-seeding logic — CRANE's piece; 3D-space pre-seed wiring (plot grid from parcel dims, proposed building type from forecast) — MASON's piece | RIVET + CRANE + MASON | The LandIntel result card gets a second action alongside the existing SAVE (persists artifact to shelf, via the existing `SaveToWorkspaceButton`, unchanged): **MOVE TO WORKSPACE**, which creates a workspace artifact carrying the parcel context and routes to `/project-workspace/:id`, opening the cockpit for that project. On that route, the cockpit renders a LEFT SIDE PANEL (read-only reference, command bar stays primary) showing the source parcel's full territorial detail: owner, survey no, area (dual units per RULE 30), location, zoning/FAR/coverage, water-body buffer status, NDZ flag, flood-zone, and provenance chips (source + freshness per WORKSPACE_SPEC.md §1's Artifact model). The 3D space starts pre-seeded from this context: plot grid dimensions from the parcel's actual dims, proposed building type from W-24/forecast-module suggestion where available. **Region law updated:** side panel = left edge, 10-tab strip = top, tools ruler = right, 3D space = center, extract panel = bottom (five regions, side panel added as the new one). Acceptance: clicking Move opens the cockpit with the side panel populated, verified at 1366+375 on the deployed edge; the existing Save action still works unchanged. Split envelope: each seat claims its own piece under RULE 35, not a joint claim. **Perf-delta check added (RULE 41(4), 2026-09-04):** before/after bundle-size comparison + fps probe against `budgets.json` (W-34); a regression blocks this row's landing. | W-26, W-24 (for forecast pre-seed) | READY |
+| W-34 | PERF_INFRA | new `budgets.json`, Lighthouse CI config on key routes, a degradation-profile toggle (WebGL capability detection → reduced rendering mode), and a documented real-device spot-check protocol | CRANE | `budgets.json` encodes AGENTS.md RULE 41(3)'s budgets exactly: initial JS ≤350KB gz (cockpit route ≤600KB gz, `three` lazy), LCP ≤2.5s on a 4G floor, CLS ≤0.1, INP ≤200ms, main-thread task ≤50ms, draw calls ≤200, FPS ≥30 floor-device/degradation-profile or ≥60 desktop-class. Lighthouse CI runs these against key routes and fails the build on a budget breach — this is what makes RULE 41 a hard, CI-enforced gate rather than a documented aspiration. The degradation-profile toggle detects WebGL2 vs WebGL1-only vs no-WebGL and switches rendering profile accordingly (shadows/reflections/pixelRatio/viewport-count per RULE 41(2)), functional and honestly labeled either way. The real-device spot-check protocol documents how to verify against RULE 41(2)'s actual floor devices (2022 mid-range Android / 2018 i5+iGPU), not just simulated throttling. Acceptance: `budgets.json` exists and is wired into CI; a deliberately oversized bundle actually fails the CI check (a real negative test, not just the config existing); the degradation toggle demonstrably changes rendering profile on a WebGL1-forced test. | — | READY |
 | W-01 | Migration + save200 | D1 migration file(s), the workspace save/persist endpoint | CRANE | Migration applies clean on the deployed D1 instance; a save call returns 200 against the deployed edge, verified by an actual request, not a local smoke test | — | CLAIMED (CRANE) |
 | W-02 | Add `three` dependency | `apps/web/package.json`, `pnpm-lock.yaml` | CRANE | `three` installed as the single approved new dependency (per W2-380's operator approval, RULE 1 dependency-addition rule — CRANE-only); build stays green | — | READY |
 | W-03 | `lib/types.ts` integration merge | `apps/web/lib/types.ts` | CRANE | Workspace object-model types (WorkspaceProject/Artifact per WORKSPACE_SPEC.md §1) merged into the shared contract file with no breaking change to existing consumers; typecheck green | W-02 | READY |
@@ -57,6 +69,67 @@ RULE 35(4): seats update this board only on DONE or STUCK.
   build-vs-reuse disagreement on IFC export before either side writes
   more code — assigned CRANE since the gate tests CRANE's own existing
   file; W-06 (ExportBar, MASON) is downstream and blocked on this
-  row's result, not touched by it directly. W-18/W-19 are intentionally
-  unused — not seeded by this instruction, left open for the next two
-  observations/decisions.
+  row's result, not touched by it directly.
+- **W-18, W-19, W-21 do not exist as seeded rows** as of 2026-09-04,
+  despite being referenced by ID in later instructions (W-22's original
+  dependency list named W-21; docs/UX_FLOW.md was asked to be linked as
+  an acceptance reference for W-19 and W-21 specifically). SCRIBE has
+  not invented scope for any of the three to fill the gap — flagged
+  here, on W-22's row, and in docs/UX_FLOW.md's own Notes section
+  instead. Whoever defines W-18/W-19/W-21 should seed them for real and
+  update W-22's Deps column and UX_FLOW.md's references once they
+  exist.
+- W-22 and W-23 (added 2026-09-04) were seeded across two messages —
+  the first gave the row content and an acceptance criterion citing a
+  reference image file; a follow-up message from the same operator
+  amended W-22's acceptance to drop that file dependency before this
+  board was pushed. The row above reflects the amended (final)
+  acceptance only; the withdrawn reference-file version was never
+  committed.
+- W-24/W-25 (added 2026-09-04) were seeded with a choice of eligible
+  seat ("CRANE or MASON" / "RIVET or MASON") left open by the
+  operator, per this board's own convention of not force-assigning
+  when the instruction itself offers a choice — whichever seat pulls
+  first per RULE 35(2) claims it.
+- W-26 (added 2026-09-04) is deliberately placed as this table's
+  literal first row and carries a non-standard Status value
+  ("READY — PRIORITY-JUMP", mirroring docs/WAVE_QUEUE.md's existing
+  PRIORITY-JUMP convention, e.g. W2-375) because the operator stated
+  explicitly that nothing outranks it. CRANE should claim and pull
+  this row ahead of any other CRANE-eligible READY row, including
+  ones with an earlier ID. **Update (this push):** a commit matching
+  W-26's exact envelope (`86ef5791`, "[land:crane/w26-cockpit-route-flip]")
+  is present on `origin/main` as of this push — SCRIBE has recorded
+  this as a verifiable fact per RULE 40, but has not itself checked the
+  deployed edge, so the row's Status column reads the commit fact only,
+  not a DONE claim.
+- W-27/W-28 (added 2026-09-04) make the command bar/option-chip flow
+  the cockpit's primary interaction model, demoting manual sliders to
+  an Advanced surface rather than removing them from the app entirely.
+  Both cite docs/UX_FLOW.md's rewritten Phase (4) as their design
+  reference. W-27 has a split envelope (MASON UI, CRANE grammar) — each
+  seat's half is its own claim under RULE 35, not a joint claim.
+- W-29/W-30/W-31 (added 2026-09-04) ground the conversational/guided
+  flow in real, versioned, cited data rather than free-floating
+  assistant text — W-31 is explicitly gated on a not-yet-made LLM-seat
+  approval decision and stays ROADMAP-LABEL until that happens.
+- W-32 (added 2026-09-04) is an umbrella row over three real
+  sub-rows (W-32a/b/c), each its own claimable envelope — see the flag
+  on W-32's own row: the underlying ATLAS 8-step battery (W-10) has no
+  logged run/results on disk as of this writing, only the three
+  failing check names given directly in the instruction that created
+  this row. Whoever ran the battery should log the full W-10 results
+  for real, separately from this fix work.
+- W-33 (added 2026-09-04) is a three-way split envelope (RIVET's card
+  UI, CRANE's route/panel/pre-seed, MASON's 3D pre-seed wiring) — each
+  seat claims its own piece under RULE 35, not a joint claim. It also
+  updates the cockpit's region law (docs/UX_FLOW.md phase 3) to add a
+  sixth region, the left-edge side panel, present only when a project
+  has a source parcel.
+- W-34 (added 2026-09-04) implements AGENTS.md RULE 41's hard device/
+  perf gate as actual CI infrastructure, not just documented budgets.
+  It retroactively adds a perf-delta acceptance clause to W-27, W-28,
+  and W-33's rows (each blocks its own landing on a regression against
+  `budgets.json` once W-34 exists) — every other currently-open row
+  gets the same clause the next time SCRIBE touches it, per RULE
+  41's blanket applicability.

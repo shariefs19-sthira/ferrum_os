@@ -675,6 +675,118 @@ watchdog or the revival paths. A human can still halt fleet watch
 entirely at any time; RULE 38 governs the *watching*, never a substitute
 for that override.
 
+## RULE 39 — Self-contained relays + pre-adjudication (adopted 2026-09-04)
+(1) **Full verbatim text, not a row number.** Every conductor relay to a
+seat carries the FULL verbatim task text. A row ID (W-NN, W2-NNN) is an
+annotation for cross-referencing the ledger — never the authority for
+what to do. A seat that receives only a row number with no verbatim
+text is receiving an incomplete relay, not a complete one with a
+shorthand pointer.
+(2) **Pre-adjudicate foreseeable blockers.** Every relay states, in
+advance, how to handle the blockers that are foreseeable for that task:
+- **Missing row** (the relay cites an ID that isn't on the board/ledger
+  yet): the relay's own inline text is authority regardless — flag the
+  citation gap (on the row, in the report), do not stop the task over
+  it. This codifies the practice already used this session for
+  AQ-RIVET-004, GPT-5.6-SOL-TRIAL, W-19/W-21, etc.
+- **Missing dependency** (a cited dep row doesn't exist or isn't DONE
+  and wasn't meant to block): proceed to the next task per RULE 35,
+  don't stall waiting on a dependency that was never going to resolve.
+- **Ambiguous scope**: take the narrowest reading that satisfies the
+  relay's literal text, not the broadest one that might also satisfy
+  it — consistent with RULE 27's safest-reasonable-interpretation
+  tie-break.
+- **A step would require a production write** the relay didn't
+  explicitly authorize: hold that specific step and flag it — never
+  silently skip the whole task, never silently execute the write.
+(3) **Doc-dependent relays sequence after SCRIBE's landing proof.** If a
+relay depends on a SCRIBE-authored doc/ledger change (a new rule, a new
+board row, an amended acceptance criterion), the conductor sequences
+that relay after SCRIBE's own push+proof for the dependency, not before
+— a relay referencing not-yet-pushed SCRIBE content is itself a form of
+the "missing row" case in (2).
+(4) **Seats: unambiguous inline intent is executable even citation-
+absent.** When an operator's inline instruction is unambiguous on its
+own terms, a seat executes it even if the row/rule it's supposed to be
+attached to isn't actually on disk yet — execute, flag the citation
+gap, continue. This is the seat-side mirror of (2)'s "missing row"
+pre-adjudication and RULE 27's provisional-text limitation: unambiguous
+executable intent needs no citation to be actionable, but the gap still
+gets logged, never silently absorbed.
+
+## RULE 40 — Facts-only reporting (all seats, serious, no exceptions;
+adopted 2026-09-04)
+(1) **Reports state only verifiable facts.** A report cites: a SHA on
+`origin/main`, a deployed SHA plus its live-edge response, an actual
+gate/test output, or a blocked state named with the single specific
+action that unblocks it. Nothing else counts as a fact for this rule's
+purposes.
+(2) **Banned outright, no exceptions:** forecasts ("should be done by…",
+"this will likely..."), assurances ("this is solid," "this is safe" with
+no cited check backing it), adjectives standing in for a measurement
+("robust," "clean," "comprehensive" unless immediately followed by the
+specific fact that earns the word), progress-as-completion ("mostly
+done," "basically working," "on track"), and partial-credit claims
+("X of the acceptance criteria are met" stated as a summary rather than
+naming which specific criteria and their actual evidence).
+(3) **Incomplete work is reported as what's missing**, not as what was
+done. "Implemented the writer, export UI still not wired, no live
+verification yet" is compliant; "made good progress on export" is not —
+the second sentence describes effort, not a verifiable state.
+(4) **ATLAS logs violations as honesty incidents** in a dedicated record
+(alongside its other audit findings). Three incidents against the same
+seat trigger re-onboarding — that seat re-reads its own seat doc and
+every relevant rule in full before its next task, rather than the
+violation simply being noted and continuing.
+(5) **The conductor is bound identically.** RULE 40 is not seat-only —
+a conductor relay or status update follows the same facts-only
+standard, with the same ban list, and the same ATLAS audit exposure.
+
+### Operator approvals logged under this rule (2026-09-04)
+(A) **Standing deploy authority, guarded.** CRANE (or any seat landing
+through the normal pipeline) may deploy once these guards all hold:
+`HEAD == origin/main` (no unlanded local drift), all gates green (build/
+typecheck/tests as applicable), the deploy SHA is logged (on the
+relevant WAVE_QUEUE.md/TASK_BOARD.md row and in ACTIVITY_LOG.md) — and
+`docs/DEPLOY_STOP` acts as the kill-switch: its presence halts all
+deploys under this standing authority immediately, regardless of how
+green the gates are, until it's removed by explicit operator action.
+`docs/DEPLOY_STOP` does not exist as of this rule's adoption — SCRIBE
+has not created it; a seat checking for it and finding it absent is the
+expected normal state, not a gap to fill in.
+(B) **RIVET push approval** for branch `w2-401/rivet-w16-chrome` —
+recorded here as an operator approval of record; RIVET's own landing
+report is the authoritative statement of what that push actually
+contained and its live-proof status, per RULE 40(1)/(3) above.
+
+## RULE 41 — Device + perf gate (hard, adopted 2026-09-04)
+Blocks landing exactly like the type check — a row that fails this gate
+does not land, regardless of how correct its logic is.
+(1) **Responsive matrix.** Every landing passes zero-horizontal-overflow
+and interaction checks at 320/375/414/768/1024/1366/1920 plus landscape
+375. Touch targets are ≥44px on touch devices. The cockpit's region law
+reflows below 768px: side panel → drawer, tools ruler → bottom sheet,
+extract panel → swipe cards.
+(2) **Floor device.** Design/test floor is a 2022 mid-range Android
+(4GB RAM, Snapdragon 6xx-class) or a 2018 Intel i5 with integrated GPU,
+on a 4G/10Mbps network, on evergreen browsers. WebGL2-capable devices
+get the full rendering profile; WebGL1-only or no-WebGL devices get a
+degradation profile (shadows off, reflections off, pixelRatio 1, single
+viewport) — functional and honestly labeled as a reduced mode, never
+silently broken or silently full-fidelity-claimed.
+(3) **Perf budgets, CI-enforced per landing**, tracked in `budgets.json`:
+initial JS ≤350KB gzipped (the cockpit route ≤600KB gzipped, `three`
+lazy-loaded); LCP ≤2.5s on the 4G floor network; CLS ≤0.1; INP ≤200ms;
+main-thread task length ≤50ms; draw calls ≤200; FPS ≥30 on the floor
+device under the degradation profile, ≥60 on desktop-class hardware.
+(4) **Every feature row carries a perf-delta check** — a before/after
+bundle-size comparison plus an fps probe. A regression against the
+budgets in (3) blocks that row's landing, the same way a failing test
+would.
+ATLAS's audit battery gains the responsive matrix and the perf budgets
+as standing checks, run on every landing, not only rows that explicitly
+claim to touch performance or layout.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

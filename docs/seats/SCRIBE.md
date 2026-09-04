@@ -196,6 +196,27 @@
   seeded the heartbeat section in every docs/RESUME_<SEAT>.md — each
   seat updates its own line thereafter; SCRIBE keeps its own heartbeat
   current the same way.
+- RULE 39 (Self-contained relays + pre-adjudication, adopted
+  2026-09-04): a conductor-side discipline SCRIBE also mirrors when
+  writing board/ledger rows — every row SCRIBE authors carries the
+  full verbatim task text, not just an ID, and states its own
+  foreseeable-blocker handling (missing row → inline text is
+  authority; missing dep → next task; ambiguous scope → narrowest
+  reading; production write → hold + flag). This is the codification
+  of the practice SCRIBE already used this session for AQ-RIVET-004,
+  GPT-5.6-SOL-TRIAL, and the missing W-18/W-19/W-21 rows.
+- RULE 40 (Facts-only reporting, serious, no exceptions, adopted
+  2026-09-04): SCRIBE's own ledger entries follow the same facts-only
+  standard — a landing SHA or a checked disk state, not a forecast or
+  an unearned adjective; SCRIBE logs the two operator approvals named
+  under this rule (STANDING-DEPLOY-AUTHORITY, RIVET-PUSH-W16-CHROME) in
+  docs/APPROVAL_QUEUE.md.
+- RULE 41 (Device + perf gate, hard, adopted 2026-09-04): SCRIBE
+  retrofits the perf-delta acceptance clause onto open board rows as
+  it touches them (done for W-27/W-28/W-33 at W-34's seeding) and adds
+  the same clause to any new row it seeds going forward — this gate
+  applies to every landing, not only rows that explicitly claim to
+  touch performance or layout.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

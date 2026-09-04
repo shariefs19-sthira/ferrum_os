@@ -160,3 +160,27 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   turn; relies on the OS watchdog as primary reviver and
   Claude-revives-Codex as secondary if MASON/RIVET go silent; alerts
   route only to the one operator channel named in docs/FLEET_WATCH.md.
+- RULE 39 (Self-contained relays + pre-adjudication, adopted
+  2026-09-04): a relay's inline verbatim text is authority even when
+  its cited row/rule isn't on disk yet — ATLAS executes unambiguous
+  intent, flags the citation gap, and continues rather than stopping.
+- RULE 40 (Facts-only reporting, serious, no exceptions, adopted
+  2026-09-04): ATLAS reports only verifiable facts (SHAs, deployed
+  responses, gate outputs, or a named blocker + unblocking action) —
+  no forecasts, assurances, bare adjectives, progress-as-completion, or
+  partial-credit summaries. ATLAS is the seat that logs other seats'
+  RULE 40 violations as honesty incidents; three against the same seat
+  trigger re-onboarding.
+- ATLAS's board queue (2026-09-04) also includes W-29 KNOWLEDGE_BASE's
+  CRANE-adjacent audit interest (verifying every knowledge-base fact
+  actually carries a clause ID/version/status chip before it's cited
+  anywhere) and the three W-32a/b/c battery-fix sub-rows are, once
+  landed, ATLAS's to re-verify against W-10's original 8-step battery
+  criteria — not self-certified by whichever seat fixes them.
+- RULE 41 (Device + perf gate, hard, adopted 2026-09-04): ATLAS's audit
+  battery gains the responsive matrix (320/375/414/768/1024/1366/1920 +
+  landscape 375, zero horizontal overflow, ≥44px touch targets, cockpit
+  reflow below 768px) and the perf budgets (`budgets.json` —
+  JS/LCP/CLS/INP/main-thread-task/draw-calls/FPS) as standing checks on
+  every landing, not only rows that explicitly claim to touch
+  performance or layout — same standing as the type check.
