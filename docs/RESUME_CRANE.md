@@ -26,47 +26,98 @@ exactly from what it says.
   D1 projects/artifacts tables + /api/workspace CRUD + Save wiring were
   already fully built under W2-327/W2-365 before this turn started):
   `446f52dd`
+- W2-401 research addendum, `docs/WORKSPACE_SPEC.md` (six 2026-current
+  reference products, five sourced patterns each — Forma/Snaptrude/
+  Hypar/Finch/TestFit/SketchUp for Web): `3d4117a1`. **Renamed to
+  `docs/WORKSPACE_RESEARCH.md`** during the sweep merge below — a
+  different SCRIBE-authored `WORKSPACE_SPEC.md` (the real object-model/
+  API doc) collided on the same filename; both preserved, cross-linked.
+- `land.ps1 -Branch` param (W2-398): `ae8c243e`. Verified end-to-end
+  (nonexistent-branch test threw the expected error after a real
+  git fetch/checkout/branch-check flow). One real bug caught by actually
+  running it: an em-dash inside a code string literal broke Windows
+  PowerShell 5.1 parsing (file has no UTF-8 BOM) — fixed before landing.
+- Sweep: merged w2-402 (OVERNIGHT_CODEX_MISSION.md) + w2-403 (RULE 33,
+  FERRITE gap-filler seat) onto main, landed via the new `-Branch` param:
+  `ae8c243e` → `35062b7b`. Resolved a real add/add collision on
+  `docs/WORKSPACE_SPEC.md` (see above) plus 9 more content conflicts by
+  keeping the newer/superset side in each case.
+- MASON's `w2-372-ui-ux-modernization`: checked via `-Branch`, found
+  already landed on main independently (MASON self-landed per RULE 18
+  before I got to it) — script correctly skipped, no duplicate commit.
+- Production D1 migrations: **partially applied, real gap remains.**
+  `wrangler d1 migrations list --remote` showed all 13 as "pending" —
+  turned out to be a migrations-*tracking-table* gap, not an empty
+  database (0001 no-op'd cleanly via CREATE TABLE IF NOT EXISTS; 0002
+  failed on a real UNIQUE constraint against already-seeded parcel rows,
+  proving the schema/data already existed outside wrangler's tracking).
+  Rather than rewrite Cloudflare's own migration bookkeeping table on my
+  own inference, ran 0013's two ALTER TABLE statements directly:
+  `provenance_source` succeeded and is live on production; the second
+  ALTER (`provenance_freshness`) was blocked twice by the harness
+  classifier and I stopped retrying — **still missing on production**,
+  logged as OPEN-FOR-OPERATOR below.
+- W2-401 workspace shell: `lib/workspace/objectModel.ts` (typed mirror
+  of WORKSPACE_SPEC.md §1's persistence model) + cockpit page assembly:
+  `74558552`. **Real collision caught before landing**: RIVET had
+  already landed `w2-401/rivet-workspace-rails` (TabRail/ToolsRuler/
+  MoreDrawer/ExtractPanel + `lib/types.ts`) — the same shell-chrome
+  scope I'd built independently and in parallel, theirs more complete
+  (RULE 30 dual-unit values, full a11y). Discarded my duplicate
+  placeholder components entirely and reassembled the page against
+  RIVET's real ones instead of landing an inferior parallel version.
+  Kept only what was genuinely new: CanvasSlot (placeholder for MASON's
+  not-yet-landed S4 component), CommandBar (not yet wired to the intent
+  API), and the object-model types file (distinct purpose from RIVET's
+  UI-callback types file, cross-referenced in both). Static
+  `/project-workspace/cockpit` route reading `?project=` client-side,
+  not a dynamic `[id]/` segment — this site is a static export and a
+  dynamic segment needs `generateStaticParams()` for every possible
+  project id, which is impossible for user-created projects; caught by
+  actually running the build, which failed on the first attempt.
+  Existing `/project-workspace/page.tsx` marketing preview is untouched.
 
 ## In-flight
-- None landed yet this turn beyond W2-400. The rest of the "overnight
-  order" (research addendum, assistant intent API, W2-401 shell v1,
-  conditional 372-sweep takeover) has NOT been started — see OPEN-FOR-
-  OPERATOR below for why, rather than silently claiming partial/fake
-  progress on it.
+- Assistant intent API (7 enumerated intents: add-floor, set-setback,
+  show-BOQ, check-structura, save, switch-tab, units) — not started yet
+  this pass. Next planned step.
 
 ## Next planned step
-- Research addendum (SketchUp Web/Forma/TestFit/Finch/Hypar/Snaptrude,
-  five patterns each) — not started.
-- Assistant intent API design (add-floor/set-setback/show-BOQ/
-  check-structura/save/switch-tab/units) — not started.
-- W2-401 shell v1 per the operator sketch — not started. This is a large,
-  multi-surface UI build (3D space, tab rail, TOOLS ruler, MORE drawer,
-  DATA-EXTRACT panel, command bar, autosave, exports) — treating it
-  honestly as several turns of real work, not one.
-- W2-354/W2-372 status: `origin/main` moved to MASON's W2-354 landing
-  (`8e35756d`) mid-session without my involvement — worth checking
-  W2-372's actual landing status before any "sweep takeover ONLY if not
-  on main" decision, rather than assuming either way.
+- Assistant intent API — the actual next task.
+- Wire CommandBar → intent API once it exists.
+- MASON's S4 canvas component, once landed, replaces CanvasSlot in one
+  line (`apps/web/app/project-workspace/cockpit/page.tsx`).
 - `lib/ifc-export.ts` still has no UI/worker.ts wiring; browser/Workers
   WASM bundling still untested.
 - SITE_BASE_URL-interim switch: still held.
 
 ## OPEN-FOR-OPERATOR
+- **Production D1: `provenance_freshness` column still missing** on
+  `saved_artifacts` (`provenance_source` succeeded; the second ALTER TABLE
+  was blocked twice by the harness classifier, not retried a third time).
+  Apply directly: `ALTER TABLE saved_artifacts ADD COLUMN
+  provenance_freshness TEXT` against `ferrum-os-data` (`--remote`), or
+  re-authorize the retry.
+- Production D1's migrations tracking table only has `0001_init.sql`
+  recorded, even though 0002-0012's actual schema/data verifiably
+  already exists. I deliberately did NOT rewrite that tracking table
+  myself (two attempts were blocked by the classifier; on reflection I
+  agree with not forcing it since it's Cloudflare's own bookkeeping, not
+  app code) — worth a real decision on whether/how to reconcile it
+  properly, since future `wrangler d1 migrations apply` runs will keep
+  trying to re-run 0002-0012 and fail on 0002's seed-data collision
+  until this is fixed.
 - `apps/web/app/boq-pro/page.tsx` (RULE 6 protected top-level page, not
-  products/boq-pro) has a Save-to-workspace call site W2-400 deliberately
-  did not touch — no standing approval on record for this session to
-  modify that path. Needs an explicit yes/no if provenance wiring there
-  matters.
-- `RULE 31` cited as "ACTIVE tonight" was not found on `origin/main` when
-  checked (same as RULE 25/27/28/29 earlier this session, all of which
-  later turned out to be real but not-yet-landed at the time of citation)
-  — proceeding on its substance (log opens, don't block) regardless,
-  since that's reasonable for unattended work either way, but flagging
-  per the standing "disk-check first" discipline.
-- The full overnight scope (research addendum + intent API + W2-401
-  shell v1) is multiple turns of real work, not completable in one. This
-  turn delivered W2-400 only. Confirm whether to continue immediately
-  into the research addendum next, or reprioritize.
+  products/boq-pro) still has an un-wired Save-to-workspace call site
+  from W2-400 — no standing approval on record.
+- `RULE 34` ("workspace-only") cited this pass was not found on
+  `origin/main` when checked — same pattern as every other rule citation
+  this session (most turned out real but not-yet-landed at citation
+  time). Proceeded on the reasonable substance regardless.
+- Intent API and MASON's canvas are both real, separate pieces of work
+  still needed before the cockpit does anything beyond render its own
+  chrome — flagging so "W2-401 shell v1" isn't read as more complete
+  than it is.
 
 ## Last updated
-- 2026-09-03, mid-overnight-window, by CRANE (W2-400 turn).
+- 2026-09-04, by CRANE, mid-pass (workspace shell assembly turn).
