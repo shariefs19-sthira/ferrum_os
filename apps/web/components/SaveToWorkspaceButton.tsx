@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { ARTIFACT_SAVED_EVENT } from "../lib/workspace/events"
 
 /**
  * Generic "save this result to my workspace" action (W2-327), tied to
@@ -46,6 +47,9 @@ export default function SaveToWorkspaceButton({
         return
       }
       setStatus(res.ok ? "saved" : "error")
+      if (res.ok) {
+        window.dispatchEvent(new CustomEvent(ARTIFACT_SAVED_EVENT, { detail: { type, title } }))
+      }
     } catch {
       setStatus("error")
     }

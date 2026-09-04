@@ -1,13 +1,26 @@
 "use client"
 
-import type { WorkspaceProduct } from "../../lib/types"
+import type { WorkspaceExtract, WorkspaceProduct, WorkspaceProvenance } from "../../lib/types"
 import WorkspaceCockpit from "./WorkspaceCockpit"
 
+type LiveMetrics = {
+  extracts: WorkspaceExtract[]
+  lengthMetres: number
+  areaSquareMetres: number
+  provenance: WorkspaceProvenance
+}
+
 /** W2-401 canvas region; shell chrome and rail ownership remain separate. */
-export default function CanvasSlot({ product }: { product: WorkspaceProduct }) {
+export default function CanvasSlot({
+  product,
+  onLiveMetricsChange,
+}: {
+  product: WorkspaceProduct
+  onLiveMetricsChange?: (metrics: LiveMetrics) => void
+}) {
   return (
     <div aria-label={`${product} workspace canvas`} data-workspace-canvas>
-      <WorkspaceCockpit />
+      <WorkspaceCockpit onLiveMetricsChange={onLiveMetricsChange} />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { ARTIFACT_SAVED_EVENT } from "../../lib/workspace/events"
 
 type ArtifactSummary = { id: string; type: string; title: string; created_at: string }
 type ProjectSummary = { id: string; name: string; city: string }
@@ -47,6 +48,14 @@ export default function SavedArtifactsPanel() {
 
   useEffect(() => {
     load()
+    // Battery-fail (1): a save elsewhere on the page (SaveToWorkspaceButton)
+    // must reflect here without a reload. The two components have no
+    // shared parent state, so a window CustomEvent is the coordination
+    // point - reload the real list from the API rather than optimistically
+    // guessing the new row's shape.
+    const onSaved = () => load()
+    window.addEventListener(ARTIFACT_SAVED_EVENT, onSaved)
+    return () => window.removeEventListener(ARTIFACT_SAVED_EVENT, onSaved)
   }, [])
 
   const remove = async (id: string) => {
@@ -70,7 +79,7 @@ export default function SavedArtifactsPanel() {
     const res = await fetch(`/api/workspace/artifacts/${id}/share`, { method: "POST" })
     const data = await res.json()
     if (data.share_token) {
-      setShareUrls((prev) => ({ ...prev, [id]: `${window.location.origin}/api/workspace/shared/${data.share_token}` }))
+      setShareUrls((prev) => ({ ...prev, [id]: `${window.location.origin}/shared?token=${data.share_token}` }))
     }
   }
 
