@@ -122,7 +122,11 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   turn start and after each DONE (currently W-05 Space3D
   three-integration, W-06 ExportBar IFC/DXF); marks DONE with SHA +
   live proof or STUCK with an OPEN-FOR-OPERATOR line, then immediately
-  pulls next rather than waiting on the conductor.
+  pulls next rather than waiting on the conductor. W-06 is now gated
+  on W-20 (2026-09-04): CRANE's bundle-safety test on the existing
+  `lib/ifc-export.ts` decides whether W-06 wires that file in as-is or
+  waits for MASON's proposed browser-only STEP writer instead — MASON
+  does not start a parallel rewrite before W-20's result is known.
 - RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): MASON
   now also pulls live-observation rows the operator reports directly
   (currently W-12 keyboard fit-model control, W-13 view-state
