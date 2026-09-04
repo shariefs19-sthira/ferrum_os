@@ -139,3 +139,13 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   battery on W-07/W-09, deps-gated); marks DONE with SHA + live proof
   or STUCK with an OPEN-FOR-OPERATOR line, never idling on a blocked
   row while another is pullable; updates the board only on DONE/STUCK.
+- RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): live-
+  site observations reported by the operator become docs/TASK_BOARD.md
+  rows directly (no seat relay); ATLAS's own audits (e.g. W-10) treat
+  those rows the same as any other for verification purposes, and
+  ATLAS's audit findings feed docs/TASK_REPORTS.md's friction record
+  the same way any seat's DONE row does.
+- RULE 37 (Timed stop + single inbox, permanent, adopted 2026-09-04):
+  ATLAS posts any operator question only to docs/OPERATOR_INBOX.md,
+  never as a standalone chat relay; waits at most ~10 agent-minutes,
+  then PARKS the task and pulls its next non-blocked row per RULE 35.

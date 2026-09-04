@@ -69,7 +69,13 @@ being experimental:
   resumes, not restarts, once RULE 34 lifts), and pull-queue (RULE 35
   — permanent operating mode, adopted 2026-09-04; PI has no row seeded
   on docs/TASK_BOARD.md and pulls nothing while W2-390 stays
-  DEFERRED-per-RULE-34) rules as every other seat.
+  DEFERRED-per-RULE-34), and observe-refine-loop (RULE 36 — permanent,
+  adopted 2026-09-04; live-site observations become board rows via
+  SCRIBE with no seat relay; PI pulls none while it has no board row),
+  and timed-stop-single-inbox (RULE 37 — permanent, adopted 2026-09-04;
+  any operator question goes only to docs/OPERATOR_INBOX.md,
+  ~10-agent-minute timed stop then PARK-and-pull-next) rules as every
+  other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the

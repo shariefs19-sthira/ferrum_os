@@ -171,6 +171,23 @@
   itself pull rows from it (SCRIBE has no envelope-scoped executor row
   on the board; its own ledger/rules maintenance continues per RULE
   34(3)).
+- RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): SCRIBE
+  is the conversion point — when the conductor turns an operator
+  live-site observation into a row, SCRIBE writes it onto
+  docs/TASK_BOARD.md (envelope + acceptance) with no seat relay in
+  between. SCRIBE also maintains docs/TASK_REPORTS.md (append-only,
+  one entry per DONE row: seat/row ID/SHA/live proof/friction+what-
+  went-well/duration) and, per RULE 36(4), periodically surfaces
+  recurring friction from it as concrete rule/schema refinements —
+  including refinements to RULE 36 itself, which is not exempt from
+  its own loop.
+- RULE 37 (Timed stop + single inbox, permanent, adopted 2026-09-04):
+  SCRIBE maintains docs/OPERATOR_INBOX.md as the sole operator-facing
+  question surface — every seat's OPEN-FOR-OPERATOR line lands there,
+  not scattered across chat or ledger rows. SCRIBE records PARK
+  timestamps/resume pointers and re-sequences answered PARKED tasks
+  back to READY in timestamp order, and presents the full open inbox
+  at the top of every operator-present beat per RULE 37(3).
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

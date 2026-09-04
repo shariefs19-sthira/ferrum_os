@@ -1,8 +1,18 @@
-# TASK_REPORTS.md
+# TASK_REPORTS.md — Task-wise reports (AGENTS.md RULE 36(3))
 
-Task-wise reports, one section per discrete task, newest first. Append-only.
+Append-only. One entry per docs/TASK_BOARD.md row marked DONE: seat, row
+ID, landing SHA, RULE 25 live proof, friction + what-went-well, duration.
+This is additive to the row's own DONE update on TASK_BOARD.md, not a
+replacement for it — the conductor mines this file's friction entries
+for workflow refinements per RULE 36(4).
 
-## 2026-09-04 — Production D1 migration-tracking reconciliation (verified one-time)
+## Entries
+
+### 2026-09-04 — Production D1 migration-tracking reconciliation (verified one-time, pre-dates TASK_BOARD.md/RULE 36 adoption)
+
+Not tied to a TASK_BOARD.md row (this entry predates RULE 36's adoption
+in this file's history — recorded here as-is rather than retrofitted
+onto a row it wasn't actually tracked against).
 
 **Scope:** `wrangler d1 migrations list --remote` showed all 13 migrations
 as "pending" against production `ferrum-os-data`, despite the site being
@@ -41,8 +51,8 @@ its first statement (`provenance_source`) already exists on production
 (added directly, out-of-band, in an earlier turn), so a straight
 `ALTER TABLE ADD COLUMN provenance_source` will hit a duplicate-column
 error. This is expected and tied to the still-open `provenance_freshness`
-gap (blocked twice by the harness classifier, not retried a third time
-per instruction) — once that column is added (manually, same as
+gap (blocked repeatedly by the harness classifier, not force-retried
+beyond instruction) — once that column is added (manually, same as
 `provenance_source` was), `0013` should be marked applied the same way
 `0002`-`0012` were here, not re-run through the file as written.
 

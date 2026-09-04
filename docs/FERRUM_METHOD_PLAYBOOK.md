@@ -47,19 +47,19 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty-three numbered rules were actually adopted (numbered
-1–14, 16–31, 33–35 — RULE 15 and RULE 32 were never assigned; leave
+matured — thirty-five numbered rules were actually adopted (numbered
+1–14, 16–31, 33–37 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–35, added later in the
+applies to their situation. Rules 18–31 and 33–37, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
-gap-filler-seat, single-outcome-focus, and pull-queue discipline
-matured, are summarized in the addendum immediately after the numbered
-list rather
+gap-filler-seat, single-outcome-focus, pull-queue, observe-refine, and
+timed-stop-single-inbox discipline matured, are summarized in the
+addendum immediately after the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -140,7 +140,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–35 (added later, summarized)
+### Addendum: rules 18–31, 33–37 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -442,6 +442,56 @@ source.
     in its own right is what actually prevents two seats from editing
     the same interface definition out from under each other — the
     concrete failure mode this rule was adopted to close.*
+36. **Observe-refine loop** — portable, and meant to run permanently
+    once adopted (unlike rule 34, which is a temporary lock lifted on
+    completion). The human operator watches the live, deployed product
+    and reports what they see directly — a missing feature, a rough
+    edge, a correction — in plain conversation. Those reports become
+    pull-queue rows (rule 35) with a real envelope and acceptance
+    criteria, written by the docs seat, with no seat-to-seat relay
+    step in between observation and claimable row. Work never stops
+    for lack of a next task: a seat halts only on the same STUCK
+    conditions rule 35 already defines, logs the open question, and
+    pulls its next unblocked row. Every finished row appends a short,
+    structured report — who did it, the landing proof, what went
+    wrong and what went well, how long it took — to a dedicated
+    report log, additive to the row's own status update. Periodically,
+    the friction recorded across those reports gets mined for real,
+    recurring patterns and turned into concrete refinements to the
+    fleet's own rules or ledger formats — and the loop's own rule is
+    itself inside that refinement scope, not a fixed point exempt from
+    the process it defines.
+    *Rationale: a fleet that only reacts to pre-planned milestones
+    misses the fastest, cheapest signal available once something is
+    actually live — a human looking at the real product and noticing
+    what's wrong or missing right now; routing that signal straight
+    into the same claim-and-work mechanism the fleet already uses
+    (rather than a separate, slower planning pass) keeps the loop from
+    the observation to a landed fix as short as the pull-queue itself
+    allows, and logging friction as a first-class, structured artifact
+    (not just landing SHAs) is what actually lets the fleet's own
+    process improve over time instead of repeating the same friction
+    silently on every wave.*
+37. **Timed stop + single inbox** — portable. Every question a seat
+    needs the human operator to answer goes to exactly one place — a
+    single, append-only inbox file, never scattered across chat
+    replies or individual ledger rows. A seat needing an answer waits
+    only a short, fixed window (roughly one turn boundary) before
+    parking the blocked task, with a timestamp and a resume pointer,
+    and pulling its next unblocked row — it never idles waiting for a
+    reply. An answered parked task re-enters the claimable queue in the
+    order its answer arrived. The operator, in turn, clears the whole
+    inbox in one pass rather than fielding questions one at a time
+    mid-stream, and the conductor surfaces the full open inbox at the
+    start of every session where the operator is present.
+    *Rationale: scattering questions across chat and ledger rows makes
+    it easy for a seat's blocking question to go unnoticed while other
+    work quietly stalls behind it, and it costs the operator constant
+    context-switching to find and answer each one; a single inbox plus
+    a hard timeout turns "wait indefinitely for an answer" into "park,
+    keep moving, resume the instant it's answered" — the fleet's
+    throughput no longer depends on how quickly the operator happens to
+    notice a question.*
 
 ## 3. Ledger formats
 

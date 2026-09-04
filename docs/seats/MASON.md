@@ -123,6 +123,16 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   three-integration, W-06 ExportBar IFC/DXF); marks DONE with SHA +
   live proof or STUCK with an OPEN-FOR-OPERATOR line, then immediately
   pulls next rather than waiting on the conductor.
+- RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): MASON
+  now also pulls live-observation rows the operator reports directly
+  (currently W-12 keyboard fit-model control, W-13 view-state
+  permalinks) — same pull mechanics as any other board row. MASON
+  stops only on STUCK, logs an OPEN-FOR-OPERATOR line, and pulls next.
+  Every MASON row marked DONE gets a docs/TASK_REPORTS.md entry.
+- RULE 37 (Timed stop + single inbox, permanent, adopted 2026-09-04):
+  MASON posts any operator question only to docs/OPERATOR_INBOX.md,
+  never as a standalone chat relay; waits at most ~10 agent-minutes,
+  then PARKS the task and pulls its next non-blocked row per RULE 35.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is
