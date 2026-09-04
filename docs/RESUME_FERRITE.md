@@ -4,6 +4,11 @@ Updated every turn by FERRITE. After a limit event or API error, the next
 FERRITE session reads this file FIRST, before anything else, and resumes
 exactly from what it says.
 
+## Heartbeat (AGENTS.md RULE 38(2))
+- 2026-09-04 — seeded by SCRIBE at RULE 38's adoption; FERRITE updates
+  this line at the start of each of its own turns going forward (none
+  yet, per RULE 33(1)'s activation gate).
+
 ## Done (this session, with SHAs)
 - (none logged yet — populate on next FERRITE turn)
 

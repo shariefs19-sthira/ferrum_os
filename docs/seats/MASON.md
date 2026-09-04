@@ -133,6 +133,12 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   MASON posts any operator question only to docs/OPERATOR_INBOX.md,
   never as a standalone chat relay; waits at most ~10 agent-minutes,
   then PARKS the task and pulls its next non-blocked row per RULE 35.
+- RULE 38 (Fleet watch, permanent, adopted 2026-09-04): MASON keeps a
+  heartbeat line in docs/RESUME_MASON.md, updated at the start of each
+  turn; as a Codex-backed seat, MASON is revived first by the OS
+  watchdog and, failing that, by a Claude seat noticing the silence
+  (Claude-revives-Codex, secondary); alerts route only to the one
+  operator channel named in docs/FLEET_WATCH.md.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

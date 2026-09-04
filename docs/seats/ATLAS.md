@@ -109,7 +109,13 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   contains its stated median, units stay consistent, percentages
   reconcile to their base, rounded values state their precision. Treats
   a broken number as a build-time defect that should never have reached
-  audit as a surprise, not a routine finding.
+  audit as a surprise, not a routine finding. Feature Conservation
+  addendum (2026-09-04): every sweep/restyle audit ATLAS runs now
+  includes a standing regression check against
+  docs/LIVE_TOOLS_REGISTRY.md — not only rows that explicitly claim to
+  touch a named tool — after W2-372's UI_UX_MODERNIZATION (commit
+  `331c1b08`) silently replaced LandIntel's real ULPIN lookup with a
+  sample-data forecast module and passed ATLAS's own audit anyway.
 - RULE 30 (Unit duality): audits that every length/area value shows both
   units simultaneously (m/ft; m²/sqft/cents/guntha/ground/acre), the
   primary-preference toggle never hides the other unit, and conversions
@@ -149,3 +155,8 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   ATLAS posts any operator question only to docs/OPERATOR_INBOX.md,
   never as a standalone chat relay; waits at most ~10 agent-minutes,
   then PARKS the task and pulls its next non-blocked row per RULE 35.
+- RULE 38 (Fleet watch, permanent, adopted 2026-09-04): ATLAS keeps a
+  heartbeat line in docs/RESUME_ATLAS.md, updated at the start of each
+  turn; relies on the OS watchdog as primary reviver and
+  Claude-revives-Codex as secondary if MASON/RIVET go silent; alerts
+  route only to the one operator channel named in docs/FLEET_WATCH.md.

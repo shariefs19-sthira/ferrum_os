@@ -53,7 +53,11 @@ gap-filler:
   it has no board row), and timed-stop-single-inbox (RULE 37 —
   permanent, adopted 2026-09-04; any operator question goes only to
   docs/OPERATOR_INBOX.md, ~10-agent-minute timed stop then PARK-and-
-  pull-next) as every other seat.
+  pull-next), and fleet-watch (RULE 38 — permanent, adopted 2026-09-04;
+  FERRITE keeps a heartbeat line in docs/RESUME_FERRITE.md, relies on
+  the OS watchdog primary/Claude-revives-Codex secondary revival
+  order, and alerts route only to the one operator channel in
+  docs/FLEET_WATCH.md) as every other seat.
 
 ## Assigned slice (2026-09-03, trial)
 None yet — no task has been assigned as of activation. Per RULE 33(1),

@@ -5,6 +5,10 @@ SCRIBE session reads this file FIRST, before anything else, and resumes
 exactly from what it says — not from a reconstructed summary of chat
 history.
 
+## Heartbeat (AGENTS.md RULE 38(2))
+- 2026-09-04 — updated at the start of this turn (RULE 38's own
+  adoption turn).
+
 ## Done (this turn, with SHAs)
 - Self-landed a large batch of pending docs work directly onto
   origin/main per RULE 18: RULE 20-23 (AGENTS.md + seats mirror),

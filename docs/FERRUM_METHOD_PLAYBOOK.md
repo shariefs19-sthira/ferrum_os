@@ -47,19 +47,19 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty-five numbered rules were actually adopted (numbered
-1–14, 16–31, 33–37 — RULE 15 and RULE 32 were never assigned; leave
+matured — thirty-six numbered rules were actually adopted (numbered
+1–14, 16–31, 33–38 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–37, added later in the
+applies to their situation. Rules 18–31 and 33–38, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
-gap-filler-seat, single-outcome-focus, pull-queue, observe-refine, and
-timed-stop-single-inbox discipline matured, are summarized in the
-addendum immediately after the numbered list rather
+gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
+timed-stop-single-inbox, and fleet-watch discipline matured, are
+summarized in the addendum immediately after the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -140,7 +140,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–37 (added later, summarized)
+### Addendum: rules 18–31, 33–38 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -324,6 +324,20 @@ source.
     or user has to notice and report keeps a fleet's credibility intact
     on exactly the kind of error that's hardest to explain away
     afterward.*
+    **Feature Conservation addendum (added 2026-09-04, exemplar
+    incident below):** no restyle or sweep may remove or demote a
+    genuinely live tool — moving it is fine, disappearing it under a
+    redesign commit message is a regression. The audit role's checklist
+    gains a standing check against a registry of previously-live tools,
+    run on every sweep/restyle row, not only rows that explicitly claim
+    to touch a named tool. *Exemplar incident:* a UI-modernization sweep
+    in this engagement replaced a real, backend-backed lookup tool with
+    a sample-data-only slider under a commit message that described
+    itself as a redesign, not a removal — passed the sweep's own
+    approval rubric and the independent audit both, and was only
+    discovered when the human operator looked at the live page
+    themselves. This addendum, and the companion tool registry, exist
+    specifically so that class of regression can't repeat silently.
 30. **Unit duality** — portable, for any product with a global or
     multi-region audience. Every length and area input and output
     supports both common unit systems side by side (e.g. metric/
@@ -492,6 +506,29 @@ source.
     keep moving, resume the instant it's answered" — the fleet's
     throughput no longer depends on how quickly the operator happens to
     notice a question.*
+38. **Fleet watch** — portable, for any fleet mixing native and
+    externally-hosted (e.g. CLI-wrapped) agent processes. An OS-level
+    process watchdog is the primary reviver for any seat that dies or
+    hangs; a same-family agent noticing a different-family agent has
+    gone silent (here, Claude noticing a Codex-backed seat is down) is
+    the secondary path, tried only after the primary has had its
+    chance. Every seat keeps a simple heartbeat timestamp in its own
+    living-resume file, updated every turn, so liveness is checkable
+    from disk alone. The fleet's watch schedule — who's expected active
+    in which window — is logged once a day rather than re-derived from
+    memory, and every alert of any kind (a seat down, a revival fired,
+    a schedule gap) goes to exactly one named operator channel, never
+    an improvised second one.
+    *Rationale: a mixed fleet has two different failure surfaces — a
+    process that just crashes, and a process that's technically alive
+    but has gone unresponsive in a way only another agent watching its
+    output would notice — so a single revival mechanism isn't enough;
+    layering a cheap, general OS watchdog under a smarter but slower
+    same-family fallback gets both failure modes covered without
+    over-engineering the common case. A disk-visible heartbeat and one
+    alert channel exist for the same reason rule 37's single inbox
+    does: multiple places to look for "is everything actually OK"
+    is worse than one place, checked reliably.*
 
 ## 3. Ledger formats
 

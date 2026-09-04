@@ -452,6 +452,24 @@ operator find — if a number on screen doesn't add up, that's a defect
 this rule exists to have caught before it shipped, not a bug report to
 wait for.
 
+**Addendum — Feature conservation (added 2026-09-04, exemplar incident
+below).** No restyle, sweep, or "no duplicate tool" pass may remove or
+demote a tool that was actually live. A tool moving position (e.g. into
+a hero) is fine; a tool disappearing entirely while a sweep's commit
+message describes itself as a redesign is a regression, not a
+refactor. ATLAS's audit battery gains a standing regression check
+against `docs/LIVE_TOOLS_REGISTRY.md` — the registry of previously-live
+tools — on every sweep/restyle row, not only on rows that explicitly
+claim to touch a given tool.
+*Exemplar incident:* W2-372 UI_UX_MODERNIZATION (commit `331c1b08`)
+replaced LandIntel's real ULPIN/Bhu-Aadhaar lookup (`UlpinMapExplorer`,
+a genuine D1-backed lookup) with `SteppedForecastModule`, a sample-data
+slider — not a repositioning, a removal of a real, working tool in
+favor of a fully indicative one, discovered only when the operator
+observed the live page. Restored via `docs/TASK_BOARD.md` row W-16.
+This addendum exists specifically so the next sweep can't repeat it
+silently.
+
 ## RULE 30 — Unit duality (portable)
 Every length/area input and output on every product supports both unit
 systems: length in m and ft; area in m², sqft, cents, guntha, ground, and
@@ -615,6 +633,28 @@ operator-present beat, rather than surfacing questions piecemeal.
 question text and recommended answer, per RULE 27's provisional-text
 limitation — SCRIBE has not invented the specifics behind them: see
 docs/OPERATOR_INBOX.md.
+
+## RULE 38 — Fleet watch (permanent, adopted 2026-09-04)
+(1) **Revival order.** The OS-level watchdog is the primary reviver for
+any seat process that dies or hangs — it restarts the process itself
+before anything else intervenes. Claude-revives-Codex (a Claude seat
+noticing a Codex-backed seat, MASON or RIVET, has gone silent and
+prompting/restarting it) is the secondary path, used only once the
+primary watchdog has had its chance and the seat is still down.
+(2) **Heartbeat lines.** Every seat keeps a heartbeat line in its own
+`docs/RESUME_<SEAT>.md` — a timestamp updated at the start of each
+turn — so any other seat or the operator can see, from disk alone,
+how recently a given seat was actually active without needing a live
+status check.
+(3) **Daily schedule logged.** The fleet's watch schedule (which seats
+are expected active during which windows, and the overnight-autonomy
+window per RULE 31) is logged once per day in `docs/FLEET_WATCH.md`,
+not re-derived from memory each time.
+(4) **One alert channel.** Every fleet alert — a seat down, a revival
+triggered, a watch-schedule gap — routes to exactly one operator
+channel, named in `docs/FLEET_WATCH.md`. No seat improvises a second
+channel for alerts; RULE 37's single-inbox principle for questions
+extends here to alerts.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
