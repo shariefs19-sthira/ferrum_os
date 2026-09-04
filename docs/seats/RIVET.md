@@ -110,6 +110,13 @@ as every other seat.
   list in docs/WAVE_QUEUE.md, not dropped, and resumes the moment
   RULE 34 lifts. RIVET stands by rather than self-assigning outside the
   Workspace scope during this window.
+- RULE 35 (Pull-queue, permanent operating mode, adopted 2026-09-04):
+  RIVET pulls its top eligible READY row from docs/TASK_BOARD.md at
+  turn start and after each DONE (currently W-07 wire components into
+  the workspace route, dep W-04; then W-09 command-bar UI, dep W-08);
+  marks DONE with SHA + live proof or STUCK with an OPEN-FOR-OPERATOR
+  line, then immediately pulls next rather than waiting on the
+  conductor.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

@@ -533,6 +533,38 @@ acceptance checklist is fully checked off against the deployed edge
 WAVE_QUEUE.md row and an ACTIVITY_LOG.md entry at that point, after which
 DEFERRED rows return to OPEN status.
 
+## RULE 35 — Pull-queue (permanent operating mode, adopted 2026-09-04)
+(1) **Board.** `docs/TASK_BOARD.md` is the queue of record while this
+mode is active: rows are `ID | Title | Envelope (files) | Eligible
+seats | Acceptance | Deps | Status` where Status is one of READY,
+CLAIMED, DONE, STUCK.
+(2) **PULL.** At turn start, and immediately after marking any row
+DONE, a seat claims the top READY row it's eligible for whose deps are
+all DONE and whose envelope overlaps no currently-CLAIMED row's
+envelope; executes it; marks it DONE with a landing SHA and RULE 25
+live proof; then immediately pulls the next eligible row. The seat
+never waits on the conductor to assign the next row.
+(3) **ALERT (STUCK).** A row goes STUCK only for: (a) a decision only
+the operator can make, (b) a hard dependency on another seat's
+in-flight (not-yet-DONE) artifact, or (c) a safety hold. STUCK is
+logged as an OPEN-FOR-OPERATOR line on the row (RULE 31), and the seat
+immediately pulls the next non-blocked READY row rather than idling on
+the STUCK one.
+(4) **REPORT.** A seat updates the board only on DONE or STUCK — no
+interim relays for a row still in progress. The conductor's job is to
+keep at least one READY row available per active seat at all times,
+adjudicate STUCK alerts, and route audits through ATLAS — not to hand
+out each next task individually.
+(5) **Contract files are claimed rows.** A shared contract file (e.g.
+`lib/types.ts`) is itself a row with its own envelope; only the seat
+holding that row's CLAIM may edit the file, closing the multi-editor
+fork risk a shared contract file would otherwise create between two
+seats working adjacent rows concurrently.
+*Relationship to RULE 34:* RULE 35 is the operating mechanism; RULE 34
+is the current scope lock. Every row seeded on the board while RULE 34
+is in effect must itself be a Workspace row — everything else stays
+DEFERRED-per-RULE-34 regardless of board status.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

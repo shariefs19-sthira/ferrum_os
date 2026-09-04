@@ -139,6 +139,13 @@
   non-S4 half of W2-387) is DEFERRED per the consolidated list in
   docs/WAVE_QUEUE.md, not dropped, and resumes the moment RULE 34
   lifts.
+- RULE 35 (Pull-queue, permanent operating mode, adopted 2026-09-04):
+  CRANE pulls its top eligible READY row from docs/TASK_BOARD.md at
+  turn start and after each DONE (currently W-01 CLAIMED, then
+  W-02/W-03/W-04/W-08 in dependency order); marks DONE with SHA + live
+  proof or STUCK with an OPEN-FOR-OPERATOR line, then immediately
+  pulls next rather than waiting on the conductor. CRANE is the sole
+  editor of `lib/types.ts` while W-03 is CLAIMED, per RULE 35(5).
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)
