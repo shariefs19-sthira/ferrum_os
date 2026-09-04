@@ -6,6 +6,7 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SpecTable from '../../../components/SpecTable'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
+import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 
 // W2-345: only IS-code checking is shipped and real — two clause families
 // (IS 456 RCC beam, IS 800 steel column) via lib/checks/isCode.ts, same
@@ -100,7 +101,7 @@ export default function StructuraPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1.45fr)] lg:items-start">
           <div>
             <Eyebrow>Structura</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -118,7 +119,9 @@ export default function StructuraPage() {
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
-            <SteppedForecastModule product="structura" />
+            <ProductCockpitPreview product="structura" label="Structura">
+              <SteppedForecastModule product="structura" />
+            </ProductCockpitPreview>
           </div>
         </div>
       </SectionShell>
