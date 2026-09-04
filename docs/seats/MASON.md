@@ -174,6 +174,17 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   (W-34) — this blocks landing like the type check. MASON's rows
   (W-05, W-06, W-27's UI half, W-28, W-33's pre-seed piece) each carry
   a perf-delta check once W-34 exists.
+- MASON also owns W-35 PHOTO_ENTRY integration (2026-09-04): a
+  no-ULPIN workspace entry — upload a photo of a plot/building, a
+  browser-side reconstruction (method decided by CRANE's W-35a
+  due-diligence verdict) seeds the cockpit's 3D context with a mesh
+  labeled INDICATIVE ("reconstructed from photo, not a survey") and a
+  provenance chip, then the existing guided-checklist flow (W-27/W-28)
+  collects the Ferrum inputs before the deterministic engine generates
+  plans on top of the photo context. Not hard-blocked on W-35a per
+  RULE 35 — the entry-screen/checklist UI doesn't depend on which
+  reconstruction method wins, only the actual mesh-generation call
+  does.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

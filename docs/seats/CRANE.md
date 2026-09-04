@@ -208,6 +208,14 @@
   reduced profile), and a real-device spot-check protocol. This gate
   blocks landing like the type check; every feature row (including
   CRANE's own) carries a perf-delta check once W-34 exists.
+- CRANE's board queue (2026-09-04) also includes W-35a
+  IMG2THREEJS_DUE_DILIGENCE: inspect `github.com/img2threejs/img2threejs`
+  (name as given — CRANE's own fetch is the first real verification
+  this repo exists/resolves) and report facts only (license,
+  browser-vs-server execution, bundle weight against RULE 41's ≤600KB
+  gz cockpit budget, reconstruction method, output contract), reaching
+  one of adopt-as-dep / adopt-pattern / reject from the actual
+  inspection, not pre-decided.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)
