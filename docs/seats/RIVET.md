@@ -141,6 +141,16 @@ as every other seat.
   (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature
   Conservation addendum), keeping `SteppedForecastModule` live as a
   SECONDARY panel — both live, dual units, honesty chips.
+- W-17 AUTH-PREVIEW: strip all credential inputs from `/signup` and
+  `/login`, replacing both with an honest preview gate ("Accounts
+  arrive with the live release — explore everything now in preview",
+  one "Enter preview" action, `localStorage` flag only, nothing
+  collected); every Log in / Start Free Trial CTA routes there;
+  workspace/account surfaces open in preview with a PREVIEW chip. Note
+  the flagged discrepancy: W2-326 AUTH_COMPLETE already landed real
+  backend auth (`4ef78791`) — this row hides the frontend only, per
+  operator directive, and does not touch or revert that backend. Real
+  auth re-exposure is a separate deferred roadmap row, W2-409.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
