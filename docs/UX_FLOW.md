@@ -2,7 +2,7 @@
 
 Reference document for the Workspace experience, cited as the acceptance
 standard for docs/TASK_BOARD.md rows W-16, W-19, W-21, W-22, W-24,
-W-25, W-26, W-27, W-28, W-29, W-30, W-31, and W-33 (see
+W-25, W-26, W-27, W-28, W-29, W-30, W-31, W-33, W-40, W-41, and W-42 (see
 Notes at the end — W-19 and W-21 are referenced here as the operator's
 own citations but are not yet seeded rows on the board as of this
 writing; SCRIBE has not invented their scope beyond what's named below).
@@ -47,8 +47,9 @@ renders the cockpit immediately, with a preview session auto-created
 so there's always a real project to render into — the project list
 that used to live at `/project-workspace` demotes to
 `/project-workspace/projects`. Region law, updated 2026-09-04 per
-docs/TASK_BOARD.md W-33 LANDINTEL_BRIDGE:
-- **Left edge** (new, W-33) — a read-only side panel, present when the
+docs/TASK_BOARD.md W-33 LANDINTEL_BRIDGE and (later the same day) W-40
+SUTRA_SIDE_PANEL:
+- **Left edge** (W-33) — a read-only side panel, present when the
   project has a source parcel (opened via the Move-to-Workspace bridge
   in phase (1)): owner, survey no, area (dual units, RULE 30), location,
   zoning/FAR/coverage, water-body buffer status, NDZ flag, flood-zone,
@@ -56,11 +57,20 @@ docs/TASK_BOARD.md W-33 LANDINTEL_BRIDGE:
   command bar (phase 4) stays the primary way to act, the side panel
   never becomes an input surface.
 - **Top strip** — a 10-tab rail (per RIVET's `TabRail` component).
-- **Right** — a tools ruler (`ToolsRuler`).
+- **Right** (changed by W-40) — the SUTRA agent panel: a persistent,
+  full-height chat panel, default OPEN on desktop (not behind a click),
+  a bottom-sheet on mobile. Header: "SUTRA — your digital Sthapati"
+  plus honesty chips. The chat itself is the same W-27 engine (text +
+  voice + option chips + KB citations, per W-41's exhaustive KB) — SUTRA
+  is a mount location for that engine, not a second implementation of
+  it. The tools ruler (`ToolsRuler`), previously docked at the right
+  edge, relocates to a slim strip at the canvas-left, inside the center
+  region, to make room for SUTRA.
 - **Center** — the 3D archviz space, with plan and axonometric ("axo")
   viewports (per docs/TASK_BOARD.md W-22's ARCHVIZ_GRAPHICS quality
   bar: PBR materials, an IBL sun, a reflective podium surface,
-  instanced greenery, within an fps budget). When opened via W-33's
+  instanced greenery, within an fps budget), plus the relocated tools
+  ruler strip at its left edge (per W-40). When opened via W-33's
   bridge, the space starts pre-seeded: plot grid from the parcel's real
   dimensions, proposed building type from the location-aware forecast
   (phase 2) where available.
