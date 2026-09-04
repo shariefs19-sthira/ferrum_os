@@ -550,6 +550,11 @@ acceptance checklist is fully checked off against the deployed edge
 (RULE 25 live-or-locked standard, not merely landed) — logged as a
 WAVE_QUEUE.md row and an ACTIVITY_LOG.md entry at that point, after which
 DEFERRED rows return to OPEN status.
+**Citation note (2026-09-04):** an instruction asked for a "same-pass
+DONE+SHA" landing-discipline addition here, on RULE 34. That discipline
+is pull-queue landing mechanics, not scope-lock policy, so it's recorded
+on RULE 35(2) instead — flagged here per RULE 39/27 rather than adding
+scope-lock text that doesn't belong to this rule.
 
 ## RULE 35 — Pull-queue (permanent operating mode, adopted 2026-09-04)
 (1) **Board.** `docs/TASK_BOARD.md` is the queue of record while this
@@ -561,7 +566,14 @@ DONE, a seat claims the top READY row it's eligible for whose deps are
 all DONE and whose envelope overlaps no currently-CLAIMED row's
 envelope; executes it; marks it DONE with a landing SHA and RULE 25
 live proof; then immediately pulls the next eligible row. The seat
-never waits on the conductor to assign the next row.
+never waits on the conductor to assign the next row. **Amended
+2026-09-04 (landing discipline):** the landing seat flips its own row
+to DONE + landing SHA in the same pass as the landing itself — never a
+separate, later docs-only update, and never left to SCRIBE or another
+seat to backfill after the fact. This is what the 2026-09-04 status
+reconciliation pass (docs/TASK_BOARD.md) exists to correct retroactively
+for rows landed before this amendment; it does not need repeating going
+forward if every seat follows this amendment.
 (3) **ALERT (STUCK).** A row goes STUCK only for: (a) a decision only
 the operator can make, (b) a hard dependency on another seat's
 in-flight (not-yet-DONE) artifact, or (c) a safety hold. STUCK is
