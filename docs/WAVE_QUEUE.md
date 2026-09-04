@@ -278,7 +278,7 @@ landed, so W2-312 carries the real scope.
 | W2-319 | | B2 | J08 | CRANE | CLAIMED-CRANE | | author docs/TRANSACTION_COUNSEL_PACK.md — expand docs/COMPLIANCE_GATE.md's checklist into a counsel-ready memo: RERA scope per operating state, advocate empanelment process, escrow structure, KYC/AML procedure, advertising rules. Research/docs only, no code — this is prep material for actual counsel, not a substitute for counsel sign-off (COMPLIANCE_GATE's Stage-2 block stays in force regardless). |
 
 ## 2026-09-01 — SCRIBE final rails (auth through ops)
-| W2-326 | | B2 | J08 | CRANE | DONE | 4ef78791 | AUTH_COMPLETE — password auth via PBKDF2 over WebCrypto, sessions, verify + reset flows via Resend with a dev fallback, account page, rate limits on auth endpoints. Folds/supersedes W2-317. |
+| W2-326 | | B2 | J08 | CRANE | DONE | 4ef78791 | AUTH_COMPLETE — password auth via PBKDF2 over WebCrypto, sessions, verify + reset flows via Resend with a dev fallback, account page, rate limits on auth endpoints. Folds/supersedes W2-317. FRONTEND HIDDEN (2026-09-04, operator directive, TASK_BOARD.md W-17): this backend is NOT reverted or removed — the /signup and /login credential-collection UI in front of it is replaced with a preview gate until an operator-set "live release" milestone. This row's DONE/SHA status stands for the backend; W-17 tracks the frontend gating separately. |
 | W2-327 | | B2 | J08 | CRANE | DONE | cf271df9 | WORKSPACE_DATA — saved-artifact CRUD + export + share, tied to W2-326 auth. Audit: partial — Update op missing at audit time; gap-closure row follows (W2-343). |
 | W2-328 | | B2 | J08 | CRANE | DONE | 6d35ec57 | FORMS_LEADS — route all site forms into D1, plus a minimal operator admin view for leads |
 | W2-329 | | B2 | J08 | CRANE | DONE | 0b4e8711 | PAYMENTS_COMPLETE — checkout, demand tokens, subscriptions, webhooks with signature verification, receipts + GST invoice generation; test-mode for now |
@@ -557,3 +557,5 @@ the deployed edge (RULE 25 standard). SCRIBE logs the lift as a new
 WAVE_QUEUE.md row and an ACTIVITY_LOG.md entry when it occurs, at which
 point every row listed above returns to OPEN/CLAIMED status as it stood
 before this declaration.
+
+| W2-409 | | B2 | J08 | (unassigned) | ROADMAP-LABEL | | REAL_AUTH_RELIVE — re-expose the already-built W2-326 AUTH_COMPLETE credential UI on /signup and /login once an operator-set "live release" milestone is reached, replacing the W-17 preview gate. Not new backend work — W2-326's PBKDF2/WebCrypto auth, sessions, and verify/reset flows already exist and land on `origin/main` (`4ef78791`); this row is the frontend re-exposure step only. Explicitly deferred post-live per the operator's own W-17 instruction, not scheduled now. UNDO: n/a (roadmap label, no code yet). |
