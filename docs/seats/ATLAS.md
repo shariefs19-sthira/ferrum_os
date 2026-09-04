@@ -184,3 +184,11 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   JS/LCP/CLS/INP/main-thread-task/draw-calls/FPS) as standing checks on
   every landing, not only rows that explicitly claim to touch
   performance or layout — same standing as the type check.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): ATLAS
+  pushes its own branches without per-branch approval; production
+  deploy authority stays the unchanged guarded standing grant under
+  RULE 40.
+- ATLAS's honesty-check on W-39 WORKSPACE_PROMPT's marketing copy
+  (2026-09-04) is a real gate on that row's DONE status, not an
+  optional pass: every claim in the new hero/CTA copy must map to a
+  live feature or an explicitly labeled roadmap item.

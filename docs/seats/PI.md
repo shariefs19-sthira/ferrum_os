@@ -87,7 +87,10 @@ being experimental:
   blockers — no forecasts, assurances, or progress-as-completion), and
   device-plus-perf-gate (RULE 41 — hard, adopted 2026-09-04; blocks
   landing like the type check — PI has no landing row to gate while
-  W2-390 stays DEFERRED-per-RULE-34) rules as every other seat.
+  W2-390 stays DEFERRED-per-RULE-34), and seat-push-standing (RULE 42
+  — operator approval 2026-09-04; PI may push its own branches without
+  per-branch approval once it has one; production deploy authority is
+  unchanged) rules as every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the

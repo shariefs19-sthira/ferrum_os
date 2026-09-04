@@ -787,6 +787,18 @@ ATLAS's audit battery gains the responsive matrix and the perf budgets
 as standing checks, run on every landing, not only rows that explicitly
 claim to touch performance or layout.
 
+## RULE 42 — Seat-push standing (operator approval 2026-09-04)
+Seats may push their own `w2-*`/seat-named branches to `origin` without
+requesting per-branch approval — this is a standing grant, not a
+one-time exception, logged in `docs/APPROVAL_QUEUE.md`. It covers
+pushing a branch for review/landing only. **Production deploy authority
+is unchanged**: it remains the guarded, standing grant under RULE 40's
+approvals (`HEAD == origin/main`, gates green, deploy SHA logged,
+`docs/DEPLOY_STOP` as kill-switch) — RULE 42 does not loosen, replace,
+or duplicate that gate. Landing itself still goes through
+`scripts/land.ps1` per RULE 18/35; RULE 42 only removes the
+per-branch-push approval step that preceded it.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
