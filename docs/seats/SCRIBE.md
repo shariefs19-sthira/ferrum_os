@@ -205,6 +205,12 @@
   reading; production write → hold + flag). This is the codification
   of the practice SCRIBE already used this session for AQ-RIVET-004,
   GPT-5.6-SOL-TRIAL, and the missing W-18/W-19/W-21 rows.
+- RULE 40 (Facts-only reporting, serious, no exceptions, adopted
+  2026-09-04): SCRIBE's own ledger entries follow the same facts-only
+  standard — a landing SHA or a checked disk state, not a forecast or
+  an unearned adjective; SCRIBE logs the two operator approvals named
+  under this rule (STANDING-DEPLOY-AUTHORITY, RIVET-PUSH-W16-CHROME) in
+  docs/APPROVAL_QUEUE.md.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

@@ -714,6 +714,51 @@ pre-adjudication and RULE 27's provisional-text limitation: unambiguous
 executable intent needs no citation to be actionable, but the gap still
 gets logged, never silently absorbed.
 
+## RULE 40 — Facts-only reporting (all seats, serious, no exceptions;
+adopted 2026-09-04)
+(1) **Reports state only verifiable facts.** A report cites: a SHA on
+`origin/main`, a deployed SHA plus its live-edge response, an actual
+gate/test output, or a blocked state named with the single specific
+action that unblocks it. Nothing else counts as a fact for this rule's
+purposes.
+(2) **Banned outright, no exceptions:** forecasts ("should be done by…",
+"this will likely..."), assurances ("this is solid," "this is safe" with
+no cited check backing it), adjectives standing in for a measurement
+("robust," "clean," "comprehensive" unless immediately followed by the
+specific fact that earns the word), progress-as-completion ("mostly
+done," "basically working," "on track"), and partial-credit claims
+("X of the acceptance criteria are met" stated as a summary rather than
+naming which specific criteria and their actual evidence).
+(3) **Incomplete work is reported as what's missing**, not as what was
+done. "Implemented the writer, export UI still not wired, no live
+verification yet" is compliant; "made good progress on export" is not —
+the second sentence describes effort, not a verifiable state.
+(4) **ATLAS logs violations as honesty incidents** in a dedicated record
+(alongside its other audit findings). Three incidents against the same
+seat trigger re-onboarding — that seat re-reads its own seat doc and
+every relevant rule in full before its next task, rather than the
+violation simply being noted and continuing.
+(5) **The conductor is bound identically.** RULE 40 is not seat-only —
+a conductor relay or status update follows the same facts-only
+standard, with the same ban list, and the same ATLAS audit exposure.
+
+### Operator approvals logged under this rule (2026-09-04)
+(A) **Standing deploy authority, guarded.** CRANE (or any seat landing
+through the normal pipeline) may deploy once these guards all hold:
+`HEAD == origin/main` (no unlanded local drift), all gates green (build/
+typecheck/tests as applicable), the deploy SHA is logged (on the
+relevant WAVE_QUEUE.md/TASK_BOARD.md row and in ACTIVITY_LOG.md) — and
+`docs/DEPLOY_STOP` acts as the kill-switch: its presence halts all
+deploys under this standing authority immediately, regardless of how
+green the gates are, until it's removed by explicit operator action.
+`docs/DEPLOY_STOP` does not exist as of this rule's adoption — SCRIBE
+has not created it; a seat checking for it and finding it absent is the
+expected normal state, not a gap to fill in.
+(B) **RIVET push approval** for branch `w2-401/rivet-w16-chrome` —
+recorded here as an operator approval of record; RIVET's own landing
+report is the authoritative statement of what that push actually
+contained and its live-proof status, per RULE 40(1)/(3) above.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

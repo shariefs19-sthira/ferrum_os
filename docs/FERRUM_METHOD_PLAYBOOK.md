@@ -47,19 +47,20 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty-seven numbered rules were actually adopted (numbered
-1–14, 16–31, 33–39 — RULE 15 and RULE 32 were never assigned; leave
+matured — thirty-eight numbered rules were actually adopted (numbered
+1–14, 16–31, 33–40 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–39, added later in the
+applies to their situation. Rules 18–31 and 33–40, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
-timed-stop-single-inbox, fleet-watch, and relay-discipline matured, are
-summarized in the addendum immediately after the numbered list rather
+timed-stop-single-inbox, fleet-watch, relay-discipline, and honesty-
+reporting matured, are summarized in the addendum immediately after
+the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -140,7 +141,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–39 (added later, summarized)
+### Addendum: rules 18–31, 33–40 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -558,6 +559,28 @@ source.
     the specific foreseeable-blocker cases named in advance, turns a
     recurring judgment call into a pre-agreed default — faster for the
     seat, and no less safe, since the flag still happens every time.*
+40. **Facts-only reporting** — portable, and applied to every role
+    without exception, including the conductor. A report states only
+    what's verifiable: a landing SHA, a deployed SHA with its actual
+    live-edge response, a real gate/test output, or a blocked state
+    named together with the one specific action that clears it. Banned
+    outright: forecasts, unearned assurances, adjectives standing in
+    for a measurement, progress described as completion, and partial-
+    credit summaries that don't name which specific criteria are met
+    and how. Incomplete work is reported as what's missing, not as
+    what was attempted. An independent audit role logs violations as
+    their own class of incident, separate from ordinary findings, with
+    a standing consequence (repeated violations trigger a full
+    re-onboarding pass) rather than a single silent correction.
+    *Rationale: a fleet that runs on written reports rather than a
+    human watching every action live is only as trustworthy as those
+    reports are literal — the moment "in progress" quietly starts
+    meaning "attempted" or "nearly there" starts meaning "there," every
+    downstream decision built on that report inherits the same
+    unearned confidence. Banning the vocabulary that makes that drift
+    possible, not just discouraging it, and giving violations their own
+    tracked consequence, is what keeps a large, mostly-autonomous fleet
+    safe to actually rely on.*
 
 ## 3. Ledger formats
 

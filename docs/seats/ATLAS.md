@@ -164,3 +164,16 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   2026-09-04): a relay's inline verbatim text is authority even when
   its cited row/rule isn't on disk yet — ATLAS executes unambiguous
   intent, flags the citation gap, and continues rather than stopping.
+- RULE 40 (Facts-only reporting, serious, no exceptions, adopted
+  2026-09-04): ATLAS reports only verifiable facts (SHAs, deployed
+  responses, gate outputs, or a named blocker + unblocking action) —
+  no forecasts, assurances, bare adjectives, progress-as-completion, or
+  partial-credit summaries. ATLAS is the seat that logs other seats'
+  RULE 40 violations as honesty incidents; three against the same seat
+  trigger re-onboarding.
+- ATLAS's board queue (2026-09-04) also includes W-29 KNOWLEDGE_BASE's
+  CRANE-adjacent audit interest (verifying every knowledge-base fact
+  actually carries a clause ID/version/status chip before it's cited
+  anywhere) and the three W-32a/b/c battery-fix sub-rows are, once
+  landed, ATLAS's to re-verify against W-10's original 8-step battery
+  criteria — not self-certified by whichever seat fixes them.

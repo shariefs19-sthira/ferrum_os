@@ -140,6 +140,21 @@ as every other seat.
   2026-09-04): a relay's inline verbatim text is authority even when
   its cited row/rule isn't on disk yet — RIVET executes unambiguous
   intent, flags the citation gap, and continues rather than stopping.
+- RULE 40 (Facts-only reporting, serious, no exceptions, adopted
+  2026-09-04): RIVET reports only verifiable facts — SHAs, deployed
+  responses, gate outputs, or a named blocker + the specific unblocking
+  action; no forecasts, assurances, bare adjectives, progress-as-
+  completion, or partial-credit summaries. RIVET's push approval for
+  `w2-401/rivet-w16-chrome` is logged in docs/APPROVAL_QUEUE.md
+  (RIVET-PUSH-W16-CHROME) — RIVET's own landing report remains the
+  authoritative statement of that push's actual content and live-proof
+  status.
+- RIVET is also eligible (alongside MASON) for W-28 GUIDED_OPTIONS
+  (2026-09-04): constrained option chips per decision point (use →
+  floors → massing style → rooms split → compliance add-ons), each
+  option set derived from the ruleset so only legally/feasibly
+  buildable choices are ever offered — whichever of RIVET/MASON pulls
+  first claims it per RULE 35(2).
 - RIVET's board queue (2026-09-04) also includes W-16 LANDINTEL
   RESTORE: return `UlpinMapExplorer` as LandIntel's PRIMARY hero tool
   (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature

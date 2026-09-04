@@ -2,7 +2,7 @@
 
 Reference document for the Workspace experience, cited as the acceptance
 standard for docs/TASK_BOARD.md rows W-16, W-19, W-21, W-22, W-24,
-W-25, and W-26 (see
+W-25, W-26, W-27, W-28, W-29, W-30, and W-31 (see
 Notes at the end — W-19 and W-21 are referenced here as the operator's
 own citations but are not yet seeded rows on the board as of this
 writing; SCRIBE has not invented their scope beyond what's named below).
@@ -51,12 +51,53 @@ that used to live at `/project-workspace` demotes to
 - **Bottom, full-width** — a data-extract panel for whichever product
   is currently highlighted (`ExtractPanel`).
 
-## (4) Command bar + intent API interaction loop
-A command bar (RIVET's `CommandBar`, docs/TASK_BOARD.md W-09) accepts a
-typed intent phrase (per docs/WORKSPACE_SPEC.md §5's intent phrase
-list) and resolves it against the intent API (W-08) onto §4's CRUD/
-artifact contracts — the loop the cockpit runs on for every user action
-beyond direct manipulation.
+## (4) Conversation-first interaction loop (rewritten 2026-09-04)
+The command bar (RIVET's `CommandBar`, docs/TASK_BOARD.md W-09) is THE
+primary way a user drives the cockpit — not one input option among
+several, per docs/TASK_BOARD.md W-27 CONVERSATIONAL_PRIMARY. Three
+entry points feed the same underlying pipeline:
+
+- **Text.** A typed phrase, resolved per docs/WORKSPACE_SPEC.md §5's
+  intent phrase list, extended (W-27) to the full parameter set: floors,
+  plot width/depth, setback, use, room bias, and free-form adjustments
+  ("make it Vaastu-friendlier").
+- **Voice.** The browser Web Speech API where supported; its transcript
+  feeds the identical text pipeline, not a separate one. Where
+  unsupported, an honest chip says so — never a silent no-op.
+- **Guided option chips (docs/TASK_BOARD.md W-28 GUIDED_OPTIONS).** When
+  the user gives no text or voice input, the cockpit offers constrained
+  option chips, one decision point at a time, in order: use → floors →
+  massing style → rooms split → compliance add-ons. Every offered
+  option is derived from the ruleset (W-24's COMPLIANCE_ENGINE plus the
+  parcel's real FAR/DCR/setback data) — only legally/feasibly buildable
+  choices are ever shown as tappable, so an infeasible option is never
+  offered in the first place. This is the flow's stand-out claim: the
+  site does the modelling, the user picks from real, pre-validated
+  choices.
+
+All three entry points resolve through the same intent API (W-08) onto
+§4's CRUD/artifact contracts, and every resolved intent drives the
+deterministic engine so the building reshapes live in the 3D space —
+not a form submit, an immediate visual update.
+
+**Manual sliders are demoted, not deleted.** The direct-manipulation
+slider controls that predate this rewrite move to More → Advanced
+(RIVET's `MoreDrawer`) for users who want them; they are removed from
+the cockpit's default view. A first-time or default-view user sees
+conversation and guided options first — sliders are an opt-in power
+surface, not the default interaction model.
+
+**The questionnaire is KB-grounded (2026-09-04).** Every option W-28's
+guided chips offer, and every clause the assistant cites in a W-27
+conversational reply, resolves against docs/TASK_BOARD.md W-29's
+versioned knowledge base (NBC 2016, IS 456/875/1893, SP 7, four city
+DCR samples, dimensional-standards tables) and W-30's vocabulary
+ontology (so the same underlying fact reads correctly whichever
+professional term the current stage uses) — not a free-floating
+assistant answer with no traceable source. If a future LLM layer (W-31,
+gated on its own separate approval) is added, it stays strictly a
+language layer over this same grounded data; it never originates a
+number or option on its own.
 
 ## (4.5) Permits tracker (alongside design)
 Inserted 2026-09-04, between the command bar/intent loop and Save/

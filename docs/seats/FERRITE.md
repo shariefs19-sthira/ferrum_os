@@ -59,8 +59,11 @@ gap-filler:
   order, and alerts route only to the one operator channel in
   docs/FLEET_WATCH.md), and self-contained-relays-plus-pre-adjudication
   (RULE 39 — adopted 2026-09-04; unambiguous inline intent is
-  executable even citation-absent — execute, flag the gap, continue)
-  as every other seat.
+  executable even citation-absent — execute, flag the gap, continue),
+  and facts-only-reporting (RULE 40 — serious, no exceptions, adopted
+  2026-09-04; only verifiable facts — SHAs, deployed responses, gate
+  outputs, named blockers — no forecasts, assurances, or progress-as-
+  completion) as every other seat.
 
 ## Assigned slice (2026-09-03, trial)
 None yet — no task has been assigned as of activation. Per RULE 33(1),
