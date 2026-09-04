@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
+import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 
 // W2-345: only rate comparison is shipped and real (RateCompareCalculator
 // below, D1-backed). The marketplace itself — profiles, verification,
@@ -76,7 +77,7 @@ export default function ProMarketPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1.45fr)] lg:items-start">
           <div>
             <Eyebrow>ProMarket</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -93,7 +94,9 @@ export default function ProMarketPage() {
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
-            <SteppedForecastModule product="promarket" />
+            <ProductCockpitPreview product="promarket" label="ProMarket">
+              <SteppedForecastModule product="promarket" />
+            </ProductCockpitPreview>
           </div>
         </div>
       </SectionShell>
