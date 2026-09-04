@@ -216,6 +216,10 @@
   gz cockpit budget, reconstruction method, output contract), reaching
   one of adopt-as-dep / adopt-pattern / reject from the actual
   inspection, not pre-decided.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): CRANE
+  pushes its own branches without per-branch approval; this does not
+  touch CRANE's separate standing deploy authority (RULE 40), which
+  stays guarded and unchanged.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

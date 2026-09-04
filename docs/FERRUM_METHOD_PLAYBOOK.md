@@ -47,20 +47,20 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty-nine numbered rules were actually adopted (numbered
-1–14, 16–31, 33–41 — RULE 15 and RULE 32 were never assigned; leave
+matured — forty numbered rules were actually adopted (numbered
+1–14, 16–31, 33–42 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–41, added later in the
+applies to their situation. Rules 18–31 and 33–42, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
 timed-stop-single-inbox, fleet-watch, relay-discipline, honesty-
-reporting, and device/perf-gate discipline matured, are summarized in
-the addendum immediately after the numbered list rather
+reporting, device/perf-gate, and push-authority discipline matured, are
+summarized in the addendum immediately after the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -141,7 +141,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–41 (added later, summarized)
+### Addendum: rules 18–31, 33–42 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -611,6 +611,24 @@ source.
     frequency explicit and CI-enforced (not just documented) is what
     turns "should perform fine" into something actually verified before
     it ships.*
+42. **Seat-push standing** — portable. Once a fleet has run long enough
+    to trust its seats' branch discipline, a standing grant lets every
+    seat push its own work branches without asking per branch — a
+    narrow, specific loosening, not a general relaxation of oversight.
+    It covers pushing a branch for review/landing only; the separate,
+    higher-stakes authority to actually deploy to production stays
+    exactly as guarded as it already was, unaffected by this grant.
+    Landing itself still runs through the fleet's existing landing
+    pipeline and its gates — this rule only removes the approval step
+    that used to precede a push, not any step after it.
+    *Rationale: requiring a human approval on every single branch push,
+    once a fleet's landing pipeline and its actual gates (build, audit,
+    perf) are doing the real safety work, is friction without a
+    matching safety benefit — the push itself is reversible and gated
+    downstream. Keeping deploy authority separately guarded is what
+    makes this a safe loosening rather than a blanket one: the
+    irreversible, high-stakes action stays exactly as protected as
+    before.*
 
 ## 3. Ledger formats
 

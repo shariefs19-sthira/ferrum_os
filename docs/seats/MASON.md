@@ -185,6 +185,14 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   RULE 35 — the entry-screen/checklist UI doesn't depend on which
   reconstruction method wins, only the actual mesh-generation call
   does.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): MASON
+  pushes its own branches without per-branch approval; production
+  deploy authority stays CRANE's unchanged guarded standing grant.
+- MASON's piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
+  RIVET): the demo-mode Space3D — the real cockpit 3D canvas playing a
+  scripted intent loop ("add 2 floors" → massing grows, "setback 3m" →
+  shifts) as a muted auto-visual on marketing routes where layout
+  allows.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is
