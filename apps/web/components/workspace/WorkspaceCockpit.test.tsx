@@ -24,11 +24,22 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     render(<WorkspaceCockpit onLiveMetricsChange={onLiveMetricsChange} />)
     await waitFor(() => expect(onLiveMetricsChange).toHaveBeenCalledTimes(1))
 
+    // Fine controls (the Parameter sliders) are collapsed by default
+    // and opened via a window CustomEvent - landed by another seat
+    // after this test was first written. Open it the same way a real
+    // trigger elsewhere in the shell would, rather than reaching into
+    // component internals.
+    fireEvent(window, new CustomEvent("ferrum:workspace-advanced"))
+
     // Parameters render in a fixed order: plot width, plot depth,
     // setback, floors - the 4th slider is Floors (accessible-name
     // lookup via the wrapping <label>+<output> isn't reliable in jsdom
     // here, so query by the known, stable render order instead).
-    const sliders = screen.getAllByRole("slider")
+    const sliders = await waitFor(() => {
+      const found = screen.getAllByRole("slider")
+      expect(found.length).toBeGreaterThanOrEqual(4)
+      return found
+    })
     const floorsSlider = sliders[3]
     fireEvent.change(floorsSlider, { target: { value: "5" } })
 
