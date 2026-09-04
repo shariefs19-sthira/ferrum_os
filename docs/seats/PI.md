@@ -61,7 +61,12 @@ being experimental:
   seat (RULE 33 — FERRITE, a second Claude account, activates only when
   both CRANE and MASON are simultaneously at limit; disjoint envelope,
   land.ps1-only landing, non-destructive during trial; part 5, pace
-  metric + sunset, is NOT YET DEFINED) rules as every other seat.
+  metric + sunset, is NOT YET DEFINED), and single-outcome-focus (RULE
+  34 — in effect 2026-09-04, until docs/WORKSPACE_SPEC.md's Workspace
+  object model is LIVE-complete per its §6 acceptance checklist, all
+  seats work Workspace rows only; PI's own trial row, W2-390, is
+  DEFERRED per the consolidated list in docs/WAVE_QUEUE.md — the trial
+  resumes, not restarts, once RULE 34 lifts) rules as every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the

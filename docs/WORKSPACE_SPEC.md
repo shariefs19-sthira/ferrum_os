@@ -1,10 +1,15 @@
 # WORKSPACE_SPEC.md — v1
 
-Status: v1 draft. Object model and API surface below are verbatim as
-supplied by the operator. The per-product artifact-type table is derived
-from real docs/WAVE_QUEUE.md rows, cited inline. **One section is
-explicitly incomplete** — see the flag at the end of §2 — rather than
-filled in with invented content.
+Status: v1, finalized 2026-09-04 per AGENTS.md RULE 34 (single-outcome
+focus — Workspace is now the fleet's sole build target until §6 below
+is fully checked off live). Object model and API surface in §1 are
+verbatim as supplied by the operator. The per-product artifact-type
+table in §2 is derived from real docs/WAVE_QUEUE.md rows, cited inline.
+§4 (contracts) and §5 (intent phrases) are mechanical derivations from
+§1/§2 — no new business rules invented beyond what's already on disk.
+**§3 remains explicitly incomplete** — see the flag at the end of §2 —
+rather than filled in with invented content; it does not block §6's
+backend/API acceptance items, only the shell's region-layout item.
 
 For the W2-401 research addendum (six 2026-current reference products,
 five sourced UI/UX patterns each), see `docs/WORKSPACE_RESEARCH.md` — a
@@ -74,3 +79,116 @@ included in what SCRIBE received. Whoever has the actual sketch —
 attached elsewhere, in a different session, or as a file not surfaced
 here — should supply the 5-region breakdown so this section can be
 completed for real.)
+
+## 4. API contracts (finalized 2026-09-04)
+
+Mechanical elaboration of §1's API surface — field names/types are
+exactly §1's object model, nothing added.
+
+```
+POST /api/workspace/projects
+  body:   { name: string, unitsPref: "m"|"ft", primaryAreaUnit: string }
+  200:    WorkspaceProject { id, name, createdAt, updatedAt, unitsPref, primaryAreaUnit }
+  400:    validation error (missing name, invalid unitsPref)
+
+GET /api/workspace/projects
+  200:    WorkspaceProject[]
+
+GET /api/workspace/projects/:id
+  200:    WorkspaceProject
+  404:    not found
+
+PATCH /api/workspace/projects/:id
+  body:   partial WorkspaceProject (name / unitsPref / primaryAreaUnit)
+  200:    updated WorkspaceProject
+  404:    not found
+
+DELETE /api/workspace/projects/:id
+  204:    deleted
+  404:    not found
+
+POST /api/workspace/projects/:id/artifacts
+  body:   { type: PARCEL|MASSING|PLAN|STRUCTURAL|BOQ|INVEST|MARKET|PROCURE,
+            inputs: JSON, outputs: JSON,
+            provenance: { source, freshness, status: INDICATIVE|VERIFIED },
+            sourceTool, sourceRow, lineage: [artifact id, ...] }
+  200:    Artifact { id, projectId, type, version, inputs, outputs,
+            provenance, savedAt, sourceTool, sourceRow, lineage }
+  400:    validation error (missing provenance.status, unknown type,
+           a numeric/unit-bearing field in `inputs`/`outputs` missing
+           its RULE 29/30 obligation per §2's per-type table)
+  404:    projectId not found
+
+GET /api/workspace/projects/:id/artifacts
+  query:  ?type=<ArtifactType> (optional filter)
+  200:    Artifact[] (version-descending per type, per RULE 25's
+           living-resume-of-work-state expectation — the latest saved
+           artifact of a type is always first)
+```
+
+Every write endpoint rejects (400) an artifact whose `provenance.status`
+is absent — §2's per-type table is not optional metadata, it's a
+required field on every write, enforced at the API boundary, not left to
+each UI surface to remember.
+
+## 5. Intent phrase list (finalized 2026-09-04)
+
+Natural-language phrases a Workspace UI surface should route to the §4
+contracts above — derived mechanically from the object model and the
+per-type table in §2, not a new feature surface. Each phrase maps to
+exactly one contract call; none of these imply UI not already implied
+by §1-§4.
+
+| Intent phrase (example user wording) | Routes to |
+|---|---|
+| "start a new project" / "create a workspace" | `POST /api/workspace/projects` |
+| "open [project name]" / "switch to my [project]" | `GET /api/workspace/projects/:id` |
+| "rename this project" / "switch to feet" / "switch to metric" | `PATCH /api/workspace/projects/:id` (name or unitsPref) |
+| "delete this project" | `DELETE /api/workspace/projects/:id` |
+| "save this as a parcel/massing/plan/structural check/BOQ/investment case/market shortlist/procurement list" | `POST /api/workspace/projects/:id/artifacts` with the matching `type` |
+| "show me my saved plans" / "show me every BOQ I've run here" | `GET /api/workspace/projects/:id/artifacts?type=<TYPE>` |
+| "what did I change since the last version" | `GET .../artifacts?type=<TYPE>` then diff `version`/`lineage` client-side — no separate diff endpoint; §4 does not define one |
+| "where did this number come from" | reads the artifact's own `provenance` field (source/freshness/status) — never a separate lookup, since provenance travels on the artifact itself per §1 |
+
+This list is intentionally scoped to CRUD + save/recall — it does not
+invent a chat/command-palette feature; it only names the phrases a
+future intent-router (if built) would need to resolve against the
+contracts already defined above.
+
+## 6. Acceptance checklist — Workspace LIVE-complete (RULE 25 standard)
+
+Per AGENTS.md RULE 34, this checklist is what "LIVE-complete" means for
+lifting the single-outcome focus. Every line must be true against the
+**deployed edge**, not local dev or a green build — landed/committed
+does not satisfy any line here.
+
+- [ ] All five §4 project endpoints (`POST`/`GET`/`GET :id`/`PATCH`/
+      `DELETE`) respond correctly against the deployed Worker, verified
+      by a real request/response pair per endpoint (not just a 200
+      smoke check).
+- [ ] Both §4 artifact endpoints (`POST`/`GET` with `?type=`) work for
+      at least one real artifact of each of the 8 types in §2's table.
+- [ ] Every artifact write in that verification carries a non-empty
+      `provenance` object with a valid `status` (INDICATIVE|VERIFIED) —
+      the 400-on-missing-provenance rule in §4 is exercised, not just
+      documented.
+- [ ] Every length/area field on a saved artifact (per §2's "Units
+      obligation" column) displays both unit systems simultaneously on
+      the deployed shell, per RULE 30 — screenshotted proof, not a
+      code-review claim.
+- [ ] Every RULE 29 numeric field named in §2 (trust shares, coverage/
+      FSI, pass/fail basis) reconciles on screen exactly as RULE 29
+      requires — sums to 100, band contains its median, etc.
+- [ ] WORKSPACE_SHELL (W2-401) renders the project list, at least one
+      open project, and at least one saved artifact of each type,
+      captured at 1366 and 375 per RULE 24's first-viewport live proof.
+- [ ] §3's 5-region sketch mapping is either supplied and implemented,
+      or the operator has explicitly signed off on shipping without it
+      — §3 remaining a flagged placeholder is not itself a blocker to
+      checking this line, but silent omission is.
+- [ ] ATLAS has independently audited the above against the deployed
+      edge (no self-certification, consistent with every other
+      SWEEP-style gate in this fleet).
+
+Only once every line above is checked does RULE 34 lift — logged per
+its own text as a new WAVE_QUEUE.md row and an ACTIVITY_LOG.md entry.

@@ -512,6 +512,27 @@ to invent the missing substance), SCRIBE has not invented specific
 numbers or a sunset formula here. Parts (1)-(4) are in force now; (5) is
 a TODO pending the operator supplying the actual text.
 
+## RULE 34 — Single-outcome focus (in effect 2026-09-04)
+(1) **Scope lock.** Until the Workspace object model (docs/WORKSPACE_SPEC.md)
+is LIVE-complete per its own acceptance checklist (§6), every seat works
+Workspace rows only — currently W2-400 (WORKSPACE_BACKEND, CRANE) and
+W2-401 (WORKSPACE_SHELL, MASON, including the S4/three.js configurator
+piece folded in from W2-384).
+(2) **Non-workspace rows DEFERRED.** Every other currently-open row in
+docs/WAVE_QUEUE.md is DEFERRED for the duration of this focus window —
+see the consolidated DEFERRED-PER-RULE-34 declaration in
+docs/WAVE_QUEUE.md for the full list by Task ID. Deferred rows are not
+dropped or superseded; they resume claimable status the instant RULE 34
+is lifted.
+(3) **SCRIBE's own ledger/rules maintenance is not deferred** — recording
+this rule, its deferral list, and Workspace's own progress IS the focus
+mechanism, not competing work outside it.
+(4) **Lift condition.** RULE 34 lifts when docs/WORKSPACE_SPEC.md §6's
+acceptance checklist is fully checked off against the deployed edge
+(RULE 25 live-or-locked standard, not merely landed) — logged as a
+WAVE_QUEUE.md row and an ACTIVITY_LOG.md entry at that point, after which
+DEFERRED rows return to OPEN status.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
