@@ -159,6 +159,13 @@
   then PARKS the task (timestamp + resume pointer) and pulls its next
   non-blocked row per RULE 35, re-claiming the parked one once the
   inbox shows it answered.
+- RULE 38 (Fleet watch, permanent, adopted 2026-09-04): CRANE keeps a
+  heartbeat line in docs/RESUME_CRANE.md, updated at the start of each
+  turn; relies on the OS watchdog as primary reviver, with
+  Claude-revives-Codex as the secondary path for MASON/RIVET
+  specifically (CRANE itself has no Codex-revival role since it's a
+  Claude seat); alerts route only to the one operator channel named in
+  docs/FLEET_WATCH.md.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

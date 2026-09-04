@@ -25,6 +25,7 @@ RULE 35(4): seats update this board only on DONE or STUCK.
 | W-12 | Keyboard fit-model control | 3D configurator input handling (keyboard controls for fit-to-model) | MASON | A keyboard shortcut/control fits the model view in the 3D configurator, verified live; accessibility note per RULE 28/29 conventions where applicable | — | READY |
 | W-13 | View-state permalinks | workspace view-state serialization + URL routing | MASON | A workspace view's current state (camera/selection/artifact) round-trips through a shareable permalink URL, verified live | — | READY |
 | W-14 | AQ-RIVET-004 app-link diagnostic | mobile app-link wiring (apps/mobile/**, per RIVET's exclusive paths) | RIVET | Diagnose and fix the app-link issue per AQ-RIVET-004. Note: the underlying AQ-RIVET-004 proposal's actual text is not on disk in this session — SCRIBE has not seen its full scope, only the label given. RIVET should confirm scope against its own proposal record before executing, per the same practice used for AQ-RIVET-001 | — | READY |
+| W-16 | LANDINTEL RESTORE | `apps/web/app/products/landintel/page.tsx` (hero + featureItems/howItWorksSteps/FAQ copy) | RIVET | `UlpinMapExplorer` (real D1-backed ULPIN/Bhu-Aadhaar lookup) returns as the PRIMARY hero tool, with sample chips + Lookup control + a result card carrying its provenance strip; `SteppedForecastModule` (land-use forecast) stays live as a SECONDARY panel, not removed; both tools live and dual-unit (RULE 30) on the deployed edge; honesty chips (INDICATIVE/VERIFIED) present on both. Forensics: commit `331c1b08` (W2-372 UI_UX_MODERNIZATION, 2026-09-04) is confirmed via `git log -S "ULPIN"`/`git show` as the commit that replaced the lookup with the forecast module — logged as a friction entry in docs/TASK_REPORTS.md, not just fixed silently. Acceptance: first-viewport screenshot at 1366+375 shows the lookup first; a real lookup executes against the deployed edge; the forecast module is still present and functional below/beside it. | — | READY |
 
 ## Notes
 
@@ -43,3 +44,10 @@ RULE 35(4): seats update this board only on DONE or STUCK.
   board rows without a seat relay, per RULE 36(1). Each DONE among
   them gets a docs/TASK_REPORTS.md entry per RULE 36(3), same as every
   other row.
+- W-16 (added 2026-09-04, same RULE 36 mechanism) restores a tool a
+  sweep actually removed — see AGENTS.md RULE 29's Feature Conservation
+  addendum and docs/LIVE_TOOLS_REGISTRY.md. Assigned RIVET (the
+  operator's instruction allowed MASON or RIVET; SCRIBE assigned RIVET
+  as the seat already carrying similar UI-restoration work on W-11).
+  W-15 is intentionally unused here — not seeded by this instruction,
+  left open for the next observation.

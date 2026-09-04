@@ -4,6 +4,10 @@ Updated every turn by CRANE. After a limit event or API error, the next
 CRANE session reads this file FIRST, before anything else, and resumes
 exactly from what it says.
 
+## Heartbeat (AGENTS.md RULE 38(2))
+- 2026-09-04 — seeded by SCRIBE at RULE 38's adoption; CRANE updates
+  this line at the start of each of its own turns going forward.
+
 ## Done (this session, with SHAs)
 - devDeps revert (root package.json, RULE 6): `de2abebc`
 - RIVET docs takeover (RULE 19): `8a23ce2e` on `rivet/w2-356-app-shell`

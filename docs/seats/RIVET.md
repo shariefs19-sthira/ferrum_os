@@ -130,6 +130,17 @@ as every other seat.
   RIVET posts any operator question only to docs/OPERATOR_INBOX.md,
   never as a standalone chat relay; waits at most ~10 agent-minutes,
   then PARKS the task and pulls its next non-blocked row per RULE 35.
+- RULE 38 (Fleet watch, permanent, adopted 2026-09-04): RIVET keeps a
+  heartbeat line in docs/RESUME_RIVET.md, updated at the start of each
+  turn; as a Codex-backed seat, RIVET is revived first by the OS
+  watchdog and, failing that, by a Claude seat noticing the silence
+  (Claude-revives-Codex, secondary); alerts route only to the one
+  operator channel named in docs/FLEET_WATCH.md.
+- RIVET's board queue (2026-09-04) also includes W-16 LANDINTEL
+  RESTORE: return `UlpinMapExplorer` as LandIntel's PRIMARY hero tool
+  (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature
+  Conservation addendum), keeping `SteppedForecastModule` live as a
+  SECONDARY panel — both live, dual units, honesty chips.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
