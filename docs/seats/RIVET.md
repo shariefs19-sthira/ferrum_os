@@ -164,6 +164,22 @@ as every other seat.
   option set derived from the ruleset so only legally/feasibly
   buildable choices are ever offered — whichever of RIVET/MASON pulls
   first claims it per RULE 35(2).
+- RIVET pulls W-37 POINTER_SWEEP before W-38 UI_MODERNIZATION_PASS
+  (2026-09-04, operator-sequenced, real RULE 35 dep on W-38): every
+  interactive element gets cursor:pointer + hover + focus-visible,
+  I-beam only in real text inputs, verified by a headless computed-
+  style check across every route and the RULE 41 responsive matrix.
+  W-38 (after) applies researched-live 2026 UI/UX conventions to nav/
+  hero/cockpit chrome, keeping the dark-navy+saffron brand, with
+  before/after screenshots and a full RULE 41 budget pass as
+  acceptance.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): RIVET
+  pushes its own branches without per-branch approval; production
+  deploy authority stays CRANE's unchanged guarded standing grant.
+- RIVET's UI piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
+  MASON's demo-mode 3D): first-viewport narrative line + sticky "Open
+  Workspace" pill + nav CTA on every marketing route, with the page's
+  existing live tool kept as proof, not replaced.
 - RIVET's board queue (2026-09-04) also includes W-16 LANDINTEL
   RESTORE: return `UlpinMapExplorer` as LandIntel's PRIMARY hero tool
   (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature

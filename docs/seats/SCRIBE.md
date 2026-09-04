@@ -217,6 +217,11 @@
   the same clause to any new row it seeds going forward — this gate
   applies to every landing, not only rows that explicitly claim to
   touch performance or layout.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): SCRIBE
+  logged this standing grant (SEAT-PUSH-STANDING) in
+  docs/APPROVAL_QUEUE.md — seats push their own branches without
+  per-branch approval; production deploy authority is explicitly
+  unchanged, still the guarded standing grant under RULE 40.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set
