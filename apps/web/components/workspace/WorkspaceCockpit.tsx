@@ -1,5 +1,6 @@
 "use client"
 
+import dynamic from 'next/dynamic'
 import { useEffect, useMemo, useState } from 'react'
 import { generateStudioPlan } from '../../lib/plan-gen'
 import { checkStructuralLive } from '../../lib/studio/structuralLive'
@@ -7,7 +8,21 @@ import type { StudioParameters, StudioView } from '../../lib/types'
 import { convertArea, metresAndFeet } from '../../lib/units'
 import ExportBar from './ExportBar'
 import PlanElevationView from './PlanElevationView'
-import Space3D from './Space3D'
+
+// Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
+// chunks) was landing in the cockpit's first-load bundle even though
+// Space3D is one of several interchangeable views (see `views` below).
+// next/dynamic + ssr:false moves it to its own chunk, fetched at mount
+// time instead of blocking the initial script tags - real code-split,
+// not a stub swap (Space3D's own implementation is untouched).
+const Space3D = dynamic(() => import('./Space3D'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex min-h-96 flex-1 items-center justify-center rounded-relume border border-dashed border-relume-border text-sm text-relume-muted">
+      Loading 3D view…
+    </div>
+  ),
+})
 
 const format = (value: number, digits = 1) => value.toLocaleString('en-IN', { maximumFractionDigits: digits })
 const areaUnits = ['sqm', 'sqft', 'cent', 'guntha', 'ground', 'acre'] as const
