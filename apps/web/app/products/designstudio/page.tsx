@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
+import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 
 // W2-345: only "Test-fit massing" and "DXF export" are shipped and real
 // (the plot-massing calculator on this page, powered by /api/testfit, and
@@ -100,7 +101,9 @@ export default function DesignStudioPage() {
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
-            <ProductCockpitPreview product="designstudio" label="DesignStudio" />
+            <ProductCockpitPreview product="designstudio" label="DesignStudio">
+              <SteppedForecastModule product="designstudio" />
+            </ProductCockpitPreview>
           </div>
         </div>
       </SectionShell>

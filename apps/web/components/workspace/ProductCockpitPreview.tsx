@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, type ReactNode } from 'react'
 import type { StudioParameters } from '../../lib/types'
 import WorkspaceCockpit from './WorkspaceCockpit'
 
@@ -20,7 +20,7 @@ const presets: Record<CockpitProduct, StudioParameters> = {
   transact: { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 },
 }
 
-export default function ProductCockpitPreview({ product, label }: { product: CockpitProduct; label: string }) {
+export default function ProductCockpitPreview({ product, label, children }: { product: CockpitProduct; label: string; children?: ReactNode }) {
   const [parameters, setParameters] = useState<StudioParameters>(presets[product])
   const persistHandoff = useCallback(() => {
     window.localStorage.setItem('ferrum-cockpit-handoff', JSON.stringify({ version: 1, source: product, parameters }))
@@ -29,6 +29,7 @@ export default function ProductCockpitPreview({ product, label }: { product: Coc
 
   return (
     <div className="min-w-0" data-product-cockpit={product}>
+      {children && <div className="mb-4" data-product-live-tool={product}>{children}</div>}
       <WorkspaceCockpit initialParameters={presets[product]} onParametersChange={setParameters} previewLabel={label} />
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-relume border border-relume-border bg-white p-3">
         <p className="text-xs text-relume-muted"><strong className="text-relume-command">INDICATIVE</strong> deterministic geometry; verify site, code, and authority constraints.</p>
