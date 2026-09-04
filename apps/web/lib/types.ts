@@ -8,6 +8,12 @@ export const workspaceProducts = [
   "Design",
   "Structure",
   "Cost",
+  "Market",
+  "Procure",
+  "Invest",
+  "Build",
+  "Community",
+  "Transact",
 ] as const
 
 export type WorkspaceProduct = (typeof workspaceProducts)[number]
@@ -40,4 +46,55 @@ export type WorkspaceExtract = {
   label: string
   value: string
   unit?: string
+}
+
+export type StudioView = "space" | "plan" | "front-elevation" | "side-elevation"
+
+export type StudioRoom = {
+  id: string
+  name: string
+  floor: number
+  xM: number
+  yM: number
+  widthM: number
+  depthM: number
+  areaSqm: number
+  color: string
+}
+
+export type StudioElevation = {
+  id: "north" | "east"
+  name: string
+  widthM: number
+  heightM: number
+  floorLinesM: number[]
+}
+
+export type StudioPlan = {
+  schema: "ferrum-plan-v1"
+  plotWidthM: number
+  plotDepthM: number
+  setbackM: number
+  buildingWidthM: number
+  buildingDepthM: number
+  floors: number
+  floorHeightM: number
+  rooms: StudioRoom[]
+  elevations: StudioElevation[]
+  generatedBy: "deterministic-layout-v1"
+}
+
+export type StudioParameters = {
+  plotWidthM: number
+  plotDepthM: number
+  setbackM: number
+  floors: number
+}
+
+export type OrbitState = {
+  yaw: number
+  pitch: number
+  zoom: number
+  panX: number
+  panY: number
 }
