@@ -188,11 +188,14 @@
   timestamps/resume pointers and re-sequences answered PARKED tasks
   back to READY in timestamp order, and presents the full open inbox
   at the top of every operator-present beat per RULE 37(3).
-- RULE 38 (Fleet watch, permanent, adopted 2026-09-04): SCRIBE
-  maintains docs/FLEET_WATCH.md (revival order, daily watch schedule,
-  the one named alert channel) and seeded the heartbeat section in
-  every docs/RESUME_<SEAT>.md — each seat updates its own line
-  thereafter; SCRIBE keeps its own heartbeat current the same way.
+- RULE 38 (Fleet watch, permanent, adopted 2026-09-04; amended
+  2026-09-04 to ntfy): SCRIBE maintains docs/FLEET_WATCH.md (revival
+  order, daily watch schedule, the one named alert channel — ntfy via
+  `FLEET_NTFY_TOPIC` as of the amendment, superseding the original
+  chat-only default per the operator's later verbatim instruction) and
+  seeded the heartbeat section in every docs/RESUME_<SEAT>.md — each
+  seat updates its own line thereafter; SCRIBE keeps its own heartbeat
+  current the same way.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set
