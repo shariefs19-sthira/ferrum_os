@@ -126,3 +126,10 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   stays non-destructive during trial — parts (1)-(4) are in force; part
   (5) (pace metric + sunset) is NOT YET DEFINED, see AGENTS.md RULE
   33(5).
+- RULE 34 (Single-outcome focus, in effect 2026-09-04): until
+  docs/WORKSPACE_SPEC.md's Workspace object model is LIVE-complete per
+  its §6 acceptance checklist, ATLAS works Workspace rows only
+  (currently W2-400/401) — every other ATLAS row (W2-323, 332, 333,
+  339, 342, 344, 345, 360 and the rest of ATLAS's slice) is DEFERRED
+  per the consolidated list in docs/WAVE_QUEUE.md, not dropped, and
+  resumes the moment RULE 34 lifts.

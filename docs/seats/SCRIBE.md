@@ -154,6 +154,16 @@
   than fabricating it, per RULE 5/RULE 27's PROVISIONAL-TEXT
   LIMITATION. SCRIBE maintains docs/seats/FERRITE.md and
   docs/RESUME_FERRITE.md as it does for every other seat.
+- RULE 34 (Single-outcome focus, in effect 2026-09-04): until
+  docs/WORKSPACE_SPEC.md's Workspace object model is LIVE-complete per
+  its §6 acceptance checklist, all seats work Workspace rows only.
+  SCRIBE's own ledger/rules maintenance (this rule, the consolidated
+  DEFERRED-PER-RULE-34 list in docs/WAVE_QUEUE.md, and tracking
+  Workspace's acceptance checklist) is explicitly NOT deferred — per
+  RULE 34(3), it is the focus mechanism itself, not competing work. SCRIBE
+  logs the lift condition (§6 fully checked off against the deployed
+  edge) as a WAVE_QUEUE.md row and an ACTIVITY_LOG.md entry when it
+  occurs.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

@@ -131,6 +131,14 @@
   available. Disjoint envelope, land.ps1-only landing, non-destructive
   during trial (parts 1-4 in force; part 5, pace metric + sunset, is
   NOT YET DEFINED — see AGENTS.md RULE 33(5)).
+- RULE 34 (Single-outcome focus, in effect 2026-09-04): until
+  docs/WORKSPACE_SPEC.md's Workspace object model is LIVE-complete per
+  its §6 acceptance checklist, CRANE works Workspace rows only —
+  currently W2-400 WORKSPACE_BACKEND. Every other CRANE row (W2-240,
+  273, 287/283-286, 308/315, 319, 325, 336, 357, 361, and the
+  non-S4 half of W2-387) is DEFERRED per the consolidated list in
+  docs/WAVE_QUEUE.md, not dropped, and resumes the moment RULE 34
+  lifts.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

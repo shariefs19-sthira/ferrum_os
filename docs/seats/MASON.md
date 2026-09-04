@@ -108,6 +108,15 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   available. Disjoint envelope, land.ps1-only landing, non-destructive
   during trial (parts 1-4 in force; part 5, pace metric + sunset, is
   NOT YET DEFINED — see AGENTS.md RULE 33(5)).
+- RULE 34 (Single-outcome focus, in effect 2026-09-04): until
+  docs/WORKSPACE_SPEC.md's Workspace object model is LIVE-complete per
+  its §6 acceptance checklist, MASON works Workspace rows only —
+  currently W2-401 WORKSPACE_SHELL (including the S4/three.js
+  configurator piece folded in from W2-384, and the S4 half of
+  W2-387's provenance strip). Every other MASON row (W2-331, 348, 349,
+  353, 354, 372, 373, 375, 383, 385) is DEFERRED per the consolidated
+  list in docs/WAVE_QUEUE.md, not dropped, and resumes the moment
+  RULE 34 lifts.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

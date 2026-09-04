@@ -40,8 +40,12 @@ gap-filler:
   16/18/20 on conflict), skill-hygiene/self-scouting (RULE 26), resolve-
   don't-ask (RULE 27), operator-environment-is-production (RULE 28),
   numeric-ux-sanity (RULE 29), unit-duality (RULE 30), overnight-
-  autonomy (RULE 31), and gap-filler-seat (RULE 33, this seat's own
-  activation rule) as every other seat.
+  autonomy (RULE 31), gap-filler-seat (RULE 33, this seat's own
+  activation rule), and single-outcome-focus (RULE 34 — in effect
+  2026-09-04, until docs/WORKSPACE_SPEC.md's Workspace object model is
+  LIVE-complete per its §6 acceptance checklist, all seats work
+  Workspace rows only; FERRITE has no row assigned regardless, per
+  RULE 33(1)) as every other seat.
 
 ## Assigned slice (2026-09-03, trial)
 None yet — no task has been assigned as of activation. Per RULE 33(1),

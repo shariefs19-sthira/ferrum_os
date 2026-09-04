@@ -488,3 +488,72 @@ recorded as a new line, not by editing the pending entry.
 | W2-85   |        | B2    | J08      | Cline-GLM-Flash (LANDER) | DONE | f321421  | LANDER: landintel PlotEstimator component (surgical cherry-pick from origin/w2-85/copilot-plotestimator e89ad25; branch has no merge base) |
 
 > W2-68 note: visual sweep is parked in the recovered repo because the required sweep dependencies are not available, and the repo must not receive package.json or ad-hoc install changes to satisfy it. Sweep will resume on the next sync-safe branch.
+
+## RULE 34 DECLARATION (2026-09-04) — SINGLE-OUTCOME FOCUS: DEFERRED-PER-RULE-34
+
+Per AGENTS.md RULE 34, effective 2026-09-04: all seats work Workspace
+rows only until docs/WORKSPACE_SPEC.md's object model is LIVE-complete
+per its §6 acceptance checklist. **ACTIVE (not deferred):** W2-400
+WORKSPACE_BACKEND (CRANE), W2-401 WORKSPACE_SHELL (MASON — includes the
+S4/three.js configurator piece folded in from W2-384, and the S4 half
+of W2-387's provenance strip).
+
+Every other currently-open (non-DONE/VERIFIED/PARKED/SUPERSEDED/DROPPED)
+row as of this declaration is DEFERRED — not dropped, not superseded;
+each resumes claimable status the instant RULE 34 lifts. This is a
+status annotation only; the rows' own Status cells are left as they
+were (append-only discipline) rather than mass-edited in place. Listed
+by Task ID, current assignee, and title, taken directly from the ledger
+rows above:
+
+- W2-240 CSP hardening (CRANE)
+- W2-244..252 Relume batch: tokens/Home/products-route-move/LandIntel/
+  DesignStudio/Structura/BOQ-Pro/ProMarket/BuildOS (CRANE)
+- W2-273 llms.txt (CRANE)
+- W2-283..287 Transact product page + estimators + COMPLIANCE_GATE
+  (CRANE, GATED items stay gated regardless)
+- W2-308, W2-315 CONCIERGE_LLM (CRANE, GATED)
+- W2-318 Dashboard/Workspace marketing copy (CRANE) — note: this is the
+  marketing page's copy pass, not the WORKSPACE_SPEC object model;
+  named explicitly here to avoid confusion with the active W2-400/401
+  rows
+- W2-319 TRANSACTION_COUNSEL_PACK (CLAIMED-CRANE)
+- W2-323 ESCROW_DESIGN (ATLAS)
+- W2-325 SWEEP_FIRST (CRANE)
+- W2-331 CONTENT_REAL (MASON)
+- W2-332 LEGAL_PAGES (ATLAS)
+- W2-333 SITE_SYSTEMS (ATLAS)
+- W2-336 OPS logging/tracing (CRANE)
+- W2-339 STAMP_DUTY_EXPAND (ATLAS)
+- W2-342 PERF_PASS (ATLAS)
+- W2-344 RELUME_IDENTITY_PASS (ATLAS)
+- W2-345 SITEWIDE_CLAIM_TRUTH (ATLAS)
+- W2-348, 349, 353, 354 MASON slice items: CONTENT_ASSETS/MEDIA_HONESTY/
+  EMPTY_PLACEHOLDER_SWEEP/RESPONSIVE_SWEEP (MASON)
+- W2-356 APP_SHELL_V1 (RIVET)
+- W2-357 LANDING_PIPELINE_FIX (CRANE) — flagged tension: this is fleet
+  landing-infra, not a product feature; SCRIBE defers it per RULE 34's
+  literal text rather than assuming an infra exception, but notes the
+  conductor may want to except it since it would otherwise smooth the
+  Workspace rows' own landings
+- W2-360 BOQ_PAGE_TRUTH (ATLAS)
+- W2-361 EMPTY_CONTAINER_PURGE (CRANE)
+- W2-372 UI_UX_MODERNIZATION, W2-373 INTERACTION_FIRST, W2-375
+  TYPOGRAPHY_SECOND_PASS (MASON)
+- W2-382 S2 STRUCTURAL_LIVE, W2-383 S3 STYLE_LIBRARY, W2-385 S5
+  PREFERENCE_LAYER, W2-386 S6 FREEZE_SIGNOFF — the non-S4 DesignStudio
+  Studio Engine milestones (CRANE/MASON per row)
+- W2-387 PROVENANCE_STRIP — CRANE's LandIntel/Analysis Engine half only
+  (the MASON/S4 half is ACTIVE, see above)
+- W2-390 PI_SEAT_TRIAL (PI) — trial resumes, not restarts, once lifted
+
+**Not deferred:** SCRIBE's own ledger/rules maintenance (RULE 34(3)) —
+this declaration, docs/RESUME_*.md upkeep, and tracking
+docs/WORKSPACE_SPEC.md §6's acceptance checklist against the deployed
+edge.
+
+**Lift condition:** docs/WORKSPACE_SPEC.md §6 fully checked off against
+the deployed edge (RULE 25 standard). SCRIBE logs the lift as a new
+WAVE_QUEUE.md row and an ACTIVITY_LOG.md entry when it occurs, at which
+point every row listed above returns to OPEN/CLAIMED status as it stood
+before this declaration.

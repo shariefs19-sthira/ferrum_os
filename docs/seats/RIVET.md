@@ -103,6 +103,13 @@ as every other seat.
   at limit; disjoint envelope, land.ps1-only landing, non-destructive
   during trial (parts 1-4 in force; part 5, pace metric + sunset, is
   NOT YET DEFINED — see AGENTS.md RULE 33(5)).
+- RULE 34 (Single-outcome focus, in effect 2026-09-04): until
+  docs/WORKSPACE_SPEC.md's Workspace object model is LIVE-complete per
+  its §6 acceptance checklist, RIVET has no Workspace row assigned —
+  its own row (W2-356 APP_SHELL_V1) is DEFERRED per the consolidated
+  list in docs/WAVE_QUEUE.md, not dropped, and resumes the moment
+  RULE 34 lifts. RIVET stands by rather than self-assigning outside the
+  Workspace scope during this window.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

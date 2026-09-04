@@ -47,18 +47,18 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty-one numbered rules were actually adopted (numbered
-1–14, 16–31, 33 — RULE 15 and RULE 32 were never assigned; leave gaps
-in your own numbering rather than force sequential renumbering when a
-rule is superseded or dropped). Rules 1–17 are detailed below, each with
-the one-line rationale that justified adopting it — carry the rationale
-forward even when you reword the rule for a new repo, because the
-rationale is what tells a future reader whether the rule still applies
-to their situation. Rules 18–31 and 33, added later in the same
-engagement as the fleet's landing pipeline, DONE-verification,
+matured — thirty-two numbered rules were actually adopted (numbered
+1–14, 16–31, 33–34 — RULE 15 and RULE 32 were never assigned; leave
+gaps in your own numbering rather than force sequential renumbering
+when a rule is superseded or dropped). Rules 1–17 are detailed below,
+each with the one-line rationale that justified adopting it — carry the
+rationale forward even when you reword the rule for a new repo, because
+the rationale is what tells a future reader whether the rule still
+applies to their situation. Rules 18–31 and 33–34, added later in the
+same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
-and gap-filler-seat discipline matured, are summarized in the addendum
-immediately after the numbered list rather
+gap-filler-seat, and single-outcome-focus discipline matured, are
+summarized in the addendum immediately after the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -139,7 +139,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33 (added later, summarized)
+### Addendum: rules 18–31, 33–34 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -388,6 +388,32 @@ source.
     landing discipline are as strict as any other seat's, and only if
     a fleet's docs discipline holds even when an instruction adopting a
     new rule arrives incomplete.*
+34. **Single-outcome focus** — portable, for any fleet with more than
+    one active seat and a milestone big enough to justify pausing
+    everything else. Declares one outcome (in this engagement, a
+    cross-product Workspace object model) as the sole claimable work
+    until it clears its own written acceptance checklist against the
+    deployed edge (rule 25's standard, not "landed"). Every other
+    open ledger row is marked DEFERRED, not dropped or superseded, as
+    one consolidated ledger declaration listing every affected row by
+    ID rather than mutating each row's own status field — safer at
+    scale than dozens of individual edits, and just as auditable. The
+    docs seat's own ledger/rules maintenance is explicitly exempt: it
+    is the mechanism enforcing the focus, not competing work outside
+    it. The focus lifts only when the acceptance checklist is fully
+    satisfied live, logged as its own ledger row and activity-log
+    entry, at which point every deferred row returns to its prior
+    status.
+    *Rationale: a fleet running several parallel seats can ship a lot
+    of small, real progress while the one outcome that actually matters
+    stalls indefinitely in the gaps between everyone's other work;
+    naming the single outcome, writing its own acceptance bar down
+    before starting, and explicitly parking everything else (with a
+    clear, auditable resume path) is the direct fix once a milestone
+    is judged important enough to justify it — the cost is real
+    (everything else visibly stops), so this rule is meant to be
+    invoked deliberately and lifted promptly, not left standing by
+    default.*
 
 ## 3. Ledger formats
 
