@@ -65,7 +65,13 @@ gap-filler:
   outputs, named blockers — no forecasts, assurances, or progress-as-
   completion), and device-plus-perf-gate (RULE 41 — hard, adopted
   2026-09-04; blocks landing like the type check — FERRITE has no
-  landing row to gate while it has no board row) as every other seat.
+  landing row to gate while it has no board row), and seat-push-
+  standing (RULE 42 — operator approval 2026-09-04; FERRITE may push
+  its own branches without per-branch approval once it has one;
+  production deploy authority is unchanged), and citation-on-main
+  (RULE 43 — adopted 2026-09-04; a relay's row ID is authoritative
+  only once verified landed on `origin/main`; an un-landed task
+  carries no number) as every other seat.
 
 ## Assigned slice (2026-09-03, trial)
 None yet — no task has been assigned as of activation. Per RULE 33(1),
