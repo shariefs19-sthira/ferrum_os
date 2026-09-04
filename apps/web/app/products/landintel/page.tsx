@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
+import UlpinMapExplorer from '../../../components/sections/UlpinMapExplorer'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
 // map (real Leaflet/OSM component) are real. Zoning, soil/hazard,
@@ -12,6 +13,7 @@ import SteppedForecastModule from '../../../components/sections/SteppedForecastM
 // The lookup returns state/district/area_sqm/land_use only, nothing
 // else. Roadmap-labeled rather than deleted per RULE 13/W2-345's pattern.
 const featureItems = [
+  { title: 'ULPIN lookup (live)', body: 'Look up one of three seeded ULPIN records through the D1-backed lookup, with a city-reference map and provenance.' },
   { title: 'Scenario forecast (live)', body: 'Move area and land-use controls to model built-up potential against a sample Karnataka FAR ruleset.' },
   { title: 'Interactive preview map (live)', body: 'See a randomized India map preview, clearly identified as neither a parcel nor a lookup result.' },
   { title: 'Zoning summary', body: 'Know what you can build before you buy — not yet built.' },
@@ -21,9 +23,9 @@ const featureItems = [
 ]
 
 const howItWorksSteps = [
-  { title: 'Set a plot area', body: 'Use the labeled slider and compare the same area across metric and Indian land units.' },
-  { title: 'Choose sample land use', body: 'Move the land-use control to apply the disclosed indicative FAR and coverage assumptions.' },
-  { title: 'Review the scenario', body: 'Read the live built-up result and preview map before moving into a real due-diligence workflow.' },
+  { title: 'Choose a sample ULPIN', body: 'Select a seeded parcel ID or enter it directly; the lookup is the primary tool on this page.' },
+  { title: 'Run the lookup', body: 'Read the returned state, district, area and land-use result with its disclosed provenance.' },
+  { title: 'Explore a secondary scenario', body: 'Use the separately labelled indicative forecast only after the lookup.' },
 ]
 
 const integrationItems = [
@@ -61,11 +63,11 @@ const faqItems = [
   },
   {
     question: 'How accurate is the land data?',
-    answer: 'The live module above is an indicative scenario, not parcel data. It applies a disclosed sample Karnataka FAR ruleset to the area and land-use values you choose. Official land-record integration is on the roadmap and is not connected.',
+    answer: 'The primary lookup returns seeded, indicative records only; it is not an official land-record integration. The secondary forecast applies a disclosed sample Karnataka FAR ruleset to values you choose.',
   },
   {
     question: 'Which cities are covered?',
-    answer: 'The current forecast is not a city-coverage service. It uses one sample Karnataka ruleset to demonstrate the interaction; broader official coverage depends on land-record and planning-data integrations that have not shipped.',
+    answer: 'Three seeded lookup records are available for Bengaluru, Pune and Chennai city-reference maps. They are not parcel geometry or a city-coverage service; broader official coverage remains unshipped.',
   },
 ]
 
@@ -81,19 +83,28 @@ export default function LandIntelPage() {
               Know your land before you buy or build
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              Explore plot area and land-use scenarios against a clearly labeled sample FAR
-              ruleset. Official zoning, soil, hazard, and entitlement data remain on the roadmap.
+              Look up a seeded ULPIN/Bhu-Aadhaar record first. The returned record and city-reference map are clearly labelled indicative; official zoning, soil, hazard, and entitlement data remain on the roadmap.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>Sample FAR and coverage forecast (indicative)</li>
+              <li>ULPIN/Bhu-Aadhaar lookup (seeded, indicative)</li>
+              <li>Sample FAR and coverage forecast (secondary, indicative)</li>
               <li>Zoning &amp; soil data — roadmap</li>
               <li>Investment forecasts — roadmap</li>
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
-            <SteppedForecastModule product="landintel" />
+            <UlpinMapExplorer />
           </div>
         </div>
+      </SectionShell>
+
+      <SectionShell background="surface-secondary">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Secondary tool</Eyebrow>
+          <SectionHeading className="mt-4">Indicative land-use forecast</SectionHeading>
+          <p className="mt-4 text-base leading-7 text-relume-ink">This scenario is not a parcel result. It uses a disclosed sample Karnataka FAR ruleset and remains secondary to the ULPIN lookup above.</p>
+        </div>
+        <div className="mx-auto mt-8 max-w-4xl"><SteppedForecastModule product="landintel" /></div>
       </SectionShell>
 
       {/* 2. Features */}
