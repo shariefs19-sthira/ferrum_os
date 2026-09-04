@@ -73,8 +73,17 @@ type LiveMetrics = {
 const optionStages = ['use', 'floors', 'massing', 'rooms', 'compliance'] as const
 type OptionStage = typeof optionStages[number]
 
-export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetricsChange?: (metrics: LiveMetrics) => void }) {
-  const [parameters, setParameters] = useState<StudioParameters>({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 })
+type WorkspaceCockpitProps = {
+  initialParameters?: StudioParameters
+  onLiveMetricsChange?: (metrics: LiveMetrics) => void
+  onParametersChange?: (parameters: StudioParameters) => void
+  previewLabel?: string
+}
+
+const defaultParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 }
+
+export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel }: WorkspaceCockpitProps) {
+  const [parameters, setParameters] = useState<StudioParameters>(initialParameters)
   const [view, setView] = useState<StudioView>('space')
   const [activeFloor, setActiveFloor] = useState(1)
   const [primaryAreaUnit, setPrimaryAreaUnit] = useState<typeof areaUnits[number]>('sqm')
@@ -119,7 +128,22 @@ export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetric
   useEffect(() => {
     const stored = window.localStorage.getItem('ferrum-area-unit')
     if (areaUnits.some((unit) => unit === stored)) setPrimaryAreaUnit(stored as typeof areaUnits[number])
-  }, [])
+    if (!previewLabel) {
+      const handoff = window.localStorage.getItem('ferrum-cockpit-handoff')
+      if (handoff) {
+        try {
+          const parsed = JSON.parse(handoff) as { parameters?: Partial<StudioParameters> }
+          const next = parsed.parameters
+          if (next && Number.isFinite(next.plotWidthM) && Number.isFinite(next.plotDepthM) && Number.isFinite(next.setbackM) && Number.isFinite(next.floors)) {
+            setParameters(next as StudioParameters)
+          }
+        } catch {
+          // Ignore malformed local preview state and retain deterministic defaults.
+        }
+      }
+    }
+  }, [previewLabel])
+  useEffect(() => { onParametersChange?.(parameters) }, [parameters, onParametersChange])
   useEffect(() => {
     const openAdvanced = () => setShowFineControls(true)
     window.addEventListener('ferrum:workspace-advanced', openAdvanced)
@@ -164,10 +188,10 @@ export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetric
   }
 
   return (
-    <section className="overflow-hidden rounded-relume border border-relume-border bg-relume-surface shadow-sm" data-workspace-cockpit>
+    <section className="overflow-hidden rounded-relume border border-relume-border bg-relume-surface shadow-sm" data-workspace-cockpit data-cockpit-preview={previewLabel}>
       <header className="flex flex-wrap items-center gap-3 border-b border-relume-border px-4 py-3">
         <div className="mr-auto">
-          <p className="font-display text-lg font-semibold text-relume-command">Design cockpit</p>
+          <p className="font-display text-lg font-semibold text-relume-command">{previewLabel ? `${previewLabel} cockpit preview` : 'Design cockpit'}</p>
           <p className="text-xs text-relume-muted">Live deterministic plan and massing workspace</p>
         </div>
         <span className="rounded-full border border-relume-accent bg-orange-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-command">INDICATIVE</span>
