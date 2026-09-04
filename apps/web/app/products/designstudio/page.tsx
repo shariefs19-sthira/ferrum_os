@@ -4,7 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
-import TestFitCalculator from '../../../components/sections/TestFitCalculator'
+import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 
 // W2-345: only "Test-fit massing" and "DXF export" are shipped and real
 // (the plot-massing calculator on this page, powered by /api/testfit, and
@@ -83,7 +83,7 @@ export default function DesignStudioPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <Eyebrow>DesignStudio</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -98,12 +98,9 @@ export default function DesignStudioPage() {
               <li>3D viewer — roadmap</li>
               <li>DXF export (live) / PDF export — roadmap</li>
             </ul>
-            <div className="mt-8">
-              <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
-            </div>
           </div>
-          <div className="order-first md:order-none">
-            <TestFitCalculator />
+          <div className="order-first min-w-0 lg:order-none">
+            <SteppedForecastModule product="designstudio" />
           </div>
         </div>
       </SectionShell>

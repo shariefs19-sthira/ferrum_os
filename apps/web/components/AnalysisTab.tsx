@@ -25,7 +25,7 @@ const inr = (value: number) => `₹${value.toLocaleString("en-IN", { maximumFrac
 function ScoreGauge({ score }: { score: number }) {
   const color = score >= 70 ? "#138808" : score >= 40 ? "#FF9933" : "#c81e1e"
   return (
-    <div className="flex items-center gap-4">
+    <div data-dynamic-graphic="feasibility-gauge" className="flex items-center gap-4">
       <div
         role="img"
         aria-label={`Feasibility score ${score} out of 100`}
@@ -52,18 +52,62 @@ function Chip({ label }: { label: "INDICATIVE" | "ROADMAP" }) {
 function SensitivityBars({ points }: { points: SensitivityPoint[] }) {
   const max = Math.max(...points.map((p) => p.grand_total), 1)
   return (
-    <div className="grid grid-cols-5 items-end gap-2" role="img" aria-label="Cost sensitivity across -10% to +10% rate deltas">
-      {points.map((p) => (
-        <div key={p.delta_pct} className="flex flex-col items-center gap-1">
-          <div className="flex h-24 w-full items-end rounded-t bg-relume-surface-secondary">
+    <div data-dynamic-graphic="rate-sensitivity-bars" className="space-y-4">
+      <div className="grid grid-cols-5 items-end gap-2" role="img" aria-label="Cost sensitivity across -10% to +10% rate deltas">
+        {points.map((p) => (
+          <div key={p.delta_pct} className="flex flex-col items-center gap-1">
+            <div className="flex h-24 w-full items-end rounded-t bg-relume-surface-secondary">
+              <div
+                className="analysis-bar w-full rounded-t bg-relume-command"
+                style={{ height: `${Math.max((p.grand_total / max) * 100, 2)}%` }}
+                aria-hidden="true"
+              />
+            </div>
+            <span className="text-[11px] text-relume-muted">{p.delta_pct > 0 ? `+${p.delta_pct}%` : `${p.delta_pct}%`}</span>
+            <span className="font-mono text-[10px] text-relume-muted">{inr(p.grand_total)}</span>
+          </div>
+        ))}
+      </div>
+      <div className="overflow-x-auto rounded-relume border border-relume-border">
+        <table className="w-full min-w-[28rem] text-left text-xs">
+          <caption className="px-3 py-2 text-left font-semibold uppercase tracking-[0.1em] text-relume-muted">
+            Accessible data table
+          </caption>
+          <thead className="bg-relume-surface-secondary text-relume-muted">
+            <tr><th className="px-3 py-2">Rate delta</th><th className="px-3 py-2">Grand total</th></tr>
+          </thead>
+          <tbody>
+            {points.map((point) => (
+              <tr key={point.delta_pct} className="border-t border-relume-border">
+                <td className="px-3 py-2">{point.delta_pct > 0 ? `+${point.delta_pct}%` : `${point.delta_pct}%`}</td>
+                <td className="px-3 py-2 font-mono">{inr(point.grand_total)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+function CityComparisonBars({ rows }: { rows: CityRow[] }) {
+  const ranked = [...rows].sort((a, b) => b.cost.grand_total - a.cost.grand_total)
+  const max = Math.max(...ranked.map((row) => row.cost.grand_total), 1)
+  return (
+    <div data-dynamic-graphic="city-cost-ranking" className="space-y-3" role="img" aria-label="Ranked city cost totals">
+      {ranked.map((row) => (
+        <div key={row.city}>
+          <div className="mb-1 flex items-baseline justify-between gap-3 text-xs">
+            <span className="font-semibold text-relume-ink">{row.city}</span>
+            <span className="font-mono text-relume-muted">{inr(row.cost.grand_total)}</span>
+          </div>
+          <div className="h-2 overflow-hidden rounded-full bg-relume-surface-muted">
             <div
-              className="w-full rounded-t bg-relume-ink"
-              style={{ height: `${Math.max((p.grand_total / max) * 100, 2)}%` }}
+              className="analysis-horizontal-bar h-full rounded-full bg-relume-command"
+              style={{ width: `${Math.max((row.cost.grand_total / max) * 100, 2)}%` }}
               aria-hidden="true"
             />
           </div>
-          <span className="text-[11px] text-relume-muted">{p.delta_pct > 0 ? `+${p.delta_pct}%` : `${p.delta_pct}%`}</span>
-          <span className="text-[10px] text-relume-muted">{inr(p.grand_total)}</span>
         </div>
       ))}
     </div>
@@ -211,7 +255,14 @@ export default function AnalysisTab({ projectId }: { projectId: string }) {
       </div>
 
       <div className="rounded-relume border border-relume-border bg-relume-surface p-relume-card">
-        <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">City comparison</h3>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">City comparison</h3>
+          <Chip label="INDICATIVE" />
+        </div>
+        <p className="mt-1 text-xs text-relume-muted">Ranked cost totals are paired with the exact table values below.</p>
+        <div className="mt-5">
+          <CityComparisonBars rows={data.city_comparison} />
+        </div>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[420px] text-sm">
             <thead>

@@ -1,0 +1,3067 @@
+{
+  "phase": "after",
+  "generatedAt": "2026-09-04T08:15:05.726Z",
+  "routes": 87,
+  "viewports": [
+    {
+      "name": "desktop-1366",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "name": "mobile-375",
+      "width": 375,
+      "height": 812
+    }
+  ],
+  "combinations": 174,
+  "failingStatuses": 0,
+  "overflowFailures": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "honestyLabelCount": 224,
+  "results": [
+    {
+      "route": "/",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 1,
+      "revealTargets": 6
+    },
+    {
+      "route": "/about",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 4
+    },
+    {
+      "route": "/about/timeline",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/account",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/admin/leads",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/boq-pro",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/careers",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 3
+    },
+    {
+      "route": "/contact",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/dashboard",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 5
+    },
+    {
+      "route": "/demo",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/documentation",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 3
+    },
+    {
+      "route": "/forgot-password",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/get-started",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/login",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 1,
+      "revealTargets": 0
+    },
+    {
+      "route": "/partners",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/pricing",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "TEST MODE",
+        "TEST MODE",
+        "TEST MODE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/privacy",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/products",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 1
+    },
+    {
+      "route": "/products/boq-pro",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/buildos",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/communitybuild",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 6
+    },
+    {
+      "route": "/products/designstudio",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/investflow",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 6
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/procurehub",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 6
+    },
+    {
+      "route": "/products/promarket",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/structura",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 8
+    },
+    {
+      "route": "/products/transact",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "TEST MODE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "TEST MODE",
+        "TEST MODE",
+        "TEST MODE",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/project-workspace",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 6
+    },
+    {
+      "route": "/resources",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 2
+    },
+    {
+      "route": "/resources/blog",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 2
+    },
+    {
+      "route": "/resources/blog/advanced-ulpin",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/cement-storage-humidity",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/construction-insurance-101",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/formwork-pressure-calculation",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/foundation-retrofit-costs",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/gst-for-builders",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/home-loan-margins",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/is-1200-vs-cesmm4",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/monsoon-concreting",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/monsoon-structural-checks",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/piling-quality-gates",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/prefab-connection-detailing",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/procurement-terms",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/rera-compliance",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/seismic-retrofit-timeline",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/site-safety-checklist",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/steel-price-hedges",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/tunnel-form-construction",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/ulin-explained",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/weld-inspection-basics",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 2
+    },
+    {
+      "route": "/resources/case-studies/airport-cargo-bay",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/clinic-retrofit",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/contractor-fleet",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/greenfield-developer",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/infrastructure-contractor",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/library-retrofit",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/municipal-market-retrofit",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/self-build-family",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/concrete-pour-readiness",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/crane-lift-plan",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/crane-maintenance",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/handover-documents",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/material-receiving",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/retrofit-handover",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/scaffold-handover",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/structural-punch-list",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/events",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/events/webinars-2026",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/faq",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/glossary",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/guides",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/guides/contractor-onboarding",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/guides/monsoon-preparedness-audit",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/guides/site-handover-playbook",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/is-code-guides",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 3
+    },
+    {
+      "route": "/resources/podcasts",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/reports",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/templates",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/videos",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/webinars",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/whitepapers",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/signup",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 1
+    },
+    {
+      "route": "/terms",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 1366,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 1,
+      "revealTargets": 6
+    },
+    {
+      "route": "/about",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 4
+    },
+    {
+      "route": "/about/timeline",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/account",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/admin/leads",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/boq-pro",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/careers",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 3
+    },
+    {
+      "route": "/contact",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/dashboard",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 5
+    },
+    {
+      "route": "/demo",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/documentation",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 3
+    },
+    {
+      "route": "/forgot-password",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/get-started",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/login",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 1,
+      "revealTargets": 0
+    },
+    {
+      "route": "/partners",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/pricing",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "TEST MODE",
+        "TEST MODE",
+        "TEST MODE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/privacy",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/products",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 1
+    },
+    {
+      "route": "/products/boq-pro",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/buildos",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/communitybuild",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 6
+    },
+    {
+      "route": "/products/designstudio",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/investflow",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 6
+    },
+    {
+      "route": "/products/landintel",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/procurehub",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 6
+    },
+    {
+      "route": "/products/promarket",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/products/structura",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "ROADMAP",
+        "INDICATIVE",
+        "INDICATIVE",
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 8
+    },
+    {
+      "route": "/products/transact",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "TEST MODE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "INDICATIVE",
+        "TEST MODE",
+        "TEST MODE",
+        "TEST MODE",
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 7
+    },
+    {
+      "route": "/project-workspace",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 6
+    },
+    {
+      "route": "/resources",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 2
+    },
+    {
+      "route": "/resources/blog",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 2
+    },
+    {
+      "route": "/resources/blog/advanced-ulpin",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/cement-storage-humidity",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/construction-insurance-101",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/formwork-pressure-calculation",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/foundation-retrofit-costs",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/gst-for-builders",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/home-loan-margins",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/is-1200-vs-cesmm4",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/monsoon-concreting",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/monsoon-structural-checks",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/piling-quality-gates",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/prefab-connection-detailing",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/procurement-terms",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/rera-compliance",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/seismic-retrofit-timeline",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/site-safety-checklist",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/steel-price-hedges",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/tunnel-form-construction",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/ulin-explained",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/blog/weld-inspection-basics",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 2
+    },
+    {
+      "route": "/resources/case-studies/airport-cargo-bay",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/clinic-retrofit",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/contractor-fleet",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/greenfield-developer",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/infrastructure-contractor",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/library-retrofit",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/municipal-market-retrofit",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/case-studies/self-build-family",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/concrete-pour-readiness",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/crane-lift-plan",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/crane-maintenance",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/handover-documents",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/material-receiving",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/retrofit-handover",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/scaffold-handover",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/checklists/structural-punch-list",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/events",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/events/webinars-2026",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/faq",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/glossary",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/guides",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/guides/contractor-onboarding",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/guides/monsoon-preparedness-audit",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/guides/site-handover-playbook",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/is-code-guides",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 3
+    },
+    {
+      "route": "/resources/podcasts",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/reports",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/templates",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/tools",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "INDICATIVE"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/videos",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/webinars",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [
+        "ROADMAP"
+      ],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/resources/whitepapers",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    },
+    {
+      "route": "/signup",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 1
+    },
+    {
+      "route": "/terms",
+      "viewport": {
+        "name": "mobile-375",
+        "width": 375,
+        "height": 812
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "documentWidth": 375,
+      "horizontalOverflow": 0,
+      "honestyLabels": [],
+      "dynamicGraphics": 0,
+      "revealTargets": 0
+    }
+  ]
+}

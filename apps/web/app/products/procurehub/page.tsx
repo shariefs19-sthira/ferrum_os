@@ -3,7 +3,7 @@ import Eyebrow from '../../../components/sections/Eyebrow'
 import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
-import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
+import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 
 // W2-345: ProcureHub has zero shipped tool — no material requests, purchase
 // orders, delivery tracking, supplier directory, bill reconciliation or
@@ -46,22 +46,21 @@ export default function ProcureHubPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <Eyebrow>ProcureHub</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
-              Get materials on site, on time
+              Model a material request before supplier workflows arrive
             </SectionHeading>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
               <li>BOQ-driven requests — roadmap</li>
               <li>Delivery tracking — roadmap</li>
               <li>Supplier directory — roadmap</li>
             </ul>
-            <div className="mt-8">
-              <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
-            </div>
           </div>
-          <ProductHeroPreview product="procurehub" />
+          <div className="order-first min-w-0 lg:order-none">
+            <SteppedForecastModule product="procurehub" />
+          </div>
         </div>
       </SectionShell>
 

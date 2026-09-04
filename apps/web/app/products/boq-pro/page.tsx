@@ -4,7 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
-import ThreeModeCalculator from '../../../components/sections/ThreeModeCalculator'
+import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 
 // W2-360 BOQ_PAGE_TRUTH: applies the W2-345 claim-truth convention to this
 // page's remaining sections — it never got that pass (unlike the other 8
@@ -33,21 +33,21 @@ import ThreeModeCalculator from '../../../components/sections/ThreeModeCalculato
 //   offers — worded below to say so precisely rather than claim no GST/
 //   export logic exists on the platform at all, which would be false.
 const featureItems = [
+  { title: 'Cost split scenario (live)', body: 'Adjust built-up area and sample grade to see material, labour and GST components update immediately.' },
   { title: 'City-wise pricing (live)', body: 'Rates tuned to your city, seeded across Bengaluru, Pune and Chennai today.' },
   { title: 'Rate band breakdown (live)', body: 'See the P25/P50/P75 band and a role-aware number behind every estimate.' },
   { title: 'Quantity take-off', body: 'Automatically measure quantities from your design — not yet built.' },
   { title: 'Brand-wise materials', body: 'Choose UltraTech, Tata, JSW and more — not yet built.' },
   { title: 'GST-compliant BOQ', body: 'Not from this rate calculator — a separate take-off tool applies GST, but it isn’t connected to this page.' },
-  { title: 'Excel/PDF export', body: 'Not from this rate calculator — a separate take-off tool has print/PDF export, but it isn’t connected to this page.' },
 ]
 
 // Rewritten to describe the real three-mode-calculator workflow instead
 // of the unbuilt design-import-and-auto-take-off flow it previously
 // claimed.
 const howItWorksSteps = [
-  { title: 'Pick a category and city', body: 'Choose a material or labor category and your city.' },
-  { title: 'Choose a mode', body: 'Government reference, your own custom rate, or the Ferrum-weighted band.' },
-  { title: 'Get your rate band', body: 'See the P25/P50/P75 band and a role-aware number — not a full itemized BOQ.' },
+  { title: 'Set built-up area', body: 'Use the labeled slider; the same area remains visible in metric and Indian units.' },
+  { title: 'Choose a sample grade', body: 'Move the grade control to apply the disclosed sample multiplier.' },
+  { title: 'Review the split', body: 'See material, labour and 18% GST update live — an indicative scenario, not a measured BOQ.' },
 ]
 
 // All three cross-product integrations were unbacked: DesignStudio has no
@@ -86,11 +86,11 @@ const pricingPlans = [
 const faqItems = [
   {
     question: 'What can I do on BOQ Pro today?',
-    answer: 'Compute a rate band for a material or labor category, in one of three modes: government reference, your own custom assumption, or the Ferrum-weighted band across govt/market/user sources. City-wise pricing is seeded for Bengaluru, Pune and Chennai.',
+    answer: 'Use the hero to model an indicative material, labour and GST split from built-up area and a sample grade. The calculation reuses the existing custom assumptions and grade multipliers; it is not an automated take-off or quotation.',
   },
   {
     question: 'Is automated quantity take-off available yet?',
-    answer: 'Not yet. There is no design-import or automated measurement — the tool computes a rate for a category and quantity you enter yourself.',
+    answer: 'Not yet. There is no design import or automated measurement; the hero models a scenario from the area and sample grade you select.',
   },
   {
     question: 'Which material brands are supported?',
@@ -98,7 +98,7 @@ const faqItems = [
   },
   {
     question: 'Is the BOQ GST-compliant?',
-    answer: 'Not from this rate calculator — GST is not part of the band it computes. The separate BOQ Pro take-off tool does apply a flat 18% GST to its line-item subtotal, but that tool is not connected to this page or its rate engine.',
+    answer: 'The hero scenario transparently adds a flat 18% GST to its sample material-and-labour subtotal. This remains indicative and is not a measured or tax-certified BOQ.',
   },
   {
     question: 'Can I export my BOQ?',
@@ -111,28 +111,24 @@ export default function BoqProMarketingPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <Eyebrow>BOQ Pro</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
-              Know exactly what your build will cost
+              Model a cost scenario before take-off
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              A three-mode rate calculator — government reference, custom, and the Ferrum-band
-              engine — with city-wise pricing today. Automated take-off from your design,
-              brand-wise materials, and GST-compliant bills are on the roadmap.
+              Explore a transparent built-up-area scenario using the existing custom-rate math.
+              Automated take-off, measured quantities, and brand-specific market rates remain on the roadmap.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>City-wise rate calculator (live)</li>
+              <li>Live custom-rate scenario math</li>
               <li>Automated quantity take-off — roadmap</li>
               <li>Brand-wise materials — roadmap</li>
             </ul>
-            <div className="mt-8">
-              <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
-            </div>
           </div>
-          <div className="order-first md:order-none">
-            <ThreeModeCalculator />
+          <div className="order-first min-w-0 lg:order-none">
+            <SteppedForecastModule product="boq-pro" />
           </div>
         </div>
       </SectionShell>
@@ -143,8 +139,8 @@ export default function BoqProMarketingPage() {
           <Eyebrow>Features</Eyebrow>
           <SectionHeading className="mt-4">What&apos;s live, and what&apos;s next</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            A real three-mode rate calculator today. Design import, brand-wise pricing, and a
-            connected GST/export flow are on the roadmap.
+            A live, transparent cost-split scenario today. Design import, automated take-off,
+            brand-wise pricing and connected exports remain on the roadmap.
           </p>
         </div>
         <div className="mt-12">
@@ -156,9 +152,9 @@ export default function BoqProMarketingPage() {
       <SectionShell>
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>How it works</Eyebrow>
-          <SectionHeading className="mt-4">From category to a rate band</SectionHeading>
+          <SectionHeading className="mt-4">From built-up area to a cost split</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            Three steps between a category you pick and a rate band you can use.
+            Three controls-and-results steps, with every assumption exposed.
           </p>
         </div>
         <div className="mt-12">

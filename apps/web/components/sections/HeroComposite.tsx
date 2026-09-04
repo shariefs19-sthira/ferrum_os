@@ -74,10 +74,45 @@ export default function HeroComposite() {
     `₹${n.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`
 
   return (
-    <div className="rounded-relume border border-relume-border bg-relume-surface-secondary p-4 sm:p-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-muted">
-        Sample project surfaces
-      </p>
+    <div
+      data-dynamic-graphic="connected-system-map"
+      className="overflow-hidden rounded-relume border border-relume-border bg-relume-surface-secondary p-4 sm:p-6"
+    >
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-relume-muted">
+          Sample project surfaces
+        </p>
+        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-relume-steel">
+          Fe&middot;26 / system map
+        </span>
+      </div>
+
+      <div className="command-surface mt-4 rounded-relume border p-3">
+        <svg
+          viewBox="0 0 640 104"
+          role="img"
+          aria-labelledby="system-map-title system-map-description"
+          className="h-auto w-full"
+        >
+          <title id="system-map-title">Ferrum OS connected workflow</title>
+          <desc id="system-map-description">Land, design, build, and invest product groups connected in sequence.</desc>
+          <path className="system-path" d="M70 52H570" fill="none" stroke="#94A3B8" strokeWidth="2" />
+          {[
+            { x: 70, label: 'LAND', accent: '#FF9933' },
+            { x: 237, label: 'DESIGN', accent: '#FFFFFF' },
+            { x: 403, label: 'BUILD', accent: '#FFFFFF' },
+            { x: 570, label: 'INVEST', accent: '#138808' },
+          ].map((node, index) => (
+            <g key={node.label} className="system-node" style={{ animationDelay: `${index * 40}ms` }}>
+              <circle cx={node.x} cy="52" r="22" fill="#0B1F3A" stroke={node.accent} strokeWidth="2" />
+              <circle cx={node.x} cy="52" r="5" fill={node.accent} />
+              <text x={node.x} y="94" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="700" letterSpacing="1.5">
+                {node.label}
+              </text>
+            </g>
+          ))}
+        </svg>
+      </div>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <PreviewCard product="LandIntel" href="/products/landintel">

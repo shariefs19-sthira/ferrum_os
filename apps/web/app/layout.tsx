@@ -1,5 +1,5 @@
 ﻿import { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { DM_Sans, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import Footer from '../components/Footer'
 import SiteHeader from '../components/SiteHeader'
@@ -8,8 +8,10 @@ import NewsletterSignup from '../components/NewsletterSignup'
 import CookieConsent from '../components/CookieConsent'
 import Concierge from '../components/Concierge'
 import { SITE_BASE_URL, SOCIAL_CARD_ALT, SOCIAL_CARD_PATH } from '../lib/siteConfig'
+import MotionObserver from '../components/MotionObserver'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans', display: 'swap' })
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' })
 
 export const metadata: Metadata = {
   manifest: '/manifest.webmanifest',
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${dmSans.variable} ${spaceGrotesk.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'))" }} />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -63,6 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         meaningless while it renders above the content it belongs under.
       */}
       <body>
+        <MotionObserver />
         <JsonLd />
         <SiteHeader />
         {children}
