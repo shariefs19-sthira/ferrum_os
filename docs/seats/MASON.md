@@ -177,6 +177,11 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
 - MASON's piece of W-40 SUTRA_SIDE_PANEL (2026-09-04, split with
   RIVET): mounting the existing W-27 chat engine inside the new SUTRA
   panel location — not a new chat implementation, a relocation.
+- MASON's UI piece of W-43 MATERIALS_CATALOG (2026-09-04, split with
+  CRANE's data): the catalog item list, the public coverage manifest,
+  and the missing-item request loop. MASON also owns W-44
+  BOQ_MEASURED, which reads W-43 only per its ONE-LIBRARY note — no
+  second catalog maintained.
 - MASON also owns W-35 PHOTO_ENTRY integration (2026-09-04): a
   no-ULPIN workspace entry — upload a photo of a plot/building, a
   browser-side reconstruction (method decided by CRANE's W-35a

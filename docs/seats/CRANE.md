@@ -224,6 +224,12 @@
   and Vaastu — labeled traditional practice, never as code); the
   manifest shows seeded vs. roadmap topics honestly, matching the
   actual fact count per topic, not a hand-typed claim.
+- CRANE's data piece of W-43 MATERIALS_CATALOG (2026-09-04, split with
+  MASON's UI): the catalog data module itself, per the ONE-LIBRARY
+  architecture note — commercial (brands, dated price + source chip,
+  vendor-API slot), technical (IS-code refs), and parametric
+  (dims/performance) fields for every item, the single source of truth
+  DesignStudio/Structura/W-44 all read from, never duplicated.
 - RULE 42 (Seat-push standing, operator approval 2026-09-04): CRANE
   pushes its own branches without per-branch approval; this does not
   touch CRANE's separate standing deploy authority (RULE 40), which
