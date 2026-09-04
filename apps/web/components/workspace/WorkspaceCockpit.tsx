@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { generateStudioPlan } from '../../lib/plan-gen'
 import { checkStructuralLive } from '../../lib/studio/structuralLive'
 import type { StudioParameters, StudioView, WorkspaceExtract, WorkspaceProvenance } from '../../lib/types'
+import { getRulesetForState } from '../../lib/parcelIntel/sampleRulesets'
+import type { LandUse } from '../../lib/parcelIntel/types'
 import { convertArea, metresAndFeet } from '../../lib/units'
 import ExportBar from './ExportBar'
 import PlanElevationView from './PlanElevationView'
@@ -68,18 +70,24 @@ type LiveMetrics = {
   provenance: WorkspaceProvenance
 }
 
+const optionStages = ['use', 'floors', 'massing', 'rooms', 'compliance'] as const
+type OptionStage = typeof optionStages[number]
+
 export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetricsChange?: (metrics: LiveMetrics) => void }) {
   const [parameters, setParameters] = useState<StudioParameters>({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 })
   const [view, setView] = useState<StudioView>('space')
   const [activeFloor, setActiveFloor] = useState(1)
   const [primaryAreaUnit, setPrimaryAreaUnit] = useState<typeof areaUnits[number]>('sqm')
+  const [showFineControls, setShowFineControls] = useState(false)
+  const [commandResult, setCommandResult] = useState('Choose an option or describe a change above.')
+  const [optionStage, setOptionStage] = useState<OptionStage>('use')
+  const [landUse, setLandUse] = useState<LandUse>('Residential')
   const plan = useMemo(() => generateStudioPlan(parameters), [parameters])
   const activeRooms = plan.rooms.filter((room) => room.floor === activeFloor)
   const grossArea = plan.buildingWidthM * plan.buildingDepthM * plan.floors
   const governingSpanM = Math.max(...activeRooms.map((room) => room.widthM), 0)
   const structural = checkStructuralLive([{ id: 'active-floor-beam', kind: 'beam', span_m: governingSpanM, depth_mm: 300, width_mm: 300, udl_kn_per_m: 8, support: 'simple' }])
   const structuralPass = structural.results.every((result) => result.checks.every((check) => check.pass))
-
   // Battery-fail (2): a tool mutate (any Parameter slider below) must
   // recompute the bottom extract panel live. onLiveMetricsChange runs
   // from real derived state (plan/grossArea/governingSpanM/
@@ -99,7 +107,11 @@ export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetric
       provenance: { source: 'Design cockpit (deterministic plan generator)', freshness: 'Live', status: 'INDICATIVE' },
     })
   }, [plan, grossArea, governingSpanM, structuralPass, onLiveMetricsChange])
-
+  const ruleset = getRulesetForState('Karnataka')
+  const landRule = ruleset?.land_use_rules[landUse]
+  const coverageArea = plan.plotWidthM * plan.plotDepthM * ((landRule?.max_coverage_pct ?? 60) / 100)
+  const farArea = plan.plotWidthM * plan.plotDepthM * (landRule?.far ?? 1.5)
+  const maxFloors = Math.max(1, Math.min(Math.floor((landRule?.max_height_m ?? 15) / plan.floorHeightM), Math.floor(farArea / Math.max(coverageArea, 1))))
   const update = (key: keyof StudioParameters, value: number) => {
     setParameters((current) => ({ ...current, [key]: value }))
     if (key === 'floors') setActiveFloor((floor) => Math.min(floor, value))
@@ -107,6 +119,44 @@ export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetric
   useEffect(() => {
     const stored = window.localStorage.getItem('ferrum-area-unit')
     if (areaUnits.some((unit) => unit === stored)) setPrimaryAreaUnit(stored as typeof areaUnits[number])
+  }, [])
+  useEffect(() => {
+    const openAdvanced = () => setShowFineControls(true)
+    window.addEventListener('ferrum:workspace-advanced', openAdvanced)
+    return () => window.removeEventListener('ferrum:workspace-advanced', openAdvanced)
+  }, [])
+  useEffect(() => {
+    const applyCommand = (event: Event) => {
+      const command = String((event as CustomEvent<string>).detail ?? '').trim().toLowerCase()
+      if (!command) return
+      const amount = Number(command.match(/\d+(?:\.\d+)?/)?.[0])
+      if (/add|increase/.test(command) && /floor|storey|level/.test(command)) {
+        setParameters((current) => ({ ...current, floors: Math.min(24, current.floors + (Number.isFinite(amount) ? amount : 1)) }))
+        setCommandResult('Floor count increased. Massing and quantities updated.')
+      } else if (/setback/.test(command) && Number.isFinite(amount)) {
+        setParameters((current) => ({ ...current, setbackM: Math.max(0, amount) }))
+        setCommandResult(`Setback set to ${amount} m; feet and area outputs reconciled.`)
+      } else if (/plot/.test(command) && /width/.test(command) && Number.isFinite(amount)) {
+        setParameters((current) => ({ ...current, plotWidthM: Math.max(8, Math.min(80, amount)) }))
+        setCommandResult(`Plot width set to ${amount} m.`)
+      } else if (/plan|top/.test(command)) {
+        setView('plan')
+        setCommandResult('Plan view opened.')
+      } else if (/front/.test(command)) {
+        setView('front-elevation')
+        setCommandResult('Front elevation opened.')
+      } else if (/side|east/.test(command)) {
+        setView('side-elevation')
+        setCommandResult('Side elevation opened.')
+      } else if (/3d|space|massing|axon/.test(command)) {
+        setView('space')
+        setCommandResult('Interactive 3D massing opened.')
+      } else {
+        setCommandResult('Command not recognized. Try “add a floor”, “set setback 3”, or “show plan”.')
+      }
+    }
+    window.addEventListener('ferrum:workspace-command', applyCommand)
+    return () => window.removeEventListener('ferrum:workspace-command', applyCommand)
   }, [])
   const updateAreaUnit = (unit: typeof areaUnits[number]) => {
     setPrimaryAreaUnit(unit)
@@ -125,10 +175,11 @@ export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetric
           IS 456 {structuralPass ? 'PASS' : 'REVIEW'} · {format(governingSpanM, 2)} m span
         </span>
         <span className="text-xs font-semibold text-relume-success">Autosaved locally</span>
+        {showFineControls && <button type="button" onClick={() => setShowFineControls(false)} className="min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command hover:bg-relume-surface-secondary">Close advanced</button>}
       </header>
 
-      <div className="grid min-w-0 xl:grid-cols-[17rem_minmax(0,1fr)_18rem]">
-        <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Design parameters">
+      <div className={`grid min-w-0 ${showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+        {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
           <Parameter label="Plot depth" value={parameters.plotDepthM} min={10} max={120} step={0.5} display={<DualLength value={parameters.plotDepthM} />} onChange={(value) => update('plotDepthM', value)} />
@@ -142,9 +193,9 @@ export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetric
             </label>
             <AreaReadout squareMetres={plan.plotWidthM * plan.plotDepthM} primary={primaryAreaUnit} />
           </div>
-        </aside>
+        </aside>}
 
-        <div className="order-1 min-w-0 bg-[#E9EEF1] xl:order-none">
+        <div className="relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none">
           <div className="flex flex-wrap gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
             {views.map((candidate) => (
               <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => setView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
@@ -158,6 +209,14 @@ export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetric
                 </select>
               </label>
             )}
+          </div>
+          <div className="absolute left-3 right-3 top-16 z-20 flex items-center gap-2 overflow-x-auto rounded-full border border-white/40 bg-relume-command/90 p-2 shadow-xl backdrop-blur-sm md:left-1/2 md:right-auto md:max-w-[calc(100%-2rem)] md:-translate-x-1/2" aria-label={`${optionStage} options`} data-option-chip-flow data-option-stage={optionStage}>
+            <span className="shrink-0 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-accent">{optionStage} · INDICATIVE</span>
+            {optionStage === 'use' && (['Residential', 'Commercial', 'Mixed Use'] as LandUse[]).map((choice) => <button key={choice} type="button" onClick={() => { const rule = ruleset?.land_use_rules[choice]; setLandUse(choice); if (rule) update('setbackM', rule.min_setback_m); setOptionStage('floors'); setCommandResult(`${choice} selected from Bengaluru 2026.1-SAMPLE ruleset.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
+            {optionStage === 'floors' && Array.from({ length: maxFloors }, (_, index) => index + 1).map((floors) => <button key={floors} type="button" onClick={() => { update('floors', floors); setOptionStage('massing'); setCommandResult(`${floors} floor${floors === 1 ? '' : 's'} selected; sample FAR and height caps allow up to ${maxFloors}.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{floors} floor{floors === 1 ? '' : 's'}</button>)}
+            {optionStage === 'massing' && ['Compact', 'Balanced', 'Slender'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', Math.max(landRule?.min_setback_m ?? 1.5, (landRule?.min_setback_m ?? 1.5) + index * 0.5)); setOptionStage('rooms'); setCommandResult(`${choice} massing applied within the sample setback floor.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
+            {optionStage === 'rooms' && ['Social-first', 'Balanced', 'Private-first'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('plotWidthM', Math.max(8, Math.min(80, parameters.plotWidthM + index - 1))); setOptionStage('compliance'); setCommandResult(`${choice} room split applied to the deterministic plan proportions.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
+            {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage('use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>
           <div className="h-[32rem] min-h-[24rem]">
             {view === 'space' ? <Space3D plan={plan} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} />}
@@ -181,6 +240,7 @@ export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetric
           <p className="mt-6 text-xs leading-5 text-relume-muted">INDICATIVE — deterministic rectangular zoning only. It does not resolve structure, circulation compliance, daylight, Vaastu, services, or authority approval.</p>
         </aside>
       </div>
+      <p className="border-t border-relume-border bg-relume-surface-secondary px-4 py-2 text-xs text-relume-muted" aria-live="polite" data-canvas-flow-result>{commandResult}</p>
       <ExportBar plan={plan} />
     </section>
   )

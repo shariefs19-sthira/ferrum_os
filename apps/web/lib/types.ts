@@ -26,7 +26,7 @@ export const workspaceTools = [
 ] as const
 
 export type WorkspaceTool = (typeof workspaceTools)[number]
-export type WorkspaceMoreAction = "activity" | "export" | "help"
+export type WorkspaceMoreAction = "activity" | "export" | "help" | "advanced"
 
 export type WorkspaceToolCallbacks = {
   onProductChange: (product: WorkspaceProduct) => void
