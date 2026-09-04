@@ -4,6 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
+import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 
 // W2-345: cash-flow modeling and IRR/NPV are shipped and real
 // (IrrNpvModeler below, lib/finance/irrNpv.ts, indicative labeled). Yield
@@ -46,7 +47,7 @@ export default function InvestFlowPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1.45fr)] lg:items-start">
           <div>
             <Eyebrow>InvestFlow</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -59,7 +60,9 @@ export default function InvestFlowPage() {
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
-            <SteppedForecastModule product="investflow" />
+            <ProductCockpitPreview product="investflow" label="InvestFlow">
+              <SteppedForecastModule product="investflow" />
+            </ProductCockpitPreview>
           </div>
         </div>
       </SectionShell>
