@@ -135,7 +135,12 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   operator's own amendment), reference docs/UX_FLOW.md phase (3). Its
   cited dependency W-21 is not yet a seeded row — MASON should not
   block on a dependency that doesn't exist; flag it if reached before
-  W-21 is defined.
+  W-21 is defined. MASON is also an eligible seat (alongside CRANE, for
+  W-24, and alongside RIVET, for W-25) on the new compliance/permits
+  pair (2026-09-04): W-24 COMPLIANCE_ENGINE (deterministic parcel +
+  building-type ruleset engine off the real `2026.1-SAMPLE` set) and
+  W-25 PERMISSIONS_TABS (DILIGENCE + PERMITS cockpit tabs, dep W-24) —
+  whichever eligible seat pulls first per RULE 35(2) claims each.
 - RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): MASON
   now also pulls live-observation rows the operator reports directly
   (currently W-12 keyboard fit-model control, W-13 view-state
@@ -152,6 +157,10 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   watchdog and, failing that, by a Claude seat noticing the silence
   (Claude-revives-Codex, secondary); alerts route only to the one
   operator channel named in docs/FLEET_WATCH.md.
+- RULE 39 (Self-contained relays + pre-adjudication, adopted
+  2026-09-04): a relay's inline verbatim text is authority even when
+  its cited row/rule isn't on disk yet — MASON executes unambiguous
+  intent, flags the citation gap, and continues rather than stopping.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

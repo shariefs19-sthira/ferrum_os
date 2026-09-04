@@ -78,7 +78,10 @@ being experimental:
   (RULE 38 — permanent, adopted 2026-09-04; PI keeps a heartbeat line
   in docs/RESUME_PI.md, relies on the OS watchdog primary/
   Claude-revives-Codex secondary revival order, and alerts route only
-  to the one operator channel in docs/FLEET_WATCH.md) rules as every
+  to the one operator channel in docs/FLEET_WATCH.md), and self-
+  contained-relays-plus-pre-adjudication (RULE 39 — adopted
+  2026-09-04; unambiguous inline intent is executable even
+  citation-absent — execute, flag the gap, continue) rules as every
   other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.

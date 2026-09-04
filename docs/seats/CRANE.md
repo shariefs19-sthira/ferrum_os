@@ -148,7 +148,16 @@
   passes clean, the row becomes wiring the existing writer into
   ExportBar (W-06) instead of a rewrite); marks DONE with SHA + live
   proof or STUCK with an OPEN-FOR-OPERATOR line, then immediately
-  pulls next rather than waiting on the conductor. CRANE is the sole
+  pulls next rather than waiting on the conductor. **W-26 ROUTING_FLIP
+  (2026-09-04) is TOP OF BOARD, PRIORITY-JUMP status — nothing outranks
+  it, per the operator; CRANE claims and pulls it ahead of every other
+  CRANE-eligible READY row:** `/project-workspace` renders the cockpit
+  immediately (preview session auto-created, all five sketch regions
+  visible in one viewport at 1366+375); the project list demotes to
+  `/project-workspace/projects`. CRANE also has W-24 COMPLIANCE_ENGINE
+  queued (eligible seat: CRANE or MASON, whichever pulls first) — a
+  deterministic parcel+building-type→permissions ruleset engine sourced
+  from the real, existing `2026.1-SAMPLE` ruleset. CRANE is the sole
   editor of `lib/types.ts` while W-03 is CLAIMED, per RULE 35(5).
 - RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): work
   never stops on a live-observation row either — CRANE stops only on
@@ -170,6 +179,14 @@
   specifically (CRANE itself has no Codex-revival role since it's a
   Claude seat); alerts route only to the one operator channel named in
   docs/FLEET_WATCH.md.
+- RULE 39 (Self-contained relays + pre-adjudication, adopted
+  2026-09-04): a relay's inline verbatim text is authority even when
+  its cited row/rule isn't on disk yet — CRANE executes unambiguous
+  intent, flags the citation gap, and continues rather than stopping.
+  Foreseeable blockers get pre-adjudicated in the relay itself: missing
+  row → proceed on inline text; missing dep → pull next; ambiguous
+  scope → narrowest reading; a step needing an unauthorized production
+  write → hold that step only, flag it.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

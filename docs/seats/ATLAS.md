@@ -160,3 +160,7 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   turn; relies on the OS watchdog as primary reviver and
   Claude-revives-Codex as secondary if MASON/RIVET go silent; alerts
   route only to the one operator channel named in docs/FLEET_WATCH.md.
+- RULE 39 (Self-contained relays + pre-adjudication, adopted
+  2026-09-04): a relay's inline verbatim text is authority even when
+  its cited row/rule isn't on disk yet — ATLAS executes unambiguous
+  intent, flags the citation gap, and continues rather than stopping.
