@@ -650,11 +650,30 @@ status check.
 are expected active during which windows, and the overnight-autonomy
 window per RULE 31) is logged once per day in `docs/FLEET_WATCH.md`,
 not re-derived from memory each time.
-(4) **One alert channel.** Every fleet alert — a seat down, a revival
-triggered, a watch-schedule gap — routes to exactly one operator
-channel, named in `docs/FLEET_WATCH.md`. No seat improvises a second
-channel for alerts; RULE 37's single-inbox principle for questions
-extends here to alerts.
+(4) **One alert channel — ntfy (amended 2026-09-04, verbatim wins).**
+Every fleet alert — a seat down, a revival triggered, a watch-schedule
+gap — routes to exactly one operator-designated channel: **ntfy**, via
+the `FLEET_NTFY_TOPIC` environment variable. This supersedes RULE
+38(4)'s original "chat" default: the operator explicitly requested push
+alerts after the chat-only spec had already landed, and a later verbatim
+instruction wins over an earlier one it directly contradicts. Chat
+still stays reserved for the operator's own live-site observations
+feeding RULE 36's intake; `docs/OPERATOR_INBOX.md` still stays the only
+surface for seat-to-operator questions per RULE 37 — ntfy is for
+alerts specifically, not a third channel for either of those. No seat
+improvises a second alert channel or posts an alert to chat/inbox
+instead of ntfy.
+(5) **Watchdog probe + Codex-reviver — authorized (operator verbatim,
+2026-09-04).** The OS-level watchdog's probing of seat processes and
+the Claude-revives-Codex fallback in (1) are explicitly operator-
+authorized mechanisms, not an inferred or self-granted capability —
+recorded here so no future seat treats either as needing separate
+re-approval.
+(6) **Kill-switch retained.** Nothing in this rule or its ntfy amendment
+removes or weakens any existing kill-switch/stop mechanism for the
+watchdog or the revival paths. A human can still halt fleet watch
+entirely at any time; RULE 38 governs the *watching*, never a substitute
+for that override.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum

@@ -25,12 +25,42 @@ recently a seat was actually active.
 This schedule is logged once per day; SCRIBE updates the table above
 rather than re-deriving the watch pattern from memory each time.
 
-## One alert channel (RULE 38(4))
+## One alert channel — ntfy (RULE 38(4), amended 2026-09-04)
 
 All fleet alerts — a seat down, a revival triggered, a watch-schedule
-gap — route to exactly one operator channel: **chat with the operator**
-(the same channel through which RULE 36 observations and RULE 37
-answers already flow). No seat improvises a second channel. If a
-dedicated out-of-band channel (email, Slack, SMS) is stood up later,
-this file is the place that gets updated first, and this note is
-revised, not silently superseded.
+gap — route to exactly one operator-designated channel: **ntfy**, via
+the topic named by the `FLEET_NTFY_TOPIC` environment variable. This
+amends the original chat-only spec: the operator explicitly requested
+push alerts after that spec had already landed, and the later verbatim
+instruction wins over the earlier one it directly contradicts (RULE 27
+precedent — a later, more specific operator instruction supersedes an
+earlier general one it conflicts with).
+
+This does not change where anything else lives:
+- **Chat** — still the surface for the operator's own live-site
+  observations feeding RULE 36's intake. Not for alerts.
+- **`docs/OPERATOR_INBOX.md`** — still the only surface for seat-to-
+  operator *questions* per RULE 37. Not for alerts.
+- **ntfy (`FLEET_NTFY_TOPIC`)** — alerts only: seat-down, revival-fired,
+  watch-schedule-gap notifications. Nothing else routes here.
+
+No seat improvises a fourth channel, or substitutes chat/inbox for an
+ntfy alert.
+
+## Watchdog probe + Codex-reviver authorization (RULE 38(5))
+
+The OS-level watchdog's process probing, and the Claude-revives-Codex
+fallback described under Revival order above, are explicitly operator-
+authorized (verbatim, 2026-09-04) — not a capability any seat inferred
+or self-granted. Recorded here so this authorization doesn't need to be
+re-established or re-questioned by a future seat reading this file cold.
+
+## Kill-switch (RULE 38(6))
+
+A human-operable kill-switch for the watchdog and both revival paths is
+retained in full — nothing in RULE 38 or this ntfy amendment removes or
+weakens it. Fleet watch is something a human can halt entirely at any
+time; this file documents how the watching works, never a substitute
+for that override. (The kill-switch's own implementation — script,
+flag, or process — is out of scope for this doc; this note exists so
+its existence and precedence are on record.)
