@@ -99,3 +99,117 @@ Feature Conservation addendum, and `docs/LIVE_TOOLS_REGISTRY.md` was
 created so ATLAS's audit battery has a standing regression check
 against previously-live tools on every sweep/restyle row going forward
 — not just rows that explicitly claim to touch a named tool.
+
+### 2026-09-04 — W-20 IFC export bundle-safety gate: Step 1 (test), result FAIL
+
+**Seat:** CRANE.
+**Row ID:** W-20.
+**Landing SHA:** none — this is a test result, not a code landing. No
+production files were changed to run it (a throwaway entry point +
+throwaway `wrangler.jsonc` outside `apps/web`, deleted after the run).
+**RULE 25 live proof:** the test itself is the proof — a real
+`wrangler deploy --dry-run` bundle build, not a local guess or a read
+of the source. Reproducible command: point a minimal Worker entry at
+only `exportMassingToIfc` (never `countIfcGeometry`/`getWebIfc`) and
+run `wrangler deploy --dry-run --outdir=<dir>`.
+
+**Result: FAIL.** The build errors before it can even attempt
+tree-shaking:
+
+```
+X [ERROR] Could not resolve "module"
+    apps/web/lib/ifc-export.ts:298:41:
+      298 | const { createRequire } = await import('module')
+The package "module" wasn't found on the file system but is built into node.
+```
+
+Confirms the row's own stated risk exactly: `getWebIfc()`'s
+`createRequire`/`import('module')` call is not tree-shaken away even
+though the test entry point never imports or calls it — the bundler
+statically resolves dynamic `import()` expressions for every module
+reachable in the same *file*, not just the same call graph, so living
+in the same file as `exportMassingToIfc` is enough to break the bundle
+regardless of whether `getWebIfc` is ever actually invoked.
+
+**Per the row's own decision rule: test failed → MASON's original
+browser-only-writer proposal proceeds**, the reuse premise (wire the
+existing writer in as-is) is false as the file is currently structured.
+
+**Worth flagging for whoever picks this up, not a recommendation to
+skip the rewrite:** the failure is specifically caused by file
+*co-location*, not by the writer path (`exportMassingToIfc`,
+`StepWriter`, etc.) itself needing Node — that code is plain string
+generation with zero imports beyond `TextEncoder`. A much smaller fix
+than a full rewrite — splitting `getWebIfc()`/`countIfcGeometry()` into
+their own file, separate from the writer functions — would likely also
+pass this same test. Not verified (out of this row's envelope, which is
+test-only, no production changes until the gate result was known, and
+the result is now known: fail, proceed to MASON's proposal per the row
+text). Surfacing it so the decision-maker has the full picture, not
+just the binary pass/fail.
+
+**Friction:** none — the row's acceptance criteria were concrete and
+directly testable; no ambiguity about what "pass" or "fail" meant going
+in.
+**What went well:** the row anticipated the exact failure mode in
+advance (SCRIBE's own disk-read of `lib/ifc-export.ts` flagged
+`getWebIfc()`'s `createRequire` call as the risk to test, before any
+test was run) — the test confirmed a specifically-predicted risk rather
+than fishing for an unknown one.
+**Duration:** ~15 minutes (test entry point + config, one `wrangler
+deploy --dry-run` run, cleanup).
+
+### 2026-09-04 — Save-path 200 verified on live edge (provenance_freshness reconciliation, W2-400/W-01)
+
+**Seat:** CRANE.
+**Row ID:** W2-400 / W-01 (save-path/migration line).
+**Landing SHA:** none — this is a live-edge verification + a tracking-table
+reconciliation (`d1_migrations` row insert), not a code landing. No
+application code changed.
+**RULE 25 live proof (real, not assumed):**
+1. `PRAGMA table_info(saved_artifacts)` against remote D1 — confirmed 8
+   columns, both `provenance_source` and `provenance_freshness` present.
+   The operator's claim was true this time (earlier claims of the same
+   shape were checked and found false — this one checked out).
+2. Created a real throwaway test user via `POST /api/auth/signup`, then
+   `POST /api/auth/login` to obtain a real session cookie — not a
+   fabricated or assumed auth bypass (`requireUser()` is real
+   cookie-session auth with no bypass; checked the code first).
+3. `POST /api/workspace/artifacts` with that session cookie, body
+   including `provenance_source`/`provenance_freshness` — **200 OK**,
+   response echoed both fields with a real generated `id`.
+4. Independently confirmed the row actually persisted by querying
+   `saved_artifacts` directly by that `id` in remote D1 (not trusting the
+   200 response alone) — row present, both provenance fields correct,
+   real `created_at`.
+5. Cleaned up all test residue from production: deleted the test
+   artifact row, the session, the `verification_tokens` row (created by
+   signup's email-verify flow — first delete attempt on `users` hit a
+   real `FOREIGN KEY constraint failed`, traced to this table via
+   `migrations/0007_auth.sql`, not guessed), then the test user itself.
+   Re-verified no lingering rows.
+6. `d1_migrations` tracking table still showed `0013_artifact_provenance.sql`
+   as pending despite the schema already matching it exactly — the same
+   tracking-table/schema gap documented in the earlier
+   pre-RULE-36 reconciliation entry above, and exactly the follow-on that
+   entry flagged as not-yet-fixed. Reconciled the same verified way (row
+   already true in schema → insert the tracking row directly, do not
+   re-run the file, which would fail on `provenance_source` already
+   existing). `wrangler d1 migrations list --remote` now reports "No
+   migrations to apply" — fully reconciled, 13/13.
+
+**Result: PASS.** Save path is genuinely 200 on live edge, with a real
+authenticated write verified independently in D1, not just via the API
+response. ATLAS battery step 1 is unblocked on real evidence.
+
+**Friction:** the operator's PRAGMA claim had been wrong on the two prior
+checks this session and only came true on this one — worth noting for
+calibration, not a criticism, since every check was still verified
+independently before acting on it either way.
+**What went well:** having no login/session shortcut forced a genuine
+end-to-end test (real signup → real session → real write → real DB
+read) instead of a shallow unauthenticated ping that would have proven
+nothing about the actual code path that was previously 500ing;
+cleanup left zero residue in production.
+**Duration:** ~20 minutes (PRAGMA check, signup/login, write, DB
+verification, cleanup, migrations reconciliation, report).
