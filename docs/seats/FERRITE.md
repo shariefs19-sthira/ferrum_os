@@ -47,7 +47,13 @@ gap-filler:
   Workspace rows only; FERRITE has no row assigned regardless, per
   RULE 33(1)), and pull-queue (RULE 35 — permanent operating mode,
   adopted 2026-09-04; FERRITE has no row seeded on docs/TASK_BOARD.md
-  while it has no assigned envelope) as every other seat.
+  while it has no assigned envelope), and observe-refine-loop (RULE 36
+  — permanent, adopted 2026-09-04; live-site observations become
+  board rows via SCRIBE with no seat relay; FERRITE pulls none while
+  it has no board row), and timed-stop-single-inbox (RULE 37 —
+  permanent, adopted 2026-09-04; any operator question goes only to
+  docs/OPERATOR_INBOX.md, ~10-agent-minute timed stop then PARK-and-
+  pull-next) as every other seat.
 
 ## Assigned slice (2026-09-03, trial)
 None yet — no task has been assigned as of activation. Per RULE 33(1),

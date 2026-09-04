@@ -21,6 +21,10 @@ RULE 35(4): seats update this board only on DONE or STUCK.
 | W-08 | Intent API | new Worker route implementing WORKSPACE_SPEC.md §5's intent-phrase routing onto §4's contracts | CRANE | Each §5 intent phrase's mapped contract call succeeds against the deployed Worker; 400s behave per §4 | — | READY |
 | W-09 | Command bar UI | command-bar component consuming W-08's intent API | RIVET | A typed phrase from §5's list resolves to the correct §4 action, verified live; first-viewport screenshot per RULE 24 | W-08 | READY |
 | W-10 | ATLAS 8-step battery | none (audit only — no source envelope claimed) | ATLAS | Independent audit of W-07 and W-09 against WORKSPACE_SPEC.md §6's acceptance checklist; 8-step battery results logged on this row, no self-certification by CRANE/MASON/RIVET | W-07, W-09 | READY |
+| W-11 | Workspace shelf EMPTY-STATE | workspace shelf component (signed-out view + sample-artifact CTA) | RIVET | Signed-out visitors to the workspace shelf see a real empty-state (not a bare box) with a sample-artifact CTA; verified on the deployed edge — direct response to the operator's live observation of a bare empty box | — | READY |
+| W-12 | Keyboard fit-model control | 3D configurator input handling (keyboard controls for fit-to-model) | MASON | A keyboard shortcut/control fits the model view in the 3D configurator, verified live; accessibility note per RULE 28/29 conventions where applicable | — | READY |
+| W-13 | View-state permalinks | workspace view-state serialization + URL routing | MASON | A workspace view's current state (camera/selection/artifact) round-trips through a shareable permalink URL, verified live | — | READY |
+| W-14 | AQ-RIVET-004 app-link diagnostic | mobile app-link wiring (apps/mobile/**, per RIVET's exclusive paths) | RIVET | Diagnose and fix the app-link issue per AQ-RIVET-004. Note: the underlying AQ-RIVET-004 proposal's actual text is not on disk in this session — SCRIBE has not seen its full scope, only the label given. RIVET should confirm scope against its own proposal record before executing, per the same practice used for AQ-RIVET-001 | — | READY |
 
 ## Notes
 
@@ -34,3 +38,8 @@ RULE 35(4): seats update this board only on DONE or STUCK.
 - No row here supersedes docs/WAVE_QUEUE.md; it remains the permanent
   ledger of record. This board is the pull-queue mechanism RULE 35
   layers on top of it while RULE 34's Workspace focus is in effect.
+- W-11..W-14 (added 2026-09-04 per AGENTS.md RULE 36's observe-refine
+  loop) are operator live-site observations, converted directly to
+  board rows without a seat relay, per RULE 36(1). Each DONE among
+  them gets a docs/TASK_REPORTS.md entry per RULE 36(3), same as every
+  other row.

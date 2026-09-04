@@ -565,6 +565,57 @@ is the current scope lock. Every row seeded on the board while RULE 34
 is in effect must itself be a Workspace row — everything else stays
 DEFERRED-per-RULE-34 regardless of board status.
 
+## RULE 36 — Observe-refine loop (permanent, adopted 2026-09-04)
+(1) **Intake.** The operator watches the live deployed site and reports
+features or corrections directly in chat. The conductor converts each
+report into a docs/TASK_BOARD.md row (envelope + acceptance criteria)
+via SCRIBE — no seat-to-seat relay in between. Seats then pull the new
+row per RULE 35, same as any other board row.
+(2) **Work never stops.** A seat stops on a row only for STUCK per RULE
+35(3) — missing information, an operator decision, or a safety hold —
+logged as an OPEN-FOR-OPERATOR line, and immediately pulls its next
+non-blocked row. Idling while a pullable row exists is itself a
+violation.
+(3) **Task-wise reports.** Every row marked DONE appends one entry to
+docs/TASK_REPORTS.md: seat, row ID, landing SHA, RULE 25 live proof,
+friction encountered + what went well, and duration. This is additive
+to — not a replacement for — the row's own DONE update on
+docs/TASK_BOARD.md.
+(4) **Self-improving loop.** The conductor periodically mines
+docs/TASK_REPORTS.md's friction entries for recurring pain and turns
+real patterns into workflow refinements via SCRIBE (a new or amended
+rule, a board/report schema fix, an envelope-scoping fix) — the loop's
+own operating rules are themselves inside its refinement scope, not
+exempt from it.
+*Relationship to RULE 34/35:* RULE 36 is the intake+feedback loop that
+feeds new rows onto RULE 35's board while RULE 34's scope lock decides
+whether a given report is in-scope right now or gets logged and
+deferred alongside everything else under RULE 34(2).
+
+## RULE 37 — Timed stop + single inbox (permanent, adopted 2026-09-04)
+(1) **Single inbox.** `docs/OPERATOR_INBOX.md` is the ONLY
+operator-facing question surface, append-only: rows carry timestamp |
+seat | task ID | question | recommended answer | status
+(OPEN/PARKED/CLEARED). This is where every OPEN-FOR-OPERATOR line
+named in RULE 31/35/36 actually lands, going forward — chat stays for
+the operator's own observations feeding RULE 36's intake, not for
+seats posting questions back; a seat question belongs in the inbox,
+never only in a chat relay.
+(2) **Timed stop.** A seat needing operator confirmation waits at most
+one turn boundary (~10 agent-minutes). If no answer arrives in that
+window, the seat PARKS the task (timestamp + resume pointer recorded
+on the inbox row and the task's own board/ledger row) and immediately
+pulls its next non-blocked row per RULE 35. An answered PARKED task
+re-enters READY status in timestamp order (oldest answered first) —
+the conveyor never blocks waiting on the operator.
+(3) **One-pass clearing.** The operator clears the inbox in one pass;
+the conductor presents the full open inbox at the top of every
+operator-present beat, rather than surfacing questions piecemeal.
+(4) **Seeded rows** land as OPEN one-word lines pending their actual
+question text and recommended answer, per RULE 27's provisional-text
+limitation — SCRIBE has not invented the specifics behind them: see
+docs/OPERATOR_INBOX.md.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

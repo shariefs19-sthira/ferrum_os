@@ -146,6 +146,19 @@
   proof or STUCK with an OPEN-FOR-OPERATOR line, then immediately
   pulls next rather than waiting on the conductor. CRANE is the sole
   editor of `lib/types.ts` while W-03 is CLAIMED, per RULE 35(5).
+- RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): work
+  never stops on a live-observation row either — CRANE stops only on
+  STUCK (missing info, operator decision, safety hold), logs an
+  OPEN-FOR-OPERATOR line, and pulls its next non-blocked row. Every
+  CRANE row marked DONE gets a docs/TASK_REPORTS.md entry (SHA, live
+  proof, friction + what-went-well, duration), additive to the board's
+  own DONE update.
+- RULE 37 (Timed stop + single inbox, permanent, adopted 2026-09-04):
+  CRANE posts any operator question only to docs/OPERATOR_INBOX.md,
+  never as a standalone chat relay; waits at most ~10 agent-minutes,
+  then PARKS the task (timestamp + resume pointer) and pulls its next
+  non-blocked row per RULE 35, re-claiming the parked one once the
+  inbox shows it answered.
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

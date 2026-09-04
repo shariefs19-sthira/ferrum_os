@@ -117,6 +117,19 @@ as every other seat.
   marks DONE with SHA + live proof or STUCK with an OPEN-FOR-OPERATOR
   line, then immediately pulls next rather than waiting on the
   conductor.
+- RULE 36 (Observe-refine loop, permanent, adopted 2026-09-04): RIVET
+  now also pulls live-observation rows the operator reports directly
+  (currently W-11 workspace shelf EMPTY-STATE, W-14 AQ-RIVET-004
+  app-link diagnostic — the latter's underlying proposal text is not
+  on disk in this session; RIVET confirms actual scope against its own
+  proposal record before executing, per the same practice used for
+  AQ-RIVET-001). RIVET stops only on STUCK, logs an OPEN-FOR-OPERATOR
+  line, and pulls next. Every RIVET row marked DONE gets a
+  docs/TASK_REPORTS.md entry.
+- RULE 37 (Timed stop + single inbox, permanent, adopted 2026-09-04):
+  RIVET posts any operator question only to docs/OPERATOR_INBOX.md,
+  never as a standalone chat relay; waits at most ~10 agent-minutes,
+  then PARKS the task and pulls its next non-blocked row per RULE 35.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
