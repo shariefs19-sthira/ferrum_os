@@ -4,6 +4,7 @@ import SectionHeading from '../../../components/sections/SectionHeading'
 import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import CdeStatusMock from '../../../components/sections/CdeStatusMock'
+import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 
 // W2-345: the "Construction tracking" card below is real code
 // (CdeStatusMock) but not what it's described as here — it returns one
@@ -51,7 +52,7 @@ export default function CommunityBuildPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1.45fr)] lg:items-start">
           <div>
             <Eyebrow>CommunityBuild</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -67,7 +68,9 @@ export default function CommunityBuildPage() {
             </div>
           </div>
           <div className="order-first md:order-none">
-            <CdeStatusMock />
+            <ProductCockpitPreview product="communitybuild" label="CommunityBuild">
+              <CdeStatusMock />
+            </ProductCockpitPreview>
           </div>
         </div>
       </SectionShell>
