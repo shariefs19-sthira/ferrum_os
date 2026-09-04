@@ -6,6 +6,7 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 import UlpinMapExplorer from '../../../components/sections/UlpinMapExplorer'
+import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
 // map (real Leaflet/OSM component) are real. Zoning, soil/hazard,
@@ -76,7 +77,7 @@ export default function LandIntelPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1.45fr)] lg:items-start">
           <div>
             <Eyebrow>LandIntel</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -93,7 +94,9 @@ export default function LandIntelPage() {
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
-            <UlpinMapExplorer />
+            <ProductCockpitPreview product="landintel" label="LandIntel">
+              <UlpinMapExplorer />
+            </ProductCockpitPreview>
           </div>
         </div>
       </SectionShell>
