@@ -1267,3 +1267,11 @@ cd C:\Users\user\ferrum_os
 **Files Modified:** docs/APPROVAL_QUEUE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Operator decides MCP-HEADLESS.
 ---
+
+## 2026-09-03 14:35 - SCRIBE closed AQ-RIVET-001 (PROVENANCE-STRIP), annotated W2-354 LIVE/DONE with MASON's edge evidence, absorbed RULE 17 line into RULE 25 exemplar
+**Action:** (1) Verified `226cf5a8` per RULE 22 — confirmed present in origin/main's own log as "feat: [AI: CRANE][task:W2-387] provenance strip on LandIntel + Analysis Engine." Appended a new AQ-RIVET-001 row to docs/APPROVAL_QUEUE.md closing the existing PROVENANCE-STRIP entry (append-only — didn't edit the original row): APPROVED (operator, chat) + EXECUTED via that SHA, noting RIVET's own tracking line was stale (still showing in-flight/no-SHA) and that this closure covers only the CRANE-now half (LandIntel + Analysis Engine); the MASON/S4 half from W2-387 remains separately in flight. (2) Annotated W2-354 as LIVE/DONE with landing SHA 8e35756d, citing MASON's actual evidence files (docs/evidence/w2-354/README.md + after.json — 609/609 route×viewport combinations, 0 violations, listing the real fixes applied) and MASON's own flag that /account and /project-workspace's Worker-owned session-API calls need edge/Worker verification beyond what a static-server crawl can exercise. Per the operator's direction, did not create a new rule for this — added an exemplar paragraph directly inside AGENTS.md RULE 25 citing this exact incident as the canonical illustration of "static-server pass ≠ LIVE proof for functionality the static server can't serve."
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/APPROVAL_QUEUE.md, docs/WAVE_QUEUE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** None pending on either item; W2-387's MASON/S4 provenance-strip half remains open and tracked separately.
+---
