@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import type { WorkspaceProduct, WorkspaceTool, WorkspaceMoreAction, WorkspaceExtract, WorkspaceProvenance } from "../../../lib/types"
 import TabRail from "../../../components/workspace/TabRail"
@@ -67,6 +67,15 @@ export default function ProjectWorkspaceCockpit() {
   const noExtracts: WorkspaceExtract[] = []
   const noProvenance: WorkspaceProvenance = { source: "Not yet wired", freshness: "N/A", status: "ROADMAP" }
 
+  // Battery-fail (2): a tool mutate must recompute the extract panel
+  // live. liveMetrics is set from WorkspaceCockpit's real derived state
+  // via CanvasSlot -> WorkspaceCockpit's onLiveMetricsChange effect,
+  // not hardcoded - falls back to noExtracts/noProvenance until the
+  // canvas has computed its first plan.
+  type LiveMetrics = { extracts: WorkspaceExtract[]; lengthMetres: number; areaSquareMetres: number; provenance: WorkspaceProvenance }
+  const [liveMetrics, setLiveMetrics] = useState<LiveMetrics | null>(null)
+  const handleLiveMetricsChange = useCallback((metrics: LiveMetrics) => setLiveMetrics(metrics), [])
+
   return (
     <div className="flex h-screen flex-col">
       <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />
@@ -79,14 +88,16 @@ export default function ProjectWorkspaceCockpit() {
       />
       <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
         <p className="mb-3 text-xs text-relume-muted">Project: {projectId}</p>
-        <CanvasSlot product={activeProduct} />
+        <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} />
         {extractOpen && (
           <div className="mt-4">
             <ExtractPanel
-              extracts={noExtracts}
+              areaSquareMetres={liveMetrics?.areaSquareMetres}
+              extracts={liveMetrics?.extracts ?? noExtracts}
+              lengthMetres={liveMetrics?.lengthMetres}
               onClose={() => setExtractOpen(false)}
               product={activeProduct}
-              provenance={noProvenance}
+              provenance={liveMetrics?.provenance ?? noProvenance}
             />
           </div>
         )}

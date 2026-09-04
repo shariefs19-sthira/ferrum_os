@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { useEffect, useMemo, useState } from 'react'
 import { generateStudioPlan } from '../../lib/plan-gen'
 import { checkStructuralLive } from '../../lib/studio/structuralLive'
-import type { StudioParameters, StudioView } from '../../lib/types'
+import type { StudioParameters, StudioView, WorkspaceExtract, WorkspaceProvenance } from '../../lib/types'
 import { convertArea, metresAndFeet } from '../../lib/units'
 import ExportBar from './ExportBar'
 import PlanElevationView from './PlanElevationView'
@@ -61,7 +61,14 @@ const views: { id: StudioView; label: string }[] = [
   { id: 'side-elevation', label: 'Side' },
 ]
 
-export default function WorkspaceCockpit() {
+type LiveMetrics = {
+  extracts: WorkspaceExtract[]
+  lengthMetres: number
+  areaSquareMetres: number
+  provenance: WorkspaceProvenance
+}
+
+export default function WorkspaceCockpit({ onLiveMetricsChange }: { onLiveMetricsChange?: (metrics: LiveMetrics) => void }) {
   const [parameters, setParameters] = useState<StudioParameters>({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 })
   const [view, setView] = useState<StudioView>('space')
   const [activeFloor, setActiveFloor] = useState(1)
@@ -72,6 +79,27 @@ export default function WorkspaceCockpit() {
   const governingSpanM = Math.max(...activeRooms.map((room) => room.widthM), 0)
   const structural = checkStructuralLive([{ id: 'active-floor-beam', kind: 'beam', span_m: governingSpanM, depth_mm: 300, width_mm: 300, udl_kn_per_m: 8, support: 'simple' }])
   const structuralPass = structural.results.every((result) => result.checks.every((check) => check.pass))
+
+  // Battery-fail (2): a tool mutate (any Parameter slider below) must
+  // recompute the bottom extract panel live. onLiveMetricsChange runs
+  // from real derived state (plan/grossArea/governingSpanM/
+  // structuralPass), not a static snapshot - the effect re-fires
+  // whenever those change.
+  useEffect(() => {
+    if (!onLiveMetricsChange) return
+    onLiveMetricsChange({
+      extracts: [
+        { label: 'Floors', value: String(plan.floors) },
+        { label: 'Gross area', value: format(grossArea, 1), unit: 'm²' },
+        { label: 'Governing span', value: format(governingSpanM, 2), unit: 'm' },
+        { label: 'IS 456 span/depth check', value: structuralPass ? 'PASS' : 'REVIEW' },
+      ],
+      lengthMetres: governingSpanM,
+      areaSquareMetres: grossArea,
+      provenance: { source: 'Design cockpit (deterministic plan generator)', freshness: 'Live', status: 'INDICATIVE' },
+    })
+  }, [plan, grossArea, governingSpanM, structuralPass, onLiveMetricsChange])
+
   const update = (key: keyof StudioParameters, value: number) => {
     setParameters((current) => ({ ...current, [key]: value }))
     if (key === 'floors') setActiveFloor((floor) => Math.min(floor, value))
