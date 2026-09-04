@@ -208,6 +208,41 @@
   reduced profile), and a real-device spot-check protocol. This gate
   blocks landing like the type check; every feature row (including
   CRANE's own) carries a perf-delta check once W-34 exists.
+- CRANE's board queue (2026-09-04) also includes W-35a
+  IMG2THREEJS_DUE_DILIGENCE: inspect `github.com/img2threejs/img2threejs`
+  (name as given — CRANE's own fetch is the first real verification
+  this repo exists/resolves) and report facts only (license,
+  browser-vs-server execution, bundle weight against RULE 41's ≤600KB
+  gz cockpit budget, reconstruction method, output contract), reaching
+  one of adopt-as-dep / adopt-pattern / reject from the actual
+  inspection, not pre-decided.
+- CRANE owns W-41 KB_EXHAUSTIVE (2026-09-04): extends the existing
+  W-29 knowledge base with a public coverage manifest across the whole
+  architecture subject (design theory, planning, RCC/steel/masonry,
+  soil/foundation, MEP, materials, quantities/rates, contracts/
+  tendering, approvals/NOCs per city, finance, sustainability, safety,
+  and Vaastu — labeled traditional practice, never as code); the
+  manifest shows seeded vs. roadmap topics honestly, matching the
+  actual fact count per topic, not a hand-typed claim.
+- CRANE's data piece of W-43 MATERIALS_CATALOG (2026-09-04, split with
+  MASON's UI): the catalog data module itself, per the ONE-LIBRARY
+  architecture note — commercial (brands, dated price + source chip,
+  vendor-API slot), technical (IS-code refs), and parametric
+  (dims/performance) fields for every item, the single source of truth
+  DesignStudio/Structura/W-44 all read from, never duplicated.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): CRANE
+  pushes its own branches without per-branch approval; this does not
+  touch CRANE's separate standing deploy authority (RULE 40), which
+  stays guarded and unchanged.
+- RULE 43 (Citation-on-main, adopted 2026-09-04): CRANE treats a
+  relay's cited row ID as authoritative only if it's actually verified
+  landed on `origin/main`; a task with no landed row is an OPERATOR
+  VERBATIM TASK with no number, per RULE 39. CRANE owns W-46
+  RATE_ENGINE (a pluggable source-adapter pipeline for streamed rates
+  — govt PDF/vendor-API/manual-feed adapters, each rate carrying
+  source ID + fetch date + a VERIFIED-PUBLIC/REFERENCE-ONLY/CONCEPT/
+  LIVE status chip — engine source-agnostic now, real sources wired in
+  later without a rewrite).
 
 ## Reassigned work (2026-08-31)
 W2-120, W2-121, W2-123, W2-124, W2-126, W2-128, W2-129, W2-131 (from MASON)

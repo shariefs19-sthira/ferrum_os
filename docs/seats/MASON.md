@@ -174,6 +174,50 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   (W-34) — this blocks landing like the type check. MASON's rows
   (W-05, W-06, W-27's UI half, W-28, W-33's pre-seed piece) each carry
   a perf-delta check once W-34 exists.
+- MASON's piece of W-40 SUTRA_SIDE_PANEL (2026-09-04, split with
+  RIVET): mounting the existing W-27 chat engine inside the new SUTRA
+  panel location — not a new chat implementation, a relocation.
+- MASON's UI piece of W-43 MATERIALS_CATALOG (2026-09-04, split with
+  CRANE's data): the catalog item list, the public coverage manifest,
+  and the missing-item request loop. MASON also owns W-44
+  BOQ_MEASURED, which reads W-43 only per its ONE-LIBRARY note — no
+  second catalog maintained.
+- MASON owns W-47 COCKPIT_FULLSCREEN (2026-09-04): the cockpit becomes
+  a full-viewport surface (canvas ~100dvh minus a slim tab strip,
+  auto-fit on load/mutation), SUTRA/extract/territorial panels become
+  collapsible overlay drawers/sheets, canvas ≥70% of viewport at 1366
+  / ≥60% at 375, headless-measured.
+- MASON owns W-48 PLUGGABLE_CONTROLS (2026-09-04): a config-driven
+  tool/slider registry (id, plain-language label, type, param mapping,
+  ruleset-sourced min/max/step, layman help line) — new tools are
+  registry entries, not code changes. This supersedes part of W-27's
+  own acceptance: registry controls, not raw sliders, are now the
+  visible manipulation layer in the default cockpit view alongside
+  conversation. MASON amended W-27's row text directly to reflect
+  this rather than leave a contradicted acceptance line standing.
+- MASON also owns W-35 PHOTO_ENTRY integration (2026-09-04): a
+  no-ULPIN workspace entry — upload a photo of a plot/building, a
+  browser-side reconstruction (method decided by CRANE's W-35a
+  due-diligence verdict) seeds the cockpit's 3D context with a mesh
+  labeled INDICATIVE ("reconstructed from photo, not a survey") and a
+  provenance chip, then the existing guided-checklist flow (W-27/W-28)
+  collects the Ferrum inputs before the deterministic engine generates
+  plans on top of the photo context. Not hard-blocked on W-35a per
+  RULE 35 — the entry-screen/checklist UI doesn't depend on which
+  reconstruction method wins, only the actual mesh-generation call
+  does.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): MASON
+  pushes its own branches without per-branch approval; production
+  deploy authority stays CRANE's unchanged guarded standing grant.
+- RULE 43 (Citation-on-main, adopted 2026-09-04): MASON treats a
+  relay's cited row ID as authoritative only if it's actually verified
+  landed on `origin/main`; a task with no landed row is an OPERATOR
+  VERBATIM TASK with no number, per RULE 39.
+- MASON's piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
+  RIVET): the demo-mode Space3D — the real cockpit 3D canvas playing a
+  scripted intent loop ("add 2 floors" → massing grows, "setback 3m" →
+  shifts) as a muted auto-visual on marketing routes where layout
+  allows.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

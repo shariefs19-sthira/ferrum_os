@@ -787,6 +787,48 @@ ATLAS's audit battery gains the responsive matrix and the perf budgets
 as standing checks, run on every landing, not only rows that explicitly
 claim to touch performance or layout.
 
+## RULE 42 — Seat-push standing (operator approval 2026-09-04)
+Seats may push their own `w2-*`/seat-named branches to `origin` without
+requesting per-branch approval — this is a standing grant, not a
+one-time exception, logged in `docs/APPROVAL_QUEUE.md`. It covers
+pushing a branch for review/landing only. **Production deploy authority
+is unchanged**: it remains the guarded, standing grant under RULE 40's
+approvals (`HEAD == origin/main`, gates green, deploy SHA logged,
+`docs/DEPLOY_STOP` as kill-switch) — RULE 42 does not loosen, replace,
+or duplicate that gate. Landing itself still goes through
+`scripts/land.ps1` per RULE 18/35; RULE 42 only removes the
+per-branch-push approval step that preceded it.
+
+## RULE 43 — Citation-on-main (adopted 2026-09-04)
+(1) **Conductor relays cite only rows verified on `origin/main`.** A row
+ID (W-NN, W2-NNN) may appear in a relay only after SCRIBE has confirmed
+it actually exists on `origin/main` — not merely committed on a local
+branch, not merely pushed, and not merely described in a prior chat
+message. "Landed" here means the same thing RULE 22 already means:
+verified via the tree check / landing-marker check against
+`origin/main` itself.
+(2) **No landed row → no number.** A task the operator hands down before
+its board/ledger row has actually landed on `origin/main` travels as an
+**OPERATOR VERBATIM TASK**, carrying no row ID at all — the full inline
+text is the task, per RULE 39(1)/(4). A seat never infers or invents a
+row number to attach to it.
+(3) **SCRIBE lands row seedings before downstream relays cite them.**
+When SCRIBE seeds a new docs-only row, that seeding itself must land on
+`origin/main` (via `scripts/land.ps1`, same as any other branch) before
+the conductor sequences any relay that cites that row's ID to a seat.
+This is a sequencing rule on the conductor's relays, not a claim that
+SCRIBE's own docs work is otherwise special.
+(4) **Six mistimed citations, logged as conductor-side incidents
+(2026-09-04):** W-27, W-29, W-32, W-35a, W-41, and W-43 (this row
+itself, at the time this rule was being drafted) were each cited in a
+relay before their seeding had actually landed on `origin/main` — the
+seedings existed only on SCRIBE's own not-yet-landed branch chain at
+citation time. Logged here per RULE 40's facts-only standard: these are
+verifiable facts about sequencing, not seat-side failures — each row's
+own content was accurate once landed, only the citation timing was
+ahead of the landing. This is the incident record RULE 43 exists to
+prevent from recurring.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

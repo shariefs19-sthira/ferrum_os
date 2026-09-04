@@ -213,3 +213,28 @@ nothing about the actual code path that was previously 500ing;
 cleanup left zero residue in production.
 **Duration:** ~20 minutes (PRAGMA check, signup/login, write, DB
 verification, cleanup, migrations reconciliation, report).
+
+### 2026-09-04 — Conductor-side incident: six mistimed row citations (RULE 43 adoption)
+
+**Seat:** conductor-side (not a seat execution failure) — logged per
+AGENTS.md RULE 43(4) at that rule's own adoption.
+**Row IDs:** W-27, W-29, W-32, W-35a, W-41, and W-43 (this rule's own
+row, at the time it was being drafted).
+**Finding:** each of these six was cited by ID in a relay to a seat
+before its own seeding had actually landed on `origin/main` — at
+citation time, the row existed only on SCRIBE's own not-yet-landed
+branch chain (the recurring pattern this session where SCRIBE's docs
+branches stacked several deep behind CRANE/MASON's independent,
+faster-landing work). No row's own content was wrong once it did land;
+only the citation timing ran ahead of the landing.
+**Refinement produced:** AGENTS.md RULE 43 — CITATION-ON-MAIN: relays
+cite only rows verified landed on `origin/main`; an un-landed task
+travels as an OPERATOR VERBATIM TASK with no row number; SCRIBE lands
+its own row seedings before downstream relays are sequenced to cite
+them.
+**What went well:** every one of the six rows' actual content was
+accurate and usable once it landed — the gap was purely sequencing
+between citation and landing, not a content-quality problem, which is
+why RULE 43's fix targets the sequencing specifically rather than
+adding a second content-review layer.
+**Duration:** identification + rule drafting, this turn.
