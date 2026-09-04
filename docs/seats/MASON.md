@@ -117,6 +117,12 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   353, 354, 372, 373, 375, 383, 385) is DEFERRED per the consolidated
   list in docs/WAVE_QUEUE.md, not dropped, and resumes the moment
   RULE 34 lifts.
+- RULE 35 (Pull-queue, permanent operating mode, adopted 2026-09-04):
+  MASON pulls its top eligible READY row from docs/TASK_BOARD.md at
+  turn start and after each DONE (currently W-05 Space3D
+  three-integration, W-06 ExportBar IFC/DXF); marks DONE with SHA +
+  live proof or STUCK with an OPEN-FOR-OPERATOR line, then immediately
+  pulls next rather than waiting on the conductor.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is

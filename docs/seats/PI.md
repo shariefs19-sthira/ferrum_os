@@ -66,7 +66,10 @@ being experimental:
   object model is LIVE-complete per its §6 acceptance checklist, all
   seats work Workspace rows only; PI's own trial row, W2-390, is
   DEFERRED per the consolidated list in docs/WAVE_QUEUE.md — the trial
-  resumes, not restarts, once RULE 34 lifts) rules as every other seat.
+  resumes, not restarts, once RULE 34 lifts), and pull-queue (RULE 35
+  — permanent operating mode, adopted 2026-09-04; PI has no row seeded
+  on docs/TASK_BOARD.md and pulls nothing while W2-390 stays
+  DEFERRED-per-RULE-34) rules as every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the

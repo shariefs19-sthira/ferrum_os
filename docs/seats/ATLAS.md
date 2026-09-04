@@ -133,3 +133,9 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   339, 342, 344, 345, 360 and the rest of ATLAS's slice) is DEFERRED
   per the consolidated list in docs/WAVE_QUEUE.md, not dropped, and
   resumes the moment RULE 34 lifts.
+- RULE 35 (Pull-queue, permanent operating mode, adopted 2026-09-04):
+  ATLAS pulls its top eligible READY row from docs/TASK_BOARD.md at
+  turn start and after each DONE (currently W-10, the 8-step audit
+  battery on W-07/W-09, deps-gated); marks DONE with SHA + live proof
+  or STUCK with an OPEN-FOR-OPERATOR line, never idling on a blocked
+  row while another is pullable; updates the board only on DONE/STUCK.

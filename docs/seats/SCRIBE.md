@@ -164,6 +164,13 @@
   logs the lift condition (§6 fully checked off against the deployed
   edge) as a WAVE_QUEUE.md row and an ACTIVITY_LOG.md entry when it
   occurs.
+- RULE 35 (Pull-queue, permanent operating mode, adopted 2026-09-04):
+  SCRIBE maintains docs/TASK_BOARD.md as the queue of record while this
+  mode is active — seeding rows, keeping envelopes non-overlapping,
+  and recording DONE/STUCK updates as seats report them — but does not
+  itself pull rows from it (SCRIBE has no envelope-scoped executor row
+  on the board; its own ledger/rules maintenance continues per RULE
+  34(3)).
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

@@ -47,18 +47,19 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — thirty-two numbered rules were actually adopted (numbered
-1–14, 16–31, 33–34 — RULE 15 and RULE 32 were never assigned; leave
+matured — thirty-three numbered rules were actually adopted (numbered
+1–14, 16–31, 33–35 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–34, added later in the
+applies to their situation. Rules 18–31 and 33–35, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
-gap-filler-seat, and single-outcome-focus discipline matured, are
-summarized in the addendum immediately after the numbered list rather
+gap-filler-seat, single-outcome-focus, and pull-queue discipline
+matured, are summarized in the addendum immediately after the numbered
+list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
 amended after first being written and a summary would otherwise drift
@@ -139,7 +140,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–34 (added later, summarized)
+### Addendum: rules 18–31, 33–35 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -414,6 +415,33 @@ source.
     (everything else visibly stops), so this rule is meant to be
     invoked deliberately and lifted promptly, not left standing by
     default.*
+35. **Pull-queue** — portable, an alternative permanent operating mode
+    to conductor-assigned tasking (compatible with rule 34's scope
+    lock, since it just governs how rows *within* the locked scope get
+    claimed). A dedicated task-board file lists rows with an explicit
+    file/path envelope, eligible seats, acceptance criteria, and
+    dependencies. A seat pulls its own next row — at turn start and
+    immediately after finishing one — rather than waiting for the
+    conductor to assign it, as long as the row's dependencies are DONE
+    and its envelope doesn't overlap any row currently claimed by
+    another seat. A row can only go STUCK for an operator decision, a
+    hard dependency on another seat's still-in-flight artifact, or a
+    safety hold — logged as an open question on the row, with the seat
+    immediately pulling its next unblocked row rather than idling. A
+    seat updates the board only when a row finishes or goes STUCK, not
+    on every intermediate step. A shared contract file that multiple
+    seats would otherwise edit concurrently becomes its own row with
+    its own envelope, so exactly one seat holds edit rights to it at a
+    time.
+    *Rationale: conductor-mediated tasking adds a round-trip before
+    every single task a seat picks up, which is pure latency once a
+    fleet has enough seats and a well-specified enough set of rows that
+    each seat can safely self-select its own next unit of work; the
+    STUCK/pull discipline keeps the fleet from stalling on any one
+    blocked row, and treating a shared contract file as a claimable row
+    in its own right is what actually prevents two seats from editing
+    the same interface definition out from under each other — the
+    concrete failure mode this rule was adopted to close.*
 
 ## 3. Ledger formats
 
