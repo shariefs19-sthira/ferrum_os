@@ -52,16 +52,16 @@ export default function ProjectWorkspaceCockpit() {
   }, [])
 
   const handleMoreAction = (action: WorkspaceMoreAction) => {
-    // Real actions (activity ledger, extract export, contextual help) are
-    // separate, not-yet-built work - logging so the wiring point is
-    // visible rather than silently doing nothing.
+    if (action === "advanced") {
+      window.dispatchEvent(new CustomEvent("ferrum:workspace-advanced"))
+      return
+    }
     // eslint-disable-next-line no-console
     console.log("[workspace] more action not yet wired:", action)
   }
 
   const handleCommand = (text: string) => {
-    // eslint-disable-next-line no-console
-    console.log("[workspace-command-bar] not yet wired to intent API:", text)
+    window.dispatchEvent(new CustomEvent("ferrum:workspace-command", { detail: text }))
   }
 
   const noExtracts: WorkspaceExtract[] = []
@@ -79,6 +79,7 @@ export default function ProjectWorkspaceCockpit() {
   return (
     <div className="flex h-screen flex-col">
       <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />
+      <CommandBar onSubmit={handleCommand} />
       <ToolsRuler
         activeTool={activeTool}
         extractOpen={extractOpen}
@@ -102,7 +103,6 @@ export default function ProjectWorkspaceCockpit() {
           </div>
         )}
       </div>
-      <CommandBar onSubmit={handleCommand} />
       <MoreDrawer onMoreAction={handleMoreAction} onMoreOpenChange={setMoreOpen} open={moreOpen} />
     </div>
   )

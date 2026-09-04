@@ -13,6 +13,7 @@ const metal = 0x202a30
 export default function Space3D({ plan }: { plan: StudioPlan }) {
   const hostRef = useRef<HTMLDivElement>(null)
   const [selected, setSelected] = useState("Podium")
+  const [profile, setProfile] = useState<"full" | "reduced" | "diagram">("full")
 
   useEffect(() => {
     const host = hostRef.current
@@ -20,6 +21,13 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
 
     const mobile = matchMedia("(max-width: 767px)").matches
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches
+    const requestedProfile = new URLSearchParams(location.search).get("renderProfile")
+    const supportsWebGl2 = Boolean(document.createElement("canvas").getContext("webgl2"))
+    if (!supportsWebGl2) {
+      setProfile("diagram")
+      host.dataset.renderProfile = "diagram"
+      return
+    }
     const scene = new THREE.Scene()
     scene.background = new THREE.Color(0xe7ecec)
 
@@ -28,7 +36,8 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
     const rendererInfo = gl.getExtension("WEBGL_debug_renderer_info")
     const rendererName = rendererInfo ? String(gl.getParameter(rendererInfo.UNMASKED_RENDERER_WEBGL)) : ""
     const softwareRenderer = /swiftshader|software/i.test(rendererName)
-    const lowPower = mobile || softwareRenderer
+    const lowPower = requestedProfile === "full" ? false : requestedProfile === "reduced" || mobile || softwareRenderer
+    setProfile(lowPower ? "reduced" : "full")
     renderer.setPixelRatio(Math.min(devicePixelRatio, lowPower ? 1 : 2))
     renderer.shadowMap.enabled = !lowPower
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
@@ -39,10 +48,13 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
     host.appendChild(renderer.domElement)
 
     const pmrem = new THREE.PMREMGenerator(renderer)
-    const roomEnvironment = new RoomEnvironment()
-    const environment = pmrem.fromScene(roomEnvironment, 0.04).texture
+    const environment = lowPower ? null : (() => {
+      const roomEnvironment = new RoomEnvironment()
+      const texture = pmrem.fromScene(roomEnvironment, 0.04).texture
+      roomEnvironment.dispose()
+      return texture
+    })()
     scene.environment = environment
-    roomEnvironment.dispose()
 
     const sun = new THREE.DirectionalLight(0xfff2dc, 3.2)
     sun.position.set(28, 44, 22)
@@ -51,11 +63,11 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
     scene.add(sun)
     scene.add(new THREE.HemisphereLight(0xffffff, 0x67757b, 1.45))
 
-    const concreteMaterial = new THREE.MeshPhysicalMaterial({ color: concrete, roughness: 0.9, metalness: 0.02 })
-    const glassMaterial = new THREE.MeshPhysicalMaterial({ color: glass, roughness: 0.1, metalness: 0, transmission: lowPower ? 0 : 0.42, transparent: true, opacity: lowPower ? 0.7 : 0.82, envMapIntensity: 1 })
-    const metalMaterial = new THREE.MeshPhysicalMaterial({ color: metal, metalness: 0.9, roughness: 0.3 })
-    const selectedMaterial = new THREE.MeshPhysicalMaterial({ color: 0xd59a43, roughness: 0.5, emissive: 0x5c2d00, emissiveIntensity: 0.16 })
-    const groundMaterial = new THREE.MeshPhysicalMaterial({ color: 0x9bacaa, roughness: lowPower ? 0.48 : 0.1, metalness: 0.08, envMapIntensity: 1 })
+    const concreteMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: concrete }) : new THREE.MeshPhysicalMaterial({ color: concrete, roughness: 0.9, metalness: 0.02 })
+    const glassMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: glass, transparent: true, opacity: 0.72 }) : new THREE.MeshPhysicalMaterial({ color: glass, roughness: 0.1, metalness: 0, transmission: 0.42, transparent: true, opacity: 0.82, envMapIntensity: 1 })
+    const metalMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: metal }) : new THREE.MeshPhysicalMaterial({ color: metal, metalness: 0.9, roughness: 0.3 })
+    const selectedMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0xd59a43 }) : new THREE.MeshPhysicalMaterial({ color: 0xd59a43, roughness: 0.5, emissive: 0x5c2d00, emissiveIntensity: 0.16 })
+    const groundMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0x9bacaa }) : new THREE.MeshPhysicalMaterial({ color: 0x9bacaa, roughness: 0.1, metalness: 0.08, envMapIntensity: 1 })
 
     const model = new THREE.Group()
     const pickables: THREE.Mesh[] = []
@@ -92,15 +104,17 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
       baseMaterials.set(slab, concreteMaterial)
       model.add(slab)
 
-      const balcony = new THREE.Mesh(new THREE.BoxGeometry(width * 0.54, 0.13, 1.45), concreteMaterial)
-      balcony.position.set(0, y + floorHeight * 0.32, depth / 2 + 0.72)
-      balcony.castShadow = !lowPower
-      model.add(balcony)
+      if (!lowPower) {
+        const balcony = new THREE.Mesh(new THREE.BoxGeometry(width * 0.54, 0.13, 1.45), concreteMaterial)
+        balcony.position.set(0, y + floorHeight * 0.32, depth / 2 + 0.72)
+        balcony.castShadow = true
+        model.add(balcony)
 
-      for (const x of [-width / 2, width / 2]) {
-        const mullion = new THREE.Mesh(new THREE.BoxGeometry(0.13, floorHeight * 0.84, 0.13), metalMaterial)
-        mullion.position.set(x * 0.96, y + floorHeight * 0.44, depth / 2 + 0.02)
-        model.add(mullion)
+        for (const x of [-width / 2, width / 2]) {
+          const mullion = new THREE.Mesh(new THREE.BoxGeometry(0.13, floorHeight * 0.84, 0.13), metalMaterial)
+          mullion.position.set(x * 0.96, y + floorHeight * 0.44, depth / 2 + 0.02)
+          model.add(mullion)
+        }
       }
     }
     scene.add(model)
@@ -118,7 +132,7 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
 
     const treeCount = mobile ? 5 : 10
     const treeGeometry = new THREE.ConeGeometry(0.72, 2.5, 7)
-    const treeMaterial = new THREE.MeshPhysicalMaterial({ color: 0x496b53, roughness: 0.92 })
+    const treeMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0x496b53 }) : new THREE.MeshPhysicalMaterial({ color: 0x496b53, roughness: 0.92 })
     const trees = new THREE.InstancedMesh(treeGeometry, treeMaterial, treeCount)
     const transform = new THREE.Object3D()
     for (let i = 0; i < treeCount; i += 1) {
@@ -130,7 +144,7 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
       trees.setMatrixAt(i, transform.matrix)
     }
     trees.castShadow = !lowPower
-    scene.add(trees)
+    if (!lowPower) scene.add(trees)
 
     const perspective = new THREE.PerspectiveCamera(34, 1, 0.1, 1200)
     const top = new THREE.OrthographicCamera(-20, 20, 20, -20, 0.1, 1200)
@@ -179,7 +193,7 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
       controls.update()
       renderer.clear()
       renderViewport(perspective, 0, 0, width, height)
-      if (!mobile) {
+      if (!lowPower) {
         const insetW = Math.min(230, width * 0.3)
         const insetH = Math.min(155, height * 0.29)
         frameCamera(top, insetW, insetH)
@@ -230,6 +244,7 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
     renderer.domElement.tabIndex = 0
     renderer.domElement.setAttribute("aria-label", "Architectural model. Drag to orbit, shift-drag to pan, scroll to zoom, press zero to fit model, and click geometry to select it across all views.")
     host.dataset.renderer = softwareRenderer ? "software" : "gpu"
+    host.dataset.renderProfile = lowPower ? "reduced" : "full"
     raf = requestAnimationFrame(draw)
 
     return () => {
@@ -242,7 +257,7 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
         if (object instanceof THREE.Mesh || object instanceof THREE.InstancedMesh) object.geometry.dispose()
       })
       ;[concreteMaterial, glassMaterial, metalMaterial, selectedMaterial, groundMaterial, treeMaterial].forEach((material) => material.dispose())
-      environment.dispose()
+      environment?.dispose()
       pmrem.dispose()
       renderer.dispose()
       renderer.domElement.remove()
@@ -250,10 +265,11 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
   }, [plan])
 
   return (
-    <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-selected={selected}>
+    <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-selected={selected} data-profile-label={profile}>
+      {profile === 'diagram' && <div className="absolute inset-0 grid place-items-center bg-relume-surface-secondary p-8 text-center text-sm text-relume-command"><p><strong>Reduced diagram mode</strong><br />WebGL2 is unavailable. Use Plan or Elevation for the same deterministic geometry.</p></div>}
       <div className="pointer-events-none absolute right-3 top-3 z-10 max-w-[13rem] rounded bg-relume-command/90 px-3 py-2 text-right text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg">
         <span className="block text-relume-accent">INDICATIVE</span>
-        Presentation shading · deterministic geometry
+        {profile === 'full' ? 'Full presentation' : profile === 'reduced' ? 'Reduced rendering mode' : 'Diagram mode'} · deterministic geometry
       </div>
       <div className="pointer-events-none absolute bottom-3 right-3 z-10 rounded bg-white/90 px-3 py-2 text-xs text-relume-command shadow">
         Selected: <strong>{selected}</strong><br />Drag orbit · Shift-drag pan · Scroll zoom · 0 fit

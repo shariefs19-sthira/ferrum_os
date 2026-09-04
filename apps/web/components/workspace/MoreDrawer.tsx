@@ -8,6 +8,7 @@ type MoreDrawerProps = Pick<WorkspaceToolCallbacks, "onMoreAction" | "onMoreOpen
 }
 
 const actions: Array<{ id: WorkspaceMoreAction; label: string; description: string }> = [
+  { id: "advanced", label: "Advanced controls", description: "Open manual plot, setback, floor, and unit controls." },
   { id: "activity", label: "View activity", description: "Show the project activity ledger." },
   { id: "export", label: "Export current extract", description: "Prepare the visible extract for export." },
   { id: "help", label: "Workspace help", description: "Explain the active product and tools." },

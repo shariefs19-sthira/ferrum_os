@@ -16,14 +16,15 @@ what it says.
 - W-17 AUTH-PREVIEW authored at `7e4fe6fa`, landed at `ef2f0440`, and verified live at 375/1366 with 6/6 headless checks.
 
 ## In-flight
-- Branch `w2-401-cockpit`, worktree `D:\ferrum_os.worktrees\mason-w401`.
-- W-21/W-22 cockpit canvas is implemented on `w2-401-cockpit`: one Three.js renderer with perspective/top-plan/axonometric scissor views, synchronized selection, PLAN_GEN massing, 10-product rail, plan/elevation toggles, IS 456 indicative gate, and live DXF export.
+- Branch `w2-401-w27-w28`, worktree `D:\ferrum_os.worktrees\mason-w27`.
+- W-27/W-28 command-first UI and five-stage ruleset-derived option flow are implemented and locally gated. Default sliders are absent; More → Advanced restores all four controls.
 
 ## Next planned step
-- Complete the post-optimization headless FPS/screenshot proof, commit, push, self-land with `land.ps1 -Branch w2-401-cockpit`, then verify the deployed edge at 1366/375.
+- Commit, push, self-land W-27/W-28, then verify deployed screenshots and state handoff before W-36 product-page remount wiring.
 
 ## Current blockers
 - IFC export is LOCKED: importing `lib/ifc-export.ts` into the client bundle fails with `Module not found: Can't resolve 'module'`. The cockpit exposes no dead IFC control; it labels IFC queued and keeps DXF real.
+- W-34 `budgets.json` is not yet present on `origin/main`; RULE 41 numeric limits were applied directly for this row. Local probes: reduced software profile 60 FPS / 9 draw calls; full D3D11 GPU profile 60 FPS / 42 draw calls.
 
 ## Last updated
 - 2026-09-04 by MASON during W2-401.
