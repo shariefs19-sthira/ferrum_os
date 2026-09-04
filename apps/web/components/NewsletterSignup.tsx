@@ -1,10 +1,15 @@
 "use client"
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 
 export default function NewsletterSignup() {
+  const pathname = usePathname()
+  const route = pathname.replace(/\.html$/, "").replace(/\/$/, "")
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle")
+
+  if (route === "/login" || route === "/signup") return null
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()

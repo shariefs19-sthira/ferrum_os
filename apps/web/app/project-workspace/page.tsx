@@ -31,6 +31,9 @@ const integrationItems = [
 export default function ProjectWorkspacePage() {
   return (
     <main>
+      <div className="border-b border-relume-border bg-orange-50 px-6 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-relume-command">
+        PREVIEW — workspace exploration only; no account data is loaded
+      </div>
       {/* 1. Hero */}
       <SectionShell>
         <div className="mx-auto max-w-3xl text-center">

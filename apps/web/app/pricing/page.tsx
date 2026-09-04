@@ -74,7 +74,7 @@ export default function PricingPage() {
             Simple, SMB-friendly pricing
           </SectionHeading>
           <div className="mt-8 flex justify-center gap-4">
-            <PrimaryButton href="/get-started">Start Free Trial</PrimaryButton>
+            <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
           </div>
         </div>
       </SectionShell>
@@ -111,7 +111,7 @@ export default function PricingPage() {
                     }
                   />
                 ) : (
-                  <PrimaryButton href="/get-started">Start Free Trial</PrimaryButton>
+                  <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
                 )}
               </div>
             </div>
@@ -191,7 +191,7 @@ export default function PricingPage() {
         <div className="mx-auto max-w-3xl text-center">
           <SectionHeading>Start building free today</SectionHeading>
           <div className="mt-8 flex justify-center gap-4">
-            <PrimaryButton href="/get-started">Start Free Trial</PrimaryButton>
+            <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
           </div>
         </div>
       </SectionShell>
