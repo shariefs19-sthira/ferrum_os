@@ -1068,6 +1068,224 @@ app.get('/api/workspace/shared/:token', async (c) => {
   return c.json({ ...artifact, data: JSON.parse(artifact.data) })
 })
 
+// W-08 Intent API — WorkspaceProject/Artifact CRUD per docs/WORKSPACE_SPEC.md
+// §4's contracts exactly (field names, status codes, validation rules).
+// New tables (migrations/0014_workspace_shell.sql), separate from the
+// existing /api/workspace/artifacts (W2-327/W2-400) surface above, which
+// stays the live save path for every current SaveToWorkspaceButton call
+// site — this is the new, richer object model §1 defines, not a
+// replacement for what's already shipped.
+
+const WORKSPACE_ARTIFACT_TYPES = ['PARCEL', 'MASSING', 'PLAN', 'STRUCTURAL', 'BOQ', 'INVEST', 'MARKET', 'PROCURE'] as const
+type WorkspaceArtifactType = (typeof WORKSPACE_ARTIFACT_TYPES)[number]
+
+type WorkspaceProjectRow = {
+  id: string
+  user_id: string
+  name: string
+  units_pref: 'm' | 'ft'
+  primary_area_unit: string
+  created_at: string
+  updated_at: string
+}
+
+function serializeWorkspaceProject(row: WorkspaceProjectRow) {
+  return {
+    id: row.id,
+    name: row.name,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    unitsPref: row.units_pref,
+    primaryAreaUnit: row.primary_area_unit,
+  }
+}
+
+async function loadOwnedWorkspaceProject(env: Env, userId: string, projectId: string) {
+  return env.DB.prepare('SELECT * FROM workspace_projects WHERE id = ? AND user_id = ?')
+    .bind(projectId, userId)
+    .first<WorkspaceProjectRow>()
+}
+
+app.post('/api/workspace/projects', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  if (!(await checkRateLimit(c.env.DB, `workspace-project-create:${user.id}`, 60, 60))) return c.json({ error: 'rate_limited' }, 429)
+  const body = await c.req.json().catch(() => null)
+  if (!body || typeof body.name !== 'string' || !body.name.trim() || (body.unitsPref !== 'm' && body.unitsPref !== 'ft')) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const primaryAreaUnit = typeof body.primaryAreaUnit === 'string' && body.primaryAreaUnit ? body.primaryAreaUnit : 'sqm'
+  const id = crypto.randomUUID()
+  await c.env.DB.prepare(
+    'INSERT INTO workspace_projects (id, user_id, name, units_pref, primary_area_unit) VALUES (?, ?, ?, ?, ?)',
+  )
+    .bind(id, user.id, body.name, body.unitsPref, primaryAreaUnit)
+    .run()
+  const row = await loadOwnedWorkspaceProject(c.env, user.id, id)
+  return c.json(serializeWorkspaceProject(row!))
+})
+
+app.get('/api/workspace/projects', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const rows = await c.env.DB.prepare('SELECT * FROM workspace_projects WHERE user_id = ? ORDER BY created_at DESC')
+    .bind(user.id)
+    .all<WorkspaceProjectRow>()
+  return c.json(rows.results.map(serializeWorkspaceProject))
+})
+
+app.get('/api/workspace/projects/:id', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const row = await loadOwnedWorkspaceProject(c.env, user.id, c.req.param('id'))
+  if (!row) return c.json({ error: 'not_found' }, 404)
+  return c.json(serializeWorkspaceProject(row))
+})
+
+app.patch('/api/workspace/projects/:id', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const row = await loadOwnedWorkspaceProject(c.env, user.id, c.req.param('id'))
+  if (!row) return c.json({ error: 'not_found' }, 404)
+  const body = await c.req.json().catch(() => null)
+  if (!body || (body.name === undefined && body.unitsPref === undefined && body.primaryAreaUnit === undefined)) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  if (body.name !== undefined && (typeof body.name !== 'string' || !body.name.trim())) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  if (body.unitsPref !== undefined && body.unitsPref !== 'm' && body.unitsPref !== 'ft') {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const newName = typeof body.name === 'string' ? body.name : row.name
+  const newUnitsPref = body.unitsPref === 'm' || body.unitsPref === 'ft' ? body.unitsPref : row.units_pref
+  const newPrimaryAreaUnit = typeof body.primaryAreaUnit === 'string' && body.primaryAreaUnit ? body.primaryAreaUnit : row.primary_area_unit
+  await c.env.DB.prepare(
+    "UPDATE workspace_projects SET name = ?, units_pref = ?, primary_area_unit = ?, updated_at = datetime('now') WHERE id = ?",
+  )
+    .bind(newName, newUnitsPref, newPrimaryAreaUnit, row.id)
+    .run()
+  const updated = await loadOwnedWorkspaceProject(c.env, user.id, row.id)
+  return c.json(serializeWorkspaceProject(updated!))
+})
+
+app.delete('/api/workspace/projects/:id', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const row = await loadOwnedWorkspaceProject(c.env, user.id, c.req.param('id'))
+  if (!row) return c.json({ error: 'not_found' }, 404)
+  await c.env.DB.prepare('DELETE FROM workspace_projects WHERE id = ?').bind(row.id).run()
+  return new Response(null, { status: 204 })
+})
+
+app.post('/api/workspace/projects/:id/artifacts', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  if (!(await checkRateLimit(c.env.DB, `workspace-artifact-create:${user.id}`, 60, 60))) return c.json({ error: 'rate_limited' }, 429)
+  const project = await loadOwnedWorkspaceProject(c.env, user.id, c.req.param('id'))
+  if (!project) return c.json({ error: 'not_found' }, 404)
+  const body = await c.req.json().catch(() => null)
+  if (
+    !body ||
+    !WORKSPACE_ARTIFACT_TYPES.includes(body.type) ||
+    body.inputs === undefined ||
+    body.outputs === undefined ||
+    !body.provenance ||
+    typeof body.provenance.source !== 'string' ||
+    typeof body.provenance.freshness !== 'string' ||
+    (body.provenance.status !== 'INDICATIVE' && body.provenance.status !== 'VERIFIED') ||
+    typeof body.sourceTool !== 'string' ||
+    typeof body.sourceRow !== 'string'
+  ) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const lineage: string[] = Array.isArray(body.lineage) ? body.lineage.filter((x: unknown) => typeof x === 'string') : []
+  const priorVersion = await c.env.DB.prepare(
+    'SELECT MAX(version) as maxVersion FROM workspace_artifacts WHERE project_id = ? AND type = ?',
+  )
+    .bind(project.id, body.type)
+    .first<{ maxVersion: number | null }>()
+  const version = (priorVersion?.maxVersion ?? 0) + 1
+  const id = crypto.randomUUID()
+  await c.env.DB.prepare(
+    `INSERT INTO workspace_artifacts
+      (id, project_id, type, version, inputs, outputs, provenance_source, provenance_freshness, provenance_status, source_tool, source_row, lineage)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  )
+    .bind(
+      id,
+      project.id,
+      body.type,
+      version,
+      JSON.stringify(body.inputs),
+      JSON.stringify(body.outputs),
+      body.provenance.source,
+      body.provenance.freshness,
+      body.provenance.status,
+      body.sourceTool,
+      body.sourceRow,
+      JSON.stringify(lineage),
+    )
+    .run()
+  return c.json({
+    id,
+    projectId: project.id,
+    type: body.type as WorkspaceArtifactType,
+    version,
+    inputs: body.inputs,
+    outputs: body.outputs,
+    provenance: body.provenance,
+    savedAt: new Date().toISOString(),
+    sourceTool: body.sourceTool,
+    sourceRow: body.sourceRow,
+    lineage,
+  })
+})
+
+app.get('/api/workspace/projects/:id/artifacts', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const project = await loadOwnedWorkspaceProject(c.env, user.id, c.req.param('id'))
+  if (!project) return c.json({ error: 'not_found' }, 404)
+  const typeFilter = c.req.query('type')
+  if (typeFilter && !WORKSPACE_ARTIFACT_TYPES.includes(typeFilter as WorkspaceArtifactType)) {
+    return c.json({ error: 'invalid_input' }, 400)
+  }
+  const query = typeFilter
+    ? c.env.DB.prepare('SELECT * FROM workspace_artifacts WHERE project_id = ? AND type = ? ORDER BY type, version DESC').bind(project.id, typeFilter)
+    : c.env.DB.prepare('SELECT * FROM workspace_artifacts WHERE project_id = ? ORDER BY type, version DESC').bind(project.id)
+  const rows = await query.all<{
+    id: string
+    project_id: string
+    type: string
+    version: number
+    inputs: string
+    outputs: string
+    provenance_source: string
+    provenance_freshness: string
+    provenance_status: string
+    saved_at: string
+    source_tool: string
+    source_row: string
+    lineage: string
+  }>()
+  return c.json(
+    rows.results.map((row) => ({
+      id: row.id,
+      projectId: row.project_id,
+      type: row.type as WorkspaceArtifactType,
+      version: row.version,
+      inputs: JSON.parse(row.inputs),
+      outputs: JSON.parse(row.outputs),
+      provenance: { source: row.provenance_source, freshness: row.provenance_freshness, status: row.provenance_status },
+      savedAt: row.saved_at,
+      sourceTool: row.source_tool,
+      sourceRow: row.source_row,
+      lineage: JSON.parse(row.lineage),
+    })),
+  )
+})
+
 // Minimal operator lead view (W2-328) — shared-secret gate, not a real
 // admin-role system (that's a separate, larger task). 503 (not 401) when
 // ADMIN_TOKEN is unset: this route is genuinely not configured yet, not
