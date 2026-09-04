@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
+import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 
 // W2-360 BOQ_PAGE_TRUTH: applies the W2-345 claim-truth convention to this
 // page's remaining sections — it never got that pass (unlike the other 8
@@ -111,7 +112,7 @@ export default function BoqProMarketingPage() {
     <main>
       {/* 1. Hero */}
       <SectionShell>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1.45fr)] lg:items-start">
           <div>
             <Eyebrow>BOQ Pro</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
@@ -128,7 +129,9 @@ export default function BoqProMarketingPage() {
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
-            <SteppedForecastModule product="boq-pro" />
+            <ProductCockpitPreview product="boq-pro" label="BOQ Pro">
+              <SteppedForecastModule product="boq-pro" />
+            </ProductCockpitPreview>
           </div>
         </div>
       </SectionShell>
