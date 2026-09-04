@@ -70,27 +70,27 @@ export default function ProjectWorkspaceCockpit() {
   return (
     <div className="flex h-screen flex-col">
       <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />
-      <ToolsRuler
-        activeTool={activeTool}
-        extractOpen={extractOpen}
-        onExtractOpenChange={setExtractOpen}
-        onMoreOpenChange={setMoreOpen}
-        onToolChange={setActiveTool}
-      />
-      <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
-        <p className="mb-3 text-xs text-relume-muted">Project: {projectId}</p>
-        <CanvasSlot product={activeProduct} />
-        {extractOpen && (
-          <div className="mt-4">
-            <ExtractPanel
-              extracts={noExtracts}
-              onClose={() => setExtractOpen(false)}
-              product={activeProduct}
-              provenance={noProvenance}
-            />
-          </div>
-        )}
+      <div className="flex min-h-0 flex-1">
+        <div className="min-h-0 min-w-0 flex-1 overflow-y-auto p-4 sm:p-6">
+          <p className="mb-3 text-xs text-relume-muted">Project: {projectId}</p>
+          <CanvasSlot product={activeProduct} />
+        </div>
+        <ToolsRuler
+          activeTool={activeTool}
+          extractOpen={extractOpen}
+          onExtractOpenChange={setExtractOpen}
+          onMoreOpenChange={setMoreOpen}
+          onToolChange={setActiveTool}
+        />
       </div>
+      {extractOpen && (
+        <ExtractPanel
+          extracts={noExtracts}
+          onClose={() => setExtractOpen(false)}
+          product={activeProduct}
+          provenance={noProvenance}
+        />
+      )}
       <CommandBar onSubmit={handleCommand} />
       <MoreDrawer onMoreAction={handleMoreAction} onMoreOpenChange={setMoreOpen} open={moreOpen} />
     </div>

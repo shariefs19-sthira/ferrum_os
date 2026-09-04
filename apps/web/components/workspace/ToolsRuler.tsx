@@ -30,9 +30,9 @@ export default function ToolsRuler({
   }
 
   return (
-    <aside aria-label="Workspace tools" className="border-b border-relume-border bg-relume-surface-secondary">
-      <div className="mx-auto flex max-w-relume-container items-center gap-2 overflow-x-auto px-4 py-2 sm:px-6">
-        <span className="mr-1 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
+    <aside aria-label="Workspace tools" className="border-l border-relume-border bg-relume-surface-secondary xl:order-3 xl:w-20">
+      <div className="flex h-full flex-row items-center gap-2 overflow-x-auto p-2 xl:flex-col xl:overflow-y-auto xl:overflow-x-visible">
+        <span className="mr-1 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted xl:mr-0 xl:[writing-mode:vertical-rl]">
           Tools
         </span>
         {tools.map((tool) => {
