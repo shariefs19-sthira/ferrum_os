@@ -108,3 +108,8 @@ point for the trial, not a claim that all 52 are individually LIVE.
   docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
   outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
   in the same pass.
+- RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
+  before any done/idle/stop report, FERRITE re-reads docs/TASK_BOARD.md
+  and its own queue; a READY row it owns means it works instead of
+  reporting a stop; the report states the re-check result, not just
+  the outcome.

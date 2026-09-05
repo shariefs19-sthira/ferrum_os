@@ -153,6 +153,18 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   action; no forecasts, assurances, bare adjectives, progress-as-
   completion, or partial-credit summaries; incomplete work is reported
   as what's missing, not what was done.
+- MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
+  of all other UI rows): W-47 → W-52 → W-54, physically reordered on
+  docs/TASK_BOARD.md to sit right after the fixed top row (W-26).
+  W-47 COCKPIT_FULLSCREEN (maximized-viewport base), W-52
+  FULLSCREEN_TOGGLE (the actual browser Fullscreen API button on the
+  cockpit and all ten product-page previews, now also carrying a
+  "Continue in workspace ⛶" button at the right end of each preview's
+  view-tab strip, visible without scroll), and W-54 CHIP_CONSOLIDATION
+  + FULLSCREEN_VISIBLE (collapse the three stacked provenance boxes
+  into one slim bottom-left status bar, and fix the fullscreen
+  button's visibility if a z-index/layout conflict with that status
+  bar is hiding it).
 - MASON's board queue (2026-09-05) also includes its piece of W-53
   NO_SLIDERS_ANYWHERE: the cockpit route, all ten cockpit tabs, and
   fullscreen (W-52) have every manual control removed — parameter
@@ -277,3 +289,8 @@ first assigned row.
   docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
   outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
   in the same pass.
+- RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
+  before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
+  and its own queue; a READY row it owns means it works instead of
+  reporting a stop; the report states the re-check result, not just
+  the outcome.

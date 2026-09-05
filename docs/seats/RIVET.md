@@ -228,6 +228,11 @@ as every other seat.
   docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
   outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
   in the same pass.
+- RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
+  before any done/idle/stop report, RIVET re-reads docs/TASK_BOARD.md
+  and its own queue; a READY row it owns means it works instead of
+  reporting a stop; the report states the re-check result, not just
+  the outcome.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

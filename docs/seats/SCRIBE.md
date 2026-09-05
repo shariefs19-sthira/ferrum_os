@@ -268,3 +268,8 @@ This was a fresh baseline: it explicitly does not claim any prior
   outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
   in the same pass. SCRIBE has no special role here beyond any other
   seat — this is a fleet-wide capability, not a docs-seat exclusive.
+- RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
+  before any done/idle/stop report, SCRIBE re-reads docs/TASK_BOARD.md
+  and its own queue; a READY row it owns means it works instead of
+  reporting a stop; the report states the re-check result, not just
+  the outcome.
