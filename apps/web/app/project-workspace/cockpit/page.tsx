@@ -47,7 +47,7 @@ export default function ProjectWorkspaceCockpit() {
   const [activeProduct, setActiveProduct] = useState<WorkspaceProduct>("Land")
   const [activeTool, setActiveTool] = useState<WorkspaceTool>("select")
   const [extractOpen, setExtractOpen] = useState(false)
-  const [sutraOpen, setSutraOpen] = useState(false)
+  const [sutraOpen, setSutraOpen] = useState(true)
   const [territoryOpen, setTerritoryOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
 
@@ -98,10 +98,10 @@ export default function ProjectWorkspaceCockpit() {
       </header>
       <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />
       <div className="relative min-h-0 flex-1 overflow-hidden">
-      <main className="h-full min-h-0">
+      <main className={`h-full min-h-0 transition-[padding] motion-reduce:transition-none ${sutraOpen ? 'lg:pr-[22rem]' : ''}`}>
         <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} />
       </main>
-      <div className="absolute bottom-2 right-2 top-2 z-30 w-20 shadow-lg"><ToolsRuler
+      <div className="absolute bottom-2 left-2 top-2 z-30 w-20 shadow-lg"><ToolsRuler
         activeTool={activeTool}
         extractOpen={extractOpen}
         onExtractOpenChange={setExtractOpen}
@@ -110,7 +110,7 @@ export default function ProjectWorkspaceCockpit() {
         rail
       /></div>
       {territoryOpen && <aside className="absolute bottom-2 left-2 top-2 z-40 w-[min(20rem,calc(100%-1rem))] overflow-y-auto border border-relume-border bg-white p-5 shadow-2xl" aria-label="Territorial context"><button type="button" onClick={()=>setTerritoryOpen(false)} className="float-right min-h-11 px-3">Close</button><p className="text-xs font-semibold uppercase tracking-wider text-relume-muted">Territorial context</p><h2 className="mt-3 text-xl font-semibold">No parcel attached</h2><p className="mt-3 text-sm leading-6 text-relume-muted">This preview has no authoritative parcel or jurisdiction record. Attach a verified LandIntel result before applying territorial constraints.</p><span className="mt-4 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold">ROADMAP</span></aside>}
-      {sutraOpen && <div className="absolute bottom-2 right-2 top-2 z-40 w-[min(22rem,calc(100%-1rem))] shadow-2xl"><SutraPanel onSubmit={handleCommand} /></div>}
+      {sutraOpen && <div className="absolute inset-x-2 bottom-2 z-40 h-[72%] shadow-2xl lg:left-auto lg:right-2 lg:top-2 lg:h-auto lg:w-[22rem]" data-sutra-region><button type="button" onClick={()=>setSutraOpen(false)} className="absolute right-3 top-2 z-50 min-h-11 px-2 text-xs font-semibold text-white" aria-label="Close SUTRA">Close</button><SutraPanel onSubmit={handleCommand} /></div>}
       {extractOpen && <div className="absolute inset-x-2 bottom-2 z-50 max-h-[65%] overflow-y-auto shadow-2xl"><ExtractPanel areaSquareMetres={liveMetrics?.areaSquareMetres} extracts={liveMetrics?.extracts ?? noExtracts} lengthMetres={liveMetrics?.lengthMetres} onClose={() => setExtractOpen(false)} product={activeProduct} provenance={liveMetrics?.provenance ?? noProvenance} /></div>}
       </div>
       <MoreDrawer onMoreAction={handleMoreAction} onMoreOpenChange={setMoreOpen} open={moreOpen} />
