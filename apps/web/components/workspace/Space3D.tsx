@@ -16,6 +16,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
   const hostRef = useRef<HTMLDivElement>(null)
   const [selected, setSelected] = useState("Podium")
   const [profile, setProfile] = useState<"full" | "reduced" | "diagram">("full")
+  const [contextLost, setContextLost] = useState(false)
   const fullscreen = useFullscreenState()
 
   useEffect(() => {
@@ -31,6 +32,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       host.dataset.renderProfile = "diagram"
       return
     }
+    setContextLost(false) // clear any prior lost-context state on a fresh mount
     const scene = new THREE.Scene()
     scene.background = new THREE.Color(0xe7ecec)
 
@@ -196,7 +198,15 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     let frames = 0
     let fpsStart = performance.now()
     let raf = 0
+    // WHITE-SCREEN INSURANCE: a lost GPU context (driver reset, tab
+    // backgrounding on some WebKit builds, etc.) is a real runtime event,
+    // not just a load-time capability check - without this guard the
+    // render loop keeps calling into a dead context every frame, which
+    // can throw uncaught inside requestAnimationFrame. glContextLost
+    // gates every draw() call; the listener below is what flips it.
+    let glContextLost = false
     const draw = (now: number) => {
+      if (glContextLost) return
       const width = host.clientWidth
       const height = host.clientHeight
       controls.update()
@@ -250,6 +260,21 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     }
     renderer.domElement.addEventListener("pointerup", select)
     renderer.domElement.addEventListener("keydown", keydown)
+    // preventDefault() on context-lost is required by the WebGL spec for
+    // the browser to even attempt eventual restoration; this handler's
+    // real job is just stopping the render loop before it throws into a
+    // dead context - restoration (if it happens) is treated as "reload
+    // to get a fresh scene" via the diagram fallback, not a live rebuild.
+    const onContextLost = (event: Event) => {
+      event.preventDefault()
+      glContextLost = true
+      cancelAnimationFrame(raf)
+      setProfile("diagram")
+      setContextLost(true)
+      host.dataset.renderProfile = "diagram"
+      host.dataset.contextLost = "true"
+    }
+    renderer.domElement.addEventListener("webglcontextlost", onContextLost, false)
     renderer.domElement.tabIndex = 0
     renderer.domElement.setAttribute("aria-label", "Architectural model. Drag to orbit, shift-drag to pan, scroll to zoom, press zero to fit model, and click geometry to select it across all views.")
     host.dataset.renderer = softwareRenderer ? "software" : "gpu"
@@ -261,6 +286,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       resizeObserver.disconnect()
       renderer.domElement.removeEventListener("pointerup", select)
       renderer.domElement.removeEventListener("keydown", keydown)
+      renderer.domElement.removeEventListener("webglcontextlost", onContextLost)
       controls.dispose()
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh || object instanceof THREE.InstancedMesh) object.geometry.dispose()
@@ -275,7 +301,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
 
   return (
     <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
-      {profile === 'diagram' && <div className="absolute inset-0 grid place-items-center bg-relume-surface-secondary p-8 text-center text-sm text-relume-command"><p><strong>Reduced diagram mode</strong><br />WebGL2 is unavailable. Use Plan or Elevation for the same deterministic geometry.</p></div>}
+      {profile === 'diagram' && <div className="absolute inset-0 grid place-items-center bg-relume-surface-secondary p-8 text-center text-sm text-relume-command"><p><strong>Reduced diagram mode</strong><br />{contextLost ? 'The 3D graphics context was lost mid-session (a device/driver event, not an app error).' : 'WebGL2 is unavailable.'} Use Plan or Elevation for the same deterministic geometry.</p></div>}
       <div className="pointer-events-none absolute bottom-3 left-3 right-3 z-10 overflow-hidden rounded-full bg-relume-command/90 px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-lg" data-canvas-status-bar>
         <p className="truncate"><span className="text-relume-accent">INDICATIVE</span> · {profile === 'full' ? 'Full presentation' : profile === 'reduced' ? 'Reduced rendering' : 'Diagram'} · SAMPLE LOCATION Bengaluru · OSM context 2026-09-05 · © OpenStreetMap contributors · existing-from-OSM, not a survey · boundary indicative</p>
       </div>

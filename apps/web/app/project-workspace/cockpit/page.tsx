@@ -88,7 +88,7 @@ export default function ProjectWorkspaceCockpit() {
   const handleLiveMetricsChange = useCallback((metrics: LiveMetrics) => setLiveMetrics(metrics), [])
 
   return (
-    <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-[100dvh] flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
+    <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-dvh-safe flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
       <header className="flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-white" aria-label="Workspace app bar">
         <Link href="/" className="font-heading text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" aria-label="Ferrum home">Ferrum Workspace</Link><span className="mr-auto hidden text-xs text-white/60 sm:inline">{projectId}</span>
         <Link href="/" className="inline-flex min-h-10 items-center rounded-full border border-white/25 px-3 text-xs font-semibold text-white hover:bg-white/10">Home</Link>

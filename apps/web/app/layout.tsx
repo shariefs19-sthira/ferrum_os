@@ -7,6 +7,7 @@ import JsonLd from '../components/JsonLd'
 import NewsletterSignup from '../components/NewsletterSignup'
 import CookieConsent from '../components/CookieConsent'
 import Concierge from '../components/Concierge'
+import ErrorBoundary from '../components/ErrorBoundary'
 import { SITE_BASE_URL, SOCIAL_CARD_ALT, SOCIAL_CARD_PATH } from '../lib/siteConfig'
 import MotionObserver from '../components/MotionObserver'
 
@@ -68,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MotionObserver />
         <JsonLd />
         <SiteHeader />
-        {children}
+        <ErrorBoundary>{children}</ErrorBoundary>
         <Footer />
         <NewsletterSignup />
         <CookieConsent />

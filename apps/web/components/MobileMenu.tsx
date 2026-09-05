@@ -110,7 +110,7 @@ export default function MobileMenu() {
           id="mobile-menu-panel"
           role="dialog"
           aria-modal="false"
-          className="fixed left-4 right-4 top-20 z-50 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-2xl border border-relume-border bg-relume-surface p-3 shadow-xl sm:left-auto sm:right-6 sm:w-80"
+          className="fixed left-4 right-4 top-20 z-50 max-h-dvh-safe-6rem overflow-y-auto rounded-2xl border border-relume-border bg-relume-surface p-3 shadow-xl sm:left-auto sm:right-6 sm:w-80"
         >
           <div className="space-y-3">
             <Link href="/" onClick={closeMenu} className="flex min-h-11 items-center rounded-xl px-3 py-2 text-base font-medium text-relume-ink transition hover:bg-relume-surface-secondary">
