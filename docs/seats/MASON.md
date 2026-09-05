@@ -180,6 +180,12 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   load the correct per-tab persona config, re-voice in one line on
   every tab/page jump, and show the expert title + knowledge-depth
   chip in the SUTRA header.
+- MASON's board queue (2026-09-05) also includes W-61 HOME_AFFORDANCE:
+  the workspace app bar's "Ferrum" brand mark becomes a clickable home
+  link, and a separate explicit Home button renders beside Territory/
+  Extract/SUTRA — both present in the normal cockpit, in W-52's
+  fullscreen mode, and on every product-page preview's equivalent bar,
+  since RULE 44 generalizes this beyond the cockpit's default state.
 - MASON's board queue (2026-09-05) also includes its piece of W-53
   NO_SLIDERS_ANYWHERE: the cockpit route, all ten cockpit tabs, and
   fullscreen (W-52) have every manual control removed — parameter

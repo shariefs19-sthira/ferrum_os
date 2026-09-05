@@ -1555,3 +1555,11 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** docs/TASK_BOARD.md, docs/seats/RIVET.md, docs/seats/CRANE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** RIVET/CRANE apply the Open-beside-Save pattern across all four named surfaces, not just the LandIntel card explicitly named in W-33's original text; acceptance requires screenshots of the side-by-side buttons and the resulting preloaded fullscreen cockpit at 1366+375. This branch lands via `land.ps1` this same pass.
+---
+
+## 2026-09-05 - SCRIBE seeded W-61 HOME_AFFORDANCE
+**Action:** Rebuilt fresh off `origin/main` (tip `2deb09dd`, "[land:mason/w52-fullscreen-controller]" — confirmed MASON's own W-52 fullscreen implementation has landed independently; no gap reopened). Seeded docs/TASK_BOARD.md W-61 HOME_AFFORDANCE (MASON), inserted directly after W-60: on the workspace app bar — normal cockpit, W-52's fullscreen mode, and every product-page preview's equivalent bar — the "Ferrum" brand mark becomes a clickable home link, and a separate explicit Home button renders beside the existing Territory/Extract/SUTRA controls; either affordance returns to the main site in one tap from any app surface, including fullscreen, where the slim app bar (W-47) keeps the control visible rather than dropping it to save space. RULE 44 seeded pre-generalized per the operator's own instruction, spanning normal/fullscreen/previews in one pass rather than a later amendment. Mirrored into docs/seats/MASON.md.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/TASK_BOARD.md, docs/seats/MASON.md, docs/ACTIVITY_LOG.md
+**Next Steps:** MASON pulls W-61 (dep W-47, W-52) once the priority chain ahead of it clears. This branch lands via `land.ps1` this same pass.
