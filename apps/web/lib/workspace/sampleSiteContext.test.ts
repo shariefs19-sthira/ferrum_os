@@ -1,0 +1,2 @@
+import{describe,expect,it}from'vitest';import{sampleSiteContext}from'./sampleSiteContext'
+describe('sample site context',()=>{it('carries attributable OSM geometry and a fixed map tile',()=>{expect(sampleSiteContext.buildings).toHaveLength(3);expect(new Set(sampleSiteContext.buildings.map(item=>item.osmWayId)).size).toBe(3);expect(sampleSiteContext.buildings.every(item=>item.points.length>=5)).toBe(true);expect(sampleSiteContext.tile.attribution).toContain('OpenStreetMap');expect(sampleSiteContext.source.queriedAt).toMatch(/^2026-09-05T/)})})
