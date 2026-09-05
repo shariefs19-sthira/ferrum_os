@@ -88,10 +88,37 @@ being experimental:
   device-plus-perf-gate (RULE 41 — hard, adopted 2026-09-04; blocks
   landing like the type check — PI has no landing row to gate while
   W2-390 stays DEFERRED-per-RULE-34) rules as every other seat.
+  W2-390 stays DEFERRED-per-RULE-34), and seat-push-standing (RULE 42
+  — operator approval 2026-09-04; PI may push its own branches without
+  per-branch approval once it has one; production deploy authority is
+  unchanged), citation-on-main (RULE 43 — adopted 2026-09-04; a
+  relay's row ID is authoritative only once verified landed on
+  `origin/main`; an un-landed task carries no number), and principle-
+  generalization (RULE 44 — binds all seats, adopted 2026-09-05; on
+  every operator correction, extract the principle, enumerate every
+  analogous surface, apply/flag across all of them, record both in the
+  report) rules as every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the
   previous one is LIVE.
+
+- RULE 45 (Drain-don't-wait, all seats, adopted 2026-09-05): after
+  finishing a relay's items, PI reads docs/TASK_BOARD.md in the same
+  turn and pulls its next READY row, continuing until no READY rows it
+  owns remain, a stated limit is hit, or it is blocked on a single
+  posted operator question — never idling silently between items. For
+  PI this is bounded by its one-wave trial scope below.
+- RULE 46 (Idle-only-with-enquiry, all seats, adopted 2026-09-05): PI
+  may stop only with a posted blocking question on record; going quiet
+  with no question and no READY row left is a RULE 40 violation. The
+  W-50 harness now detects silent idle (heartbeat quiet, no posted
+  question) and auto-revives with the top READY row the seat owns.
+- RULE 47 (Meeting-report, all seats, adopted 2026-09-05): on the
+  keyword "meeting," whichever seat is freest regenerates
+  docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
+  outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
+  in the same pass.
 
 ## Assigned slice (2026-09-03, trial only)
 W2-390 (the trial task itself). No standing slice — this seat has no

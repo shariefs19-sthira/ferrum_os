@@ -66,6 +66,16 @@ gap-filler:
   completion), and device-plus-perf-gate (RULE 41 — hard, adopted
   2026-09-04; blocks landing like the type check — FERRITE has no
   landing row to gate while it has no board row) as every other seat.
+  landing row to gate while it has no board row), and seat-push-
+  standing (RULE 42 — operator approval 2026-09-04; FERRITE may push
+  its own branches without per-branch approval once it has one;
+  production deploy authority is unchanged), and citation-on-main
+  (RULE 43 — adopted 2026-09-04; a relay's row ID is authoritative
+  only once verified landed on `origin/main`; an un-landed task
+  carries no number), and principle-generalization (RULE 44 — binds
+  all seats, adopted 2026-09-05; on every operator correction, extract
+  the principle, enumerate every analogous surface, apply/flag across
+  all of them, record both in the report) as every other seat.
 
 ## Assigned slice (2026-09-03, trial)
 None yet — no task has been assigned as of activation. Per RULE 33(1),
@@ -80,3 +90,21 @@ branch-land tag). This count is landed-on-main, not a RULE 25
 LIVE-verified count — no per-commit visible-result screenshot audit was
 run to produce this baseline; it's cited as a landing-volume reference
 point for the trial, not a claim that all 52 are individually LIVE.
+
+- RULE 45 (Drain-don't-wait, all seats, adopted 2026-09-05): after
+  finishing a relay's items, FERRITE reads docs/TASK_BOARD.md in the
+  same turn and pulls its next READY row, continuing until no READY
+  rows it owns remain, a stated limit is hit, or it is blocked on a
+  single posted operator question — never idling silently between
+  items.
+- RULE 46 (Idle-only-with-enquiry, all seats, adopted 2026-09-05):
+  FERRITE may stop only with a posted blocking question on record;
+  going quiet with no question and no READY row left is a RULE 40
+  violation. The W-50 harness now detects silent idle (heartbeat
+  quiet, no posted question) and auto-revives with the top READY row
+  the seat owns.
+- RULE 47 (Meeting-report, all seats, adopted 2026-09-05): on the
+  keyword "meeting," whichever seat is freest regenerates
+  docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
+  outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
+  in the same pass.

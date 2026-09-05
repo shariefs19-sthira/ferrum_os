@@ -787,6 +787,138 @@ ATLAS's audit battery gains the responsive matrix and the perf budgets
 as standing checks, run on every landing, not only rows that explicitly
 claim to touch performance or layout.
 
+## RULE 42 — Seat-push standing (operator approval 2026-09-04)
+Seats may push their own `w2-*`/seat-named branches to `origin` without
+requesting per-branch approval — this is a standing grant, not a
+one-time exception, logged in `docs/APPROVAL_QUEUE.md`. It covers
+pushing a branch for review/landing only. **Production deploy authority
+is unchanged**: it remains the guarded, standing grant under RULE 40's
+approvals (`HEAD == origin/main`, gates green, deploy SHA logged,
+`docs/DEPLOY_STOP` as kill-switch) — RULE 42 does not loosen, replace,
+or duplicate that gate. Landing itself still goes through
+`scripts/land.ps1` per RULE 18/35; RULE 42 only removes the
+per-branch-push approval step that preceded it.
+
+## RULE 43 — Citation-on-main (adopted 2026-09-04)
+(1) **Conductor relays cite only rows verified on `origin/main`.** A row
+ID (W-NN, W2-NNN) may appear in a relay only after SCRIBE has confirmed
+it actually exists on `origin/main` — not merely committed on a local
+branch, not merely pushed, and not merely described in a prior chat
+message. "Landed" here means the same thing RULE 22 already means:
+verified via the tree check / landing-marker check against
+`origin/main` itself.
+(2) **No landed row → no number.** A task the operator hands down before
+its board/ledger row has actually landed on `origin/main` travels as an
+**OPERATOR VERBATIM TASK**, carrying no row ID at all — the full inline
+text is the task, per RULE 39(1)/(4). A seat never infers or invents a
+row number to attach to it.
+(3) **SCRIBE lands row seedings before downstream relays cite them.**
+When SCRIBE seeds a new docs-only row, that seeding itself must land on
+`origin/main` (via `scripts/land.ps1`, same as any other branch) before
+the conductor sequences any relay that cites that row's ID to a seat.
+This is a sequencing rule on the conductor's relays, not a claim that
+SCRIBE's own docs work is otherwise special.
+(4) **Six mistimed citations, logged as conductor-side incidents
+(2026-09-04):** W-27, W-29, W-32, W-35a, W-41, and W-43 (this row
+itself, at the time this rule was being drafted) were each cited in a
+relay before their seeding had actually landed on `origin/main` — the
+seedings existed only on SCRIBE's own not-yet-landed branch chain at
+citation time. Logged here per RULE 40's facts-only standard: these are
+verifiable facts about sequencing, not seat-side failures — each row's
+own content was accurate once landed, only the citation timing was
+ahead of the landing. This is the incident record RULE 43 exists to
+prevent from recurring.
+
+## RULE 44 — Principle-generalization (binds ALL seats + conductor,
+adopted 2026-09-05)
+**Core statement.** An operator principle stated on one surface applies
+to ALL analogous surfaces unless the operator explicitly limits it. The
+conductor and every seat generalize by default — the literal named
+surface is the example, not the boundary, unless told otherwise.
+**Mandatory operational checklist**, run on every operator correction,
+no exceptions:
+(1) **Extract the underlying principle** in one sentence — what is
+actually being corrected, stated abstractly enough to recognize
+elsewhere, not just restated as "fix X."
+(2) **Enumerate every analogous surface/component/flow** the seat owns
+or knows about — the full set the principle could plausibly apply to,
+not just the one named in the correction.
+(3) **Apply the principle to all of them in the same pass**, or, for
+any it genuinely cannot reach in this pass, flag each one with the
+specific reason it's deferred — never silently skip an analogous
+surface.
+(4) **Record the principle and the enumeration** in both the seat's
+report and the affected row's(s') acceptance criteria — the
+generalization itself must be visible and checkable, not just its
+result.
+**Enforcement.** Applying a correction only to the literal surface the
+operator named — without running this checklist — is itself a RULE 40
+violation: an incomplete report, because it omits the enumeration and
+generalization step RULE 44 requires.
+*Worked example, applied immediately at adoption:* the operator
+corrected the Land tab's cockpit ground (docs/TASK_BOARD.md W-51
+SATELLITE_GROUND) to use live satellite imagery instead of a generic
+grid. Per this rule, that principle — a cockpit view of a real site
+should render the real site, not a placeholder — was generalized to
+every analogous surface: all ten cockpit tabs and every product-page
+preview, not just the Land tab. W-51 was amended in place to ONE-GROUND
+to record this generalization, with an explicit FAIL condition for any
+view that still renders the generic grid.
+
+## RULE 45 — DRAIN-DON'T-WAIT (all seats, adopted 2026-09-05)
+After finishing the current relay's items, the seat reads
+docs/TASK_BOARD.md in the SAME turn and pulls its next READY row,
+continuing until: (a) no READY rows it owns remain, (b) a stated limit
+is hit, or (c) it is blocked on an operator decision — stated as a
+single blocking question, not a list of concerns.
+(1) Reporting is per-item, as landings happen, but never ends the turn
+early — the drain continues until one of the three stop conditions
+above is actually met.
+(2) Relay format changes accordingly: relays are now complete work
+orders ("execute fully, then drain, then report consolidated facts"),
+not single-item dispatches requiring a reply before the next pull.
+(3) RULE 39 (self-contained relays) and RULE 43 (citation-on-main)
+still govern what a seat may execute without asking — DRAIN-DON'T-WAIT
+governs only when a seat stops, not what it is permitted to start.
+*Rationale:* seats were idling between items waiting for the next
+relay instead of pulling the next READY row themselves, wasting cycles
+the pull-queue (RULE 35) was built to eliminate.
+
+## RULE 46 — IDLE-ONLY-WITH-ENQUIRY (all seats, adopted 2026-09-05)
+A seat may stop only with a posted blocking operator question on
+record (in its report or the relevant row). Silent idling — going
+quiet with no posted question and no READY row left to pull — is a
+RULE 40 violation (an unreported blocked state).
+(1) **Harness detection (W-50 amendment):** the FLEET_WATCH harness
+detects silent idle — heartbeat quiet with no posted blocking question
+on record — and responds with an ntfy flag plus auto-revive dispatching
+the top READY row the seat owns (docs/TASK_BOARD.md table order, per
+Get-TopReadyRow). This extends W-50's existing revival harness
+(docs/FLEET_SEATS.json / scripts/FLEET_WATCH.ps1); the actual detection
+logic is CRANE-territory to implement — recorded here as policy/spec,
+mirrored in docs/FLEET_WATCH.md.
+(2) **Conductor role narrows:** the conductor relays only for operator
+corrections or seat enquiries (a posted blocking question). Between
+those, the drain (RULE 45) self-runs — the conductor does not need to
+dispatch the next item of an already-issued work order.
+*Rationale:* RULE 45 established that a seat pulls its own next row;
+RULE 46 closes the remaining failure mode — a seat that neither drains
+nor asks, and simply goes quiet, which the conductor could not
+previously detect without polling every seat by hand.
+
+## RULE 47 — MEETING_REPORT (all seats, adopted 2026-09-05)
+docs/MEETING_TECH_REPORT.md is the operator's carry-in technical
+report. On the keyword "meeting," the freest seat regenerates it from
+disk facts only — `git log`, battery/test outputs, `package.json` and
+other manifest/config files, docs/TASK_BOARD.md, and perf budgets
+(docs/budgets.json where present) — never from memory or assumption.
+Output is print-ready markdown, landed in the same pass.
+*Rationale:* a report drafted from a seat's recollection drifts from
+disk state the moment any other seat lands something; grounding
+regeneration in the same disk facts already used for DONE/SHA
+verification (RULE 22, RULE 40) keeps it trustworthy without a
+separate maintenance discipline.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

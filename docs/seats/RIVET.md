@@ -164,6 +164,39 @@ as every other seat.
   option set derived from the ruleset so only legally/feasibly
   buildable choices are ever offered — whichever of RIVET/MASON pulls
   first claims it per RULE 35(2).
+- RIVET pulls W-37 POINTER_SWEEP before W-38 UI_MODERNIZATION_PASS
+  (2026-09-04, operator-sequenced, real RULE 35 dep on W-38): every
+  interactive element gets cursor:pointer + hover + focus-visible,
+  I-beam only in real text inputs, verified by a headless computed-
+  style check across every route and the RULE 41 responsive matrix.
+  W-38 (after) applies researched-live 2026 UI/UX conventions to nav/
+  hero/cockpit chrome, keeping the dark-navy+saffron brand, with
+  before/after screenshots and a full RULE 41 budget pass as
+  acceptance.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): RIVET
+  pushes its own branches without per-branch approval; production
+  deploy authority stays CRANE's unchanged guarded standing grant.
+- RULE 43 (Citation-on-main, adopted 2026-09-04): RIVET treats a
+  relay's cited row ID as authoritative only if it's actually verified
+  landed on `origin/main`; a task with no landed row is an OPERATOR
+  VERBATIM TASK with no number, per RULE 39.
+- RULE 44 (Principle-generalization, binds all seats, adopted
+  2026-09-05): on every operator correction, RIVET extracts the
+  underlying principle, enumerates every analogous surface it owns,
+  applies the fix to all of them in the same pass (or flags what it
+  can't reach and why), and records the principle + enumeration in its
+  report and the row's acceptance — applying a fix only to the literal
+  named surface is itself a RULE 40 violation.
+- RIVET's UI piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
+  MASON's demo-mode 3D): first-viewport narrative line + sticky "Open
+  Workspace" pill + nav CTA on every marketing route, with the page's
+  existing live tool kept as proof, not replaced.
+- RIVET's board queue (2026-09-05) also includes its piece of W-53
+  NO_SLIDERS_ANYWHERE: every product-page preview plus DesignStudio's
+  plot-width/plot-depth/floors sliders are removed and replaced with a
+  single "Describe your plot to SUTRA" button that opens the agent
+  pre-seeded at the guided tree's use→floors stage (W-28). No approved
+  exceptions — a manual control anywhere is a RULE 40 violation.
 - RIVET's board queue (2026-09-04) also includes W-16 LANDINTEL
   RESTORE: return `UlpinMapExplorer` as LandIntel's PRIMARY hero tool
   (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature
@@ -179,6 +212,22 @@ as every other seat.
   backend auth (`4ef78791`) — this row hides the frontend only, per
   operator directive, and does not touch or revert that backend. Real
   auth re-exposure is a separate deferred roadmap row, W2-409.
+
+- RULE 45 (Drain-don't-wait, all seats, adopted 2026-09-05): after
+  finishing a relay's items, RIVET reads docs/TASK_BOARD.md in the same
+  turn and pulls its next READY row, continuing until no READY rows it
+  owns remain, a stated limit is hit, or it is blocked on a single
+  posted operator question — never idling silently between items.
+- RULE 46 (Idle-only-with-enquiry, all seats, adopted 2026-09-05):
+  RIVET may stop only with a posted blocking question on record; going
+  quiet with no question and no READY row left is a RULE 40 violation.
+  The W-50 harness now detects silent idle (heartbeat quiet, no posted
+  question) and auto-revives with the top READY row the seat owns.
+- RULE 47 (Meeting-report, all seats, adopted 2026-09-05): on the
+  keyword "meeting," whichever seat is freest regenerates
+  docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
+  outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
+  in the same pass.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

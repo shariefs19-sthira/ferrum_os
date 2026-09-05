@@ -153,6 +153,13 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   action; no forecasts, assurances, bare adjectives, progress-as-
   completion, or partial-credit summaries; incomplete work is reported
   as what's missing, not what was done.
+- MASON's board queue (2026-09-05) also includes its piece of W-53
+  NO_SLIDERS_ANYWHERE: the cockpit route, all ten cockpit tabs, and
+  fullscreen (W-52) have every manual control removed — parameter
+  input flows only through SUTRA (text/voice/chips, W-28's guided
+  tree). This retires W-48's registry `slider` renderer (the registry
+  schema survives, consumed only via SUTRA) and W-27's Advanced-drawer
+  slider carve-out.
 - MASON's board queue (2026-09-04) also includes the UI half of W-27
   CONVERSATIONAL_PRIMARY (command bar as primary interface: text +
   voice via browser Web Speech API, honest chip where unsupported,
@@ -174,6 +181,79 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   (W-34) — this blocks landing like the type check. MASON's rows
   (W-05, W-06, W-27's UI half, W-28, W-33's pre-seed piece) each carry
   a perf-delta check once W-34 exists.
+- MASON's piece of W-40 SUTRA_SIDE_PANEL (2026-09-04, split with
+  RIVET): mounting the existing W-27 chat engine inside the new SUTRA
+  panel location — not a new chat implementation, a relocation.
+- MASON's UI piece of W-43 MATERIALS_CATALOG (2026-09-04, split with
+  CRANE's data): the catalog item list, the public coverage manifest,
+  and the missing-item request loop. MASON also owns W-44
+  BOQ_MEASURED, which reads W-43 only per its ONE-LIBRARY note — no
+  second catalog maintained.
+- MASON owns W-47 COCKPIT_FULLSCREEN (2026-09-04): the cockpit becomes
+  a full-viewport surface (canvas ~100dvh minus a slim tab strip,
+  auto-fit on load/mutation), SUTRA/extract/territorial panels become
+  collapsible overlay drawers/sheets, canvas ≥70% of viewport at 1366
+  / ≥60% at 375, headless-measured.
+- MASON owns W-48 PLUGGABLE_CONTROLS (2026-09-04): a config-driven
+  tool/slider registry (id, plain-language label, type, param mapping,
+  ruleset-sourced min/max/step, layman help line) — new tools are
+  registry entries, not code changes. This supersedes part of W-27's
+  own acceptance: registry controls, not raw sliders, are now the
+  visible manipulation layer in the default cockpit view alongside
+  conversation. MASON amended W-27's row text directly to reflect
+  this rather than leave a contradicted acceptance line standing.
+- MASON's piece of W-51 SATELLITE_GROUND (2026-09-05, split with
+  CRANE's source due-diligence): the Land-tab cockpit ground rendering
+  itself — live satellite imagery draped at parcel coordinates, OSM
+  footprints extruded for existing buildings (honesty chip), boundary-
+  only for empty plots, the Design tab reusing the same ground as the
+  Land tab, and an honest placeholder grid on offline/failure — never
+  a fabricated image.
+- MASON also owns W-35 PHOTO_ENTRY integration (2026-09-04): a
+  no-ULPIN workspace entry — upload a photo of a plot/building, a
+  browser-side reconstruction (method decided by CRANE's W-35a
+  due-diligence verdict) seeds the cockpit's 3D context with a mesh
+  labeled INDICATIVE ("reconstructed from photo, not a survey") and a
+  provenance chip, then the existing guided-checklist flow (W-27/W-28)
+  collects the Ferrum inputs before the deterministic engine generates
+  plans on top of the photo context. Not hard-blocked on W-35a per
+  RULE 35 — the entry-screen/checklist UI doesn't depend on which
+  reconstruction method wins, only the actual mesh-generation call
+  does.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): MASON
+  pushes its own branches without per-branch approval; production
+  deploy authority stays CRANE's unchanged guarded standing grant.
+- RULE 43 (Citation-on-main, adopted 2026-09-04): MASON treats a
+  relay's cited row ID as authoritative only if it's actually verified
+  landed on `origin/main`; a task with no landed row is an OPERATOR
+  VERBATIM TASK with no number, per RULE 39.
+- RULE 44 (Principle-generalization, binds all seats, adopted
+  2026-09-05): on every operator correction, MASON extracts the
+  underlying principle, enumerates every analogous surface it owns,
+  applies the fix to all of them in the same pass (or flags what it
+  can't reach and why), and records the principle + enumeration in its
+  report and the row's acceptance — applying a fix only to the literal
+  named surface is itself a RULE 40 violation. MASON's own W-51/
+  ONE-GROUND row (2026-09-05) is the worked example: a Land-tab-only
+  ground correction was generalized to all 10 tabs and every
+  product-page preview.
+- MASON owns W-52 FULLSCREEN_TOGGLE (2026-09-05): a YouTube-style
+  fullscreen toggle on the cockpit AND on every one of the ten
+  product-page previews, browser Fullscreen API on the cockpit
+  container, panels become overlays (reusing W-47's mechanism), render
+  profile switches to HIGH (full shadows/reflections/pixelRatio 2/all
+  viewports — the opposite end of RULE 41(2)'s degradation spectrum),
+  mobile falls back to a 100dvh immersive mode where Fullscreen API
+  isn't supported. Amended W-47's row to note the layering: W-47 is
+  the maximized-viewport base, W-52 is the actual fullscreen control on
+  top of it. Also has W-28's acceptance amendment to apply (RULE 44):
+  SUTRA's full guided-tree/KB-answer/distinct-intent demo requirements,
+  flagged as not yet re-verified against W-28's existing DONE landing.
+- MASON's piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
+  RIVET): the demo-mode Space3D — the real cockpit 3D canvas playing a
+  scripted intent loop ("add 2 floors" → massing grows, "setback 3m" →
+  shifts) as a muted auto-visual on marketing routes where layout
+  allows.
 
 ## Assigned slice (2026-09-02, confirmed)
 W2-346, 348, 349, 350, 353, 354, per operator directive. W2-347 is
@@ -181,3 +261,19 @@ explicitly carved out to CRANE — a specific reassignment overrides the
 roster range — because its tools-side wiring touches worker.ts/MCP
 territory (CRANE-only). W2-353 (EMPTY_PLACEHOLDER_SWEEP) was MASON's
 first assigned row.
+
+- RULE 45 (Drain-don't-wait, all seats, adopted 2026-09-05): after
+  finishing a relay's items, MASON reads docs/TASK_BOARD.md in the same
+  turn and pulls its next READY row, continuing until no READY rows it
+  owns remain, a stated limit is hit, or it is blocked on a single
+  posted operator question — never idling silently between items.
+- RULE 46 (Idle-only-with-enquiry, all seats, adopted 2026-09-05):
+  MASON may stop only with a posted blocking question on record; going
+  quiet with no question and no READY row left is a RULE 40 violation.
+  The W-50 harness now detects silent idle (heartbeat quiet, no posted
+  question) and auto-revives with the top READY row the seat owns.
+- RULE 47 (Meeting-report, all seats, adopted 2026-09-05): on the
+  keyword "meeting," whichever seat is freest regenerates
+  docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
+  outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
+  in the same pass.
