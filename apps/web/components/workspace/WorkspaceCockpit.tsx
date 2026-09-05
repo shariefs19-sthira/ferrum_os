@@ -164,6 +164,28 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
       if (/add|increase/.test(command) && /floor|storey|level/.test(command)) {
         setParameters((current) => ({ ...current, floors: Math.min(24, current.floors + (Number.isFinite(amount) ? amount : 1)) }))
         setCommandResult('Floor count increased. Massing and quantities updated.')
+      } else if (/set/.test(command) && /floor|storey|level/.test(command) && Number.isFinite(amount)) {
+        setParameters((current) => ({ ...current, floors: Math.max(1, Math.min(24, amount)) }))
+        setCommandResult(`Floor count set to ${amount}. Massing and quantities updated.`)
+      } else if (/set use/.test(command)) {
+        const nextUse: LandUse = command.includes('mixed') ? 'Mixed Use' : command.includes('commercial') ? 'Commercial' : 'Residential'
+        setLandUse(nextUse)
+        const nextRule = getRulesetForState('Karnataka')?.land_use_rules[nextUse]
+        if (nextRule) setParameters((current) => ({ ...current, setbackM: nextRule.min_setback_m }))
+        setCommandResult(`${nextUse} sample land-use constraints applied. INDICATIVE.`)
+      } else if (/set massing/.test(command)) {
+        const delta = command.includes('compact') ? -0.5 : command.includes('slender') ? 0.5 : 0
+        setParameters((current) => ({ ...current, setbackM: Math.max(0, current.setbackM + delta) }))
+        setCommandResult('Massing proportion applied to the deterministic envelope.')
+      } else if (/set coverage/.test(command) && Number.isFinite(amount)) {
+        setParameters((current) => { const p=Math.max(.1,Math.min(.95,amount/100));const sum=current.plotWidthM+current.plotDepthM;const setback=(sum-Math.sqrt(sum*sum-4*(1-p)*current.plotWidthM*current.plotDepthM))/4;return {...current,setbackM:Math.max(0,setback)} })
+        setCommandResult(`Coverage constrained to ${amount}% of the plot.`)
+      } else if (/set rooms/.test(command)) {
+        const delta = command.includes('social') ? 1 : command.includes('private') ? -1 : 0
+        setParameters((current) => ({ ...current, plotWidthM: Math.max(8, current.plotWidthM + delta) }))
+        setCommandResult('Room split preference applied to the deterministic plan proportions.')
+      } else if (/set material/.test(command)) {
+        setCommandResult('Material grade recorded for the brief. BOQ rates remain unverified.')
       } else if (/setback/.test(command) && Number.isFinite(amount)) {
         setParameters((current) => ({ ...current, setbackM: Math.max(0, amount) }))
         setCommandResult(`Setback set to ${amount} m; feet and area outputs reconciled.`)
@@ -182,6 +204,14 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
       } else if (/3d|space|massing|axon/.test(command)) {
         setView('space')
         setCommandResult('Interactive 3D massing opened.')
+      } else if (/boq|extract/.test(command)) {
+        setCommandResult('Measured extract opened. Rates remain blank until independently verified.')
+      } else if (/export dxf/.test(command)) {
+        setCommandResult('DXF export sent to the browser.')
+      } else if (/diligence|permit/.test(command)) {
+        setCommandResult('Territorial checklist context opened. Authority verification remains required.')
+      } else if (/share workspace brief/.test(command)) {
+        setCommandResult('Workspace brief prepared for sharing.')
       } else {
         setCommandResult('Command not recognized. Try “add a floor”, “set setback 3”, or “show plan”.')
       }

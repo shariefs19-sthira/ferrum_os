@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { writeDxf } from '../../lib/dxf/writeDxf'
 import type { StudioPlan } from '../../lib/types'
 
@@ -31,10 +31,16 @@ export default function ExportBar({ plan }: { plan: StudioPlan }) {
     setStatus(`DXF exported with ${rects.length - 1} ground-floor rooms.`)
   }
 
+  useEffect(() => {
+    const handleCommand = (event: Event) => { if (/export dxf/i.test(String((event as CustomEvent<string>).detail ?? ''))) exportDxf() }
+    window.addEventListener('ferrum:workspace-command', handleCommand)
+    return () => window.removeEventListener('ferrum:workspace-command', handleCommand)
+  })
+
   return (
     <div className="flex flex-wrap items-center gap-2 border-t border-white/15 bg-relume-command px-4 py-3 text-white" data-export-bar>
       <span className="mr-auto text-xs text-white/70" aria-live="polite">{status}</span>
-      <button type="button" onClick={exportDxf} className="min-h-11 rounded-full border border-white/30 px-4 text-sm font-semibold hover:bg-white hover:text-relume-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+      <button type="button" onClick={exportDxf} data-export-dxf className="min-h-11 rounded-full border border-white/30 px-4 text-sm font-semibold hover:bg-white hover:text-relume-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
         Export DXF
       </button>
       <span className="inline-flex min-h-11 items-center rounded-full border border-white/20 px-4 text-sm font-semibold text-white/65" aria-label="IFC export queued pending browser-safe bundling">
