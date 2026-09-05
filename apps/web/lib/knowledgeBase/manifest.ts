@@ -1,5 +1,6 @@
 import { kbDomains, type DepthDenominatorProvenance, type KbDomainManifestEntry, type KbGap } from "./types"
 import { structureFacts, structureGaps } from "./domains/structure"
+import { planningFacts, planningGaps } from "./domains/planning"
 
 // W-41 KB_EXHAUSTIVE's coverage manifest. Computed from the actual
 // seeded arrays, never hand-typed - a domain with zero facts shows as
@@ -7,10 +8,12 @@ import { structureFacts, structureGaps } from "./domains/structure"
 // what's really seeded.
 const seededByDomain: Partial<Record<(typeof kbDomains)[number], { length: number }>> = {
   structure: structureFacts,
+  planning: planningFacts,
 }
 
 const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
   structure: structureGaps,
+  planning: planningGaps,
 }
 
 // Depth-% denominator per the operator's standing rule: the source's
@@ -29,6 +32,13 @@ const depthDenominatorsByDomain: Partial<Record<(typeof kbDomains)[number], Dept
     method:
       "Counted distinct top-level clause numbers (pattern ^N.N at the start of a line) appearing as section headers across the full fetched text - found Clauses 1 through 43 present (Clause 27 not independently confirmed as a header in this OCR pass, included in the range regardless since IS 456's own clause numbering is sequential and undisputed).",
     totalClauseCount: 43,
+  },
+  planning: {
+    sourceName: "NBC 2016 (SP 7:2016), Volume 1, Part 3 - Development Control Rules and General Building Requirements",
+    sourceUrl: "https://archive.org/details/nationalbuilding01",
+    method:
+      "Counted Part 3's own top-level clause numbers directly from its own Table of Contents in the fetched born-digital text - Clauses 1 through 29 listed (Scope through Asset and Facility Management).",
+    totalClauseCount: 29,
   },
 }
 
