@@ -207,6 +207,22 @@ as every other seat.
   operator directive, and does not touch or revert that backend. Real
   auth re-exposure is a separate deferred roadmap row, W2-409.
 
+- RULE 45 (Drain-don't-wait, all seats, adopted 2026-09-05): after
+  finishing a relay's items, RIVET reads docs/TASK_BOARD.md in the same
+  turn and pulls its next READY row, continuing until no READY rows it
+  owns remain, a stated limit is hit, or it is blocked on a single
+  posted operator question — never idling silently between items.
+- RULE 46 (Idle-only-with-enquiry, all seats, adopted 2026-09-05):
+  RIVET may stop only with a posted blocking question on record; going
+  quiet with no question and no READY row left is a RULE 40 violation.
+  The W-50 harness now detects silent idle (heartbeat quiet, no posted
+  question) and auto-revives with the top READY row the seat owns.
+- RULE 47 (Meeting-report, all seats, adopted 2026-09-05): on the
+  keyword "meeting," whichever seat is freest regenerates
+  docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
+  outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
+  in the same pass.
+
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
 first assigned row.

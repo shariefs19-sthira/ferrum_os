@@ -317,3 +317,26 @@ Mapping is deliberately coarse: no per-wall/per-room "draggable element"
 model exists anywhere in the repo yet (DesignStudio's TestFitCalculator
 only emits the plot_width_m/plot_depth_m/floors envelope) — this defines
 the minimal shape a richer massing model would need to fill in.
+
+- RULE 45 (Drain-don't-wait, all seats, adopted 2026-09-05): after
+  finishing a relay's items, CRANE reads docs/TASK_BOARD.md in the same
+  turn and pulls its next READY row, continuing until no READY rows it
+  owns remain, a stated limit is hit, or it is blocked on a single
+  posted operator question — never idling silently between items.
+- RULE 46 (Idle-only-with-enquiry, all seats, adopted 2026-09-05):
+  CRANE may stop only with a posted blocking question on record; going
+  quiet with no question and no READY row left is a RULE 40 violation.
+  CRANE owns the two harness amendments this rule requires of W-50
+  (docs/FLEET_SEATS.json / scripts/FLEET_WATCH.ps1): (a) auto-deploy
+  whenever origin/main advances, under the existing guarded standing
+  deploy authority, so a landing goes live in the same cycle with no
+  separate deploy relay; (b) silent-idle detection — heartbeat quiet
+  with no posted question — raising an ntfy flag and auto-reviving the
+  affected seat with the top READY row it owns via Get-TopReadyRow.
+  Spec recorded in docs/FLEET_WATCH.md; CRANE implements against its
+  own harness files.
+- RULE 47 (Meeting-report, all seats, adopted 2026-09-05): on the
+  keyword "meeting," whichever seat is freest regenerates
+  docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
+  outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
+  in the same pass.

@@ -55,6 +55,35 @@ authorized (verbatim, 2026-09-04) — not a capability any seat inferred
 or self-granted. Recorded here so this authorization doesn't need to be
 re-established or re-questioned by a future seat reading this file cold.
 
+## W-50 harness — auto-deploy on origin/main advance (RULE 45 amendment,
+2026-09-05)
+
+The W-50 revival harness (docs/FLEET_SEATS.json +
+scripts/FLEET_WATCH.ps1) is amended: whenever `origin/main` advances,
+the harness auto-deploys under the existing guarded STANDING-DEPLOY-
+AUTHORITY (RULE 40 approval A: HEAD==origin/main, gates green, deploy
+SHA logged, `docs/DEPLOY_STOP` kill-switch honored). Every landing goes
+live in the same cycle it lands in — there is no separate deploy relay
+for the conductor to issue. This is policy/spec recorded here; the
+actual trigger (a post-land hook or a poll-and-compare loop inside
+FLEET_WATCH.ps1) is CRANE-territory to implement against W-50's own
+files, not something SCRIBE edits directly.
+
+## W-50 harness — silent-idle detection (RULE 46 amendment, 2026-09-05)
+
+The same harness detects silent idle: a seat's heartbeat goes quiet
+with no blocking operator question posted on record (per RULE 46). On
+detection, the harness (a) raises an ntfy flag (existing alert channel
+above), and (b) auto-revives the seat, dispatching the top READY row
+it owns via `Get-TopReadyRow` (docs/TASK_BOARD.md table order — the
+harness's own established meaning of "priority order," per its own
+code comment). This is distinct from the existing reset-time-based
+revival (a seat hitting a provider rate limit): silent idle is a seat
+that is available but has stopped without cause. Detection/dispatch
+logic is CRANE-territory to implement against `scripts/FLEET_WATCH.ps1`
+and `docs/FLEET_SEATS.json`; recorded here as the policy/spec those
+files must satisfy.
+
 ## Kill-switch (RULE 38(6))
 
 A human-operable kill-switch for the watchdog and both revival paths is

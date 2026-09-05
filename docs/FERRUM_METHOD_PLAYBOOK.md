@@ -47,14 +47,14 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — forty-two numbered rules were actually adopted (numbered
-1–14, 16–31, 33–44 — RULE 15 and RULE 32 were never assigned; leave
+matured — forty-five numbered rules were actually adopted (numbered
+1–14, 16–31, 33–47 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–44, added later in the
+applies to their situation. Rules 18–31 and 33–47, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -143,7 +143,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–44 (added later, summarized)
+### Addendum: rules 18–31, 33–47 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -686,6 +686,42 @@ source.
     surface, one operator correction at a time, which is exactly the
     kind of repeated cost this rule exists to close in one pass
     instead.*
+45. **Drain-don't-wait** — a seat that finishes a relay's items reads the
+    pull-queue in the same turn and pulls its own next eligible row,
+    continuing until it runs out of eligible rows, hits a stated limit,
+    or is genuinely blocked on a single, explicitly posted operator
+    question. Reporting happens per item as work lands, but never ends
+    the turn early on its own. Relays shift from single-item dispatches
+    to complete work orders.
+    *Rationale: a pull-queue (rule 35-equivalent) only pays off if seats
+    actually keep pulling from it; without this rule, seats idled
+    between relay messages even when eligible work was sitting ready,
+    turning a self-service queue back into a dispatch-and-wait loop.*
+46. **Idle-only-with-enquiry** — a seat may stop only with a posted
+    blocking question on record. Going silent with nothing posted and
+    no eligible work left is treated the same as any other incomplete,
+    unverifiable report. The harness that revives seats after a rate
+    limit or crash is extended to also detect this silent-idle case —
+    heartbeat quiet with no question on record — and respond by
+    flagging it and dispatching the seat's own next eligible item. The
+    conductor's relay role narrows to operator corrections and posted
+    enquiries; the drain (rule 45) is expected to self-run in between.
+    *Rationale: rule 45 covers a seat that keeps pulling work; this
+    rule covers the remaining gap — a seat that neither pulls work nor
+    asks a question, just goes quiet — which a conductor otherwise
+    cannot distinguish from "still working" without manually polling
+    every seat.*
+47. **Meeting-report regeneration** — a single named report file is the
+    operator's carry-in technical report; on a fixed trigger keyword,
+    whichever seat is free regenerates it from disk facts only (commit
+    history, test/battery output, manifest/config files, the task
+    ledger, perf budgets) — never from memory or assumption — as
+    print-ready output, and lands it in the same pass.
+    *Rationale: a status report drafted from a seat's recollection goes
+    stale or drifts from what's actually on disk the moment any other
+    seat lands something; grounding regeneration in the same disk facts
+    every seat already uses for DONE/SHA verification keeps the report
+    trustworthy without needing its own separate maintenance discipline.*
 
 ## 3. Ledger formats
 
