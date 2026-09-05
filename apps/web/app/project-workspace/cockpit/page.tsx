@@ -91,12 +91,13 @@ export default function ProjectWorkspaceCockpit() {
       <main className="h-full min-h-0">
         <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} />
       </main>
-      <div className="absolute left-2 top-2 z-30 max-w-[calc(100%-1rem)] shadow-lg"><ToolsRuler
+      <div className="absolute bottom-2 right-2 top-2 z-30 w-20 shadow-lg"><ToolsRuler
         activeTool={activeTool}
         extractOpen={extractOpen}
         onExtractOpenChange={setExtractOpen}
         onMoreOpenChange={setMoreOpen}
         onToolChange={setActiveTool}
+        rail
       /></div>
       {territoryOpen && <aside className="absolute bottom-2 left-2 top-2 z-40 w-[min(20rem,calc(100%-1rem))] overflow-y-auto border border-relume-border bg-white p-5 shadow-2xl" aria-label="Territorial context"><button type="button" onClick={()=>setTerritoryOpen(false)} className="float-right min-h-11 px-3">Close</button><p className="text-xs font-semibold uppercase tracking-wider text-relume-muted">Territorial context</p><h2 className="mt-3 text-xl font-semibold">No parcel attached</h2><p className="mt-3 text-sm leading-6 text-relume-muted">This preview has no authoritative parcel or jurisdiction record. Attach a verified LandIntel result before applying territorial constraints.</p><span className="mt-4 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold">ROADMAP</span></aside>}
       {sutraOpen && <div className="absolute bottom-2 right-2 top-2 z-40 w-[min(22rem,calc(100%-1rem))] shadow-2xl"><SutraPanel onSubmit={handleCommand} /></div>}
