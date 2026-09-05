@@ -1,0 +1,9 @@
+{
+  "_comment": "Single source of truth for the deployed live-edge base URL, added after the workers.dev subdomain was operator-renamed mid-session (old ferrum-os.shariefsatyala.workers.dev prefix killed, ferrumos-preview.shariefsatyala.workers.dev is current) and broke every hardcoded-URL audit script/battery in one shot. Any script/battery that hits the live edge should resolve its base URL from here (or the FERRUM_LIVE_BASE_URL env var, which takes precedence) instead of a literal string, so a future rename is a one-line edit here, not a grep-and-replace across every script.",
+  "liveBaseUrl": "https://ferrumos-preview.shariefsatyala.workers.dev",
+  "liveBaseUrlEnvVar": "FERRUM_LIVE_BASE_URL",
+  "history": [
+    { "url": "https://ferrum-os.shariefsatyala.workers.dev", "status": "retired", "note": "operator-killed 2026-09-05; returns Cloudflare error 1042 on every route" },
+    { "url": "https://ferrumos-preview.shariefsatyala.workers.dev", "status": "current", "note": "confirmed live via /api/health, 2026-09-05" }
+  ]
+}
