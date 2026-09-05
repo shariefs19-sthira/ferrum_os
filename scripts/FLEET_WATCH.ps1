@@ -222,10 +222,20 @@ function Send-NtfyAlert([string]$Message, [string]$Title = "Fleet watch") {
 
 function Get-SeatHeartbeat([string]$Seat) {
     # Two signals, most-recent wins: (a) the most recent [AI: SEAT]-tagged
-    # commit anywhere in the repo's history, (b) the most recent mtime
-    # among that seat's own worktree directories (crane-*, mason-*, etc.
-    # under D:\ferrum_os.worktrees - a seat editing files updates mtimes
-    # even before it commits).
+    # commit anywhere in the repo's history, (b) the most recent activity
+    # signal among that seat's own worktree directories (crane-*, mason-*,
+    # etc. under D:\ferrum_os.worktrees).
+    #
+    # HEARTBEAT PERF FIX (found during W-50 dry-run testing): (b) used to
+    # be `Get-ChildItem -Recurse -File` across every matching worktree,
+    # including each one's own node_modules - with ~250 worktrees on disk
+    # (many pnpm-installed), that recursion took minutes per cycle and
+    # once hung a full watch cycle outright. Replaced with `git log` (last
+    # commit time in that worktree, any branch) + `git status --porcelain`
+    # (mtime of only the small set of actually-changed files, not the
+    # whole tree) - both fast regardless of node_modules size, and a
+    # closer match to "is a seat actually working here" than a raw
+    # directory-wide file-mtime scan ever was.
     Push-Location $repoRoot
     try {
         $lastCommitEpoch = $null
@@ -237,18 +247,37 @@ function Get-SeatHeartbeat([string]$Seat) {
         Pop-Location
     }
 
-    $worktreeRoot = "D:\ferrum_os.worktrees"
     $lastMtimeEpoch = $null
     if (Test-Path $worktreeRoot) {
         $seatPrefix = $Seat.ToLower()
         $matchingDirs = Get-ChildItem -Path $worktreeRoot -Directory -ErrorAction SilentlyContinue |
             Where-Object { $_.Name.ToLower().StartsWith($seatPrefix) }
         foreach ($dir in $matchingDirs) {
-            $newestFile = Get-ChildItem -Path $dir.FullName -Recurse -File -ErrorAction SilentlyContinue |
-                Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1
-            if ($newestFile) {
-                $epoch = [long](Get-Date $newestFile.LastWriteTimeUtc -UFormat %s)
-                if (-not $lastMtimeEpoch -or $epoch -gt $lastMtimeEpoch) { $lastMtimeEpoch = $epoch }
+            if (-not (Test-Path (Join-Path $dir.FullName ".git"))) { continue }
+            Push-Location $dir.FullName
+            try {
+                # One stale/broken worktree (e.g. its gitdir was removed
+                # out-of-band) must never abort the whole heartbeat scan
+                # for every other seat/worktree - isolate failures here.
+                $ErrorActionPreference = "Continue"
+                $headCommitLine = git log -1 --format=%ct --all 2>$null
+                if ($LASTEXITCODE -eq 0 -and $headCommitLine) {
+                    $epoch = [long]$headCommitLine
+                    if (-not $lastMtimeEpoch -or $epoch -gt $lastMtimeEpoch) { $lastMtimeEpoch = $epoch }
+                }
+                $dirtyFiles = git status --porcelain=v1 2>$null | ForEach-Object { ($_ -replace '^...', '').Trim('"') }
+                foreach ($relPath in $dirtyFiles) {
+                    $fullPath = Join-Path $dir.FullName $relPath
+                    if (Test-Path $fullPath -PathType Leaf) {
+                        $epoch = [long](Get-Date (Get-Item $fullPath).LastWriteTimeUtc -UFormat %s)
+                        if (-not $lastMtimeEpoch -or $epoch -gt $lastMtimeEpoch) { $lastMtimeEpoch = $epoch }
+                    }
+                }
+            } catch {
+                Write-Host "Skipping unreadable worktree $($dir.FullName): $($_.Exception.Message)"
+            } finally {
+                $ErrorActionPreference = "Stop"
+                Pop-Location
             }
         }
     }
