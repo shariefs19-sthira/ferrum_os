@@ -277,4 +277,7 @@ This was a fresh baseline: it explicitly does not claim any prior
   intentionally unassigned): SCRIBE records this rule and audits that
   its own ledger rows reflect it wherever a 3D/model surface is
   described — no row's acceptance criteria should imply a mouse-driven
-  mutation as acceptable behavior.
+  mutation as acceptable behavior, unless it is the approved slider+
+  paired-numeric-input exception (carve-out, 2026-09-05, operator
+  refinement, "latest wins", row W-53) where both controls route
+  through SUTRA's own intent pipeline.

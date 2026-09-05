@@ -195,6 +195,14 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   SUTRA's text/voice. Per RULE 50 (adopted same pass), the cockpit
   canvas in this layout carries no mouse-mutation handlers — view
   gestures only.
+- MASON's board queue (2026-09-05) also includes its UI piece of W-65
+  PLOT_SEARCH: three input modes on LandIntel/Land tab/Territory panel
+  — PLACE search (Nominatim typeahead, debounced+cached, attribution
+  chip), COORDINATES (decimal + DMS, validated), and the existing
+  ULPIN lookup (unchanged). Any resolve re-drapes the ground at the
+  new bbox using W-51's existing adapters, with a "user-provided
+  location · source · date" provenance chip and an indicative-until-
+  surveyed boundary.
 - MASON's board queue (2026-09-05) also includes its piece of W-53
   NO_SLIDERS_ANYWHERE: the cockpit route, all ten cockpit tabs, and
   fullscreen (W-52) have every manual control removed — parameter
@@ -324,6 +332,11 @@ first assigned row.
   surfaces are VIEW-only (orbit/pan/zoom/view-tab & model switching/
   nav chrome) — no mouse-driven mutation handler on any canvas, ever;
   every mutation flows through SUTRA (voice→text→prompt→model).
+  **Carve-out (2026-09-05, operator refinement, "latest wins", row
+  W-53):** a slider paired with an explicit numeric input (metric +
+  imperial), both routed through the same intent pipeline SUTRA uses,
+  is the one approved exception — a bare slider with no paired input,
+  or any handler bypassing the pipeline, is still a violation.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

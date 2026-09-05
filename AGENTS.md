@@ -942,14 +942,25 @@ resolves to a prompt/intent, the prompt drives the deterministic
 engine which mutates the model. A canvas or view surface with a
 mouse-driven mutation handler (a drag-to-resize, a click-to-toggle
 parameter, a slider embedded in the 3D view) is a RULE 50 violation,
-regardless of whether RULE 53 (NO_SLIDERS_ANYWHERE) already covers the
-same surface — the two rules overlap by design, not redundantly.
+regardless of whether row W-53 (NO_SLIDERS_ANYWHERE) already covers
+the same surface — the two overlap by design, not redundantly.
 *Rationale:* the conversational/SUTRA-first interaction model (W-27,
 W-58) only holds if there is no silent side-channel back into direct
 manipulation; a single leftover mouse-mutation handler would let a
 user bypass the guided tree, the ruleset constraints, and the
 provenance/citation trail the whole KB/persona stack (W-29/W-41/W-43/
 W-59) depends on.
+**Carve-out (2026-09-05, operator refinement on row W-53, "latest
+wins"):** a slider paired with an explicit numeric input, where BOTH
+controls route through the same intent pipeline SUTRA itself uses
+(the same validated mutation path, not a raw/ungoverned DOM binding),
+is an approved exception to the "no mouse-driven mutation handler"
+clause above. This is the only approved exception; a bare slider with
+no paired numeric input, or any mutation handler that bypasses the
+intent pipeline, remains a violation. Recorded here rather than
+silently overriding this rule, per RULE 27's resolve-don't-ask
+discipline — the operator's instruction was explicit and timestamped
+as taking precedence.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum

@@ -240,7 +240,11 @@ as every other seat.
 - RULE 50 (Mouse-view-only, all seats, adopted 2026-09-05; RULE 49
   intentionally unassigned): mouse/touch gestures on any 3D/model
   surface RIVET touches are VIEW-only (orbit/pan/zoom/tab-switching/
-  nav chrome); every mutation flows through SUTRA instead.
+  nav chrome); every mutation flows through SUTRA instead. **Carve-out
+  (2026-09-05, operator refinement, "latest wins", row W-53):** a
+  slider paired with an explicit numeric input (metric + imperial),
+  both routed through the same intent pipeline SUTRA uses, is the one
+  approved exception.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
