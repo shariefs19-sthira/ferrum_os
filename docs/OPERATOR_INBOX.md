@@ -32,3 +32,17 @@ pass.
   not deleted — this inbox entry consolidates it as the operator-facing
   surface per RULE 37(1); APPROVAL_QUEUE.md remains the ledger of
   record for the eventual EXECUTED SHA once answered.
+
+## W-64 BOOTSTRAP_LAUNCH — original scope not found on disk (2026-09-05)
+An amendment instruction cited "W-64 BOOTSTRAP_LAUNCH" and gave a real
+line to add to it ("bootstrap = zero investor dependency, NOT reduced
+features; the full roadmap ships on free tiers; premium data sources
+are upgrades, not gates."), but this row's own title/envelope/
+acceptance were never seeded on docs/TASK_BOARD.md or found anywhere
+else on disk — checked directly, not assumed missing. The amendment
+text is preserved on the board's W-64 row (STUCK status) so it isn't
+lost, but the row cannot become pull-eligible until its actual scope
+is supplied. **Single blocking question:** what is W-64 BOOTSTRAP_LAUNCH's
+full scope (envelope, eligible seat, acceptance criteria) — was it
+established in a prior turn not surfaced to SCRIBE, or does it need to
+be authored fresh from this amendment line alone?
