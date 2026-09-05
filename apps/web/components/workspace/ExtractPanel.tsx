@@ -27,7 +27,7 @@ export default function ExtractPanel({
   provenance,
 }: ExtractPanelProps) {
   return (
-    <aside aria-label="Data extract" className="rounded-relume border border-relume-border bg-relume-surface p-5 sm:p-relume-card">
+    <aside aria-label="Data extract" className="border border-relume-border bg-relume-surface p-5 sm:p-relume-card">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">

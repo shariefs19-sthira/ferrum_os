@@ -27,9 +27,9 @@ export default function MoreDrawer({ onMoreAction, onMoreOpenChange, open }: Mor
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/20" role="presentation">
-      <button aria-label="Close more options" className="min-h-full flex-1 cursor-default" onClick={() => onMoreOpenChange(false)} type="button" />
-      <section aria-label="More workspace options" aria-modal="true" className="h-full w-full max-w-sm border-l border-relume-border bg-relume-surface p-5 sm:p-relume-card" role="dialog">
+    <div className="fixed inset-0 z-50 flex items-end justify-start bg-black/20" role="presentation">
+      <button aria-label="Close more options" className="h-full flex-1 cursor-default" onClick={() => onMoreOpenChange(false)} type="button" />
+      <section aria-label="More workspace options" aria-modal="true" className="w-full max-w-sm rounded-tr-relume border-r border-t border-relume-border bg-relume-surface p-5 sm:p-relume-card" role="dialog">
         <div className="flex items-start justify-between gap-4">
           <div><p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">Workspace</p><h2 className="mt-2 text-xl font-semibold tracking-relume-tight text-relume-ink">More options</h2></div>
           <button className="min-h-11 rounded-full border border-relume-border px-4 text-sm font-medium text-relume-ink hover:bg-relume-surface-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink" onClick={() => onMoreOpenChange(false)} type="button">Close</button>
