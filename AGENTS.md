@@ -787,6 +787,84 @@ ATLAS's audit battery gains the responsive matrix and the perf budgets
 as standing checks, run on every landing, not only rows that explicitly
 claim to touch performance or layout.
 
+## RULE 42 — Seat-push standing (operator approval 2026-09-04)
+Seats may push their own `w2-*`/seat-named branches to `origin` without
+requesting per-branch approval — this is a standing grant, not a
+one-time exception, logged in `docs/APPROVAL_QUEUE.md`. It covers
+pushing a branch for review/landing only. **Production deploy authority
+is unchanged**: it remains the guarded, standing grant under RULE 40's
+approvals (`HEAD == origin/main`, gates green, deploy SHA logged,
+`docs/DEPLOY_STOP` as kill-switch) — RULE 42 does not loosen, replace,
+or duplicate that gate. Landing itself still goes through
+`scripts/land.ps1` per RULE 18/35; RULE 42 only removes the
+per-branch-push approval step that preceded it.
+
+## RULE 43 — Citation-on-main (adopted 2026-09-04)
+(1) **Conductor relays cite only rows verified on `origin/main`.** A row
+ID (W-NN, W2-NNN) may appear in a relay only after SCRIBE has confirmed
+it actually exists on `origin/main` — not merely committed on a local
+branch, not merely pushed, and not merely described in a prior chat
+message. "Landed" here means the same thing RULE 22 already means:
+verified via the tree check / landing-marker check against
+`origin/main` itself.
+(2) **No landed row → no number.** A task the operator hands down before
+its board/ledger row has actually landed on `origin/main` travels as an
+**OPERATOR VERBATIM TASK**, carrying no row ID at all — the full inline
+text is the task, per RULE 39(1)/(4). A seat never infers or invents a
+row number to attach to it.
+(3) **SCRIBE lands row seedings before downstream relays cite them.**
+When SCRIBE seeds a new docs-only row, that seeding itself must land on
+`origin/main` (via `scripts/land.ps1`, same as any other branch) before
+the conductor sequences any relay that cites that row's ID to a seat.
+This is a sequencing rule on the conductor's relays, not a claim that
+SCRIBE's own docs work is otherwise special.
+(4) **Six mistimed citations, logged as conductor-side incidents
+(2026-09-04):** W-27, W-29, W-32, W-35a, W-41, and W-43 (this row
+itself, at the time this rule was being drafted) were each cited in a
+relay before their seeding had actually landed on `origin/main` — the
+seedings existed only on SCRIBE's own not-yet-landed branch chain at
+citation time. Logged here per RULE 40's facts-only standard: these are
+verifiable facts about sequencing, not seat-side failures — each row's
+own content was accurate once landed, only the citation timing was
+ahead of the landing. This is the incident record RULE 43 exists to
+prevent from recurring.
+
+## RULE 44 — Principle-generalization (binds ALL seats + conductor,
+adopted 2026-09-05)
+**Core statement.** An operator principle stated on one surface applies
+to ALL analogous surfaces unless the operator explicitly limits it. The
+conductor and every seat generalize by default — the literal named
+surface is the example, not the boundary, unless told otherwise.
+**Mandatory operational checklist**, run on every operator correction,
+no exceptions:
+(1) **Extract the underlying principle** in one sentence — what is
+actually being corrected, stated abstractly enough to recognize
+elsewhere, not just restated as "fix X."
+(2) **Enumerate every analogous surface/component/flow** the seat owns
+or knows about — the full set the principle could plausibly apply to,
+not just the one named in the correction.
+(3) **Apply the principle to all of them in the same pass**, or, for
+any it genuinely cannot reach in this pass, flag each one with the
+specific reason it's deferred — never silently skip an analogous
+surface.
+(4) **Record the principle and the enumeration** in both the seat's
+report and the affected row's(s') acceptance criteria — the
+generalization itself must be visible and checkable, not just its
+result.
+**Enforcement.** Applying a correction only to the literal surface the
+operator named — without running this checklist — is itself a RULE 40
+violation: an incomplete report, because it omits the enumeration and
+generalization step RULE 44 requires.
+*Worked example, applied immediately at adoption:* the operator
+corrected the Land tab's cockpit ground (docs/TASK_BOARD.md W-51
+SATELLITE_GROUND) to use live satellite imagery instead of a generic
+grid. Per this rule, that principle — a cockpit view of a real site
+should render the real site, not a placeholder — was generalized to
+every analogous surface: all ten cockpit tabs and every product-page
+preview, not just the Land tab. W-51 was amended in place to ONE-GROUND
+to record this generalization, with an explicit FAIL condition for any
+view that still renders the generic grid.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

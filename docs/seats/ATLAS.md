@@ -184,3 +184,27 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   JS/LCP/CLS/INP/main-thread-task/draw-calls/FPS) as standing checks on
   every landing, not only rows that explicitly claim to touch
   performance or layout — same standing as the type check.
+- RULE 42 (Seat-push standing, operator approval 2026-09-04): ATLAS
+  pushes its own branches without per-branch approval; production
+  deploy authority stays the unchanged guarded standing grant under
+  RULE 40.
+- RULE 43 (Citation-on-main, adopted 2026-09-04): ATLAS treats a
+  relay's cited row ID as authoritative only if it's actually verified
+  landed on `origin/main`; a task with no landed row is an OPERATOR
+  VERBATIM TASK with no number, per RULE 39.
+- RULE 44 (Principle-generalization, binds all seats, adopted
+  2026-09-05): on every operator correction, ATLAS extracts the
+  underlying principle, enumerates every analogous surface it
+  audits, applies/checks the principle across all of them in the same
+  pass (or flags what it can't reach and why), and records the
+  principle + enumeration in its report — auditing only the literal
+  named surface is itself a RULE 40 violation (incomplete report).
+- ATLAS's audit battery gains a standing check for W-51
+  SATELLITE_GROUND (2026-09-05): attribution chip present, imagery-date
+  chip present, OSM-footprint honesty chip present where existing
+  buildings render, and no fabricated imagery on an offline/failure
+  path — verified against the deployed edge, not the row's own claim.
+- ATLAS's honesty-check on W-39 WORKSPACE_PROMPT's marketing copy
+  (2026-09-04) is a real gate on that row's DONE status, not an
+  optional pass: every claim in the new hero/CTA copy must map to a
+  live feature or an explicitly labeled roadmap item.
