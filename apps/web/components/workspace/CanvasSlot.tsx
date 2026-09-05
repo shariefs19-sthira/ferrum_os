@@ -2,6 +2,9 @@
 
 import type { WorkspaceExtract, WorkspaceProduct, WorkspaceProvenance } from "../../lib/types"
 import WorkspaceCockpit from "./WorkspaceCockpit"
+import type { ProductControlId } from "../../lib/workspace/controlRegistry"
+
+const productControls: Record<WorkspaceProduct, ProductControlId> = { Land:"landintel", Design:"designstudio", Structure:"structura", Cost:"boq-pro", Market:"promarket", Procure:"procurehub", Invest:"investflow", Build:"buildos", Community:"communitybuild", Transact:"transact" }
 
 type LiveMetrics = {
   extracts: WorkspaceExtract[]
@@ -20,7 +23,7 @@ export default function CanvasSlot({
 }) {
   return (
     <div className="h-full" aria-label={`${product} workspace canvas`} data-workspace-canvas>
-      <WorkspaceCockpit canvasFirst onLiveMetricsChange={onLiveMetricsChange} />
+      <WorkspaceCockpit canvasFirst controlProduct={productControls[product]} onLiveMetricsChange={onLiveMetricsChange} />
     </div>
   )
 }

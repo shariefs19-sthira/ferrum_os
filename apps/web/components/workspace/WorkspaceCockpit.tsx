@@ -11,6 +11,8 @@ import { convertArea, metresAndFeet } from '../../lib/units'
 import ExportBar from './ExportBar'
 import PlanElevationView from './PlanElevationView'
 import { measureBoq } from '../../lib/workspace/measuredBoq'
+import RegistryControls from './RegistryControls'
+import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -80,11 +82,12 @@ type WorkspaceCockpitProps = {
   onParametersChange?: (parameters: StudioParameters) => void
   previewLabel?: string
   canvasFirst?: boolean
+  controlProduct?: ProductControlId
 }
 
 const defaultParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 }
 
-export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false }: WorkspaceCockpitProps) {
+export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, controlProduct }: WorkspaceCockpitProps) {
   const [parameters, setParameters] = useState<StudioParameters>(initialParameters)
   const [view, setView] = useState<StudioView>('space')
   const [activeFloor, setActiveFloor] = useState(1)
@@ -248,6 +251,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           <div className={canvasFirst ? "h-[calc(100%-3.75rem)] min-h-[24rem]" : "h-[32rem] min-h-[24rem]"}>
             {view === 'space' ? <Space3D plan={plan} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} />}
           </div>
+          {controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} onChange={update}/>}
         </div>
 
         {!canvasFirst && <aside className="order-3 border-t border-relume-border p-4 xl:order-none xl:border-l xl:border-t-0" aria-label="Plan data extract">
