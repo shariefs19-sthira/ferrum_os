@@ -98,6 +98,34 @@ export const planningFacts: ClauseFact[] = [
     },
     provenance: SOURCE,
   },
+  {
+    clauseId: "MBBL 2016 Table 3.3",
+    version: "Model Building Bye-Laws, 2016, TCPO",
+    domain: "planning",
+    summary:
+      "Indian standard plot-size classes (Building control in Residential Premises): maximum ground coverage, FAR, permitted dwelling-unit count, and maximum height per plot-area bracket. Feeds W-67 PRESET_LIBRARY's plot-class x use/floor combinatorial matrix - the regulatory envelope each generated preset must respect, not the preset generation itself (MASON's piece).",
+    data: {
+      rows: [
+        { plotAreaSqmMax: 30, maxGroundCoveragePercent: 75, farAsTabulated: 150, maxDwellingUnits: 1, maxHeightM: 8 },
+        { plotAreaSqmRange: "30-50", maxGroundCoveragePercent: 75, farAsTabulated: 150, maxDwellingUnits: 2, maxHeightM: 8 },
+        { plotAreaSqmRange: "50-100", maxGroundCoveragePercent: 65, farAsTabulated: 180, maxDwellingUnits: 3, maxHeightM: 12 },
+        { plotAreaSqmRange: "100-250", maxGroundCoveragePercent: 65, farAsTabulated: 180, maxDwellingUnits: 3, maxHeightM: 12 },
+        { plotAreaSqmRange: "250-500", maxGroundCoveragePercent: 55, farAsTabulated: 165, maxDwellingUnits: 6, maxHeightM: 15 },
+        { plotAreaSqmRange: "500-1000", maxGroundCoveragePercent: 45, farAsTabulated: 120, maxDwellingUnits: 8, maxHeightM: 15 },
+        { plotAreaSqmRange: "1000-1500", maxGroundCoveragePercent: 40, farAsTabulated: 100, maxDwellingUnits: 8, maxHeightM: 15 },
+        { plotAreaSqmRange: "1500-3000", maxGroundCoveragePercent: 33.3, farAsTabulated: 100, maxDwellingUnits: 12, maxHeightM: 15 },
+      ],
+      note:
+        "farAsTabulated is recorded exactly as the source table prints it (150, 180, 165...), not silently divided by 100 into a FAR ratio (1.50, 1.80...) - the source's own column header just reads 'FAR' with no unit stated, and this session did not independently confirm which convention the original table intends. Flagged, not guessed. This is a MODEL bye-law (guidance for state/ULB adoption, per the document's own stated purpose) - individual city DCRs may set different numbers; this table is the national-model baseline, not a claim that every city follows it exactly.",
+    },
+    provenance: {
+      sourceName: "Model Building Bye-Laws, 2016 (Ministry of Urban Development, Government of India; TCPO)",
+      sourceUrl: "https://smartnet.niua.org/content/498286ad-1f8b-4c41-88d8-f58e98ed20fa",
+      license: "© Ministry of Urban Development, Government of India, 2016 - \"Material from this publication may be used for educational or other purposes with due credits\" (source's own stated terms).",
+      fetchedAt: "2026-09-06",
+      status: "VERIFIED-SAMPLE",
+    },
+  },
 ]
 
 export const planningGaps: KbGap[] = []

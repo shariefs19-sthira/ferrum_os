@@ -58,7 +58,7 @@ export type KbDomain = (typeof kbDomains)[number]
 export type KbGap = {
   clauseId: string
   domain: KbDomain
-  reason: "GAP-OCR" // extend this union if a different real gap kind shows up (e.g. GAP-PAYWALL)
+  reason: "GAP-OCR" | "GAP-NOT-CODIFIED" // GAP-NOT-CODIFIED: no direct code table/clause exists for this - the source is calculation/design-method-based, not a lookup value, and this session isn't fabricating a rule-of-thumb as if it were code-derived. Extend further if a different real gap kind shows up (e.g. GAP-PAYWALL).
   queuedAction: string
 }
 

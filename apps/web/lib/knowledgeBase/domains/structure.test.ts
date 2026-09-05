@@ -32,13 +32,22 @@ describe("W-29 KB structure domain (adapter-first seed)", () => {
     expect(data.ocrCorrectionNote).toMatch(/12S/)
   })
 
-  it("OCR-garbled clauses are chipped GAP-OCR and queued, not reconstructed from memory or silently dropped", () => {
+  it("gaps are chipped with a real reason and queued, not reconstructed from memory or silently dropped", () => {
     expect(structureGaps.length).toBeGreaterThan(0)
     for (const gap of structureGaps) {
-      expect(gap.reason).toBe("GAP-OCR")
+      expect(["GAP-OCR", "GAP-NOT-CODIFIED"]).toContain(gap.reason)
       expect(gap.queuedAction).toBeTruthy()
     }
-    expect(structureGaps.some((g) => g.clauseId === "IS 456:2000 Cl 26.5.1.1")).toBe(true)
+    expect(structureGaps.some((g) => g.clauseId === "IS 456:2000 Cl 26.5.1.1" && g.reason === "GAP-OCR")).toBe(true)
+    expect(structureGaps.some((g) => g.reason === "GAP-NOT-CODIFIED")).toBe(true)
+  })
+
+  it("the beam-depth element convention is a traceable derivation of Cl 23.2.1, not a new unsourced fact", () => {
+    const fact = structureFacts.find((f) => f.clauseId === "IS 456:2000 Cl 23.2.1 (derived: beam minimum effective depth)")!
+    const data = fact.data as { formula: string; basicSpanToDepthRatioRef: string }
+    expect(data.formula).toMatch(/basicSpanToDepthRatio/)
+    expect(data.basicSpanToDepthRatioRef).toMatch(/Cl 23\.2\.1/)
+    expect(fact.provenance.status).toBe("VERIFIED-SAMPLE")
   })
 })
 
