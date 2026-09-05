@@ -230,6 +230,18 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   ONE-GROUND row (2026-09-05) is the worked example: a Land-tab-only
   ground correction was generalized to all 10 tabs and every
   product-page preview.
+- MASON owns W-52 FULLSCREEN_TOGGLE (2026-09-05): a YouTube-style
+  fullscreen toggle on the cockpit AND on every one of the ten
+  product-page previews, browser Fullscreen API on the cockpit
+  container, panels become overlays (reusing W-47's mechanism), render
+  profile switches to HIGH (full shadows/reflections/pixelRatio 2/all
+  viewports — the opposite end of RULE 41(2)'s degradation spectrum),
+  mobile falls back to a 100dvh immersive mode where Fullscreen API
+  isn't supported. Amended W-47's row to note the layering: W-47 is
+  the maximized-viewport base, W-52 is the actual fullscreen control on
+  top of it. Also has W-28's acceptance amendment to apply (RULE 44):
+  SUTRA's full guided-tree/KB-answer/distinct-intent demo requirements,
+  flagged as not yet re-verified against W-28's existing DONE landing.
 - MASON's piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
   RIVET): the demo-mode Space3D — the real cockpit 3D canvas playing a
   scripted intent loop ("add 2 floors" → massing grows, "setback 3m" →
