@@ -211,6 +211,11 @@
   RATE_ENGINE pattern, plus a standing operator REFINE slot per module
   and an honest per-domain depth-% figure on the coverage manifest.
   ATLAS audits the depth-% claims independently.
+- CRANE's board queue (2026-09-05) also includes the policy piece of
+  W-65 PLOT_SEARCH: the Nominatim geocoder adapter's usage-terms
+  compliance (1 request/second cap, attribution requirement) and the
+  self-hosted-Nominatim-for-commercial-scale roadmap note — MASON
+  builds the UI, CRANE gates the adapter policy it runs against.
 - CRANE's board queue (2026-09-04) also includes the grammar half of
   W-27 CONVERSATIONAL_PRIMARY: extend the intent grammar (per
   WORKSPACE_SPEC.md §5) to the full parameter set (floors, plot w/d,
@@ -370,7 +375,10 @@ the minimal shape a richer massing model would need to fill in.
   intentionally unassigned): mouse/touch gestures on any 3D/model
   surface are VIEW-only (orbit/pan/zoom/view-tab & model switching/
   nav chrome); every mutation flows through SUTRA instead — a
-  standing constraint CRANE's own audits/gates check for.
+  standing constraint CRANE's own audits/gates check for. **Carve-out
+  (2026-09-05, operator refinement, "latest wins"):** a slider paired
+  with a numeric input, both routed through SUTRA's own intent
+  pipeline, is the one approved exception (see row W-53).
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, CRANE re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

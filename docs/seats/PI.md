@@ -127,7 +127,9 @@ being experimental:
 - RULE 50 (Mouse-view-only, all seats, adopted 2026-09-05; RULE 49
   intentionally unassigned): mouse/touch gestures on any 3D/model
   surface PI touches are VIEW-only (orbit/pan/zoom/tab-switching/nav
-  chrome); every mutation flows through SUTRA instead.
+  chrome); every mutation flows through SUTRA instead. **Carve-out
+  (2026-09-05):** a slider paired with a numeric input, both routed
+  through SUTRA's own intent pipeline, is the one approved exception.
 
 ## Assigned slice (2026-09-03, trial only)
 W2-390 (the trial task itself). No standing slice — this seat has no

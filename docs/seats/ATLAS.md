@@ -238,4 +238,9 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   check that mouse/touch gestures on any 3D/model surface are
   VIEW-only (orbit/pan/zoom/tab-switching/nav chrome) — a canvas or
   view surface with any mouse-driven mutation handler is a violation,
-  regardless of whether RULE 53's slider ban already covers it.
+  regardless of whether row W-53's slider ban already covers it.
+  **Carve-out (2026-09-05, operator refinement, "latest wins"):** a
+  slider paired with a numeric input, both routed through SUTRA's own
+  intent pipeline, is the one approved exception — ATLAS's audit
+  checks for the pairing and the shared pipeline, not for the absence
+  of sliders.
