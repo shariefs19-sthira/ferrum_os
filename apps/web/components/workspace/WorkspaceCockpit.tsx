@@ -79,11 +79,12 @@ type WorkspaceCockpitProps = {
   onLiveMetricsChange?: (metrics: LiveMetrics) => void
   onParametersChange?: (parameters: StudioParameters) => void
   previewLabel?: string
+  canvasFirst?: boolean
 }
 
 const defaultParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 }
 
-export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel }: WorkspaceCockpitProps) {
+export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false }: WorkspaceCockpitProps) {
   const [parameters, setParameters] = useState<StudioParameters>(initialParameters)
   const [view, setView] = useState<StudioView>('space')
   const [activeFloor, setActiveFloor] = useState(1)
@@ -190,8 +191,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   }
 
   return (
-    <section className="overflow-hidden rounded-relume border border-relume-border bg-relume-surface shadow-sm" data-workspace-cockpit data-cockpit-preview={previewLabel}>
-      <header className="flex flex-wrap items-center gap-3 border-b border-relume-border px-4 py-3">
+    <section className={`overflow-hidden border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'h-full' : 'rounded-relume'}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined}>
+      {!canvasFirst && <header className="flex flex-wrap items-center gap-3 border-b border-relume-border px-4 py-3">
         <div className="mr-auto">
           <p className="font-display text-lg font-semibold text-relume-command">{previewLabel ? `${previewLabel} cockpit preview` : 'Design cockpit'}</p>
           <p className="text-xs text-relume-muted">Live deterministic plan and massing workspace</p>
@@ -202,9 +203,9 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         </span>
         <span className="text-xs font-semibold text-relume-success">Autosaved locally</span>
         {showFineControls && <button type="button" onClick={() => setShowFineControls(false)} className="min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command hover:bg-relume-surface-secondary">Close advanced</button>}
-      </header>
+      </header>}
 
-      <div className={`grid min-w-0 ${showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      <div className={`grid min-w-0 ${canvasFirst ? 'h-full grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
@@ -244,12 +245,12 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {optionStage === 'rooms' && ['Social-first', 'Balanced', 'Private-first'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('plotWidthM', Math.max(8, Math.min(80, parameters.plotWidthM + index - 1))); setOptionStage('compliance'); setCommandResult(`${choice} room split applied to the deterministic plan proportions.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage('use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>
-          <div className="h-[32rem] min-h-[24rem]">
+          <div className={canvasFirst ? "h-[calc(100%-3.75rem)] min-h-[24rem]" : "h-[32rem] min-h-[24rem]"}>
             {view === 'space' ? <Space3D plan={plan} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} />}
           </div>
         </div>
 
-        <aside className="order-3 border-t border-relume-border p-4 xl:order-none xl:border-l xl:border-t-0" aria-label="Plan data extract">
+        {!canvasFirst && <aside className="order-3 border-t border-relume-border p-4 xl:order-none xl:border-l xl:border-t-0" aria-label="Plan data extract">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Data extract</p>
           <dl className="mt-4 grid grid-cols-2 gap-3 text-xs">
             <div className="rounded-relume bg-relume-command p-3 text-white"><dt className="text-white/65">Gross floor area</dt><dd className="mt-1 font-mono text-lg">{format(grossArea, 1)} m²</dd></div>
@@ -269,7 +270,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             <div className="mt-3 overflow-x-auto"><table className="w-full text-left text-[10px]"><thead><tr className="border-b border-relume-border text-relume-muted"><th className="py-2">Item</th><th className="py-2 text-right">Quantity</th><th className="py-2 text-right">Amount</th></tr></thead><tbody>{measuredBoq.map(line=><tr key={line.item.id} className="border-b border-relume-border/70" title={line.basis}><td className="max-w-32 py-2 pr-2"><span className="block font-medium">{line.item.name}</span><span className="font-mono text-[9px] text-relume-muted">{line.item.itemCode}</span></td><td className="py-2 text-right font-mono tabular-nums">{format(line.quantity,2)} {line.unit}</td><td className="py-2 text-right font-medium">{line.amountInr===null?'Rate required':`₹${format(line.amountInr,2)}`}</td></tr>)}</tbody></table></div>
           </div>
           <p className="mt-6 text-xs leading-5 text-relume-muted">INDICATIVE — deterministic rectangular zoning only. It does not resolve structure, circulation compliance, daylight, Vaastu, services, or authority approval.</p>
-        </aside>
+        </aside>}
       </div>
       <p className="border-t border-relume-border bg-relume-surface-secondary px-4 py-2 text-xs text-relume-muted" aria-live="polite" data-canvas-flow-result>{commandResult}</p>
       <ExportBar plan={plan} />

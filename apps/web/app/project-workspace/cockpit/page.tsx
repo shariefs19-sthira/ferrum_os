@@ -45,6 +45,8 @@ export default function ProjectWorkspaceCockpit() {
   const [activeProduct, setActiveProduct] = useState<WorkspaceProduct>("Land")
   const [activeTool, setActiveTool] = useState<WorkspaceTool>("select")
   const [extractOpen, setExtractOpen] = useState(false)
+  const [sutraOpen, setSutraOpen] = useState(false)
+  const [territoryOpen, setTerritoryOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
 
   useEffect(() => {
@@ -77,23 +79,28 @@ export default function ProjectWorkspaceCockpit() {
   const handleLiveMetricsChange = useCallback((metrics: LiveMetrics) => setLiveMetrics(metrics), [])
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="fixed inset-0 z-[70] flex h-[100dvh] flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
+      <header className="flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-white" aria-label="Workspace app bar">
+        <strong className="font-heading text-sm">Ferrum Workspace</strong><span className="mr-auto text-xs text-white/60">{projectId}</span>
+        <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs">Territory</button>
+        <button type="button" aria-expanded={extractOpen} onClick={()=>setExtractOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs">Extract</button>
+        <button type="button" aria-expanded={sutraOpen} onClick={()=>setSutraOpen(value=>!value)} className="min-h-10 rounded-full bg-relume-accent px-3 text-xs font-semibold text-relume-command">SUTRA</button>
+      </header>
       <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />
-      <div className="grid min-h-0 flex-1 overflow-y-auto lg:grid-cols-[20rem_minmax(0,1fr)_auto] lg:overflow-hidden">
-      <SutraPanel onSubmit={handleCommand} />
-      <main className="min-h-0 overflow-y-auto p-4 sm:p-6">
-        <p className="mb-3 text-xs text-relume-muted">Project: {projectId}</p>
+      <div className="relative min-h-0 flex-1 overflow-hidden">
+      <main className="h-full min-h-0">
         <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} />
-        {extractOpen && <div className="mt-4"><ExtractPanel areaSquareMetres={liveMetrics?.areaSquareMetres} extracts={liveMetrics?.extracts ?? noExtracts} lengthMetres={liveMetrics?.lengthMetres} onClose={() => setExtractOpen(false)} product={activeProduct} provenance={liveMetrics?.provenance ?? noProvenance} /></div>}
       </main>
-      <ToolsRuler
-        rail
+      <div className="absolute left-2 top-2 z-30 max-w-[calc(100%-1rem)] shadow-lg"><ToolsRuler
         activeTool={activeTool}
         extractOpen={extractOpen}
         onExtractOpenChange={setExtractOpen}
         onMoreOpenChange={setMoreOpen}
         onToolChange={setActiveTool}
-      />
+      /></div>
+      {territoryOpen && <aside className="absolute bottom-2 left-2 top-2 z-40 w-[min(20rem,calc(100%-1rem))] overflow-y-auto border border-relume-border bg-white p-5 shadow-2xl" aria-label="Territorial context"><button type="button" onClick={()=>setTerritoryOpen(false)} className="float-right min-h-11 px-3">Close</button><p className="text-xs font-semibold uppercase tracking-wider text-relume-muted">Territorial context</p><h2 className="mt-3 text-xl font-semibold">No parcel attached</h2><p className="mt-3 text-sm leading-6 text-relume-muted">This preview has no authoritative parcel or jurisdiction record. Attach a verified LandIntel result before applying territorial constraints.</p><span className="mt-4 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold">ROADMAP</span></aside>}
+      {sutraOpen && <div className="absolute bottom-2 right-2 top-2 z-40 w-[min(22rem,calc(100%-1rem))] shadow-2xl"><SutraPanel onSubmit={handleCommand} /></div>}
+      {extractOpen && <div className="absolute inset-x-2 bottom-2 z-50 max-h-[65%] overflow-y-auto shadow-2xl"><ExtractPanel areaSquareMetres={liveMetrics?.areaSquareMetres} extracts={liveMetrics?.extracts ?? noExtracts} lengthMetres={liveMetrics?.lengthMetres} onClose={() => setExtractOpen(false)} product={activeProduct} provenance={liveMetrics?.provenance ?? noProvenance} /></div>}
       </div>
       <MoreDrawer onMoreAction={handleMoreAction} onMoreOpenChange={setMoreOpen} open={moreOpen} />
     </div>

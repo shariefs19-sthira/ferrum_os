@@ -19,8 +19,8 @@ export default function CanvasSlot({
   onLiveMetricsChange?: (metrics: LiveMetrics) => void
 }) {
   return (
-    <div aria-label={`${product} workspace canvas`} data-workspace-canvas>
-      <WorkspaceCockpit onLiveMetricsChange={onLiveMetricsChange} />
+    <div className="h-full" aria-label={`${product} workspace canvas`} data-workspace-canvas>
+      <WorkspaceCockpit canvasFirst onLiveMetricsChange={onLiveMetricsChange} />
     </div>
   )
 }
