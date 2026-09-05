@@ -171,6 +171,11 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   partial-credit summaries. ATLAS is the seat that logs other seats'
   RULE 40 violations as honesty incidents; three against the same seat
   trigger re-onboarding.
+- ATLAS's board queue (2026-09-05) also includes its audit piece of
+  W-60 KB_MAX_DEPTH: independently checking CRANE's per-domain
+  item-count/source-list claims against the coverage manifest's stated
+  depth percentages — no self-reported percentage stands unaudited,
+  same no-self-certification principle as the W-32 battery sub-rows.
 - ATLAS's board queue (2026-09-04) also includes W-29 KNOWLEDGE_BASE's
   CRANE-adjacent audit interest (verifying every knowledge-base fact
   actually carries a clause ID/version/status chip before it's cited

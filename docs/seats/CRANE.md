@@ -202,6 +202,15 @@
   persona configs (id, expert title, tone descriptors, vocabulary set
   per W-30, bound KB modules per W-29/W-41/W-43, greeting line,
   default intake branch into W-58), which MASON wires into SUTRA.
+- CRANE's board queue (2026-09-05) also includes the extraction piece
+  of W-60 KB_MAX_DEPTH: deepen W-29/W-41/W-43's existing modules toward
+  the last available public data per domain (codes, govt rate lists,
+  manufacturer catalogs/TDS, market indices, stamp-duty schedules,
+  tender/contract standards, interior/ergonomic standards, material
+  datasheets), via a continuous adapter pipeline reusing W-46's
+  RATE_ENGINE pattern, plus a standing operator REFINE slot per module
+  and an honest per-domain depth-% figure on the coverage manifest.
+  ATLAS audits the depth-% claims independently.
 - CRANE's board queue (2026-09-04) also includes the grammar half of
   W-27 CONVERSATIONAL_PRIMARY: extend the intent grammar (per
   WORKSPACE_SPEC.md §5) to the full parameter set (floors, plot w/d,
