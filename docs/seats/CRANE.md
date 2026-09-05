@@ -216,6 +216,11 @@
   compliance (1 request/second cap, attribution requirement) and the
   self-hosted-Nominatim-for-commercial-scale roadmap note — MASON
   builds the UI, CRANE gates the adapter policy it runs against.
+- CRANE's board queue (2026-09-05) also includes its seeding piece of
+  W-67 PRESET_LIBRARY: at least 24 combinatorially generated baseline
+  plans (plot class × use × floors × style), each verified to actually
+  pass W-55's PLAN_AUDIT before being counted as seeded — no preset
+  ships on a self-reported pass.
 - CRANE's board queue (2026-09-04) also includes the grammar half of
   W-27 CONVERSATIONAL_PRIMARY: extend the intent grammar (per
   WORKSPACE_SPEC.md §5) to the full parameter set (floors, plot w/d,
