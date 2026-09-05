@@ -237,6 +237,10 @@ as every other seat.
   and its own queue; a READY row it owns means it works instead of
   reporting a stop; the report states the re-check result, not just
   the outcome.
+- RULE 50 (Mouse-view-only, all seats, adopted 2026-09-05; RULE 49
+  intentionally unassigned): mouse/touch gestures on any 3D/model
+  surface RIVET touches are VIEW-only (orbit/pan/zoom/tab-switching/
+  nav chrome); every mutation flows through SUTRA instead.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

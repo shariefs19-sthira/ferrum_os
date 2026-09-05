@@ -366,6 +366,11 @@ the minimal shape a richer massing model would need to fill in.
   docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
   outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
   in the same pass.
+- RULE 50 (Mouse-view-only, all seats, adopted 2026-09-05; RULE 49
+  intentionally unassigned): mouse/touch gestures on any 3D/model
+  surface are VIEW-only (orbit/pan/zoom/view-tab & model switching/
+  nav chrome); every mutation flows through SUTRA instead — a
+  standing constraint CRANE's own audits/gates check for.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, CRANE re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

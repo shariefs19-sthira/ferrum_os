@@ -233,3 +233,9 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   and its own queue; a READY row it owns means it works instead of
   reporting a stop; the report states the re-check result, not just
   the outcome.
+- RULE 50 (Mouse-view-only, all seats, adopted 2026-09-05; RULE 49
+  intentionally unassigned): ATLAS's audit battery gains a standing
+  check that mouse/touch gestures on any 3D/model surface are
+  VIEW-only (orbit/pan/zoom/tab-switching/nav chrome) — a canvas or
+  view surface with any mouse-driven mutation handler is a violation,
+  regardless of whether RULE 53's slider ban already covers it.
