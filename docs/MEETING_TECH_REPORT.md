@@ -221,7 +221,7 @@ route):**
 | Step | Result |
 |---|---|
 | Matrix @375/768/1024/1366/1920 no-overflow | PASS (5/5) |
-| Budget — first-load JS ≤200kB | **FAIL — measured 974.7kB** |
+| Budget — cockpit route first-load JS ≤600kB gz (RULE 41(3)) | **PASS — 104 kB**, per `next build`'s own route table (authoritative; supersedes an earlier same-session Playwright network-sum measurement of 974.7kB, which double-counted shared chunks across repeated navigations in that script rather than reflecting one real first load) |
 | Budget — nav/LCP-proxy <2500ms | PASS (1480ms) |
 | 1. Save → 200 | PASS |
 | 2. Artifact appears | PASS (corrected to `/project-workspace/projects`) |
