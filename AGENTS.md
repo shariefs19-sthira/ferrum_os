@@ -919,6 +919,18 @@ regeneration in the same disk facts already used for DONE/SHA
 verification (RULE 22, RULE 40) keeps it trustworthy without a
 separate maintenance discipline.
 
+## RULE 48 — RE-CHECK-BEFORE-REPORT (all seats, adopted 2026-09-05)
+Before any done/idle/stop report, the seat re-reads docs/TASK_BOARD.md
+plus its own queue. If any READY row it owns remains, it works instead
+of reporting a stop. The report itself must state the re-check result
+— which rows were checked and what was found — not just the outcome.
+*Rationale:* RULE 45 (drain-don't-wait) already requires a seat to pull
+its next row after finishing a relay's items, but gave no explicit
+gate at the exact moment of reporting; RULE 48 closes that gap by
+making the re-check itself a required, stated part of every stop
+report, so "I checked and there's nothing left" is a verifiable claim
+rather than an assumed one.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

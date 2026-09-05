@@ -47,14 +47,14 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — forty-five numbered rules were actually adopted (numbered
-1–14, 16–31, 33–47 — RULE 15 and RULE 32 were never assigned; leave
+matured — forty-six numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–47, added later in the
+applies to their situation. Rules 18–31 and 33–48, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -143,7 +143,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–47 (added later, summarized)
+### Addendum: rules 18–31, 33–48 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -722,6 +722,17 @@ source.
     seat lands something; grounding regeneration in the same disk facts
     every seat already uses for DONE/SHA verification keeps the report
     trustworthy without needing its own separate maintenance discipline.*
+48. **Re-check-before-report** — before any done/idle/stop report, a
+    seat re-reads the pull-queue and its own slice of it; if an
+    eligible row still remains, it works the row instead of reporting
+    a stop, and the report itself states the re-check result rather
+    than just the outcome.
+    *Rationale: the drain rule (45) already requires pulling the next
+    eligible row after finishing a relay's items, but left the exact
+    moment of reporting ungated; this rule closes that gap by making
+    the re-check a required, stated part of every stop report, so "I
+    checked and nothing's left" is a verifiable claim, not an assumed
+    one.*
 
 ## 3. Ledger formats
 
