@@ -1,6 +1,7 @@
 "use client"
 
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { generateStudioPlan } from '../../lib/plan-gen'
 import { checkStructuralLive } from '../../lib/studio/structuralLive'
@@ -227,6 +228,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   return (
     <section className={`overflow-hidden border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col' : 'rounded-relume'}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined}>
       {!canvasFirst && <header className="flex flex-wrap items-center gap-3 border-b border-relume-border px-4 py-3">
+        <Link href="/" className="font-heading text-sm font-bold text-relume-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" aria-label="Ferrum home">Ferrum</Link>
         <div className="mr-auto">
           <p className="font-display text-lg font-semibold text-relume-command">{previewLabel ? `${previewLabel} cockpit preview` : 'Design cockpit'}</p>
           <p className="text-xs text-relume-muted">Live deterministic plan and massing workspace</p>
@@ -236,6 +238,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           IS 456 {structuralPass ? 'PASS' : 'REVIEW'} · {format(governingSpanM, 2)} m span
         </span>
         <span className="text-xs font-semibold text-relume-success">Autosaved locally</span>
+        <Link href="/" className="inline-flex min-h-11 items-center rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command hover:bg-relume-surface-secondary">Home</Link>
         {showFineControls && <button type="button" onClick={() => setShowFineControls(false)} className="min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command hover:bg-relume-surface-secondary">Close advanced</button>}
       </header>}
 

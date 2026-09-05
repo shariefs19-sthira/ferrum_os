@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
+import Link from "next/link"
 import type { WorkspaceProduct, WorkspaceTool, WorkspaceMoreAction, WorkspaceExtract, WorkspaceProvenance } from "../../../lib/types"
 import TabRail from "../../../components/workspace/TabRail"
 import ToolsRuler from "../../../components/workspace/ToolsRuler"
@@ -89,7 +90,8 @@ export default function ProjectWorkspaceCockpit() {
   return (
     <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-[100dvh] flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
       <header className="flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-white" aria-label="Workspace app bar">
-        <strong className="font-heading text-sm">Ferrum Workspace</strong><span className="mr-auto text-xs text-white/60">{projectId}</span>
+        <Link href="/" className="font-heading text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" aria-label="Ferrum home">Ferrum Workspace</Link><span className="mr-auto hidden text-xs text-white/60 sm:inline">{projectId}</span>
+        <Link href="/" className="inline-flex min-h-10 items-center rounded-full border border-white/25 px-3 text-xs font-semibold text-white hover:bg-white/10">Home</Link>
         <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs">Territory</button>
         <button type="button" aria-expanded={extractOpen} onClick={()=>setExtractOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs">Extract</button>
         <button type="button" aria-expanded={sutraOpen} onClick={()=>setSutraOpen(value=>!value)} className="min-h-10 rounded-full bg-relume-accent px-3 text-xs font-semibold text-relume-command">SUTRA</button>
