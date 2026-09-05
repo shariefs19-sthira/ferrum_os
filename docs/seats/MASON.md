@@ -154,7 +154,7 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   completion, or partial-credit summaries; incomplete work is reported
   as what's missing, not what was done.
 - MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
-  of all other UI rows): W-47 → W-52 → W-54, physically reordered on
+  of all other UI rows): W-47 → W-52 → W-54 → W-55, physically reordered on
   docs/TASK_BOARD.md to sit right after the fixed top row (W-26).
   W-47 COCKPIT_FULLSCREEN (maximized-viewport base), W-52
   FULLSCREEN_TOGGLE (the actual browser Fullscreen API button on the
@@ -164,7 +164,13 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   + FULLSCREEN_VISIBLE (collapse the three stacked provenance boxes
   into one slim bottom-left status bar, and fix the fullscreen
   button's visibility if a z-index/layout conflict with that status
-  bar is hiding it).
+  bar is hiding it). W-55 PLAN_QUALITY completes this priority chain:
+  MASON's plan-generation engine is wired to obey the dimensional-
+  standards module (W-29) — wall poché, door count/leaf-size/swing,
+  stair core sizing, room dimension/aspect ranges, adjacency rules,
+  daylight rule, drawing conventions — gated by a deterministic
+  PLAN_AUDIT test that blocks landing on failure like a type check.
+  RULE 44: applies to Plan view, DXF export, and all previews.
 - MASON's board queue (2026-09-05) also includes its piece of W-53
   NO_SLIDERS_ANYWHERE: the cockpit route, all ten cockpit tabs, and
   fullscreen (W-52) have every manual control removed — parameter
