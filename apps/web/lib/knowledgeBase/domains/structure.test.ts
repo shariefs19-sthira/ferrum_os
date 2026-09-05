@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { structureFacts } from "./structure"
+import { structureFacts, structureGaps } from "./structure"
 import { getKbCoverageManifest } from "../manifest"
 import { SPAN_DEPTH_BASIC_RATIO } from "../../studio/structuralLive"
 
@@ -24,6 +24,22 @@ describe("W-29 KB structure domain (adapter-first seed)", () => {
     const data = fact.data as { nominalCoverMmByExposure: Record<string, number> }
     expect(data.nominalCoverMmByExposure).toEqual({ mild: 20, moderate: 30, severe: 45, verySevere: 50, extreme: 75 })
   })
+
+  it("the flat-slab-thickness fact discloses its one OCR correction explicitly, never silently", () => {
+    const fact = structureFacts.find((f) => f.clauseId === "IS 456:2000 Cl 31.2.1")!
+    const data = fact.data as { minimumThicknessMm: number; ocrCorrectionNote: string }
+    expect(data.minimumThicknessMm).toBe(125)
+    expect(data.ocrCorrectionNote).toMatch(/12S/)
+  })
+
+  it("OCR-garbled clauses are chipped GAP-OCR and queued, not reconstructed from memory or silently dropped", () => {
+    expect(structureGaps.length).toBeGreaterThan(0)
+    for (const gap of structureGaps) {
+      expect(gap.reason).toBe("GAP-OCR")
+      expect(gap.queuedAction).toBeTruthy()
+    }
+    expect(structureGaps.some((g) => g.clauseId === "IS 456:2000 Cl 26.5.1.1")).toBe(true)
+  })
 })
 
 describe("W-41 KB coverage manifest", () => {
@@ -31,9 +47,25 @@ describe("W-41 KB coverage manifest", () => {
     const manifest = getKbCoverageManifest()
     const structureEntry = manifest.find((m) => m.domain === "structure")!
     expect(structureEntry.itemCount).toBe(structureFacts.length)
+    expect(structureEntry.gapCount).toBe(structureGaps.length)
     expect(structureEntry.status).toBe("SEEDED")
 
     const roadmapEntries = manifest.filter((m) => m.domain !== "structure")
     expect(roadmapEntries.every((m) => m.status === "ROADMAP" && m.itemCount === 0)).toBe(true)
+  })
+
+  it("depth % is computed against a cited, real source-index denominator - never a bare or inflated number", () => {
+    const manifest = getKbCoverageManifest()
+    const structureEntry = manifest.find((m) => m.domain === "structure")!
+    expect(structureEntry.depthDenominator).not.toBeNull()
+    expect(structureEntry.depthDenominator!.totalClauseCount).toBe(43)
+    expect(structureEntry.depthDenominator!.sourceUrl).toMatch(/archive\.org/)
+    expect(structureEntry.depthPercent).toBeCloseTo((structureFacts.length / 43) * 100, 1)
+
+    // A domain with no denominator established yet must report null,
+    // never a fabricated percentage.
+    const undatedDomain = manifest.find((m) => m.domain === "mep")!
+    expect(undatedDomain.depthDenominator).toBeNull()
+    expect(undatedDomain.depthPercent).toBeNull()
   })
 })
