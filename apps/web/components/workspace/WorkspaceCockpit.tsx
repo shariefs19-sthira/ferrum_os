@@ -14,6 +14,7 @@ import PlanElevationView from './PlanElevationView'
 import { measureBoq } from '../../lib/workspace/measuredBoq'
 import RegistryControls from './RegistryControls'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
+import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -159,7 +160,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   }, [])
   useEffect(() => {
     const applyCommand = (event: Event) => {
-      const command = String((event as CustomEvent<string>).detail ?? '').trim().toLowerCase()
+      const command = normalizeProfessionalTerms(String((event as CustomEvent<string>).detail ?? '').trim())
       if (!command) return
       const amount = Number(command.match(/\d+(?:\.\d+)?/)?.[0])
       if (/add|increase/.test(command) && /floor|storey|level/.test(command)) {

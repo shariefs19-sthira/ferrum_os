@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { getRulesetForState } from "../../lib/parcelIntel/sampleRulesets"
 import type { LandUse } from "../../lib/parcelIntel/types"
+import { normalizeProfessionalTerms, termsIn } from "../../lib/workspace/vocabulary"
 
 type Stage = "use" | "floors" | "massing" | "coverage" | "rooms" | "material" | "compliance" | "output"
 type Message = { id: number; role: "operator" | "sutra"; text: string; citations?: string[] }
@@ -39,7 +40,7 @@ export default function SutraPanel({ onSubmit }: { onSubmit:(text:string)=>void 
     compliance: [{label:"Title diligence",command:"open diligence checklist",citation:ruleCitation},{label:"Permit checklist",command:"open permit checklist",citation:ruleCitation},{label:"Both",command:"open diligence and permit checklists",citation:ruleCitation}],
     output: [{label:"Measured extract",command:"show BOQ extract",citation:outputCitation},{label:"Export DXF",command:"export DXF",citation:outputCitation},{label:"Share brief",command:"share workspace brief",citation:outputCitation}],
   }
-  const answer = (command:string) => /boq|extract|export/.test(command) ? {text:"Opening the measured workspace output. Rates remain blank until verified.",citations:[outputCitation]} : /setback|coverage|use/.test(command) ? {text:"The next choice is constrained to the sample land-use envelope.",citations:[ruleCitation]} : {text:"Sent through the deterministic workspace command path."}
+  const answer = (command:string) => { const normalized=normalizeProfessionalTerms(command); const terms=termsIn(command); return /boq|extract|export/.test(normalized) ? {text:"Opening the measured workspace output. Rates remain blank until verified.",citations:[outputCitation]} : /setback|far|coverage|use|approval|noc/.test(normalized) ? {text:`I read ${terms.join(', ') || 'land-use'} terminology and constrained the next choice to the sample authority envelope.`,citations:[ruleCitation]} : /structure|mep|irr|ticket/.test(normalized) ? {text:`I read ${terms.join(', ')} terminology and routed it to the matching workspace lens; figures remain INDICATIVE.`} : {text:"Sent through the deterministic workspace command path."} }
   const run = useCallback((raw:string,isDemo=false) => { const command=raw.trim(); if(!command)return; onSubmit(command); setMessages(current=>[...current.slice(-5),{id:nextId.current++,role:"operator",text:isDemo?`Demo: ${command}`:command},{id:nextId.current++,role:"sutra",...answer(command)}]); setValue("") },[onSubmit])
   const choose = (label:string,command:string) => { run(command); setSelected(current=>({...current,[stage]:label})); const index=stages.indexOf(stage); if(index<stages.length-1){setHistory(current=>[...current,stage]);setStage(stages[index+1])} }
   const back = () => setHistory(current=>{const prior=current[current.length-1];if(prior)setStage(prior);return current.slice(0,-1)})
