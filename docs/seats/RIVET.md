@@ -152,7 +152,11 @@ as every other seat.
 - RIVET's piece of W-33 LANDINTEL_BRIDGE (2026-09-04, split with CRANE
   and MASON): add the MOVE TO WORKSPACE action to the LandIntel result
   card (Save stays unchanged), routing into the cockpit at
-  `/project-workspace/:id`.
+  `/project-workspace/:id`. **Renamed/extended 2026-09-05 (RULE 44 —
+  every Save surface shows Open beside it):** this action is now "Open
+  in workspace ⛶", rendered next to "Save to workspace" on the result
+  card; one click both preloads the parcel context (side panel) AND
+  enters fullscreen mode immediately (W-52) — no intermediate page.
 - RULE 41 (Device + perf gate, hard, adopted 2026-09-04): every RIVET
   landing passes the responsive matrix and stays within `budgets.json`
   (W-34) — this blocks landing like the type check. RIVET's rows

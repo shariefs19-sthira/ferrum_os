@@ -224,7 +224,10 @@
   version, and VERIFIED-SAMPLE/INDICATIVE status chip. CRANE's piece of
   W-33 LANDINTEL_BRIDGE (split with RIVET/MASON): the `/project-workspace/:id`
   route, the cockpit's new left-edge side panel component, and the
-  parcel-context pre-seed logic that feeds it.
+  parcel-context pre-seed logic that feeds it. **Amended 2026-09-05
+  (RULE 44):** the route entry also triggers W-52's fullscreen mode in
+  the same click as the "Open in workspace ⛶" button, not a separate
+  navigation step.
 - RULE 41 (Device + perf gate, hard, adopted 2026-09-04): CRANE owns
   W-34 PERF_INFRA — `budgets.json`, Lighthouse CI on key routes, the
   degradation-profile toggle (WebGL2 full profile / WebGL1-or-none
