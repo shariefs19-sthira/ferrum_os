@@ -5,6 +5,7 @@ import * as THREE from "three"
 import { OrbitControls } from "three/addons/controls/OrbitControls.js"
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 import type { StudioPlan } from "../../lib/types"
+import { sampleSiteContext } from "../../lib/workspace/sampleSiteContext"
 
 const concrete = 0xf4f2ec
 const glass = 0x93bac2
@@ -67,7 +68,8 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     const glassMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: glass, transparent: true, opacity: 0.72 }) : new THREE.MeshPhysicalMaterial({ color: glass, roughness: 0.1, metalness: 0, transmission: 0.42, transparent: true, opacity: 0.82, envMapIntensity: 1 })
     const metalMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: metal }) : new THREE.MeshPhysicalMaterial({ color: metal, metalness: 0.9, roughness: 0.3 })
     const selectedMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0xd59a43 }) : new THREE.MeshPhysicalMaterial({ color: 0xd59a43, roughness: 0.5, emissive: 0x5c2d00, emissiveIntensity: 0.16 })
-    const groundMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0x9bacaa }) : new THREE.MeshPhysicalMaterial({ color: 0x9bacaa, roughness: 0.1, metalness: 0.08, envMapIntensity: 1 })
+    const metresLon=111320*Math.cos(sampleSiteContext.center.lat*Math.PI/180)
+    const groundMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0xb8c5bc }) : new THREE.MeshPhysicalMaterial({ color: 0xb8c5bc, roughness: 0.72, metalness: 0, envMapIntensity: 0.25 })
 
     const model = new THREE.Group()
     const pickables: THREE.Mesh[] = []
@@ -119,16 +121,19 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     }
     scene.add(model)
 
-    const ground = new THREE.Mesh(new THREE.PlaneGeometry(plan.plotWidthM * 2.1, plan.plotDepthM * 1.7), groundMaterial)
+    const groundSize=180
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(groundSize,groundSize), groundMaterial)
     ground.rotation.x = -Math.PI / 2
     ground.position.y = -0.02
     ground.receiveShadow = !lowPower
     scene.add(ground)
-    const grid = new THREE.GridHelper(Math.max(plan.plotWidthM, plan.plotDepthM) * 1.7, 32, 0x6f7d80, 0xb4bfbe)
-    grid.position.y = 0.015
-    ;(grid.material as THREE.Material).transparent = true
-    ;(grid.material as THREE.Material).opacity = 0.38
-    scene.add(grid)
+    const boundaryPoints=[[-plan.plotWidthM/2,-plan.plotDepthM/2],[plan.plotWidthM/2,-plan.plotDepthM/2],[plan.plotWidthM/2,plan.plotDepthM/2],[-plan.plotWidthM/2,plan.plotDepthM/2],[-plan.plotWidthM/2,-plan.plotDepthM/2]].map(([x,z])=>new THREE.Vector3(x,.08,z))
+    const boundaryMaterial=new THREE.LineBasicMaterial({color:0xff8c2a})
+    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(boundaryPoints),boundaryMaterial))
+
+    const existingMaterial=lowPower?new THREE.MeshLambertMaterial({color:0x8b9692}):new THREE.MeshPhysicalMaterial({color:0x8b9692,roughness:.88,metalness:.02})
+    const drapeMaterial=new THREE.MeshBasicMaterial({color:0x667670,side:THREE.DoubleSide})
+    for(const building of sampleSiteContext.buildings){const shape=new THREE.Shape();building.points.forEach(([lat,lon],index)=>{const x=(lon-sampleSiteContext.center.lon)*metresLon;const z=-(lat-sampleSiteContext.center.lat)*111320;if(index===0)shape.moveTo(x,z);else shape.lineTo(x,z)});const drape=new THREE.Mesh(new THREE.ShapeGeometry(shape),drapeMaterial);drape.rotation.x=-Math.PI/2;drape.position.y=.02;scene.add(drape);const geometry=new THREE.ExtrudeGeometry(shape,{depth:building.heightM,bevelEnabled:false});geometry.rotateX(-Math.PI/2);const mesh=new THREE.Mesh(geometry,existingMaterial);mesh.position.y=.04;mesh.userData.label=`OSM way ${building.osmWayId}`;scene.add(mesh)}
 
     const treeCount = mobile ? 5 : 10
     const treeGeometry = new THREE.ConeGeometry(0.72, 2.5, 7)
@@ -164,6 +169,8 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       perspective.far = radius * 20
       perspective.updateProjectionMatrix()
       controls.update()
+      perspective.lookAt(controls.target)
+      perspective.updateMatrixWorld()
     }
     fit()
 
@@ -256,7 +263,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh || object instanceof THREE.InstancedMesh) object.geometry.dispose()
       })
-      ;[concreteMaterial, glassMaterial, metalMaterial, selectedMaterial, groundMaterial, treeMaterial].forEach((material) => material.dispose())
+      ;[concreteMaterial, glassMaterial, metalMaterial, selectedMaterial, groundMaterial, treeMaterial,existingMaterial,drapeMaterial,boundaryMaterial].forEach((material) => material.dispose())
       environment?.dispose()
       pmrem.dispose()
       renderer.dispose()
@@ -271,6 +278,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
         <span className="block text-relume-accent">INDICATIVE</span>
         {profile === 'full' ? 'Full presentation' : profile === 'reduced' ? 'Reduced rendering mode' : 'Diagram mode'} · deterministic geometry
       </div>
+      <div className="pointer-events-none absolute left-3 top-16 z-10 max-w-[16rem] space-y-1 text-[9px] font-semibold uppercase tracking-[0.1em] text-white"><span className="block rounded bg-relume-command/90 px-2 py-1">SAMPLE LOCATION · Bengaluru reference</span><span className="block rounded bg-relume-command/90 px-2 py-1">OSM context drape · data snapshot 2026-09-05 · © OpenStreetMap contributors</span><span className="block rounded bg-relume-command/90 px-2 py-1">Existing-from-OSM, not a survey · boundary indicative</span></div>
       <div className="pointer-events-none absolute bottom-3 right-3 z-10 rounded bg-white/90 px-3 py-2 text-xs text-relume-command shadow">
         Selected: <strong>{selected}</strong><br />Drag orbit · Shift-drag pan · Scroll zoom · 0 fit
       </div>

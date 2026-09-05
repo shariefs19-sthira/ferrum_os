@@ -1,0 +1,5 @@
+export const sampleSiteContext={center:{lat:12.9762,lon:77.5896},label:'Bengaluru reference point',tile:{zoom:17,attribution:'© OpenStreetMap contributors',snapshot:'2026-09-05'},buildings:[
+ {osmWayId:52057926,heightM:9,points:[[12.9762175,77.5892971],[12.9763317,77.5895175],[12.9762833,77.5895439],[12.9763222,77.5896189],[12.9760643,77.5897598],[12.9757159,77.5894998],[12.9761329,77.589272],[12.9762175,77.5892971]]},
+ {osmWayId:52057927,heightM:9,points:[[12.9758188,77.5888072],[12.9759334,77.5887326],[12.9762171,77.5891919],[12.976094,77.589272],[12.9759191,77.588867],[12.9758188,77.5888072]]},
+ {osmWayId:1257700350,heightM:9,points:[[12.9774578,77.5892164],[12.9772911,77.5893022],[12.9774741,77.5894725],[12.9775891,77.5893451],[12.9774578,77.5892164]]},
+] as const,source:{name:'OpenStreetMap via Overpass API',queriedAt:'2026-09-05T04:35:36Z',license:'ODbL'}} as const
