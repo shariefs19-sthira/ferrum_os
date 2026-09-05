@@ -1,10 +1,10 @@
 "use client"
 
-import Link from 'next/link'
 import { useCallback, useState, type ReactNode } from 'react'
 import type { StudioParameters } from '../../lib/types'
 import WorkspaceCockpit from './WorkspaceCockpit'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
+import FullscreenController from './FullscreenController'
 
 export type CockpitProduct = ProductControlId
 
@@ -31,12 +31,9 @@ export default function ProductCockpitPreview({ product, label, children }: { pr
   return (
     <div className="min-w-0" data-product-cockpit={product}>
       {children && <div className="mb-4" data-product-live-tool={product}>{children}</div>}
-      <WorkspaceCockpit controlProduct={product} initialParameters={presets[product]} onParametersChange={setParameters} previewLabel={label} />
-      <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-relume border border-relume-border bg-white p-3">
+      <FullscreenController previewSource={product}>{fullscreen => <WorkspaceCockpit controlProduct={product} initialParameters={presets[product]} onParametersChange={setParameters} previewLabel={label} fullscreenControl={{ active: fullscreen.active, label: 'Open in workspace ⛶', onClick: () => { persistHandoff(); fullscreen.toggle() } }} />}</FullscreenController>
+      <div className="mt-3 rounded-relume border border-relume-border bg-white p-3">
         <p className="text-xs text-relume-muted"><strong className="text-relume-command">INDICATIVE</strong> deterministic geometry; verify site, code, and authority constraints.</p>
-        <Link href={`/project-workspace?source=${product}`} onClick={persistHandoff} className="inline-flex min-h-11 items-center rounded-full bg-relume-command px-5 text-sm font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent">
-          Continue in workspace
-        </Link>
       </div>
     </div>
   )

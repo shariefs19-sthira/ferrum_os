@@ -9,6 +9,7 @@ import MoreDrawer from "../../../components/workspace/MoreDrawer"
 import ExtractPanel from "../../../components/workspace/ExtractPanel"
 import CanvasSlot from "../../../components/workspace/CanvasSlot"
 import SutraPanel from "../../../components/workspace/SutraPanel"
+import FullscreenController from "../../../components/workspace/FullscreenController"
 
 /**
  * W2-401 WORKSPACE_SHELL — the cockpit. Assembly only (CRANE is the sole
@@ -79,7 +80,7 @@ export default function ProjectWorkspaceCockpit() {
   const handleLiveMetricsChange = useCallback((metrics: LiveMetrics) => setLiveMetrics(metrics), [])
 
   return (
-    <div className="fixed inset-0 z-[70] flex h-[100dvh] flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
+    <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-[100dvh] flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
       <header className="flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-white" aria-label="Workspace app bar">
         <strong className="font-heading text-sm">Ferrum Workspace</strong><span className="mr-auto text-xs text-white/60">{projectId}</span>
         <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs">Territory</button>
@@ -89,7 +90,7 @@ export default function ProjectWorkspaceCockpit() {
       <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />
       <div className="relative min-h-0 flex-1 overflow-hidden">
       <main className="h-full min-h-0">
-        <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} />
+        <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} />
       </main>
       <div className="absolute bottom-2 right-2 top-2 z-30 w-20 shadow-lg"><ToolsRuler
         activeTool={activeTool}
@@ -104,6 +105,6 @@ export default function ProjectWorkspaceCockpit() {
       {extractOpen && <div className="absolute inset-x-2 bottom-2 z-50 max-h-[65%] overflow-y-auto shadow-2xl"><ExtractPanel areaSquareMetres={liveMetrics?.areaSquareMetres} extracts={liveMetrics?.extracts ?? noExtracts} lengthMetres={liveMetrics?.lengthMetres} onClose={() => setExtractOpen(false)} product={activeProduct} provenance={liveMetrics?.provenance ?? noProvenance} /></div>}
       </div>
       <MoreDrawer onMoreAction={handleMoreAction} onMoreOpenChange={setMoreOpen} open={moreOpen} />
-    </div>
+    </div>}</FullscreenController>
   )
 }
