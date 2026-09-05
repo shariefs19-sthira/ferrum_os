@@ -10,7 +10,7 @@ const concrete = 0xf4f2ec
 const glass = 0x93bac2
 const metal = 0x202a30
 
-export default function Space3D({ plan }: { plan: StudioPlan }) {
+export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; demoMode?: boolean }) {
   const hostRef = useRef<HTMLDivElement>(null)
   const [selected, setSelected] = useState("Podium")
   const [profile, setProfile] = useState<"full" | "reduced" | "diagram">("full")
@@ -36,7 +36,7 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
     const rendererInfo = gl.getExtension("WEBGL_debug_renderer_info")
     const rendererName = rendererInfo ? String(gl.getParameter(rendererInfo.UNMASKED_RENDERER_WEBGL)) : ""
     const softwareRenderer = /swiftshader|software/i.test(rendererName)
-    const lowPower = requestedProfile === "full" ? false : requestedProfile === "reduced" || mobile || softwareRenderer
+    const lowPower = demoMode || (requestedProfile === "full" ? false : requestedProfile === "reduced" || mobile || softwareRenderer)
     setProfile(lowPower ? "reduced" : "full")
     renderer.setPixelRatio(Math.min(devicePixelRatio, lowPower ? 1 : 2))
     renderer.shadowMap.enabled = !lowPower
@@ -262,10 +262,10 @@ export default function Space3D({ plan }: { plan: StudioPlan }) {
       renderer.dispose()
       renderer.domElement.remove()
     }
-  }, [plan])
+  }, [plan, demoMode])
 
   return (
-    <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-selected={selected} data-profile-label={profile}>
+    <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
       {profile === 'diagram' && <div className="absolute inset-0 grid place-items-center bg-relume-surface-secondary p-8 text-center text-sm text-relume-command"><p><strong>Reduced diagram mode</strong><br />WebGL2 is unavailable. Use Plan or Elevation for the same deterministic geometry.</p></div>}
       <div className="pointer-events-none absolute right-3 top-3 z-10 max-w-[13rem] rounded bg-relume-command/90 px-3 py-2 text-right text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg">
         <span className="block text-relume-accent">INDICATIVE</span>
