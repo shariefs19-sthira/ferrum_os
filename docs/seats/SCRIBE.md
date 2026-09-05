@@ -230,6 +230,15 @@
   W-43) in docs/TASK_REPORTS.md, all caused by SCRIBE's own docs
   branches stacking several deep behind faster-landing CRANE/MASON
   work this session.
+- RULE 44 (Principle-generalization, binds all seats + conductor,
+  adopted 2026-09-05): on every operator correction, SCRIBE extracts
+  the underlying principle, enumerates every analogous row/doc/rule it
+  touches, applies the generalization across all of them in the same
+  pass (or flags what it can't reach and why), and records the
+  principle + enumeration in the ledger entry itself — a docs fix
+  scoped only to the literal named row is itself a RULE 40 violation.
+  W-51's amendment to ONE-GROUND (2026-09-05) is the worked example
+  SCRIBE applied at this rule's own adoption.
 
 ## First action (2026-08-31)
 Consolidated the fleet to ACTIVE = {CRANE, SCRIBE}, PARKED the Qoder set

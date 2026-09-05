@@ -180,6 +180,13 @@ as every other seat.
   relay's cited row ID as authoritative only if it's actually verified
   landed on `origin/main`; a task with no landed row is an OPERATOR
   VERBATIM TASK with no number, per RULE 39.
+- RULE 44 (Principle-generalization, binds all seats, adopted
+  2026-09-05): on every operator correction, RIVET extracts the
+  underlying principle, enumerates every analogous surface it owns,
+  applies the fix to all of them in the same pass (or flags what it
+  can't reach and why), and records the principle + enumeration in its
+  report and the row's acceptance — applying a fix only to the literal
+  named surface is itself a RULE 40 violation.
 - RIVET's UI piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
   MASON's demo-mode 3D): first-viewport narrative line + sticky "Open
   Workspace" pill + nav CTA on every marketing route, with the page's

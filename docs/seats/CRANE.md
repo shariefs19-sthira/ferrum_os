@@ -224,6 +224,11 @@
   and Vaastu — labeled traditional practice, never as code); the
   manifest shows seeded vs. roadmap topics honestly, matching the
   actual fact count per topic, not a hand-typed claim.
+- CRANE's piece of W-51 SATELLITE_GROUND (2026-09-05, split with
+  MASON's 3D rendering): real ToS due-diligence on the compliance-
+  ordered source candidates (Bhuvan/ISRO → Esri World Imagery → EOX
+  Sentinel-2), gating which source can actually ship as the default —
+  this is a real research/legal check, not pre-decided by the row.
 - CRANE's data piece of W-43 MATERIALS_CATALOG (2026-09-04, split with
   MASON's UI): the catalog data module itself, per the ONE-LIBRARY
   architecture note — commercial (brands, dated price + source chip,
@@ -237,7 +242,14 @@
 - RULE 43 (Citation-on-main, adopted 2026-09-04): CRANE treats a
   relay's cited row ID as authoritative only if it's actually verified
   landed on `origin/main`; a task with no landed row is an OPERATOR
-  VERBATIM TASK with no number, per RULE 39. CRANE owns W-46
+  VERBATIM TASK with no number, per RULE 39.
+- RULE 44 (Principle-generalization, binds all seats, adopted
+  2026-09-05): on every operator correction, CRANE extracts the
+  underlying principle, enumerates every analogous surface/component it
+  owns, applies the fix to all of them in the same pass (or flags what
+  it can't reach and why), and records the principle + enumeration in
+  its report and the row's acceptance — applying a fix only to the
+  literal named surface is itself a RULE 40 violation. CRANE owns W-46
   RATE_ENGINE (a pluggable source-adapter pipeline for streamed rates
   — govt PDF/vendor-API/manual-feed adapters, each rate carrying
   source ID + fetch date + a VERIFIED-PUBLIC/REFERENCE-ONLY/CONCEPT/

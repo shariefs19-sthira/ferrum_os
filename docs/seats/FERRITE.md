@@ -71,7 +71,10 @@ gap-filler:
   production deploy authority is unchanged), and citation-on-main
   (RULE 43 — adopted 2026-09-04; a relay's row ID is authoritative
   only once verified landed on `origin/main`; an un-landed task
-  carries no number) as every other seat.
+  carries no number), and principle-generalization (RULE 44 — binds
+  all seats, adopted 2026-09-05; on every operator correction, extract
+  the principle, enumerate every analogous surface, apply/flag across
+  all of them, record both in the report) as every other seat.
 
 ## Assigned slice (2026-09-03, trial)
 None yet — no task has been assigned as of activation. Per RULE 33(1),

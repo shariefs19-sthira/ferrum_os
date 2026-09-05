@@ -195,6 +195,13 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   visible manipulation layer in the default cockpit view alongside
   conversation. MASON amended W-27's row text directly to reflect
   this rather than leave a contradicted acceptance line standing.
+- MASON's piece of W-51 SATELLITE_GROUND (2026-09-05, split with
+  CRANE's source due-diligence): the Land-tab cockpit ground rendering
+  itself — live satellite imagery draped at parcel coordinates, OSM
+  footprints extruded for existing buildings (honesty chip), boundary-
+  only for empty plots, the Design tab reusing the same ground as the
+  Land tab, and an honest placeholder grid on offline/failure — never
+  a fabricated image.
 - MASON also owns W-35 PHOTO_ENTRY integration (2026-09-04): a
   no-ULPIN workspace entry — upload a photo of a plot/building, a
   browser-side reconstruction (method decided by CRANE's W-35a
@@ -213,6 +220,16 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   relay's cited row ID as authoritative only if it's actually verified
   landed on `origin/main`; a task with no landed row is an OPERATOR
   VERBATIM TASK with no number, per RULE 39.
+- RULE 44 (Principle-generalization, binds all seats, adopted
+  2026-09-05): on every operator correction, MASON extracts the
+  underlying principle, enumerates every analogous surface it owns,
+  applies the fix to all of them in the same pass (or flags what it
+  can't reach and why), and records the principle + enumeration in its
+  report and the row's acceptance — applying a fix only to the literal
+  named surface is itself a RULE 40 violation. MASON's own W-51/
+  ONE-GROUND row (2026-09-05) is the worked example: a Land-tab-only
+  ground correction was generalized to all 10 tabs and every
+  product-page preview.
 - MASON's piece of W-39 WORKSPACE_PROMPT (2026-09-04, split with
   RIVET): the demo-mode Space3D — the real cockpit 3D canvas playing a
   scripted intent loop ("add 2 floors" → massing grows, "setback 3m" →

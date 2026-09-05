@@ -841,6 +841,42 @@ own content was accurate once landed, only the citation timing was
 ahead of the landing. This is the incident record RULE 43 exists to
 prevent from recurring.
 
+## RULE 44 — Principle-generalization (binds ALL seats + conductor,
+adopted 2026-09-05)
+**Core statement.** An operator principle stated on one surface applies
+to ALL analogous surfaces unless the operator explicitly limits it. The
+conductor and every seat generalize by default — the literal named
+surface is the example, not the boundary, unless told otherwise.
+**Mandatory operational checklist**, run on every operator correction,
+no exceptions:
+(1) **Extract the underlying principle** in one sentence — what is
+actually being corrected, stated abstractly enough to recognize
+elsewhere, not just restated as "fix X."
+(2) **Enumerate every analogous surface/component/flow** the seat owns
+or knows about — the full set the principle could plausibly apply to,
+not just the one named in the correction.
+(3) **Apply the principle to all of them in the same pass**, or, for
+any it genuinely cannot reach in this pass, flag each one with the
+specific reason it's deferred — never silently skip an analogous
+surface.
+(4) **Record the principle and the enumeration** in both the seat's
+report and the affected row's(s') acceptance criteria — the
+generalization itself must be visible and checkable, not just its
+result.
+**Enforcement.** Applying a correction only to the literal surface the
+operator named — without running this checklist — is itself a RULE 40
+violation: an incomplete report, because it omits the enumeration and
+generalization step RULE 44 requires.
+*Worked example, applied immediately at adoption:* the operator
+corrected the Land tab's cockpit ground (docs/TASK_BOARD.md W-51
+SATELLITE_GROUND) to use live satellite imagery instead of a generic
+grid. Per this rule, that principle — a cockpit view of a real site
+should render the real site, not a placeholder — was generalized to
+every analogous surface: all ten cockpit tabs and every product-page
+preview, not just the Land tab. W-51 was amended in place to ONE-GROUND
+to record this generalization, with an explicit FAIL condition for any
+view that still renders the generic grid.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

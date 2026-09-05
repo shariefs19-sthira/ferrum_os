@@ -47,20 +47,21 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — forty-one numbered rules were actually adopted (numbered
-1–14, 16–31, 33–43 — RULE 15 and RULE 32 were never assigned; leave
+matured — forty-two numbered rules were actually adopted (numbered
+1–14, 16–31, 33–44 — RULE 15 and RULE 32 were never assigned; leave
 gaps in your own numbering rather than force sequential renumbering
 when a rule is superseded or dropped). Rules 1–17 are detailed below,
 each with the one-line rationale that justified adopting it — carry the
 rationale forward even when you reword the rule for a new repo, because
 the rationale is what tells a future reader whether the rule still
-applies to their situation. Rules 18–31 and 33–43, added later in the
+applies to their situation. Rules 18–31 and 33–44, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
 timed-stop-single-inbox, fleet-watch, relay-discipline, honesty-
-reporting, device/perf-gate, push-authority, and citation-sequencing
-discipline matured, are summarized in the addendum immediately after
+reporting, device/perf-gate, push-authority, citation-sequencing, and
+principle-generalization discipline matured, are summarized in the
+addendum immediately after
 the numbered list rather
 than restated in full — see
 AGENTS.md for their exact current text, since 18 and 21 were themselves
@@ -142,7 +143,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–43 (added later, summarized)
+### Addendum: rules 18–31, 33–44 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -656,6 +657,35 @@ source.
     after the fix (cite only what's actually on main) makes the
     discipline checkable in one glance at any relay, rather than
     something that has to be remembered.*
+44. **Principle-generalization** — portable, and binding on every role
+    including the conductor. When the operator corrects one concrete
+    surface, the fix scope is not that surface alone — it's every
+    analogous surface the correction's underlying principle actually
+    reaches, unless the operator explicitly limits it. A mandatory,
+    four-part checklist runs on every such correction: state the
+    principle in one sentence; enumerate every analogous surface the
+    responding role actually owns or knows about; apply the fix to all
+    of them in the same pass, flagging by name and reason any it
+    genuinely can't reach yet; and record both the principle and the
+    enumeration in the report and in the affected ledger rows'
+    acceptance criteria, so the generalization step is itself visible
+    and auditable, not just its result. Treating a correction as
+    scoped to only its literal named surface — skipping the
+    enumeration and generalization step — is itself a quality-rule
+    violation (an incomplete report), not a smaller, acceptable version
+    of compliance.
+    *Rationale: an operator correcting one visible instance of a defect
+    is very rarely reporting a defect that exists in exactly one place
+    — screenshot-extrapolation (rule 13) already established this for
+    defect classes; this rule generalizes the same insight to positive
+    principles and design corrections, not just defects, and makes the
+    generalization step itself a checked, recorded part of the
+    response rather than something left to the responding role's
+    individual initiative. A fleet that only ever fixes the literal
+    named instance re-teaches the same lesson on every analogous
+    surface, one operator correction at a time, which is exactly the
+    kind of repeated cost this rule exists to close in one pass
+    instead.*
 
 ## 3. Ledger formats
 

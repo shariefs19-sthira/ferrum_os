@@ -90,10 +90,13 @@ being experimental:
   W2-390 stays DEFERRED-per-RULE-34), and seat-push-standing (RULE 42
   — operator approval 2026-09-04; PI may push its own branches without
   per-branch approval once it has one; production deploy authority is
-  unchanged), and citation-on-main (RULE 43 — adopted 2026-09-04; a
+  unchanged), citation-on-main (RULE 43 — adopted 2026-09-04; a
   relay's row ID is authoritative only once verified landed on
-  `origin/main`; an un-landed task carries no number) rules as every
-  other seat.
+  `origin/main`; an un-landed task carries no number), and principle-
+  generalization (RULE 44 — binds all seats, adopted 2026-09-05; on
+  every operator correction, extract the principle, enumerate every
+  analogous surface, apply/flag across all of them, record both in the
+  report) rules as every other seat.
 - Does NOT claim a second row until a verdict is recorded on W2-390's
   trial outcome — the one-wave bound is load-bearing, not a suggestion.
   This is also just RULE 25(3) applying directly: no new task until the
