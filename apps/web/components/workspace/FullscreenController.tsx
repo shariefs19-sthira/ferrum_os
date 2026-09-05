@@ -37,5 +37,5 @@ export default function FullscreenController({ children, previewSource }: { chil
     return () => document.removeEventListener("fullscreenchange", sync)
   }, [enter, previewSource])
   const state: FullscreenState = { active, profile: active ? "high" : "default", toggle }
-  return <FullscreenContext.Provider value={state}><div ref={hostRef} className={active ? "fixed inset-0 z-[100] h-[100dvh] overflow-hidden bg-relume-surface" : "contents"} data-fullscreen-controller data-fullscreen-active={active || undefined} data-detail-profile={state.profile}>{children(state)}</div></FullscreenContext.Provider>
+  return <FullscreenContext.Provider value={state}><div ref={hostRef} className={active ? "fixed inset-0 z-[100] h-dvh-safe overflow-hidden bg-relume-surface" : "contents"} data-fullscreen-controller data-fullscreen-active={active || undefined} data-detail-profile={state.profile}>{children(state)}</div></FullscreenContext.Provider>
 }

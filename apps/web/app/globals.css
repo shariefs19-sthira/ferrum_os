@@ -247,3 +247,25 @@ main h3[class],
 main h4[class] {
   line-height: 1.2;
 }
+
+/* SAFARI WHITE-SCREEN INSURANCE: dvh units aren't supported until
+   Safari 15.4 (Safari 15.0-15.3 ignore the declaration entirely, which
+   without a preceding vh fallback leaves the property unset - a real
+   layout break, not just a cosmetic quirk, on fullscreen/overlay
+   elements). Plain CSS (not a Tailwind arbitrary value) so the vh
+   fallback and the dvh override are guaranteed to land in the same
+   rule, in this exact order - the only way to guarantee an
+   unsupported later declaration is silently ignored rather than
+   depending on Tailwind's build-time class ordering. */
+.h-dvh-safe {
+  height: 100vh;
+  height: 100dvh;
+}
+.max-h-dvh-safe-3rem {
+  max-height: calc(100vh - 3rem);
+  max-height: calc(100dvh - 3rem);
+}
+.max-h-dvh-safe-6rem {
+  max-height: calc(100vh - 6rem);
+  max-height: calc(100dvh - 6rem);
+}

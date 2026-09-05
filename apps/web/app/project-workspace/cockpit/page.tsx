@@ -87,7 +87,7 @@ export default function ProjectWorkspaceCockpit() {
   const handleLiveMetricsChange = useCallback((metrics: LiveMetrics) => setLiveMetrics(metrics), [])
 
   return (
-    <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-[100dvh] flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
+    <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-dvh-safe flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
       <header className="flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-white" aria-label="Workspace app bar">
         <strong className="font-heading text-sm">Ferrum Workspace</strong><span className="mr-auto text-xs text-white/60">{projectId}</span>
         <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs">Territory</button>

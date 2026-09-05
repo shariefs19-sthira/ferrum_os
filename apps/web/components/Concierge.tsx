@@ -80,7 +80,7 @@ export default function Concierge() {
       aria-label="Ferrum OS concierge"
       aria-modal="false"
       tabIndex={-1}
-      className="fixed bottom-6 right-6 z-50 flex h-[28rem] max-h-[calc(100dvh-3rem)] w-[22rem] max-w-[calc(100vw-3rem)] flex-col rounded-lg border border-relume-border bg-relume-surface shadow-xl"
+      className="fixed bottom-6 right-6 z-50 flex h-[28rem] max-h-dvh-safe-3rem w-[22rem] max-w-[calc(100vw-3rem)] flex-col rounded-lg border border-relume-border bg-relume-surface shadow-xl"
     >
       <div className="flex items-center justify-between border-b border-relume-border px-4 py-3">
         <span className="text-sm font-semibold text-relume-ink">Ferrum OS Concierge</span>
