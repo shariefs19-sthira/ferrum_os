@@ -1,5 +1,5 @@
 {
-  "name": "ferrum-os",
+  "name": "ferrumos-preview",
   "compatibility_date": "2026-08-01",
   "main": "apps/web/worker.ts",
   "assets": {
