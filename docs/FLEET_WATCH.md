@@ -84,6 +84,20 @@ logic is CRANE-territory to implement against `scripts/FLEET_WATCH.ps1`
 and `docs/FLEET_SEATS.json`; recorded here as the policy/spec those
 files must satisfy.
 
+## Live URL — single source of truth (W-64, 2026-09-05)
+The current live URL is recorded in exactly one place:
+`docs/FLEET_SEATS.json`'s `deployment.liveUrl` field. Every seat, the
+ATLAS audit battery, and `docs/MEETING_TECH_REPORT.md` §2 read the URL
+from there — no seat hardcodes or locally remembers it. As of this
+writing: `https://ferrumos-preview.shariefsatyala.workers.dev`
+(verified HTTP 200), following a worker rename (`crane/rename-worker-
+privacy`, `wrangler.jsonc`'s `name` field `ferrum-os` →
+`ferrumos-preview`) that left the prior `https://ferrum-
+os.shariefsatyala.workers.dev` URL dead (verified HTTP 404). Any future
+rename or redeploy updates `docs/FLEET_SEATS.json`'s `deployment` block
+first — every other reference (the meeting report, W-64's board row)
+mirrors that block rather than being independently maintained.
+
 ## Kill-switch (RULE 38(6))
 
 A human-operable kill-switch for the watchdog and both revival paths is

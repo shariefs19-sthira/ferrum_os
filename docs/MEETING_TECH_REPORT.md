@@ -16,7 +16,7 @@ All computed outputs (costs, rates, structural checks, feasibility scores) come 
 
 # 2. Product Scope + Live Feature Inventory
 
-Live URL: `https://ferrum-os.shariefsatyala.workers.dev`
+Live URL: `https://ferrumos-preview.shariefsatyala.workers.dev` (single source of truth: `docs/FLEET_SEATS.json`'s `deployment` block, RULE 47/W-64 — updated 2026-09-05 after the worker rename in `crane/rename-worker-privacy`; the prior `ferrum-os.shariefsatyala.workers.dev` URL now returns 404, verified directly, not assumed)
 
 | Feature | Status | Where to see it |
 |---|---|---|

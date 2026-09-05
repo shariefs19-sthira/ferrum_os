@@ -1,5 +1,15 @@
 {
   "_comment": "W-50 HARNESS_24x7 seats config. worktreeGlob is a prefix pattern under D:\\ferrum_os.worktrees, not a single fixed path - each seat has many numbered worktrees over time; the harness resolves the most-recently-modified match at revival time. Verified against disk 2026-09-04: atlas/mason/rivet/crane/scribe all have real matching worktrees; ferrite/pi have none observed - left null rather than invented.",
+  "deployment": {
+    "_comment": "Single source of truth for the live URL (W-64, 2026-09-05). Every seat and the ATLAS battery read from here, not a locally remembered/hardcoded value - the worker was renamed 2026-09-05 (crane/rename-worker-privacy, wrangler.jsonc name field) and the old URL now 404s.",
+    "workerName": "ferrumos-preview",
+    "liveUrl": "https://ferrumos-preview.shariefsatyala.workers.dev",
+    "verifiedHttpStatus": 200,
+    "verifiedAt": "2026-09-05",
+    "deadUrl": "https://ferrum-os.shariefsatyala.workers.dev",
+    "deadUrlHttpStatus": 404,
+    "renameCommit": "5fb7289a"
+  },
   "seats": [
     { "id": "CRANE",   "adapter": "claude", "worktreeGlob": "crane-*",  "missionFile": "docs/seats/CRANE.md",   "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null },
     { "id": "MASON",   "adapter": "codex",  "worktreeGlob": "mason-*",  "missionFile": "docs/seats/MASON.md",   "heartbeatFile": null, "reviveCmdTemplate": "codex exec --full-auto -C \"{repoRoot}\" - < \"{missionFile}\"", "lastStop": null, "nextReviveAt": null },
