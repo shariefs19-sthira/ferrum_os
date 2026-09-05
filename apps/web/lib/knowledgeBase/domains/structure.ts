@@ -68,6 +68,20 @@ export const structureFacts: ClauseFact[] = [
     },
     provenance: SOURCE,
   },
+  {
+    clauseId: "IS 456:2000 Cl 23.2.1 (derived: beam minimum effective depth)",
+    version: "Fourth Revision, Tenth Reprint, April 2007 (incl. Amendments 1 & 2)",
+    domain: "structure",
+    summary:
+      "Element-sizing convention for W-67 PRESET_LIBRARY: minimum beam effective depth from a clear span, derived directly from this domain's own already-seeded Cl 23.2.1 basic span/depth ratios (not a separate source, not a new fact - a straightforward corollary computed from a fact this domain already cites, kept VERIFIED-SAMPLE rather than downgraded to INDICATIVE since the derivation is exact arithmetic, not an estimate).",
+    data: {
+      formula: "minimum effective depth (mm) = clear span (mm) / basicSpanToDepthRatio[support]",
+      basicSpanToDepthRatioRef: "IS 456:2000 Cl 23.2.1 (this domain's own fact above)",
+      note:
+        "This is the code's own deflection-control floor, not a full design (actual required depth from bending/shear may govern instead and will usually exceed this). A preset generator should treat this as a lower bound to size against, then round up to a practical section, not treat it as the final depth.",
+    },
+    provenance: SOURCE,
+  },
 ]
 
 // Targeted from IS 456:2000's own clause index but not safely
@@ -91,5 +105,12 @@ export const structureGaps: KbGap[] = [
     reason: "GAP-OCR",
     queuedAction:
       "Minimum cement content / max water-cement ratio / minimum grade of concrete by exposure - source OCR scrambled the table's row/column structure (values and exposure labels no longer line up unambiguously, unlike Table 16 which did). Queue: same as Cl 26.5.1.1 - a second copy or operator-supplied clean extract, not a memory reconstruction.",
+  },
+  {
+    clauseId: "Column preliminary sizing (element convention)",
+    domain: "structure",
+    reason: "GAP-NOT-CODIFIED",
+    queuedAction:
+      "IS 456 does not tabulate a preliminary column-size lookup the way it does beam depth (Cl 23.2.1) - column sizing is a full design calculation (axial load + slenderness + minimum eccentricity, Cl 39/25) driven by tributary area, storey count, and load path, not a span-to-depth style formula. A real preliminary-sizing convention exists in engineering practice (rule-of-thumb tables tying floor count/tributary area to column cross-section), but this session does not have a verified, citable source for one and will not present a recalled or invented ratio as code-derived. Queue: source a real structural-design handbook/guide (not a code itself) that publishes a citable preliminary-sizing table, or defer column sizing in the preset generator to a real (even if simplified) load-based calculation instead of a lookup convention.",
   },
 ]

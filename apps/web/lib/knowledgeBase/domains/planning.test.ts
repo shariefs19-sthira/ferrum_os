@@ -27,6 +27,16 @@ describe("W-29 KB planning domain (adapter-first seed, NBC 2016/SP 7)", () => {
     expect(data.singleRoom.minAreaSqm).toBe(9.5)
     expect(data.singleRoom.minWidthM).toBe(2.4)
   })
+
+  it("the MBBL plot-class matrix (Table 3.3) has 8 real rows and discloses the unresolved FAR-unit ambiguity, not a silent guess", () => {
+    const fact = planningFacts.find((f) => f.clauseId === "MBBL 2016 Table 3.3")!
+    expect(fact.provenance.sourceUrl).toMatch(/niua\.org/)
+    const data = fact.data as { rows: { farAsTabulated: number; maxDwellingUnits: number }[]; note: string }
+    expect(data.rows).toHaveLength(8)
+    expect(data.rows[0].farAsTabulated).toBe(150)
+    expect(data.rows[0].maxDwellingUnits).toBe(1)
+    expect(data.note).toMatch(/not silently divided by 100/)
+  })
 })
 
 describe("W-41 KB coverage manifest - planning domain", () => {
