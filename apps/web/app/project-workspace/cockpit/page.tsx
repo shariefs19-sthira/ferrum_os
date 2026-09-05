@@ -65,6 +65,13 @@ export default function ProjectWorkspaceCockpit() {
 
   const handleCommand = (text: string) => {
     window.dispatchEvent(new CustomEvent("ferrum:workspace-command", { detail: text }))
+    if (/boq|extract/i.test(text)) setExtractOpen(true)
+    if (/diligence|permit/i.test(text)) setTerritoryOpen(true)
+    if (/share workspace brief/i.test(text)) {
+      const share = { title: 'Ferrum Workspace brief', text: 'INDICATIVE workspace brief', url: window.location.href }
+      if (navigator.share) void navigator.share(share).catch(() => undefined)
+      else void navigator.clipboard?.writeText(window.location.href).catch(() => undefined)
+    }
   }
 
   const noExtracts: WorkspaceExtract[] = []
