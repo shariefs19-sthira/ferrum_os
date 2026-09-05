@@ -50,7 +50,10 @@ describe("W-41 KB coverage manifest", () => {
     expect(structureEntry.gapCount).toBe(structureGaps.length)
     expect(structureEntry.status).toBe("SEEDED")
 
-    const roadmapEntries = manifest.filter((m) => m.domain !== "structure")
+    // planning is also seeded now (a separate domain's own test covers
+    // it) - excluded here so this test doesn't need updating every time
+    // another domain gets seeded.
+    const roadmapEntries = manifest.filter((m) => m.domain !== "structure" && m.domain !== "planning")
     expect(roadmapEntries.every((m) => m.status === "ROADMAP" && m.itemCount === 0)).toBe(true)
   })
 
