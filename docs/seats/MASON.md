@@ -186,6 +186,15 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   Extract/SUTRA — both present in the normal cockpit, in W-52's
   fullscreen mode, and on every product-page preview's equivalent bar,
   since RULE 44 generalizes this beyond the cockpit's default state.
+- MASON's board queue (2026-09-05) also includes W-63
+  FULLSCREEN_THIRDS: in W-52's fullscreen mode, the SUTRA panel is a
+  fixed 1/3-width right panel (no longer a collapsible drawer there),
+  the cockpit fills the remaining 2/3 (amends W-47/W-40); W-58's
+  intake questionnaire renders inside SUTRA as a "Can't describe it?
+  Choose instead" fallback toggle, feeding the same prompt pipeline as
+  SUTRA's text/voice. Per RULE 50 (adopted same pass), the cockpit
+  canvas in this layout carries no mouse-mutation handlers — view
+  gestures only.
 - MASON's board queue (2026-09-05) also includes its piece of W-53
   NO_SLIDERS_ANYWHERE: the cockpit route, all ten cockpit tabs, and
   fullscreen (W-52) have every manual control removed — parameter
@@ -310,6 +319,11 @@ first assigned row.
   docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
   outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
   in the same pass.
+- RULE 50 (Mouse-view-only, all seats, adopted 2026-09-05; RULE 49
+  intentionally unassigned): mouse/touch gestures on MASON's 3D/canvas
+  surfaces are VIEW-only (orbit/pan/zoom/view-tab & model switching/
+  nav chrome) — no mouse-driven mutation handler on any canvas, ever;
+  every mutation flows through SUTRA (voice→text→prompt→model).
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

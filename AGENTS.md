@@ -931,6 +931,26 @@ making the re-check itself a required, stated part of every stop
 report, so "I checked and there's nothing left" is a verifiable claim
 rather than an assumed one.
 
+## RULE 50 — MOUSE_VIEW_ONLY (all seats, adopted 2026-09-05; RULE 49
+intentionally unassigned, per the operator's own numbering — a gap, not
+an omission)
+Mouse and touch gestures on any 3D/model surface are VIEW-only: orbit,
+pan, zoom, view-tab switching, model switching, and navigation chrome.
+No mouse/touch gesture ever mutates the model or its parameters.
+Every mutation happens through SUTRA: voice transcribes to text, text
+resolves to a prompt/intent, the prompt drives the deterministic
+engine which mutates the model. A canvas or view surface with a
+mouse-driven mutation handler (a drag-to-resize, a click-to-toggle
+parameter, a slider embedded in the 3D view) is a RULE 50 violation,
+regardless of whether RULE 53 (NO_SLIDERS_ANYWHERE) already covers the
+same surface — the two rules overlap by design, not redundantly.
+*Rationale:* the conversational/SUTRA-first interaction model (W-27,
+W-58) only holds if there is no silent side-channel back into direct
+manipulation; a single leftover mouse-mutation handler would let a
+user bypass the guided tree, the ruleset constraints, and the
+provenance/citation trail the whole KB/persona stack (W-29/W-41/W-43/
+W-59) depends on.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

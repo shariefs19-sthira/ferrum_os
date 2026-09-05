@@ -273,3 +273,8 @@ This was a fresh baseline: it explicitly does not claim any prior
   and its own queue; a READY row it owns means it works instead of
   reporting a stop; the report states the re-check result, not just
   the outcome.
+- RULE 50 (Mouse-view-only, all seats, adopted 2026-09-05; RULE 49
+  intentionally unassigned): SCRIBE records this rule and audits that
+  its own ledger rows reflect it wherever a 3D/model surface is
+  described — no row's acceptance criteria should imply a mouse-driven
+  mutation as acceptable behavior.
