@@ -8,6 +8,7 @@ type ToolsRulerProps = Pick<
 > & {
   activeTool: WorkspaceTool
   extractOpen: boolean
+  rail?: boolean
 }
 
 const tools: Array<{ id: WorkspaceTool; label: string; description: string }> = [
@@ -23,6 +24,7 @@ export default function ToolsRuler({
   onExtractOpenChange,
   onMoreOpenChange,
   onToolChange,
+  rail = false,
 }: ToolsRulerProps) {
   const chooseTool = (tool: WorkspaceTool) => {
     onToolChange(tool)
@@ -30,8 +32,8 @@ export default function ToolsRuler({
   }
 
   return (
-    <aside aria-label="Workspace tools" className="border-b border-relume-border bg-relume-surface-secondary">
-      <div className="mx-auto flex max-w-relume-container items-center gap-2 overflow-x-auto px-4 py-2 sm:px-6">
+    <aside aria-label="Workspace tools" className={`border-relume-border bg-relume-surface-secondary ${rail ? "border-b lg:border-b-0 lg:border-l" : "border-b"}`}>
+      <div className={`flex items-center gap-2 overflow-x-auto px-4 py-2 sm:px-6 ${rail ? "lg:h-full lg:flex-col lg:overflow-y-auto lg:px-2 lg:py-4" : "mx-auto max-w-relume-container"}`}>
         <span className="mr-1 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
           Tools
         </span>
@@ -56,7 +58,7 @@ export default function ToolsRuler({
         })}
         <button
           aria-expanded={extractOpen}
-          className="ml-auto min-h-11 shrink-0 rounded-full border border-relume-border bg-relume-surface px-4 text-sm font-medium text-relume-ink hover:bg-relume-surface-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink"
+          className={`${rail ? "lg:mt-auto" : "ml-auto"} min-h-11 shrink-0 rounded-full border border-relume-border bg-relume-surface px-4 text-sm font-medium text-relume-ink hover:bg-relume-surface-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink`}
           onClick={() => onExtractOpenChange(!extractOpen)}
           type="button"
         >

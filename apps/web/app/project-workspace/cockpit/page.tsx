@@ -8,7 +8,7 @@ import ToolsRuler from "../../../components/workspace/ToolsRuler"
 import MoreDrawer from "../../../components/workspace/MoreDrawer"
 import ExtractPanel from "../../../components/workspace/ExtractPanel"
 import CanvasSlot from "../../../components/workspace/CanvasSlot"
-import CommandBar from "../../../components/workspace/CommandBar"
+import SutraPanel from "../../../components/workspace/SutraPanel"
 
 /**
  * W2-401 WORKSPACE_SHELL — the cockpit. Assembly only (CRANE is the sole
@@ -79,29 +79,21 @@ export default function ProjectWorkspaceCockpit() {
   return (
     <div className="flex h-screen flex-col">
       <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />
-      <CommandBar onSubmit={handleCommand} />
+      <div className="grid min-h-0 flex-1 overflow-y-auto lg:grid-cols-[20rem_minmax(0,1fr)_auto] lg:overflow-hidden">
+      <SutraPanel onSubmit={handleCommand} />
+      <main className="min-h-0 overflow-y-auto p-4 sm:p-6">
+        <p className="mb-3 text-xs text-relume-muted">Project: {projectId}</p>
+        <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} />
+        {extractOpen && <div className="mt-4"><ExtractPanel areaSquareMetres={liveMetrics?.areaSquareMetres} extracts={liveMetrics?.extracts ?? noExtracts} lengthMetres={liveMetrics?.lengthMetres} onClose={() => setExtractOpen(false)} product={activeProduct} provenance={liveMetrics?.provenance ?? noProvenance} /></div>}
+      </main>
       <ToolsRuler
+        rail
         activeTool={activeTool}
         extractOpen={extractOpen}
         onExtractOpenChange={setExtractOpen}
         onMoreOpenChange={setMoreOpen}
         onToolChange={setActiveTool}
       />
-      <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
-        <p className="mb-3 text-xs text-relume-muted">Project: {projectId}</p>
-        <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} />
-        {extractOpen && (
-          <div className="mt-4">
-            <ExtractPanel
-              areaSquareMetres={liveMetrics?.areaSquareMetres}
-              extracts={liveMetrics?.extracts ?? noExtracts}
-              lengthMetres={liveMetrics?.lengthMetres}
-              onClose={() => setExtractOpen(false)}
-              product={activeProduct}
-              provenance={liveMetrics?.provenance ?? noProvenance}
-            />
-          </div>
-        )}
       </div>
       <MoreDrawer onMoreAction={handleMoreAction} onMoreOpenChange={setMoreOpen} open={moreOpen} />
     </div>
