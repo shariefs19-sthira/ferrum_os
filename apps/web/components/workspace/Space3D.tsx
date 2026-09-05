@@ -276,12 +276,10 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
   return (
     <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
       {profile === 'diagram' && <div className="absolute inset-0 grid place-items-center bg-relume-surface-secondary p-8 text-center text-sm text-relume-command"><p><strong>Reduced diagram mode</strong><br />WebGL2 is unavailable. Use Plan or Elevation for the same deterministic geometry.</p></div>}
-      <div className="pointer-events-none absolute right-3 top-3 z-10 max-w-[13rem] rounded bg-relume-command/90 px-3 py-2 text-right text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg">
-        <span className="block text-relume-accent">INDICATIVE</span>
-        {profile === 'full' ? 'Full presentation' : profile === 'reduced' ? 'Reduced rendering mode' : 'Diagram mode'} · deterministic geometry
+      <div className="pointer-events-none absolute bottom-3 left-3 right-3 z-10 overflow-hidden rounded-full bg-relume-command/90 px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-lg" data-canvas-status-bar>
+        <p className="truncate"><span className="text-relume-accent">INDICATIVE</span> · {profile === 'full' ? 'Full presentation' : profile === 'reduced' ? 'Reduced rendering' : 'Diagram'} · SAMPLE LOCATION Bengaluru · OSM context 2026-09-05 · © OpenStreetMap contributors · existing-from-OSM, not a survey · boundary indicative</p>
       </div>
-      <div className="pointer-events-none absolute left-3 top-16 z-10 max-w-[16rem] space-y-1 text-[9px] font-semibold uppercase tracking-[0.1em] text-white"><span className="block rounded bg-relume-command/90 px-2 py-1">SAMPLE LOCATION · Bengaluru reference</span><span className="block rounded bg-relume-command/90 px-2 py-1">OSM context drape · data snapshot 2026-09-05 · © OpenStreetMap contributors</span><span className="block rounded bg-relume-command/90 px-2 py-1">Existing-from-OSM, not a survey · boundary indicative</span></div>
-      <div className="pointer-events-none absolute bottom-3 right-3 z-10 rounded bg-white/90 px-3 py-2 text-xs text-relume-command shadow">
+      <div className="pointer-events-none absolute right-3 top-3 z-10 rounded bg-white/90 px-3 py-2 text-xs text-relume-command shadow">
         Selected: <strong>{selected}</strong><br />Drag orbit · Shift-drag pan · Scroll zoom · 0 fit
       </div>
       <div className="pointer-events-none absolute left-5 top-5 z-10 hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white drop-shadow md:block">Top plan</div>
