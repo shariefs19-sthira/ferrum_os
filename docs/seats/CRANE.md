@@ -193,7 +193,15 @@
   data (from W-29's tables — door leaf sizes, stair width/tread/riser
   ranges, room dimension/aspect minima per program, all provenance-
   cited) that MASON's plan-generation engine wires in and the
-  deterministic PLAN_AUDIT test checks against.
+  deterministic PLAN_AUDIT test checks against. Also in this chain:
+  W-58 ARCHITECT_INTAKE_TREE (supersedes W-28) — CRANE authors the
+  versioned branching decision-tree data file itself (site/family/
+  program/budget/style/interior/culture/future nodes, each with a
+  one-line "why an architect asks this"), which MASON's renderer
+  consumes. W-59 PERSONA_ENGINE — CRANE authors the ten per-product
+  persona configs (id, expert title, tone descriptors, vocabulary set
+  per W-30, bound KB modules per W-29/W-41/W-43, greeting line,
+  default intake branch into W-58), which MASON wires into SUTRA.
 - CRANE's board queue (2026-09-04) also includes the grammar half of
   W-27 CONVERSATIONAL_PRIMARY: extend the intent grammar (per
   WORKSPACE_SPEC.md §5) to the full parameter set (floors, plot w/d,

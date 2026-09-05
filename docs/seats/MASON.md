@@ -154,7 +154,7 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   completion, or partial-credit summaries; incomplete work is reported
   as what's missing, not what was done.
 - MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
-  of all other UI rows): W-47 → W-52 → W-54 → W-55, physically reordered on
+  of all other UI rows): W-47 → W-52 → W-54 → W-55 → W-58 → W-59, physically reordered on
   docs/TASK_BOARD.md to sit right after the fixed top row (W-26).
   W-47 COCKPIT_FULLSCREEN (maximized-viewport base), W-52
   FULLSCREEN_TOGGLE (the actual browser Fullscreen API button on the
@@ -170,7 +170,16 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   stair core sizing, room dimension/aspect ranges, adjacency rules,
   daylight rule, drawing conventions — gated by a deterministic
   PLAN_AUDIT test that blocks landing on failure like a type check.
-  RULE 44: applies to Plan view, DXF export, and all previews.
+  RULE 44: applies to Plan view, DXF export, and all previews. W-58
+  ARCHITECT_INTAKE_TREE (supersedes W-28) is next: MASON builds the
+  tree-driven renderer (one question at a time, big chips, back/
+  progress/skip, voice-optional, zero typing required) plus the END
+  STATE wiring that generates 2-3 scored house candidates from the
+  completed tree and opens the workspace pre-seeded with the chosen
+  one. W-59 PERSONA_ENGINE completes the chain: MASON wires SUTRA to
+  load the correct per-tab persona config, re-voice in one line on
+  every tab/page jump, and show the expert title + knowledge-depth
+  chip in the SUTRA header.
 - MASON's board queue (2026-09-05) also includes its piece of W-53
   NO_SLIDERS_ANYWHERE: the cockpit route, all ten cockpit tabs, and
   fullscreen (W-52) have every manual control removed — parameter
