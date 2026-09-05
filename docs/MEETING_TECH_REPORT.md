@@ -30,9 +30,10 @@ Live URL: `https://ferrum-os.shariefsatyala.workers.dev`
 | IFC (BIM) export | **Blocked** — a technical packaging issue currently prevents this format from working in the browser; tracked as an open item, not silently dropped | — |
 | Save / Share artifacts | **Live, independently tested end-to-end**: save → 200 OK, share link generates and opens with no login required | `/project-workspace/projects` |
 | Rename / delete artifacts | Exists in the API; **not independently re-tested this pass** | — |
-| Per-product page previews (10 products) | **8 of 10 show a real computed preview**; the remaining 2 (BuildOS, ProcureHub) honestly display "Roadmap — not yet built" rather than fabricating a preview | All `/products/*` pages |
+| Per-product page previews (10 products) | **Re-snapshotted this pass: 7 of 10 now show a shared "stepped forecast" preview module (sample-data-driven) rather than each product's own dedicated tool** — a platform-wide version of a known regression (see below). 1 (CommunityBuild) shows its own dedicated tool; 1 (Transact) shows its own dedicated tool; 1 (BuildOS) honestly displays "Roadmap — not yet built." LandIntel additionally still surfaces its real ULPIN lookup tool alongside the shared module. | All `/products/*` pages |
+| LandIntel/product-tool regression | **Known, tracked issue, in progress** — a prior redesign pass replaced several products' dedicated real tools (structural check, rate comparison, IRR/NPV modeler, test-fit calculator) with a shared generic forecast preview in the hero position. A fix for LandIntel specifically is queued as next priority (see §9); the same pattern now affects Structura, BOQ Pro, ProMarket, InvestFlow, DesignStudio, and ProcureHub | `/products/{structura,boq-pro,promarket,investflow,designstudio,procurehub}` |
 | Sign-up / login | **Intentionally gated to preview mode** — no credential collection live yet (see §8) | `/signup`, `/login` |
-| Satellite imagery overlay | **Not live** — licensing not yet purchased (see §6) | — |
+| Satellite imagery overlay | **Not live** — licensing not yet purchased (see §6); a unified "one ground" design (shared live imagery base layer across all cockpit tabs and product previews) is planned but not yet built | — |
 
 ---
 
@@ -64,7 +65,8 @@ Live URL: `https://ferrum-os.shariefsatyala.workers.dev`
 | Testing | Vitest (unit) + Playwright (end-to-end, live-site verification) | Automated correctness checks plus real-browser verification against the live deployment |
 | Deployment tooling | Wrangler (Cloudflare's CLI) | Official deployment/migration tool for the Workers + D1 platform |
 | Package management | pnpm, monorepo workspace | Efficient dependency management across multiple internal packages |
-| Development process | Parallel git worktrees (**70 active at time of writing**) across a multi-agent build team | Enables many workstreams to progress concurrently without blocking each other |
+| Development process | Parallel git worktrees (**85 active at time of writing, re-counted this pass**) across a multi-agent build team, governed by a written pull-queue and drain-until-blocked operating discipline | Enables many workstreams to progress concurrently without blocking each other; the pull-queue prevents idle capacity between tasks |
+| Fleet health monitoring | An automated idle-detection harness flags a silently-stalled workstream and auto-dispatches its next queued task | Prevents silent stalls in a 24/7 multi-agent operation from going unnoticed |
 
 ---
 
@@ -149,8 +151,11 @@ Percentages are a count of completed vs. total tracked work items per module (a 
 *(Sequencing reflects current internal priority order; specific dates are not fixed on disk and are marked accordingly.)*
 
 **Next (immediate priority):**
-- Restore the real parcel-lookup tool to its primary position on the LandIntel page (a recent internal redesign inadvertently demoted it — already identified and queued for a fix).
-- Complete the command-first cockpit interface and constrained guided-option flow (replacing free-form sliders with tap-to-choose, ruleset-derived options).
+- Restore the real parcel-lookup tool to its primary position on the LandIntel page (a recent internal redesign inadvertently demoted it — already identified and queued for a fix), and apply the same fix across the other six affected product pages (see §2).
+- Complete the command-first cockpit interface and constrained guided-option flow (replacing free-form sliders with tap-to-choose, ruleset-derived options) — a platform-wide "remove every manual slider, all input via the assistant" pass is queued directly behind this.
+- Make the cockpit a full-screen, maximized workspace surface (canvas fills the viewport; chat, extract, and reference panels become collapsible overlays) with a working, visible fullscreen toggle.
+- Consolidate the on-screen data-source/status indicators (currently rendered as several stacked boxes) into one compact status bar, consistently across the cockpit and every product preview.
+- Build the unified "one ground" base layer — one real satellite/map imagery layer shared across all ten cockpit views and every product preview, so each view differs only in what's overlaid on top of the same real site data.
 - Fix the data-extract panel's live-update behavior (the one open item in the 8-step battery above).
 - Stand up automated performance-budget enforcement in the build pipeline.
 
@@ -216,7 +221,8 @@ Percentages are a count of completed vs. total tracked work items per module (a 
 |---|---|
 | Core authentication backend | Complete |
 | Land-parcel lookup with data provenance labeling | Complete |
-| Real-tool-in-hero redesign across 8 of 10 product pages | Complete |
+| Real-tool-in-hero redesign across 8 of 10 product pages | Superseded — a later redesign pass replaced most of these with a shared preview module (see §2); restoration queued |
+| Idle-workstream auto-detection + auto-revive harness | Complete |
 | Structured artifact save/share system | Complete (share independently re-verified this session) |
 | Intent-routing API for the cockpit | Complete, independently verified end-to-end against the live system |
 | 3D file export (IFC) engine — core logic | Complete; browser packaging still blocked |
@@ -231,4 +237,4 @@ Percentages are a count of completed vs. total tracked work items per module (a 
 ---
 
 **Confidential — internal + invited external technical audience only.**
-Date: 2026-09-05 · Version: `b923be13` (source snapshot) · Prepared by: ATLAS (technical audit function)
+Date: 2026-09-05 · Version: `9ddea512` (source snapshot) · Prepared by: ATLAS (technical audit function)
