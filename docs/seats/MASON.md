@@ -203,6 +203,17 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   new bbox using W-51's existing adapters, with a "user-provided
   location · source · date" provenance chip and an indicative-until-
   surveyed boundary.
+- MASON's board queue (2026-09-05) also includes W-66
+  MINIMAL_ELEMENT_SET: the plan-generation engine builds columns
+  (grid from spans), beams, slabs/ceilings, RCC+masonry walls on real
+  plan partitions, and KB-module stairs — every element mapped to a
+  live BOQ line (concrete m³, steel kg, masonry m²). And W-67
+  PRESET_LIBRARY (gen + UI piece): combinatorially generate baseline
+  plans across plot classes × uses × floors × styles, each passing
+  PLAN_AUDIT before storage with a score + key stats; a library
+  browser (thumb + stats cards) lets a user swap a preset into the
+  workspace keeping the current parcel context, then edit it via
+  SUTRA/questionnaire only — mouse stays view-only (RULE 50).
 - MASON's board queue (2026-09-05) also includes its piece of W-53
   NO_SLIDERS_ANYWHERE: the cockpit route, all ten cockpit tabs, and
   fullscreen (W-52) have every manual control removed — parameter
