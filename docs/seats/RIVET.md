@@ -191,6 +191,12 @@ as every other seat.
   MASON's demo-mode 3D): first-viewport narrative line + sticky "Open
   Workspace" pill + nav CTA on every marketing route, with the page's
   existing live tool kept as proof, not replaced.
+- RIVET's board queue (2026-09-05) also includes its piece of W-53
+  NO_SLIDERS_ANYWHERE: every product-page preview plus DesignStudio's
+  plot-width/plot-depth/floors sliders are removed and replaced with a
+  single "Describe your plot to SUTRA" button that opens the agent
+  pre-seeded at the guided tree's use→floors stage (W-28). No approved
+  exceptions — a manual control anywhere is a RULE 40 violation.
 - RIVET's board queue (2026-09-04) also includes W-16 LANDINTEL
   RESTORE: return `UlpinMapExplorer` as LandIntel's PRIMARY hero tool
   (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature

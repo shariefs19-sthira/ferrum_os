@@ -153,6 +153,13 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   action; no forecasts, assurances, bare adjectives, progress-as-
   completion, or partial-credit summaries; incomplete work is reported
   as what's missing, not what was done.
+- MASON's board queue (2026-09-05) also includes its piece of W-53
+  NO_SLIDERS_ANYWHERE: the cockpit route, all ten cockpit tabs, and
+  fullscreen (W-52) have every manual control removed — parameter
+  input flows only through SUTRA (text/voice/chips, W-28's guided
+  tree). This retires W-48's registry `slider` renderer (the registry
+  schema survives, consumed only via SUTRA) and W-27's Advanced-drawer
+  slider carve-out.
 - MASON's board queue (2026-09-04) also includes the UI half of W-27
   CONVERSATIONAL_PRIMARY (command bar as primary interface: text +
   voice via browser Web Speech API, honest chip where unsupported,
