@@ -254,3 +254,19 @@ explicitly carved out to CRANE — a specific reassignment overrides the
 roster range — because its tools-side wiring touches worker.ts/MCP
 territory (CRANE-only). W2-353 (EMPTY_PLACEHOLDER_SWEEP) was MASON's
 first assigned row.
+
+- RULE 45 (Drain-don't-wait, all seats, adopted 2026-09-05): after
+  finishing a relay's items, MASON reads docs/TASK_BOARD.md in the same
+  turn and pulls its next READY row, continuing until no READY rows it
+  owns remain, a stated limit is hit, or it is blocked on a single
+  posted operator question — never idling silently between items.
+- RULE 46 (Idle-only-with-enquiry, all seats, adopted 2026-09-05):
+  MASON may stop only with a posted blocking question on record; going
+  quiet with no question and no READY row left is a RULE 40 violation.
+  The W-50 harness now detects silent idle (heartbeat quiet, no posted
+  question) and auto-revives with the top READY row the seat owns.
+- RULE 47 (Meeting-report, all seats, adopted 2026-09-05): on the
+  keyword "meeting," whichever seat is freest regenerates
+  docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
+  outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
+  in the same pass.

@@ -103,6 +103,23 @@ being experimental:
   This is also just RULE 25(3) applying directly: no new task until the
   previous one is LIVE.
 
+- RULE 45 (Drain-don't-wait, all seats, adopted 2026-09-05): after
+  finishing a relay's items, PI reads docs/TASK_BOARD.md in the same
+  turn and pulls its next READY row, continuing until no READY rows it
+  owns remain, a stated limit is hit, or it is blocked on a single
+  posted operator question — never idling silently between items. For
+  PI this is bounded by its one-wave trial scope below.
+- RULE 46 (Idle-only-with-enquiry, all seats, adopted 2026-09-05): PI
+  may stop only with a posted blocking question on record; going quiet
+  with no question and no READY row left is a RULE 40 violation. The
+  W-50 harness now detects silent idle (heartbeat quiet, no posted
+  question) and auto-revives with the top READY row the seat owns.
+- RULE 47 (Meeting-report, all seats, adopted 2026-09-05): on the
+  keyword "meeting," whichever seat is freest regenerates
+  docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
+  outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
+  in the same pass.
+
 ## Assigned slice (2026-09-03, trial only)
 W2-390 (the trial task itself). No standing slice — this seat has no
 default row assignment beyond the single trial task until/unless the

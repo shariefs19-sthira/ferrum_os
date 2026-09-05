@@ -865,6 +865,60 @@ preview, not just the Land tab. W-51 was amended in place to ONE-GROUND
 to record this generalization, with an explicit FAIL condition for any
 view that still renders the generic grid.
 
+## RULE 45 — DRAIN-DON'T-WAIT (all seats, adopted 2026-09-05)
+After finishing the current relay's items, the seat reads
+docs/TASK_BOARD.md in the SAME turn and pulls its next READY row,
+continuing until: (a) no READY rows it owns remain, (b) a stated limit
+is hit, or (c) it is blocked on an operator decision — stated as a
+single blocking question, not a list of concerns.
+(1) Reporting is per-item, as landings happen, but never ends the turn
+early — the drain continues until one of the three stop conditions
+above is actually met.
+(2) Relay format changes accordingly: relays are now complete work
+orders ("execute fully, then drain, then report consolidated facts"),
+not single-item dispatches requiring a reply before the next pull.
+(3) RULE 39 (self-contained relays) and RULE 43 (citation-on-main)
+still govern what a seat may execute without asking — DRAIN-DON'T-WAIT
+governs only when a seat stops, not what it is permitted to start.
+*Rationale:* seats were idling between items waiting for the next
+relay instead of pulling the next READY row themselves, wasting cycles
+the pull-queue (RULE 35) was built to eliminate.
+
+## RULE 46 — IDLE-ONLY-WITH-ENQUIRY (all seats, adopted 2026-09-05)
+A seat may stop only with a posted blocking operator question on
+record (in its report or the relevant row). Silent idling — going
+quiet with no posted question and no READY row left to pull — is a
+RULE 40 violation (an unreported blocked state).
+(1) **Harness detection (W-50 amendment):** the FLEET_WATCH harness
+detects silent idle — heartbeat quiet with no posted blocking question
+on record — and responds with an ntfy flag plus auto-revive dispatching
+the top READY row the seat owns (docs/TASK_BOARD.md table order, per
+Get-TopReadyRow). This extends W-50's existing revival harness
+(docs/FLEET_SEATS.json / scripts/FLEET_WATCH.ps1); the actual detection
+logic is CRANE-territory to implement — recorded here as policy/spec,
+mirrored in docs/FLEET_WATCH.md.
+(2) **Conductor role narrows:** the conductor relays only for operator
+corrections or seat enquiries (a posted blocking question). Between
+those, the drain (RULE 45) self-runs — the conductor does not need to
+dispatch the next item of an already-issued work order.
+*Rationale:* RULE 45 established that a seat pulls its own next row;
+RULE 46 closes the remaining failure mode — a seat that neither drains
+nor asks, and simply goes quiet, which the conductor could not
+previously detect without polling every seat by hand.
+
+## RULE 47 — MEETING_REPORT (all seats, adopted 2026-09-05)
+docs/MEETING_TECH_REPORT.md is the operator's carry-in technical
+report. On the keyword "meeting," the freest seat regenerates it from
+disk facts only — `git log`, battery/test outputs, `package.json` and
+other manifest/config files, docs/TASK_BOARD.md, and perf budgets
+(docs/budgets.json where present) — never from memory or assumption.
+Output is print-ready markdown, landed in the same pass.
+*Rationale:* a report drafted from a seat's recollection drifts from
+disk state the moment any other seat lands something; grounding
+regeneration in the same disk facts already used for DONE/SHA
+verification (RULE 22, RULE 40) keeps it trustworthy without a
+separate maintenance discipline.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

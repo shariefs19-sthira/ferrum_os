@@ -247,3 +247,24 @@ seats, and replaced AGENTS.md's ad hoc RULE 1-50 numbering with a single
 renumbered rulebook (RULES 1-N) on branch `w2-215/SCRIBE-consolidation`.
 This was a fresh baseline: it explicitly does not claim any prior
 "RULE 57" or unverified numbering existed on `main`.
+
+- RULE 45 (Drain-don't-wait, all seats, adopted 2026-09-05): after
+  finishing a relay's items, SCRIBE reads docs/TASK_BOARD.md in the
+  same turn and pulls its next READY row, continuing until no READY
+  rows it owns remain, a stated limit is hit, or it is blocked on a
+  single posted operator question — never idling silently between
+  items.
+- RULE 46 (Idle-only-with-enquiry, all seats, adopted 2026-09-05):
+  SCRIBE may stop only with a posted blocking question on record; going
+  quiet with no question and no READY row left is a RULE 40 violation.
+  SCRIBE records the W-50 harness amendments this rule requires
+  (auto-deploy on origin/main advance; silent-idle detection +
+  auto-revive with the top READY row) in docs/FLEET_WATCH.md — the
+  actual harness implementation is CRANE-territory
+  (scripts/FLEET_WATCH.ps1 / docs/FLEET_SEATS.json).
+- RULE 47 (Meeting-report, all seats, adopted 2026-09-05): on the
+  keyword "meeting," whichever seat is freest regenerates
+  docs/MEETING_TECH_REPORT.md from disk facts only (git log, battery
+  outputs, manifests, TASK_BOARD, perf budgets), print-ready, landed
+  in the same pass. SCRIBE has no special role here beyond any other
+  seat — this is a fleet-wide capability, not a docs-seat exclusive.
