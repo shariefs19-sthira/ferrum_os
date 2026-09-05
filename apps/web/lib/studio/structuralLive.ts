@@ -52,7 +52,11 @@ export type StructuralLiveResult = {
 // factors for reinforcement percentage/flange width — a simplified,
 // conservative check, same spirit as isCode.ts's rc-beam minimum-Ast
 // check, which is also unmodified-factor).
-const SPAN_DEPTH_BASIC_RATIO: Record<BeamElement['support'], number> = {
+// Exported so the W-29 KB module (lib/knowledgeBase/domains/structure.ts,
+// IS 456:2000 Cl 23.2.1) can cross-check this engine constant against
+// the real sourced clause fact, rather than the two silently drifting
+// apart as two unrelated hardcoded copies.
+export const SPAN_DEPTH_BASIC_RATIO: Record<BeamElement['support'], number> = {
   simple: 20,
   continuous: 26,
 }
