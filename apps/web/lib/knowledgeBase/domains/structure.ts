@@ -1,4 +1,4 @@
-import type { ClauseFact } from "../types"
+import type { ClauseFact, KbGap } from "../types"
 
 // W-29 KNOWLEDGE_BASE - structure domain (RCC/steel/masonry), first
 // seed pass. Adapter-first per the standing KB_MAX_DEPTH drain order:
@@ -53,5 +53,43 @@ export const structureFacts: ClauseFact[] = [
       ],
     },
     provenance: SOURCE,
+  },
+  {
+    clauseId: "IS 456:2000 Cl 31.2.1",
+    version: "Fourth Revision, Tenth Reprint, April 2007 (incl. Amendments 1 & 2)",
+    domain: "structure",
+    summary: "Minimum thickness of a flat slab (thickness otherwise governed by the Cl 23.2 span/effective-depth ratios).",
+    data: {
+      minimumThicknessMm: 125,
+      note:
+        "Governed primarily by Cl 23.2's span/effective-depth ratios (applied directly for slabs with drops per 31.2.2, or multiplied by 0.9 otherwise, using the longer span) - this 125mm figure is an absolute floor, not the typical design value.",
+      ocrCorrectionNote:
+        "Source OCR rendered this as '12S mm' (scanning artifact, S/5 glyph confusion) - corrected to 125mm based on unambiguous sentence context ('The minimum thickness of slab shall be ___ mm'), not reconstructed from memory. Flagged here per the standing rule that any such correction must be stated, not silently applied.",
+    },
+    provenance: SOURCE,
+  },
+]
+
+// Targeted from IS 456:2000's own clause index but not safely
+// extractable this pass - the source PDF's OCR scrambled these
+// specific tables/formulas into fragments where column/row mapping
+// would be a guess, not an extraction. Chipped GAP-OCR per the
+// standing rule: never reconstructed from memory, never holding the
+// domain - queued for a second public copy or an operator-supplied
+// clean PDF.
+export const structureGaps: KbGap[] = [
+  {
+    clauseId: "IS 456:2000 Cl 26.5.1.1",
+    domain: "structure",
+    reason: "GAP-OCR",
+    queuedAction:
+      "Minimum/maximum tension reinforcement in beams - source OCR collapsed the formula (As,min expression) into unreadable fragments. Queue: re-fetch from a second public mirror (e.g. a different Internet Archive scan, or a state PWD technical-manual reproduction) or accept an operator-supplied clean PDF/text extract.",
+  },
+  {
+    clauseId: "IS 456:2000 Table 5",
+    domain: "structure",
+    reason: "GAP-OCR",
+    queuedAction:
+      "Minimum cement content / max water-cement ratio / minimum grade of concrete by exposure - source OCR scrambled the table's row/column structure (values and exposure labels no longer line up unambiguously, unlike Table 16 which did). Queue: same as Cl 26.5.1.1 - a second copy or operator-supplied clean extract, not a memory reconstruction.",
   },
 ]

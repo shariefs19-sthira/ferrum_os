@@ -49,8 +49,35 @@ export const kbDomains = [
 ] as const
 export type KbDomain = (typeof kbDomains)[number]
 
+// A clause that was targeted from the source's own clause index but
+// could not be safely extracted this pass - per the operator's
+// standing rule, never reconstructed from memory, never held the
+// domain: chip it GAP-OCR, queue it, move to the next item. reason is
+// deliberately a closed set so a gap always states WHY, not just that
+// it is one.
+export type KbGap = {
+  clauseId: string
+  domain: KbDomain
+  reason: "GAP-OCR" // extend this union if a different real gap kind shows up (e.g. GAP-PAYWALL)
+  queuedAction: string
+}
+
+// The source's own clause index/TOC is the depth-% denominator, cited
+// with its own provenance - never a bare number with no traceable
+// origin, and never a bigger/different scope than the domain this
+// fact set actually covers.
+export type DepthDenominatorProvenance = {
+  sourceName: string
+  sourceUrl: string
+  method: string // how the count was derived from the source, so it can be re-verified
+  totalClauseCount: number
+}
+
 export type KbDomainManifestEntry = {
   domain: KbDomain
   itemCount: number
+  gapCount: number
   status: "SEEDED" | "ROADMAP" // a domain with itemCount 0 is always ROADMAP - never silently absent or falsely implied complete
+  depthDenominator: DepthDenominatorProvenance | null // null when no source-index denominator has been established yet for this domain
+  depthPercent: number | null // itemCount / depthDenominator.totalClauseCount * 100, rounded to 1dp; null when depthDenominator is null - never a percentage with no denominator behind it
 }
