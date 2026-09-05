@@ -83,11 +83,12 @@ type WorkspaceCockpitProps = {
   previewLabel?: string
   canvasFirst?: boolean
   controlProduct?: ProductControlId
+  fullscreenControl?: { active: boolean; label: string; onClick: () => void }
 }
 
 const defaultParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 }
 
-export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, controlProduct }: WorkspaceCockpitProps) {
+export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, controlProduct, fullscreenControl }: WorkspaceCockpitProps) {
   const [parameters, setParameters] = useState<StudioParameters>(initialParameters)
   const [view, setView] = useState<StudioView>('space')
   const [activeFloor, setActiveFloor] = useState(1)
@@ -226,7 +227,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         </aside>}
 
         <div className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst?'min-h-0':''}`}>
-          <div className="flex flex-wrap gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
+          <div className="relative z-40 flex flex-wrap gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
             {views.map((candidate) => (
               <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => setView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
                 {candidate.label}
@@ -239,6 +240,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
                 </select>
               </label>
             )}
+            {fullscreenControl && <button type="button" aria-pressed={fullscreenControl.active} onClick={fullscreenControl.onClick} className="relative z-30 ml-auto min-h-11 rounded-full border border-relume-border bg-relume-command px-4 text-xs font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" data-fullscreen-toggle>{fullscreenControl.label}</button>}
           </div>
           <div className="absolute left-3 right-3 top-16 z-20 flex items-center gap-2 overflow-x-auto rounded-full border border-white/40 bg-relume-command/90 p-2 shadow-xl backdrop-blur-sm md:left-1/2 md:right-auto md:max-w-[calc(100%-2rem)] md:-translate-x-1/2" aria-label={`${optionStage} options`} data-option-chip-flow data-option-stage={optionStage}>
             <span className="shrink-0 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-accent">{optionStage} · INDICATIVE</span>

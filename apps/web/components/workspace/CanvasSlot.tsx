@@ -17,13 +17,15 @@ type LiveMetrics = {
 export default function CanvasSlot({
   product,
   onLiveMetricsChange,
+  fullscreenControl,
 }: {
   product: WorkspaceProduct
   onLiveMetricsChange?: (metrics: LiveMetrics) => void
+  fullscreenControl?: { active: boolean; label: string; onClick: () => void }
 }) {
   return (
     <div className="h-full" aria-label={`${product} workspace canvas`} data-workspace-canvas>
-      <WorkspaceCockpit canvasFirst controlProduct={productControls[product]} onLiveMetricsChange={onLiveMetricsChange} />
+      <WorkspaceCockpit canvasFirst controlProduct={productControls[product]} onLiveMetricsChange={onLiveMetricsChange} fullscreenControl={fullscreenControl} />
     </div>
   )
 }

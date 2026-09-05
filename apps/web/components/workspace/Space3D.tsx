@@ -6,6 +6,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js"
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 import type { StudioPlan } from "../../lib/types"
 import { sampleSiteContext } from "../../lib/workspace/sampleSiteContext"
+import { useFullscreenState } from "./FullscreenController"
 
 const concrete = 0xf4f2ec
 const glass = 0x93bac2
@@ -15,6 +16,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
   const hostRef = useRef<HTMLDivElement>(null)
   const [selected, setSelected] = useState("Podium")
   const [profile, setProfile] = useState<"full" | "reduced" | "diagram">("full")
+  const fullscreen = useFullscreenState()
 
   useEffect(() => {
     const host = hostRef.current
@@ -37,7 +39,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     const rendererInfo = gl.getExtension("WEBGL_debug_renderer_info")
     const rendererName = rendererInfo ? String(gl.getParameter(rendererInfo.UNMASKED_RENDERER_WEBGL)) : ""
     const softwareRenderer = /swiftshader|software/i.test(rendererName)
-    const lowPower = demoMode || (requestedProfile === "full" ? false : requestedProfile === "reduced" || mobile || softwareRenderer)
+    const lowPower = demoMode || (fullscreen.profile === "high" || requestedProfile === "full" ? false : requestedProfile === "reduced" || mobile || softwareRenderer)
     setProfile(lowPower ? "reduced" : "full")
     renderer.setPixelRatio(Math.min(devicePixelRatio, lowPower ? 1 : 2))
     renderer.shadowMap.enabled = !lowPower
@@ -269,7 +271,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       renderer.dispose()
       renderer.domElement.remove()
     }
-  }, [plan, demoMode])
+  }, [plan, demoMode, fullscreen.profile])
 
   return (
     <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
