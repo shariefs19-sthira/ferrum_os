@@ -80,7 +80,8 @@ param(
     [switch]$DryRun,                        # W-50: run one cycle against a synthetic probe, log decisions, never Start-Process
     [switch]$EnableClaudeAdapter,            # W-50: claude adapter is wired but inert until this is passed explicitly
     [string]$SeatsConfigPath,                 # W-50: defaults to docs/FLEET_SEATS.json under $repoRoot
-    [string]$DryRunCodexProbeOutput = ''     # W-50: inject a synthetic Codex CLI response for -DryRun instead of calling the real CLI
+    [string]$DryRunCodexProbeOutput = '',    # W-50: inject a synthetic Codex CLI response for -DryRun instead of calling the real CLI
+    [int]$SilentIdleThresholdMinutes = 15    # silent-idle detector: minutes since last activity before a seat with owned READY rows and no posted question is flagged
 )
 
 $ErrorActionPreference = "Stop"
@@ -178,13 +179,80 @@ function Get-TopReadyRow {
     return $null
 }
 
+# All READY rows in docs/TASK_BOARD.md whose Eligible-seats column
+# names this seat (substring match, since that column sometimes reads
+# "RIVET or MASON" / "RIVET + CRANE + MASON" rather than a single name).
+function Get-SeatOwnedReadyRows([string]$Seat) {
+    if (-not (Test-Path $taskBoardFile)) { return @() }
+    $lines = Get-Content $taskBoardFile
+    $rows = @()
+    foreach ($line in $lines) {
+        if ($line -notmatch '^\|\s*(W-\d+[a-z]?)\s*\|') { continue }
+        $cells = $line -split '\|'
+        if ($cells.Count -lt 8) { continue }
+        $id = $cells[1].Trim()
+        $title = $cells[2].Trim()
+        $eligible = $cells[4].Trim()
+        $status = $cells[7].Trim()
+        if ($status -match '^READY' -and $eligible -match [regex]::Escape($Seat)) {
+            $rows += [PSCustomObject]@{ Id = $id; Title = $title; Eligible = $eligible }
+        }
+    }
+    return $rows
+}
+
+# A real, unanswered posted question blocks the idle flag - a seat that
+# stopped to ask something is not "silently" idle, it's correctly
+# waiting. docs/OPERATOR_INBOX.md being touched after the seat's last
+# activity is treated as "a question was posted since" (this script
+# cannot tell whether the operator already answered it inline in chat -
+# that channel isn't on disk - so it only suppresses the flag, it never
+# uses inbox silence as *positive* proof of a silent stall on its own).
+function Test-SeatPostedOpenQuestion([long]$SinceEpoch) {
+    $inboxPath = Join-Path $repoRoot "docs\OPERATOR_INBOX.md"
+    if (-not (Test-Path $inboxPath)) { return $false }
+    $mtimeEpoch = [long](Get-Date (Get-Item $inboxPath).LastWriteTimeUtc -UFormat %s)
+    return $mtimeEpoch -gt $SinceEpoch
+}
+
+# SILENT-IDLE DETECTOR: a seat whose last output was a landing/report
+# (heartbeat shows recent activity - it definitely finished something),
+# the board still has READY rows that name it, and it has posted no
+# question since - is silently idle, not correctly stopped. This is the
+# gap the operator flagged: "stop only at empty queue, limit, or an
+# operator decision" was a stated rule with nothing checking it was
+# actually followed. Returns $null when the seat is NOT silently idle
+# (no heartbeat signal at all, no owned READY rows to drain, or an
+# open question is posted) - every one of those is a legitimate reason
+# to be quiet, not a detector false negative.
+function Test-SilentIdleSeat([string]$Seat, [int]$IdleThresholdMinutes = 15) {
+    $lastEpoch = Get-SeatHeartbeat -Seat $Seat
+    if (-not $lastEpoch) { return $null }
+    $ageMinutes = ([DateTimeOffset]::UtcNow.ToUnixTimeSeconds() - $lastEpoch) / 60
+    if ($ageMinutes -lt $IdleThresholdMinutes) { return $null }
+    $ownedReady = Get-SeatOwnedReadyRows -Seat $Seat
+    if ($ownedReady.Count -eq 0) { return $null }
+    if (Test-SeatPostedOpenQuestion -SinceEpoch $lastEpoch) { return $null }
+    return [PSCustomObject]@{
+        Seat            = $Seat
+        AgeMinutes      = [math]::Round($ageMinutes, 1)
+        OwnedReadyCount = $ownedReady.Count
+        TopRow          = $ownedReady[0]
+    }
+}
+
+function Get-DrainPrompt($IdleFinding) {
+    $row = $IdleFinding.TopRow
+    return "Silent-idle detected: your last output was $($IdleFinding.AgeMinutes) minutes ago, docs/TASK_BOARD.md still has $($IdleFinding.OwnedReadyCount) READY row(s) you own, and no question was posted. Per the drain clause (stop only at empty queue, limit, or an operator decision - never after a single item): pull the top row now, $($row.Id) - $($row.Title), execute it, land it, then keep pulling."
+}
+
 # CLAUDE ADAPTER (wired, gated behind -EnableClaudeAdapter - "used
 # after operator flip" per the operator's own instruction). Builds the
 # real command; only runs it in a real (non-dry-run) cycle with the
 # flag passed.
-function Start-ClaudeSeat($Seat, $DispatchedRow) {
-    $brief = "You are seat $($Seat.id). Read $($Seat.missionFile) for your standing brief."
-    if ($DispatchedRow) {
+function Start-ClaudeSeat($Seat, $DispatchedRow, [string]$OverrideBrief) {
+    $brief = if ($OverrideBrief) { $OverrideBrief } else { "You are seat $($Seat.id). Read $($Seat.missionFile) for your standing brief." }
+    if ($DispatchedRow -and -not $OverrideBrief) {
         $brief += " Top READY board row to pull: $($DispatchedRow.Id) - $($DispatchedRow.Title)."
     }
     $cmd = $Seat.reviveCmdTemplate -replace '\{brief\}', $brief -replace '\{repoRoot\}', $repoRoot -replace '\{missionFile\}', $Seat.missionFile
@@ -412,6 +480,30 @@ function Invoke-WatchCycle {
     Write-FleetSchedule -Heartbeats $heartbeats
 
     $state = Get-WatchState
+
+    # SILENT-IDLE DETECTOR: last output = a landing/report, board still
+    # has READY rows this seat owns, no question posted since - flag it
+    # and auto-revive with a drain prompt. Runs for every seat this
+    # script tracks, not just Codex-backed ones - the gap the operator
+    # named applied fleet-wide.
+    $seatConfigsForIdleCheck = Get-FleetSeatsConfig
+    foreach ($seatName in $seats) {
+        $idleFinding = Test-SilentIdleSeat -Seat $seatName -IdleThresholdMinutes $SilentIdleThresholdMinutes
+        if (-not $idleFinding) { continue }
+        $drainPrompt = Get-DrainPrompt -IdleFinding $idleFinding
+        Write-Host "SILENT-IDLE: $($idleFinding.Seat) - $drainPrompt"
+        Send-NtfyAlert -Title "Silent idle: $($idleFinding.Seat)" -Message $drainPrompt
+        $seatCfg = $seatConfigsForIdleCheck | Where-Object { $_.id -eq $idleFinding.Seat } | Select-Object -First 1
+        if (-not $seatCfg) {
+            Write-Host "No seats-config entry for $($idleFinding.Seat) - alerted only, no adapter to auto-revive through."
+            continue
+        }
+        if ($seatCfg.adapter -eq 'claude') {
+            Start-ClaudeSeat -Seat $seatCfg -OverrideBrief $drainPrompt
+        } elseif ($seatCfg.adapter -eq 'codex') {
+            Start-CodexMission -DispatchedRow $idleFinding.TopRow
+        }
+    }
 
     # Stalled-fleet alert: every codex-backed seat DARK for longer than
     # the threshold, and we haven't already alerted on this same stall
