@@ -1,0 +1,4 @@
+import {describe,expect,it} from "vitest"
+import {generateStudioPlan} from "../plan-gen"
+import {measureBoq,workspaceBoqCatalog} from "./measuredBoq"
+describe("measured BOQ",()=>{it("returns ten reconciled catalog lines without inventing rates",()=>{const lines=measureBoq(generateStudioPlan({plotWidthM:20,plotDepthM:30,setbackM:2,floors:3}));expect(lines).toHaveLength(10);expect(lines.every(line=>line.quantity>0)).toBe(true);expect(lines.every(line=>line.rateInr===null&&line.amountInr===null)).toBe(true)});it("extends only a verified public catalog rate",()=>{const catalog=workspaceBoqCatalog.map((item,index)=>index?item:{...item,price:{amountInr:100,unit:"m3",provenance:{sourceName:"Test fixture",sourceUrl:"https://example.test",fetchedAt:"2026-09-05",status:"VERIFIED-PUBLIC" as const}}});const line=measureBoq(generateStudioPlan({plotWidthM:20,plotDepthM:30,setbackM:2,floors:3}),catalog)[0];expect(line.amountInr).toBe(line.quantity*100)})})

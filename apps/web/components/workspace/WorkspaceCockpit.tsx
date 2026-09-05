@@ -10,6 +10,7 @@ import type { LandUse } from '../../lib/parcelIntel/types'
 import { convertArea, metresAndFeet } from '../../lib/units'
 import ExportBar from './ExportBar'
 import PlanElevationView from './PlanElevationView'
+import { measureBoq } from '../../lib/workspace/measuredBoq'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -94,6 +95,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const plan = useMemo(() => generateStudioPlan(parameters), [parameters])
   const activeRooms = plan.rooms.filter((room) => room.floor === activeFloor)
   const grossArea = plan.buildingWidthM * plan.buildingDepthM * plan.floors
+  const measuredBoq = useMemo(() => measureBoq(plan), [plan])
   const governingSpanM = Math.max(...activeRooms.map((room) => room.widthM), 0)
   const structural = checkStructuralLive([{ id: 'active-floor-beam', kind: 'beam', span_m: governingSpanM, depth_mm: 300, width_mm: 300, udl_kn_per_m: 8, support: 'simple' }])
   const structuralPass = structural.results.every((result) => result.checks.every((check) => check.pass))
@@ -260,6 +262,11 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             <ul className="mt-3 space-y-2">
               {activeRooms.map((room) => <li key={room.id} className="flex items-center justify-between gap-3 border-b border-relume-border pb-2 text-xs"><span>{room.name.replace(`Floor ${activeFloor} `, '')}</span><span className="font-mono">{format(room.areaSqm, 1)} m²</span></li>)}
             </ul>
+          </div>
+          <div className="mt-6" data-measured-boq>
+            <div className="flex items-center justify-between gap-2"><p className="text-xs font-semibold">Measured BOQ</p><span className="rounded-full bg-amber-100 px-2 py-1 text-[9px] font-bold text-amber-950">INDICATIVE · RATES REQUIRED</span></div>
+            <p className="mt-2 text-[10px] leading-relaxed text-relume-muted">Geometry-derived quantities. Catalog rates remain blank until independently verified.</p>
+            <div className="mt-3 overflow-x-auto"><table className="w-full text-left text-[10px]"><thead><tr className="border-b border-relume-border text-relume-muted"><th className="py-2">Item</th><th className="py-2 text-right">Quantity</th><th className="py-2 text-right">Amount</th></tr></thead><tbody>{measuredBoq.map(line=><tr key={line.item.id} className="border-b border-relume-border/70" title={line.basis}><td className="max-w-32 py-2 pr-2"><span className="block font-medium">{line.item.name}</span><span className="font-mono text-[9px] text-relume-muted">{line.item.itemCode}</span></td><td className="py-2 text-right font-mono tabular-nums">{format(line.quantity,2)} {line.unit}</td><td className="py-2 text-right font-medium">{line.amountInr===null?'Rate required':`₹${format(line.amountInr,2)}`}</td></tr>)}</tbody></table></div>
           </div>
           <p className="mt-6 text-xs leading-5 text-relume-muted">INDICATIVE — deterministic rectangular zoning only. It does not resolve structure, circulation compliance, daylight, Vaastu, services, or authority approval.</p>
         </aside>
