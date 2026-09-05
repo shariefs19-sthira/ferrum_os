@@ -188,6 +188,12 @@
   is guarded: `HEAD == origin/main`, gates green, deploy SHA logged, and
   `docs/DEPLOY_STOP`'s presence halts all deploys under this authority
   immediately.
+- CRANE's board queue TOP PRIORITY (2026-09-05, with W-47/W-52/W-54)
+  includes its piece of W-55 PLAN_QUALITY: the dimensional-standards
+  data (from W-29's tables — door leaf sizes, stair width/tread/riser
+  ranges, room dimension/aspect minima per program, all provenance-
+  cited) that MASON's plan-generation engine wires in and the
+  deterministic PLAN_AUDIT test checks against.
 - CRANE's board queue (2026-09-04) also includes the grammar half of
   W-27 CONVERSATIONAL_PRIMARY: extend the intent grammar (per
   WORKSPACE_SPEC.md §5) to the full parameter set (floors, plot w/d,
