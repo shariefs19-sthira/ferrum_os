@@ -59,3 +59,10 @@ productively execute against an unverifiable reference. **Single
 blocking question:** what specific reference site, repo, or demo was
 meant by "enviz" — a concrete link or exact project name is needed
 before this row can be scouted or built against for real.
+
+**ANSWERED (2026-09-06):** the operator re-specified the underlying
+feature intent directly, without a repo reference — seven concrete
+cockpit capabilities (walk-mode, IFC/Speckle ingestion, WebXR AR,
+in-space annotation, live guided tours, material swap, automated
+flythrough), split into docs/TASK_BOARD.md rows W-79a through W-79g,
+each READY and owner-agnostic. This question is CLOSED.
