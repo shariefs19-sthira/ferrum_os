@@ -196,11 +196,23 @@ as every other seat.
   Workspace" pill + nav CTA on every marketing route, with the page's
   existing live tool kept as proof, not replaced.
 - RIVET's board queue (2026-09-05) also includes its piece of W-53
-  NO_SLIDERS_ANYWHERE: every product-page preview plus DesignStudio's
-  plot-width/plot-depth/floors sliders are removed and replaced with a
-  single "Describe your plot to SUTRA" button that opens the agent
-  pre-seeded at the guided tree's use→floors stage (W-28). No approved
-  exceptions — a manual control anywhere is a RULE 40 violation.
+  (title unchanged, behavior REVERSED 2026-09-05 — see the row itself
+  on docs/TASK_BOARD.md): DesignStudio's plot-width/plot-depth/floors
+  sliders are NOT removed; each gets a paired numeric input (metric +
+  imperial) beside it, both feeding the same intent pipeline SUTRA
+  uses. Stale note corrected here so this doc doesn't contradict the
+  board's own current row text.
+- RIVET's board queue (2026-09-06) also includes W-69 UX_OVERHAUL
+  (RULE 44: home + all product pages + pricing/docs): a live embedded
+  cockpit teaser replaces the static hero card; the Land→Design→
+  Build→Invest journey strip becomes an interactive animated stepper;
+  all ten product cards get an icon, value prop, and a LIVE
+  product-specific micro-preview plus hover/scroll-reveal polish; the
+  existing navy/orange design tokens are kept, with soft-shadow/glass
+  accents and `prefers-reduced-motion` respected. CSS-first animation
+  (shadcn/ui + magicui/aceternity-style patterns + lucide icons, all
+  MIT; framer-motion only where CSS can't) to protect RULE 41's
+  bundle budget.
 - RIVET's board queue (2026-09-04) also includes W-16 LANDINTEL
   RESTORE: return `UlpinMapExplorer` as LandIntel's PRIMARY hero tool
   (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature
