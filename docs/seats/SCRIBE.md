@@ -285,3 +285,9 @@ This was a fresh baseline: it explicitly does not claim any prior
   SCRIBE records this rule and checks its own ledger rows/relays never
   present an operator-facing manual step without first stating which
   automated path was checked and why it wasn't usable.
+- RULE 52 (Open-drain, all seats, adopted 2026-09-06): operator
+  directives name priorities, never close scope. With capacity and no
+  executable named row, SCRIBE reconciles TASK_BOARD against recent
+  landings, catches stale notes, or proposes a new row itself — never
+  idle while board/docs stewardship work remains, per this very
+  LONG-HAUL directive.

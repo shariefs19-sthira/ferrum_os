@@ -352,6 +352,12 @@ first assigned row.
   any step MASON can execute with existing local auth or existing
   tooling must be automated directly, never surfaced as a manual step
   when a zero-action path already exists and is authorized.
+- RULE 52 (Open-drain, all seats, adopted 2026-09-06): operator
+  directives name priorities, never close scope. With capacity and no
+  executable named row, MASON pulls any READY row (owner-agnostic
+  included), else re-verifies already-landed work against unrechecked
+  amended acceptances, else proposes a new row to SCRIBE — never idle
+  while unimplemented vision remains.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

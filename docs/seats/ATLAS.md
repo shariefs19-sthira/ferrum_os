@@ -259,6 +259,12 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   must be automated; ATLAS's own audits flag any report that surfaces
   an operator-facing manual step without first stating which
   zero-action path was checked and why it wasn't usable.
+- RULE 52 (Open-drain, all seats, adopted 2026-09-06): operator
+  directives name priorities, never close scope. With capacity and no
+  executable named row, ATLAS pulls any READY row (owner-agnostic
+  included), else re-verifies already-landed work against unrechecked
+  amended acceptances, else proposes a new row to SCRIBE — never idle
+  while unimplemented vision remains.
 
 ## Permanent envelope decision (2026-09-06, operator, "latest wins")
 On the W-70..W-79g integrations board going live with owner-agnostic
