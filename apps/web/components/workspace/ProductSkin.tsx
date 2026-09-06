@@ -1,0 +1,7 @@
+import type { WorkspaceProduct } from "../../lib/types"
+
+const skins: Record<WorkspaceProduct, { persona: string; lens: string; tone: string }> = {
+  Land: { persona: "Territory analyst", lens: "Parcel context", tone: "bg-emerald-950/85" }, Design: { persona: "Architect", lens: "Plan and massing", tone: "bg-indigo-950/85" }, Structure: { persona: "Structural engineer", lens: "Load paths", tone: "bg-slate-950/85" }, Cost: { persona: "Quantity surveyor", lens: "Measured BOQ", tone: "bg-amber-950/85" }, Market: { persona: "Market analyst", lens: "Comparable signals", tone: "bg-violet-950/85" }, Procure: { persona: "Procurement lead", lens: "Materials and LOA", tone: "bg-cyan-950/85" }, Invest: { persona: "Investment analyst", lens: "Cash-flow lens", tone: "bg-teal-950/85" }, Build: { persona: "Construction manager", lens: "Sequence and progress", tone: "bg-orange-950/85" }, Community: { persona: "Stakeholder lead", lens: "Community map", tone: "bg-rose-950/85" }, Transact: { persona: "Due-diligence adviser", lens: "Legal checklist", tone: "bg-stone-950/85" },
+}
+
+export default function ProductSkin({ product }: { product: WorkspaceProduct }) { const skin = skins[product]; return <aside className={`pointer-events-none absolute right-3 top-3 z-20 rounded-relume px-3 py-2 text-right text-white shadow-lg ${skin.tone}`} data-product-skin={product}><p className="text-[10px] font-semibold uppercase tracking-[0.14em]">{skin.persona}</p><p className="mt-1 text-xs">{skin.lens}</p></aside> }

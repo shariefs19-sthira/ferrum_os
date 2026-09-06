@@ -11,6 +11,7 @@ import ExtractPanel from "../../../components/workspace/ExtractPanel"
 import CanvasSlot from "../../../components/workspace/CanvasSlot"
 import SutraPanel from "../../../components/workspace/SutraPanel"
 import FullscreenController from "../../../components/workspace/FullscreenController"
+import ProductSkin from "../../../components/workspace/ProductSkin"
 
 /**
  * W2-401 WORKSPACE_SHELL — the cockpit. Assembly only (CRANE is the sole
@@ -100,6 +101,7 @@ export default function ProjectWorkspaceCockpit() {
       <div className="relative min-h-0 flex-1 overflow-hidden">
       <main className={`h-full min-h-0 transition-[padding] motion-reduce:transition-none ${sutraOpen ? 'lg:pr-[22rem]' : ''}`}>
         <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} />
+        <ProductSkin product={activeProduct} />
       </main>
       <div className="absolute bottom-2 left-2 top-2 z-30 w-20 shadow-lg"><ToolsRuler
         activeTool={activeTool}
