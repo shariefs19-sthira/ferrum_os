@@ -1,0 +1,88 @@
+{
+  "name": "Ferrum: KB + rate adapter refresh check",
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    {
+      "id": "trigger-weekly",
+      "name": "Weekly",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [200, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "weeks", "weeksInterval": 1, "triggerAtDay": [1], "triggerAtHour": 3 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "run-adapter-tests",
+      "name": "Run live adapter test suites",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "parameters": {
+        "command": "pnpm --filter ./apps/web exec vitest run lib/knowledgeBase lib/rateEngine lib/tileSources --pool=forks --poolOptions.forks.singleFork=true",
+        "cwd": "D:\\ferrum_os_recovered"
+      }
+    },
+    {
+      "id": "check-exit-code",
+      "name": "Any failure?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [720, 300],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "" },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.exitCode }}",
+              "rightValue": 0,
+              "operator": { "type": "number", "operation": "notEquals" }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "alert-ntfy",
+      "name": "ntfy alert on failure",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [980, 220],
+      "parameters": {
+        "method": "POST",
+        "url": "https://ntfy.sh/{{ $env.FLEET_NTFY_TOPIC || 'ferrum-fleet-local' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [{ "name": "Title", "value": "KB/rate adapter refresh FAILED" }]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/plain",
+        "body": "=One or more live-source adapter tests failed on the weekly refresh check - a real public source likely changed or went offline. See stdout/stderr on the runner. Exit code: {{ $json.exitCode }}"
+      }
+    },
+    {
+      "id": "noop-ok",
+      "name": "OK - no alert",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [980, 380],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Weekly": { "main": [[{ "node": "Run live adapter test suites", "type": "main", "index": 0 }]] },
+    "Run live adapter test suites": { "main": [[{ "node": "Any failure?", "type": "main", "index": 0 }]] },
+    "Any failure?": {
+      "main": [
+        [{ "node": "ntfy alert on failure", "type": "main", "index": 0 }],
+        [{ "node": "OK - no alert", "type": "main", "index": 0 }]
+      ]
+    }
+  }
+}

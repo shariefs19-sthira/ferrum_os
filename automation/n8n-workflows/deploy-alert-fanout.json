@@ -1,0 +1,86 @@
+{
+  "name": "Ferrum: deploy alert fanout",
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    {
+      "id": "webhook-deploy-event",
+      "name": "Deploy event webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 300],
+      "parameters": {
+        "path": "ferrum-deploy-event",
+        "httpMethod": "POST",
+        "responseMode": "onReceived",
+        "options": {}
+      }
+    },
+    {
+      "id": "check-status",
+      "name": "Status = failed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 300],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "" },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.body.status }}",
+              "rightValue": "failed",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "alert-ntfy-fail",
+      "name": "ntfy: deploy failed",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 220],
+      "parameters": {
+        "method": "POST",
+        "url": "https://ntfy.sh/{{ $env.FLEET_NTFY_TOPIC || 'ferrum-fleet-local' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [{ "name": "Title", "value": "Deploy FAILED" }]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/plain",
+        "body": "=SHA {{ $json.body.sha }}: {{ $json.body.message }}"
+      }
+    },
+    {
+      "id": "alert-ntfy-success",
+      "name": "ntfy: deploy succeeded",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 380],
+      "parameters": {
+        "method": "POST",
+        "url": "https://ntfy.sh/{{ $env.FLEET_NTFY_TOPIC || 'ferrum-fleet-local' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [{ "name": "Title", "value": "Deploy OK" }]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/plain",
+        "body": "=SHA {{ $json.body.sha }} deployed successfully."
+      }
+    }
+  ],
+  "connections": {
+    "Deploy event webhook": { "main": [[{ "node": "Status = failed?", "type": "main", "index": 0 }]] },
+    "Status = failed?": {
+      "main": [
+        [{ "node": "ntfy: deploy failed", "type": "main", "index": 0 }],
+        [{ "node": "ntfy: deploy succeeded", "type": "main", "index": 0 }]
+      ]
+    }
+  }
+}
