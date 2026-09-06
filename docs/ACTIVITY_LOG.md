@@ -1635,3 +1635,11 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** docs/TASK_BOARD.md, docs/OPERATOR_INBOX.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Any seat may pull W-79a through W-79g in drain order per RULE 45 (W-79g depends on W-79a's camera work landing first). This branch lands via `land.ps1` this same pass.
+---
+
+## 2026-09-06 - SCRIBE seeded W-80 SUTRA_SINGLE_CONTACT (top of UI queue), amended W-59
+**Action:** Rebuilt fresh off `origin/main` (tip `db152a33`, "[land:atlas/w79-enviz-tech-spec]" — confirmed ATLAS has landed real work against the W-79 split; no gap reopened). Before seeding, verified the row's own factual premise directly rather than assuming it: `apps/web/components/Concierge.tsx`, `apps/web/lib/concierge/catalog.ts`, and `apps/web/lib/concierge/intents.ts` genuinely exist on disk and are mounted site-wide via `apps/web/app/layout.tsx` — a real second assistant surface, not a hypothetical. Seeded docs/TASK_BOARD.md W-80 SUTRA_SINGLE_CONTACT (owner-agnostic), inserted directly after W-26 and ahead of the existing W-47→...→W-69 priority chain, per the operator's own explicit "top of UI queue" framing — RULE 44 seeded pre-generalized across home, all ten product pages, pricing, docs, workspace, and every preview. Every "Ferrum Concierge" instance and any other non-SUTRA assistant entry point is removed; SUTRA becomes the sole contact point everywhere. Amended W-59 PERSONA_ENGINE in place (both the row's own acceptance and a dedicated amendment note) to extend persona re-voicing beyond the cockpit's ten tabs to every SUTRA instance site-wide — a product page's own SUTRA re-voices with the matching persona using the same one-line mechanism W-59 already specifies, not a new mechanism. Acceptance ties the two together explicitly: a headless DOM scan for zero "concierge" strings and a SUTRA entry on every route, plus two screenshots showing contrasting persona voicing on two different product pages, confirming W-59's amendment actually reaches outside the cockpit.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/TASK_BOARD.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Any seat pulls W-80 (dep W-59) ahead of the existing UI priority chain, per the operator's top-of-queue placement. This branch lands via `land.ps1` this same pass.
