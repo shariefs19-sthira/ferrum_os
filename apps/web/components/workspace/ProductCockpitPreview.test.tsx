@@ -12,6 +12,7 @@ describe('ProductCockpitPreview state handoff', () => {
   it('persists the live preview state before opening the workspace', () => {
     render(<ProductCockpitPreview product="designstudio" label="DesignStudio" />)
     fireEvent.click(screen.getByRole('button', { name: 'Mutate preview' }))
+    expect(document.querySelector('[data-cross-product-live="designstudio"]')?.getAttribute('data-shared-floors')).toBe('6')
     fireEvent.click(screen.getByRole('button', { name: 'Open in workspace ⛶' }))
     expect(JSON.parse(window.localStorage.getItem('ferrum-cockpit-handoff') ?? '{}')).toEqual({
       version: 1,

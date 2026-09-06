@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import WorkspaceCockpit from "./WorkspaceCockpit"
 
@@ -9,6 +9,8 @@ import WorkspaceCockpit from "./WorkspaceCockpit"
 vi.mock("./Space3D", () => ({ default: () => <div data-testid="space3d-stub" /> }))
 
 describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
+  beforeEach(() => window.localStorage.clear())
+
   it("fires once on mount with real derived metrics, not a placeholder", async () => {
     const onLiveMetricsChange = vi.fn()
     render(<WorkspaceCockpit onLiveMetricsChange={onLiveMetricsChange} />)
