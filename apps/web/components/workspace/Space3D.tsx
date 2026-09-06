@@ -69,7 +69,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     scene.add(new THREE.HemisphereLight(0xffffff, 0x67757b, 1.45))
 
     const concreteMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: concrete }) : new THREE.MeshPhysicalMaterial({ color: concrete, roughness: 0.9, metalness: 0.02 })
-    const glassMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: glass, transparent: true, opacity: 0.72 }) : new THREE.MeshPhysicalMaterial({ color: glass, roughness: 0.1, metalness: 0, transmission: 0.42, transparent: true, opacity: 0.82, envMapIntensity: 1 })
+    const glassMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: glass, transparent: false, opacity: 1 }) : new THREE.MeshPhysicalMaterial({ color: glass, roughness: 0.42, metalness: 0.04, transmission: 0, transparent: false, opacity: 1, envMapIntensity: 0.65 })
     const metalMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: metal }) : new THREE.MeshPhysicalMaterial({ color: metal, metalness: 0.9, roughness: 0.3 })
     const selectedMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0xd59a43 }) : new THREE.MeshPhysicalMaterial({ color: 0xd59a43, roughness: 0.5, emissive: 0x5c2d00, emissiveIntensity: 0.16 })
     const metresLon=111320*Math.cos(sampleSiteContext.center.lat*Math.PI/180)
@@ -79,6 +79,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     const pickables: THREE.Mesh[] = []
     const baseMaterials = new Map<THREE.Mesh, THREE.Material>()
     const podium = new THREE.Mesh(new THREE.BoxGeometry(plan.plotWidthM * 0.82, 0.5, plan.plotDepthM * 0.82), concreteMaterial)
+    podium.name = "proposed-podium"
     podium.position.y = 0.25
     podium.castShadow = !lowPower
     podium.receiveShadow = !lowPower
@@ -94,6 +95,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       const depth = plan.buildingDepthM * taper
       const y = 0.58 + floor * floorHeight
       const glazing = new THREE.Mesh(new THREE.BoxGeometry(width * 0.985, floorHeight * 0.82, depth * 0.985), glassMaterial)
+      glazing.name = `proposed-opaque-level-${floor + 1}`
       glazing.position.y = y + floorHeight * 0.45
       glazing.castShadow = !lowPower
       glazing.userData.label = `Level ${floor + 1}`
@@ -128,16 +130,27 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     const groundSize=180
     const ground = new THREE.Mesh(new THREE.PlaneGeometry(groundSize,groundSize), groundMaterial)
     ground.rotation.x = -Math.PI / 2
-    ground.position.y = -0.02
+    ground.position.y = 0
+    ground.name = "ground-plane-y0"
     ground.receiveShadow = !lowPower
     scene.add(ground)
-    const boundaryPoints=[[-plan.plotWidthM/2,-plan.plotDepthM/2],[plan.plotWidthM/2,-plan.plotDepthM/2],[plan.plotWidthM/2,plan.plotDepthM/2],[-plan.plotWidthM/2,plan.plotDepthM/2],[-plan.plotWidthM/2,-plan.plotDepthM/2]].map(([x,z])=>new THREE.Vector3(x,.08,z))
+    const boundaryPoints=[[-plan.plotWidthM/2,-plan.plotDepthM/2],[plan.plotWidthM/2,-plan.plotDepthM/2],[plan.plotWidthM/2,plan.plotDepthM/2],[-plan.plotWidthM/2,plan.plotDepthM/2]].map(([x,z])=>new THREE.Vector3(x,.01,z))
     const boundaryMaterial=new THREE.LineBasicMaterial({color:0xff8c2a})
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(boundaryPoints),boundaryMaterial))
+    const boundary=new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(boundaryPoints),boundaryMaterial);boundary.name="plot-boundary-outline-y001";scene.add(boundary)
 
     const existingMaterial=lowPower?new THREE.MeshLambertMaterial({color:0x8b9692}):new THREE.MeshPhysicalMaterial({color:0x8b9692,roughness:.88,metalness:.02})
     const drapeMaterial=new THREE.MeshBasicMaterial({color:0x667670,side:THREE.DoubleSide})
-    for(const building of sampleSiteContext.buildings){const shape=new THREE.Shape();building.points.forEach(([lat,lon],index)=>{const x=(lon-sampleSiteContext.center.lon)*metresLon;const z=-(lat-sampleSiteContext.center.lat)*111320;if(index===0)shape.moveTo(x,z);else shape.lineTo(x,z)});const drape=new THREE.Mesh(new THREE.ShapeGeometry(shape),drapeMaterial);drape.rotation.x=-Math.PI/2;drape.position.y=.02;scene.add(drape);const geometry=new THREE.ExtrudeGeometry(shape,{depth:building.heightM,bevelEnabled:false});geometry.rotateX(-Math.PI/2);const mesh=new THREE.Mesh(geometry,existingMaterial);mesh.position.y=.04;mesh.userData.label=`OSM way ${building.osmWayId}`;scene.add(mesh)}
+    for(const building of sampleSiteContext.buildings){const shape=new THREE.Shape();building.points.forEach(([lat,lon],index)=>{const x=(lon-sampleSiteContext.center.lon)*metresLon;const z=-(lat-sampleSiteContext.center.lat)*111320;if(index===0)shape.moveTo(x,z);else shape.lineTo(x,z)});const drape=new THREE.Mesh(new THREE.ShapeGeometry(shape),drapeMaterial);drape.rotation.x=-Math.PI/2;drape.position.y=-.01;drape.name=`osm-drape-below-${building.osmWayId}`;scene.add(drape);const geometry=new THREE.ExtrudeGeometry(shape,{depth:building.heightM,bevelEnabled:false});geometry.rotateX(-Math.PI/2);const mesh=new THREE.Mesh(geometry,existingMaterial);mesh.position.y=0;mesh.name=`osm-building-seated-${building.osmWayId}`;mesh.userData.label=`OSM way ${building.osmWayId}`;scene.add(mesh)}
+
+    model.updateMatrixWorld(true)
+    const buildingBounds=new THREE.Box3().setFromObject(model)
+    const roofY=buildingBounds.max.y
+    const unintendedAboveRoof=scene.children.filter(object=>object instanceof THREE.Mesh&&!object.name.startsWith('osm-building')&&new THREE.Box3().setFromObject(object).max.y>roofY+.1).map(object=>object.name||object.type)
+    host.dataset.buildingMinY=buildingBounds.min.y.toFixed(3)
+    host.dataset.groundY=ground.position.y.toFixed(3)
+    host.dataset.buildingOpacity=String(glassMaterial.opacity)
+    host.dataset.meshesAboveRoof=String(unintendedAboveRoof.length)
+    host.dataset.sceneObjects=[ground.name,boundary.name,...sampleSiteContext.buildings.flatMap(item=>[`osm-drape-below-${item.osmWayId}`,`osm-building-seated-${item.osmWayId}`])].join('|')
 
     const treeCount = mobile ? 5 : 10
     const treeGeometry = new THREE.ConeGeometry(0.72, 2.5, 7)
