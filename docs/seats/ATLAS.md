@@ -176,6 +176,16 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   item-count/source-list claims against the coverage manifest's stated
   depth percentages — no self-reported percentage stands unaudited,
   same no-self-certification principle as the W-32 battery sub-rows.
+- ATLAS's board queue (2026-09-06) also includes W-68 TECH_SCOUT — its
+  scope is provisional (SCRIBE seeded it from seat+title alone, no
+  further instruction given): scout external technologies/libraries
+  relevant to Ferrum's engineering surface (3D/BIM, geocoding, plan-
+  gen/CAD, doc extraction), report a real ADOPT-TRIAL/WATCH/SKIP
+  verdict with stated pain-mapping per finding, distinct from RULE
+  26's own AI-skill scouting (docs/SKILL_SCOUT.md). ATLAS should
+  confirm or correct this interpretation on first pull rather than
+  treat it as settled, and log findings to a new docs/TECH_SCOUT.md
+  (mirroring SKILL_SCOUT.md's schema) absent a better-fitting doc.
 - ATLAS's board queue (2026-09-04) also includes W-29 KNOWLEDGE_BASE's
   CRANE-adjacent audit interest (verifying every knowledge-base fact
   actually carries a clause ID/version/status chip before it's cited
