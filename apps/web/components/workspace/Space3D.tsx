@@ -126,6 +126,9 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       }
     }
     scene.add(model)
+    const selectionOutline = new THREE.BoxHelper(podium, 0xff8c2a)
+    selectionOutline.name = "selection-outline"
+    scene.add(selectionOutline)
 
     const groundSize=180
     const ground = new THREE.Mesh(new THREE.PlaneGeometry(groundSize,groundSize), groundMaterial)
@@ -260,18 +263,40 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
 
     const raycaster = new THREE.Raycaster()
     const pointer = new THREE.Vector2()
+    let selectedIndex = 0
+    const applySelection = (mesh: THREE.Mesh) => {
+      selectedIndex = pickables.indexOf(mesh)
+      pickables.forEach((candidate) => { candidate.material = candidate === mesh ? selectedMaterial : baseMaterials.get(candidate) ?? concreteMaterial })
+      selectionOutline.setFromObject(mesh)
+      const label = String(mesh.userData.label)
+      setSelected(label)
+      host.dataset.selectionPattern = "outline-handles"
+      host.dataset.selectionTarget = label
+    }
     const select = (event: PointerEvent) => {
       const bounds = renderer.domElement.getBoundingClientRect()
       pointer.set(((event.clientX - bounds.left) / bounds.width) * 2 - 1, -((event.clientY - bounds.top) / bounds.height) * 2 + 1)
       raycaster.setFromCamera(pointer, perspective)
       const hit = raycaster.intersectObjects(pickables, false)[0]?.object as THREE.Mesh | undefined
-      pickables.forEach((mesh) => { mesh.material = mesh === hit ? selectedMaterial : baseMaterials.get(mesh) ?? concreteMaterial })
-      if (hit) setSelected(String(hit.userData.label))
+      if (hit) applySelection(hit)
+    }
+    const indicateSelectable = (event: PointerEvent) => {
+      const bounds = renderer.domElement.getBoundingClientRect()
+      pointer.set(((event.clientX - bounds.left) / bounds.width) * 2 - 1, -((event.clientY - bounds.top) / bounds.height) * 2 + 1)
+      raycaster.setFromCamera(pointer, perspective)
+      renderer.domElement.style.cursor = raycaster.intersectObjects(pickables, false).length > 0 ? "pointer" : "grab"
     }
     const keydown = (event: KeyboardEvent) => {
       if (event.key === "0") { fit(); event.preventDefault() }
+      if (event.key === "]" || event.key === "[") {
+        const direction = event.key === "]" ? 1 : -1
+        selectedIndex = (selectedIndex + direction + pickables.length) % pickables.length
+        applySelection(pickables[selectedIndex])
+        event.preventDefault()
+      }
     }
     renderer.domElement.addEventListener("pointerup", select)
+    renderer.domElement.addEventListener("pointermove", indicateSelectable)
     renderer.domElement.addEventListener("keydown", keydown)
     // preventDefault() on context-lost is required by the WebGL spec for
     // the browser to even attempt eventual restoration; this handler's
@@ -289,7 +314,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     }
     renderer.domElement.addEventListener("webglcontextlost", onContextLost, false)
     renderer.domElement.tabIndex = 0
-    renderer.domElement.setAttribute("aria-label", "Architectural model. Drag to orbit, shift-drag to pan, scroll to zoom, press zero to fit model, and click geometry to select it across all views.")
+    renderer.domElement.setAttribute("aria-label", "Architectural model. Drag to orbit, shift-drag to pan, scroll to zoom, press zero to fit model, click geometry to select it, or use left and right bracket keys to cycle selection across all views.")
     host.dataset.renderer = softwareRenderer ? "software" : "gpu"
     host.dataset.renderProfile = lowPower ? "reduced" : "full"
     raf = requestAnimationFrame(draw)
@@ -298,6 +323,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       cancelAnimationFrame(raf)
       resizeObserver.disconnect()
       renderer.domElement.removeEventListener("pointerup", select)
+      renderer.domElement.removeEventListener("pointermove", indicateSelectable)
       renderer.domElement.removeEventListener("keydown", keydown)
       renderer.domElement.removeEventListener("webglcontextlost", onContextLost)
       controls.dispose()
@@ -307,6 +333,8 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       ;[concreteMaterial, glassMaterial, metalMaterial, selectedMaterial, groundMaterial, treeMaterial,existingMaterial,drapeMaterial,boundaryMaterial].forEach((material) => material.dispose())
       environment?.dispose()
       pmrem.dispose()
+      selectionOutline.geometry.dispose()
+      selectionOutline.material.dispose()
       renderer.dispose()
       renderer.domElement.remove()
     }
@@ -319,7 +347,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
         <p className="truncate"><span className="text-relume-accent">INDICATIVE</span> · {profile === 'full' ? 'Full presentation' : profile === 'reduced' ? 'Reduced rendering' : 'Diagram'} · SAMPLE LOCATION Bengaluru · OSM context 2026-09-05 · © OpenStreetMap contributors · existing-from-OSM, not a survey · boundary indicative</p>
       </div>
       <div className="pointer-events-none absolute right-3 top-3 z-10 rounded bg-white/90 px-3 py-2 text-xs text-relume-command shadow">
-        Selected: <strong>{selected}</strong><br />Drag orbit · Shift-drag pan · Scroll zoom · 0 fit
+        Selected: <strong>{selected}</strong><br />Click or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fit
       </div>
       <div className="pointer-events-none absolute left-5 top-5 z-10 hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white drop-shadow md:block">Top plan</div>
       <div className="pointer-events-none absolute bottom-5 left-5 z-10 hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white drop-shadow md:block">Axonometric</div>
