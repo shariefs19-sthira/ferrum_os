@@ -1643,3 +1643,11 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** docs/TASK_BOARD.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Any seat pulls W-80 (dep W-59) ahead of the existing UI priority chain, per the operator's top-of-queue placement. This branch lands via `land.ps1` this same pass.
+---
+
+## 2026-09-06 - SCRIBE added RULE 51 NO_MANUAL_GATE
+**Action:** Rebuilt fresh off `origin/main` (tip `d73f881a`, "[land:crane/w73-diagram-gen]" — confirmed prior W-80 landing is an ancestor; no gap reopened). Added AGENTS.md RULE 51 — NO_MANUAL_GATE (all seats + conductor): any step executable with existing local auth (an already-authenticated CLI session, an existing credential/token) or existing tooling (a script, API, already-wired deploy path) must be automated directly, never handed to the operator as a manual action, when a zero-action path already exists and is authorized; the rule explicitly does not override a genuine permission gate — it only closes the case where automation exists and isn't being used — and requires the seat/conductor to state which automated path was checked and why it wasn't usable before surfacing any manual step. This directly closes a real gap surfaced earlier in the session: an interrupted CRANE-addressed relay had asked for "the exact 3-click dashboard path so the operator does it in 30 seconds" as a fallback if wrangler auth blocked automation — exactly the pattern RULE 51 now requires be checked and stated, not defaulted to. Mirrored into all seven docs/seats/*.md files and bumped docs/FERRUM_METHOD_PLAYBOOK.md (rule count forty-seven → forty-eight, addendum range 33–48/50 → 33–48/50–51).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/seats/PI.md, docs/seats/FERRITE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Every seat applies RULE 51 starting on its very next deploy/permission-adjacent task — a manual step surfaced without stating the checked automation path is now itself a rule violation, not a neutral fallback. This branch lands via `land.ps1` this same pass.

@@ -962,6 +962,31 @@ silently overriding this rule, per RULE 27's resolve-don't-ask
 discipline — the operator's instruction was explicit and timestamped
 as taking precedence.
 
+## RULE 51 — NO_MANUAL_GATE (all seats + conductor, adopted 2026-09-06)
+Any step executable with existing local auth (an already-authenticated
+CLI session, an existing credential/token on disk) or existing tooling
+(a script, an API, an already-wired deploy path) MUST be automated —
+executed by the seat/conductor directly, not handed to the operator as
+a manual action. The conductor may never present an operator action
+(a dashboard click-path, a manual command to paste, a "do this
+yourself" instruction) when a zero-action path already exists and is
+reachable without new operator-granted permission.
+(1) This does not override an actual permission gate — RULE 51 applies
+only where the automation path is already authorized and available; it
+does not grant a seat new access it doesn't have, and does not bypass
+a genuine approval requirement (RULE 17/40's standing-deploy-authority
+guards, protected paths, etc.).
+(2) Before surfacing any operator-facing manual step, the seat/
+conductor states which zero-action path was checked and why it wasn't
+usable (auth genuinely absent, tooling genuinely doesn't exist, or a
+real approval gate applies) — a manual step presented without that
+check is itself a RULE 51 violation.
+*Rationale:* a fleet whose default is "ask the operator to do the
+3-click thing" quietly reintroduces a human bottleneck into every path
+that already has automation available, defeating the whole point of
+the pull-queue/drain-don't-wait model (RULE 35/45) — the operator's
+time is the fleet's scarcest resource, not the seat's.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

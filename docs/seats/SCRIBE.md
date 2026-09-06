@@ -281,3 +281,7 @@ This was a fresh baseline: it explicitly does not claim any prior
   paired-numeric-input exception (carve-out, 2026-09-05, operator
   refinement, "latest wins", row W-53) where both controls route
   through SUTRA's own intent pipeline.
+- RULE 51 (No-manual-gate, all seats + conductor, adopted 2026-09-06):
+  SCRIBE records this rule and checks its own ledger rows/relays never
+  present an operator-facing manual step without first stating which
+  automated path was checked and why it wasn't usable.

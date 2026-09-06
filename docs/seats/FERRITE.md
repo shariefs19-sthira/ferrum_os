@@ -119,3 +119,7 @@ point for the trial, not a claim that all 52 are individually LIVE.
   nav chrome); every mutation flows through SUTRA instead. **Carve-out
   (2026-09-05):** a slider paired with a numeric input, both routed
   through SUTRA's own intent pipeline, is the one approved exception.
+- RULE 51 (No-manual-gate, all seats + conductor, adopted 2026-09-06):
+  any step executable with existing local auth or existing tooling
+  must be automated, never handed to the operator as a manual step
+  when a zero-action path already exists and is authorized.
