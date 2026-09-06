@@ -2,6 +2,7 @@ import SectionShell from '../components/sections/SectionShell'
 import Eyebrow from '../components/sections/Eyebrow'
 import SectionHeading from '../components/sections/SectionHeading'
 import { PrimaryButton, SecondaryButton } from '../components/sections/Buttons'
+import BookingConsultCta from '../components/BookingConsultCta'
 import CardGrid from '../components/sections/CardGrid'
 import SliderLeaf from '../components/sections/SliderLeaf'
 import HeroComposite from '../components/sections/HeroComposite'
@@ -193,6 +194,7 @@ export default function HomePage() {
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
             <SecondaryButton href="/pricing">Talk to sales</SecondaryButton>
+            <BookingConsultCta />
           </div>
         </div>
       </SectionShell>
