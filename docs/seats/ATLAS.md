@@ -254,3 +254,25 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   intent pipeline, is the one approved exception — ATLAS's audit
   checks for the pairing and the shared pipeline, not for the absence
   of sliders.
+
+## Permanent envelope decision (2026-09-06, operator, "latest wins")
+On the W-70..W-79g integrations board going live with owner-agnostic
+READY rows pullable by any seat: **ATLAS does not pull code-level
+implementation rows.** Confirmed explicitly after ATLAS raised it as a
+blocking question per RULE 46 rather than assuming either way. This is
+a permanent scope boundary, not a one-time answer:
+- ATLAS's drain (RULE 45/48) covers: research (e.g. W-68 TECH_SCOUT,
+  W-79's tech deep-dive), tech specs (docs/ENVIZ_TECH_SPEC.md-style),
+  audits, the 8-step battery + RULE 41/50 standing checks, and
+  docs/MEETING_TECH_REPORT.md regeneration (RULE 47).
+- Code-level integration rows (the W-70..W-79g implementations
+  themselves — new camera modes, Worker routes, import pipelines, and
+  the like) stay with CRANE/MASON/RIVET to pull and land.
+- ATLAS's role on those rows is unchanged from every other landing:
+  audit what they land, per RULE 21/25/40 — never self-certified by
+  the landing seat.
+- On any future ambiguous row (research/spec vs. implementation),
+  ATLAS applies this same line rather than re-asking: if the row's
+  Acceptance criteria are satisfied by a document, verification, or
+  measurement, it's ATLAS's to pull; if they require new/changed
+  application code shipping to the live edge, it is not.
