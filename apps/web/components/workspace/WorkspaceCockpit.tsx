@@ -17,6 +17,7 @@ import { measureBoq } from '../../lib/workspace/measuredBoq'
 import RegistryControls from './RegistryControls'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
+import { readProjectState, sameParameters, subscribeProjectState, writeProjectState } from '../../lib/workspace/projectState'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -94,6 +95,7 @@ const defaultParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, se
 
 export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, controlProduct, fullscreenControl }: WorkspaceCockpitProps) {
   const [parameters, setParameters] = useState<StudioParameters>(initialParameters)
+  const [projectStateReady, setProjectStateReady] = useState(false)
   const [view, setView] = useState<StudioView>('space')
   const [activeFloor, setActiveFloor] = useState(1)
   const [primaryAreaUnit, setPrimaryAreaUnit] = useState<typeof areaUnits[number]>('sqm')
@@ -162,6 +164,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   useEffect(() => {
     const stored = window.localStorage.getItem('ferrum-area-unit')
     if (areaUnits.some((unit) => unit === stored)) setPrimaryAreaUnit(stored as typeof areaUnits[number])
+    let nextParameters = readProjectState(initialParameters).parameters
     if (!previewLabel) {
       const handoff = window.localStorage.getItem('ferrum-cockpit-handoff')
       if (handoff) {
@@ -169,15 +172,26 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           const parsed = JSON.parse(handoff) as { parameters?: Partial<StudioParameters> }
           const next = parsed.parameters
           if (next && Number.isFinite(next.plotWidthM) && Number.isFinite(next.plotDepthM) && Number.isFinite(next.setbackM) && Number.isFinite(next.floors)) {
-            setParameters(next as StudioParameters)
+            nextParameters = next as StudioParameters
           }
         } catch {
           // Ignore malformed local preview state and retain deterministic defaults.
         }
       }
     }
-  }, [previewLabel])
-  useEffect(() => { onParametersChange?.(parameters) }, [parameters, onParametersChange])
+    setParameters(nextParameters)
+    setProjectStateReady(true)
+  }, [initialParameters, previewLabel])
+  const projectStateSource = previewLabel ? `preview:${controlProduct ?? 'product'}` : 'workspace:cockpit'
+  useEffect(() => {
+    if (!projectStateReady) return
+    writeProjectState(parameters, projectStateSource)
+    onParametersChange?.(parameters)
+  }, [parameters, onParametersChange, projectStateReady, projectStateSource])
+  useEffect(() => subscribeProjectState((state) => {
+    if (state.source === projectStateSource) return
+    setParameters((current) => sameParameters(current, state.parameters) ? current : state.parameters)
+  }), [projectStateSource])
   useEffect(() => {
     const openAdvanced = () => setShowFineControls(true)
     window.addEventListener('ferrum:workspace-advanced', openAdvanced)

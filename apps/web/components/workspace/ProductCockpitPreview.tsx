@@ -5,6 +5,7 @@ import type { StudioParameters } from '../../lib/types'
 import WorkspaceCockpit from './WorkspaceCockpit'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import FullscreenController from './FullscreenController'
+import CrossProductLiveSummary from './CrossProductLiveSummary'
 
 export type CockpitProduct = ProductControlId
 
@@ -31,6 +32,7 @@ export default function ProductCockpitPreview({ product, label, children }: { pr
   return (
     <div className="min-w-0" data-product-cockpit={product}>
       {children && <div className="mb-4" data-product-live-tool={product}>{children}</div>}
+      <CrossProductLiveSummary product={product} parameters={parameters} />
       <FullscreenController previewSource={product}>{fullscreen => <WorkspaceCockpit controlProduct={product} initialParameters={presets[product]} onParametersChange={setParameters} previewLabel={label} fullscreenControl={{ active: fullscreen.active, label: 'Open in workspace ⛶', onClick: () => { persistHandoff(); fullscreen.toggle() } }} />}</FullscreenController>
       <div className="mt-3 rounded-relume border border-relume-border bg-white p-3">
         <p className="text-xs text-relume-muted"><strong className="text-relume-command">INDICATIVE</strong> deterministic geometry; verify site, code, and authority constraints.</p>
