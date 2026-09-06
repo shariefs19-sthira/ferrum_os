@@ -46,3 +46,16 @@ is supplied. **Single blocking question:** what is W-64 BOOTSTRAP_LAUNCH's
 full scope (envelope, eligible seat, acceptance criteria) — was it
 established in a prior turn not surfaced to SCRIBE, or does it need to
 be authored fresh from this amendment line alone?
+
+## W-79 RESPEC_ENVIZ — "enviz" does not resolve to a verifiable target (2026-09-06)
+Per `docs/TECH_SCOUT.md` #13, a live `gh api`/`gh search repos` check
+for an "enviz-style immersive 3D web setup" found no canonical
+matching repository — GitHub search for "enviz" surfaces unrelated
+projects (a pentest network-visualization tool, IBM's "Envizi"
+emissions-accounting product, an enrollment-visualization class
+project). None concern immersive 3D web scenes. Recorded on
+docs/TASK_BOARD.md's W-79 row as STUCK, not READY, since no seat can
+productively execute against an unverifiable reference. **Single
+blocking question:** what specific reference site, repo, or demo was
+meant by "enviz" — a concrete link or exact project name is needed
+before this row can be scouted or built against for real.
