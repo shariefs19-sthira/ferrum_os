@@ -348,6 +348,10 @@ first assigned row.
   imperial), both routed through the same intent pipeline SUTRA uses,
   is the one approved exception — a bare slider with no paired input,
   or any handler bypassing the pipeline, is still a violation.
+- RULE 51 (No-manual-gate, all seats + conductor, adopted 2026-09-06):
+  any step MASON can execute with existing local auth or existing
+  tooling must be automated directly, never surfaced as a manual step
+  when a zero-action path already exists and is authorized.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

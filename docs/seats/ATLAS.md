@@ -254,6 +254,11 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   intent pipeline, is the one approved exception — ATLAS's audit
   checks for the pairing and the shared pipeline, not for the absence
   of sliders.
+- RULE 51 (No-manual-gate, all seats + conductor, adopted 2026-09-06):
+  any step executable with existing local auth or existing tooling
+  must be automated; ATLAS's own audits flag any report that surfaces
+  an operator-facing manual step without first stating which
+  zero-action path was checked and why it wasn't usable.
 
 ## Permanent envelope decision (2026-09-06, operator, "latest wins")
 On the W-70..W-79g integrations board going live with owner-agnostic

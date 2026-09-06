@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — forty-seven numbered rules were actually adopted (numbered
-1–14, 16–31, 33–48, 50 — RULE 15, RULE 32, and RULE 49 were never
+matured — forty-eight numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48, 50–51 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50, added later in the
+18–31, 33–48, and 50–51, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–51 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -748,6 +748,20 @@ source.
     bypass every constraint (ruleset validity, provenance citations,
     persona-bound knowledge) the conversational layer was built to
     enforce.*
+51. **No-manual-gate** — any step executable with existing local auth
+    or existing tooling must be automated by the agent itself; the
+    conductor/agent never hands the operator a manual action (a
+    dashboard click-path, a command to paste) when a zero-action
+    automated path already exists and is authorized. This doesn't
+    override a genuine permission gate — it applies only where the
+    automation path is already authorized and reachable. Before
+    surfacing any manual step, the agent states which automated path
+    was checked and why it wasn't usable.
+    *Rationale: a fleet whose default is "ask the human to do the
+    3-click thing" quietly reintroduces a bottleneck into every path
+    that already has automation available, defeating the point of a
+    pull-queue/self-draining agent model — the operator's time is the
+    scarcest resource in the system, not the agent's.*
 
 ## 3. Ledger formats
 

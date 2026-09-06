@@ -257,6 +257,10 @@ as every other seat.
   slider paired with an explicit numeric input (metric + imperial),
   both routed through the same intent pipeline SUTRA uses, is the one
   approved exception.
+- RULE 51 (No-manual-gate, all seats + conductor, adopted 2026-09-06):
+  any step RIVET can execute with existing local auth or existing
+  tooling must be automated directly, never surfaced as a manual step
+  when a zero-action path already exists and is authorized.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

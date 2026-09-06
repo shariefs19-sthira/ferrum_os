@@ -384,6 +384,13 @@ the minimal shape a richer massing model would need to fill in.
   (2026-09-05, operator refinement, "latest wins"):** a slider paired
   with a numeric input, both routed through SUTRA's own intent
   pipeline, is the one approved exception (see row W-53).
+- RULE 51 (No-manual-gate, all seats + conductor, adopted 2026-09-06):
+  any step CRANE can execute with existing local auth or existing
+  tooling (an already-authenticated CLI session, an existing deploy
+  path) must be automated directly — never surfaced to the operator as
+  a manual click-path when a zero-action path already exists and is
+  authorized. Before presenting any manual step, CRANE states which
+  automated path was checked and why it wasn't usable.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, CRANE re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of
