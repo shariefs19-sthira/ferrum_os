@@ -9,6 +9,8 @@ import type { StudioParameters, StudioView, WorkspaceExtract, WorkspaceProvenanc
 import { getRulesetForState } from '../../lib/parcelIntel/sampleRulesets'
 import type { LandUse } from '../../lib/parcelIntel/types'
 import { convertArea, metresAndFeet } from '../../lib/units'
+import { buildComplianceChainNodes } from '../../lib/diagramGen/complianceChain'
+import { renderFlowDiagramSvg } from '../../lib/diagramGen/svgFlowDiagram'
 import ExportBar from './ExportBar'
 import PlanElevationView from './PlanElevationView'
 import { measureBoq } from '../../lib/workspace/measuredBoq'
@@ -98,6 +100,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [showFineControls, setShowFineControls] = useState(false)
   const [commandResult, setCommandResult] = useState('Choose an option or describe a change above.')
   const [optionStage, setOptionStage] = useState<OptionStage>('use')
+  const [showDiagram, setShowDiagram] = useState(false)
   const [landUse, setLandUse] = useState<LandUse>('Residential')
   const plan = useMemo(() => generateStudioPlan(parameters), [parameters])
   const activeRooms = plan.rooms.filter((room) => room.floor === activeFloor)
@@ -130,6 +133,28 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const coverageArea = plan.plotWidthM * plan.plotDepthM * ((landRule?.max_coverage_pct ?? 60) / 100)
   const farArea = plan.plotWidthM * plan.plotDepthM * (landRule?.far ?? 1.5)
   const maxFloors = Math.max(1, Math.min(Math.floor((landRule?.max_height_m ?? 15) / plan.floorHeightM), Math.floor(farArea / Math.max(coverageArea, 1))))
+  // W-73 INTEGRATE_DIAGRAMGEN's first real use: "explain this building" -
+  // every input here is a value this component already computes live
+  // (coverageArea/farArea from the real land-use ruleset above,
+  // structuralPass from the existing IS 456 check) - the diagram module
+  // only formats them, it invents nothing.
+  const complianceDiagramSvg = useMemo(
+    () =>
+      renderFlowDiagramSvg(
+        buildComplianceChainNodes({
+          plotAreaSqm: plan.plotWidthM * plan.plotDepthM,
+          buildingFootprintSqm: plan.buildingWidthM * plan.buildingDepthM,
+          maxCoverageAreaSqm: coverageArea,
+          maxCoveragePercent: landRule?.max_coverage_pct ?? 60,
+          grossFloorAreaSqm: grossArea,
+          maxFarAreaSqm: farArea,
+          farLimit: landRule?.far ?? 1.5,
+          structuralPass,
+          floors: plan.floors,
+        }),
+      ),
+    [plan, coverageArea, farArea, landRule, grossArea, structuralPass],
+  )
   const update = (key: keyof StudioParameters, value: number) => {
     setParameters((current) => ({ ...current, [key]: value }))
     if (key === 'floors') setActiveFloor((floor) => Math.min(floor, value))
@@ -239,9 +264,19 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           IS 456 {structuralPass ? 'PASS' : 'REVIEW'} · {format(governingSpanM, 2)} m span
         </span>
         <span className="text-xs font-semibold text-relume-success">Autosaved locally</span>
+        <button type="button" onClick={() => setShowDiagram((value) => !value)} aria-expanded={showDiagram} data-explain-building-toggle className="min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command hover:bg-relume-surface-secondary">
+          {showDiagram ? 'Hide diagram' : 'Explain this building'}
+        </button>
         <Link href="/" className="inline-flex min-h-11 items-center rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command hover:bg-relume-surface-secondary">Home</Link>
         {showFineControls && <button type="button" onClick={() => setShowFineControls(false)} className="min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command hover:bg-relume-surface-secondary">Close advanced</button>}
       </header>}
+
+      {showDiagram && (
+        <section aria-label="Compliance chain diagram" data-compliance-diagram className="border-b border-relume-border bg-relume-surface-secondary p-4">
+          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Explain this building - live compliance chain</p>
+          <div className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: complianceDiagramSvg }} />
+        </section>
+      )}
 
       <div className={`grid min-w-0 ${canvasFirst ? 'min-h-0 flex-1 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
