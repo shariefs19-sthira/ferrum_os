@@ -78,3 +78,9 @@ backups/
 # on its very next cycle.
 apps/web/out/
 apps/web/tsconfig.tsbuildinfo
+
+# FLEET_WATCH.ps1 local state files - harness-local, never a tracked
+# artifact (would otherwise dirty the working tree and block the
+# auto-deploy's own clean-tree pre-check on the very next cycle).
+.fleet-watch-state.json
+.fleet-deploy-state.json
