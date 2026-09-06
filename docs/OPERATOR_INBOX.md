@@ -66,3 +66,13 @@ cockpit capabilities (walk-mode, IFC/Speckle ingestion, WebXR AR,
 in-space annotation, live guided tours, material swap, automated
 flythrough), split into docs/TASK_BOARD.md rows W-79a through W-79g,
 each READY and owner-agnostic. This question is CLOSED.
+
+## W-75 INTEGRATE_PLAUSIBLE - public deployment target absent (2026-09-06)
+Docker is available locally, but no public Plausible host, analytics
+hostname, or deployment-platform configuration/credential is present in
+the repository. A local container cannot meet W-75's deployed-edge
+pageview acceptance. **Single blocking question:** which public host and
+hostname should receive the separate, unmodified Plausible service?
+Recommended answer: provide an existing operator-controlled container
+host and analytics subdomain; do not colocate this separate AGPL service
+inside the Ferrum Worker.
