@@ -91,6 +91,8 @@ $killSwitchPath = Join-Path $repoRoot "docs\FLEET_WATCH_STOP"
 $scheduleFile = Join-Path $repoRoot "docs\FLEET_SCHEDULE.md"
 $stateFile = Join-Path $repoRoot ".fleet-watch-state.json"
 $taskBoardFile = Join-Path $repoRoot "docs\TASK_BOARD.md"
+$deployStopPath = Join-Path $repoRoot "docs\DEPLOY_STOP"
+$deployStateFile = Join-Path $repoRoot ".fleet-deploy-state.json"
 $worktreeRoot = "D:\ferrum_os.worktrees"
 if ([string]::IsNullOrWhiteSpace($SeatsConfigPath)) { $SeatsConfigPath = Join-Path $repoRoot "docs\FLEET_SEATS.json" }
 
@@ -288,6 +290,99 @@ function Send-NtfyAlert([string]$Message, [string]$Title = "Fleet watch") {
     }
 }
 
+# LOCAL AUTO-DEPLOY (closes the deploy loop with zero operator action).
+# Primary path: this local harness, using the operator's own already-
+# authenticated wrangler session - no secrets to provision, no GitHub
+# Actions run needed. The CI auto-deploy job added earlier
+# (.github/workflows/ci.yml, needs CLOUDFLARE_API_TOKEN/ACCOUNT_ID repo
+# secrets that were never actually set) becomes optional redundancy,
+# not superseded/removed - both can deploy the same way if both ever
+# fire, since this only ever deploys the exact SHA on origin/main.
+#
+# KILL-SWITCH: docs/DEPLOY_STOP existing halts auto-deploy immediately,
+# checked before every attempt - separate from FLEET_WATCH_STOP so a
+# human can stop deploys specifically without stopping the whole watch
+# loop (heartbeats/idle-detection/revival keep running).
+function Test-DeployKillSwitch {
+    if (Test-Path $deployStopPath) {
+        Write-Host "DEPLOY KILL-SWITCH present ($deployStopPath) - auto-deploy halted."
+        return $true
+    }
+    return $false
+}
+
+function Get-DeployState {
+    if (Test-Path $deployStateFile) {
+        try { return Get-Content $deployStateFile -Raw | ConvertFrom-Json } catch { }
+    }
+    return [PSCustomObject]@{ LastDeployedSha = $null }
+}
+
+function Save-DeployState($State) {
+    $State | ConvertTo-Json | Set-Content -Path $deployStateFile -Encoding utf8
+}
+
+# Fires once per cycle: fetch, compare origin/main to the last SHA this
+# harness actually deployed (not the local checkout's HEAD, which other
+# processes/seats may move independently) - only a genuine advance
+# triggers gates+deploy. A clean fast-forward only (never a reset/
+# rebase) so this never discards uncommitted work in the shared
+# checkout; a dirty working tree or a real divergence aborts with an
+# alert rather than forcing anything.
+function Invoke-AutoDeployIfAdvanced {
+    if (Test-DeployKillSwitch) { return }
+    Push-Location $repoRoot
+    try {
+        # Native commands (git, pnpm, wrangler) write normal progress to
+        # stderr; under $ErrorActionPreference = "Stop" that gets turned
+        # into a terminating exception before a pipeline can swallow it.
+        # Relax to Continue for the whole native-command sequence and
+        # check $LASTEXITCODE explicitly instead - the same fix already
+        # applied to Get-SeatHeartbeat's per-worktree git calls.
+        $ErrorActionPreference = "Continue"
+        git fetch origin main 2>&1 | Out-Null
+        $remoteSha = (git rev-parse origin/main).Trim()
+        $state = Get-DeployState
+        if ($state.LastDeployedSha -eq $remoteSha) {
+            Write-Host "AUTO-DEPLOY: origin/main unchanged ($remoteSha) - nothing to do."
+            return
+        }
+        Write-Host "AUTO-DEPLOY: origin/main advanced to $remoteSha (previously deployed: $($state.LastDeployedSha)) - deploying."
+        if ($DryRun) {
+            Write-Host "[DRY-RUN] would: check working tree clean; git merge --ff-only origin/main; pnpm type-check; pnpm build; wrangler deploy; record $remoteSha as deployed."
+            return
+        }
+        $dirty = git status --porcelain
+        if ($dirty) {
+            throw "Working tree in $repoRoot is not clean - refusing to touch it automatically. Uncommitted changes:`n$dirty"
+        }
+        $localSha = (git rev-parse HEAD).Trim()
+        if ($localSha -ne $remoteSha) {
+            $mergeOutput = git merge --ff-only origin/main 2>&1 | Out-String
+            Write-Host $mergeOutput
+            if ($LASTEXITCODE -ne 0) { throw "git merge --ff-only failed (local history has diverged from origin/main - needs a human): $mergeOutput" }
+        }
+        $typeCheckOutput = pnpm type-check 2>&1 | Out-String
+        Write-Host $typeCheckOutput
+        if ($LASTEXITCODE -ne 0) { throw "pnpm type-check failed" }
+        $buildOutput = pnpm build 2>&1 | Out-String
+        Write-Host $buildOutput
+        if ($LASTEXITCODE -ne 0) { throw "pnpm build failed" }
+        $deployOutput = npx wrangler deploy 2>&1 | Out-String
+        Write-Host $deployOutput
+        if ($LASTEXITCODE -ne 0) { throw "wrangler deploy failed: $deployOutput" }
+        $state.LastDeployedSha = $remoteSha
+        Save-DeployState -State $state
+        Write-Host "AUTO-DEPLOY: success, deployed SHA $remoteSha"
+    } catch {
+        Write-Host "AUTO-DEPLOY FAILED: $($_.Exception.Message)"
+        Send-NtfyAlert -Title "Auto-deploy FAILED" -Message $_.Exception.Message
+    } finally {
+        $ErrorActionPreference = "Stop"
+        Pop-Location
+    }
+}
+
 function Get-SeatHeartbeat([string]$Seat) {
     # Two signals, most-recent wins: (a) the most recent [AI: SEAT]-tagged
     # commit anywhere in the repo's history, (b) the most recent activity
@@ -475,6 +570,8 @@ function Invoke-WatchCycle {
     if (Test-KillSwitch) { return $false }
 
     Write-Host "=== FLEET_WATCH cycle: $(Get-Date -Format o) ==="
+
+    Invoke-AutoDeployIfAdvanced
 
     $heartbeats = Get-FleetHeartbeats
     Write-FleetSchedule -Heartbeats $heartbeats
