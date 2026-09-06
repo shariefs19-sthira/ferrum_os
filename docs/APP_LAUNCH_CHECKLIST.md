@@ -2,11 +2,16 @@
 
 ## Scope and current decision
 
-W2-356 creates an Android Capacitor shell for
-`https://ferrum-os.shariefsatyala.workers.dev`. The target returned HTTP 200,
-HTML, and a manifest reference when verified on 2026-09-02. The shell permits
-only this HTTPS host and disables cleartext traffic. It uses no native device
-permissions beyond Internet and network-state detection.
+W2-356 creates an Android Capacitor shell, originally targeting
+`https://ferrum-os.shariefsatyala.workers.dev` (verified HTTP 200/HTML/manifest
+on 2026-09-02). **Stale as of 2026-09-06: that host was operator-renamed and
+retired on 2026-09-05 (now dead, per docs/FLEET_SEATS.json's `deployment`
+block) — the shell's actual config still points at the dead host, tracked as
+a live defect on docs/TASK_BOARD.md's W-83 row.** The current live host is
+`https://ferrumos-preview.shariefsatyala.workers.dev`, per that same single
+source of truth. The shell permits only its configured HTTPS host and
+disables cleartext traffic. It uses no native device permissions beyond
+Internet and network-state detection.
 
 The launch vehicle for v1 is **Capacitor**, not TWA. Capacitor retains a
 controlled upgrade path for native capabilities while leaving the deployed web

@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — forty-eight numbered rules were actually adopted (numbered
-1–14, 16–31, 33–48, 50–51 — RULE 15, RULE 32, and RULE 49 were never
+matured — forty-nine numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48, 50–52 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50–51, added later in the
+18–31, 33–48, and 50–52, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50–51 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–52 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -762,6 +762,20 @@ source.
     that already has automation available, defeating the point of a
     pull-queue/self-draining agent model — the operator's time is the
     scarcest resource in the system, not the agent's.*
+52. **Open-drain** — operator directives name priorities, they never
+    close scope. An agent with capacity and no executable named task
+    in front of it does not go idle: it pulls any eligible open task
+    (not only ones explicitly assigned to it by name), else it
+    re-verifies already-completed work against any acceptance
+    criteria amended since that work landed, else it proposes a new
+    task to whoever owns the ledger — a real gap it found, not
+    busywork.
+    *Rationale: a named-priority directive describes what matters
+    most right now, not the sum total of remaining work; treating a
+    directive's silence about some task as permission to stop working
+    defeats the whole point of a pull-queue and self-draining agent
+    model, which already establish that an agent's job is to keep
+    pulling, not to wait for the next instruction.*
 
 ## 3. Ledger formats
 

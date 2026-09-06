@@ -134,6 +134,13 @@ being experimental:
   any step executable with existing local auth or existing tooling
   must be automated, never handed to the operator as a manual step
   when a zero-action path already exists and is authorized.
+- RULE 52 (Open-drain, all seats, adopted 2026-09-06): operator
+  directives name priorities, never close scope. With capacity and no
+  executable named row, PI pulls any READY row (owner-agnostic
+  included), else re-verifies already-landed work against unrechecked
+  amended acceptances, else proposes a new row to SCRIBE — never idle
+  while unimplemented vision remains, bounded by PI's own one-wave
+  trial scope.
 
 ## Assigned slice (2026-09-03, trial only)
 W2-390 (the trial task itself). No standing slice — this seat has no

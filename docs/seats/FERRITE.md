@@ -123,3 +123,9 @@ point for the trial, not a claim that all 52 are individually LIVE.
   any step executable with existing local auth or existing tooling
   must be automated, never handed to the operator as a manual step
   when a zero-action path already exists and is authorized.
+- RULE 52 (Open-drain, all seats, adopted 2026-09-06): operator
+  directives name priorities, never close scope. With capacity and no
+  executable named row, FERRITE pulls any READY row (owner-agnostic
+  included), else re-verifies already-landed work against unrechecked
+  amended acceptances, else proposes a new row to SCRIBE — never idle
+  while unimplemented vision remains.

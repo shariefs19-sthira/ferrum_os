@@ -987,6 +987,30 @@ that already has automation available, defeating the whole point of
 the pull-queue/drain-don't-wait model (RULE 35/45) — the operator's
 time is the fleet's scarcest resource, not the seat's.
 
+## RULE 52 — OPEN_DRAIN (all seats, adopted 2026-09-06)
+Operator directives name priorities — they never close scope. A seat
+with capacity and no executable named row in front of it does NOT go
+idle. In order:
+(1) Pull ANY READY row it's eligible for, owner-agnostic rows
+included — not only rows explicitly assigned to that seat by name.
+(2) If no eligible READY row exists, re-verify already-landed work
+against any amended acceptance criteria it hasn't been re-checked
+against (a row like W-28's, amended after its original landing, is a
+standing re-verification candidate until someone actually re-checks
+it).
+(3) If neither of those yields work, propose a new row to SCRIBE for
+seeding — a real gap the seat has found, not busywork.
+Idling while unimplemented vision remains on the board (open rows,
+amended-but-unverified rows, or gaps a seat could itself name) is a
+RULE 40 violation — an unreported blocked state with no actual block.
+*Rationale:* named-priority directives (the various "top of queue"/
+"push + proof" relays this session) describe what matters most right
+now, not the sum total of what's left to do — treating a directive's
+silence on some row as permission to stop working defeats RULE 35's
+pull-queue and RULE 45's drain-don't-wait, which already establish
+that a seat's job is to keep pulling, not to wait for the next named
+instruction.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

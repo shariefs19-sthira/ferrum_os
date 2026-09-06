@@ -391,6 +391,12 @@ the minimal shape a richer massing model would need to fill in.
   a manual click-path when a zero-action path already exists and is
   authorized. Before presenting any manual step, CRANE states which
   automated path was checked and why it wasn't usable.
+- RULE 52 (Open-drain, all seats, adopted 2026-09-06): operator
+  directives name priorities, never close scope. With capacity and no
+  executable named row, CRANE pulls any READY row (owner-agnostic
+  included), else re-verifies already-landed work against unrechecked
+  amended acceptances, else proposes a new row to SCRIBE — never idle
+  while unimplemented vision remains.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, CRANE re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of
