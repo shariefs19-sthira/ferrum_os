@@ -38,11 +38,12 @@ const depthDenominatorsByDomain: Partial<Record<(typeof kbDomains)[number], Dept
     totalClauseCount: 52,
   },
   planning: {
-    sourceName: "NBC 2016 (SP 7:2016), Volume 1, Part 3 - Development Control Rules and General Building Requirements",
-    sourceUrl: "https://archive.org/details/nationalbuilding01",
+    sourceName:
+      "NBC 2016 (SP 7:2016), Volume 1, Part 3 - Development Control Rules and General Building Requirements + UDCPR 2020 (Maharashtra state DCR)",
+    sourceUrl: "https://archive.org/details/nationalbuilding01 ; https://www.mmrda.maharashtra.gov.in/sites/default/files/2023-10/UDCPR_compressed_2.pdf",
     method:
-      "Counted Part 3's own top-level clause numbers directly from its own Table of Contents in the fetched born-digital text - Clauses 1 through 29 listed (Scope through Asset and Facility Management).",
-    totalClauseCount: 29,
+      "NBC 2016 Part 3: counted its own top-level clause numbers directly from its own Table of Contents in the fetched born-digital text - Clauses 1 through 29 listed (Scope through Asset and Facility Management). UDCPR 2020: counted its own top-level Chapter numbers directly from its own document structure - Chapters 1 through 15. Combined total: 29 + 15 = 44. (MBBL 2016 is also seeded in this domain as a third, national-model-level source, but its own clause/table index was not counted into this denominator this pass - a known gap, not a silent omission.)",
+    totalClauseCount: 44,
   },
   safety: {
     sourceName: "NBC 2016 (SP 7:2016), Volume 1, Part 4 - Fire and Life Safety",
