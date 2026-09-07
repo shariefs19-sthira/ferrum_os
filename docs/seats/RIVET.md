@@ -276,6 +276,10 @@ as every other seat.
   included), else re-verifies already-landed work against unrechecked
   amended acceptances, else proposes a new row to SCRIBE — never idle
   while unimplemented vision remains.
+- RULE 53 (Conductor-scope, adopted 2026-09-07): the conductor prompts
+  seats, replies to completed work, and states only absolute-knowledge
+  or live-verified facts — it delegates ALL research to seats, ATLAS
+  and CRANE by default.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

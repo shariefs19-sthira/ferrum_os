@@ -216,6 +216,10 @@
   compliance (1 request/second cap, attribution requirement) and the
   self-hosted-Nominatim-for-commercial-scale roadmap note — MASON
   builds the UI, CRANE gates the adapter policy it runs against.
+  Extended by W-85 LAND_DETECT_IN (2026-09-07, top of queue): the same
+  Nominatim policy governs W-85's own place-search mode; W-85's new
+  Geolocation-API and reverse-geocode paths carry no additional
+  third-party rate/license terms CRANE needs to separately gate.
 - CRANE's board queue (2026-09-05) also includes its seeding piece of
   W-67 PRESET_LIBRARY: at least 24 combinatorially generated baseline
   plans (plot class × use × floors × style), each verified to actually
@@ -397,6 +401,12 @@ the minimal shape a richer massing model would need to fill in.
   included), else re-verifies already-landed work against unrechecked
   amended acceptances, else proposes a new row to SCRIBE — never idle
   while unimplemented vision remains.
+- RULE 53 (Conductor-scope, adopted 2026-09-07): the conductor prompts
+  seats, replies to completed work, and states only absolute-knowledge
+  or live-verified facts — it delegates ALL research to seats, ATLAS
+  and CRANE by default. CRANE should expect research requests to
+  arrive via the conductor rather than the conductor investigating
+  disk state itself.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, CRANE re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

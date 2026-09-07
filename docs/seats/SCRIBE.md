@@ -291,3 +291,9 @@ This was a fresh baseline: it explicitly does not claim any prior
   landings, catches stale notes, or proposes a new row itself — never
   idle while board/docs stewardship work remains, per this very
   LONG-HAUL directive.
+- RULE 53 (Conductor-scope, adopted 2026-09-07): the conductor prompts
+  seats, replies to completed work, and states only absolute-knowledge
+  or live-verified facts — it delegates ALL research to seats, ATLAS
+  and CRANE by default. SCRIBE records this rule; it does not change
+  SCRIBE's own docs-authority scope (RULE 7), which is separate from
+  the conductor's coordination role.

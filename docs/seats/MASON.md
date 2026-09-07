@@ -161,6 +161,17 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   overlay/side panel that never squeezes the canvas. Amends W-47's
   percentage-based sizing target on the product-page previews
   specifically (cockpit route keeps W-47's own ≥70%/≥60% figures).
+- MASON's board queue TOP PRIORITY (2026-09-07, after W-84): W-85
+  LAND_DETECT_IN — extends W-65 from 3 to 6 land-detection input modes
+  on LandIntel/Land tab/Territory panel: map pin drop (reverse-
+  geocoded), GPS coordinates, place search, use-my-location
+  (Geolocation API, permission-gated), ULPIN (existing), and a
+  roadmap-labeled survey/khasra/plot-number mode. Every resolve shows
+  a method+source+date provenance chip. Same-row cleanup extends
+  W-53: categorical controls become chips/selects (never sliders),
+  remaining sliders show a live value + units at all times; default
+  map center is a disclosed Bengaluru sample-location chip, never a
+  stray pin.
 - MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
   of all other UI rows): W-47 → W-52 → W-54 → W-55 → W-58 → W-59, physically reordered on
   docs/TASK_BOARD.md to sit right after the fixed top row (W-26).
@@ -366,6 +377,10 @@ first assigned row.
   included), else re-verifies already-landed work against unrechecked
   amended acceptances, else proposes a new row to SCRIBE — never idle
   while unimplemented vision remains.
+- RULE 53 (Conductor-scope, adopted 2026-09-07): the conductor prompts
+  seats, replies to completed work, and states only absolute-knowledge
+  or live-verified facts — it delegates ALL research to seats, ATLAS
+  and CRANE by default.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

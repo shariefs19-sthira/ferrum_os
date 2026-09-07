@@ -141,6 +141,10 @@ being experimental:
   amended acceptances, else proposes a new row to SCRIBE — never idle
   while unimplemented vision remains, bounded by PI's own one-wave
   trial scope.
+- RULE 53 (Conductor-scope, adopted 2026-09-07): the conductor prompts
+  seats, replies to completed work, and states only absolute-knowledge
+  or live-verified facts — it delegates ALL research to seats, ATLAS
+  and CRANE by default.
 
 ## Assigned slice (2026-09-03, trial only)
 W2-390 (the trial task itself). No standing slice — this seat has no

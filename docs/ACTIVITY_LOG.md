@@ -1675,3 +1675,19 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** docs/TASK_BOARD.md, docs/seats/MASON.md, docs/ACTIVITY_LOG.md
 **Next Steps:** Any seat pulls W-84 (dep W-47) — top of queue per the operator. This branch lands via `land.ps1` this same pass.
+---
+
+## 2026-09-07 - SCRIBE seeded W-85 LAND_DETECT_IN, amended W-65 + W-53
+**Action:** Rebuilt fresh off `origin/main` (tip `7e1a8fb4`, "[land:crane/w59-persona-configs]" — confirmed prior W-84 landing is an ancestor; no gap reopened). Amended W-65 PLOT_SEARCH's row in place to record it's superseded/extended by W-85, rather than leaving two rows silently describing overlapping location-input scope. Seeded docs/TASK_BOARD.md W-85 LAND_DETECT_IN (owner-agnostic, top of queue, after W-84), extending W-65's three input modes to the full six ways land is actually detected online in India: map pin drop (reverse-geocoded to a real address), GPS coordinates (carried from W-65), place/address search (carried from W-65), USE-MY-LOCATION (Geolocation API, permission-gated, honest denied-state), ULPIN/Bhu-Aadhaar (carried from W-65), and a roadmap-labeled survey/khasra/plot-number mode (explicitly not built this pass, since each Indian state's survey-numbering scheme differs and needs its own adapter). Every resolve sets a method+source+date provenance chip, not a generic "location set" state. Bundled the same-row cleanup the operator specified, amending W-53 in place: categorical/discrete controls on these surfaces render as chips/selects rather than sliders, remaining sliders carry a live value readout + units at all times (a stricter application of W-53's existing pairing requirement, not a new mechanism), and the default map center (no resolve yet) is a disclosed Bengaluru sample-location chip rather than an unexplained pin. Mirrored into docs/seats/MASON.md (UI piece, inserted at the top-priority section) and docs/seats/CRANE.md (policy piece, noting no new third-party terms beyond the existing Nominatim gate).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/TASK_BOARD.md, docs/seats/MASON.md, docs/seats/CRANE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Any seat pulls W-85 (dep W-65, W-53, W-51) after W-84 clears — top of queue per the operator.
+---
+
+## 2026-09-07 - SCRIBE added RULE 53 CONDUCTOR_SCOPE
+**Action:** Added AGENTS.md RULE 53 — CONDUCTOR_SCOPE (conductor): the conductor's job is narrowly bounded to (a) prompting agents/seats, (b) replying once their work is complete, and (c) stating facts drawn from its own absolute knowledge or live verification it performs itself — ALL research requiring investigation of this repo's own state, code, or history is delegated to seats, ATLAS and CRANE by default, never done by the conductor directly. Mirrored into all seven docs/seats/*.md files (framed as context for why research requests arrive via the conductor rather than the conductor investigating disk state itself) and bumped docs/FERRUM_METHOD_PLAYBOOK.md (rule count forty-nine → fifty, addendum range 33–48/50–52 → 33–48/50–53).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/seats/PI.md, docs/seats/FERRITE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** The conductor role narrows starting immediately — future research asks route through ATLAS/CRANE rather than being answered directly. This branch lands via `land.ps1` this same pass.
