@@ -49,6 +49,14 @@ describe("W-29 KB structure domain (adapter-first seed)", () => {
     expect(data.basicSpanToDepthRatioRef).toMatch(/Cl 23\.2\.1/)
     expect(fact.provenance.status).toBe("VERIFIED-SAMPLE")
   })
+
+  it("the seismic zone factor fact carries the real NBC 2016 Part 6 Table 42 values, with its own provenance", () => {
+    const fact = structureFacts.find((f) => f.clauseId === "NBC 2016 (SP 7) Part 6 Section 1 Cl 5.3.4.2 (Table 42)")!
+    const data = fact.data as { seismicZoneFactorZ: Record<string, number> }
+    expect(data.seismicZoneFactorZ).toEqual({ II: 0.10, III: 0.16, IV: 0.24, V: 0.36 })
+    expect(fact.provenance.status).toBe("VERIFIED-SAMPLE")
+    expect(fact.provenance.sourceUrl).toMatch(/archive\.org/)
+  })
 })
 
 describe("W-41 KB coverage manifest", () => {
@@ -76,9 +84,9 @@ describe("W-41 KB coverage manifest", () => {
     const manifest = getKbCoverageManifest()
     const structureEntry = manifest.find((m) => m.domain === "structure")!
     expect(structureEntry.depthDenominator).not.toBeNull()
-    expect(structureEntry.depthDenominator!.totalClauseCount).toBe(43)
+    expect(structureEntry.depthDenominator!.totalClauseCount).toBe(52)
     expect(structureEntry.depthDenominator!.sourceUrl).toMatch(/archive\.org/)
-    expect(structureEntry.depthPercent).toBeCloseTo((structureFacts.length / 43) * 100, 1)
+    expect(structureEntry.depthPercent).toBeCloseTo((structureFacts.length / 52) * 100, 1)
 
     // A domain with no denominator established yet must report null,
     // never a fabricated percentage.

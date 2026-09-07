@@ -21,20 +21,21 @@ const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
 
 // Depth-% denominator per the operator's standing rule: the source's
 // own clause index/TOC, cited with its own provenance - never a bare
-// number. IS 456:2000's own top-level clause numbering runs from
-// Clause 1 through Clause 43 (verified by counting distinct top-level
-// "N." section headers in the fetched source text itself, not assumed
-// from a table of contents that OCR'd poorly) - 43 is this domain's
-// real scope target until a second structure-domain source (IS 875,
-// IS 1893, a masonry code) is added, at which point this denominator
-// must grow to match, not stay pinned to one source's count forever.
+// number. This domain now draws on two real sources (IS 456:2000 and
+// NBC 2016 Part 6 Section 1); DepthDenominatorProvenance only carries
+// one sourceName/method string, so both are folded into a single
+// combined description below and the two sources' own clause counts
+// are summed (43 + 9 = 52) rather than restructuring the type for a
+// single occurrence - grows again if a third structure-domain source
+// (IS 875, IS 1893, a masonry code) is added.
 const depthDenominatorsByDomain: Partial<Record<(typeof kbDomains)[number], DepthDenominatorProvenance>> = {
   structure: {
-    sourceName: "IS 456:2000 Plain and Reinforced Concrete - Code of Practice (Fourth Revision)",
-    sourceUrl: "https://archive.org/details/gov.in.is.456.2000",
+    sourceName:
+      "IS 456:2000 Plain and Reinforced Concrete - Code of Practice (Fourth Revision) + NBC 2016 (SP 7:2016) Volume 1 Part 6 Section 1 'Loads, Forces and Effects'",
+    sourceUrl: "https://archive.org/details/gov.in.is.456.2000 ; https://archive.org/details/nationalbuilding01",
     method:
-      "Counted distinct top-level clause numbers (pattern ^N.N at the start of a line) appearing as section headers across the full fetched text - found Clauses 1 through 43 present (Clause 27 not independently confirmed as a header in this OCR pass, included in the range regardless since IS 456's own clause numbering is sequential and undisputed).",
-    totalClauseCount: 43,
+      "IS 456:2000: counted distinct top-level clause numbers (pattern ^N.N at the start of a line) appearing as section headers across the full fetched text - found Clauses 1 through 43 present (Clause 27 not independently confirmed as a header in this OCR pass, included in the range regardless since IS 456's own clause numbering is sequential and undisputed). NBC 2016 Part 6 Section 1: counted its own top-level clause numbers directly from its Table of Contents - Clauses 1 through 9 listed (Scope, Dead Load, Imposed Load, Wind Load, Seismic Force, Snow Load, Special Loads, Load Combinations, Multi-Hazard Risk). Combined total: 43 + 9 = 52.",
+    totalClauseCount: 52,
   },
   planning: {
     sourceName: "NBC 2016 (SP 7:2016), Volume 1, Part 3 - Development Control Rules and General Building Requirements",

@@ -82,6 +82,22 @@ export const structureFacts: ClauseFact[] = [
     },
     provenance: SOURCE,
   },
+  {
+    clauseId: "NBC 2016 (SP 7) Part 6 Section 1 Cl 5.3.4.2 (Table 42)",
+    version: "National Building Code of India 2016, Volume 1, Part 6 'Structural Design', Section 1 'Loads, Forces and Effects'",
+    domain: "structure",
+    summary: "Seismic Zone Factor Z by seismic zone, used to derive design seismic force.",
+    data: {
+      seismicZoneFactorZ: { II: 0.10, III: 0.16, IV: 0.24, V: 0.36 },
+    },
+    provenance: {
+      sourceName: "National Building Code of India 2016 (SP 7:2016), Volume 1, Part 6 Section 1",
+      sourceUrl: "https://archive.org/details/nationalbuilding01",
+      license: "Bureau of Indian Standards publication, hosted on Internet Archive (item nationalbuilding01, born-digital text layer).",
+      fetchedAt: "2026-09-07",
+      status: "VERIFIED-SAMPLE" as const,
+    },
+  },
 ]
 
 // Targeted from IS 456:2000's own clause index but not safely
