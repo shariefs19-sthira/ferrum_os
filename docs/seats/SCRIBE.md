@@ -302,3 +302,11 @@ This was a fresh baseline: it explicitly does not claim any prior
   to a Claude agent — ATLAS by default — rather than doing any part of
   it itself. SCRIBE records this rule as the specific trigger-phrase
   instance of RULE 53's broader delegation principle.
+- RULE 55 (Execution-oversight, adopted 2026-09-07): PI is the
+  dedicated Execution Controller — implements nothing, maintains
+  docs/EXECUTION_LEDGER.md (status/owner/method-review/technical-data
+  per row), updated on every landing and stop report. SCRIBE created
+  that ledger file and PI's rewritten seat doc in the same pass this
+  rule was adopted; SCRIBE's own docs turns are part of PI's review
+  queue like any other seat's, and a PI method challenge on SCRIBE's
+  ledger/docs work routes through the conductor, not directly.

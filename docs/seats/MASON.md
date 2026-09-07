@@ -425,6 +425,12 @@ first assigned row.
   says "check/research X," the conductor delegates the ENTIRE research
   to a Claude agent — ATLAS by default — rather than doing any part of
   it itself.
+- RULE 55 (Execution-oversight, adopted 2026-09-07): PI is the
+  dedicated Execution Controller — implements nothing, maintains
+  docs/EXECUTION_LEDGER.md (status/owner/method-review/technical-data
+  per row), updated on every landing and stop report. MASON's own
+  landings and reports are part of PI's review queue; a PI method
+  challenge on MASON's work routes through the conductor, not directly.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

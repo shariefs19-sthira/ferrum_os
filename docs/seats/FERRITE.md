@@ -137,3 +137,9 @@ point for the trial, not a claim that all 52 are individually LIVE.
   says "check/research X," the conductor delegates the ENTIRE research
   to a Claude agent — ATLAS by default — rather than doing any part of
   it itself.
+- RULE 55 (Execution-oversight, adopted 2026-09-07): PI is the
+  dedicated Execution Controller — implements nothing, maintains
+  docs/EXECUTION_LEDGER.md (status/owner/method-review/technical-data
+  per row), updated on every landing and stop report. FERRITE's own
+  landings and reports are part of PI's review queue; a PI method
+  challenge on FERRITE's work routes through the conductor.

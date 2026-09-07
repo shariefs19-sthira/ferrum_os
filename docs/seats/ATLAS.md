@@ -284,6 +284,12 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   says "check/research X," the conductor delegates the ENTIRE research
   to a Claude agent — ATLAS by default — rather than doing any part of
   it itself. ATLAS is the default target for these delegated asks.
+- RULE 55 (Execution-oversight, adopted 2026-09-07): PI is the
+  dedicated Execution Controller — implements nothing, maintains
+  docs/EXECUTION_LEDGER.md (status/owner/method-review/technical-data
+  per row), updated on every landing and stop report. ATLAS's own
+  landings and reports are part of PI's review queue; a PI method
+  challenge on ATLAS's work routes through the conductor, not directly.
 
 ## Permanent envelope decision (2026-09-06, operator, "latest wins")
 On the W-70..W-79g integrations board going live with owner-agnostic
