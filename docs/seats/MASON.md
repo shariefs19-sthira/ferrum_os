@@ -202,6 +202,16 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   ACES tone mapping, SSAO + soft shadows, textured ground + context
   buildings + vegetation, and device-tiered quality with an fps guard
   reusing the existing W-34/W-41(2) capability-detection mechanism.
+  W-94 PREFERENCE_TELEMETRY: consent-first, DPDP-Act-2023-compliant
+  preference capture — opt-in consent UI, declining leaves the product
+  fully functional; sensitive fields (age/language/region/ethnicity)
+  optional and minimized/anonymized ON-DEVICE into cohort buckets,
+  never raw PII in D1; every SUTRA intent/questionnaire path/edit/
+  override/acceptance becomes a labelled training event. W-95
+  LEARNING_LOOP consumes those events into cohort priors (data-derived,
+  never asserted) and a visible quality dashboard (audit pass rate,
+  acceptance rate, edit distance); retrain cadence gated on data
+  volume, not a calendar.
 - MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
   of all other UI rows): W-47 → W-52 → W-54 → W-55 → W-58 → W-59, physically reordered on
   docs/TASK_BOARD.md to sit right after the fixed top row (W-26).

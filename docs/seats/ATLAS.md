@@ -186,6 +186,15 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   confirm or correct this interpretation on first pull rather than
   treat it as settled, and log findings to a new docs/TECH_SCOUT.md
   (mirroring SKILL_SCOUT.md's schema) absent a better-fitting doc.
+- ATLAS's board queue (2026-09-07) also includes W-96
+  FERRUM_AI_ARCHITECTURE, a research/spec row (no code envelope):
+  document the two-head self-learning design — technical head (KB +
+  generated plans + audit scores) and preference head (cohort
+  embeddings per W-94/W-95) — and the staged rollout (deterministic
+  today → cohort priors → fine-tuned open models at volume, gated on
+  W-31 → distributed training later, referencing W-78's PrimeIntellect
+  concept spec as an option, not a commitment). Every stage's real
+  gating condition must be named, not presented as unconditional.
 - ATLAS's board queue (2026-09-04) also includes W-29 KNOWLEDGE_BASE's
   CRANE-adjacent audit interest (verifying every knowledge-base fact
   actually carries a clause ID/version/status chip before it's cited
