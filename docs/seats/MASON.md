@@ -153,6 +153,14 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   action; no forecasts, assurances, bare adjectives, progress-as-
   completion, or partial-credit summaries; incomplete work is reported
   as what's missing, not what was done.
+- MASON's board queue TOP PRIORITY (2026-09-07): W-84 PREVIEW_FULLBLEED
+  — every product-page preview embed (all ten) plus the workspace
+  route renders full-bleed: canvas `clientWidth` exactly equals its
+  section's `clientWidth` (including the currently-dead left gutter),
+  height ≥70vh, no `max-width` wrapper, extract panel becomes an
+  overlay/side panel that never squeezes the canvas. Amends W-47's
+  percentage-based sizing target on the product-page previews
+  specifically (cockpit route keeps W-47's own ≥70%/≥60% figures).
 - MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
   of all other UI rows): W-47 → W-52 → W-54 → W-55 → W-58 → W-59, physically reordered on
   docs/TASK_BOARD.md to sit right after the fixed top row (W-26).
