@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — fifty-one numbered rules were actually adopted (numbered
-1–14, 16–31, 33–48, 50–54 — RULE 15, RULE 32, and RULE 49 were never
+matured — fifty-two numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48, 50–55 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50–54, added later in the
+18–31, 33–48, and 50–55, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50–54 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–55 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -798,6 +798,23 @@ source.
     itself since it feels too minor to delegate — naming the trigger
     phrase directly closes that loophole before rule 53's principle
     quietly erodes on the cases that seem too small to bother with.*
+55. **Execution-oversight** — a dedicated, standing agent (never one
+    that also executes rows itself) reviews every other agent's
+    landings and stop reports, maintaining one ledger with, per row:
+    an independently-verified status, the actual owner, a method
+    review (is this the best possible way, what alternatives were
+    considered, is a suboptimal method flagged with evidence), and
+    hard technical execution data (landing reference, test results,
+    deploy identifier, retries, blocker history, timestamps). The
+    ledger updates on every landing and stop report, not on a sample;
+    a method-review finding routes to whoever coordinates the fleet as
+    a correction, since the overseer itself implements nothing.
+    *Rationale: a fast, self-draining pull-queue optimizes for
+    throughput; nothing in that loop by itself checks whether the
+    landed approach was actually the right one — a dedicated overseer
+    that builds nothing and reviews everything catches "it shipped but
+    it's the wrong method" in a way no agent auditing its own work,
+    or a coordinator busy sequencing work, reliably does.*
 
 ## 3. Ledger formats
 

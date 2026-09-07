@@ -13,8 +13,10 @@ slice, activated 2026-09-02 — owns W2-346, 348, 349, 350, 353, 354;
 W2-347 is explicitly carved out to CRANE — a specific reassignment
 overrides the roster range), RIVET (Codex CLI, second parallel executor,
 activated 2026-09-02, exclusive to `apps/mobile/**` and `docs/**` — owns
-W2-356+), PI (experimental executor, TRIAL status 2026-09-03 — one-wave
-bounded trial on W2-390; standing status pending the trial's verdict),
+W2-356+), PI (dedicated Execution Controller, reassigned 2026-09-07
+from its prior experimental-executor trial role per RULE 55 —
+implements NOTHING; owns docs/EXECUTION_LEDGER.md and every method-
+review challenge routed to the conductor),
 FERRITE (second Claude account, gap-filler executor, TRIAL status
 2026-09-03 — activates only when both CRANE and MASON are simultaneously
 at limit, per RULE 33; pace-metric/sunset criteria not yet defined, see
@@ -1043,6 +1045,38 @@ ask that tempts a conductor into doing a little research itself
 "since it's fast" — RULE 54 closes that loophole by naming the trigger
 phrase directly, so RULE 53's delegation principle doesn't quietly
 erode on the cases that feel too small to bother delegating.
+
+## RULE 55 — EXECUTION_OVERSIGHT (PI, adopted 2026-09-07)
+Seat PI is reassigned from its prior experimental-executor trial role
+to a dedicated, standing Execution Controller. **PI implements
+NOTHING** — no code, no docs authorship beyond its own ledger, no
+landings of its own. PI's entire job is oversight of every other
+seat's execution.
+PI maintains `docs/EXECUTION_LEDGER.md`, one block per board row,
+carrying:
+(1) **Status:** DONE / HALFWAY / IN_PROGRESS / BLOCKED (+ reason) /
+STUCK — PI's own independently-verified status, not a copy of the
+row's self-reported status.
+(2) **Owner:** the seat actually executing the row.
+(3) **METHOD REVIEW:** is this the best possible way to do it?
+Alternatives actually considered are named; a suboptimal method is
+flagged with concrete evidence (not a vague "could be better"), never
+silently passed through.
+(4) **Technical execution data:** landing SHA, test pass/fail counts,
+deploy version ID, retry count, blocker history, and timestamps —
+verifiable facts per RULE 40, not summaries.
+The ledger updates on EVERY landing and EVERY stop report fleet-wide —
+PI is watching continuously, not sampling. A ledger summary is posted
+each cycle. A method-review challenge (PI's own finding that a landed
+or in-progress approach is suboptimal) routes to the conductor as a
+correction relay — PI does not fix the method itself, since it
+implements nothing.
+*Rationale:* a fast-draining, self-pulling fleet (RULE 35/45/52) risks
+optimizing for throughput over quality of method — a dedicated,
+non-implementing overseer whose only output is the ledger and method
+challenges catches "it landed but it's the wrong approach" in a way no
+seat auditing its own work, or a conductor busy coordinating, reliably
+does.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
