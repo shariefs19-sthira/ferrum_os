@@ -2,6 +2,8 @@ import { kbDomains, type DepthDenominatorProvenance, type KbDomainManifestEntry,
 import { structureFacts, structureGaps } from "./domains/structure"
 import { planningFacts, planningGaps } from "./domains/planning"
 import { safetyFacts, safetyGaps } from "./domains/safety"
+import { approvalsNocsFacts, approvalsNocsGaps } from "./domains/approvalsNocs"
+import { sustainabilityFacts, sustainabilityGaps } from "./domains/sustainability"
 
 // W-41 KB_EXHAUSTIVE's coverage manifest. Computed from the actual
 // seeded arrays, never hand-typed - a domain with zero facts shows as
@@ -11,12 +13,16 @@ const seededByDomain: Partial<Record<(typeof kbDomains)[number], { length: numbe
   structure: structureFacts,
   planning: planningFacts,
   safety: safetyFacts,
+  "approvals-nocs": approvalsNocsFacts,
+  sustainability: sustainabilityFacts,
 }
 
 const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
   structure: structureGaps,
   planning: planningGaps,
   safety: safetyGaps,
+  "approvals-nocs": approvalsNocsGaps,
+  sustainability: sustainabilityGaps,
 }
 
 // Depth-% denominator per the operator's standing rule: the source's
@@ -51,6 +57,20 @@ const depthDenominatorsByDomain: Partial<Record<(typeof kbDomains)[number], Dept
     method:
       "Counted Part 4's own top-level clause numbers directly from its own Table of Contents - Clauses 1 through 6 listed (Scope, Terminology, Fire Prevention, Life Safety, Fire Protection, Additional Occupancy-wise Requirements); 7 Annexes (A-G) exist but are not counted as numbered clauses in this denominator.",
     totalClauseCount: 6,
+  },
+  "approvals-nocs": {
+    sourceName: "Ancient Monuments and Archaeological Sites and Remains (Amendment and Validation) Act, 2010",
+    sourceUrl: "https://prsindia.org/files/bills_acts/acts_parliament/2010/ancient-monuments-and-archaeological-sites-and-remains-act-2010.pdf",
+    method:
+      "Counted this Amendment Act's own top-level Sections directly from its own text - Sections 1 through 13 (Short title/commencement through Repeal and savings). This is the denominator for facts drawn from this specific Amendment Act; a future second approvals-nocs source (e.g. an environmental clearance or fire-NOC statute) would need its own count folded in, same pattern as structure/planning.",
+    totalClauseCount: 13,
+  },
+  sustainability: {
+    sourceName: "Eco-Niwas Samhita 2021 (Code Compliance and Part II: Electro-Mechanical and Renewable Energy Systems), Bureau of Energy Efficiency",
+    sourceUrl: "https://www.beeindia.gov.in/WriteReadData/RTF1984/1772176104.pdf",
+    method:
+      "Counted this document's own top-level Table-of-Contents entries - 7 numbered chapters (Introduction, Scope, Code Compliance, Mandatory Requirements, Prescriptive Requirements, Point System Method, Terminology & Definitions) plus 5 lettered Annexes (A-E) = 12. This covers only the ENS Part II edition actually fetched; ENS Part I (Building Envelope) and ECBC 2017 are real, separate documents chipped as gaps, not yet folded into this denominator.",
+    totalClauseCount: 12,
   },
 }
 
