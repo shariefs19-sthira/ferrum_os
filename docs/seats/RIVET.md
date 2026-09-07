@@ -211,6 +211,10 @@ as every other seat.
   cannot reach the live edge at all. Update all three files to
   `ferrumos-preview.shariefsatyala.workers.dev` per
   docs/FLEET_SEATS.json's `deployment.liveUrl`.
+- RIVET's board queue (2026-09-07) also includes its styling piece of
+  W-88 PRECISION_CONTROLS: monospace value display, tick marks at the
+  ruleset's real code limits (not decorative even-spacing), and the
+  live drag tooltip — MASON builds the control logic, RIVET styles it.
 - RIVET's board queue (2026-09-06) also includes W-69 UX_OVERHAUL
   (RULE 44: home + all product pages + pricing/docs): a live embedded
   cockpit teaser replaces the static hero card; the Land→Design→
