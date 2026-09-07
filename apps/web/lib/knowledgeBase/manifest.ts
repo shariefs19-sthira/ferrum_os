@@ -1,6 +1,7 @@
 import { kbDomains, type DepthDenominatorProvenance, type KbDomainManifestEntry, type KbGap } from "./types"
 import { structureFacts, structureGaps } from "./domains/structure"
 import { planningFacts, planningGaps } from "./domains/planning"
+import { safetyFacts, safetyGaps } from "./domains/safety"
 
 // W-41 KB_EXHAUSTIVE's coverage manifest. Computed from the actual
 // seeded arrays, never hand-typed - a domain with zero facts shows as
@@ -9,11 +10,13 @@ import { planningFacts, planningGaps } from "./domains/planning"
 const seededByDomain: Partial<Record<(typeof kbDomains)[number], { length: number }>> = {
   structure: structureFacts,
   planning: planningFacts,
+  safety: safetyFacts,
 }
 
 const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
   structure: structureGaps,
   planning: planningGaps,
+  safety: safetyGaps,
 }
 
 // Depth-% denominator per the operator's standing rule: the source's
@@ -39,6 +42,13 @@ const depthDenominatorsByDomain: Partial<Record<(typeof kbDomains)[number], Dept
     method:
       "Counted Part 3's own top-level clause numbers directly from its own Table of Contents in the fetched born-digital text - Clauses 1 through 29 listed (Scope through Asset and Facility Management).",
     totalClauseCount: 29,
+  },
+  safety: {
+    sourceName: "NBC 2016 (SP 7:2016), Volume 1, Part 4 - Fire and Life Safety",
+    sourceUrl: "https://archive.org/details/nationalbuilding01",
+    method:
+      "Counted Part 4's own top-level clause numbers directly from its own Table of Contents - Clauses 1 through 6 listed (Scope, Terminology, Fire Prevention, Life Safety, Fire Protection, Additional Occupancy-wise Requirements); 7 Annexes (A-G) exist but are not counted as numbered clauses in this denominator.",
+    totalClauseCount: 6,
   },
 }
 
