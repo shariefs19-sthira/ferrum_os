@@ -129,3 +129,7 @@ point for the trial, not a claim that all 52 are individually LIVE.
   included), else re-verifies already-landed work against unrechecked
   amended acceptances, else proposes a new row to SCRIBE — never idle
   while unimplemented vision remains.
+- RULE 53 (Conductor-scope, adopted 2026-09-07): the conductor prompts
+  seats, replies to completed work, and states only absolute-knowledge
+  or live-verified facts — it delegates ALL research to seats, ATLAS
+  and CRANE by default.

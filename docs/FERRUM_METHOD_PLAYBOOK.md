@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — forty-nine numbered rules were actually adopted (numbered
-1–14, 16–31, 33–48, 50–52 — RULE 15, RULE 32, and RULE 49 were never
+matured — fifty numbered rules were actually adopted (numbered 1–14,
+16–31, 33–48, 50–53 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50–52, added later in the
+18–31, 33–48, and 50–53, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50–52 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–53 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -776,6 +776,18 @@ source.
     defeats the whole point of a pull-queue and self-draining agent
     model, which already establish that an agent's job is to keep
     pulling, not to wait for the next instruction.*
+53. **Conductor-scope** — the conductor's job is narrowly bounded to
+    three things: prompting agents, replying once their work is
+    complete, and stating facts drawn from its own absolute knowledge
+    or live verification it performs itself. All research — anything
+    requiring investigation of the project's own state, code, or
+    history — is delegated to agents, not done by the conductor
+    directly.
+    *Rationale: the conductor's value is coordination, not duplicated
+    investigation; a conductor that researches directly both wastes
+    agent capacity that already exists for exactly that purpose and
+    risks answering from a stale or partial view instead of an agent's
+    grounded, verified finding.*
 
 ## 3. Ledger formats
 

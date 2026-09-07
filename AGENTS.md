@@ -1011,6 +1011,23 @@ pull-queue and RULE 45's drain-don't-wait, which already establish
 that a seat's job is to keep pulling, not to wait for the next named
 instruction.
 
+## RULE 53 — CONDUCTOR_SCOPE (conductor, adopted 2026-09-07)
+The conductor's job is ONLY: (a) prompt the agents/seats; (b) reply to
+their completed work; (c) state facts drawn from the conductor's own
+absolute knowledge or live internet verification it performs itself.
+ALL research — anything requiring investigation of this repo's own
+state, code, or history — is delegated to agents, ATLAS and CRANE by
+default. The conductor does not read code, run git commands, or
+investigate disk state itself to answer a question a seat could answer
+instead; it relays the question to a seat and replies once the seat
+reports back.
+*Rationale:* the conductor's value is coordination — sequencing work
+across seats and relaying operator intent — not duplicating the
+investigative work seats already do; a conductor that researches
+directly both wastes the seats' capacity and risks answering from a
+stale or partial view of the repo instead of a seat's grounded,
+verified finding.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

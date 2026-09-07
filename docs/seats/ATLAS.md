@@ -265,6 +265,12 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   included), else re-verifies already-landed work against unrechecked
   amended acceptances, else proposes a new row to SCRIBE — never idle
   while unimplemented vision remains.
+- RULE 53 (Conductor-scope, adopted 2026-09-07): the conductor prompts
+  seats, replies to completed work, and states only absolute-knowledge
+  or live-verified facts — it delegates ALL research to seats, ATLAS
+  and CRANE by default. ATLAS should expect research requests to
+  arrive via the conductor rather than the conductor investigating
+  disk state itself.
 
 ## Permanent envelope decision (2026-09-06, operator, "latest wins")
 On the W-70..W-79g integrations board going live with owner-agnostic
