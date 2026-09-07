@@ -53,4 +53,18 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     const firstArea = onLiveMetricsChange.mock.calls[0][0].areaSquareMetres
     expect(secondCall.areaSquareMetres).not.toBe(firstArea)
   })
+
+  it("clamps command growth and resets to the canonical baseline", async () => {
+    const onLiveMetricsChange = vi.fn()
+    render(<WorkspaceCockpit onLiveMetricsChange={onLiveMetricsChange} />)
+    await waitFor(() => expect(onLiveMetricsChange).toHaveBeenCalled())
+
+    fireEvent(window, new CustomEvent("ferrum:workspace-command", { detail: "set floors 99" }))
+    await waitFor(() => expect(onLiveMetricsChange.mock.calls.at(-1)[0].extracts.find((e: { label: string }) => e.label === "Floors").value).toBe("3"))
+
+    fireEvent(window, new CustomEvent("ferrum:workspace-command", { detail: "set floors 1" }))
+    await waitFor(() => expect(onLiveMetricsChange.mock.calls.at(-1)[0].extracts.find((e: { label: string }) => e.label === "Floors").value).toBe("1"))
+    fireEvent(window, new CustomEvent("ferrum:workspace-command", { detail: "reset model" }))
+    await waitFor(() => expect(onLiveMetricsChange.mock.calls.at(-1)[0].extracts.find((e: { label: string }) => e.label === "Floors").value).toBe("3"))
+  })
 })

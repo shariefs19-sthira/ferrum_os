@@ -27,4 +27,10 @@ describe('generateStudioPlan', () => {
     expect(plan.elevations[0].heightM).toBeCloseTo(12.8)
     expect(plan.elevations[0].floorLinesM).toEqual([3.2, 6.4, 9.600000000000001])
   })
+
+  it('enforces the height-derived floor cap inside the engine', () => {
+    const plan = generateStudioPlan({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 99, floorHeightM: 3.2, maxHeightM: 15 })
+    expect(plan.floors).toBe(4)
+    expect(plan.elevations[0].heightM).toBe(12.8)
+  })
 })

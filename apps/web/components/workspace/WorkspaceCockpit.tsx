@@ -104,7 +104,9 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [optionStage, setOptionStage] = useState<OptionStage>('use')
   const [showDiagram, setShowDiagram] = useState(false)
   const [landUse, setLandUse] = useState<LandUse>('Residential')
-  const plan = useMemo(() => generateStudioPlan(parameters), [parameters])
+  const ruleset = getRulesetForState('Karnataka')
+  const landRule = ruleset?.land_use_rules[landUse]
+  const plan = useMemo(() => generateStudioPlan({ ...parameters, maxHeightM: landRule?.max_height_m }), [parameters, landRule?.max_height_m])
   const activeRooms = plan.rooms.filter((room) => room.floor === activeFloor)
   const grossArea = plan.buildingWidthM * plan.buildingDepthM * plan.floors
   const measuredBoq = useMemo(() => measureBoq(plan), [plan])
@@ -130,8 +132,6 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
       provenance: { source: 'Design cockpit (deterministic plan generator)', freshness: 'Live', status: 'INDICATIVE' },
     })
   }, [plan, grossArea, governingSpanM, structuralPass, onLiveMetricsChange])
-  const ruleset = getRulesetForState('Karnataka')
-  const landRule = ruleset?.land_use_rules[landUse]
   const coverageArea = plan.plotWidthM * plan.plotDepthM * ((landRule?.max_coverage_pct ?? 60) / 100)
   const farArea = plan.plotWidthM * plan.plotDepthM * (landRule?.far ?? 1.5)
   const maxFloors = Math.max(1, Math.min(Math.floor((landRule?.max_height_m ?? 15) / plan.floorHeightM), Math.floor(farArea / Math.max(coverageArea, 1))))
@@ -202,11 +202,14 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
       const command = normalizeProfessionalTerms(String((event as CustomEvent<string>).detail ?? '').trim())
       if (!command) return
       const amount = Number(command.match(/\d+(?:\.\d+)?/)?.[0])
-      if (/add|increase/.test(command) && /floor|storey|level/.test(command)) {
-        setParameters((current) => ({ ...current, floors: Math.min(24, current.floors + (Number.isFinite(amount) ? amount : 1)) }))
+      if (/reset/.test(command) && /model|project|design/.test(command)) {
+        setParameters(initialParameters)
+        setCommandResult('Model reset to the canonical baseline.')
+      } else if (/add|increase/.test(command) && /floor|storey|level/.test(command)) {
+        setParameters((current) => ({ ...current, floors: Math.min(maxFloors, current.floors + (Number.isFinite(amount) ? amount : 1)) }))
         setCommandResult('Floor count increased. Massing and quantities updated.')
       } else if (/set/.test(command) && /floor|storey|level/.test(command) && Number.isFinite(amount)) {
-        setParameters((current) => ({ ...current, floors: Math.max(1, Math.min(24, amount)) }))
+        setParameters((current) => ({ ...current, floors: Math.max(1, Math.min(maxFloors, amount)) }))
         setCommandResult(`Floor count set to ${amount}. Massing and quantities updated.`)
       } else if (/set use/.test(command)) {
         const nextUse: LandUse = command.includes('mixed') ? 'Mixed Use' : command.includes('commercial') ? 'Commercial' : 'Residential'
@@ -259,7 +262,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     }
     window.addEventListener('ferrum:workspace-command', applyCommand)
     return () => window.removeEventListener('ferrum:workspace-command', applyCommand)
-  }, [])
+  }, [initialParameters, maxFloors])
   const updateAreaUnit = (unit: typeof areaUnits[number]) => {
     setPrimaryAreaUnit(unit)
     window.localStorage.setItem('ferrum-area-unit', unit)
