@@ -59,11 +59,17 @@ describe("W-41 KB coverage manifest", () => {
     expect(structureEntry.gapCount).toBe(structureGaps.length)
     expect(structureEntry.status).toBe("SEEDED")
 
-    // planning is also seeded now (a separate domain's own test covers
-    // it) - excluded here so this test doesn't need updating every time
-    // another domain gets seeded.
-    const roadmapEntries = manifest.filter((m) => m.domain !== "structure" && m.domain !== "planning")
-    expect(roadmapEntries.every((m) => m.status === "ROADMAP" && m.itemCount === 0)).toBe(true)
+    // Any domain with zero real items must be ROADMAP, and vice versa -
+    // checked as a property against the manifest's own itemCount rather
+    // than a hand-maintained list of "domains seeded so far" that would
+    // need editing every time another domain gets seeded.
+    for (const entry of manifest) {
+      if (entry.itemCount === 0) {
+        expect(entry.status).toBe("ROADMAP")
+      } else {
+        expect(entry.status).toBe("SEEDED")
+      }
+    }
   })
 
   it("depth % is computed against a cited, real source-index denominator - never a bare or inflated number", () => {
