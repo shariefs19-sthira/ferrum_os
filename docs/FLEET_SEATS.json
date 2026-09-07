@@ -1,14 +1,19 @@
 {
   "_comment": "W-50 HARNESS_24x7 seats config. worktreeGlob is a prefix pattern under D:\\ferrum_os.worktrees, not a single fixed path - each seat has many numbered worktrees over time; the harness resolves the most-recently-modified match at revival time. Verified against disk 2026-09-04: atlas/mason/rivet/crane/scribe all have real matching worktrees; ferrite/pi have none observed - left null rather than invented.",
   "deployment": {
-    "_comment": "Single source of truth for the live URL (W-64, 2026-09-05). Every seat and the ATLAS battery read from here, not a locally remembered/hardcoded value - the worker was renamed 2026-09-05 (crane/rename-worker-privacy, wrangler.jsonc name field) and the old URL now 404s.",
+    "_comment": "Single source of truth for the live URL (W-64, 2026-09-05). Every seat, the ATLAS battery, and every audit/battery script (via scripts/get-live-base-url.mjs) read from here, not a locally remembered/hardcoded value - the worker was renamed 2026-09-05 (crane/rename-worker-privacy, wrangler.jsonc name field) and the old URL now 404s. Consolidated 2026-09-06 from the now-retired docs/FLEET_CONFIG.json (a second, independently-created live-URL file that duplicated this same fact - flagged as duplication, not kept as a second source).",
     "workerName": "ferrumos-preview",
     "liveUrl": "https://ferrumos-preview.shariefsatyala.workers.dev",
+    "liveBaseUrlEnvVar": "FERRUM_LIVE_BASE_URL",
     "verifiedHttpStatus": 200,
     "verifiedAt": "2026-09-05",
     "deadUrl": "https://ferrum-os.shariefsatyala.workers.dev",
     "deadUrlHttpStatus": 404,
-    "renameCommit": "5fb7289a"
+    "renameCommit": "5fb7289a",
+    "history": [
+      { "url": "https://ferrum-os.shariefsatyala.workers.dev", "status": "retired", "note": "operator-killed 2026-09-05; returns Cloudflare error 1042 on every route" },
+      { "url": "https://ferrumos-preview.shariefsatyala.workers.dev", "status": "current", "note": "confirmed live via /api/health, 2026-09-05" }
+    ]
   },
   "seats": [
     { "id": "CRANE",   "adapter": "claude", "worktreeGlob": "crane-*",  "missionFile": "docs/seats/CRANE.md",   "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null },

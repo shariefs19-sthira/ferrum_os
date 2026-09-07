@@ -202,6 +202,15 @@ as every other seat.
   imperial) beside it, both feeding the same intent pipeline SUTRA
   uses. Stale note corrected here so this doc doesn't contradict the
   board's own current row text.
+- RIVET's board queue (2026-09-06) also includes W-83
+  MOBILE_SHELL_DEAD_URL, a LIVE DEFECT found during SCRIBE's board
+  stewardship pass: `apps/mobile/capacitor.config.json` and its
+  Android network-security-config still hardcode the retired
+  `ferrum-os.shariefsatyala.workers.dev` host — since the network
+  config only allows that one dead domain, the shipped app currently
+  cannot reach the live edge at all. Update all three files to
+  `ferrumos-preview.shariefsatyala.workers.dev` per
+  docs/FLEET_SEATS.json's `deployment.liveUrl`.
 - RIVET's board queue (2026-09-06) also includes W-69 UX_OVERHAUL
   (RULE 44: home + all product pages + pricing/docs): a live embedded
   cockpit teaser replaces the static hero card; the Land→Design→
@@ -261,6 +270,12 @@ as every other seat.
   any step RIVET can execute with existing local auth or existing
   tooling must be automated directly, never surfaced as a manual step
   when a zero-action path already exists and is authorized.
+- RULE 52 (Open-drain, all seats, adopted 2026-09-06): operator
+  directives name priorities, never close scope. With capacity and no
+  executable named row, RIVET pulls any READY row (owner-agnostic
+  included), else re-verifies already-landed work against unrechecked
+  amended acceptances, else proposes a new row to SCRIBE — never idle
+  while unimplemented vision remains.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
