@@ -126,6 +126,92 @@ export const planningFacts: ClauseFact[] = [
       status: "VERIFIED-SAMPLE",
     },
   },
+  {
+    clauseId: "NBC 2016 (SP 7) Part 3 Cl 8.2.1.1",
+    version: "SP 7:2016, Volume 1",
+    domain: "planning",
+    summary: "Minimum front open space (setback) for residential buildings up to 10 m height, by width of the abutting street.",
+    data: {
+      rows: [
+        { streetWidthM: "up to 7.5", frontOpenSpaceMinM: 1.5, note: "applies only to buildings up to a maximum height of 7 m" },
+        { streetWidthM: "7.5 to 18", frontOpenSpaceMinM: 3.0 },
+        { streetWidthM: "18 to 30", frontOpenSpaceMinM: 4.5 },
+        { streetWidthM: "above 30", frontOpenSpaceMinM: 6.0 },
+      ],
+      note: "Where a building abuts two or more streets, the value is based on the average width of streets, subject to a minimum of 1.8 m for rows 2-4. For streets under 7.5 m wide, the building line shall instead be at least 5 m from the street's centre line (Cl 8.2.1.1(b)).",
+    },
+    provenance: SOURCE,
+  },
+  {
+    clauseId: "NBC 2016 (SP 7) Part 3 Cl 8.2.3.1 (Table 4)",
+    version: "SP 7:2016, Volume 1",
+    domain: "planning",
+    summary: "Side and rear open spaces to be left around residential buildings of height above 10 m, by building height.",
+    data: {
+      rows: [
+        { heightM: 10, sideRearOpenSpaceM: 3 },
+        { heightM: 15, sideRearOpenSpaceM: 5 },
+        { heightM: 18, sideRearOpenSpaceM: 6 },
+        { heightM: 21, sideRearOpenSpaceM: 7 },
+        { heightM: 24, sideRearOpenSpaceM: 8 },
+        { heightM: 27, sideRearOpenSpaceM: 9 },
+        { heightM: 30, sideRearOpenSpaceM: 10 },
+        { heightM: 35, sideRearOpenSpaceM: 11 },
+        { heightM: 40, sideRearOpenSpaceM: 12 },
+        { heightM: 45, sideRearOpenSpaceM: 13 },
+        { heightM: 50, sideRearOpenSpaceM: 14 },
+        { heightM: 55, sideRearOpenSpaceM: 16 },
+        { heightM: 70, sideRearOpenSpaceM: 17 },
+        { heightM: 120, sideRearOpenSpaceM: 18 },
+        { heightM: "above 120", sideRearOpenSpaceM: 20 },
+      ],
+      notes: [
+        "For buildings above 24 m in height, there shall be a minimum front open space of 6 m.",
+        "Where rooms do not derive light/ventilation from the exterior open space, the width in this table may be reduced by 1 m, subject to a minimum of 3 m and a maximum of 8 m.",
+        "If the length or depth of the building exceeds 40 m, add 10 percent of (length or depth minus 4.0 m) to the table value, subject to a maximum requirement of 20 m.",
+      ],
+    },
+    provenance: SOURCE,
+  },
+  {
+    clauseId: "UDCPR 2020 (Maharashtra) Regulation 6.2.1 (Table No.6-D)",
+    version: "Unified Development Control and Promotion Regulations for Maharashtra State, 2020 (as amended, compressed edition dated 2023-10 on mmrda.maharashtra.gov.in)",
+    domain: "planning",
+    summary:
+      "Minimum plot size/width, road-side setback, and side/rear margins for residential and mixed-use buildings up to 15 m height (outside congested area), Maharashtra state-level DCR. A second real state-DCR source for this domain, alongside NBC 2016's national baseline.",
+    data: {
+      rows: [
+        { roadWidthM: "30 and above", minPlotSizeSqm: 450, minPlotWidthM: 15, roadSideSetbackM: "6.0 (A/B/C class Municipal Corporations) or 4.5 (other areas)", sideMarginM: 3.0, rearMarginM: 3.0 },
+        { roadWidthM: "18 to below 30", minPlotSizeSqm: 250, minPlotWidthM: 10, roadSideSetbackM: 4.5, sideMarginM: 2.0, rearMarginM: 2.0 },
+        { roadWidthM: "15 to below 18", minPlotSizeSqm: 200, minPlotWidthM: 10, roadSideSetbackM: 3.0, sideMarginM: 1.5, rearMarginM: 1.5 },
+        { roadWidthM: "below 15", minPlotSizeSqm: 80, minPlotWidthM: 6, roadSideSetbackM: 3.0, sideMarginM: 1.5, rearMarginM: 1.5, note: "semi-detached buildings: only one side margin required" },
+        { roadWidthM: "12 and below (row housing)", minPlotSizeSqm: 30, roadSideSetbackM: 3.5, sideMarginM: 2.25, rearMarginM: 0.0 },
+      ],
+      note: "Margins in rows 1-3 apply for buildings up to their stated height (excluding parking floor up to 6 m height); rows 4-5 are for G+2/stilt+3 structures. Table No.6-D is Cl 6.2.1's own table for non-congested areas; a separate Cl 6.1/Table No.6C exists for congested areas (not seeded this pass).",
+    },
+    provenance: {
+      sourceName: "Unified Development Control and Promotion Regulations for Maharashtra State, 2020 (UDCPR), Urban Development Department, Government of Maharashtra",
+      sourceUrl: "https://www.mmrda.maharashtra.gov.in/sites/default/files/2023-10/UDCPR_compressed_2.pdf",
+      license: "Government of Maharashtra official regulation document, hosted on the state's own Mumbai Metropolitan Region Development Authority (mmrda.maharashtra.gov.in) domain.",
+      fetchedAt: "2026-09-07",
+      status: "VERIFIED-SAMPLE" as const,
+    },
+  },
 ]
 
-export const planningGaps: KbGap[] = []
+export const planningGaps: KbGap[] = [
+  {
+    clauseId: "Karnataka Municipal Corporations Model Building Bye-Laws, Cl 5.2.7.1 (BDA/Bengaluru numeric setback table)",
+    domain: "planning",
+    reason: "GAP-NOT-CODIFIED",
+    queuedAction:
+      "Fetched the Karnataka Municipal Corporations Model Building Bye-Laws (mrc.gov.in, 2017 edition, real primary-adjacent state source) and confirmed its own Cl 5.2.7.1 text: 'The open spaces/setbacks, coverage, FAR, parking requirements shall be as per Zoning regulations of the Master Plan' - i.e. this document deliberately does not tabulate numeric setback values itself, deferring to each city/authority's own Master Plan Zoning Regulations. A widely-cited secondary figure exists for Bengaluru specifically (BBMP: ~8% side/rear, ~12% front setback of plot dimensions, varying by six plot-size brackets), but this session found it only in non-primary blog/advisory sources (bricknbolt.com, studiomatrx.org, liza homes), not in a fetched primary BDA/BBMP Revised Master Plan Zoning Regulations document - so it is not seeded as a fact, per the standing rule against presenting recalled/secondary figures as code-extracted. Queue: fetch the actual Bengaluru RMP 2031 (or current) Zoning Regulations PDF from bdabangalore.org / bbmp.gov.in directly.",
+  },
+  {
+    clauseId: "One local-body (municipal/ULB) setback sample distinct from state DCR/model bye-law level",
+    domain: "planning",
+    reason: "GAP-NOT-CODIFIED",
+    queuedAction:
+      "Operator asked for 'one local-body sample' in addition to the two state DCRs (Karnataka/BDA, Maharashtra DCPR). This session located only secondary reproductions of a real local-body document (Bangalore Mahanagara Palike Building Bye-Laws 2003, hosted on naredco.in - an industry-body mirror, not the municipality's own domain) and did not fetch/verify its primary text this pass. Queue: fetch and extract the naredco.in-hosted 2003 BMP bye-laws (or a current BBMP-published equivalent) directly, verify it is a genuine local-body-level document (below state DCR), and seed its setback clause once confirmed rather than guessed from the mirror's title alone.",
+  },
+]
