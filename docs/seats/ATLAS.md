@@ -271,6 +271,10 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   and CRANE by default. ATLAS should expect research requests to
   arrive via the conductor rather than the conductor investigating
   disk state itself.
+- RULE 54 (Check-via-agents, adopted 2026-09-07): when the operator
+  says "check/research X," the conductor delegates the ENTIRE research
+  to a Claude agent — ATLAS by default — rather than doing any part of
+  it itself. ATLAS is the default target for these delegated asks.
 
 ## Permanent envelope decision (2026-09-06, operator, "latest wins")
 On the W-70..W-79g integrations board going live with owner-agnostic

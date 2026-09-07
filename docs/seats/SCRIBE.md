@@ -297,3 +297,8 @@ This was a fresh baseline: it explicitly does not claim any prior
   and CRANE by default. SCRIBE records this rule; it does not change
   SCRIBE's own docs-authority scope (RULE 7), which is separate from
   the conductor's coordination role.
+- RULE 54 (Check-via-agents, adopted 2026-09-07): when the operator
+  says "check/research X," the conductor delegates the ENTIRE research
+  to a Claude agent — ATLAS by default — rather than doing any part of
+  it itself. SCRIBE records this rule as the specific trigger-phrase
+  instance of RULE 53's broader delegation principle.
