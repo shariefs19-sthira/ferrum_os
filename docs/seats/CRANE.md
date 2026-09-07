@@ -220,6 +220,13 @@
   Nominatim policy governs W-85's own place-search mode; W-85's new
   Geolocation-API and reverse-geocode paths carry no additional
   third-party rate/license terms CRANE needs to separately gate.
+- CRANE's board queue (2026-09-07) also includes W-87 REGIONAL_KB:
+  seed a KB module of region/typology aesthetic recommendations
+  (coastal wind gaps, hill terracing, courtyard ratios, +growth) —
+  explicitly advisory, never merged with or presented as a regulatory
+  minimum; each entry carries a status chip per W-29/W-41's existing
+  VERIFIED-SAMPLE/INDICATIVE convention. Consumed by W-91's aesthetic
+  recommendation line.
 - CRANE's board queue (2026-09-05) also includes its seeding piece of
   W-67 PRESET_LIBRARY: at least 24 combinatorially generated baseline
   plans (plot class × use × floors × style), each verified to actually
