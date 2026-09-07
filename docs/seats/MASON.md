@@ -211,7 +211,13 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   LEARNING_LOOP consumes those events into cohort priors (data-derived,
   never asserted) and a visible quality dashboard (audit pass rate,
   acceptance rate, edit distance); retrain cadence gated on data
-  volume, not a calendar.
+  volume, not a calendar. **Amended 2026-09-07 (per ATLAS's
+  docs/FERRUM_AI_ARCHITECTURE.md finding):** W-94's consent copy must
+  explicitly name "improving generation models" as a purpose — DPDP's
+  no-secondary-use-without-fresh-consent provision means the original
+  design-help consent does not cover model training on its own;
+  cohort priors (W-95) stay labeled unverified/indicative anywhere
+  they're shown until actually derived from measured data.
 - MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
   of all other UI rows): W-47 → W-52 → W-54 → W-55 → W-58 → W-59, physically reordered on
   docs/TASK_BOARD.md to sit right after the fixed top row (W-26).
