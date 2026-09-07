@@ -172,6 +172,20 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   remaining sliders show a live value + units at all times; default
   map center is a disclosed Bengaluru sample-location chip, never a
   stray pin.
+- MASON's board queue TOP PRIORITY (2026-09-07): W-88
+  PRECISION_CONTROLS (logic piece, RIVET does styling) — replace every
+  basic slider with a numeric field + unit toggle + stepper + detented
+  slider (ticks at real code limits) + live drag tooltip, keyboard-
+  adjustable; extends W-53's paired-input requirement and W-85's
+  live-value+units requirement. Includes a fleet-wide dead-binding
+  audit (range/step/onChange) fixed in the same pass. W-89
+  NO_AUTONOMOUS_MUTATION — the idle/demo mode may only orbit camera or
+  sweep highlights, or run on a labelled DEMO scratch model; never
+  mutate real project state; all real mutation flows through SUTRA
+  only. Adds an engine-level (not UI-level) floor-count hard cap =
+  min(requested, ruleset max_height ÷ floor height), resetting any
+  existing runaway value. Note: the instruction cited "RULE 49/50" —
+  RULE 49 is an intentional numbering gap; RULE 50 alone is operative.
 - MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
   of all other UI rows): W-47 → W-52 → W-54 → W-55 → W-58 → W-59, physically reordered on
   docs/TASK_BOARD.md to sit right after the fixed top row (W-26).
