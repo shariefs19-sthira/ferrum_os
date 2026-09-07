@@ -195,7 +195,13 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   REGIONAL_KB, visually distinct from the regulatory tabs; and W-88-
   styled exact-entry numeric inputs for open space + each offset —
   entering below a minimum shows a warn chip citing the clause, never
-  blocks.
+  blocks. W-92 PHOTOREAL_VIEWPORT (top of queue, after W-89/W-88/W-91)
+  upgrades the cockpit's rendering pipeline: PBR materials (concrete/
+  glass/brick/plaster/wood/tile) on real elements, sun position from
+  the resolved site's lat/long + time-of-day, HDR sky + reflections,
+  ACES tone mapping, SSAO + soft shadows, textured ground + context
+  buildings + vegetation, and device-tiered quality with an fps guard
+  reusing the existing W-34/W-41(2) capability-detection mechanism.
 - MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
   of all other UI rows): W-47 → W-52 → W-54 → W-55 → W-58 → W-59, physically reordered on
   docs/TASK_BOARD.md to sit right after the fixed top row (W-26).

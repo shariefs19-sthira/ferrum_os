@@ -1715,3 +1715,11 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** docs/TASK_BOARD.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/ACTIVITY_LOG.md
 **Next Steps:** CRANE pulls W-87 (dep W-29, W-41) before MASON/RIVET can fully complete W-91's aesthetic-line piece (dep includes W-87); MASON/RIVET can start W-91's authority-tab and exact-entry pieces in parallel since those depend on W-24/W-29/W-41/W-88, already available. This branch lands via `land.ps1` this same pass.
+---
+
+## 2026-09-07 - SCRIBE seeded W-92 PHOTOREAL_VIEWPORT
+**Action:** Rebuilt fresh off `origin/main` (tip `48fe4e29`, confirmed as the prior W-87/W-91 landing itself — clean base). Seeded docs/TASK_BOARD.md W-92 PHOTOREAL_VIEWPORT (MASON), inserted directly after W-91 per the operator's own "top of queue, after W-89/88/91" ordering: the cockpit's rendering pipeline upgrades from flat/untextured boxes to a product-grade visualization — PBR materials for concrete/glass/brick/plaster/wood/tile applied to the model's real elements (per W-66), sun position computed from the resolved site's actual latitude/longitude (per W-51/W-65/W-85) and current time-of-day rather than a fixed light, HDR/procedural sky with environment reflections, ACES tone mapping, SSAO + soft shadows, and a textured ground plus materialized context buildings and vegetation (upgrading W-51/ONE-GROUND's flat OSM-derived geometry). Quality tiers auto-select by device capability, explicitly reusing the existing W-34/W-41(2) WebGL2-full-vs-degraded detection mechanism rather than introducing a second one, with an fps guard that steps the tier down instead of letting frame rate collapse. Acceptance ties the shadow-direction claim to a computed check against the resolved site's real lat/long + time-of-day, not an eyeballed screenshot, and requires the fps assertion to pass on RULE 41's own mid-tier device profile — proving the quality-tier/fps-guard system actually holds the budget, not just that it exists in code. Mirrored into docs/seats/MASON.md.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/TASK_BOARD.md, docs/seats/MASON.md, docs/ACTIVITY_LOG.md
+**Next Steps:** MASON pulls W-92 (dep W-51, W-66, W-34, W-41) after W-89/W-88/W-91 clear, per the operator's own ordering. This branch lands via `land.ps1` this same pass.
