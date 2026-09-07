@@ -6,6 +6,7 @@ type PlanInput = {
   setbackM: number
   floors: number
   floorHeightM?: number
+  maxHeightM?: number
 }
 const roomColors = ['#DCE8EF', '#F4DFC4', '#DCEBDD', '#E8E3F0', '#F2E9CF']
 
@@ -38,8 +39,11 @@ export function generateStudioPlan(input: PlanInput): StudioPlan {
   const setbackM = Math.max(0, Math.min(input.setbackM, maximumSetback))
   const buildingWidthM = plotWidthM - setbackM * 2
   const buildingDepthM = plotDepthM - setbackM * 2
-  const floors = Math.max(1, Math.round(input.floors))
   const floorHeightM = input.floorHeightM ?? 3
+  const heightFloorCap = Number.isFinite(input.maxHeightM)
+    ? Math.max(1, Math.floor((input.maxHeightM as number) / floorHeightM))
+    : Number.MAX_SAFE_INTEGER
+  const floors = Math.max(1, Math.min(Math.round(input.floors), heightFloorCap))
   const rooms: StudioRoom[] = []
 
   for (let floor = 1; floor <= floors; floor += 1) {
