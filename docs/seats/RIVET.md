@@ -215,6 +215,10 @@ as every other seat.
   W-88 PRECISION_CONTROLS: monospace value display, tick marks at the
   ruleset's real code limits (not decorative even-spacing), and the
   live drag tooltip — MASON builds the control logic, RIVET styles it.
+  Also its styling piece of W-91 OFFSETS_PANEL: apply W-88's
+  instrument-grade control styling to the panel's exact-entry inputs;
+  MASON builds the three-authority-tab logic and the aesthetic-line
+  wiring.
 - RIVET's board queue (2026-09-06) also includes W-69 UX_OVERHAUL
   (RULE 44: home + all product pages + pricing/docs): a live embedded
   cockpit teaser replaces the static hero card; the Land→Design→

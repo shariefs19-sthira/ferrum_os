@@ -186,6 +186,16 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   min(requested, ruleset max_height ÷ floor height), resetting any
   existing runaway value. Note: the instruction cited "RULE 49/50" —
   RULE 49 is an intentional numbering gap; RULE 50 alone is operative.
+  W-91 OFFSETS_PANEL (logic piece, RIVET styles per W-88) replaces the
+  "How much open ground?" slider entirely (deleted, not hidden): a new
+  Open Space & Offsets panel with three authority tabs (NBC 2016 |
+  State DCR | Local body), each showing that authority's minimum open
+  space + setbacks for the current plot with a real KB clause citation
+  per figure; an aesthetic-recommendation line sourced from W-87
+  REGIONAL_KB, visually distinct from the regulatory tabs; and W-88-
+  styled exact-entry numeric inputs for open space + each offset —
+  entering below a minimum shows a warn chip citing the clause, never
+  blocks.
 - MASON's board queue TOP PRIORITY (2026-09-05, operator-ordered ahead
   of all other UI rows): W-47 → W-52 → W-54 → W-55 → W-58 → W-59, physically reordered on
   docs/TASK_BOARD.md to sit right after the fixed top row (W-26).
