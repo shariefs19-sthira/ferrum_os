@@ -1691,3 +1691,11 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/seats/PI.md, docs/seats/FERRITE.md, docs/ACTIVITY_LOG.md
 **Next Steps:** The conductor role narrows starting immediately — future research asks route through ATLAS/CRANE rather than being answered directly. This branch lands via `land.ps1` this same pass.
+---
+
+## 2026-09-07 - SCRIBE added RULE 54 CHECK_VIA_AGENTS
+**Action:** Rebuilt fresh off `origin/main` (tip `4509ad00`, confirmed as the prior RULE 53 landing itself — clean base). Added AGENTS.md RULE 54 — CHECK_VIA_AGENTS (conductor): when the operator says "check/research X," the conductor delegates the ENTIRE research to a Claude agent — ATLAS by default — and limits itself to relaying the ask and relaying the result once the agent reports; framed explicitly as RULE 53's delegation principle made concrete for this specific trigger phrase, closing the loophole where a "check X real quick" ask feels too small to bother delegating. Mirrored into all seven docs/seats/*.md files and bumped docs/FERRUM_METHOD_PLAYBOOK.md (rule count fifty → fifty-one, addendum range 33–48/50–53 → 33–48/50–54).
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** AGENTS.md, docs/FERRUM_METHOD_PLAYBOOK.md, docs/seats/ATLAS.md, docs/seats/CRANE.md, docs/seats/MASON.md, docs/seats/RIVET.md, docs/seats/SCRIBE.md, docs/seats/PI.md, docs/seats/FERRITE.md, docs/ACTIVITY_LOG.md
+**Next Steps:** Every "check X" / "research X" operator ask now routes to ATLAS by default, not answered by the conductor directly. This branch lands via `land.ps1` this same pass.

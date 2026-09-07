@@ -280,6 +280,10 @@ as every other seat.
   seats, replies to completed work, and states only absolute-knowledge
   or live-verified facts — it delegates ALL research to seats, ATLAS
   and CRANE by default.
+- RULE 54 (Check-via-agents, adopted 2026-09-07): when the operator
+  says "check/research X," the conductor delegates the ENTIRE research
+  to a Claude agent — ATLAS by default — rather than doing any part of
+  it itself.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

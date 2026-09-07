@@ -381,6 +381,10 @@ first assigned row.
   seats, replies to completed work, and states only absolute-knowledge
   or live-verified facts — it delegates ALL research to seats, ATLAS
   and CRANE by default.
+- RULE 54 (Check-via-agents, adopted 2026-09-07): when the operator
+  says "check/research X," the conductor delegates the ENTIRE research
+  to a Claude agent — ATLAS by default — rather than doing any part of
+  it itself.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

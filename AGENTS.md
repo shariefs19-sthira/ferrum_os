@@ -1028,6 +1028,22 @@ directly both wastes the seats' capacity and risks answering from a
 stale or partial view of the repo instead of a seat's grounded,
 verified finding.
 
+## RULE 54 — CHECK_VIA_AGENTS (conductor, adopted 2026-09-07)
+When the operator asks the conductor to "check" or "research" X, the
+conductor delegates the ENTIRE research task to a Claude agent — ATLAS
+by default — and does not perform any part of the investigation
+itself. The conductor's role in this exchange is limited to: relaying
+the operator's ask to the agent, and relaying the agent's finding back
+to the operator once it reports. This is RULE 53's delegation
+requirement made explicit for the specific trigger phrase "check/
+research X," so there is no ambiguity about whether a quick look
+counts as delegable research — it does.
+*Rationale:* "check X real quick" is exactly the kind of small-seeming
+ask that tempts a conductor into doing a little research itself
+"since it's fast" — RULE 54 closes that loophole by naming the trigger
+phrase directly, so RULE 53's delegation principle doesn't quietly
+erode on the cases that feel too small to bother delegating.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

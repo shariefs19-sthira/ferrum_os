@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — fifty numbered rules were actually adopted (numbered 1–14,
-16–31, 33–48, 50–53 — RULE 15, RULE 32, and RULE 49 were never
+matured — fifty-one numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48, 50–54 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50–53, added later in the
+18–31, 33–48, and 50–54, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50–53 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–54 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -788,6 +788,16 @@ source.
     agent capacity that already exists for exactly that purpose and
     risks answering from a stale or partial view instead of an agent's
     grounded, verified finding.*
+54. **Check-via-agents** — the specific trigger-phrase instance of
+    rule 53's delegation principle: when the operator says "check" or
+    "research" something, the conductor delegates the entire task to
+    an agent (a default research agent, not the conductor itself) and
+    limits its own role to relaying the ask and relaying the result.
+    *Rationale: a small-sounding "check X real quick" ask is exactly
+    the case that tempts a conductor into doing a little research
+    itself since it feels too minor to delegate — naming the trigger
+    phrase directly closes that loophole before rule 53's principle
+    quietly erodes on the cases that seem too small to bother with.*
 
 ## 3. Ledger formats
 
