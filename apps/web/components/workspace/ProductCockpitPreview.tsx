@@ -30,7 +30,7 @@ export default function ProductCockpitPreview({ product, label, children }: { pr
   }, [parameters, product])
 
   return (
-    <div className="min-w-0" data-product-cockpit={product}>
+    <div className="relative left-1/2 min-h-[70vh] w-screen min-w-0 -translate-x-1/2" data-product-cockpit={product}>
       {children && <div className="mb-4" data-product-live-tool={product}>{children}</div>}
       <CrossProductLiveSummary product={product} parameters={parameters} />
       <FullscreenController previewSource={product}>{fullscreen => <WorkspaceCockpit controlProduct={product} initialParameters={presets[product]} onParametersChange={setParameters} previewLabel={label} fullscreenControl={{ active: fullscreen.active, label: 'Open in workspace ⛶', onClick: () => { persistHandoff(); fullscreen.toggle() } }} />}</FullscreenController>
