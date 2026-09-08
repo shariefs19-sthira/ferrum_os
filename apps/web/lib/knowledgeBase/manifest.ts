@@ -7,6 +7,7 @@ import { sustainabilityFacts, sustainabilityGaps } from "./domains/sustainabilit
 import { soilFoundationFacts, soilFoundationGaps } from "./domains/soilFoundation"
 import { materialsFacts, materialsGaps } from "./domains/materials"
 import { financeFacts, financeGaps } from "./domains/finance"
+import { vaastuFacts, vaastuGaps } from "./domains/vaastu"
 
 // W-41 KB_EXHAUSTIVE's coverage manifest. Computed from the actual
 // seeded arrays, never hand-typed - a domain with zero facts shows as
@@ -21,6 +22,7 @@ const seededByDomain: Partial<Record<(typeof kbDomains)[number], { length: numbe
   "soil-foundation": soilFoundationFacts,
   materials: materialsFacts,
   finance: financeFacts,
+  vaastu: vaastuFacts,
 }
 
 const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
@@ -32,6 +34,7 @@ const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
   "soil-foundation": soilFoundationGaps,
   finance: financeGaps,
   materials: materialsGaps,
+  vaastu: vaastuGaps,
 }
 
 // Depth-% denominator per the operator's standing rule: the source's
