@@ -290,6 +290,12 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   per row), updated on every landing and stop report. ATLAS's own
   landings and reports are part of PI's review queue; a PI method
   challenge on ATLAS's work routes through the conductor, not directly.
+  **Amended 2026-09-08:** every ledger row also carries a TECH_METHOD
+  block (approach, libraries/APIs used, key files, algorithm/
+  derivation, exact verification commands run) plus ORDER compliance
+  (dependency sequence honored yes/no, deviations flagged). ATLAS
+  includes a method summary (approach/libraries/files/verification
+  commands) in every landing report so PI has real material to cite.
 
 ## Permanent envelope decision (2026-09-06, operator, "latest wins")
 On the W-70..W-79g integrations board going live with owner-agnostic

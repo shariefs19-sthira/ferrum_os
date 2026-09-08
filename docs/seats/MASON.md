@@ -172,6 +172,12 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   remaining sliders show a live value + units at all times; default
   map center is a disclosed Bengaluru sample-location chip, never a
   stray pin.
+- **Board reconciliation note (2026-09-08):** W-22 ARCHVIZ_GRAPHICS, an
+  earlier MASON row PI's Execution Ledger review found missing from
+  the board, has been restored but marked SUPERSEDED by W-92
+  PHOTOREAL_VIEWPORT (MASON's own more complete row) — no independent
+  work remains under W-22's name; MASON should treat W-92 as covering
+  that original ask, not pull W-22 separately.
 - MASON's board queue TOP PRIORITY (2026-09-07): W-88
   PRECISION_CONTROLS (logic piece, RIVET does styling) — replace every
   basic slider with a numeric field + unit toggle + stepper + detented
@@ -437,6 +443,12 @@ first assigned row.
   per row), updated on every landing and stop report. MASON's own
   landings and reports are part of PI's review queue; a PI method
   challenge on MASON's work routes through the conductor, not directly.
+  **Amended 2026-09-08:** every ledger row also carries a TECH_METHOD
+  block (approach, libraries/APIs used, key files, algorithm/
+  derivation, exact verification commands run) plus ORDER compliance
+  (dependency sequence honored yes/no, deviations flagged). MASON
+  includes a method summary (approach/libraries/files/verification
+  commands) in every landing report so PI has real material to cite.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

@@ -17,7 +17,24 @@ correction relay (PI implements nothing itself).
   considered. Suboptimal methods flagged with concrete evidence.
 - **Technical execution data:** landing SHA, test pass/fail counts,
   deploy version ID, retries, blocker history, timestamps.
+- **TECH_METHOD:**
+  - Approach: what was actually built, one or two sentences.
+  - Libraries/APIs: named specifically (e.g. "three.js PBR + ACES,"
+    "Nominatim," "transformers.js WASM"), not "the usual stack."
+  - Key files: the actual files the landing touched.
+  - Algorithm/derivation: the real computation/logic used, where one
+    exists — not just "it computes X."
+  - Verification commands: the exact commands run to confirm the row
+    works, as actually run, not a generic "tests passed."
+  - ORDER compliance: did execution honor the row's own declared
+    dependency sequence (yes/no); any deviation named and flagged.
 ```
+
+PI authors the TECH_METHOD block from the actual landing diff and the
+seat's own report — never invented or assumed. Seats include a method
+summary (approach, libraries/files, verification commands run) in
+every landing report specifically so PI has real material to draw
+from, per RULE 55's 2026-09-08 amendment.
 
 ## Log
 
@@ -331,12 +348,15 @@ but no artifact-specific deployment version IDs. UI/API work stays below
 - **Method review:** Conditional staged architecture is correct; it must not imply training before W-31 approval.
 - **Technical execution data:** author SHA `3ae685d2` not on `origin/main`; no tests/deploy version/retries; blocker: dependencies/no landing.
 
-**Historical status note (2026-09-07):** RULE 55 stood up this ledger the same
-pass it was adopted. PI has not yet run its first review cycle — no
-blocks exist below yet. This is stated directly rather than
-back-filling entries PI has not actually verified, per RULE 40.
-
-(No entries yet — PI's first review cycle populates this section.)
+**Historical status note (2026-09-07):** RULE 55 stood up this ledger
+the same pass it was adopted; PI's Cycle 1 review above populated it
+the same day. **Schema note (2026-09-08, SCRIBE):** the schema was
+amended to add the TECH_METHOD block and ORDER-compliance field after
+Cycle 1 ran — Cycle 1's entries above predate that field and are not
+retroactively edited to add it, per RULE 3 append-only; a future cycle
+populates TECH_METHOD going forward. Cycle 1's real gap findings
+(W-37/38/39/50/90/93) were reconciled on docs/TASK_BOARD.md the same
+day — see that file's own Notes section, not duplicated here.
 
 ## Cycle summaries
 
@@ -347,5 +367,5 @@ retire W-37/W-38/W-39, W-50, W-90, and W-93. Author commits off-main are
 execution evidence only, never landings. No artifact-specific deployment
 version or PI-held rendered-edge screenshot was found for UI/API work.
 
-A ledger summary is posted here each cycle, per RULE 55. None yet —
-see the status note above.
+Cycle 1 is the first entry above — subsequent cycle summaries append
+below it, per RULE 55.

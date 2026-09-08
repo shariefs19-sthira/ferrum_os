@@ -230,6 +230,19 @@ as every other seat.
   (shadcn/ui + magicui/aceternity-style patterns + lucide icons, all
   MIT; framer-motion only where CSS can't) to protect RULE 41's
   bundle budget.
+- RIVET's board queue (2026-09-08, RECOVERED after PI's first Execution
+  Ledger review found them cited in the activity log but absent from
+  the board) includes W-37 POINTER_SWEEP (cursor/hover/focus-visible
+  states site-wide), W-39 WORKSPACE_PROMPT (hero CTA + demo-mode
+  Space3D loop, now cross-referenced against W-69's hero teaser and
+  gated by W-89's no-autonomous-mutation rule), and W-38
+  UI_MODERNIZATION_PASS (nav/hero/cockpit chrome polish, sequenced
+  after both, cross-referenced against W-69's overlapping design-
+  system work — check W-69's landed state before re-doing the same
+  polish). Also W-25 PERMISSIONS_TABS (RIVET or MASON, also recovered):
+  its original DILIGENCE/PERMITS tab-slot assumption conflicts with
+  the since-established fixed ten-tab structure — flagged, not
+  resolved, on the row itself.
 - RIVET's board queue (2026-09-04) also includes W-16 LANDINTEL
   RESTORE: return `UlpinMapExplorer` as LandIntel's PRIMARY hero tool
   (removed by commit `331c1b08`, per AGENTS.md RULE 29's Feature
@@ -298,6 +311,12 @@ as every other seat.
   per row), updated on every landing and stop report. RIVET's own
   landings and reports are part of PI's review queue; a PI method
   challenge on RIVET's work routes through the conductor, not directly.
+  **Amended 2026-09-08:** every ledger row also carries a TECH_METHOD
+  block (approach, libraries/APIs used, key files, algorithm/
+  derivation, exact verification commands run) plus ORDER compliance
+  (dependency sequence honored yes/no, deviations flagged). RIVET
+  includes a method summary (approach/libraries/files/verification
+  commands) in every landing report so PI has real material to cite.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

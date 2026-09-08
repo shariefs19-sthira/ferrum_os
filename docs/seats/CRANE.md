@@ -232,6 +232,15 @@
   plans (plot class × use × floors × style), each verified to actually
   pass W-55's PLAN_AUDIT before being counted as seeded — no preset
   ships on a self-reported pass.
+- CRANE's board queue (2026-09-08, RECOVERED after PI's first
+  Execution Ledger review found it cited in the activity log but
+  absent from the board) includes W-24 COMPLIANCE_ENGINE (CRANE or
+  MASON) — a deterministic parcel+building-type permissions ruleset
+  engine sourced from the existing `2026.1-SAMPLE` ruleset data.
+  Confirmed still genuinely unimplemented (no compliance-engine module
+  found anywhere in `apps/web/lib/`) before restoring — at least a
+  dozen other rows (W-27/28/53/58/88/91) already cite "W-24" as a
+  dependency with nothing to point to until now.
 - CRANE's board queue (2026-09-04) also includes the grammar half of
   W-27 CONVERSATIONAL_PRIMARY: extend the intent grammar (per
   WORKSPACE_SPEC.md §5) to the full parameter set (floors, plot w/d,
@@ -424,6 +433,12 @@ the minimal shape a richer massing model would need to fill in.
   per row), updated on every landing and stop report. CRANE's own
   landings and reports are part of PI's review queue; a PI method
   challenge on CRANE's work routes through the conductor, not directly.
+  **Amended 2026-09-08:** every ledger row also carries a TECH_METHOD
+  block (approach, libraries/APIs used, key files, algorithm/
+  derivation, exact verification commands run) plus ORDER compliance
+  (dependency sequence honored yes/no, deviations flagged). CRANE
+  includes a method summary (approach/libraries/files/verification
+  commands) in every landing report so PI has real material to cite.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, CRANE re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of
