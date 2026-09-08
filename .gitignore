@@ -85,3 +85,14 @@ apps/web/tsconfig.tsbuildinfo
 .fleet-watch-state.json
 .fleet-deploy-state.json
 .fleet-trigger-daemon-log.json
+
+# W-98 follow-up (found live 2026-09-08): Write-FleetSchedule
+# regenerates this file every single watch cycle and it was never
+# git-tracked (a real, untracked `??` file, confirmed via git status)
+# - the operator deleted it once and it reappeared on the very next
+# cycle, and because it's untracked, `git status --porcelain` never
+# comes back clean, which trips Invoke-AutoDeployIfAdvanced's
+# dirty-working-tree guard every cycle. Same root cause and same fix
+# as the .fleet-*.json entries above - real local/regenerated state
+# has no business being tracked or blocking deploys.
+docs/FLEET_SCHEDULE.md
