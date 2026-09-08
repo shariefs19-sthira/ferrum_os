@@ -805,7 +805,16 @@ source.
     review (is this the best possible way, what alternatives were
     considered, is a suboptimal method flagged with evidence), and
     hard technical execution data (landing reference, test results,
-    deploy identifier, retries, blocker history, timestamps). The
+    deploy identifier, retries, blocker history, timestamps), and a
+    TECH_METHOD block (amended after adoption): the actual approach
+    taken, libraries/APIs used named specifically rather than
+    generically, key files touched, the real algorithm/derivation
+    used, the exact verification commands run, and whether execution
+    honored the row's own declared dependency order (with deviations
+    named). The overseer authors that block from the real landing diff
+    and the executing agent's own report, never invented — and every
+    agent includes a short method summary in its own landing reports
+    specifically so the overseer has real material to draw from. The
     ledger updates on every landing and stop report, not on a sample;
     a method-review finding routes to whoever coordinates the fleet as
     a correction, since the overseer itself implements nothing.

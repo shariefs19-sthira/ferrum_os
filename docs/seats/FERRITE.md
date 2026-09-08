@@ -143,3 +143,9 @@ point for the trial, not a claim that all 52 are individually LIVE.
   per row), updated on every landing and stop report. FERRITE's own
   landings and reports are part of PI's review queue; a PI method
   challenge on FERRITE's work routes through the conductor.
+  **Amended 2026-09-08:** every ledger row also carries a TECH_METHOD
+  block (approach, libraries/APIs used, key files, algorithm/
+  derivation, exact verification commands run) plus ORDER compliance
+  (dependency sequence honored yes/no, deviations flagged). FERRITE
+  includes a method summary (approach/libraries/files/verification
+  commands) in every landing report so PI has real material to cite.

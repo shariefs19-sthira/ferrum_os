@@ -25,6 +25,19 @@ row it has reviewed, carrying:
   flagged with concrete evidence, never silently passed through.
 - **Technical execution data** — landing SHA, test pass/fail counts,
   deploy version ID, retry count, blocker history, timestamps.
+- **TECH_METHOD block (amended 2026-09-08)** — approach (what was
+  actually built); libraries/APIs used, named specifically (e.g.
+  "three.js PBR + ACES," "Nominatim," "transformers.js WASM"), not "the
+  usual stack"; key files touched; the algorithm/derivation actually
+  used where one exists; the exact verification commands run. PLUS
+  **ORDER compliance** — did execution honor the row's own declared
+  dependency sequence (yes/no), with deviations named and flagged.
+  PI authors this block itself from the actual landing diff and the
+  seat's own report — never invented or assumed; other seats are
+  expected to include a method summary (approach/libraries/files/
+  verification commands) in every landing report specifically so PI
+  has real material to draw from, rather than having to reverse-
+  engineer method from a bare diff.
 
 The ledger is updated on EVERY landing and EVERY stop report
 fleet-wide, not sampled. A ledger summary is posted each cycle. A
