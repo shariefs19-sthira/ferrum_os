@@ -6,6 +6,7 @@ import { approvalsNocsFacts, approvalsNocsGaps } from "./domains/approvalsNocs"
 import { sustainabilityFacts, sustainabilityGaps } from "./domains/sustainability"
 import { soilFoundationFacts, soilFoundationGaps } from "./domains/soilFoundation"
 import { materialsFacts, materialsGaps } from "./domains/materials"
+import { financeFacts, financeGaps } from "./domains/finance"
 
 // W-41 KB_EXHAUSTIVE's coverage manifest. Computed from the actual
 // seeded arrays, never hand-typed - a domain with zero facts shows as
@@ -19,6 +20,7 @@ const seededByDomain: Partial<Record<(typeof kbDomains)[number], { length: numbe
   sustainability: sustainabilityFacts,
   "soil-foundation": soilFoundationFacts,
   materials: materialsFacts,
+  finance: financeFacts,
 }
 
 const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
@@ -28,6 +30,7 @@ const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
   "approvals-nocs": approvalsNocsGaps,
   sustainability: sustainabilityGaps,
   "soil-foundation": soilFoundationGaps,
+  finance: financeGaps,
   materials: materialsGaps,
 }
 
