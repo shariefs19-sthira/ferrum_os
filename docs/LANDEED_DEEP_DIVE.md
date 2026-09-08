@@ -75,10 +75,26 @@ Screenshots: `scratchpad/landeed/` (home, ai-title-reports, document-retrieval, 
 
 ---
 
+## 1b. Follow-up (W-97, 2026-09-08): live search app walked, per-state coverage independently quantified
+
+The `web.landeed.com` SPA-timeout blocker from the prior pass was resolved by waiting on `domcontentloaded` instead of `networkidle` (the app holds persistent connections that never let `networkidle` fire). This reached real product content the marketing site didn't show:
+
+**Real per-state document-type counts (badge counts shown in-app, independently observed, not company-claimed):** Andhra Pradesh 28, Telangana 6, Madhya Pradesh 3, Maharashtra/Karnataka/Tamil Nadu/Gujarat/Haryana/Delhi/West Bengal/Kerala/Rajasthan/Chandigarh/Goa/Odisha/Punjab/Pondicherry/Bihar/Uttar Pradesh 2 each, and **Chhattisgarh, Jharkhand, Uttarakhand, Himachal Pradesh, Assam, Manipur, Jammu & Kashmir, Arunachal Pradesh, Meghalaya, Mizoram, Nagaland, Sikkim, Tripura, Andaman & Nicobar, Dadra & Nagar Haveli, Lakshadweep, and Ladakh all show 0** — no document product listed for these states/UTs at all. This directly quantifies and meaningfully qualifies the "23+ states" marketing claim: the state *appears in a list* but a large share of India's North-East and hill states/UTs have zero actual product depth.
+
+**Andhra Pradesh's document list, opened directly:** the "28" badge undercounts the actual list — **~48 distinct offerings** were visible when the AP entry was opened, including document types (EC, Adangal, ROR-1B, Village Maps/FMB-LP, CERSAI Mortgage Report) **and a much larger tier of professional/consultation services** not mentioned anywhere on the marketing site: Legal Opinion, Physical Land Survey, Registered Will, Power of Attorney, Notary and Indemnity Bond, Tenant Background Verification, Property Valuation Report, Family Partition/Declaration Consultation, and more. Landeed's actual AP-market product is closer to a full legal/property-services marketplace than the "document search platform" framing on `www.landeed.com` suggests.
+
+**A direct claim contradiction found:** the product app's own footer states verbatim — *"Landeed is not a government entity and is not affiliated with any government agency."* This sits in tension with the marketing site's Document Retrieval page claim of a **"Partnership with Government"** that "helps in improving the digital land records" (quoted in §4 above). Both statements are from Landeed's own properties; they are not easily reconciled as written — either "partnership" is being used loosely (informal cooperation, not a formal affiliation) or the two pages are inconsistent. **Corrects §4's earlier framing**, which took the "Partnership with Government" claim at face value without this counter-signal.
+
+**New product surfaces observed in-app, not on the marketing site:** "Ask Terra" (a chat entry point, presumably surfacing the Terra Black model directly to end users), "Vault" (document storage), "Pulse" (market intelligence, matches marketing site), a map-click-based property-selection flow ("Click Anywhere around the map"), and a visible version number **v0.73.1** — a real product-maturity signal (pre-1.0, actively versioned).
+
+**Acceptance status vs. W-97's stated criteria:** ✅ live search flow walked to real product content (state list → AP's full 48-item catalog, not a "sample report" in the AI-Title-Report sense, but a genuine reachable output, the deepest state's actual product surface); ✅ per-state document-count independently confirmed (18 states/UTs at exactly 2, 3 with more depth, 17 states/UTs at zero) — not company-claimed.
+
+---
+
 ## 7. Synthesis vs. Ferrum
 
 **What Landeed owns that Ferrum can't easily replicate:**
-- **A stated government partnership** for land-records access — if genuine and durable, this is a regulatory/relationship moat, not a technical one, and not something Ferrum can build by writing better code.
+- **A claimed government relationship** for land-records access (see the caveat in §1b — this claim is in tension with the product app's own "not affiliated with any government agency" disclaimer, so its exact nature is unclear) — if genuine and durable in some form, this is a regulatory/relationship consideration, not a technical one, and not something Ferrum can build by writing better code.
 - **Multi-year operating history and 5M+ documents delivered** — real production-scale exposure to the messiness of India's actual land-record variability across 23+ states, which is exactly the long tail `docs/PLOT_TRUTH_ENGINE_SPEC.md` flags as unverified/state-by-state uncertain for Ferrum today.
 - **A self-benchmarked, purpose-built title-verification AI model (Terra Black)** — a real, specific technical asset, even if the benchmark is self-published.
 
