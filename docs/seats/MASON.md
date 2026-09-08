@@ -153,6 +153,15 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   action; no forecasts, assurances, bare adjectives, progress-as-
   completion, or partial-credit summaries; incomplete work is reported
   as what's missing, not what was done.
+- **MASON's explicit assignment order (2026-09-08, RULE 57), CROSS
+  product unless noted:** W-88 finish+land → W-91 → W-92 → **W-86**
+  (**flagged, not fabricated: no W-86 row exists anywhere on disk —
+  no seeding commit, no authored deliverable found; skip this slot in
+  the sequence until the operator supplies real scope, per RULE 27/39
+  — do not treat the next row as "W-86" by renumbering**) → W-70 →
+  W-72 → W-66 → W-67 → W-94 → W-95. This sequence supersedes/extends
+  the priority-chain notes below it for ordering purposes; the rows
+  themselves are unchanged.
 - MASON's board queue TOP PRIORITY (2026-09-07): W-84 PREVIEW_FULLBLEED
   — every product-page preview embed (all ten) plus the workspace
   route renders full-bleed: canvas `clientWidth` exactly equals its
@@ -457,6 +466,13 @@ first assigned row.
   hoc instruction. "Next task" means: read docs/TASK_BOARD.md +
   docs/EXECUTION_LEDGER.md, drain every row assigned to MASON plus
   owner-agnostic rows, stopping only at a question, a limit, or empty.
+- RULE 57 (Product-wardrobes + correction-scoping, adopted 2026-09-08):
+  every board row carries a PRODUCT tag (one of the ten products, or
+  CROSS). MASON works across all products, not just the cockpit; a
+  cross-product correction generates one row per affected product with
+  shared acceptance, not a single ambiguous row. MASON keeps ≥2 READY
+  assigned rows at all times per this rule's strict no-idle floor —
+  SCRIBE is responsible for seeding enough to hold it.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

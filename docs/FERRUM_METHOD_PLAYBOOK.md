@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — fifty-three numbered rules were actually adopted (numbered
-1–14, 16–31, 33–48, 50–56 — RULE 15, RULE 32, and RULE 49 were never
+matured — fifty-four numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48, 50–57 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50–56, added later in the
+18–31, 33–48, and 50–57, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50–56 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–57 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -846,6 +846,28 @@ source.
     citation/scope discipline. Routing every correction through one
     ledger-owning agent keeps the ledger the actual single source of
     truth the execution-oversight rule already assumes it is.*
+57. **Product-wardrobes + correction-scoping** — for a multi-product
+    platform, every ledger task carries a product tag naming which
+    product it affects, or a cross-product tag if it spans more than
+    one. A correction limited to one product becomes one row; a
+    correction that recurs across products becomes the full
+    cross-product task list generated in one pass by the ledger owner
+    — one row per affected product, sharing acceptance — rather than
+    waiting for the reporter to name each product separately. Every
+    agent works across every product; a task's product tag is the only
+    scoping that matters, not an agent's usual specialty. Strict floor:
+    every agent keeps at least two eligible tasks queued at all times —
+    the ledger owner's standing job is to seed or reassign before that
+    floor is ever breached, not the agent's job to solve by idling.
+    *Rationale: a correction reported against one product surface is
+    very often the same defect on every other product surface too —
+    tagging every task by product turns "does this affect the other
+    products" into a queryable fact instead of a rediscovered surprise
+    each time, the same logic behind the principle-generalization rule
+    applied specifically to product scope. The idle floor exists
+    because a self-draining pull-queue model only works if there is
+    always something to drain — an empty queue is a throughput failure
+    for whoever owns the ledger to prevent, not an agent's to accept.*
 
 ## 3. Ledger formats
 
