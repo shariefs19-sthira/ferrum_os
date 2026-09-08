@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — fifty-four numbered rules were actually adopted (numbered
-1–14, 16–31, 33–48, 50–57 — RULE 15, RULE 32, and RULE 49 were never
+matured — fifty-five numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48, 50–58 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50–57, added later in the
+18–31, 33–48, and 50–58, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50–57 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–58 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -868,6 +868,22 @@ source.
     because a self-draining pull-queue model only works if there is
     always something to drain — an empty queue is a throughput failure
     for whoever owns the ledger to prevent, not an agent's to accept.*
+58. **Automated-trigger** — the fleet-watch harness gains a per-agent
+    headless drain loop: while the ledger holds eligible tasks for an
+    agent and that agent isn't rate-limited, spawn the agent's own CLI
+    in its own workspace with a standing "next task" prompt; re-spawn
+    on completion; back off exponentially and wait out a recorded
+    reset time on a rate-limit hit; log every spawn and exit to the
+    same state file the harness already writes, so the execution
+    overseer can cite real trigger evidence rather than inferring
+    activity from a landing alone. A human-facing chat session with
+    the agent remains available for override and observation, but the
+    drain loop itself does not depend on one being open.
+    *Rationale: the no-idle floor and drain-don't-wait rules only
+    became fully self-sustaining once the "next task" trigger itself
+    stopped requiring a human to open a chat window and type it —
+    automating the trigger is what turns a documented behavior into an
+    actually-unattended one.*
 
 ## 3. Ledger formats
 

@@ -164,3 +164,9 @@ point for the trial, not a claim that all 52 are individually LIVE.
   shared acceptance, not a single ambiguous row. The ≥2-READY-row
   no-idle floor applies to FERRITE whenever it is the active gap-filler
   seat, per RULE 33's own activation condition.
+- RULE 58 (Automated-trigger, adopted 2026-09-08): FLEET_WATCH's new
+  per-seat headless drain loop (CRANE builds it, row W-98) applies to
+  FERRITE too whenever it is the active gap-filler seat — a spawned
+  `claude -p "next task"` in FERRITE's worktree, re-spawned on
+  completion, backing off on rate limits. IDE chat stays for operator
+  override/observation only.

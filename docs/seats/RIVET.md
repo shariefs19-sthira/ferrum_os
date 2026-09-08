@@ -339,6 +339,13 @@ as every other seat.
   product with shared acceptance, not a single ambiguous row. RIVET
   keeps ≥2 READY assigned rows at all times per this rule's strict
   no-idle floor — SCRIBE is responsible for seeding enough to hold it.
+- RULE 58 (Automated-trigger, adopted 2026-09-08): FLEET_WATCH gains a
+  per-seat headless drain loop (CRANE builds it, row W-98
+  TRIGGER_DAEMON) that spawns `codex exec` in RIVET's own worktree
+  with the standing prompt "next task" whenever READY work is assigned
+  and RIVET isn't rate-limited, re-spawning on completion with
+  exponential backoff on a rate-limit hit. IDE chat stays for operator
+  override/observation only.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

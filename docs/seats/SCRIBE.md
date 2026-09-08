@@ -335,3 +335,10 @@ This was a fresh baseline: it explicitly does not claim any prior
   waiting for the operator to name each product. SCRIBE owns the
   ≥2-READY-row no-idle floor for every seat — a standing obligation to
   seed or re-assign before any seat's queue actually runs dry.
+- RULE 58 (Automated-trigger, adopted 2026-09-08): FLEET_WATCH gains a
+  per-seat headless drain loop (CRANE builds it, row W-98
+  TRIGGER_DAEMON) that spawns each seat's CLI with the standing prompt
+  "next task" whenever READY work is assigned and the seat isn't
+  rate-limited — including SCRIBE's own worktree. SCRIBE's docs turns
+  are as automatable under this loop as any executor's code turns; IDE
+  chat stays for operator override/observation only.

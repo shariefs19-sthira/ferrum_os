@@ -1163,6 +1163,35 @@ there is always something in the queue to drain — an empty queue for
 even one seat is a fleet-throughput failure SCRIBE is responsible for
 preventing, not the seat's to solve by idling.
 
+## RULE 58 — AUTOMATED_TRIGGER (CRANE, adopted 2026-09-08)
+FLEET_WATCH (RULE 38, W-50's harness) gains a per-seat headless drain
+loop: while docs/TASK_BOARD.md holds READY rows assigned to a seat and
+that seat is not currently rate-limited, the harness spawns that
+seat's CLI process in that seat's own worktree with the standing
+prompt "next task" — `codex exec` for Codex seats, `claude -p` for
+Claude seats. AGENTS.md and the seat's own docs/seats/<SEAT>.md load
+automatically from the worktree; the worktree location IS the seat's
+identity, no separate config needed. The loop re-spawns on completion,
+applies exponential backoff on a rate-limit hit, and waits out the
+recorded reset time before resuming (reusing W-50's existing
+`Get-CodexResetTime`/`Test-DueForRevival` mechanism, not a new one).
+Every spawn and exit is logged into the same ledger-readable state
+file W-50 already writes, so PI can cite real trigger evidence (a
+spawn timestamp, an exit code, the row it was dispatched against) in
+its own ledger entries rather than inferring activity from a landing
+alone.
+**IDE chat windows remain for operator override and observation
+only** — a human can still open a seat's IDE session to intervene or
+watch, but the drain loop itself runs unattended; an IDE session is
+not required for a seat to keep working.
+*Rationale:* RULE 45/52/56/57 already establish that a seat should
+never idle while assigned/owner-agnostic work exists — this rule
+closes the remaining gap, which is that "never idle" still depended on
+a human opening a chat window to say "next task." Automating the
+trigger itself is what makes the ≥2-row no-idle floor (RULE 57) and
+the drain-don't-wait model (RULE 45/52) actually self-sustaining
+instead of bottlenecked on manual prompting.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
