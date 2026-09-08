@@ -84,7 +84,9 @@ param(
     [int]$SilentIdleThresholdMinutes = 15,   # silent-idle detector: minutes since last activity before a seat with owned READY rows and no posted question is flagged
     [switch]$EnableTriggerDaemon,            # W-98: per-seat headless drain loop is wired but inert until this is passed explicitly - same "built now, fired after operator flip" pattern as -EnableClaudeAdapter
     [int]$TriggerDaemonBaseBackoffSeconds = 60,
-    [int]$TriggerDaemonMaxBackoffSeconds = 14400  # 4h cap - a rate-limited seat backs off exponentially from the base but never waits longer than this before the next retry
+    [int]$TriggerDaemonMaxBackoffSeconds = 14400, # 4h cap - a rate-limited seat backs off exponentially from the base but never waits longer than this before the next retry
+    [int]$TriggerDaemonRespawnDelaySeconds = 5,   # W-98 respawn policy: pause between an exit-0 spawn and its immediate respawn when the seat still has dispatchable rows
+    [int]$TriggerDaemonMaxRespawnsPerCycle = 20   # per-seat cap on immediate respawns within one Invoke-SeatTriggerDaemon call, so a stuck condition can't spin forever inside one cycle - the outer -Loop cycle remains the real backstop
 )
 
 $ErrorActionPreference = "Stop"
@@ -245,16 +247,74 @@ function Get-SeatDispatchableRow([string]$Seat) {
 # rate-limited. Kept as its own file (not folded into
 # .fleet-deploy-state.json, which is deploy-specific) per the operator's
 # own "or its documented companion state file" framing.
+#
+# BUG FOUND LIVE 2026-09-08 (real corrupted file inspected, not
+# hypothesized): Windows PowerShell 5.1's ConvertTo-Json silently drops
+# the wrapping "[...]" when a top-level piped array has exactly one
+# element, and ConvertFrom-Json mirrors that on read - a 1-element JSON
+# array round-trips back as a bare scalar object, not a 1-element
+# array. The original `$ledger | ConvertTo-Json` write pattern hit this
+# on every cycle where the ledger held exactly one entry, and reading
+# that back as a scalar then appending via `@(scalar) + $Entry`
+# compounds it: each subsequent write nested the previous ledger one
+# level deeper inside a `{"value": [...], "Count": N}` wrapper (that
+# literal shape is PS5.1's own default display-object serialization of
+# an array that ConvertTo-Json received as a single non-array pipeline
+# object). Confirmed against the real ledger this session - RIVET's own
+# spawn entry was nested two levels deep, which is why "check the
+# ledger for a RIVET entry" could plausibly look empty even though a
+# spawn genuinely happened.
+#
+# Fix: ConvertTo-JsonArraySafe always writes real "[...]" brackets
+# regardless of element count (PS5.1 has no -AsArray flag, so this is
+# done by hand for the single-element case), and Get-TriggerDaemonLedger
+# self-heals any already-corrupted wrapper objects found in the file on
+# every read, so the next write repairs the file instead of nesting it
+# deeper.
+function ConvertTo-JsonArraySafe($Array) {
+    $arr = @($Array)
+    if ($arr.Count -eq 0) { return "[]" }
+    if ($arr.Count -eq 1) { return "[" + ($arr[0] | ConvertTo-Json -Depth 6) + "]" }
+    return $arr | ConvertTo-Json -Depth 6
+}
+
+function Repair-TriggerDaemonLedgerEntries($Items) {
+    # Plain (non-comma-forced) return, matching the convention already
+    # used successfully elsewhere in this file (Get-SeatOwnedReadyRows
+    # etc.) - every caller re-collects with @(...). An earlier version
+    # of this fix used a comma-forced return here specifically, which
+    # then double-wrapped whenever an outside caller ALSO wrapped the
+    # result in @() (empirically confirmed via an isolated test: a
+    # comma-forced array combined with a caller's @() produces a
+    # 1-element array containing the real array as its only element -
+    # not the flat array either side expected). Caught before landing,
+    # not shipped and found live a second time.
+    $flat = New-Object System.Collections.ArrayList
+    foreach ($item in @($Items)) {
+        if ($null -eq $item) { continue }
+        $propNames = $item.PSObject.Properties.Name
+        if (($propNames -contains 'value') -and ($propNames -contains 'Count') -and -not ($propNames -contains 'Seat')) {
+            foreach ($inner in (Repair-TriggerDaemonLedgerEntries $item.value)) { [void]$flat.Add($inner) }
+        } else {
+            [void]$flat.Add($item)
+        }
+    }
+    return $flat.ToArray()
+}
+
 function Get-TriggerDaemonLedger {
     if (Test-Path $triggerDaemonLedgerFile) {
-        try { return @(Get-Content $triggerDaemonLedgerFile -Raw | ConvertFrom-Json) } catch { }
+        try {
+            $raw = Get-Content $triggerDaemonLedgerFile -Raw | ConvertFrom-Json
+            return Repair-TriggerDaemonLedgerEntries $raw
+        } catch { }
     }
     return @()
 }
 
 function Add-TriggerDaemonLedgerEntry($Entry) {
     $ledger = @(Get-TriggerDaemonLedger) + $Entry
-    $ledger | ConvertTo-Json -Depth 6 | Set-Content -Path $triggerDaemonLedgerFile -Encoding utf8
+    ConvertTo-JsonArraySafe $ledger | Set-Content -Path $triggerDaemonLedgerFile -Encoding utf8
 }
 
 # A real, unanswered posted question blocks the idle flag - a seat that
@@ -386,11 +446,6 @@ function Invoke-SeatTriggerDaemon {
                 }
             } catch { }
         }
-        $row = Get-SeatDispatchableRow -Seat $seatId
-        if (-not $row) {
-            Write-Host "TRIGGER-DAEMON: $seatId has no dispatchable READY row (owned or owner-agnostic) - nothing to spawn."
-            continue
-        }
         $worktreePath = Resolve-SeatWorktree -Glob $seatCfg.worktreeGlob
         if (-not $worktreePath) {
             Write-Host "TRIGGER-DAEMON: $seatId has no resolvable worktree ($($seatCfg.worktreeGlob)) - refusing to spawn without its own identity, skipping."
@@ -398,10 +453,58 @@ function Invoke-SeatTriggerDaemon {
         }
         $isCodex = $codexBackedSeats -contains $seatId
         $prompt = "next task"
-        $cmd = if ($isCodex) { "codex exec --full-auto -C `"$worktreePath`" `"$prompt`"" } else { "claude -p `"$prompt`"" }
+        # RESPAWN POLICY (added 2026-09-08, per operator ask): a seat
+        # that exits 0 with more of its own READY rows still open gets
+        # respawned again immediately (after a short delay), instead of
+        # sitting idle until the next full -Loop cycle (which defaults
+        # to 60 minutes - far too slow for genuine continuous drain).
+        # Capped per seat per call to Invoke-SeatTriggerDaemon so a
+        # runaway condition (e.g. a row that never actually clears)
+        # cannot spin forever inside one function call; the outer
+        # -Loop cycle is still the real backstop.
+        $respawnCount = 0
+        $seatDone = $false
+        while (-not $seatDone -and $respawnCount -lt $TriggerDaemonMaxRespawnsPerCycle) {
+        $respawnCount += 1
+        $row = Get-SeatDispatchableRow -Seat $seatId
+        if (-not $row) {
+            Write-Host "TRIGGER-DAEMON: $seatId has no dispatchable READY row (owned or owner-agnostic) - nothing to spawn."
+            break
+        }
+        # BUG FOUND LIVE 2026-09-08: the original code here invented a
+        # THIRD codex invocation shape - `codex exec --full-auto -C
+        # "<path>" "<prompt>"` (flags + a trailing positional prompt) -
+        # that matches neither of this file's two other, pre-existing
+        # codex invocations: Test-CodexProbe's bare `codex exec "reply
+        # OK"` (no flags at all), or Start-CodexMission's `codex exec
+        # --full-auto -C "<path>" - < "<file>"` (flags + a stdin-piped
+        # prompt via the literal `-` marker, never a positional arg).
+        # The real ledger this session showed MASON and RIVET's codex
+        # spawns both exiting with code 1 in about one second - orders
+        # of magnitude faster than a real codex session, consistent
+        # with an argument-parsing failure. This session's sandbox does
+        # not have the codex CLI installed (confirmed: absent from both
+        # bash and Windows PATH) so this fix could NOT be verified
+        # against a live --help output as asked - it is instead aligned
+        # with Start-CodexMission's own already-established stdin-piped
+        # shape, the one codex invocation pattern in this file that
+        # already has real (if likewise unverified-live) precedent,
+        # rather than repeating the invented, untested combination. If
+        # this still fails, the ledger's next codex ExitCode is the
+        # real signal to check - not assumed fixed by this change alone.
+        $promptFile = $null
+        if ($isCodex) {
+            $promptFile = Join-Path $env:TEMP "fleet-trigger-daemon-$seatId-prompt-$([guid]::NewGuid().ToString('N')).txt"
+            Set-Content -Path $promptFile -Value $prompt -Encoding utf8 -NoNewline
+            $cmd = "codex exec --full-auto -C `"$worktreePath`" - < `"$promptFile`""
+        } else {
+            $cmd = "claude -p `"$prompt`""
+        }
         if ($DryRun) {
             Write-Host "[DRY-RUN] TRIGGER-DAEMON would spawn $seatId in $worktreePath for row $($row.Id) - $($row.Title): $cmd"
-            continue
+            if ($promptFile) { Remove-Item $promptFile -Force -ErrorAction SilentlyContinue }
+            $seatDone = $true
+            break
         }
         Write-Host "TRIGGER-DAEMON: spawning $seatId in $worktreePath for row $($row.Id) - $($row.Title): $cmd"
         $spawnedAt = (Get-Date).ToUniversalTime().ToString("o")
@@ -419,6 +522,7 @@ function Invoke-SeatTriggerDaemon {
             $outputText = $_.Exception.Message
         } finally {
             Remove-Item $stdoutFile, $stderrFile -Force -ErrorAction SilentlyContinue
+            if ($promptFile) { Remove-Item $promptFile -Force -ErrorAction SilentlyContinue }
         }
         $exitedAt = (Get-Date).ToUniversalTime().ToString("o")
         $rateLimited = $outputText -match '(?i)limit'
@@ -433,17 +537,38 @@ function Invoke-SeatTriggerDaemon {
             RateLimited = [bool]$rateLimited
         })
         $prevBackoff = if (($seatCfg.PSObject.Properties.Name -contains 'triggerBackoffSeconds') -and $seatCfg.triggerBackoffSeconds) { [int]$seatCfg.triggerBackoffSeconds } else { $TriggerDaemonBaseBackoffSeconds }
-        if ($rateLimited) {
+        # RESPAWN POLICY (added 2026-09-08, per operator ask): exit 0 ->
+        # reset backoff, and respawn immediately if this seat still has
+        # a dispatchable row (checked at the top of the next loop
+        # iteration) rather than waiting for the next full cycle. Any
+        # non-zero exit -> back off (doubling, capped) AND alert -
+        # previously only a text-matched "rate limit" signal backed off
+        # and nothing alerted on a plain failure; a codex argument error
+        # (like the one this same landing fixes) would have silently
+        # logged and kept retrying every cycle with no signal to a human
+        # that anything was wrong.
+        if ($exitCode -eq 0) {
+            $seatCfg | Add-Member -NotePropertyName triggerBackoffSeconds -NotePropertyValue $TriggerDaemonBaseBackoffSeconds -Force
+            $seatCfg | Add-Member -NotePropertyName triggerBackoffUntil -NotePropertyValue $null -Force
+            Write-Host "TRIGGER-DAEMON: $seatId exited 0 - backoff reset to base."
+            $configChanged = $true
+            if ($respawnCount -ge $TriggerDaemonMaxRespawnsPerCycle) {
+                Write-Host "TRIGGER-DAEMON: $seatId hit the per-cycle respawn cap ($TriggerDaemonMaxRespawnsPerCycle) - remaining rows wait for the next watch cycle."
+                $seatDone = $true
+            } elseif (-not $DryRun) {
+                Start-Sleep -Seconds $TriggerDaemonRespawnDelaySeconds
+            }
+        } else {
             $nextBackoff = [Math]::Min($prevBackoff * 2, $TriggerDaemonMaxBackoffSeconds)
             $seatCfg | Add-Member -NotePropertyName triggerBackoffSeconds -NotePropertyValue $nextBackoff -Force
             $seatCfg | Add-Member -NotePropertyName triggerBackoffUntil -NotePropertyValue ((Get-Date).AddSeconds($nextBackoff).ToString("o")) -Force
-            Write-Host "TRIGGER-DAEMON: $seatId rate-limited (exit $exitCode) - backing off $nextBackoff s."
-        } else {
-            $seatCfg | Add-Member -NotePropertyName triggerBackoffSeconds -NotePropertyValue $TriggerDaemonBaseBackoffSeconds -Force
-            $seatCfg | Add-Member -NotePropertyName triggerBackoffUntil -NotePropertyValue $null -Force
-            Write-Host "TRIGGER-DAEMON: $seatId exited $exitCode, no rate limit detected - backoff reset to base."
+            $limitNote = if ($rateLimited) { "rate-limited" } else { "failed" }
+            Write-Host "TRIGGER-DAEMON: $seatId $limitNote (exit $exitCode) - backing off $nextBackoff s, alerting."
+            Send-NtfyAlert -Title "TRIGGER-DAEMON: $seatId spawn failed" -Message "Seat $seatId exited $exitCode dispatching $($row.Id) - $($row.Title). RateLimited=$rateLimited. Backing off $nextBackoff s. See .fleet-trigger-daemon-log.json for the full entry."
+            $configChanged = $true
+            $seatDone = $true
         }
-        $configChanged = $true
+        }
     }
     if ($configChanged) { Save-FleetSeatsConfig -SeatsArray $seatConfigs }
 }
@@ -935,7 +1060,19 @@ function Invoke-WatchCycle {
     return $true
 }
 
-if ($Loop) {
+# W-98 follow-up (2026-09-08, per operator ask): -EnableTriggerDaemon
+# without -Loop previously ran exactly one cycle then exited - a
+# one-shot invocation defeats the point of a "daemon." Passing
+# -EnableTriggerDaemon now implies persistent cycle -> sleep -> cycle
+# behavior even if -Loop itself wasn't separately passed, so an
+# operator flipping the daemon on doesn't also have to remember a
+# second flag for it to actually keep running.
+$effectiveLoop = $Loop -or $EnableTriggerDaemon
+if ($EnableTriggerDaemon -and -not $Loop) {
+    Write-Host "TRIGGER-DAEMON: -EnableTriggerDaemon implies persistent looping (cycle -> sleep -> cycle) even though -Loop wasn't passed separately."
+}
+
+if ($effectiveLoop) {
     while ($true) {
         $shouldContinue = Invoke-WatchCycle
         if (-not $shouldContinue) { break }
