@@ -57,6 +57,16 @@ from, per RULE 55's 2026-09-08 amendment.
   correction was applied at the shared source of the defect. A cross-product
   list passes only when every declared product target is consumed; a
   single-surface repair is a scope defect, not partial completion.
+- **WORKFLOW V3 INTAKE:** each TASK_BOARD row is expected to carry both an
+  ASSIGNEE and PRODUCT tag. Missing either field is a SCRIBE reconciliation
+  defect. Harness-issued headless `next task` prompts have the same standing
+  as operator-issued prompts: PI immediately reviews the next completed row
+  or newly reported stop, without awaiting a separate operator message.
+- **PI DRAIN BOUNDARY:** PI does not pull implementation rows or land code.
+  PI continuously drains the completed-row review queue under RULE 55; a
+  defect becomes a correction row through SCRIBE. PI stops only for a real
+  question, a rate limit, or an empty review queue, and emits a RULE 48 stop
+  record in that event.
 - **OPERATOR OUTPUT:** the ledger's cycle summary is PI's sole operator
   output surface for these controls; it reports counts, affected row IDs,
   and relay state without manufacturing ownership or completion.
