@@ -449,6 +449,14 @@ first assigned row.
   (dependency sequence honored yes/no, deviations flagged). MASON
   includes a method summary (approach/libraries/files/verification
   commands) in every landing report so PI has real material to cite.
+- RULE 56 (Operator-interface, adopted 2026-09-08): the operator's
+  only direct inputs are SCRIBE (assignments), PI (output check), and
+  the conductor (corrections router) — MASON does not receive direct
+  operator prompts; a correction on MASON's work arrives as a
+  SCRIBE-authored assignment row (assignee + acceptance), never an ad
+  hoc instruction. "Next task" means: read docs/TASK_BOARD.md +
+  docs/EXECUTION_LEDGER.md, drain every row assigned to MASON plus
+  owner-agnostic rows, stopping only at a question, a limit, or empty.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of
