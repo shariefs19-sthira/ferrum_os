@@ -13,6 +13,7 @@ correction relay (PI implements nothing itself).
 ### <ROW ID> — <TITLE>
 - **Status:** DONE / HALFWAY / IN_PROGRESS / BLOCKED (+ reason) / STUCK
 - **Owner:** <seat>
+- **ORDER:** <declared board sequence/dependencies>; <observed execution order>; PASS / DEVIATION
 - **Method review:** is this the best possible way? Alternatives
   considered. Suboptimal methods flagged with concrete evidence.
 - **Technical execution data:** landing SHA, test pass/fail counts,
@@ -35,6 +36,19 @@ seat's own report — never invented or assumed. Seats include a method
 summary (approach, libraries/files, verification commands run) in
 every landing report specifically so PI has real material to draw
 from, per RULE 55's 2026-09-08 amendment.
+
+## Per-cycle controls
+
+- **ASSIGNEE-COVERAGE:** enumerate every current `READY` TASK_BOARD row.
+  A row without a named assignee is an ownership defect; include it in the
+  cycle summary and relay it to SCRIBE. Do not infer an owner.
+- **EXECUTION-ASSIGNEE MATCH:** for every author commit, landing, or stop
+  record reviewed, compare the executing seat with the row's recorded
+  assignee. Record a match, an authorized split, or a mismatch requiring a
+  SCRIBE reconciliation relay.
+- **OPERATOR OUTPUT:** the ledger's cycle summary is PI's sole operator
+  output surface for these controls; it reports counts, affected row IDs,
+  and relay state without manufacturing ownership or completion.
 
 ## Log
 
