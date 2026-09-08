@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
+import PrecisionControl from "../controls/PrecisionControl"
 
 type Mode = "ferrum" | "govt" | "custom"
 
@@ -160,18 +161,9 @@ function FerrumMode() {
               </span>
             </div>
             <div className="mt-2 grid gap-4 sm:grid-cols-3">
-              <label className="text-xs text-relume-ink">
-                Govt trust share: {govtShare}%
-                <input type="range" min={0} max={100} value={govtWeight} onChange={(e) => setGovtWeight(Number(e.target.value))} className="mt-1 w-full" />
-              </label>
-              <label className="text-xs text-relume-ink">
-                Market trust share: {marketShare}%
-                <input type="range" min={0} max={100} value={marketWeight} onChange={(e) => setMarketWeight(Number(e.target.value))} className="mt-1 w-full" />
-              </label>
-              <label className="text-xs text-relume-ink">
-                User trust share: {userShare}%
-                <input type="range" min={0} max={100} value={userWeight} onChange={(e) => setUserWeight(Number(e.target.value))} className="mt-1 w-full" />
-              </label>
+              <PrecisionControl label={`Govt trust share (${govtShare}% normalized)`} value={govtWeight} min={0} max={100} step={1} unit="percent" onChange={setGovtWeight}/>
+              <PrecisionControl label={`Market trust share (${marketShare}% normalized)`} value={marketWeight} min={0} max={100} step={1} unit="percent" onChange={setMarketWeight}/>
+              <PrecisionControl label={`User trust share (${userShare}% normalized)`} value={userWeight} min={0} max={100} step={1} unit="percent" onChange={setUserWeight}/>
             </div>
           </>
         )

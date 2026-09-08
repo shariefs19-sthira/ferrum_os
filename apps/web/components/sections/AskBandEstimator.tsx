@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import PrecisionControl from "../controls/PrecisionControl"
 
 type AskBandResult = { low: number; high: number; suggested: number; indicative: boolean }
 
@@ -35,17 +36,7 @@ export default function AskBandEstimator() {
         Base value (₹, from sample comparables)
         <input value={baseValue} onChange={(e) => setBaseValue(e.target.value)} className="mt-1 w-full rounded-lg border border-relume-border px-3 py-2 text-sm" />
       </label>
-      <label className="mt-4 block text-sm text-relume-ink">
-        Urgency: {urgency}%
-        <input
-          type="range"
-          min={0}
-          max={100}
-          value={urgency}
-          onChange={(e) => setUrgency(Number(e.target.value))}
-          className="mt-2 w-full"
-        />
-      </label>
+      <div className="mt-4"><PrecisionControl label="Urgency" value={urgency} min={0} max={100} step={1} unit="percent" onChange={setUrgency}/></div>
       <button
         type="button"
         onClick={handleEstimate}
