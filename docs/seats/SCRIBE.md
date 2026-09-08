@@ -316,3 +316,13 @@ This was a fresh baseline: it explicitly does not claim any prior
   (dependency sequence honored yes/no, deviations flagged). SCRIBE
   updated the ledger schema and its own docs-turn summaries follow the
   same method-summary discipline so PI has real material to cite.
+- RULE 56 (Operator-interface, adopted 2026-09-08): the operator's
+  only direct inputs are SCRIBE, PI, and the conductor. SCRIBE is
+  where operator assignments actually land — every operator correction
+  the conductor routes arrives at SCRIBE as a request to seed or amend
+  a board row (assignee + acceptance), which is exactly SCRIBE's
+  existing practice this entire session, now codified as the fleet's
+  only correction path rather than an option among several. "Next
+  task" means: read docs/TASK_BOARD.md + docs/EXECUTION_LEDGER.md,
+  drain every row assigned to SCRIBE plus owner-agnostic docs rows,
+  stopping only at a question, a limit, or empty.

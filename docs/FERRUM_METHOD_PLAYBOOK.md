@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — fifty-two numbered rules were actually adopted (numbered
-1–14, 16–31, 33–48, 50–55 — RULE 15, RULE 32, and RULE 49 were never
+matured — fifty-three numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48, 50–56 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50–55, added later in the
+18–31, 33–48, and 50–56, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50–55 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–56 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -824,6 +824,28 @@ source.
     that builds nothing and reviews everything catches "it shipped but
     it's the wrong method" in a way no agent auditing its own work,
     or a coordinator busy sequencing work, reliably does.*
+56. **Operator-interface** — the operator's only direct inputs into
+    the fleet are three: the ledger-owning agent (assignments), the
+    execution overseer (output check), and the coordinator
+    (corrections router). Executor agents never receive prompts
+    directly from the operator; a correction on an executor's work
+    routes through the coordinator to the ledger-owning agent as a
+    new or amended assignment (assignee + acceptance criteria), never
+    as an ad hoc instruction straight to the agent that did the work.
+    Every task on the ledger carries an explicit assignee — a single
+    named agent, or an explicit "any agent" designation for
+    owner-agnostic work — never an implicit or absent one. A fixed
+    trigger phrase ("next task") is documented to mean: read the
+    ledger and the execution-oversight log, then drain every assigned
+    and owner-agnostic task in sequence, stopping only at a posted
+    question, a stated limit, or an empty queue.
+    *Rationale: letting any agent receive a correction directly creates
+    two problems — the correction never reaches the ledger (so the
+    execution overseer and future agents can't see it), and the agent
+    acts on an instruction that skipped the ledger-owner's own
+    citation/scope discipline. Routing every correction through one
+    ledger-owning agent keeps the ledger the actual single source of
+    truth the execution-oversight rule already assumes it is.*
 
 ## 3. Ledger formats
 

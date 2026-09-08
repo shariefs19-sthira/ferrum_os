@@ -109,6 +109,15 @@ RULE 35(4): seats update this board only on DONE or STUCK.
 
 ## Notes
 
+- **ASSIGNEE clarification (2026-09-08, RULE 56 OPERATOR_INTERFACE):**
+  the "Eligible seats" column IS this board's ASSIGNEE column — a
+  single named seat there is that row's assignee; "(any seat —
+  owner-agnostic)" is itself a valid, explicit assignee designation,
+  not an absent one. No retroactive schema change was made to any
+  existing row; this note documents the mapping RULE 56 requires. Per
+  RULE 56, operator corrections on a seat's work now arrive here as a
+  new/amended assignment row (assignee + acceptance), not as a direct
+  prompt to that seat.
 - **Board reconciliation (2026-09-08), per PI's first Execution Ledger
   review:** W-22, W-23, W-24, W-25, W-37, W-38, and W-39 were cited as
   seeded rows in docs/ACTIVITY_LOG.md but had gone missing from this

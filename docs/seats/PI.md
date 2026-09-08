@@ -90,6 +90,15 @@ role that lands nothing of its own:
   method-review findings route through the conductor as correction
   relays, consistent with the conductor's own narrowed research-relay
   role.
+- RULE 56 (Operator-interface, adopted 2026-09-08): PI is one of the
+  operator's three direct inputs — the output-check surface
+  (docs/EXECUTION_LEDGER.md). The operator does not prompt executor
+  seats directly; corrections on their work route through the
+  conductor to SCRIBE as board rows. "Next task" for PI means: read
+  docs/TASK_BOARD.md + its own docs/EXECUTION_LEDGER.md, review every
+  unreviewed row (PI has no "assigned" rows in the executor sense —
+  its queue is every other seat's landed/in-progress work), stopping
+  only at a question, a limit, or being caught up.
 
 ## Assigned slice
 

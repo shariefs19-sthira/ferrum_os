@@ -296,6 +296,14 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   (dependency sequence honored yes/no, deviations flagged). ATLAS
   includes a method summary (approach/libraries/files/verification
   commands) in every landing report so PI has real material to cite.
+- RULE 56 (Operator-interface, adopted 2026-09-08): the operator's
+  only direct inputs are SCRIBE (assignments), PI (output check), and
+  the conductor (corrections router) — ATLAS does not receive direct
+  operator prompts; a correction on ATLAS's work arrives as a
+  SCRIBE-authored assignment row (assignee + acceptance), never an ad
+  hoc instruction. "Next task" means: read docs/TASK_BOARD.md +
+  docs/EXECUTION_LEDGER.md, drain every row assigned to ATLAS plus
+  owner-agnostic rows, stopping only at a question, a limit, or empty.
 
 ## Permanent envelope decision (2026-09-06, operator, "latest wins")
 On the W-70..W-79g integrations board going live with owner-agnostic
