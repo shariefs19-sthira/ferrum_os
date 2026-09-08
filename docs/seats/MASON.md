@@ -473,6 +473,13 @@ first assigned row.
   shared acceptance, not a single ambiguous row. MASON keeps ≥2 READY
   assigned rows at all times per this rule's strict no-idle floor —
   SCRIBE is responsible for seeding enough to hold it.
+- RULE 58 (Automated-trigger, adopted 2026-09-08): FLEET_WATCH gains a
+  per-seat headless drain loop (CRANE builds it, row W-98
+  TRIGGER_DAEMON) that spawns `codex exec` in MASON's own worktree
+  with the standing prompt "next task" whenever READY work is assigned
+  and MASON isn't rate-limited, re-spawning on completion with
+  exponential backoff on a rate-limit hit. IDE chat stays for operator
+  override/observation only.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, MASON re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of

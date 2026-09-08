@@ -320,6 +320,13 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   product with shared acceptance, not a single ambiguous row. ATLAS
   keeps ≥2 READY assigned rows at all times per this rule's strict
   no-idle floor — SCRIBE is responsible for seeding enough to hold it.
+- RULE 58 (Automated-trigger, adopted 2026-09-08): FLEET_WATCH gains a
+  per-seat headless drain loop (CRANE builds it, row W-98
+  TRIGGER_DAEMON) that spawns `claude -p "next task"` in ATLAS's own
+  worktree whenever READY work is assigned and ATLAS isn't
+  rate-limited, re-spawning on completion with exponential backoff on
+  a rate-limit hit. IDE chat stays for operator override/observation
+  only.
 
 ## Permanent envelope decision (2026-09-06, operator, "latest wins")
 On the W-70..W-79g integrations board going live with owner-agnostic

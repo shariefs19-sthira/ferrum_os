@@ -108,6 +108,15 @@ role that lands nothing of its own:
   floor is SCRIBE's obligation, not PI's to enforce directly — but PI's
   ledger review is where a seat's queue running dry would first become
   visible.
+- RULE 58 (Automated-trigger, adopted 2026-09-08): FLEET_WATCH's new
+  per-seat headless drain loop (CRANE builds it, row W-98) logs every
+  spawn/exit to the same ledger-readable state file W-50 already
+  writes — PI cites this as real trigger evidence (spawn timestamp,
+  exit code, dispatched row) in its own ledger entries, closing the
+  gap between "a landing happened" and "we know it was actually
+  triggered and completed unattended." PI's own review cycles remain
+  human-triggered unless/until this loop is extended to PI itself,
+  which this row does not do.
 
 ## Assigned slice
 

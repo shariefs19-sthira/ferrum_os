@@ -232,8 +232,11 @@
   plans (plot class × use × floors × style), each verified to actually
   pass W-55's PLAN_AUDIT before being counted as seeded — no preset
   ships on a self-reported pass.
-- **CRANE's explicit assignment order (2026-09-08, RULE 57):** KB
-  drain (the 10 remaining domains per W-29/W-41's coverage manifest,
+- **CRANE's explicit assignment order, updated (2026-09-08, RULE 58):**
+  W-98 TRIGGER_DAEMON now sits at the very top, ahead of the RULE 57
+  sequence below — the operator's own "top of his queue" framing for
+  this row. Full order: **W-98** → KB drain (the 10 remaining domains
+  per W-29/W-41's coverage manifest,
   interleaved with the rest of this sequence rather than done as one
   block) → W-85 resolver prototype (LandIntel) → W-87 typology KB
   (CROSS) → W-70's Worker/transcription piece (CROSS, MASON owns the
@@ -477,6 +480,16 @@ the minimal shape a richer massing model would need to fill in.
   CRANE keeps ≥2 READY assigned rows at all times per this rule's
   strict no-idle floor — SCRIBE is responsible for seeding enough to
   hold it.
+- RULE 58 (Automated-trigger, adopted 2026-09-08): **CRANE builds
+  this row (W-98 TRIGGER_DAEMON, top of CRANE's queue).** FLEET_WATCH
+  gains a per-seat headless drain loop: while READY rows are assigned
+  and the seat isn't rate-limited, spawn that seat's CLI (`codex exec`
+  for Codex seats, `claude -p` for Claude seats, including CRANE's own)
+  in its worktree with the standing prompt "next task"; re-spawn on
+  completion; exponential backoff + W-50's existing reset-time
+  mechanism on a rate-limit hit; log every spawn/exit to the same
+  ledger-readable state file W-50 writes, so PI can cite real trigger
+  evidence. IDE chat stays for operator override/observation only.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, CRANE re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of
