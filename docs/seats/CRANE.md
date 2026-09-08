@@ -241,6 +241,19 @@
   found anywhere in `apps/web/lib/`) before restoring — at least a
   dozen other rows (W-27/28/53/58/88/91) already cite "W-24" as a
   dependency with nothing to point to until now.
+- CRANE's board queue (2026-09-08, PI's Cycle 1 Execution Ledger review
+  found these) also includes: W-50 HARNESS_24x7, retroactively marked
+  DONE — CRANE's own fleet-revival harness (`fcfc892f`) landed but was
+  never boarded; no further action needed unless the ledger's
+  operational-proof gap gets picked up separately. W-90
+  LAND_DATA_UNIVERSE — wires additional land-data sources into the
+  existing W-51/W-65/W-85 adapter pattern, gated on real, confirmed ToS
+  clearance per source (per `docs/PLOT_TRUTH_ENGINE_SPEC.md`'s own
+  mostly-UNVERIFIED findings — never integrate an unconfirmed source).
+  W-93 ARCHITECT_PREDESIGN_FACTS — upgrades W-24's SAMPLE-labeled NBC/
+  FAR/setback/height bands to real, cited, state-correct figures plus
+  heritage/flood/AAI-height overlay data, per
+  `docs/ARCHITECT_PREDESIGN_FACTS.md`'s own "Needs KB row" findings.
 - CRANE's board queue (2026-09-04) also includes the grammar half of
   W-27 CONVERSATIONAL_PRIMARY: extend the intent grammar (per
   WORKSPACE_SPEC.md §5) to the full parameter set (floors, plot w/d,
