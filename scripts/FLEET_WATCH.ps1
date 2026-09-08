@@ -81,7 +81,10 @@ param(
     [switch]$EnableClaudeAdapter,            # W-50: claude adapter is wired but inert until this is passed explicitly
     [string]$SeatsConfigPath,                 # W-50: defaults to docs/FLEET_SEATS.json under $repoRoot
     [string]$DryRunCodexProbeOutput = '',    # W-50: inject a synthetic Codex CLI response for -DryRun instead of calling the real CLI
-    [int]$SilentIdleThresholdMinutes = 15    # silent-idle detector: minutes since last activity before a seat with owned READY rows and no posted question is flagged
+    [int]$SilentIdleThresholdMinutes = 15,   # silent-idle detector: minutes since last activity before a seat with owned READY rows and no posted question is flagged
+    [switch]$EnableTriggerDaemon,            # W-98: per-seat headless drain loop is wired but inert until this is passed explicitly - same "built now, fired after operator flip" pattern as -EnableClaudeAdapter
+    [int]$TriggerDaemonBaseBackoffSeconds = 60,
+    [int]$TriggerDaemonMaxBackoffSeconds = 14400  # 4h cap - a rate-limited seat backs off exponentially from the base but never waits longer than this before the next retry
 )
 
 $ErrorActionPreference = "Stop"
@@ -93,6 +96,7 @@ $stateFile = Join-Path $repoRoot ".fleet-watch-state.json"
 $taskBoardFile = Join-Path $repoRoot "docs\TASK_BOARD.md"
 $deployStopPath = Join-Path $repoRoot "docs\DEPLOY_STOP"
 $deployStateFile = Join-Path $repoRoot ".fleet-deploy-state.json"
+$triggerDaemonLedgerFile = Join-Path $repoRoot ".fleet-trigger-daemon-log.json"
 $worktreeRoot = "D:\ferrum_os.worktrees"
 if ([string]::IsNullOrWhiteSpace($SeatsConfigPath)) { $SeatsConfigPath = Join-Path $repoRoot "docs\FLEET_SEATS.json" }
 
@@ -203,6 +207,56 @@ function Get-SeatOwnedReadyRows([string]$Seat) {
     return $rows
 }
 
+# W-98 TRIGGER_DAEMON's own dispatch target: a seat's owned READY row
+# first (same priority as the rest of this file), falling back to the
+# top owner-agnostic READY row (Eligible column reading "any seat" /
+# "owner-agnostic") if it has none of its own - matching RULE 35(2)'s
+# "your envelope or owner-agnostic" pull rule, not a new priority
+# scheme invented for this row.
+function Get-SeatDispatchableRow([string]$Seat) {
+    # @() forces array context - without it, PowerShell unwraps a
+    # single-element array returned via the output stream into a bare
+    # scalar, silently making .Count $null (so -gt 0 is false) whenever
+    # exactly one row matches - caught by this row's own isolated test,
+    # not left as a latent bug shipped alongside the fix for the
+    # identical pre-existing issue in Test-SilentIdleSeat above.
+    $owned = @(Get-SeatOwnedReadyRows -Seat $Seat)
+    if ($owned.Count -gt 0) { return $owned[0] }
+    if (-not (Test-Path $taskBoardFile)) { return $null }
+    $lines = Get-Content $taskBoardFile
+    foreach ($line in $lines) {
+        if ($line -notmatch '^\|\s*(W-\d+[a-z]?)\s*\|') { continue }
+        $cells = $line -split '\|'
+        if ($cells.Count -lt 8) { continue }
+        $id = $cells[1].Trim()
+        $title = $cells[2].Trim()
+        $eligible = $cells[4].Trim()
+        $status = $cells[7].Trim()
+        if ($status -match '^READY' -and $eligible -match '(?i)any seat|owner-agnostic') {
+            return [PSCustomObject]@{ Id = $id; Title = $title; Eligible = $eligible }
+        }
+    }
+    return $null
+}
+
+# W-98's ledger - append-only, one entry per spawn attempt, so PI can
+# audit real trigger evidence (RULE 55) each cycle: which seat, which
+# row, when it spawned, when/how it exited, and whether it was
+# rate-limited. Kept as its own file (not folded into
+# .fleet-deploy-state.json, which is deploy-specific) per the operator's
+# own "or its documented companion state file" framing.
+function Get-TriggerDaemonLedger {
+    if (Test-Path $triggerDaemonLedgerFile) {
+        try { return @(Get-Content $triggerDaemonLedgerFile -Raw | ConvertFrom-Json) } catch { }
+    }
+    return @()
+}
+
+function Add-TriggerDaemonLedgerEntry($Entry) {
+    $ledger = @(Get-TriggerDaemonLedger) + $Entry
+    $ledger | ConvertTo-Json -Depth 6 | Set-Content -Path $triggerDaemonLedgerFile -Encoding utf8
+}
+
 # A real, unanswered posted question blocks the idle flag - a seat that
 # stopped to ask something is not "silently" idle, it's correctly
 # waiting. docs/OPERATOR_INBOX.md being touched after the seat's last
@@ -232,7 +286,13 @@ function Test-SilentIdleSeat([string]$Seat, [int]$IdleThresholdMinutes = 15) {
     if (-not $lastEpoch) { return $null }
     $ageMinutes = ([DateTimeOffset]::UtcNow.ToUnixTimeSeconds() - $lastEpoch) / 60
     if ($ageMinutes -lt $IdleThresholdMinutes) { return $null }
-    $ownedReady = Get-SeatOwnedReadyRows -Seat $Seat
+    # @() forces array context - PowerShell unwraps a single-element
+    # array returned via the output stream into a bare scalar, which
+    # makes .Count silently $null (so -eq 0 is false and this check
+    # would wrongly pass through) whenever exactly one row matches.
+    # Found and fixed alongside W-98's own Get-SeatDispatchableRow,
+    # which had the identical bug in new code - same root cause.
+    $ownedReady = @(Get-SeatOwnedReadyRows -Seat $Seat)
     if ($ownedReady.Count -eq 0) { return $null }
     if (Test-SeatPostedOpenQuestion -SinceEpoch $lastEpoch) { return $null }
     return [PSCustomObject]@{
@@ -268,6 +328,124 @@ function Start-ClaudeSeat($Seat, $DispatchedRow, [string]$OverrideBrief) {
     }
     Write-Host "Launching Claude seat $($Seat.id) headless: $cmd"
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $cmd -WindowStyle Hidden
+}
+
+# W-98 TRIGGER_DAEMON (RULE 58): per-seat headless drain loop. Gated
+# behind -EnableTriggerDaemon, same "built now, fired after an explicit
+# operator flip" precedent already established by -EnableClaudeAdapter
+# above - ships INERT. Landing this function does not, by itself, start
+# any autonomous spawning; the daemon can never flip its own gate (the
+# switch is a launch-time parameter, not a state file this code writes
+# to), so turning it on is exclusively the operator's action, never
+# this script's own.
+#
+# For each configured seat: if it's not in backoff, look up its top
+# dispatchable READY row (owned, else owner-agnostic, per
+# Get-SeatDispatchableRow); if one exists, spawn that seat's own CLI
+# (`codex exec` for MASON/RIVET per $codexBackedSeats, `claude -p`
+# otherwise) INSIDE THAT SEAT'S OWN WORKTREE (not $repoRoot - the
+# worktree location IS the seat's identity per the operator's own
+# framing, so AGENTS.md and docs/seats/<SEAT>.md load correctly) with
+# the standing prompt "next task", and wait for it to exit (seats are
+# processed sequentially within one call to this function, not spawned
+# in parallel - a real, disclosed scope limit, not a hidden one).
+#
+# Every spawn/exit/backoff-decision is written to
+# .fleet-trigger-daemon-log.json (Add-TriggerDaemonLedgerEntry) so PI
+# can audit real trigger evidence each cycle per RULE 55 - a spawn
+# timestamp, exit code, and dispatched row ID, not an inferred landing.
+# A rate-limit signal in the spawned process's own output (same
+# 'limit' substring convention already used by Test-CodexProbe) doubles
+# that seat's backoff (from $TriggerDaemonBaseBackoffSeconds, capped at
+# $TriggerDaemonMaxBackoffSeconds) and records triggerBackoffUntil on
+# the seat's own entry in docs/FLEET_SEATS.json - a clean run resets
+# the seat back to the base backoff rather than leaving a stale
+# multiplier from an earlier limit.
+function Invoke-SeatTriggerDaemon {
+    if (Test-KillSwitch) { return }
+    if (-not $EnableTriggerDaemon) {
+        Write-Host "TRIGGER-DAEMON: built but not fired (-EnableTriggerDaemon not passed) - ships inert per the operator's own gating instruction."
+        return
+    }
+    $seatConfigs = Get-FleetSeatsConfig
+    if (-not $seatConfigs) {
+        Write-Host "TRIGGER-DAEMON: no seats config loaded - nothing to drive."
+        return
+    }
+    $now = Get-Date
+    $configChanged = $false
+    foreach ($seatCfg in $seatConfigs) {
+        $seatId = $seatCfg.id
+        $hasBackoffUntil = $seatCfg.PSObject.Properties.Name -contains 'triggerBackoffUntil'
+        if ($hasBackoffUntil -and $seatCfg.triggerBackoffUntil) {
+            try {
+                $backoffUntil = [datetime]$seatCfg.triggerBackoffUntil
+                if ($now -lt $backoffUntil) {
+                    Write-Host "TRIGGER-DAEMON: $seatId in backoff until $backoffUntil - skipping this cycle."
+                    continue
+                }
+            } catch { }
+        }
+        $row = Get-SeatDispatchableRow -Seat $seatId
+        if (-not $row) {
+            Write-Host "TRIGGER-DAEMON: $seatId has no dispatchable READY row (owned or owner-agnostic) - nothing to spawn."
+            continue
+        }
+        $worktreePath = Resolve-SeatWorktree -Glob $seatCfg.worktreeGlob
+        if (-not $worktreePath) {
+            Write-Host "TRIGGER-DAEMON: $seatId has no resolvable worktree ($($seatCfg.worktreeGlob)) - refusing to spawn without its own identity, skipping."
+            continue
+        }
+        $isCodex = $codexBackedSeats -contains $seatId
+        $prompt = "next task"
+        $cmd = if ($isCodex) { "codex exec --full-auto -C `"$worktreePath`" `"$prompt`"" } else { "claude -p `"$prompt`"" }
+        if ($DryRun) {
+            Write-Host "[DRY-RUN] TRIGGER-DAEMON would spawn $seatId in $worktreePath for row $($row.Id) - $($row.Title): $cmd"
+            continue
+        }
+        Write-Host "TRIGGER-DAEMON: spawning $seatId in $worktreePath for row $($row.Id) - $($row.Title): $cmd"
+        $spawnedAt = (Get-Date).ToUniversalTime().ToString("o")
+        $stdoutFile = Join-Path $env:TEMP "fleet-trigger-daemon-$seatId-$([guid]::NewGuid().ToString('N')).out.txt"
+        $stderrFile = Join-Path $env:TEMP "fleet-trigger-daemon-$seatId-$([guid]::NewGuid().ToString('N')).err.txt"
+        $exitCode = $null
+        $outputText = ''
+        try {
+            $proc = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $cmd -WorkingDirectory $worktreePath -WindowStyle Hidden -PassThru -Wait `
+                -RedirectStandardOutput $stdoutFile -RedirectStandardError $stderrFile
+            $exitCode = $proc.ExitCode
+            $outputText = (Get-Content $stdoutFile -Raw -ErrorAction SilentlyContinue) + "`n" + (Get-Content $stderrFile -Raw -ErrorAction SilentlyContinue)
+        } catch {
+            $exitCode = -1
+            $outputText = $_.Exception.Message
+        } finally {
+            Remove-Item $stdoutFile, $stderrFile -Force -ErrorAction SilentlyContinue
+        }
+        $exitedAt = (Get-Date).ToUniversalTime().ToString("o")
+        $rateLimited = $outputText -match '(?i)limit'
+        Add-TriggerDaemonLedgerEntry -Entry ([PSCustomObject]@{
+            Seat        = $seatId
+            RowId       = $row.Id
+            RowTitle    = $row.Title
+            Command     = $cmd
+            SpawnedAt   = $spawnedAt
+            ExitedAt    = $exitedAt
+            ExitCode    = $exitCode
+            RateLimited = [bool]$rateLimited
+        })
+        $prevBackoff = if (($seatCfg.PSObject.Properties.Name -contains 'triggerBackoffSeconds') -and $seatCfg.triggerBackoffSeconds) { [int]$seatCfg.triggerBackoffSeconds } else { $TriggerDaemonBaseBackoffSeconds }
+        if ($rateLimited) {
+            $nextBackoff = [Math]::Min($prevBackoff * 2, $TriggerDaemonMaxBackoffSeconds)
+            $seatCfg | Add-Member -NotePropertyName triggerBackoffSeconds -NotePropertyValue $nextBackoff -Force
+            $seatCfg | Add-Member -NotePropertyName triggerBackoffUntil -NotePropertyValue ((Get-Date).AddSeconds($nextBackoff).ToString("o")) -Force
+            Write-Host "TRIGGER-DAEMON: $seatId rate-limited (exit $exitCode) - backing off $nextBackoff s."
+        } else {
+            $seatCfg | Add-Member -NotePropertyName triggerBackoffSeconds -NotePropertyValue $TriggerDaemonBaseBackoffSeconds -Force
+            $seatCfg | Add-Member -NotePropertyName triggerBackoffUntil -NotePropertyValue $null -Force
+            Write-Host "TRIGGER-DAEMON: $seatId exited $exitCode, no rate limit detected - backoff reset to base."
+        }
+        $configChanged = $true
+    }
+    if ($configChanged) { Save-FleetSeatsConfig -SeatsArray $seatConfigs }
 }
 
 function Test-KillSwitch {
@@ -748,6 +926,11 @@ function Invoke-WatchCycle {
 
     $state = Invoke-InboxAlertCheck -State $state
     Save-WatchState -State $state
+
+    # W-98 TRIGGER_DAEMON: inert unless -EnableTriggerDaemon was passed
+    # at launch (checked inside the function itself, not gated here, so
+    # a -DryRun cycle still exercises and logs the same decision path).
+    Invoke-SeatTriggerDaemon
 
     return $true
 }

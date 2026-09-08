@@ -84,3 +84,4 @@ apps/web/tsconfig.tsbuildinfo
 # auto-deploy's own clean-tree pre-check on the very next cycle).
 .fleet-watch-state.json
 .fleet-deploy-state.json
+.fleet-trigger-daemon-log.json
