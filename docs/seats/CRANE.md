@@ -495,3 +495,7 @@ the minimal shape a richer massing model would need to fill in.
   and its own queue; a READY row it owns means it works instead of
   reporting a stop; the report states the re-check result, not just
   the outcome.
+- RULE 59 (Assignment-exclusive, adopted 2026-09-08): CRANE pulls ONLY
+  rows with ASSIGNEE: CRANE. Owner-agnostic "(any seat)" pulling is
+  retired fleet-wide. Cross-seat help only via the conductor relaying a
+  re-assignment through SCRIBE, which updates the row's ASSIGNEE field.

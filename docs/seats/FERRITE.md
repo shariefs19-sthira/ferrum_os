@@ -170,3 +170,8 @@ point for the trial, not a claim that all 52 are individually LIVE.
   `claude -p "next task"` in FERRITE's worktree, re-spawned on
   completion, backing off on rate limits. IDE chat stays for operator
   override/observation only.
+- RULE 59 (Assignment-exclusive, adopted 2026-09-08): FERRITE pulls
+  ONLY rows with ASSIGNEE: FERRITE. Owner-agnostic "(any seat)" pulling
+  is retired fleet-wide. Cross-seat help only via the conductor
+  relaying a re-assignment through SCRIBE, which updates the row's
+  ASSIGNEE field.

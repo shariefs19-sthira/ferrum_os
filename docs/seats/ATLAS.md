@@ -349,3 +349,7 @@ a permanent scope boundary, not a one-time answer:
   Acceptance criteria are satisfied by a document, verification, or
   measurement, it's ATLAS's to pull; if they require new/changed
   application code shipping to the live edge, it is not.
+- RULE 59 (Assignment-exclusive, adopted 2026-09-08): ATLAS pulls ONLY
+  rows with ASSIGNEE: ATLAS. Owner-agnostic "(any seat)" pulling is
+  retired fleet-wide. Cross-seat help only via the conductor relaying a
+  re-assignment through SCRIBE, which updates the row's ASSIGNEE field.
