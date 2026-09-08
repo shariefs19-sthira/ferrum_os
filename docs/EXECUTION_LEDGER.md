@@ -46,6 +46,17 @@ from, per RULE 55's 2026-09-08 amendment.
   record reviewed, compare the executing seat with the row's recorded
   assignee. Record a match, an authorized split, or a mismatch requiring a
   SCRIBE reconciliation relay.
+- **IDLE-CHECK:** for every seat holding one or more assigned `READY` rows,
+  inspect the current cycle's landing and stop-report records. No record is
+  an execution defect: list the seat and assigned row IDs in the ledger
+  summary and relay it via the conductor. A row without a named assignee is
+  handled by ASSIGNEE-COVERAGE, never silently excluded from this check.
+- **PRODUCT-SCOPE CHECK:** for each completed row, compare the actual diff,
+  verification record, and rendered evidence with the row's declared
+  `PRODUCT` tag/scope. Record the product targets inspected and whether the
+  correction was applied at the shared source of the defect. A cross-product
+  list passes only when every declared product target is consumed; a
+  single-surface repair is a scope defect, not partial completion.
 - **OPERATOR OUTPUT:** the ledger's cycle summary is PI's sole operator
   output surface for these controls; it reports counts, affected row IDs,
   and relay state without manufacturing ownership or completion.
