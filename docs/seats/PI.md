@@ -123,3 +123,8 @@ role that lands nothing of its own:
 None in the executor sense — PI claims no docs/TASK_BOARD.md rows to
 build. Its "row" is the ledger itself: every other seat's landed and
 in-progress rows are PI's review queue.
+- RULE 59 (Assignment-exclusive, adopted 2026-09-08): applies to every
+  executor seat's pull behavior; PI implements nothing so this rule
+  doesn't change PI's own work, but PI's EXECUTION-ASSIGNEE-MATCH
+  ledger control verifies every landed row's actual owner matches the
+  board's declared ASSIGNEE under this rule.

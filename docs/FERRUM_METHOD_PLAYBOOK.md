@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — fifty-five numbered rules were actually adopted (numbered
-1–14, 16–31, 33–48, 50–58 — RULE 15, RULE 32, and RULE 49 were never
+matured — fifty-six numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48, 50–59 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50–58, added later in the
+18–31, 33–48, and 50–59, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50–58 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–59 (added later, summarized)
 
 18. **Self-landing, bounded** (amended) — a seat pushes its own branch
     and qualifies for the landing script's next sweep; direct push to
@@ -884,6 +884,22 @@ source.
     stopped requiring a human to open a chat window and type it —
     automating the trigger is what turns a documented behavior into an
     actually-unattended one.*
+
+59. **Assignment-exclusive** — an agent pulls only tasks explicitly
+    assigned to it; owner-agnostic "any eligible agent may pull this"
+    designations are retired once the fleet reaches a size where
+    that ambiguity actually costs something. Cross-agent help happens
+    only via an explicit re-assignment relayed through the ledger
+    maintainer, never an agent unilaterally deciding to pick up
+    another's task. Migrate incrementally — reassign existing
+    owner-agnostic rows as they come up in normal work, not in one
+    retroactive rewrite pass.
+    *Rationale: owner-agnostic pulling is efficient for throughput
+    early on, but once an execution-oversight function exists (tying
+    corrections and method review to a specific owner), a task two
+    different agents could plausibly have picked up makes "who
+    actually did this" genuinely ambiguous — exactly the ambiguity
+    that oversight machinery exists to eliminate.*
 
 ## 3. Ledger formats
 

@@ -342,3 +342,12 @@ This was a fresh baseline: it explicitly does not claim any prior
   rate-limited — including SCRIBE's own worktree. SCRIBE's docs turns
   are as automatable under this loop as any executor's code turns; IDE
   chat stays for operator override/observation only.
+- RULE 59 (Assignment-exclusive, adopted 2026-09-08, landed after a
+  LIST-BUILDING PHASE hold): seats pull ONLY rows assigned to their own
+  seat; owner-agnostic "(any seat)" pulling is retired. Every READY row
+  carries exactly one ASSIGNEE. SCRIBE is the one who updates a row's
+  ASSIGNEE field when the conductor relays a cross-seat re-assignment —
+  no seat unilaterally grabs a row assigned elsewhere. Migration is
+  incremental: rows W-70 through W-85 (and others) reassigned so far,
+  tracked in docs/TASK_BOARD.md's own Notes section, not rewritten
+  retroactively in one pass.

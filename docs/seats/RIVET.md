@@ -355,3 +355,7 @@ as every other seat.
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's
 first assigned row.
+- RULE 59 (Assignment-exclusive, adopted 2026-09-08): RIVET pulls ONLY
+  rows with ASSIGNEE: RIVET. Owner-agnostic "(any seat)" pulling is
+  retired fleet-wide. Cross-seat help only via the conductor relaying a
+  re-assignment through SCRIBE, which updates the row's ASSIGNEE field.

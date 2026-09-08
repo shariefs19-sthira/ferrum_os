@@ -1056,7 +1056,15 @@ PI maintains `docs/EXECUTION_LEDGER.md`, one block per board row,
 carrying:
 (1) **Status:** DONE / HALFWAY / IN_PROGRESS / BLOCKED (+ reason) /
 STUCK — PI's own independently-verified status, not a copy of the
-row's self-reported status.
+row's self-reported status. **Amended 2026-09-08: for any UI-affecting
+row, a landing marker (a commit SHA on `origin/main`) alone is never
+sufficient for DONE — DONE requires deployed-screenshot evidence
+actually present in the ledger entry. A UI row with a real landing SHA
+but no screenshot evidence caps at HALFWAY, not DONE, until that
+evidence is supplied.** This is RULE 25's live-or-locked standard made
+concrete for what PI's own ledger accepts as proof, closing the gap
+where a row could read DONE in the ledger on landing alone while still
+failing RULE 25 in fact.
 (2) **Owner:** the seat actually executing the row.
 (3) **METHOD REVIEW:** is this the best possible way to do it?
 Alternatives actually considered are named; a suboptimal method is
@@ -1191,6 +1199,33 @@ a human opening a chat window to say "next task." Automating the
 trigger itself is what makes the ≥2-row no-idle floor (RULE 57) and
 the drain-don't-wait model (RULE 45/52) actually self-sustaining
 instead of bottlenecked on manual prompting.
+
+## RULE 59 — ASSIGNMENT_EXCLUSIVE (all seats, adopted 2026-09-08)
+Seats pull ONLY rows assigned to their own seat. Owner-agnostic
+pulling — "(any seat)" as an eligible-seats designation a seat could
+self-select from — is retired. Every READY row carries exactly one
+ASSIGNEE seat, never a set of eligible seats to choose among. Cross-
+seat help (one seat picking up a row nominally assigned to another,
+because it's blocked or the assignee is at capacity) happens only via
+the conductor relaying a re-assignment through SCRIBE, which updates
+the row's ASSIGNEE field — never a seat unilaterally deciding to pull
+a row assigned elsewhere.
+**Migration note:** this retires the owner-agnostic pattern used for
+rows W-70 through W-85 (and others) seeded earlier in this same
+session under the-then-current RULE 35/56 convention. Those rows are
+reassigned to a single seat incrementally as they come up in an
+explicit backlog pass (see docs/TASK_BOARD.md's own Notes section for
+which rows have been reassigned so far) — not retroactively rewritten
+across the whole board in one shot, the same incremental-not-
+retroactive discipline RULE 57's PRODUCT tagging already established.
+*Rationale:* owner-agnostic pulling let any eligible seat grab a row,
+which is efficient for throughput but erodes the single-ASSIGNEE model
+RULE 56/57's correction-routing and PI's EXECUTION-ASSIGNEE-MATCH
+ledger control both depend on — a row two different seats could
+plausibly have picked up makes "which seat actually did this" and "was
+this the seat the correction should have gone to" genuinely ambiguous
+in the ledger, exactly the kind of ambiguity RULE 55's oversight
+machinery exists to eliminate.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum

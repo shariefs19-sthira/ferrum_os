@@ -12,6 +12,9 @@ correction relay (PI implements nothing itself).
 ```
 ### <ROW ID> — <TITLE>
 - **Status:** DONE / HALFWAY / IN_PROGRESS / BLOCKED (+ reason) / STUCK
+  — amended 2026-09-08: for a UI-affecting row, a landing SHA alone
+  caps this at HALFWAY; DONE requires deployed-screenshot evidence
+  actually present in this entry, per RULE 25/55.
 - **Owner:** <seat>
 - **ORDER:** <declared board sequence/dependencies>; <observed execution order>; PASS / DEVIATION
 - **Method review:** is this the best possible way? Alternatives
