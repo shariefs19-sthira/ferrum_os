@@ -313,13 +313,48 @@ function Test-DeployKillSwitch {
 
 function Get-DeployState {
     if (Test-Path $deployStateFile) {
-        try { return Get-Content $deployStateFile -Raw | ConvertFrom-Json } catch { }
+        try {
+            $loaded = Get-Content $deployStateFile -Raw | ConvertFrom-Json
+            if (-not ($loaded.PSObject.Properties.Name -contains 'DeployHistory')) {
+                $loaded | Add-Member -NotePropertyName DeployHistory -NotePropertyValue @() -Force
+            }
+            return $loaded
+        } catch { }
     }
-    return [PSCustomObject]@{ LastDeployedSha = $null }
+    return [PSCustomObject]@{ LastDeployedSha = $null; LastVersionId = $null; DeployHistory = @() }
 }
 
 function Save-DeployState($State) {
-    $State | ConvertTo-Json | Set-Content -Path $deployStateFile -Encoding utf8
+    # -Depth needed: DeployHistory is an array of nested objects, and the
+    # ConvertTo-Json default depth (2) would silently truncate it to
+    # "@{...}" strings instead of real JSON - a ledger that quietly loses
+    # its own entries is worse than no ledger.
+    $State | ConvertTo-Json -Depth 6 | Set-Content -Path $deployStateFile -Encoding utf8
+}
+
+# Reads the wrangler deploy Version ID for the deploy that just ran, per
+# the operator's PI-evidence-gap ask ("PI cannot cite artifact-specific
+# deployment version IDs - the harness records only HTTP 200"). Uses
+# wrangler's own structured ND-JSON output file (WRANGLER_OUTPUT_FILE_PATH,
+# confirmed live against the installed wrangler 4.129.1 via a --dry-run
+# probe this session - schema is one JSON object per line, the deploy
+# line has {"type":"deploy", "worker_name":..., "version_id":...}), not a
+# regex against wrangler's human-readable stdout text (which is not a
+# stable contract and has changed field names before - "Deployment ID"
+# renamed to "Version ID" per Cloudflare's own changelog).
+function Get-WranglerDeployVersionId([string]$OutputFilePath) {
+    if (-not (Test-Path $OutputFilePath)) { return $null }
+    try {
+        $lines = Get-Content $OutputFilePath
+        foreach ($line in $lines) {
+            if ([string]::IsNullOrWhiteSpace($line)) { continue }
+            $entry = $line | ConvertFrom-Json
+            if ($entry.type -eq 'deploy' -and $entry.version_id) {
+                return $entry.version_id
+            }
+        }
+    } catch { }
+    return $null
 }
 
 # Fires once per cycle: fetch, compare origin/main to the last SHA this
@@ -368,12 +403,33 @@ function Invoke-AutoDeployIfAdvanced {
         $buildOutput = pnpm build 2>&1 | Out-String
         Write-Host $buildOutput
         if ($LASTEXITCODE -ne 0) { throw "pnpm build failed" }
-        $deployOutput = npx wrangler deploy 2>&1 | Out-String
+        $wranglerOutputFile = Join-Path $env:TEMP "fleet-watch-wrangler-deploy-$remoteSha.ndjson"
+        if (Test-Path $wranglerOutputFile) { Remove-Item $wranglerOutputFile -Force }
+        $previousOutputFileEnv = $env:WRANGLER_OUTPUT_FILE_PATH
+        $env:WRANGLER_OUTPUT_FILE_PATH = $wranglerOutputFile
+        try {
+            $deployOutput = npx wrangler deploy 2>&1 | Out-String
+        } finally {
+            $env:WRANGLER_OUTPUT_FILE_PATH = $previousOutputFileEnv
+        }
         Write-Host $deployOutput
         if ($LASTEXITCODE -ne 0) { throw "wrangler deploy failed: $deployOutput" }
+        $versionId = Get-WranglerDeployVersionId -OutputFilePath $wranglerOutputFile
+        if (Test-Path $wranglerOutputFile) { Remove-Item $wranglerOutputFile -Force }
         $state.LastDeployedSha = $remoteSha
+        $state.LastVersionId = $versionId
+        if (-not $state.DeployHistory) { $state.DeployHistory = @() }
+        $state.DeployHistory = @($state.DeployHistory) + [PSCustomObject]@{
+            Sha        = $remoteSha
+            VersionId  = $versionId
+            DeployedAt = (Get-Date).ToUniversalTime().ToString("o")
+        }
         Save-DeployState -State $state
-        Write-Host "AUTO-DEPLOY: success, deployed SHA $remoteSha"
+        if ($versionId) {
+            Write-Host "AUTO-DEPLOY: success, deployed SHA $remoteSha, Workers version ID $versionId"
+        } else {
+            Write-Host "AUTO-DEPLOY: success, deployed SHA $remoteSha, but could not read a Workers version ID from wrangler's structured output - ledger entry recorded with VersionId null, not fabricated."
+        }
     } catch {
         Write-Host "AUTO-DEPLOY FAILED: $($_.Exception.Message)"
         Send-NtfyAlert -Title "Auto-deploy FAILED" -Message $_.Exception.Message
