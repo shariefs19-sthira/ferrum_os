@@ -367,3 +367,15 @@ single-source-of-truth contract seeded in §N.
 
 Board/docs landing only, per the operator's own "NO triggers"
 instruction — same scope as §M/§N.
+
+## P. 2026-09-08 addition — W-121 HERO_JOURNEY_REIMAGINED
+
+| Operator ask | Maps to | Disposition |
+|---|---|---|
+| "the five-step 'plot to profit' journey becomes the FIRST module after login...each step shows a REAL live visual clue" | W-69 UX_OVERHAUL's JOURNEY STRIP element (an "interactive animated stepper" with hover-preview, no live embeds, not the first post-login module) | **New row: W-121** (RIVET UI + MASON live embeds, CROSS). W-69's journey-strip text amended in place with a pointer to W-121 — struck through, not deleted, per RULE 3; the rest of W-69's scope (hero teaser, product cards, design-system tokens) is unaffected and still governed by W-69 itself. |
+
+Depends on W-85 (Land step's live mini-map+lookup), W-100 (Build
+step's progress/sequence data), W-119 (Invest step's indicative IRR/NPV
+figure), and W-52 (workspace-entry prompt on step click) — reuses each
+rather than building a parallel path. Board/docs landing only, same
+"NO triggers" scope as §M/§N/§O.
