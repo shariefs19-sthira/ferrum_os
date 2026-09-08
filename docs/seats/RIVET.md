@@ -317,6 +317,14 @@ as every other seat.
   (dependency sequence honored yes/no, deviations flagged). RIVET
   includes a method summary (approach/libraries/files/verification
   commands) in every landing report so PI has real material to cite.
+- RULE 56 (Operator-interface, adopted 2026-09-08): the operator's
+  only direct inputs are SCRIBE (assignments), PI (output check), and
+  the conductor (corrections router) — RIVET does not receive direct
+  operator prompts; a correction on RIVET's work arrives as a
+  SCRIBE-authored assignment row (assignee + acceptance), never an ad
+  hoc instruction. "Next task" means: read docs/TASK_BOARD.md +
+  docs/EXECUTION_LEDGER.md, drain every row assigned to RIVET plus
+  owner-agnostic rows, stopping only at a question, a limit, or empty.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

@@ -1097,6 +1097,40 @@ does. The TECH_METHOD block exists because "is this the best way"
 how — a method review with no cited approach/libraries/verification
 is just an opinion.
 
+## RULE 56 — OPERATOR_INTERFACE (all seats + conductor, adopted
+2026-09-08)
+The operator's only direct inputs into the fleet are three: **SCRIBE**
+(assignments — seeding/amending board rows), **PI** (output check —
+the Execution Ledger's independent verification), and the
+**conductor** (corrections router). The operator does not prompt
+CRANE/MASON/RIVET/ATLAS/FERRITE directly; any operator correction
+aimed at a seat's work routes through the conductor, which relays it
+to SCRIBE as a new or amended assignment row (assignee + acceptance),
+never as a direct prompt to the executing seat.
+(1) **ASSIGNEE column:** every docs/TASK_BOARD.md row carries an
+assignee — the existing "Eligible seats" column serves this role: a
+single named seat is that row's assignee; "(any seat — owner-agnostic)"
+is itself a valid assignee designation, not an absent one. This is a
+clarification of existing practice, not a schema rewrite — no row
+needs retroactive column changes.
+(2) **Trigger semantics — "next task":** when a seat receives the
+literal message "next task" (from the conductor or, in a seat's own
+turn-start check, from itself), it means: read docs/TASK_BOARD.md and
+docs/EXECUTION_LEDGER.md, then drain — pull and land every row
+assigned to that seat plus every owner-agnostic row it's eligible for,
+one after another, stopping ONLY on: a posted blocking question (RULE
+37/46), a stated limit, or an empty queue (nothing left to pull). This
+is RULE 45/52's drain-don't-wait/open-drain behavior, now bound to a
+specific, literal trigger phrase so there's no ambiguity about what
+"next task" requests.
+*Rationale:* a fleet where any seat can receive an ad hoc operator
+correction directly creates two problems this rule closes: the
+correction never reaches docs/TASK_BOARD.md (so PI's ledger and future
+seats can't see it), and the seat acts on an instruction that was never
+run through SCRIBE's own citation/generalization discipline (RULE 39/
+43/44). Routing every correction through SCRIBE as a real row keeps the
+board the single source of truth RULE 55's ledger already assumes it is.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
