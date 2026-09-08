@@ -25,7 +25,7 @@ export default function CanvasSlot({
 }) {
   return (
     <div className="h-full" aria-label={`${product} workspace canvas`} data-workspace-canvas>
-      <WorkspaceCockpit canvasFirst controlProduct={productControls[product]} onLiveMetricsChange={onLiveMetricsChange} fullscreenControl={fullscreenControl} />
+      <WorkspaceCockpit canvasFirst activeProduct={product} controlProduct={productControls[product]} onLiveMetricsChange={onLiveMetricsChange} fullscreenControl={fullscreenControl} />
     </div>
   )
 }
