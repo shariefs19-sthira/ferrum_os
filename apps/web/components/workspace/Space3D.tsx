@@ -7,6 +7,7 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 import type { StudioPlan } from "../../lib/types"
 import { sampleSiteContext } from "../../lib/workspace/sampleSiteContext"
 import { useFullscreenState } from "./FullscreenController"
+import { decodeWorkspaceView } from "../../lib/workspace/viewPermalink"
 
 const concrete = 0xf4f2ec
 const glass = 0x93bac2
@@ -273,6 +274,13 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       host.dataset.selectionPattern = "outline-handles"
       host.dataset.selectionTarget = label
     }
+    const publishCamera = () => { host.dataset.cameraState = JSON.stringify({ position: perspective.position.toArray(), target: controls.target.toArray() }) }
+    const restoreView = (event: Event) => {
+      const state = (event as CustomEvent<{camera?:{position:[number,number,number];target:[number,number,number]};selection?:string}>).detail
+      if (state?.camera) { perspective.position.fromArray(state.camera.position); controls.target.fromArray(state.camera.target); controls.update() }
+      if (state?.selection) { const match=pickables.find(mesh=>mesh.userData.label===state.selection); if(match)applySelection(match) }
+      publishCamera()
+    }
     const select = (event: PointerEvent) => {
       const bounds = renderer.domElement.getBoundingClientRect()
       pointer.set(((event.clientX - bounds.left) / bounds.width) * 2 - 1, -((event.clientY - bounds.top) / bounds.height) * 2 + 1)
@@ -298,6 +306,9 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     renderer.domElement.addEventListener("pointerup", select)
     renderer.domElement.addEventListener("pointermove", indicateSelectable)
     renderer.domElement.addEventListener("keydown", keydown)
+    controls.addEventListener("end", publishCamera)
+    window.addEventListener("ferrum:restore-view", restoreView)
+    const restoredView=decodeWorkspaceView(new URLSearchParams(location.search).get("workspaceView"));if(restoredView)restoreView(new CustomEvent("ferrum:restore-view",{detail:restoredView}))
     // preventDefault() on context-lost is required by the WebGL spec for
     // the browser to even attempt eventual restoration; this handler's
     // real job is just stopping the render loop before it throws into a
@@ -317,6 +328,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     renderer.domElement.setAttribute("aria-label", "Architectural model. Drag to orbit, shift-drag to pan, scroll to zoom, press zero to fit model, click geometry to select it, or use left and right bracket keys to cycle selection across all views.")
     host.dataset.renderer = softwareRenderer ? "software" : "gpu"
     host.dataset.renderProfile = lowPower ? "reduced" : "full"
+    publishCamera()
     raf = requestAnimationFrame(draw)
 
     return () => {
@@ -325,6 +337,8 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
       renderer.domElement.removeEventListener("pointerup", select)
       renderer.domElement.removeEventListener("pointermove", indicateSelectable)
       renderer.domElement.removeEventListener("keydown", keydown)
+      controls.removeEventListener("end", publishCamera)
+      window.removeEventListener("ferrum:restore-view", restoreView)
       renderer.domElement.removeEventListener("webglcontextlost", onContextLost)
       controls.dispose()
       scene.traverse((object) => {
