@@ -232,9 +232,14 @@ as every other seat.
   bundle budget.
 - **RIVET's explicit assignment order (2026-09-08, RULE 57):** W-69
   (CROSS — the `/products` plain-card pages are the evidence surface)
-  → W-83 (unblock via the capacitor-doctor path, i.e. diagnose the
-  mobile shell's dead-URL config directly rather than a broader
-  rebuild) → W-88 styling piece → W-80 UI piece → W-71 → W-73 → W-79g.
+  → W-83 (unblock method specified 2026-09-08 on the row itself:
+  `pnpm add -D @capacitor/cli` — confirmed not yet installed anywhere
+  in this repo — then `capacitor doctor` + `capacitor sync` as landing
+  evidence; a registry/auth failure on the install itself gets its
+  exact gate recorded on the row, then RIVET moves on rather than
+  blocking) → W-88 styling piece → W-80 UI piece → W-71 → W-73 →
+  W-79g. **W-37 POINTER_SWEEP runs as RIVET's explicit parallel item
+  alongside W-83 specifically so RIVET never idles if W-83 gates.**
   This sequence supersedes/extends the priority notes below for
   ordering purposes; the rows themselves are unchanged.
 - RIVET's board queue (2026-09-08, RECOVERED after PI's first Execution
