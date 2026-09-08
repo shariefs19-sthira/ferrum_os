@@ -118,12 +118,35 @@ function Get-FleetSeatsConfig {
     }
 }
 
+# BUG FOUND LIVE 2026-09-08: this used to hardcode a `{_comment, seats}`
+# wrapper on every write, which silently DROPPED any other real
+# top-level key already in the file - specifically the `deployment`
+# block (the single source of truth for the live URL, per its own
+# comment, read by scripts/get-live-base-url.mjs and every ATLAS
+# battery script). Confirmed live: after the trigger daemon's own
+# backoff persistence (since removed - see Invoke-SeatTriggerDaemon)
+# called this function every cycle, docs/FLEET_SEATS.json's real
+# `deployment` block was gone from the working tree. Fixed by loading
+# the CURRENT on-disk wrapper first and preserving every property on
+# it except `seats`, rather than reconstructing the wrapper from
+# scratch with only the two fields this function happens to know
+# about.
 function Save-FleetSeatsConfig($SeatsArray) {
-    $wrapper = [PSCustomObject]@{
-        _comment = "W-50 HARNESS_24x7 seats config. worktreeGlob is a prefix pattern under D:\ferrum_os.worktrees, not a single fixed path - each seat has many numbered worktrees over time; the harness resolves the most-recently-modified match at revival time."
-        seats    = $SeatsArray
+    $wrapper = $null
+    if (Test-Path $SeatsConfigPath) {
+        try { $wrapper = Get-Content $SeatsConfigPath -Raw | ConvertFrom-Json } catch { }
     }
-    $wrapper | ConvertTo-Json -Depth 6 | Set-Content -Path $SeatsConfigPath -Encoding utf8
+    if (-not $wrapper) {
+        $wrapper = [PSCustomObject]@{
+            _comment = "W-50 HARNESS_24x7 seats config. worktreeGlob is a prefix pattern under D:\ferrum_os.worktrees, not a single fixed path - each seat has many numbered worktrees over time; the harness resolves the most-recently-modified match at revival time."
+        }
+    }
+    if ($wrapper.PSObject.Properties.Name -contains 'seats') {
+        $wrapper.seats = $SeatsArray
+    } else {
+        $wrapper | Add-Member -NotePropertyName seats -NotePropertyValue $SeatsArray -Force
+    }
+    $wrapper | ConvertTo-Json -Depth 8 | Set-Content -Path $SeatsConfigPath -Encoding utf8
 }
 
 # CODEX ADAPTER: parse a "try again at <time>" limit message into an
@@ -170,6 +193,18 @@ function Resolve-SeatWorktree([string]$Glob) {
 # priority order (RULE 35(2): a seat claims the TOP ready row it's
 # eligible for) - no separate numeric priority column exists on disk,
 # so this reads table order rather than inventing one.
+#
+# Filters through Test-RowAlreadyLanded (per operator ask: wire the
+# landed-check into EVERY spawn path, not just the trigger daemon's
+# own Get-SeatDispatchableRow). Found live 2026-09-08: W-24 still got
+# spawned through THIS function's own callers (the idle-revival and
+# main dispatch paths that feed Start-CodexMission/Start-ClaudeSeat)
+# even after the trigger-daemon-specific check landed, because those
+# paths call Get-TopReadyRow/Get-SeatOwnedReadyRows directly and never
+# went through Get-SeatDispatchableRow at all. Filtering at the
+# SOURCE here means every caller of either function is protected
+# automatically, rather than needing the same check bolted onto each
+# call site individually and risking a missed one again.
 function Get-TopReadyRow {
     if (-not (Test-Path $taskBoardFile)) { return $null }
     $lines = Get-Content $taskBoardFile
@@ -181,6 +216,10 @@ function Get-TopReadyRow {
         $title = $cells[2].Trim()
         $status = $cells[7].Trim()
         if ($status -match '^READY') {
+            if (Test-RowAlreadyLanded -RowId $id) {
+                Write-Host "DISPATCH: $id already has a [land:...] commit on origin/main - board text is stale, skipping to the next READY row."
+                continue
+            }
             return [PSCustomObject]@{ Id = $id; Title = $title; Status = $status }
         }
     }
@@ -190,6 +229,9 @@ function Get-TopReadyRow {
 # All READY rows in docs/TASK_BOARD.md whose Eligible-seats column
 # names this seat (substring match, since that column sometimes reads
 # "RIVET or MASON" / "RIVET + CRANE + MASON" rather than a single name).
+# Same Test-RowAlreadyLanded filter as Get-TopReadyRow above, and for
+# the same reason - this function feeds Test-SilentIdleSeat's
+# idleFinding.TopRow, a second real dispatch path.
 function Get-SeatOwnedReadyRows([string]$Seat) {
     if (-not (Test-Path $taskBoardFile)) { return @() }
     $lines = Get-Content $taskBoardFile
@@ -203,6 +245,10 @@ function Get-SeatOwnedReadyRows([string]$Seat) {
         $eligible = $cells[4].Trim()
         $status = $cells[7].Trim()
         if ($status -match '^READY' -and $eligible -match [regex]::Escape($Seat)) {
+            if (Test-RowAlreadyLanded -RowId $id) {
+                Write-Host "DISPATCH: $id (owned by $Seat) already has a [land:...] commit on origin/main - board text is stale, excluding from the owned-rows list."
+                continue
+            }
             $rows += [PSCustomObject]@{ Id = $id; Title = $title; Eligible = $eligible }
         }
     }
@@ -235,6 +281,10 @@ function Get-SeatDispatchableRow([string]$Seat) {
         $eligible = $cells[4].Trim()
         $status = $cells[7].Trim()
         if ($status -match '^READY' -and $eligible -match '(?i)any seat|owner-agnostic') {
+            if (Test-RowAlreadyLanded -RowId $id) {
+                Write-Host "DISPATCH: $id (owner-agnostic) already has a [land:...] commit on origin/main - board text is stale, skipping."
+                continue
+            }
             return [PSCustomObject]@{ Id = $id; Title = $title; Eligible = $eligible }
         }
     }
@@ -419,7 +469,12 @@ function Test-RowAlreadyLanded([string]$RowId) {
     if ([string]::IsNullOrWhiteSpace($numPart)) { return $false }
     $pattern = "(?i)\[land:[^\]]*\bw-?$([regex]::Escape($numPart))\b"
     try {
-        $recentLandLines = git log origin/main --oneline -200 --grep='\[land:' 2>$null
+        # -C $repoRoot: null-guard against ambient CWD (per operator
+        # ask) - this function may be called from a context where the
+        # script's own working directory isn't $repoRoot, and a bare
+        # `git log` would then run against whatever repo (or non-repo)
+        # directory happens to be current instead.
+        $recentLandLines = git -C $repoRoot log origin/main --oneline -200 --grep='\[land:' 2>$null
         return [bool]($recentLandLines | Where-Object { $_ -match $pattern } | Select-Object -First 1)
     } catch {
         return $false
@@ -435,9 +490,10 @@ function Test-RowAlreadyLanded([string]$RowId) {
 # spawned CLI process itself didn't crash, never that it accomplished
 # anything.
 function Test-SeatLandedSince([string]$SeatId, [string]$ShaBefore, [string]$ShaAfter) {
+    if ([string]::IsNullOrWhiteSpace($ShaBefore) -or [string]::IsNullOrWhiteSpace($ShaAfter)) { return $false }
     if ($ShaBefore -eq $ShaAfter) { return $false }
     try {
-        $newCommits = git log "$ShaBefore..$ShaAfter" --oneline 2>$null
+        $newCommits = git -C $repoRoot log "$ShaBefore..$ShaAfter" --oneline 2>$null
         $pattern = "(?i)\[land:$([regex]::Escape($SeatId.ToLower()))/"
         return [bool]($newCommits | Where-Object { $_ -match $pattern } | Select-Object -First 1)
     } catch {
@@ -491,13 +547,19 @@ function Invoke-SeatTriggerDaemon {
         return
     }
     $now = Get-Date
-    $configChanged = $false
     foreach ($seatCfg in $seatConfigs) {
+      # Per-seat isolation (per operator ask): one seat's exception -
+      # a git call that throws, a worktree that can't be recreated, an
+      # unexpected Start-Process failure - must never abort the whole
+      # daemon loop and leave every OTHER seat undispatched for this
+      # cycle. Everything for this seat lives inside this try; a catch
+      # here logs and moves on to the next seat.
+      try {
         $seatId = $seatCfg.id
-        $hasBackoffUntil = $seatCfg.PSObject.Properties.Name -contains 'triggerBackoffUntil'
-        if ($hasBackoffUntil -and $seatCfg.triggerBackoffUntil) {
+        $backoffState = Get-SeatTriggerBackoff -SeatId $seatId -DefaultBackoffSeconds $TriggerDaemonBaseBackoffSeconds
+        if ($backoffState.BackoffUntil) {
             try {
-                $backoffUntil = [datetime]$seatCfg.triggerBackoffUntil
+                $backoffUntil = [datetime]$backoffState.BackoffUntil
                 if ($now -lt $backoffUntil) {
                     Write-Host "TRIGGER-DAEMON: $seatId in backoff until $backoffUntil - skipping this cycle."
                     continue
@@ -505,9 +567,39 @@ function Invoke-SeatTriggerDaemon {
             } catch { }
         }
         $worktreePath = Resolve-SeatWorktree -Glob $seatCfg.worktreeGlob
-        if (-not $worktreePath) {
-            Write-Host "TRIGGER-DAEMON: $seatId has no resolvable worktree ($($seatCfg.worktreeGlob)) - refusing to spawn without its own identity, skipping."
-            continue
+        # VALIDATE before spawning, per operator ask: a resolved path
+        # that doesn't exist, or exists but isn't actually a git
+        # worktree (missing `.git` - a worktree's own marker, distinct
+        # from a full repo's `.git` DIRECTORY, is a `.git` FILE
+        # pointing back at the main repo's worktree metadata), must
+        # never be handed to Start-Process as-is. Attempt one real
+        # recreation off origin/main using the seat's own documented
+        # glob prefix; if that also fails, skip this seat and log why
+        # rather than spawn into a broken or partial directory.
+        $worktreeValid = $worktreePath -and (Test-Path $worktreePath) -and (Test-Path (Join-Path $worktreePath ".git"))
+        if (-not $worktreeValid) {
+            $globPrefix = if ($seatCfg.worktreeGlob) { ($seatCfg.worktreeGlob -replace '\*$', '') } else { $seatId.ToLower() }
+            $recreatedPath = Join-Path $worktreeRoot "$globPrefix$([guid]::NewGuid().ToString('N').Substring(0,8))"
+            $branchName = "$($seatId.ToLower())/auto-recreated-$(Get-Date -Format 'yyyyMMddHHmmss')"
+            Write-Host "TRIGGER-DAEMON: $seatId has no valid worktree ($($seatCfg.worktreeGlob) resolved to '$worktreePath') - attempting to recreate at $recreatedPath from origin/main."
+            $recreateOk = $false
+            try {
+                $ErrorActionPreference = "Continue"
+                $recreateOutput = git -C $repoRoot worktree add $recreatedPath -b $branchName origin/main 2>&1 | Out-String
+                $ErrorActionPreference = "Stop"
+                $recreateOk = (Test-Path $recreatedPath) -and (Test-Path (Join-Path $recreatedPath ".git"))
+                if (-not $recreateOk) { Write-Host "TRIGGER-DAEMON: worktree recreation output: $recreateOutput" }
+            } catch {
+                $ErrorActionPreference = "Stop"
+                $recreateOk = $false
+            }
+            if ($recreateOk) {
+                $worktreePath = $recreatedPath
+                Write-Host "TRIGGER-DAEMON: $seatId worktree recreated at $worktreePath (branch $branchName)."
+            } else {
+                Write-Host "TRIGGER-DAEMON: $seatId worktree recreation failed - skipping this seat this cycle, not spawning into an invalid directory."
+                continue
+            }
         }
         $isCodex = $codexBackedSeats -contains $seatId
         $prompt = "next task"
@@ -570,11 +662,18 @@ function Invoke-SeatTriggerDaemon {
         # real [land:<seat>/...] commit for THIS seat appeared - a
         # concurrent fleet means other seats land in between too, so
         # "origin/main advanced" alone doesn't prove this seat did
-        # anything.
-        $ErrorActionPreference = "Continue"
-        git fetch origin main 2>&1 | Out-Null
-        $ErrorActionPreference = "Stop"
-        $originMainBefore = (git rev-parse origin/main).Trim()
+        # anything. Every git call here is null-guarded (per operator
+        # ask): a fetch/rev-parse failure yields an empty SHA rather
+        # than throwing, and an empty before/after pair is treated as
+        # "cannot determine landing" (never landed), not a crash.
+        $originMainBefore = ''
+        try {
+            $ErrorActionPreference = "Continue"
+            git -C $repoRoot fetch origin main 2>&1 | Out-Null
+            $ErrorActionPreference = "Stop"
+            $rev = git -C $repoRoot rev-parse origin/main 2>$null
+            if ($rev) { $originMainBefore = $rev.Trim() }
+        } catch { $ErrorActionPreference = "Stop" }
         $stdoutFile = Join-Path $env:TEMP "fleet-trigger-daemon-$seatId-$([guid]::NewGuid().ToString('N')).out.txt"
         $stderrFile = Join-Path $env:TEMP "fleet-trigger-daemon-$seatId-$([guid]::NewGuid().ToString('N')).err.txt"
         $exitCode = $null
@@ -592,11 +691,15 @@ function Invoke-SeatTriggerDaemon {
         }
         $exitedAt = (Get-Date).ToUniversalTime().ToString("o")
         $rateLimited = $outputText -match '(?i)limit'
-        $ErrorActionPreference = "Continue"
-        git fetch origin main 2>&1 | Out-Null
-        $ErrorActionPreference = "Stop"
-        $originMainAfter = (git rev-parse origin/main).Trim()
-        $landed = Test-SeatLandedSince -SeatId $seatId -ShaBefore $originMainBefore -ShaAfter $originMainAfter
+        $originMainAfter = ''
+        try {
+            $ErrorActionPreference = "Continue"
+            git -C $repoRoot fetch origin main 2>&1 | Out-Null
+            $ErrorActionPreference = "Stop"
+            $rev = git -C $repoRoot rev-parse origin/main 2>$null
+            if ($rev) { $originMainAfter = $rev.Trim() }
+        } catch { $ErrorActionPreference = "Stop" }
+        $landed = if ($originMainBefore -and $originMainAfter) { Test-SeatLandedSince -SeatId $seatId -ShaBefore $originMainBefore -ShaAfter $originMainAfter } else { $false }
         Add-TriggerDaemonLedgerEntry -Entry ([PSCustomObject]@{
             Seat        = $seatId
             RowId       = $row.Id
@@ -608,9 +711,8 @@ function Invoke-SeatTriggerDaemon {
             RateLimited = [bool]$rateLimited
             Landed      = [bool]$landed
         })
-        $prevBackoff = if (($seatCfg.PSObject.Properties.Name -contains 'triggerBackoffSeconds') -and $seatCfg.triggerBackoffSeconds) { [int]$seatCfg.triggerBackoffSeconds } else { $TriggerDaemonBaseBackoffSeconds }
-        # BACKOFF/RESPAWN, keyed on OBSERVED LANDING, not exit code:
-        # a real landing -> reset backoff, respawn immediately if more
+        # BACKOFF/RESPAWN, keyed on OBSERVED LANDING, not exit code: a
+        # real landing -> reset backoff, respawn immediately if more
         # rows remain. Anything else - including a clean exit 0 that
         # landed nothing, the exact failure mode that spun CRANE 20x
         # against an already-done W-24 before this fix - grows backoff
@@ -618,11 +720,11 @@ function Invoke-SeatTriggerDaemon {
         # genuine non-zero exit additionally alerts (ntfy); an exit-0
         # no-op does not alert (not inherently abnormal - a seat can
         # legitimately have nothing new to land), only backs off.
+        # State lives only in $stateFile now (Set-SeatTriggerBackoff),
+        # never on the seat's own tracked docs/FLEET_SEATS.json entry.
         if ($landed) {
-            $seatCfg | Add-Member -NotePropertyName triggerBackoffSeconds -NotePropertyValue $TriggerDaemonBaseBackoffSeconds -Force
-            $seatCfg | Add-Member -NotePropertyName triggerBackoffUntil -NotePropertyValue $null -Force
+            Set-SeatTriggerBackoff -SeatId $seatId -BackoffSeconds $TriggerDaemonBaseBackoffSeconds -BackoffUntil $null
             Write-Host "TRIGGER-DAEMON: $seatId landed real work ($originMainBefore -> $originMainAfter) - backoff reset to base."
-            $configChanged = $true
             if ($respawnCount -ge $TriggerDaemonMaxRespawnsPerCycle) {
                 Write-Host "TRIGGER-DAEMON: $seatId hit the per-cycle respawn cap ($TriggerDaemonMaxRespawnsPerCycle) - remaining rows wait for the next watch cycle."
                 $seatDone = $true
@@ -630,9 +732,9 @@ function Invoke-SeatTriggerDaemon {
                 Start-Sleep -Seconds $TriggerDaemonRespawnDelaySeconds
             }
         } else {
+            $prevBackoff = if ($backoffState.BackoffSeconds) { [int]$backoffState.BackoffSeconds } else { $TriggerDaemonBaseBackoffSeconds }
             $nextBackoff = [Math]::Min($prevBackoff * 2, $TriggerDaemonMaxBackoffSeconds)
-            $seatCfg | Add-Member -NotePropertyName triggerBackoffSeconds -NotePropertyValue $nextBackoff -Force
-            $seatCfg | Add-Member -NotePropertyName triggerBackoffUntil -NotePropertyValue ((Get-Date).AddSeconds($nextBackoff).ToString("o")) -Force
+            Set-SeatTriggerBackoff -SeatId $seatId -BackoffSeconds $nextBackoff -BackoffUntil ((Get-Date).AddSeconds($nextBackoff))
             if ($exitCode -eq 0) {
                 Write-Host "TRIGGER-DAEMON: $seatId exited 0 but no [land:$($seatId.ToLower())/...] commit appeared - treating as a no-op, not a success. Backing off $nextBackoff s, not respawning this cycle."
             } else {
@@ -640,12 +742,14 @@ function Invoke-SeatTriggerDaemon {
                 Write-Host "TRIGGER-DAEMON: $seatId $limitNote (exit $exitCode) - backing off $nextBackoff s, alerting."
                 Send-NtfyAlert -Title "TRIGGER-DAEMON: $seatId spawn failed" -Message "Seat $seatId exited $exitCode dispatching $($row.Id) - $($row.Title). RateLimited=$rateLimited. Backing off $nextBackoff s. See $triggerDaemonLedgerFile for the full entry."
             }
-            $configChanged = $true
             $seatDone = $true
         }
         }
+      } catch {
+        Write-Host "TRIGGER-DAEMON: $seatId's cycle threw an unhandled error ($($_.Exception.Message)) - isolated to this seat, continuing to the next one."
+        Send-NtfyAlert -Title "TRIGGER-DAEMON: $seatId cycle error" -Message "Unhandled error in $seatId's spawn cycle: $($_.Exception.Message)"
+      }
     }
-    if ($configChanged) { Save-FleetSeatsConfig -SeatsArray $seatConfigs }
 }
 
 function Test-KillSwitch {
@@ -979,13 +1083,92 @@ function Start-CodexMission($DispatchedRow) {
 
 function Get-WatchState {
     if (Test-Path $stateFile) {
-        try { return Get-Content $stateFile -Raw | ConvertFrom-Json } catch { }
+        try {
+            $loaded = Get-Content $stateFile -Raw | ConvertFrom-Json
+            if (-not ($loaded.PSObject.Properties.Name -contains 'SeatTriggerBackoff')) {
+                $loaded | Add-Member -NotePropertyName SeatTriggerBackoff -NotePropertyValue ([PSCustomObject]@{}) -Force
+            }
+            if (-not ($loaded.PSObject.Properties.Name -contains 'SeatRevival')) {
+                $loaded | Add-Member -NotePropertyName SeatRevival -NotePropertyValue ([PSCustomObject]@{}) -Force
+            }
+            return $loaded
+        } catch { }
     }
-    return [PSCustomObject]@{ CodexWasDark = $false; LastStalledAlertEpoch = 0; LastInboxCheckEpoch = 0 }
+    return [PSCustomObject]@{ CodexWasDark = $false; LastStalledAlertEpoch = 0; LastInboxCheckEpoch = 0; SeatTriggerBackoff = [PSCustomObject]@{}; SeatRevival = [PSCustomObject]@{} }
 }
 
 function Save-WatchState($State) {
-    $State | ConvertTo-Json | Set-Content -Path $stateFile -Encoding utf8
+    # -Depth: SeatTriggerBackoff is a nested per-seat object; the
+    # default ConvertTo-Json depth (2) would truncate it, same class of
+    # bug already fixed elsewhere in this file (Save-DeployState,
+    # Add-TriggerDaemonLedgerEntry).
+    $State | ConvertTo-Json -Depth 6 | Set-Content -Path $stateFile -Encoding utf8
+}
+
+# RULE (adopted 2026-09-08, per operator ask): runtime state never
+# lives in a git-tracked file. Per-seat trigger-daemon backoff used to
+# be written onto each seat's own object in docs/FLEET_SEATS.json (a
+# real, tracked file) via Save-FleetSeatsConfig, called on every single
+# spawn attempt - confirmed live to leave that file locally modified
+# every cycle (which itself trips the exact class of dirty-tree guard
+# bug this whole fix-chain has been closing) and, because
+# Save-FleetSeatsConfig had its own separate bug (fixed above), was
+# actively dropping the file's real `deployment` block on every write.
+# Backoff state now lives only in the untracked $stateFile
+# (.fleet-watch-state.json), under a SeatTriggerBackoff property keyed
+# by seat ID - docs/FLEET_SEATS.json is no longer written by the
+# trigger daemon at all.
+function Get-SeatTriggerBackoff([string]$SeatId, [int]$DefaultBackoffSeconds) {
+    $state = Get-WatchState
+    if ($state.SeatTriggerBackoff.PSObject.Properties.Name -contains $SeatId) {
+        return $state.SeatTriggerBackoff.$SeatId
+    }
+    return [PSCustomObject]@{ BackoffSeconds = $DefaultBackoffSeconds; BackoffUntil = $null }
+}
+
+function Set-SeatTriggerBackoff([string]$SeatId, [int]$BackoffSeconds, $BackoffUntil) {
+    $state = Get-WatchState
+    $entry = [PSCustomObject]@{
+        BackoffSeconds = $BackoffSeconds
+        BackoffUntil   = if ($null -ne $BackoffUntil) { $BackoffUntil.ToString("o") } else { $null }
+    }
+    if ($state.SeatTriggerBackoff.PSObject.Properties.Name -contains $SeatId) {
+        $state.SeatTriggerBackoff.$SeatId = $entry
+    } else {
+        $state.SeatTriggerBackoff | Add-Member -NotePropertyName $SeatId -NotePropertyValue $entry -Force
+    }
+    Save-WatchState -State $state
+}
+
+# Same rule, same fix, applied to the pre-existing Codex/Claude
+# revival-scheduling state (nextReviveAt/lastStop) - found live during
+# this same session's dry-run proof: even after moving trigger-daemon
+# backoff off docs/FLEET_SEATS.json, THIS state was still being written
+# to that same tracked file on every cycle by the older, separate
+# revival-scheduling code below (Invoke-WatchCycle's codex/claude
+# adapter blocks), which is exactly the same class of problem the
+# operator's rule targets. Moved to $stateFile under a SeatRevival
+# property, same pattern as SeatTriggerBackoff above.
+function Get-SeatRevival([string]$SeatId) {
+    $state = Get-WatchState
+    if ($state.PSObject.Properties.Name -contains 'SeatRevival' -and $state.SeatRevival.PSObject.Properties.Name -contains $SeatId) {
+        return $state.SeatRevival.$SeatId
+    }
+    return [PSCustomObject]@{ NextReviveAt = $null; LastStop = $null }
+}
+
+function Set-SeatRevival([string]$SeatId, $NextReviveAt, $LastStop) {
+    $state = Get-WatchState
+    if (-not ($state.PSObject.Properties.Name -contains 'SeatRevival')) {
+        $state | Add-Member -NotePropertyName SeatRevival -NotePropertyValue ([PSCustomObject]@{}) -Force
+    }
+    $entry = [PSCustomObject]@{ NextReviveAt = $NextReviveAt; LastStop = $LastStop }
+    if ($state.SeatRevival.PSObject.Properties.Name -contains $SeatId) {
+        $state.SeatRevival.$SeatId = $entry
+    } else {
+        $state.SeatRevival | Add-Member -NotePropertyName $SeatId -NotePropertyValue $entry -Force
+    }
+    Save-WatchState -State $state
 }
 
 function Test-PastKnownReset([string[]]$ResetTimes, [int]$GraceMinutes) {
@@ -1075,32 +1258,37 @@ function Invoke-WatchCycle {
     # W-50 seats config + codex adapter: record an exact next-revive
     # time from a real "try again at <time>" message, then fire only
     # once the clock reaches that exact recorded minute - not a coarse
-    # "past reset + grace" guess.
+    # "past reset + grace" guess. State lives in $stateFile
+    # (Get/Set-SeatRevival), never on the seat's own tracked
+    # docs/FLEET_SEATS.json entry - found live this session that this
+    # exact block kept rewriting that tracked file every cycle even
+    # after the trigger daemon's own separate backoff state was moved
+    # off it.
     $seatConfigs = Get-FleetSeatsConfig
     if ($seatConfigs) {
         $codexSeats = $seatConfigs | Where-Object { $_.adapter -eq 'codex' }
         foreach ($seatCfg in $codexSeats) {
+            $revival = Get-SeatRevival -SeatId $seatCfg.id
             if (-not $codexOk) {
                 $resetTime = Get-CodexResetTime -ProbeOutput $probe.Output
-                if ($resetTime -and $seatCfg.nextReviveAt -ne $resetTime.ToString('o')) {
-                    $seatCfg.nextReviveAt = $resetTime.ToString('o')
-                    $seatCfg.lastStop = (Get-Date).ToString('o')
-                    Write-Host "CODEX ADAPTER: parsed 'try again at' -> nextReviveAt=$($seatCfg.nextReviveAt) for $($seatCfg.id)"
+                if ($resetTime -and $revival.NextReviveAt -ne $resetTime.ToString('o')) {
+                    Set-SeatRevival -SeatId $seatCfg.id -NextReviveAt $resetTime.ToString('o') -LastStop (Get-Date).ToString('o')
+                    $revival = Get-SeatRevival -SeatId $seatCfg.id
+                    Write-Host "CODEX ADAPTER: parsed 'try again at' -> nextReviveAt=$($revival.NextReviveAt) for $($seatCfg.id)"
                 }
             }
-            if ($seatCfg.nextReviveAt) {
-                $nextReviveAt = [datetime]$seatCfg.nextReviveAt
+            if ($revival.NextReviveAt) {
+                $nextReviveAt = [datetime]$revival.NextReviveAt
                 if (Test-DueForRevival -NextReviveAt $nextReviveAt) {
-                    Write-Host "CODEX ADAPTER: $($seatCfg.id) is due for revival now (scheduled $($seatCfg.nextReviveAt))."
+                    Write-Host "CODEX ADAPTER: $($seatCfg.id) is due for revival now (scheduled $($revival.NextReviveAt))."
                     Send-NtfyAlert -Title "Scheduled revival" -Message "$($seatCfg.id): recorded reset time reached, launching."
                     Start-CodexMission -DispatchedRow $dispatchedRow
-                    $seatCfg.nextReviveAt = $null
+                    Set-SeatRevival -SeatId $seatCfg.id -NextReviveAt $null -LastStop $revival.LastStop
                 } elseif ($DryRun) {
-                    Write-Host "[DRY-RUN] $($seatCfg.id) next revive at $($seatCfg.nextReviveAt), not due yet (now=$(Get-Date -Format o))."
+                    Write-Host "[DRY-RUN] $($seatCfg.id) next revive at $($revival.NextReviveAt), not due yet (now=$(Get-Date -Format o))."
                 }
             }
         }
-        Save-FleetSeatsConfig -SeatsArray $seatConfigs
     }
 
     if (-not $codexOk) {
@@ -1128,13 +1316,14 @@ function Invoke-WatchCycle {
     # Claude adapter (wired, gated): claude-backed seats due for
     # revival get the same exact-time + dispatch treatment.
     if ($seatConfigs) {
-        $claudeSeats = $seatConfigs | Where-Object { $_.adapter -eq 'claude' -and $_.nextReviveAt }
+        $claudeSeats = $seatConfigs | Where-Object { $_.adapter -eq 'claude' }
         foreach ($seatCfg in $claudeSeats) {
-            $nextReviveAt = [datetime]$seatCfg.nextReviveAt
+            $revival = Get-SeatRevival -SeatId $seatCfg.id
+            if (-not $revival.NextReviveAt) { continue }
+            $nextReviveAt = [datetime]$revival.NextReviveAt
             if (Test-DueForRevival -NextReviveAt $nextReviveAt) {
                 Start-ClaudeSeat -Seat $seatCfg -DispatchedRow $dispatchedRow
-                $seatCfg.nextReviveAt = $null
-                Save-FleetSeatsConfig -SeatsArray $seatConfigs
+                Set-SeatRevival -SeatId $seatCfg.id -NextReviveAt $null -LastStop $revival.LastStop
             }
         }
     }
