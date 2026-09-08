@@ -18,6 +18,7 @@ import RegistryControls from './RegistryControls'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
 import { readProjectState, sameParameters, subscribeProjectState, writeProjectState } from '../../lib/workspace/projectState'
+import PrecisionControl from '../controls/PrecisionControl'
 import { evaluateCompliance } from '../../lib/complianceEngine'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
@@ -57,12 +58,7 @@ function AreaReadout({ squareMetres, primary }: { squareMetres: number; primary:
 }
 
 function Parameter({ label, value, min, max, step, display, onChange }: { label: string; value: number; min: number; max: number; step: number; display: React.ReactNode; onChange: (value: number) => void }) {
-  return (
-    <label className="block text-xs font-semibold text-relume-ink">
-      <span className="flex flex-wrap items-baseline justify-between gap-2"><span>{label}</span><output>{display}</output></span>
-      <input type="range" value={value} min={min} max={max} step={step} onChange={(event) => onChange(Number(event.target.value))} className="mt-2 min-h-11 w-full accent-relume-command" />
-    </label>
-  )
+  return <PrecisionControl label={label} value={value} min={min} max={max} step={step} unit={typeof display === 'object' ? 'length' : 'count'} onChange={onChange}/>
 }
 
 const views: { id: StudioView; label: string }[] = [

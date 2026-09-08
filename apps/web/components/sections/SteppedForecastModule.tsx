@@ -12,6 +12,7 @@ import { convertArea, metresAndFeet, type AreaUnit } from "../../lib/units"
 import ParcelMap from "./ParcelMap"
 import { PrimaryButton } from "./Buttons"
 import DxfExportButton from "./DxfExportButton"
+import PrecisionControl from "../controls/PrecisionControl"
 
 export type ForecastProduct =
   | "landintel"
@@ -66,25 +67,8 @@ function RangeControl({
   display: string
   onChange: (value: number) => void
 }) {
-  return (
-    <label htmlFor={id} className="block text-sm font-medium text-relume-ink">
-      <span className="flex items-baseline justify-between gap-4">
-        <span>{label}</span>
-        <output htmlFor={id} className="font-mono text-xs tabular-nums text-relume-muted">{display}</output>
-      </span>
-      <input
-        id={id}
-        data-forecast-slider={id}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(event) => onChange(Number(event.target.value))}
-        className="mt-3 w-full accent-relume-command"
-      />
-    </label>
-  )
+  const unit = /m(?:²|2)?|ft|sq/i.test(display) ? "length" : /%/.test(display) ? "percent" : "count"
+  return <div data-forecast-slider={id}><PrecisionControl id={id} label={label} value={value} min={min} max={max} step={step} onChange={onChange} unit={unit}/></div>
 }
 
 function ForecastShell({
