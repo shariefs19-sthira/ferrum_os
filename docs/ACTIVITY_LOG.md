@@ -1822,3 +1822,12 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** docs/TASK_BOARD.md, docs/MASTER_TASK_LIST.md, docs/ACTIVITY_LOG.md
 **Next Steps:** ATLAS pulls W-120 first (it sources the other three's adapters); CRANE/MASON pull W-114/115/116/117 once W-120 has adopt verdicts, or in parallel using placeholder/GAP-labeled sourcing per each row's own honesty requirement. This branch lands via `land.ps1` this same pass.
+
+---
+
+## 2026-09-08 - SCRIBE seeded W-121 HERO_JOURNEY_REIMAGINED, supersedes W-69's journey-strip element (mapped in MASTER_TASK_LIST §P)
+**Action:** Rebuilt fresh off `origin/main` (tip `2d962685f`, the prior geo-data-rows landing). Checked W-69 UX_OVERHAUL's existing JOURNEY STRIP text before seeding anything new: it already names a Land→Design→Build→Invest animated stepper, but with hover-preview only (no live embeds, no post-login-first-module placement, no auto-advance/reduced-motion handling) — a real but incomplete predecessor, not a duplicate. Amended W-69's journey-strip text in place with a struck-through pointer to W-121 (RULE 3 append-only — text kept, not deleted), explicitly scoping the amendment to that one element; the rest of W-69 (hero teaser, product cards, design-system tokens) is untouched and still governed there. Seeded W-121 HERO_JOURNEY_REIMAGINED (RIVET UI + MASON live embeds, CROSS): five-step live-visual journey as the first post-login module, reusing `ProductCockpitPreview` (micro mode), W-85's lookup chips, W-100's build-reel data, W-119's indicative IRR/NPV figure, and W-52's workspace-entry prompt convention rather than building parallel paths for any of them. Mapped in `docs/MASTER_TASK_LIST.md` §P.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/TASK_BOARD.md, docs/MASTER_TASK_LIST.md, docs/ACTIVITY_LOG.md
+**Next Steps:** RIVET/MASON pull W-121 once W-100/W-119 have real data to embed (or stub with an honest indicative/placeholder state per each dependency's own honesty rule if pulled earlier). This branch lands via `land.ps1` this same pass.
