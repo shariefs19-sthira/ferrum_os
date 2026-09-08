@@ -89,6 +89,8 @@ export const structureFacts: ClauseFact[] = [
     summary: "Seismic Zone Factor Z by seismic zone, used to derive design seismic force.",
     data: {
       seismicZoneFactorZ: { II: 0.10, III: 0.16, IV: 0.24, V: 0.36 },
+      currencyNote:
+        "Re-verified 2026-09-08 following an ATLAS audit flag about IS 1893:2025 introducing a new Seismic Zone VI. Confirmed real via multiple independent sources: IS 1893 (Part 1):2025 was genuinely gazette-notified in November 2025, introducing Zone VI (Z=0.75, covering the Himalayan belt and Andaman & Nicobar) and shifting from Deterministic to Probabilistic Earthquake Hazard Assessment. That edition was subsequently WITHDRAWN via a March 2026 gazette notification after Ministry of Housing and Urban Affairs concerns (estimated 10-15% construction-cost escalation in Zones V/VI, up to 50% for infrastructure), reverting the governing standard to IS 1893 (Part 1):2016. This fact's own zones (II-V, no Zone VI) already track the currently-governing 2016 edition via NBC 2016's own Table 42 - it was never citing the withdrawn 2025 figures, so no value change was needed. Flagged here so this currency check is visible on the fact itself, not left implicit.",
     },
     provenance: {
       sourceName: "National Building Code of India 2016 (SP 7:2016), Volume 1, Part 6 Section 1",
@@ -128,5 +130,12 @@ export const structureGaps: KbGap[] = [
     reason: "GAP-NOT-CODIFIED",
     queuedAction:
       "IS 456 does not tabulate a preliminary column-size lookup the way it does beam depth (Cl 23.2.1) - column sizing is a full design calculation (axial load + slenderness + minimum eccentricity, Cl 39/25) driven by tributary area, storey count, and load path, not a span-to-depth style formula. A real preliminary-sizing convention exists in engineering practice (rule-of-thumb tables tying floor count/tributary area to column cross-section), but this session does not have a verified, citable source for one and will not present a recalled or invented ratio as code-derived. Queue: source a real structural-design handbook/guide (not a code itself) that publishes a citable preliminary-sizing table, or defer column sizing in the preset generator to a real (even if simplified) load-based calculation instead of a lookup convention.",
+  },
+  {
+    clauseId: "IS 1893 (Part 1):2025 Seismic Zone VI (withdrawn)",
+    domain: "structure",
+    reason: "GAP-NOT-CODIFIED",
+    queuedAction:
+      "Real, gazette-notified regulatory history worth tracking, not a fabricated concern: IS 1893 (Part 1):2025 was notified November 2025, introducing a new highest-risk Seismic Zone VI (Z=0.75, Himalayan belt + Andaman & Nicobar) and a Deterministic-to-Probabilistic hazard-assessment methodology shift over IS 1893:2016. That 2025 edition was WITHDRAWN via a March 2026 gazette notification following Ministry of Housing and Urban Affairs cost-escalation concerns, reverting the currently-governing standard back to IS 1893 (Part 1):2016 - confirmed via multiple independent secondary sources (news/policy coverage of both the November 2025 notification and the March 2026 withdrawal), not a primary BIS document fetch this pass. This domain's existing seismic-zone-factor fact (Cl 5.3.4.2/Table 42, sourced via NBC 2016) already reflects the currently-governing 2016 zones (II-V) and needed no value correction. Queue: if IS 1893 is revised again (a live, actively-contested regulatory area as of this session), re-verify against BIS's own primary gazette text directly rather than secondary coverage, and only then seed a real Zone VI fact with real geographic scope.",
   },
 ]

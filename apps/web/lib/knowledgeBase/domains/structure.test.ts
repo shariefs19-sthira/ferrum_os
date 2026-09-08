@@ -57,6 +57,16 @@ describe("W-29 KB structure domain (adapter-first seed)", () => {
     expect(fact.provenance.status).toBe("VERIFIED-SAMPLE")
     expect(fact.provenance.sourceUrl).toMatch(/archive\.org/)
   })
+
+  it("the seismic fact's currency was re-checked against the real, withdrawn IS 1893:2025 Zone VI episode, not silently left stale", () => {
+    const fact = structureFacts.find((f) => f.clauseId === "NBC 2016 (SP 7) Part 6 Section 1 Cl 5.3.4.2 (Table 42)")!
+    const data = fact.data as { currencyNote: string }
+    expect(data.currencyNote).toMatch(/IS 1893.*2025/)
+    expect(data.currencyNote).toMatch(/withdrawn/i)
+    const zoneViGap = structureGaps.find((g) => g.clauseId === "IS 1893 (Part 1):2025 Seismic Zone VI (withdrawn)")!
+    expect(zoneViGap.reason).toBe("GAP-NOT-CODIFIED")
+    expect(zoneViGap.queuedAction).toMatch(/March 2026/)
+  })
 })
 
 describe("W-41 KB coverage manifest", () => {
