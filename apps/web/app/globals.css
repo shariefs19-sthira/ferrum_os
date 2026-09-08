@@ -269,3 +269,7 @@ main h4[class] {
   max-height: calc(100vh - 6rem);
   max-height: calc(100dvh - 6rem);
 }
+/* W-63: the guided questionnaire is a true fallback mode inside SUTRA. */
+[data-sutra-panel][data-guided-open="false"] [aria-labelledby="sutra-question"] {
+  display: none;
+}
