@@ -93,12 +93,12 @@ $ErrorActionPreference = "Stop"
 $repoRoot = "D:\ferrum_os_recovered"
 $missionFile = "D:\ferrum_os\overnight_codex.md"
 $killSwitchPath = Join-Path $repoRoot "docs\FLEET_WATCH_STOP"
-$scheduleFile = Join-Path $repoRoot "docs\FLEET_SCHEDULE.md"
 $stateFile = Join-Path $repoRoot ".fleet-watch-state.json"
 $taskBoardFile = Join-Path $repoRoot "docs\TASK_BOARD.md"
 $deployStopPath = Join-Path $repoRoot "docs\DEPLOY_STOP"
 $deployStateFile = Join-Path $repoRoot ".fleet-deploy-state.json"
-$triggerDaemonLedgerFile = Join-Path $repoRoot ".fleet-trigger-daemon-log.json"
+$triggerDaemonLedgerFile = Join-Path $repoRoot ".fleet-trigger-daemon-log.ndjson"
+$triggerDaemonLegacyLedgerFile = Join-Path $repoRoot ".fleet-trigger-daemon-log.json"
 $worktreeRoot = "D:\ferrum_os.worktrees"
 if ([string]::IsNullOrWhiteSpace($SeatsConfigPath)) { $SeatsConfigPath = Join-Path $repoRoot "docs\FLEET_SEATS.json" }
 
@@ -248,73 +248,81 @@ function Get-SeatDispatchableRow([string]$Seat) {
 # .fleet-deploy-state.json, which is deploy-specific) per the operator's
 # own "or its documented companion state file" framing.
 #
-# BUG FOUND LIVE 2026-09-08 (real corrupted file inspected, not
-# hypothesized): Windows PowerShell 5.1's ConvertTo-Json silently drops
-# the wrapping "[...]" when a top-level piped array has exactly one
-# element, and ConvertFrom-Json mirrors that on read - a 1-element JSON
-# array round-trips back as a bare scalar object, not a 1-element
-# array. The original `$ledger | ConvertTo-Json` write pattern hit this
-# on every cycle where the ledger held exactly one entry, and reading
-# that back as a scalar then appending via `@(scalar) + $Entry`
-# compounds it: each subsequent write nested the previous ledger one
-# level deeper inside a `{"value": [...], "Count": N}` wrapper (that
-# literal shape is PS5.1's own default display-object serialization of
-# an array that ConvertTo-Json received as a single non-array pipeline
-# object). Confirmed against the real ledger this session - RIVET's own
-# spawn entry was nested two levels deep, which is why "check the
-# ledger for a RIVET entry" could plausibly look empty even though a
-# spawn genuinely happened.
-#
-# Fix: ConvertTo-JsonArraySafe always writes real "[...]" brackets
-# regardless of element count (PS5.1 has no -AsArray flag, so this is
-# done by hand for the single-element case), and Get-TriggerDaemonLedger
-# self-heals any already-corrupted wrapper objects found in the file on
-# every read, so the next write repairs the file instead of nesting it
-# deeper.
-function ConvertTo-JsonArraySafe($Array) {
-    $arr = @($Array)
-    if ($arr.Count -eq 0) { return "[]" }
-    if ($arr.Count -eq 1) { return "[" + ($arr[0] | ConvertTo-Json -Depth 6) + "]" }
-    return $arr | ConvertTo-Json -Depth 6
+# FORMAT: NDJSON (one compact JSON object per line), not a single JSON
+# array. This replaces an earlier single-array design that hit two real,
+# confirmed bugs live: (1) Windows PowerShell 5.1's ConvertTo-Json/
+# ConvertFrom-Json silently unwrap a single-element array to a bare
+# scalar, which compounded across writes into nested `{"value":[...],
+# "Count":N}` wrapper objects (found in the real ledger - RIVET's own
+# spawn entry was nested two levels deep); (2) even after a hand-rolled
+# fix, the design still required reading the ENTIRE ledger, appending in
+# memory, and rewriting the WHOLE file on every single spawn - not
+# atomic, so two near-simultaneous appends (a real risk once multiple
+# seats' daemons run concurrently) could interleave and corrupt the
+# file, matching the operator's own "parse fails at char 1" report.
+# NDJSON sidesteps both: each entry is Add-Content'ed as one already-
+# complete, self-contained line (Add-Content's own line-append is not a
+# read-modify-write of prior content, so a concurrent writer can never
+# corrupt an earlier line, only ever contend on which line lands last),
+# and Get-TriggerDaemonLedger parses each line independently in its own
+# try/catch - one malformed or torn line (e.g. a write caught mid-flush)
+# is skipped and logged, never fails the whole read.
+function Add-TriggerDaemonLedgerEntry($Entry) {
+    ($Entry | ConvertTo-Json -Depth 6 -Compress) | Add-Content -Path $triggerDaemonLedgerFile -Encoding utf8
 }
 
-function Repair-TriggerDaemonLedgerEntries($Items) {
-    # Plain (non-comma-forced) return, matching the convention already
-    # used successfully elsewhere in this file (Get-SeatOwnedReadyRows
-    # etc.) - every caller re-collects with @(...). An earlier version
-    # of this fix used a comma-forced return here specifically, which
-    # then double-wrapped whenever an outside caller ALSO wrapped the
-    # result in @() (empirically confirmed via an isolated test: a
-    # comma-forced array combined with a caller's @() produces a
-    # 1-element array containing the real array as its only element -
-    # not the flat array either side expected). Caught before landing,
-    # not shipped and found live a second time.
-    $flat = New-Object System.Collections.ArrayList
-    foreach ($item in @($Items)) {
-        if ($null -eq $item) { continue }
-        $propNames = $item.PSObject.Properties.Name
-        if (($propNames -contains 'value') -and ($propNames -contains 'Count') -and -not ($propNames -contains 'Seat')) {
-            foreach ($inner in (Repair-TriggerDaemonLedgerEntries $item.value)) { [void]$flat.Add($inner) }
-        } else {
-            [void]$flat.Add($item)
+# Tolerant reader: skips any line that fails to parse (rather than
+# failing the whole read), and also migrates the old single-array
+# `.fleet-trigger-daemon-log.json` format (including its own
+# already-corrupted nested-wrapper shape) into NDJSON lines exactly
+# once, so real prior history is carried forward rather than silently
+# dropped by the format switch. -Tail lets a caller ask only for the
+# most recent N entries without reading a potentially large file in
+# full (PI's own "parse the last 50 entries" use case).
+function Get-TriggerDaemonLedger([int]$Tail = 0) {
+    if ((-not (Test-Path $triggerDaemonLedgerFile)) -and (Test-Path $triggerDaemonLegacyLedgerFile)) {
+        Write-Host "TRIGGER-DAEMON: migrating legacy $triggerDaemonLegacyLedgerFile (single-array format) to NDJSON..."
+        try {
+            $legacyRaw = Get-Content $triggerDaemonLegacyLedgerFile -Raw | ConvertFrom-Json
+            $legacyFlat = New-Object System.Collections.ArrayList
+            $stack = New-Object System.Collections.ArrayList
+            [void]$stack.Add($legacyRaw)
+            while ($stack.Count -gt 0) {
+                $current = $stack[0]
+                $stack.RemoveAt(0)
+                foreach ($item in @($current)) {
+                    if ($null -eq $item) { continue }
+                    $propNames = $item.PSObject.Properties.Name
+                    if (($propNames -contains 'value') -and ($propNames -contains 'Count') -and -not ($propNames -contains 'Seat')) {
+                        [void]$stack.Add($item.value)
+                    } else {
+                        [void]$legacyFlat.Add($item)
+                    }
+                }
+            }
+            foreach ($entry in $legacyFlat) {
+                ($entry | ConvertTo-Json -Depth 6 -Compress) | Add-Content -Path $triggerDaemonLedgerFile -Encoding utf8
+            }
+            Write-Host "TRIGGER-DAEMON: migrated $($legacyFlat.Count) legacy entries."
+        } catch {
+            Write-Host "TRIGGER-DAEMON: legacy ledger migration failed ($($_.Exception.Message)) - starting fresh NDJSON ledger, old file left untouched for manual recovery."
         }
     }
-    return $flat.ToArray()
-}
-
-function Get-TriggerDaemonLedger {
-    if (Test-Path $triggerDaemonLedgerFile) {
+    if (-not (Test-Path $triggerDaemonLedgerFile)) { return @() }
+    $lines = Get-Content $triggerDaemonLedgerFile
+    if ($Tail -gt 0) { $lines = $lines | Select-Object -Last $Tail }
+    $entries = New-Object System.Collections.ArrayList
+    $skipped = 0
+    foreach ($line in $lines) {
+        if ([string]::IsNullOrWhiteSpace($line)) { continue }
         try {
-            $raw = Get-Content $triggerDaemonLedgerFile -Raw | ConvertFrom-Json
-            return Repair-TriggerDaemonLedgerEntries $raw
-        } catch { }
+            [void]$entries.Add(($line | ConvertFrom-Json))
+        } catch {
+            $skipped += 1
+        }
     }
-    return @()
-}
-
-function Add-TriggerDaemonLedgerEntry($Entry) {
-    $ledger = @(Get-TriggerDaemonLedger) + $Entry
-    ConvertTo-JsonArraySafe $ledger | Set-Content -Path $triggerDaemonLedgerFile -Encoding utf8
+    if ($skipped -gt 0) { Write-Host "TRIGGER-DAEMON: skipped $skipped malformed ledger line(s) on read - tolerant parse, not a hard failure." }
+    return $entries.ToArray()
 }
 
 # A real, unanswered posted question blocks the idle flag - a seat that
@@ -390,6 +398,53 @@ function Start-ClaudeSeat($Seat, $DispatchedRow, [string]$OverrideBrief) {
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $cmd -WindowStyle Hidden
 }
 
+# Checks origin/main's recent land-commit subjects for a mention of
+# this row's ID, so the daemon never dispatches a seat to a row the
+# BOARD still shows READY but that has actually already landed (board
+# text is only updated by a seat re-reading and re-writing it - RULE
+# 35(4) - and can genuinely lag a real landing by an unbounded amount).
+# Found live 2026-09-08: W-24 landed as `mason/w24-compliance-engine`
+# while the board still read READY, and the daemon spawned CRANE
+# against it 21 times in a row (20 of them in one respawn-cap-bounded
+# burst) before this check existed - every one of those spawns was a
+# wasted real Claude invocation against dead work.
+function Test-RowAlreadyLanded([string]$RowId) {
+    if ([string]::IsNullOrWhiteSpace($RowId)) { return $false }
+    # "W-24" -> "24" (and a handful of board rows carry a letter suffix
+    # like "W-79b" -> "79b") - land-commit branch names observed in this
+    # repo drop the hyphen ("w24-compliance-engine", not "w-24-..."), so
+    # match either spelling, case-insensitive, with a non-digit boundary
+    # after the number so "W-24" doesn't false-match a real "W-240".
+    $numPart = ($RowId -replace '^[Ww]-?', '')
+    if ([string]::IsNullOrWhiteSpace($numPart)) { return $false }
+    $pattern = "(?i)\[land:[^\]]*\bw-?$([regex]::Escape($numPart))\b"
+    try {
+        $recentLandLines = git log origin/main --oneline -200 --grep='\[land:' 2>$null
+        return [bool]($recentLandLines | Where-Object { $_ -match $pattern } | Select-Object -First 1)
+    } catch {
+        return $false
+    }
+}
+
+# Checks whether a NEW `[land:<seat>/...]` commit appeared on
+# origin/main between two SHAs, so backoff/respawn decisions are driven
+# by REAL landed work, not a spawned process's own exit code. Found
+# live 2026-09-08: a plain `exit 0 -> reset backoff, respawn` policy
+# spun CRANE 20 times in ~5-second intervals against an already-landed
+# row with zero real work happening each time - exit 0 only proves the
+# spawned CLI process itself didn't crash, never that it accomplished
+# anything.
+function Test-SeatLandedSince([string]$SeatId, [string]$ShaBefore, [string]$ShaAfter) {
+    if ($ShaBefore -eq $ShaAfter) { return $false }
+    try {
+        $newCommits = git log "$ShaBefore..$ShaAfter" --oneline 2>$null
+        $pattern = "(?i)\[land:$([regex]::Escape($SeatId.ToLower()))/"
+        return [bool]($newCommits | Where-Object { $_ -match $pattern } | Select-Object -First 1)
+    } catch {
+        return $false
+    }
+}
+
 # W-98 TRIGGER_DAEMON (RULE 58): per-seat headless drain loop. Gated
 # behind -EnableTriggerDaemon, same "built now, fired after an explicit
 # operator flip" precedent already established by -EnableClaudeAdapter
@@ -401,8 +456,9 @@ function Start-ClaudeSeat($Seat, $DispatchedRow, [string]$OverrideBrief) {
 #
 # For each configured seat: if it's not in backoff, look up its top
 # dispatchable READY row (owned, else owner-agnostic, per
-# Get-SeatDispatchableRow); if one exists, spawn that seat's own CLI
-# (`codex exec` for MASON/RIVET per $codexBackedSeats, `claude -p`
+# Get-SeatDispatchableRow), skip it if Test-RowAlreadyLanded says the
+# board is stale; if a real candidate remains, spawn that seat's own
+# CLI (`codex exec` for MASON/RIVET per $codexBackedSeats, `claude -p`
 # otherwise) INSIDE THAT SEAT'S OWN WORKTREE (not $repoRoot - the
 # worktree location IS the seat's identity per the operator's own
 # framing, so AGENTS.md and docs/seats/<SEAT>.md load correctly) with
@@ -410,17 +466,19 @@ function Start-ClaudeSeat($Seat, $DispatchedRow, [string]$OverrideBrief) {
 # processed sequentially within one call to this function, not spawned
 # in parallel - a real, disclosed scope limit, not a hidden one).
 #
-# Every spawn/exit/backoff-decision is written to
-# .fleet-trigger-daemon-log.json (Add-TriggerDaemonLedgerEntry) so PI
-# can audit real trigger evidence each cycle per RULE 55 - a spawn
-# timestamp, exit code, and dispatched row ID, not an inferred landing.
-# A rate-limit signal in the spawned process's own output (same
-# 'limit' substring convention already used by Test-CodexProbe) doubles
-# that seat's backoff (from $TriggerDaemonBaseBackoffSeconds, capped at
-# $TriggerDaemonMaxBackoffSeconds) and records triggerBackoffUntil on
-# the seat's own entry in docs/FLEET_SEATS.json - a clean run resets
-# the seat back to the base backoff rather than leaving a stale
-# multiplier from an earlier limit.
+# Every spawn/exit/backoff-decision is written to the NDJSON ledger
+# (Add-TriggerDaemonLedgerEntry) so PI can audit real trigger evidence
+# each cycle per RULE 55 - a spawn timestamp, exit code, dispatched row
+# ID, AND whether a real landing was actually observed for it - not an
+# exit code alone. Backoff/respawn decisions are driven by
+# Test-SeatLandedSince, not the spawned process's exit code: a real
+# observed landing resets backoff to base and allows an immediate
+# respawn if more of the seat's rows remain; anything else (exit 0 with
+# no landing, or a genuine non-zero exit) grows backoff and does not
+# respawn blindly in the same cycle. A rate-limit signal in the spawned
+# process's own output (same 'limit' substring convention already used
+# by Test-CodexProbe) also triggers a Send-NtfyAlert, same as any other
+# non-zero-exit failure.
 function Invoke-SeatTriggerDaemon {
     if (Test-KillSwitch) { return }
     if (-not $EnableTriggerDaemon) {
@@ -453,15 +511,14 @@ function Invoke-SeatTriggerDaemon {
         }
         $isCodex = $codexBackedSeats -contains $seatId
         $prompt = "next task"
-        # RESPAWN POLICY (added 2026-09-08, per operator ask): a seat
-        # that exits 0 with more of its own READY rows still open gets
-        # respawned again immediately (after a short delay), instead of
-        # sitting idle until the next full -Loop cycle (which defaults
-        # to 60 minutes - far too slow for genuine continuous drain).
-        # Capped per seat per call to Invoke-SeatTriggerDaemon so a
-        # runaway condition (e.g. a row that never actually clears)
-        # cannot spin forever inside one function call; the outer
-        # -Loop cycle is still the real backstop.
+        # RESPAWN POLICY: a seat that lands real work with more of its
+        # own READY rows still open gets respawned again immediately
+        # (after a short delay), instead of sitting idle until the next
+        # full -Loop cycle (which defaults to 60 minutes - far too slow
+        # for genuine continuous drain). Capped per seat per call to
+        # Invoke-SeatTriggerDaemon so a runaway condition cannot spin
+        # forever inside one function call; the outer -Loop cycle is
+        # still the real backstop.
         $respawnCount = 0
         $seatDone = $false
         while (-not $seatDone -and $respawnCount -lt $TriggerDaemonMaxRespawnsPerCycle) {
@@ -471,43 +528,53 @@ function Invoke-SeatTriggerDaemon {
             Write-Host "TRIGGER-DAEMON: $seatId has no dispatchable READY row (owned or owner-agnostic) - nothing to spawn."
             break
         }
-        # BUG FOUND LIVE 2026-09-08: the original code here invented a
-        # THIRD codex invocation shape - `codex exec --full-auto -C
-        # "<path>" "<prompt>"` (flags + a trailing positional prompt) -
-        # that matches neither of this file's two other, pre-existing
-        # codex invocations: Test-CodexProbe's bare `codex exec "reply
-        # OK"` (no flags at all), or Start-CodexMission's `codex exec
-        # --full-auto -C "<path>" - < "<file>"` (flags + a stdin-piped
-        # prompt via the literal `-` marker, never a positional arg).
-        # The real ledger this session showed MASON and RIVET's codex
-        # spawns both exiting with code 1 in about one second - orders
-        # of magnitude faster than a real codex session, consistent
-        # with an argument-parsing failure. This session's sandbox does
-        # not have the codex CLI installed (confirmed: absent from both
-        # bash and Windows PATH) so this fix could NOT be verified
-        # against a live --help output as asked - it is instead aligned
-        # with Start-CodexMission's own already-established stdin-piped
-        # shape, the one codex invocation pattern in this file that
-        # already has real (if likewise unverified-live) precedent,
-        # rather than repeating the invented, untested combination. If
-        # this still fails, the ledger's next codex ExitCode is the
-        # real signal to check - not assumed fixed by this change alone.
-        $promptFile = $null
+        if (Test-RowAlreadyLanded -RowId $row.Id) {
+            Write-Host "TRIGGER-DAEMON: $seatId's top dispatchable row $($row.Id) already has a [land:...] commit on origin/main - board text is stale, not spawning against dead work. Waiting for the board to catch up."
+            break
+        }
+        # FIXED 2026-09-08, verified against OpenAI's own published
+        # `codex exec` documentation (developers.openai.com/codex/
+        # noninteractive - fetched directly this session, not recalled)
+        # since this sandbox has no codex CLI installed to run --help
+        # against directly (confirmed absent from both bash and Windows
+        # PATH). Two real, documented facts fixed here: (1) there is no
+        # `-C`/`--cd`/working-directory flag for `codex exec` at all -
+        # every earlier version of this command (including the
+        # pre-existing Start-CodexMission elsewhere in this file)
+        # invented one; the actual, correct way to set the working
+        # directory is Start-Process's own -WorkingDirectory, already
+        # used below - no codex-side flag needed or exists. (2)
+        # `--full-auto` is a deprecated compatibility flag; the
+        # documented replacement is `--sandbox workspace-write`
+        # (headless automation needs real write access - the default
+        # sandbox is read-only, which alone could explain an
+        # immediate, work-free exit) plus `--ask-for-approval never`
+        # for a genuinely unattended run. The prompt is a plain
+        # positional argument per the documented example - no stdin
+        # piping needed, so the temp prompt-file machinery from the
+        # previous fix attempt is removed as unnecessary.
         if ($isCodex) {
-            $promptFile = Join-Path $env:TEMP "fleet-trigger-daemon-$seatId-prompt-$([guid]::NewGuid().ToString('N')).txt"
-            Set-Content -Path $promptFile -Value $prompt -Encoding utf8 -NoNewline
-            $cmd = "codex exec --full-auto -C `"$worktreePath`" - < `"$promptFile`""
+            $cmd = "codex exec --sandbox workspace-write --ask-for-approval never `"$prompt`""
         } else {
             $cmd = "claude -p `"$prompt`""
         }
         if ($DryRun) {
             Write-Host "[DRY-RUN] TRIGGER-DAEMON would spawn $seatId in $worktreePath for row $($row.Id) - $($row.Title): $cmd"
-            if ($promptFile) { Remove-Item $promptFile -Force -ErrorAction SilentlyContinue }
             $seatDone = $true
             break
         }
         Write-Host "TRIGGER-DAEMON: spawning $seatId in $worktreePath for row $($row.Id) - $($row.Title): $cmd"
         $spawnedAt = (Get-Date).ToUniversalTime().ToString("o")
+        # Landing evidence, not exit-code trust: record origin/main's
+        # SHA before the spawn, re-fetch after, and check whether a
+        # real [land:<seat>/...] commit for THIS seat appeared - a
+        # concurrent fleet means other seats land in between too, so
+        # "origin/main advanced" alone doesn't prove this seat did
+        # anything.
+        $ErrorActionPreference = "Continue"
+        git fetch origin main 2>&1 | Out-Null
+        $ErrorActionPreference = "Stop"
+        $originMainBefore = (git rev-parse origin/main).Trim()
         $stdoutFile = Join-Path $env:TEMP "fleet-trigger-daemon-$seatId-$([guid]::NewGuid().ToString('N')).out.txt"
         $stderrFile = Join-Path $env:TEMP "fleet-trigger-daemon-$seatId-$([guid]::NewGuid().ToString('N')).err.txt"
         $exitCode = $null
@@ -522,10 +589,14 @@ function Invoke-SeatTriggerDaemon {
             $outputText = $_.Exception.Message
         } finally {
             Remove-Item $stdoutFile, $stderrFile -Force -ErrorAction SilentlyContinue
-            if ($promptFile) { Remove-Item $promptFile -Force -ErrorAction SilentlyContinue }
         }
         $exitedAt = (Get-Date).ToUniversalTime().ToString("o")
         $rateLimited = $outputText -match '(?i)limit'
+        $ErrorActionPreference = "Continue"
+        git fetch origin main 2>&1 | Out-Null
+        $ErrorActionPreference = "Stop"
+        $originMainAfter = (git rev-parse origin/main).Trim()
+        $landed = Test-SeatLandedSince -SeatId $seatId -ShaBefore $originMainBefore -ShaAfter $originMainAfter
         Add-TriggerDaemonLedgerEntry -Entry ([PSCustomObject]@{
             Seat        = $seatId
             RowId       = $row.Id
@@ -535,22 +606,22 @@ function Invoke-SeatTriggerDaemon {
             ExitedAt    = $exitedAt
             ExitCode    = $exitCode
             RateLimited = [bool]$rateLimited
+            Landed      = [bool]$landed
         })
         $prevBackoff = if (($seatCfg.PSObject.Properties.Name -contains 'triggerBackoffSeconds') -and $seatCfg.triggerBackoffSeconds) { [int]$seatCfg.triggerBackoffSeconds } else { $TriggerDaemonBaseBackoffSeconds }
-        # RESPAWN POLICY (added 2026-09-08, per operator ask): exit 0 ->
-        # reset backoff, and respawn immediately if this seat still has
-        # a dispatchable row (checked at the top of the next loop
-        # iteration) rather than waiting for the next full cycle. Any
-        # non-zero exit -> back off (doubling, capped) AND alert -
-        # previously only a text-matched "rate limit" signal backed off
-        # and nothing alerted on a plain failure; a codex argument error
-        # (like the one this same landing fixes) would have silently
-        # logged and kept retrying every cycle with no signal to a human
-        # that anything was wrong.
-        if ($exitCode -eq 0) {
+        # BACKOFF/RESPAWN, keyed on OBSERVED LANDING, not exit code:
+        # a real landing -> reset backoff, respawn immediately if more
+        # rows remain. Anything else - including a clean exit 0 that
+        # landed nothing, the exact failure mode that spun CRANE 20x
+        # against an already-done W-24 before this fix - grows backoff
+        # and stops respawning this seat for the rest of this cycle. A
+        # genuine non-zero exit additionally alerts (ntfy); an exit-0
+        # no-op does not alert (not inherently abnormal - a seat can
+        # legitimately have nothing new to land), only backs off.
+        if ($landed) {
             $seatCfg | Add-Member -NotePropertyName triggerBackoffSeconds -NotePropertyValue $TriggerDaemonBaseBackoffSeconds -Force
             $seatCfg | Add-Member -NotePropertyName triggerBackoffUntil -NotePropertyValue $null -Force
-            Write-Host "TRIGGER-DAEMON: $seatId exited 0 - backoff reset to base."
+            Write-Host "TRIGGER-DAEMON: $seatId landed real work ($originMainBefore -> $originMainAfter) - backoff reset to base."
             $configChanged = $true
             if ($respawnCount -ge $TriggerDaemonMaxRespawnsPerCycle) {
                 Write-Host "TRIGGER-DAEMON: $seatId hit the per-cycle respawn cap ($TriggerDaemonMaxRespawnsPerCycle) - remaining rows wait for the next watch cycle."
@@ -562,9 +633,13 @@ function Invoke-SeatTriggerDaemon {
             $nextBackoff = [Math]::Min($prevBackoff * 2, $TriggerDaemonMaxBackoffSeconds)
             $seatCfg | Add-Member -NotePropertyName triggerBackoffSeconds -NotePropertyValue $nextBackoff -Force
             $seatCfg | Add-Member -NotePropertyName triggerBackoffUntil -NotePropertyValue ((Get-Date).AddSeconds($nextBackoff).ToString("o")) -Force
-            $limitNote = if ($rateLimited) { "rate-limited" } else { "failed" }
-            Write-Host "TRIGGER-DAEMON: $seatId $limitNote (exit $exitCode) - backing off $nextBackoff s, alerting."
-            Send-NtfyAlert -Title "TRIGGER-DAEMON: $seatId spawn failed" -Message "Seat $seatId exited $exitCode dispatching $($row.Id) - $($row.Title). RateLimited=$rateLimited. Backing off $nextBackoff s. See .fleet-trigger-daemon-log.json for the full entry."
+            if ($exitCode -eq 0) {
+                Write-Host "TRIGGER-DAEMON: $seatId exited 0 but no [land:$($seatId.ToLower())/...] commit appeared - treating as a no-op, not a success. Backing off $nextBackoff s, not respawning this cycle."
+            } else {
+                $limitNote = if ($rateLimited) { "rate-limited" } else { "failed" }
+                Write-Host "TRIGGER-DAEMON: $seatId $limitNote (exit $exitCode) - backing off $nextBackoff s, alerting."
+                Send-NtfyAlert -Title "TRIGGER-DAEMON: $seatId spawn failed" -Message "Seat $seatId exited $exitCode dispatching $($row.Id) - $($row.Title). RateLimited=$rateLimited. Backing off $nextBackoff s. See $triggerDaemonLedgerFile for the full entry."
+            }
             $configChanged = $true
             $seatDone = $true
         }
@@ -830,21 +905,25 @@ function Get-FleetHeartbeats {
     return $results
 }
 
+# W-98 follow-up (2026-09-08): this used to Set-Content a real,
+# never-gitignored file (docs/FLEET_SCHEDULE.md) every single cycle -
+# an untracked file that could never come back clean, tripping
+# Invoke-AutoDeployIfAdvanced's dirty-working-tree guard every cycle
+# (gitignoring it alone, done in an earlier pass, silenced git but
+# left the actual write call - and therefore the underlying churn -
+# in place). Per the operator's explicit follow-up: the write call
+# itself is removed, not just its output file hidden from git. The
+# same heartbeat snapshot is now only ever written to the console
+# (Write-Host), never to disk - real information, zero file-system
+# footprint, nothing left for a deploy guard to trip on.
 function Write-FleetSchedule([hashtable]$Heartbeats) {
     $today = Get-Date -Format 'yyyy-MM-dd'
-    $lines = @("# FLEET_SCHEDULE.md - daily heartbeat snapshot (AGENTS.md RULE 38)", "")
-    $lines += "## $today $(Get-Date -Format 'HH:mm') UTC"
-    $lines += ""
-    $lines += "| Seat | Status | Last activity |"
-    $lines += "|------|--------|----------------|"
+    Write-Host "FLEET_SCHEDULE snapshot ($today $(Get-Date -Format 'HH:mm') UTC) - console only, no file written:"
     foreach ($seat in $seats) {
         $h = $Heartbeats[$seat]
         $age = if ($null -eq $h.AgeMinutes) { 'no signal found' } else { "$($h.AgeMinutes) min ago" }
-        $lines += "| $seat | $($h.Status) | $age |"
+        Write-Host "  $seat : $($h.Status) ($age)"
     }
-    $lines += ""
-    Set-Content -Path $scheduleFile -Value ($lines -join "`n") -Encoding utf8
-    Write-Host "Wrote $scheduleFile"
 }
 
 function Test-CodexProbe {
@@ -875,8 +954,19 @@ function Test-CodexProbe {
     return @{ Ok = $true; Output = $output }
 }
 
+# FIXED 2026-09-08, same real bug and same verification method as
+# Invoke-SeatTriggerDaemon's codex command above: `-C` is not a
+# documented `codex exec` flag at all (verified against OpenAI's own
+# published non-interactive-mode docs, not a live --help - this
+# sandbox has no codex CLI installed); working directory is set via
+# Start-Process's own -WorkingDirectory instead, and `--full-auto` is
+# replaced with the documented `--sandbox workspace-write
+# --ask-for-approval never`. The stdin-piped mission file itself (`- <
+# "$missionFile"`) was already correct - piping content to `codex exec
+# -` is the documented stdin form, not something this fix needed to
+# change.
 function Start-CodexMission($DispatchedRow) {
-    $cmd = "codex exec --full-auto -C `"$repoRoot`" - < `"$missionFile`""
+    $cmd = "codex exec --sandbox workspace-write --ask-for-approval never - < `"$missionFile`""
     if ($DryRun) {
         $rowText = if ($DispatchedRow) { "$($DispatchedRow.Id) - $($DispatchedRow.Title)" } else { "(no READY row found)" }
         Write-Host "[DRY-RUN] would launch Codex mission headless: $cmd"
@@ -884,7 +974,7 @@ function Start-CodexMission($DispatchedRow) {
         return
     }
     Write-Host "Launching Codex mission file headless: $missionFile"
-    Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $cmd -WindowStyle Hidden
+    Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $cmd -WorkingDirectory $repoRoot -WindowStyle Hidden
 }
 
 function Get-WatchState {

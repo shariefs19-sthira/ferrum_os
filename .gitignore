@@ -85,14 +85,21 @@ apps/web/tsconfig.tsbuildinfo
 .fleet-watch-state.json
 .fleet-deploy-state.json
 .fleet-trigger-daemon-log.json
+.fleet-trigger-daemon-log.ndjson
 
-# W-98 follow-up (found live 2026-09-08): Write-FleetSchedule
-# regenerates this file every single watch cycle and it was never
-# git-tracked (a real, untracked `??` file, confirmed via git status)
-# - the operator deleted it once and it reappeared on the very next
-# cycle, and because it's untracked, `git status --porcelain` never
-# comes back clean, which trips Invoke-AutoDeployIfAdvanced's
-# dirty-working-tree guard every cycle. Same root cause and same fix
-# as the .fleet-*.json entries above - real local/regenerated state
-# has no business being tracked or blocking deploys.
+# W-98 follow-up (2026-09-08): Write-FleetSchedule's actual write call
+# has now been removed from scripts/FLEET_WATCH.ps1 entirely (not just
+# gitignored) per the operator's explicit follow-up ask - this entry
+# stays as defense-in-depth in case a stray copy of the file exists
+# locally on a machine that ran an older version of the script, not
+# because anything still writes it.
 docs/FLEET_SCHEDULE.md
+
+# W-98 follow-up (2026-09-08): apps/artifacts/ and apps/web/artifacts/
+# are real, untracked headless-proof/screenshot output (confirmed via
+# git status - apps/artifacts/w63/live-fullscreen-1366.png is a real
+# file) with no in-repo generator script found to relocate instead -
+# same dirty-working-tree-guard-trip class as every other entry in
+# this section.
+apps/artifacts/
+apps/web/artifacts/
