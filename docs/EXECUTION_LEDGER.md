@@ -57,6 +57,15 @@ from, per RULE 55's 2026-09-08 amendment.
   correction was applied at the shared source of the defect. A cross-product
   list passes only when every declared product target is consumed; a
   single-surface repair is a scope defect, not partial completion.
+- **UI LIVE-ACCEPTANCE RE-VERIFICATION:** for every user-facing row reviewed
+  in the current cycle, record a rendered-edge acceptance verdict: PASS,
+  FAIL, or PENDING. `PENDING` blocks `DONE`; landing, build, test, or static
+  evidence does not substitute for the required live result.
+- **ROUTE LAYOUT BATTERY:** every cycle, exercise every registered route at
+  the project viewports. Assert `documentElement.scrollWidth <= clientWidth`
+  and detect intersecting visible-text rectangles, excluding only declared
+  intentional overlays. Report every failing route/element to SCRIBE; a
+  cross-product correction passes only when the full route list is clean.
 - **WORKFLOW V3 INTAKE:** each TASK_BOARD row is expected to carry both an
   ASSIGNEE and PRODUCT tag. Missing either field is a SCRIBE reconciliation
   defect. Harness-issued headless `next task` prompts have the same standing
@@ -395,8 +404,27 @@ day — see that file's own Notes section, not duplicated here.
 
 ## Cycle summaries
 
+**Cycle 1 latest status correction — W-69 and W-84:** **HALFWAY** on
+operator-supplied screenshot evidence. The screenshot artifact path/hash was
+not supplied to PI, so this is a recorded operator attestation, not a
+reproducible PI capture. Their full live-acceptance verdict remains PENDING:
+W-69 still requires site-wide UX/budget proof; W-84 still requires its
+eleven-route width/viewport matrix.
+
+**Cycle 1 status correction — W-84:** **HALFWAY**, pending RIVET's deployed
+screenshots proving PREVIEW_FULLBLEED at the row's required viewports and
+route matrix. This supersedes the earlier IN_PROGRESS classification.
+
+**Cycle 1 UI live-acceptance re-verification register:** `PENDING` for
+W-37, W-38, W-39, W-40, W-42, W-44, W-47, W-48, W-51, W-52, W-53, W-54,
+W-55, W-58, W-59, W-61, W-63, W-65, W-66, W-67, W-69, W-70, W-71, W-72,
+W-73, W-76, W-80, W-81, W-82, W-83, W-84, W-85, W-88, W-89, W-91, W-92,
+W-94, and W-95. Rows still BLOCKED without an implementation artifact are
+not eligible to pass; their live check remains pending until a completion
+record is reviewed. W-84 specifically awaits RIVET screenshot evidence.
+
 **Cycle 1 summary (2026-09-07):** 60 numeric IDs reviewed: 2 DONE
-(static research/spec), 10 HALFWAY, 5 IN_PROGRESS, 37 BLOCKED, 6 STUCK,
+(static research/spec), 12 HALFWAY, 4 IN_PROGRESS, 36 BLOCKED, 6 STUCK,
 and 11 without a TASK_BOARD row. Correction relay: restore or explicitly
 retire W-37/W-38/W-39, W-50, W-90, and W-93. Author commits off-main are
 execution evidence only, never landings. No artifact-specific deployment
