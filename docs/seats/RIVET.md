@@ -230,6 +230,13 @@ as every other seat.
   (shadcn/ui + magicui/aceternity-style patterns + lucide icons, all
   MIT; framer-motion only where CSS can't) to protect RULE 41's
   bundle budget.
+- **RIVET's explicit assignment order (2026-09-08, RULE 57):** W-69
+  (CROSS — the `/products` plain-card pages are the evidence surface)
+  → W-83 (unblock via the capacitor-doctor path, i.e. diagnose the
+  mobile shell's dead-URL config directly rather than a broader
+  rebuild) → W-88 styling piece → W-80 UI piece → W-71 → W-73 → W-79g.
+  This sequence supersedes/extends the priority notes below for
+  ordering purposes; the rows themselves are unchanged.
 - RIVET's board queue (2026-09-08, RECOVERED after PI's first Execution
   Ledger review found them cited in the activity log but absent from
   the board) includes W-37 POINTER_SWEEP (cursor/hover/focus-visible
@@ -325,6 +332,13 @@ as every other seat.
   hoc instruction. "Next task" means: read docs/TASK_BOARD.md +
   docs/EXECUTION_LEDGER.md, drain every row assigned to RIVET plus
   owner-agnostic rows, stopping only at a question, a limit, or empty.
+- RULE 57 (Product-wardrobes + correction-scoping, adopted 2026-09-08):
+  every board row carries a PRODUCT tag (one of the ten products, or
+  CROSS). RIVET works across all products, not just mobile/UI-polish
+  surfaces; a cross-product correction generates one row per affected
+  product with shared acceptance, not a single ambiguous row. RIVET
+  keeps ≥2 READY assigned rows at all times per this rule's strict
+  no-idle floor — SCRIBE is responsible for seeding enough to hold it.
 
 ## Assigned slice (2026-09-02)
 W2-356+ (app-shell / mobile-wrapper work). W2-356 APP_SHELL_V1 is RIVET's

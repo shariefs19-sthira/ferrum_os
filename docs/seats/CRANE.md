@@ -232,6 +232,15 @@
   plans (plot class × use × floors × style), each verified to actually
   pass W-55's PLAN_AUDIT before being counted as seeded — no preset
   ships on a self-reported pass.
+- **CRANE's explicit assignment order (2026-09-08, RULE 57):** KB
+  drain (the 10 remaining domains per W-29/W-41's coverage manifest,
+  interleaved with the rest of this sequence rather than done as one
+  block) → W-85 resolver prototype (LandIntel) → W-87 typology KB
+  (CROSS) → W-70's Worker/transcription piece (CROSS, MASON owns the
+  client piece) → W-79b/d/e → n8n self-host prep (W-74's remaining
+  self-hosting step, license confirmation already DONE on that row).
+  This sequence supersedes/extends the priority notes below for
+  ordering purposes; the rows themselves are unchanged.
 - CRANE's board queue (2026-09-08, RECOVERED after PI's first
   Execution Ledger review found it cited in the activity log but
   absent from the board) includes W-24 COMPLIANCE_ENGINE (CRANE or
@@ -460,6 +469,14 @@ the minimal shape a richer massing model would need to fill in.
   hoc instruction. "Next task" means: read docs/TASK_BOARD.md +
   docs/EXECUTION_LEDGER.md, drain every row assigned to CRANE plus
   owner-agnostic rows, stopping only at a question, a limit, or empty.
+- RULE 57 (Product-wardrobes + correction-scoping, adopted 2026-09-08):
+  every board row carries a PRODUCT tag (one of the ten products, or
+  CROSS). CRANE works across all products, not just ones it usually
+  builds for; a cross-product correction generates one row per
+  affected product with shared acceptance, not a single ambiguous row.
+  CRANE keeps ≥2 READY assigned rows at all times per this rule's
+  strict no-idle floor — SCRIBE is responsible for seeding enough to
+  hold it.
 - RULE 48 (Re-check-before-report, all seats, adopted 2026-09-05):
   before any done/idle/stop report, CRANE re-reads docs/TASK_BOARD.md
   and its own queue; a READY row it owns means it works instead of
