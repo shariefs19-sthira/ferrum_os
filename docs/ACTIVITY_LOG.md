@@ -1813,3 +1813,12 @@ cd C:\Users\user\ferrum_os
 **Status:** ✅ Complete
 **Files Modified:** docs/TASK_BOARD.md, docs/MASTER_TASK_LIST.md, docs/ACTIVITY_LOG.md
 **Next Steps:** MASON pulls W-113 per its assigned envelope; whoever pulls W-85 next addresses the named stepper-to-chips defect specifically, not just the pre-existing text. FLEET_SCHEDULE.md's apparent writer bug should be investigated by CRANE (owns FLEET_WATCH.ps1/W-98) separately — not addressed by this docs-only landing. This branch lands via `land.ps1` this same pass.
+
+---
+
+## 2026-09-08 - SCRIBE seeded W-114..W-120, LandIntel deal-context suite (mapped in MASTER_TASK_LIST §O)
+**Action:** Rebuilt fresh off `origin/main` (tip `5c2eabe36`, the prior MASTER_TASK_LIST landing). Operator instruction named seven new asks (zoning summary, soil/hazard exposure, climate-normal year profile, 100-year history panel, an aggregating feasibility report, an investment-return forecast, and the open-geo-data survey sourcing all of it); checked `docs/TASK_BOARD.md` and confirmed none of the existing ~110 rows cover these — no dedupe merge applied, all seven seeded as new rows per the operator's own "map ask-sources" instruction (mapping shown even where the answer is "genuinely new," not just for merges). Seeded W-114 ZONING_SUMMARY, W-115 SOIL_HAZARD, W-116 CLIMATE_YEAR, W-117 HISTORY_100Y, W-118 FEASIBILITY_REPORT, W-119 INVEST_FORECAST (all reading parcel context from W-113 only, per that row's own single-source-of-truth contract), and W-120 OPEN_GEO_DATA_SURVEY (ATLAS research row feeding W-115/116/117's adapter sourcing). Mapped all seven in `docs/MASTER_TASK_LIST.md` §O with ASK-SOURCE quotes and dependency chains.
+**By:** SCRIBE (Claude Code)
+**Status:** ✅ Complete
+**Files Modified:** docs/TASK_BOARD.md, docs/MASTER_TASK_LIST.md, docs/ACTIVITY_LOG.md
+**Next Steps:** ATLAS pulls W-120 first (it sources the other three's adapters); CRANE/MASON pull W-114/115/116/117 once W-120 has adopt verdicts, or in parallel using placeholder/GAP-labeled sourcing per each row's own honesty requirement. This branch lands via `land.ps1` this same pass.
