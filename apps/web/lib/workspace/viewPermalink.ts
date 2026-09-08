@@ -1,0 +1,4 @@
+import type { StudioParameters, StudioView } from "../types"
+export type WorkspaceViewState={version:1;view:StudioView;parameters:StudioParameters;camera?:{position:[number,number,number];target:[number,number,number]};selection?:string}
+export const encodeWorkspaceView=(state:WorkspaceViewState)=>encodeURIComponent(JSON.stringify(state))
+export function decodeWorkspaceView(value:string|null):WorkspaceViewState|null{if(!value)return null;try{const state=JSON.parse(decodeURIComponent(value)) as WorkspaceViewState;if(state.version!==1||!state.parameters||!["space","plan","front-elevation","side-elevation"].includes(state.view))return null;if(![state.parameters.plotWidthM,state.parameters.plotDepthM,state.parameters.setbackM,state.parameters.floors].every(Number.isFinite))return null;return state}catch{return null}}

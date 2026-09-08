@@ -1,0 +1,2 @@
+import{describe,expect,it}from"vitest";import{decodeWorkspaceView,encodeWorkspaceView,type WorkspaceViewState}from"./viewPermalink"
+describe("workspace view permalink",()=>{it("round-trips every named state dimension",()=>{const state:WorkspaceViewState={version:1,view:"plan",parameters:{plotWidthM:20,plotDepthM:30,setbackM:2,floors:3},camera:{position:[10,20,30],target:[0,4,0]},selection:"Level 2"};expect(decodeWorkspaceView(encodeWorkspaceView(state))).toEqual(state)});it("rejects malformed state",()=>expect(decodeWorkspaceView("%7Bbad")).toBeNull())})

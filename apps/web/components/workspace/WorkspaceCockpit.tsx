@@ -20,6 +20,7 @@ import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
 import { readProjectState, sameParameters, subscribeProjectState, writeProjectState } from '../../lib/workspace/projectState'
 import PrecisionControl from '../controls/PrecisionControl'
 import { evaluateCompliance } from '../../lib/complianceEngine'
+import { decodeWorkspaceView, encodeWorkspaceView, type WorkspaceViewState } from '../../lib/workspace/viewPermalink'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -102,6 +103,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [optionStage, setOptionStage] = useState<OptionStage>('use')
   const [showDiagram, setShowDiagram] = useState(false)
   const [landUse, setLandUse] = useState<LandUse>('Residential')
+  const [permalinkStatus, setPermalinkStatus] = useState('')
   const ruleset = getRulesetForState('Karnataka')
   const landRule = ruleset?.land_use_rules[landUse]
   const plan = useMemo(() => generateStudioPlan({ ...parameters, maxHeightM: landRule?.max_height_m }), [parameters, landRule?.max_height_m])
@@ -195,6 +197,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         }
       }
     }
+    const restored = decodeWorkspaceView(new URLSearchParams(window.location.search).get('workspaceView'))
+    if (restored) { nextParameters=restored.parameters; setView(restored.view); window.setTimeout(()=>window.dispatchEvent(new CustomEvent('ferrum:restore-view',{detail:restored})),0) }
     setParameters(nextParameters)
     setProjectStateReady(true)
   }, [initialParameters, previewLabel])
@@ -283,6 +287,13 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     setPrimaryAreaUnit(unit)
     window.localStorage.setItem('ferrum-area-unit', unit)
   }
+  const createPermalink = async () => {
+    const host=document.querySelector<HTMLElement>('[data-space-3d]');let camera:WorkspaceViewState['camera']
+    try{camera=host?.dataset.cameraState?JSON.parse(host.dataset.cameraState):undefined}catch{camera=undefined}
+    const state:WorkspaceViewState={version:1,view,parameters,camera,selection:host?.dataset.selectionTarget??host?.dataset.selected}
+    const url=new URL(window.location.href);url.searchParams.set('workspaceView',encodeWorkspaceView(state));window.history.replaceState(null,'',url)
+    await navigator.clipboard?.writeText(url.toString()).catch(()=>undefined);setPermalinkStatus('View permalink ready')
+  }
 
   return (
     <section className={`overflow-hidden border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col' : 'rounded-relume'}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined}>
@@ -343,6 +354,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
               </label>
             )}
             {fullscreenControl && <button type="button" aria-pressed={fullscreenControl.active} onClick={fullscreenControl.onClick} className="relative z-30 ml-auto min-h-11 rounded-full border border-relume-border bg-relume-command px-4 text-xs font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" data-fullscreen-toggle>{fullscreenControl.label}</button>}
+            <button type="button" onClick={() => void createPermalink()} className="min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command" data-view-permalink>Copy view link</button>
           </div>
           <div className="absolute left-3 right-3 top-16 z-20 flex items-center gap-2 overflow-x-auto rounded-full border border-white/40 bg-relume-command/90 p-2 shadow-xl backdrop-blur-sm md:left-1/2 md:right-auto md:max-w-[calc(100%-2rem)] md:-translate-x-1/2" aria-label={`${optionStage} options`} data-option-chip-flow data-option-stage={optionStage}>
             <span className="shrink-0 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-accent">{optionStage} · INDICATIVE</span>
@@ -380,7 +392,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           <p className="mt-6 text-xs leading-5 text-relume-muted">INDICATIVE — deterministic rectangular zoning only. It does not resolve structure, circulation compliance, daylight, Vaastu, services, or authority approval.</p>
         </aside>}
       </div>
-      <p className="border-t border-relume-border bg-relume-surface-secondary px-4 py-2 text-xs text-relume-muted" aria-live="polite" data-canvas-flow-result>{commandResult}</p>
+      <p className="border-t border-relume-border bg-relume-surface-secondary px-4 py-2 text-xs text-relume-muted" aria-live="polite" data-canvas-flow-result>{permalinkStatus || commandResult}</p>
       <ExportBar plan={plan} />
     </section>
   )
