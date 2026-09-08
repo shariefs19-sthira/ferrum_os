@@ -5,6 +5,7 @@ import { safetyFacts, safetyGaps } from "./domains/safety"
 import { approvalsNocsFacts, approvalsNocsGaps } from "./domains/approvalsNocs"
 import { sustainabilityFacts, sustainabilityGaps } from "./domains/sustainability"
 import { soilFoundationFacts, soilFoundationGaps } from "./domains/soilFoundation"
+import { materialsFacts, materialsGaps } from "./domains/materials"
 
 // W-41 KB_EXHAUSTIVE's coverage manifest. Computed from the actual
 // seeded arrays, never hand-typed - a domain with zero facts shows as
@@ -17,6 +18,7 @@ const seededByDomain: Partial<Record<(typeof kbDomains)[number], { length: numbe
   "approvals-nocs": approvalsNocsFacts,
   sustainability: sustainabilityFacts,
   "soil-foundation": soilFoundationFacts,
+  materials: materialsFacts,
 }
 
 const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
@@ -26,6 +28,7 @@ const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
   "approvals-nocs": approvalsNocsGaps,
   sustainability: sustainabilityGaps,
   "soil-foundation": soilFoundationGaps,
+  materials: materialsGaps,
 }
 
 // Depth-% denominator per the operator's standing rule: the source's
@@ -81,6 +84,13 @@ const depthDenominatorsByDomain: Partial<Record<(typeof kbDomains)[number], Dept
     method:
       "Counted distinct top-level clause numbers (pattern ^N TITLE at the start of a line) appearing as section headers across the full fetched text - found Clauses 1 through 20 present (Scope through Protection of Excavation).",
     totalClauseCount: 20,
+  },
+  materials: {
+    sourceName: "IS 383:2016 Coarse and Fine Aggregate for Concrete - Specification (Third Revision)",
+    sourceUrl: "https://archive.org/details/gov.in.is.383.2016",
+    method:
+      "Counted distinct top-level clause numbers (pattern ^N TITLE at the start of a line) appearing as section headers across the full fetched text - found Clauses 1 through 10 present (Scope through Marking).",
+    totalClauseCount: 10,
   },
 }
 
