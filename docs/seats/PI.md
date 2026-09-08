@@ -99,6 +99,15 @@ role that lands nothing of its own:
   unreviewed row (PI has no "assigned" rows in the executor sense —
   its queue is every other seat's landed/in-progress work), stopping
   only at a question, a limit, or being caught up.
+- RULE 57 (Product-wardrobes + correction-scoping, adopted 2026-09-08):
+  every board row carries a PRODUCT tag (one of the ten products, or
+  CROSS) — part of what PI's ASSIGNEE-COVERAGE/EXECUTION-ASSIGNEE-MATCH
+  per-cycle controls can now also check against (a row missing its
+  PRODUCT tag is a documentation gap PI can flag alongside a missing
+  assignee, same relay-to-SCRIBE pattern). The ≥2-READY-row no-idle
+  floor is SCRIBE's obligation, not PI's to enforce directly — but PI's
+  ledger review is where a seat's queue running dry would first become
+  visible.
 
 ## Assigned slice
 

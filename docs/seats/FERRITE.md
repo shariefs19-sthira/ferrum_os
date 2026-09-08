@@ -157,3 +157,10 @@ point for the trial, not a claim that all 52 are individually LIVE.
   hoc instruction. "Next task" means: read docs/TASK_BOARD.md +
   docs/EXECUTION_LEDGER.md, drain every row assigned to FERRITE plus
   owner-agnostic rows, stopping only at a question, a limit, or empty.
+- RULE 57 (Product-wardrobes + correction-scoping, adopted 2026-09-08):
+  every board row carries a PRODUCT tag (one of the ten products, or
+  CROSS). FERRITE works across all products when active; a
+  cross-product correction generates one row per affected product with
+  shared acceptance, not a single ambiguous row. The ≥2-READY-row
+  no-idle floor applies to FERRITE whenever it is the active gap-filler
+  seat, per RULE 33's own activation condition.

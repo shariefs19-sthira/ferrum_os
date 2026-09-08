@@ -1131,6 +1131,38 @@ run through SCRIBE's own citation/generalization discipline (RULE 39/
 43/44). Routing every correction through SCRIBE as a real row keeps the
 board the single source of truth RULE 55's ledger already assumes it is.
 
+## RULE 57 — PRODUCT_WARDROBES + CORRECTION_SCOPING (all seats +
+SCRIBE, adopted 2026-09-08)
+Every docs/TASK_BOARD.md row carries a PRODUCT tag naming which of
+Ferrum's ten products it affects, or CROSS if it spans more than one:
+LandIntel | DesignStudio | Structura | BOQPro | ProMarket | ProcureHub
+| InvestFlow | BuildOS | CommunityBuild | Transact | CROSS.
+(1) **Correction scoping:** when the operator raises a correction
+that's limited to one product, SCRIBE seeds it as a single row tagged
+to that product. When a correction repeats across products (the same
+underlying issue showing up on more than one product surface), SCRIBE
+generates the full cross-product task list itself — one row per
+affected product, sharing one acceptance criterion — rather than
+waiting for the operator to name each product separately.
+(2) **All seats work across all products** — a seat's assignment is
+never implicitly scoped to "the products it usually touches"; the
+PRODUCT tag on a row is the only scoping that matters.
+(3) **No seat idle, strict:** every seat keeps at least 2 READY rows
+assigned to it at all times. If a seat's assigned queue would drop
+below 2, SCRIBE seeds or re-assigns rows to restore that floor before
+the seat is allowed to run dry — this is a standing SCRIBE obligation,
+not a one-time check.
+*Rationale:* a ten-product platform with correction relays that name
+only one product invites the same defect to be found and "fixed" once
+per product, one operator report at a time (the same waste RULE 44
+already closes for principle-generalization); tagging every row by
+product turns "does this bug exist on the other nine products too"
+into a queryable fact instead of a re-discovered surprise. The ≥2-row
+floor exists because RULE 45/52's drain-don't-wait model only works if
+there is always something in the queue to drain — an empty queue for
+even one seat is a fleet-throughput failure SCRIBE is responsible for
+preventing, not the seat's to solve by idling.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

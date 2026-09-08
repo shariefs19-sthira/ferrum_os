@@ -176,6 +176,15 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   item-count/source-list claims against the coverage manifest's stated
   depth percentages — no self-reported percentage stands unaudited,
   same no-self-certification principle as the W-32 battery sub-rows.
+- **ATLAS's explicit assignment order (2026-09-08, RULE 57):** W-90
+  (LandIntel) → W-97 LANDEED_COMPETITIVE_FOLLOWUP (LandIntel — seeded
+  this same pass from the operator's "LANDEED_DEEP_DIVE" reference,
+  continuing the real, already-landed `docs/LANDEED_DEEP_DIVE.md`
+  research) → standing audits + the RULE 41 battery + per-product
+  skin/propagation re-checks as rows land (an ongoing duty, not a
+  single row — every landing from W-81's per-tab skins onward should
+  get a propagation check that the skin/persona pairing actually
+  reached every listed product surface, not just the cockpit).
 - ATLAS's board queue (2026-09-06) also includes W-68 TECH_SCOUT — its
   scope is provisional (SCRIBE seeded it from seat+title alone, no
   further instruction given): scout external technologies/libraries
@@ -304,6 +313,13 @@ W2-320, 321, 323, 331, 332, 333, 338, 339, 342.
   hoc instruction. "Next task" means: read docs/TASK_BOARD.md +
   docs/EXECUTION_LEDGER.md, drain every row assigned to ATLAS plus
   owner-agnostic rows, stopping only at a question, a limit, or empty.
+- RULE 57 (Product-wardrobes + correction-scoping, adopted 2026-09-08):
+  every board row carries a PRODUCT tag (one of the ten products, or
+  CROSS). ATLAS works across all products, not just ones it usually
+  audits; a cross-product correction generates one row per affected
+  product with shared acceptance, not a single ambiguous row. ATLAS
+  keeps ≥2 READY assigned rows at all times per this rule's strict
+  no-idle floor — SCRIBE is responsible for seeding enough to hold it.
 
 ## Permanent envelope decision (2026-09-06, operator, "latest wins")
 On the W-70..W-79g integrations board going live with owner-agnostic

@@ -326,3 +326,12 @@ This was a fresh baseline: it explicitly does not claim any prior
   task" means: read docs/TASK_BOARD.md + docs/EXECUTION_LEDGER.md,
   drain every row assigned to SCRIBE plus owner-agnostic docs rows,
   stopping only at a question, a limit, or empty.
+- RULE 57 (Product-wardrobes + correction-scoping, adopted 2026-09-08):
+  every board row carries a PRODUCT tag (one of the ten products, or
+  CROSS) — SCRIBE tags every new row it seeds and back-tags existing
+  rows incrementally. When an operator correction repeats across
+  products, SCRIBE generates the full cross-product task list itself
+  (one row per affected product, shared acceptance) rather than
+  waiting for the operator to name each product. SCRIBE owns the
+  ≥2-READY-row no-idle floor for every seat — a standing obligation to
+  seed or re-assign before any seat's queue actually runs dry.
