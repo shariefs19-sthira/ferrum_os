@@ -4,6 +4,7 @@ import { planningFacts, planningGaps } from "./domains/planning"
 import { safetyFacts, safetyGaps } from "./domains/safety"
 import { approvalsNocsFacts, approvalsNocsGaps } from "./domains/approvalsNocs"
 import { sustainabilityFacts, sustainabilityGaps } from "./domains/sustainability"
+import { soilFoundationFacts, soilFoundationGaps } from "./domains/soilFoundation"
 
 // W-41 KB_EXHAUSTIVE's coverage manifest. Computed from the actual
 // seeded arrays, never hand-typed - a domain with zero facts shows as
@@ -15,6 +16,7 @@ const seededByDomain: Partial<Record<(typeof kbDomains)[number], { length: numbe
   safety: safetyFacts,
   "approvals-nocs": approvalsNocsFacts,
   sustainability: sustainabilityFacts,
+  "soil-foundation": soilFoundationFacts,
 }
 
 const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
@@ -23,6 +25,7 @@ const gapsByDomain: Partial<Record<(typeof kbDomains)[number], KbGap[]>> = {
   safety: safetyGaps,
   "approvals-nocs": approvalsNocsGaps,
   sustainability: sustainabilityGaps,
+  "soil-foundation": soilFoundationGaps,
 }
 
 // Depth-% denominator per the operator's standing rule: the source's
@@ -71,6 +74,13 @@ const depthDenominatorsByDomain: Partial<Record<(typeof kbDomains)[number], Dept
     method:
       "Counted this document's own top-level Table-of-Contents entries - 7 numbered chapters (Introduction, Scope, Code Compliance, Mandatory Requirements, Prescriptive Requirements, Point System Method, Terminology & Definitions) plus 5 lettered Annexes (A-E) = 12. This covers only the ENS Part II edition actually fetched; ENS Part I (Building Envelope) and ECBC 2017 are real, separate documents chipped as gaps, not yet folded into this denominator.",
     totalClauseCount: 12,
+  },
+  "soil-foundation": {
+    sourceName: "IS 1904:2021 General Requirements for Design and Construction of Foundations in Soils - Code of Practice (Third Revision, Draft)",
+    sourceUrl: "https://archive.org/details/gov.in.is.1904.2021",
+    method:
+      "Counted distinct top-level clause numbers (pattern ^N TITLE at the start of a line) appearing as section headers across the full fetched text - found Clauses 1 through 20 present (Scope through Protection of Excavation).",
+    totalClauseCount: 20,
   },
 }
 
