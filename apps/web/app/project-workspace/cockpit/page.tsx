@@ -12,6 +12,7 @@ import CanvasSlot from "../../../components/workspace/CanvasSlot"
 import SutraPanel from "../../../components/workspace/SutraPanel"
 import FullscreenController from "../../../components/workspace/FullscreenController"
 import ProductSkin from "../../../components/workspace/ProductSkin"
+import type { SutraEvent } from "../../../lib/sutra/events"
 
 /**
  * W2-401 WORKSPACE_SHELL — the cockpit. Assembly only (CRANE is the sole
@@ -51,6 +52,7 @@ export default function ProjectWorkspaceCockpit() {
   const [sutraOpen, setSutraOpen] = useState(true)
   const [territoryOpen, setTerritoryOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
+  const [lastSutraEvent, setLastSutraEvent] = useState<SutraEvent["type"] | "idle">("idle")
 
   useEffect(() => {
     window.localStorage.setItem('ferrum-preview-session', 'active')
@@ -74,6 +76,11 @@ export default function ProjectWorkspaceCockpit() {
       if (navigator.share) void navigator.share(share).catch(() => undefined)
       else void navigator.clipboard?.writeText(window.location.href).catch(() => undefined)
     }
+  }
+
+  const handleSutraEvent = (event: SutraEvent) => {
+    setLastSutraEvent(event.type)
+    if (event.type === "TOOL_CALL" && event.tool === "workspace.command") handleCommand(event.arguments.command)
   }
 
   const noExtracts: WorkspaceExtract[] = []
@@ -112,7 +119,7 @@ export default function ProjectWorkspaceCockpit() {
         rail
       /></div>
       {territoryOpen && <aside className="absolute bottom-2 left-2 top-2 z-40 w-[min(20rem,calc(100%-1rem))] overflow-y-auto border border-relume-border bg-white p-5 shadow-2xl" aria-label="Territorial context"><button type="button" onClick={()=>setTerritoryOpen(false)} className="float-right min-h-11 px-3">Close</button><p className="text-xs font-semibold uppercase tracking-wider text-relume-muted">Territorial context</p><h2 className="mt-3 text-xl font-semibold">No parcel attached</h2><p className="mt-3 text-sm leading-6 text-relume-muted">This preview has no authoritative parcel or jurisdiction record. Attach a verified LandIntel result before applying territorial constraints.</p><span className="mt-4 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold">ROADMAP</span></aside>}
-      {sutraOpen && <div className="absolute inset-x-2 bottom-2 z-40 h-[72%] shadow-2xl lg:left-auto lg:right-2 lg:top-2 lg:h-auto lg:w-[22rem]" data-sutra-region><button type="button" onClick={()=>setSutraOpen(false)} className="absolute right-3 top-2 z-50 min-h-11 px-2 text-xs font-semibold text-white" aria-label="Close SUTRA">Close</button><SutraPanel onSubmit={handleCommand} /></div>}
+      {sutraOpen && <div className="absolute inset-x-2 bottom-2 z-40 h-[72%] shadow-2xl lg:left-auto lg:right-2 lg:top-2 lg:h-auto lg:w-[22rem]" data-sutra-region data-last-sutra-event={lastSutraEvent}><button type="button" onClick={()=>setSutraOpen(false)} className="absolute right-3 top-2 z-50 min-h-11 px-2 text-xs font-semibold text-white" aria-label="Close SUTRA">Close</button><SutraPanel onEvent={handleSutraEvent} /></div>}
       {extractOpen && <div className="absolute inset-x-2 bottom-2 z-50 max-h-[65%] overflow-y-auto shadow-2xl"><ExtractPanel areaSquareMetres={liveMetrics?.areaSquareMetres} extracts={liveMetrics?.extracts ?? noExtracts} lengthMetres={liveMetrics?.lengthMetres} onClose={() => setExtractOpen(false)} product={activeProduct} provenance={liveMetrics?.provenance ?? noProvenance} /></div>}
       </div>
       <MoreDrawer onMoreAction={handleMoreAction} onMoreOpenChange={setMoreOpen} open={moreOpen} />
