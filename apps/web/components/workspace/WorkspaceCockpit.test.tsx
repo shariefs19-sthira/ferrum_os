@@ -67,4 +67,22 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     fireEvent(window, new CustomEvent("ferrum:workspace-command", { detail: "reset model" }))
     await waitFor(() => expect(onLiveMetricsChange.mock.calls.at(-1)[0].extracts.find((e: { label: string }) => e.label === "Floors").value).toBe("3"))
   })
+
+  it("routes BUY diligence to Land and BUILD permissions to Build", async () => {
+    const landMetrics = vi.fn()
+    const { unmount } = render(<WorkspaceCockpit activeProduct="Land" onLiveMetricsChange={landMetrics} />)
+    await waitFor(() => expect(landMetrics).toHaveBeenCalled())
+    const landExtracts = landMetrics.mock.calls.at(-1)[0].extracts
+    expect(landExtracts.some((item: { label: string }) => item.label.startsWith("BUY ·"))).toBe(true)
+    expect(landExtracts.some((item: { label: string }) => item.label.startsWith("BUILD ·"))).toBe(false)
+    expect(landMetrics.mock.calls.at(-1)[0].provenance.source).toContain("2026.1-SAMPLE")
+    unmount()
+
+    const buildMetrics = vi.fn()
+    render(<WorkspaceCockpit activeProduct="Build" onLiveMetricsChange={buildMetrics} />)
+    await waitFor(() => expect(buildMetrics).toHaveBeenCalled())
+    const buildExtracts = buildMetrics.mock.calls.at(-1)[0].extracts
+    expect(buildExtracts.some((item: { label: string }) => item.label.startsWith("BUILD ·"))).toBe(true)
+    expect(buildExtracts.some((item: { label: string }) => item.label.startsWith("BUY ·"))).toBe(false)
+  })
 })

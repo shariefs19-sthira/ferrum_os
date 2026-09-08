@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { generateStudioPlan } from '../../lib/plan-gen'
 import { checkStructuralLive } from '../../lib/studio/structuralLive'
-import type { StudioParameters, StudioView, WorkspaceExtract, WorkspaceProvenance } from '../../lib/types'
+import type { StudioParameters, StudioView, WorkspaceExtract, WorkspaceProduct, WorkspaceProvenance } from '../../lib/types'
 import { getRulesetForState } from '../../lib/parcelIntel/sampleRulesets'
 import type { LandUse } from '../../lib/parcelIntel/types'
 import { convertArea, metresAndFeet } from '../../lib/units'
@@ -18,6 +18,7 @@ import RegistryControls from './RegistryControls'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
 import { readProjectState, sameParameters, subscribeProjectState, writeProjectState } from '../../lib/workspace/projectState'
+import { evaluateCompliance } from '../../lib/complianceEngine'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -89,11 +90,12 @@ type WorkspaceCockpitProps = {
   canvasFirst?: boolean
   controlProduct?: ProductControlId
   fullscreenControl?: { active: boolean; label: string; onClick: () => void }
+  activeProduct?: WorkspaceProduct
 }
 
 const defaultParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 }
 
-export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, controlProduct, fullscreenControl }: WorkspaceCockpitProps) {
+export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, controlProduct, fullscreenControl, activeProduct }: WorkspaceCockpitProps) {
   const [parameters, setParameters] = useState<StudioParameters>(initialParameters)
   const [projectStateReady, setProjectStateReady] = useState(false)
   const [view, setView] = useState<StudioView>('space')
@@ -113,6 +115,18 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const governingSpanM = Math.max(...activeRooms.map((room) => room.widthM), 0)
   const structural = checkStructuralLive([{ id: 'active-floor-beam', kind: 'beam', span_m: governingSpanM, depth_mm: 300, width_mm: 300, udl_kn_per_m: 8, support: 'simple' }])
   const structuralPass = structural.results.every((result) => result.checks.every((check) => check.pass))
+  const compliance = useMemo(() => evaluateCompliance({
+    state: 'Karnataka',
+    areaSqm: plan.plotWidthM * plan.plotDepthM,
+    proposedHeightM: plan.floors * plan.floorHeightM,
+    proposedCoveragePct: (plan.buildingWidthM * plan.buildingDepthM) / (plan.plotWidthM * plan.plotDepthM) * 100,
+    proposedFar: grossArea / (plan.plotWidthM * plan.plotDepthM),
+  }, landUse), [plan, grossArea, landUse])
+  const scopedPermissions = useMemo(() => activeProduct === 'Land'
+    ? compliance.permissions.filter((item) => item.stage === 'BUY')
+    : activeProduct === 'Build'
+      ? compliance.permissions.filter((item) => item.stage === 'BUILD')
+      : [], [activeProduct, compliance])
   // Battery-fail (2): a tool mutate (any Parameter slider below) must
   // recompute the bottom extract panel live. onLiveMetricsChange runs
   // from real derived state (plan/grossArea/governingSpanM/
@@ -126,12 +140,18 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         { label: 'Gross area', value: format(grossArea, 1), unit: 'm²' },
         { label: 'Governing span', value: format(governingSpanM, 2), unit: 'm' },
         { label: 'IS 456 span/depth check', value: structuralPass ? 'PASS' : 'REVIEW' },
+        ...scopedPermissions.map((item) => ({
+          label: `${item.stage} · ${item.title}`,
+          value: `${item.authority} · ${item.timelineDays.min}–${item.timelineDays.max} days · ₹${format(item.feeEstimateInr.min, 0)}–₹${format(item.feeEstimateInr.max, 0)} · Documents: ${item.documents.join(', ')} · ${item.status} (${item.rulesetVersion})`,
+        })),
       ],
       lengthMetres: governingSpanM,
       areaSquareMetres: grossArea,
-      provenance: { source: 'Design cockpit (deterministic plan generator)', freshness: 'Live', status: 'INDICATIVE' },
+      provenance: scopedPermissions.length > 0
+        ? { source: `${compliance.rulesetVersion} compliance sample workflow`, freshness: 'Sample ruleset', status: 'INDICATIVE' }
+        : { source: 'Design cockpit (deterministic plan generator)', freshness: 'Live', status: 'INDICATIVE' },
     })
-  }, [plan, grossArea, governingSpanM, structuralPass, onLiveMetricsChange])
+  }, [plan, grossArea, governingSpanM, structuralPass, onLiveMetricsChange, scopedPermissions, compliance.rulesetVersion])
   const coverageArea = plan.plotWidthM * plan.plotDepthM * ((landRule?.max_coverage_pct ?? 60) / 100)
   const farArea = plan.plotWidthM * plan.plotDepthM * (landRule?.far ?? 1.5)
   const maxFloors = Math.max(1, Math.min(Math.floor((landRule?.max_height_m ?? 15) / plan.floorHeightM), Math.floor(farArea / Math.max(coverageArea, 1))))
