@@ -1065,6 +1065,22 @@ silently passed through.
 (4) **Technical execution data:** landing SHA, test pass/fail counts,
 deploy version ID, retry count, blocker history, and timestamps —
 verifiable facts per RULE 40, not summaries.
+(5) **TECH_METHOD block (amended 2026-09-08):** every ledger row also
+carries — approach (what was actually built, in one or two sentences);
+libraries/APIs used (named specifically, e.g. "three.js PBR + ACES,"
+"Nominatim," "transformers.js WASM" — not "the usual stack");
+key files touched; the algorithm/derivation actually used where one
+exists (not just "it computes X"); and the exact verification commands
+run to confirm the row works. Plus **ORDER compliance:** did execution
+honor the row's own declared dependency sequence (yes/no), with any
+deviation named and flagged, not silently absorbed into the method
+review.
+PI authors the TECH_METHOD block itself, derived from the actual
+landing diff and the seat's own report — never invented or assumed.
+Seats must include a method summary in every landing report (approach,
+libraries/files, verification commands run) specifically so PI has
+real material to cite rather than having to reverse-engineer method
+from a diff alone.
 The ledger updates on EVERY landing and EVERY stop report fleet-wide —
 PI is watching continuously, not sampling. A ledger summary is posted
 each cycle. A method-review challenge (PI's own finding that a landed
@@ -1076,7 +1092,10 @@ optimizing for throughput over quality of method — a dedicated,
 non-implementing overseer whose only output is the ledger and method
 challenges catches "it landed but it's the wrong approach" in a way no
 seat auditing its own work, or a conductor busy coordinating, reliably
-does.
+does. The TECH_METHOD block exists because "is this the best way"
+(part 3) is unanswerable without knowing exactly what was built and
+how — a method review with no cited approach/libraries/verification
+is just an opinion.
 
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum

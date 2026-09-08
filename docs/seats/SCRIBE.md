@@ -310,3 +310,9 @@ This was a fresh baseline: it explicitly does not claim any prior
   rule was adopted; SCRIBE's own docs turns are part of PI's review
   queue like any other seat's, and a PI method challenge on SCRIBE's
   ledger/docs work routes through the conductor, not directly.
+  **Amended 2026-09-08:** every ledger row also carries a TECH_METHOD
+  block (approach, libraries/APIs used, key files, algorithm/
+  derivation, exact verification commands run) plus ORDER compliance
+  (dependency sequence honored yes/no, deviations flagged). SCRIBE
+  updated the ledger schema and its own docs-turn summaries follow the
+  same method-summary discipline so PI has real material to cite.
