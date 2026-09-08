@@ -344,3 +344,26 @@ operator confirms this master list is complete.
 Both land on `docs/TASK_BOARD.md` under the same "push + proof, NO
 triggers" scope as §M — board/docs landing only, RULE 58 drain loop
 still not invoked.
+
+## O. 2026-09-08 additions — LandIntel deal-context suite (W-114..W-120)
+
+No existing row covers zoning summaries, soil/hazard exposure,
+climate-normal profiles, a 100-year history panel, a feasibility
+report, an investment-return projection, or the open-geo-data survey
+that sources them — all seven are new rows, not merges. All six
+non-research rows explicitly read parcel context from **W-113 only**
+(no independent sample defaults), consistent with W-113's own
+single-source-of-truth contract seeded in §N.
+
+| ID | ASSIGNEE | PRODUCT | ASK-SOURCE | Feeds/depends on |
+|----|----------|---------|------------|-------------------|
+| W-114 ZONING_SUMMARY | MASON (logic) + CRANE (KB) | LandIntel | Operator 2026-09-08: "zoning per parcel context — codified master-plan regs where sourced, explicit GAP label where not." | W-113, W-24, W-93 |
+| W-115 SOIL_HAZARD | MASON (UI) + CRANE (adapters) | LandIntel | Operator 2026-09-08: "soil class + bearing capacity, water-table depth, flood/seismic/cyclone exposure...source + vintage chip." | W-113, W-90, W-120 |
+| W-116 CLIMATE_YEAR | MASON (wiring) + CRANE (adapter) | LandIntel+DesignStudio | Operator 2026-09-08: "month-by-month weather profile...design implications wired into W-87 typology." | W-113, W-87, W-120 |
+| W-117 HISTORY_100Y | MASON (UI) + CRANE (adapters) | LandIntel | Operator 2026-09-08: "century panel — rainfall extremes, flood/seismic events, land-use change timeline; every item provenance-dated." | W-113, W-120 |
+| W-118 FEASIBILITY_REPORT | MASON (logic) + RIVET (layout) | LandIntel | Operator 2026-09-08: "shareable report aggregating lookup + zoning + soil/hazard + climate + history + deal sizing, honesty-labelled throughout." | W-113, W-114, W-115, W-116, W-117 |
+| W-119 INVEST_FORECAST | MASON | InvestFlow | Operator 2026-09-08: "land-value + returns projection on normalized index (indicative, per standing honesty rules)." | W-113 |
+| W-120 OPEN_GEO_DATA_SURVEY | ATLAS | CROSS (research) | Operator 2026-09-08: "exhaustive open-source survey, per dimension, licenses + access modes verified" across weather/water/soil/hazard/history. | Feeds W-115, W-116, W-117 |
+
+Board/docs landing only, per the operator's own "NO triggers"
+instruction — same scope as §M/§N.
