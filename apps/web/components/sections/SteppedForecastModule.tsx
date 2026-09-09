@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { computeNpv, estimateIrr } from "../../lib/finance/irrNpv"
+import { NORMALIZED_LAND_INDEX, projectLandValue } from "../../lib/analysis/investForecast"
 import { SAMPLE_BRAND_MULTIPLIERS } from "../../lib/analysis/sampleData"
 import { SAMPLE_DCR_FAR_RULESETS } from "../../lib/parcelIntel/sampleRulesets"
 import type { LandUse } from "../../lib/parcelIntel/types"
@@ -320,13 +321,16 @@ function PriceBandForecast({ product }: { product: "promarket" | "procurehub" })
 }
 
 function InvestFlowForecast() {
+  const parcel = useParcelContext()
   const [ticket, setTicket] = useState(1_000_000)
   const [tenure, setTenure] = useState(4)
+  const [growth, setGrowth] = useState(8)
   const [touched, setTouched] = useState(false)
   const sampleReturns = [0.3, 0.4, 0.5, 0.6]
   const flows = [-ticket, ...sampleReturns.slice(0, tenure).map((ratio) => ticket * ratio)]
   const irr = estimateIrr(flows)
   const npv = computeNpv(flows, 0.1)
+  const land = projectLandValue(ticket, growth, tenure)
   return (
     <ForecastShell
       title="IRR / NPV forecast"
@@ -335,6 +339,8 @@ function InvestFlowForecast() {
       controls={<>
         <RangeControl id="invest-ticket" label="Scenario ticket" value={ticket} min={500000} max={20000000} step={500000} display={formatInr(ticket)} onChange={(value) => { setTicket(value); setTouched(true) }} />
         <RangeControl id="invest-tenure" label="Sample tenure" value={tenure} min={1} max={4} display={`${tenure} period${tenure === 1 ? "" : "s"}`} onChange={(value) => { setTenure(value); setTouched(true) }} />
+        <RangeControl id="invest-growth" label="User annual growth assumption" value={growth} min={-10} max={25} step={0.5} display={`${growth}%`} onChange={(value) => { setGrowth(value); setTouched(true) }} />
+        <p className="text-xs text-relume-muted">{parcel ? `Parcel: ${parcel.district}, ${parcel.state} · ${parcel.area_sqm.toLocaleString('en-IN')} m²` : 'No parcel context — resolve a LandIntel lookup; no sample parcel is substituted.'}</p>
       </>}
       results={<>
         <p className="text-xs uppercase tracking-[0.14em] text-white/70">Sample IRR</p>
@@ -342,6 +348,12 @@ function InvestFlowForecast() {
         <p className="mt-5 text-xs uppercase tracking-[0.14em] text-white/70">NPV at 10%</p>
         <p className="mt-1 font-mono text-2xl font-semibold tabular-nums text-white">{formatInr(npv)}</p>
         <p className="mt-5 break-words font-mono text-xs text-white/70">{flows.map((flow) => formatInr(flow)).join(" · ")}</p>
+        {parcel && <div className="mt-6 border-t border-white/20 pt-5" data-invest-parcel-forecast>
+          <p className="text-xs uppercase tracking-[0.14em] text-white/70">INDICATIVE land-value projection</p>
+          <p className="mt-2 font-mono text-2xl font-semibold text-white">{formatInr(land.futureValue)}</p>
+          <p className="mt-2 text-xs text-white/75">{NORMALIZED_LAND_INDEX.name}: <strong className="font-mono text-white">{formatNumber(land.normalizedIndex, 2)}</strong> · base {NORMALIZED_LAND_INDEX.base}</p>
+          <p className="mt-1 text-[10px] text-white/60">{NORMALIZED_LAND_INDEX.method}. User assumption only; not a market index or guaranteed return.</p>
+        </div>}
       </>}
     />
   )
