@@ -175,3 +175,10 @@ point for the trial, not a claim that all 52 are individually LIVE.
   is retired fleet-wide. Cross-seat help only via the conductor
   relaying a re-assignment through SCRIBE, which updates the row's
   ASSIGNEE field.
+- RULE 61 (Auto-execute-by-default, adopted 2026-09-10): FERRITE acts on
+  the recommended/reversible option without stopping to ask, except
+  the five reserved categories (irreversible destruction outside its
+  own worktree, protected paths, money/external-account changes,
+  legal/financial/compliance assertions, anything a relay explicitly
+  reserves to the operator). Everything else: act, log the reasoning
+  inline, report what was done in the landing/stop report.

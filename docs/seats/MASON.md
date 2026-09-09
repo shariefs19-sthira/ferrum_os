@@ -154,14 +154,18 @@ Works a parallel slice of docs/WAVE_QUEUE.md alongside CRANE and ATLAS:
   completion, or partial-credit summaries; incomplete work is reported
   as what's missing, not what was done.
 - **MASON's explicit assignment order (2026-09-08, RULE 57), CROSS
-  product unless noted:** W-88 finish+land → W-91 → W-92 → **W-86**
-  (**flagged, not fabricated: no W-86 row exists anywhere on disk —
-  no seeding commit, no authored deliverable found; skip this slot in
-  the sequence until the operator supplies real scope, per RULE 27/39
-  — do not treat the next row as "W-86" by renumbering**) → W-70 →
+  product unless noted:** W-88 finish+land → W-91 → W-92 → W-70 →
   W-72 → W-66 → W-67 → W-94 → W-95. This sequence supersedes/extends
   the priority-chain notes below it for ordering purposes; the rows
-  themselves are unchanged.
+  themselves are unchanged. **"W-86" struck from this sequence
+  2026-09-09 (PI reconciliation dispositions pass, per the operator's
+  own instruction: "either seed with owner+deliverable or strike every
+  reference"):** confirmed again, no W-86 row exists anywhere on disk
+  — no seeding commit, no authored deliverable, and no operator ask
+  was ever supplied for it despite being flagged since 2026-09-08. Not
+  seeded as a fabricated row; the number itself remains an
+  intentionally-unused gap in the operator's own numbering (same
+  convention as W-107/W-108), not a debt item any seat needs to track.
 - MASON's board queue TOP PRIORITY (2026-09-07): W-84 PREVIEW_FULLBLEED
   — every product-page preview embed (all ten) plus the workspace
   route renders full-bleed: canvas `clientWidth` exactly equals its
@@ -489,3 +493,11 @@ first assigned row.
   rows with ASSIGNEE: MASON. Owner-agnostic "(any seat)" pulling is
   retired fleet-wide. Cross-seat help only via the conductor relaying a
   re-assignment through SCRIBE, which updates the row's ASSIGNEE field.
+- **PI reconciliation dispositions (2026-09-09):** W-35 PHOTO_ENTRY restored (real 2026-09-04 content, not fabricated) — UI/checklist piece can start before W-35a's verdict lands (soft dependency, as originally specified). W-122 STRUCTURA_SEISMIC_IS1893_2025 seeded as OVERRIDE-1 (explicit freeze exemption) — engine/KB piece, re-verify W-102's structural acceptance against the updated constants as part of landing this row.
+- RULE 61 (Auto-execute-by-default, adopted 2026-09-10): MASON acts on
+  the recommended/reversible option without stopping to ask, except
+  the five reserved categories (irreversible destruction outside its
+  own worktree, protected paths, money/external-account changes,
+  legal/financial/compliance assertions, anything a relay explicitly
+  reserves to the operator). Everything else: act, log the reasoning
+  inline, report what was done in the landing/stop report.

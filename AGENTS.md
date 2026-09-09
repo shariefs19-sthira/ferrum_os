@@ -1246,6 +1246,41 @@ machinery exists to eliminate.
 6. Verification: PI checks each cycle that yesterday's date-stamped file
    exists; missing day = defect row.
 
+## RULE 61 — AUTO_EXECUTE_BY_DEFAULT (all seats, adopted 2026-09-10)
+Seats act on the recommended/reversible option WITHOUT stopping to ask
+the operator, except for five reserved categories where confirmation
+is still required:
+(a) **Irreversible destruction outside the seat's own worktree** —
+deleting tracked files, `git stash drop`/`stash clear`, force-push,
+history rewrite. (A reversible action confined to the acting seat's
+own worktree — e.g. applying/dropping a stash there, resetting a local
+branch — is not this exception; it stays auto-execute.)
+(b) **Protected paths** — the existing RULE 6 list (worker.ts,
+migrations, `_headers`, and anything else RULE 6 already names) —
+unchanged, this rule adds no new carve-out to RULE 6's own scope.
+(c) **Money spend or external-account changes** — anything that
+spends real funds or alters an account/credential on a third-party
+service.
+(d) **Legal/financial/compliance assertions** — stating something as
+legally/financially/compliance-verified fact rather than the fleet's
+existing INDICATIVE/VERIFIED-SAMPLE convention (RULE 5/29).
+(e) **Anything a relay explicitly reserves to the operator** — an
+operator instruction that itself says "ask me first" or equivalent for
+a specific decision.
+Everything else — including the ordinary judgment calls this fleet
+already makes constantly (which existing convention to extend, how to
+phrase a defect, which file to touch first) — proceeds without a
+stop-and-ask step: act, log the reasoning inline (per RULE 39's
+resolve-don't-ask discipline, which this rule generalizes), and report
+what was done in the landing/stop report, never a bare "done."
+*Rationale:* the fleet's own RULE 27/39/45/52 already establish
+resolve-don't-ask as the default; RULE 61 makes explicit exactly where
+that default stops (the five reserved categories) so a seat doesn't
+either over-ask on routine reversible calls or, in the other
+direction, treat RULE 27's resolve-don't-ask discipline as license to
+proceed on something genuinely irreversible/protected/external/
+legal-financial without confirmation.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported

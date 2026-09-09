@@ -47,15 +47,15 @@ Four functional roles, not four fixed headcounts:
 ## 2. Ruleset template
 
 This engagement's ruleset grew well past its original set as the fleet
-matured — fifty-six numbered rules were actually adopted (numbered
-1–14, 16–31, 33–48, 50–59 — RULE 15, RULE 32, and RULE 49 were never
+matured — fifty-eight numbered rules were actually adopted (numbered
+1–14, 16–31, 33–48, 50–61 — RULE 15, RULE 32, and RULE 49 were never
 assigned; leave gaps in your own numbering rather than force
 sequential renumbering when a rule is superseded or dropped). Rules
 1–17 are detailed below, each with the one-line rationale that
 justified adopting it — carry the rationale forward even when you
 reword the rule for a new repo, because the rationale is what tells a
 future reader whether the rule still applies to their situation. Rules
-18–31, 33–48, and 50–59, added later in the
+18–31, 33–48, and 50–61, added later in the
 same engagement as the fleet's landing pipeline, DONE-verification,
 skill-hygiene, conflict-resolution, operator-safety, numeric-correctness,
 gap-filler-seat, single-outcome-focus, pull-queue, observe-refine,
@@ -144,7 +144,7 @@ source.
     often) from "spending execution budget on it" (expensive, needs a
     human decision) so agents don't need permission to think out loud.*
 
-### Addendum: rules 18–31, 33–48, 50–60 (added later, summarized)
+### Addendum: rules 18–31, 33–48, 50–61 (added later, summarized)
 
 RULE 60 — DAILY_TOOLING_INTEL (adopted 2026-09-09):
 
@@ -919,6 +919,22 @@ RULE 60 — DAILY_TOOLING_INTEL (adopted 2026-09-09):
     different agents could plausibly have picked up makes "who
     actually did this" genuinely ambiguous — exactly the ambiguity
     that oversight machinery exists to eliminate.*
+
+61. **Auto-execute-by-default** — an agent acts on the recommended,
+    reversible option without stopping to ask, except five reserved
+    categories: irreversible destruction outside the agent's own
+    workspace (deleting tracked files, dropping/clearing a stash,
+    force-push, history rewrite), protected paths, money spend or
+    external-account changes, legal/financial/compliance assertions,
+    and anything a specific instruction explicitly reserves to the
+    human. Everything else: act, log the reasoning inline, report what
+    was done rather than asking first.
+    *Rationale: a resolve-don't-ask default (see rule 27 above)
+    already exists for most fleets; this rule makes explicit exactly
+    where that default stops, so an agent doesn't over-ask on routine
+    reversible calls, and doesn't treat resolve-don't-ask as license
+    to skip confirmation on something genuinely irreversible,
+    protected, external, or legal/financial.*
 
 ## 3. Ledger formats
 

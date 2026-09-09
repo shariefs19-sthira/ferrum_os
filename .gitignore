@@ -103,3 +103,10 @@ docs/FLEET_SCHEDULE.md
 # this section.
 apps/artifacts/
 apps/web/artifacts/
+
+# Housekeeping (2026-09-09, SCRIBE): graphify's knowledge-graph index
+# output (~1.4MB JSON) is a local build artifact, confirmed showing as
+# untracked noise in main's git status - never meant to enter Git,
+# same dirty-working-tree-guard-trip class as the entries above.
+graphify-out/
+apps/graphify-out/
