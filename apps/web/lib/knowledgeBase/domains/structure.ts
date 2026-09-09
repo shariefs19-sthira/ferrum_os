@@ -1,4 +1,5 @@
 import type { ClauseFact, KbGap } from "../types"
+import { SEISMIC_STANDARD } from "../../checks/seismicStandard"
 
 // W-29 KNOWLEDGE_BASE - structure domain (RCC/steel/masonry), first
 // seed pass. Adapter-first per the standing KB_MAX_DEPTH drain order:
@@ -88,9 +89,9 @@ export const structureFacts: ClauseFact[] = [
     domain: "structure",
     summary: "Seismic Zone Factor Z by seismic zone, used to derive design seismic force.",
     data: {
-      seismicZoneFactorZ: { II: 0.10, III: 0.16, IV: 0.24, V: 0.36 },
+      seismicZoneFactorZ: SEISMIC_STANDARD.zoneFactors,
       currencyNote:
-        "Re-verified 2026-09-08 following an ATLAS audit flag about IS 1893:2025 introducing a new Seismic Zone VI. Confirmed real via multiple independent sources: IS 1893 (Part 1):2025 was genuinely gazette-notified in November 2025, introducing Zone VI (Z=0.75, covering the Himalayan belt and Andaman & Nicobar) and shifting from Deterministic to Probabilistic Earthquake Hazard Assessment. That edition was subsequently WITHDRAWN via a March 2026 gazette notification after Ministry of Housing and Urban Affairs concerns (estimated 10-15% construction-cost escalation in Zones V/VI, up to 50% for infrastructure), reverting the governing standard to IS 1893 (Part 1):2016. This fact's own zones (II-V, no Zone VI) already track the currently-governing 2016 edition via NBC 2016's own Table 42 - it was never citing the withdrawn 2025 figures, so no value change was needed. Flagged here so this currency check is visible on the fact itself, not left implicit.",
+        `BIS primary standard-details record checked ${SEISMIC_STANDARD.checkedAt}: IS 1893 (Part 1):2025 is WITHDRAWN as of ${SEISMIC_STANDARD.withdrawnEdition.withdrawnOn}. Its values are non-operative and are not loaded into the engine. The governing set remains Zones II-V from the cited NBC 2016 / IS 1893:2016 source pending professional verification of any later operative edition.`,
     },
     provenance: {
       sourceName: "National Building Code of India 2016 (SP 7:2016), Volume 1, Part 6 Section 1",
@@ -136,6 +137,6 @@ export const structureGaps: KbGap[] = [
     domain: "structure",
     reason: "GAP-NOT-CODIFIED",
     queuedAction:
-      "Real, gazette-notified regulatory history worth tracking, not a fabricated concern: IS 1893 (Part 1):2025 was notified November 2025, introducing a new highest-risk Seismic Zone VI (Z=0.75, Himalayan belt + Andaman & Nicobar) and a Deterministic-to-Probabilistic hazard-assessment methodology shift over IS 1893:2016. That 2025 edition was WITHDRAWN via a March 2026 gazette notification following Ministry of Housing and Urban Affairs cost-escalation concerns, reverting the currently-governing standard back to IS 1893 (Part 1):2016 - confirmed via multiple independent secondary sources (news/policy coverage of both the November 2025 notification and the March 2026 withdrawal), not a primary BIS document fetch this pass. This domain's existing seismic-zone-factor fact (Cl 5.3.4.2/Table 42, sourced via NBC 2016) already reflects the currently-governing 2016 zones (II-V) and needed no value correction. Queue: if IS 1893 is revised again (a live, actively-contested regulatory area as of this session), re-verify against BIS's own primary gazette text directly rather than secondary coverage, and only then seed a real Zone VI fact with real geographic scope.",
+      `BIS primary standard-details record checked ${SEISMIC_STANDARD.checkedAt} marks IS 1893 (Part 1):2025 withdrawn in March 2026, specifically on ${SEISMIC_STANDARD.withdrawnEdition.withdrawnOn}. No Zone VI constant or boundary is activated. Queue: any later operative edition requires primary BIS text plus practising-structural-engineer verification before constants enter the engine.`,
   },
 ]
