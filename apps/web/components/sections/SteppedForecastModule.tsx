@@ -9,10 +9,10 @@ import { SvgGeometryExporter } from "../../lib/providers/GeometryExporter"
 import { computeFerrumRate } from "../../lib/rateEngine/ferrumRateEngine"
 import { checkStructuralLive } from "../../lib/studio/structuralLive"
 import { convertArea, metresAndFeet, type AreaUnit } from "../../lib/units"
-import ParcelMap from "./ParcelMap"
 import { PrimaryButton } from "./Buttons"
 import DxfExportButton from "./DxfExportButton"
 import PrecisionControl from "../controls/PrecisionControl"
+import { useParcelContext } from "../../lib/workspace/parcelContext"
 
 export type ForecastProduct =
   | "landintel"
@@ -141,44 +141,37 @@ function AreaResult({ areaSqm, preferred }: { areaSqm: number; preferred: AreaUn
 }
 
 function LandIntelForecast() {
-  const [area, setArea] = useState(1200)
-  const [landUseIndex, setLandUseIndex] = useState(0)
+  const parcel = useParcelContext()
   const [touched, setTouched] = useState(false)
   const [preferred, setPreferred] = usePreferredAreaUnit()
-  const [preview, setPreview] = useState({ lat: 22.5, lng: 79 })
-  const landUses: LandUse[] = ["Residential", "Commercial", "Mixed Use", "Industrial", "Institutional"]
-  const landUse = landUses[landUseIndex]
-  const rule = SAMPLE_DCR_FAR_RULESETS.Karnataka.land_use_rules[landUse]!
-  const builtUp = area * rule.far
-  const footprint = area * (rule.max_coverage_pct / 100)
-
-  useEffect(() => {
-    setPreview({ lat: 8 + Math.random() * 27, lng: 68 + Math.random() * 29 })
-  }, [])
+  const ruleset = parcel ? SAMPLE_DCR_FAR_RULESETS[parcel.state] : null
+  const resolvedLandUse = parcel && parcel.land_use in (ruleset?.land_use_rules ?? {}) ? parcel.land_use as LandUse : null
+  const rule = resolvedLandUse ? ruleset?.land_use_rules[resolvedLandUse] ?? null : null
+  const effectiveArea = parcel?.area_sqm ?? 0
+  const builtUp = rule ? effectiveArea * rule.far : 0
+  const footprint = rule ? effectiveArea * (rule.max_coverage_pct / 100) : 0
 
   return (
+    !parcel ? <section className="rounded-relume border border-dashed border-relume-border bg-relume-surface p-6" data-no-parcel-context><p className="text-sm font-semibold text-relume-command">No parcel context</p><p className="mt-2 text-xs text-relume-muted">Resolve a LandIntel lookup before running a parcel forecast. No sample plot is substituted.</p></section> :
     <ForecastShell
       title="Land-use forecast"
       touched={touched}
-      note="INDICATIVE — calculations use the repository's 2026.1-SAMPLE Karnataka DCR/FAR structure, not a published BBMP/BDA rule or parcel entitlement. The map is a random India preview, not parcel geometry."
+      note={`INDICATIVE — reads the resolved ${parcel.district}, ${parcel.state} parcel context. ${rule ? 'The calculation uses a disclosed SAMPLE DCR/FAR structure, not a published entitlement.' : 'No compatible sourced rule exists; outputs remain unavailable.'}`}
       controls={<>
-        <RangeControl id="land-area" label="Plot area" value={area} min={100} max={10000} step={50} display={`${formatNumber(area)} m² · ${formatNumber(convertArea(area).sqft, 0)} sq ft`} onChange={(value) => { setArea(value); setTouched(true) }} />
-        <RangeControl id="land-use" label="Land use" value={landUseIndex} min={0} max={landUses.length - 1} display={landUse} onChange={(value) => { setLandUseIndex(value); setTouched(true) }} />
+        <p className="rounded-relume border border-relume-border p-3 text-xs text-relume-ink">Parcel: {parcel.district}, {parcel.state} · {formatNumber(parcel.area_sqm)} m² · {parcel.land_use}</p>
         <label className="block text-sm text-relume-ink">Primary area unit
-          <select value={preferred} onChange={(event) => setPreferred(event.target.value as AreaUnit)} className="mt-2 w-full rounded-relume border border-relume-border bg-white px-3 py-2">
+          <select value={preferred} onChange={(event) => { setPreferred(event.target.value as AreaUnit); setTouched(true) }} className="mt-2 w-full rounded-relume border border-relume-border bg-white px-3 py-2">
             {(Object.keys(areaUnitLabels) as AreaUnit[]).map((unit) => <option key={unit} value={unit}>{areaUnitLabels[unit]}</option>)}
           </select>
         </label>
-        <div className="overflow-hidden rounded-relume border border-relume-border">
-          <ParcelMap lat={preview.lat} lng={preview.lng} zoom={4} label="Random India preview — not a parcel or lookup result" />
-        </div>
+        <p className="text-xs text-relume-muted">Coordinates: {parcel.coordinates ? `${parcel.coordinates.lat}, ${parcel.coordinates.lng}` : 'GAP — lookup supplied no parcel coordinates.'}</p>
       </>}
       results={<>
-        <AreaResult areaSqm={builtUp} preferred={preferred} />
+        {rule ? <AreaResult areaSqm={builtUp} preferred={preferred} /> : <p data-forecast-result className="text-sm text-white">GAP — no cited zoning rule for this parcel context.</p>}
         <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-white/80">
-          <p>Sample FAR <strong className="block font-mono text-xl text-white">{rule.far}</strong></p>
-          <p>Coverage cap <strong className="block font-mono text-xl text-white">{rule.max_coverage_pct}%</strong></p>
-          <p className="col-span-2">Footprint cap <strong className="font-mono text-white">{formatNumber(footprint)} m² / {formatNumber(convertArea(footprint).sqft, 0)} sq ft</strong></p>
+          <p>Sample FAR <strong className="block font-mono text-xl text-white">{rule?.far ?? 'GAP'}</strong></p>
+          <p>Coverage cap <strong className="block font-mono text-xl text-white">{rule ? `${rule.max_coverage_pct}%` : 'GAP'}</strong></p>
+          <p className="col-span-2">Footprint cap <strong className="font-mono text-white">{rule ? `${formatNumber(footprint)} m² / ${formatNumber(convertArea(footprint).sqft, 0)} sq ft` : 'GAP'}</strong></p>
         </div>
       </>}
     />

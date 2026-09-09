@@ -5,10 +5,12 @@ import { checkStructuralLive } from '../../lib/studio/structuralLive'
 import type { StudioParameters } from '../../lib/types'
 import { measureBoq } from '../../lib/workspace/measuredBoq'
 import type { CockpitProduct } from './ProductCockpitPreview'
+import { useParcelContext } from '../../lib/workspace/parcelContext'
 
 const number = (value: number, digits = 1) => value.toLocaleString('en-IN', { maximumFractionDigits: digits })
 
 export default function CrossProductLiveSummary({ product, parameters }: { product: CockpitProduct; parameters: StudioParameters }) {
+  const parcel = useParcelContext()
   const result = useMemo(() => {
     const plan = generateStudioPlan(parameters)
     const grossArea = plan.buildingWidthM * plan.buildingDepthM * plan.floors
@@ -40,6 +42,15 @@ export default function CrossProductLiveSummary({ product, parameters }: { produ
       <dl className="mt-3 grid gap-2 sm:grid-cols-2">
         {rows.map(([label, value]) => <div key={label} className="rounded-relume bg-relume-surface-secondary p-3"><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">{label}</dt><dd className="mt-1 font-mono text-sm font-semibold tabular-nums text-relume-command">{value}</dd></div>)}
       </dl>
+      {parcel ? (
+        <div className="mt-3 rounded-relume border border-relume-border p-3" data-parcel-context={parcel.ulpin ?? parcel.method}>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Resolved parcel · {parcel.provenance.status}</p>
+          <p className="mt-1 text-xs text-relume-command">{parcel.district}, {parcel.state} · {number(parcel.area_sqm)} m² · {parcel.land_use}</p>
+          <p className="mt-1 text-[10px] text-relume-muted">{parcel.provenance.source} · {parcel.provenance.vintage}</p>
+        </div>
+      ) : (
+        <p className="mt-3 rounded-relume border border-dashed border-relume-border p-3 text-xs text-relume-muted" data-no-parcel-context>No parcel context — resolve a lookup in LandIntel.</p>
+      )}
       <p className="mt-3 text-[10px] leading-4 text-relume-muted">One browser-local project state feeds every product lens. Monetary rates remain blank unless independently verified; Invest uses a normalized area index, not currency.</p>
     </section>
   )
