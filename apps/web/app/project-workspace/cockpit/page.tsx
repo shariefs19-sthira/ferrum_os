@@ -53,6 +53,7 @@ export default function ProjectWorkspaceCockpit() {
   const [territoryOpen, setTerritoryOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const [lastSutraEvent, setLastSutraEvent] = useState<SutraEvent["type"] | "idle">("idle")
+  const [intentStatus, setIntentStatus] = useState("Ready for a workspace command.")
 
   useEffect(() => {
     window.localStorage.setItem('ferrum-preview-session', 'active')
@@ -67,7 +68,11 @@ export default function ProjectWorkspaceCockpit() {
     console.log("[workspace] more action not yet wired:", action)
   }
 
-  const handleCommand = (text: string) => {
+  const handleCommand = async (text: string) => {
+    const response = await fetch('/api/workspace/intent', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ phrase: text, projectId }) })
+    const intent = await response.json().catch(() => null) as { action?: string; error?: string } | null
+    if (!response.ok || !intent?.action) { setIntentStatus(intent?.error === 'unauthorized' ? 'Sign in is required to run workspace commands.' : 'That phrase is not a supported workspace command.'); return }
+    setIntentStatus(`Resolved: ${intent.action.replaceAll('_', ' ')}.`)
     window.dispatchEvent(new CustomEvent("ferrum:workspace-command", { detail: text }))
     if (/boq|extract/i.test(text)) setExtractOpen(true)
     if (/diligence|permit/i.test(text)) setTerritoryOpen(true)
@@ -80,7 +85,7 @@ export default function ProjectWorkspaceCockpit() {
 
   const handleSutraEvent = (event: SutraEvent) => {
     setLastSutraEvent(event.type)
-    if (event.type === "TOOL_CALL" && event.tool === "workspace.command") handleCommand(event.arguments.command)
+    if (event.type === "TOOL_CALL" && event.tool === "workspace.command") void handleCommand(event.arguments.command)
   }
 
   const noExtracts: WorkspaceExtract[] = []
@@ -105,6 +110,7 @@ export default function ProjectWorkspaceCockpit() {
         <button type="button" aria-expanded={sutraOpen} onClick={()=>setSutraOpen(value=>!value)} className="min-h-10 rounded-full bg-relume-accent px-3 text-xs font-semibold text-relume-command">SUTRA</button>
       </header>
       <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />
+      <p className="sr-only" aria-live="polite">{intentStatus}</p>
       <div className="relative min-h-0 flex-1 overflow-hidden">
       <main className={`h-full min-h-0 transition-[padding] motion-reduce:transition-none ${sutraOpen ? (fullscreen.active ? 'lg:pr-[33.333333vw]' : 'lg:pr-[22rem]') : ''}`} data-cockpit-region>
         <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} />
