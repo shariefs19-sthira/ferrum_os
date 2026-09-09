@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import ParcelMap from "./ParcelMap"
 import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
 import { ProvenanceStrip } from "../ProvenanceStrip"
+import { writeParcelContext } from "../../lib/workspace/parcelContext"
 
 // Rough India bounding box, used only to place an unlabeled preview pin
 // before any lookup — never presented as a parcel or a real location.
@@ -75,7 +76,23 @@ export default function UlpinMapExplorer() {
         setError("No sample parcel found for that ULPIN. Try one of the sample IDs above.")
         return
       }
-      setResult(await response.json())
+      const resolved = await response.json() as ParcelResult
+      setResult(resolved)
+      writeParcelContext({
+        version: 1,
+        method: 'ulpin',
+        ulpin: resolved.ulpin,
+        state: resolved.state,
+        district: resolved.district,
+        area_sqm: resolved.area_sqm,
+        land_use: resolved.land_use,
+        coordinates: null,
+        provenance: {
+          source: 'Ferrum seeded D1 ULPIN record — not an official registry result',
+          vintage: '2026-09-10',
+          status: 'INDICATIVE',
+        },
+      })
     } finally {
       setLoading(false)
     }
