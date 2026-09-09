@@ -102,6 +102,39 @@ $triggerDaemonLegacyLedgerFile = Join-Path $repoRoot ".fleet-trigger-daemon-log.
 $worktreeRoot = "D:\ferrum_os.worktrees"
 if ([string]::IsNullOrWhiteSpace($SeatsConfigPath)) { $SeatsConfigPath = Join-Path $repoRoot "docs\FLEET_SEATS.json" }
 
+# SINGLE-INSTANCE GUARD (added 2026-09-09, per operator ask): a stale
+# FLEET_WATCH.ps1 process from before a fix landed can keep running
+# indefinitely in memory - a running PowerShell process never reloads
+# its script body from disk. Confirmed live this session: docs/
+# FLEET_SEATS.json kept reverting to its pre-fix shape hours after the
+# landing that removed its only writer, because an old process was
+# still executing the old in-memory code, invisible to `git log` or
+# any on-disk inspection. A named OS mutex means a second launch (a
+# fresh copy, or another stale one) can never silently coexist with
+# whichever instance already holds it - it fails fast with a clear
+# logged reason instead of two processes quietly fighting over the
+# same state files. `Global\` scopes it per-machine (not per Windows
+# session), matching "one FLEET_WATCH, period" rather than "one per
+# login session."
+$singleInstanceMutexName = "Global\FerrumOS_FLEET_WATCH_SingleInstance"
+$singleInstanceMutex = New-Object System.Threading.Mutex($false, $singleInstanceMutexName)
+$singleInstanceAcquired = $false
+try {
+    $singleInstanceAcquired = $singleInstanceMutex.WaitOne(0)
+} catch [System.Threading.AbandonedMutexException] {
+    # The previous holder exited without releasing (killed rather than
+    # stopped cleanly, e.g. via Task Manager) - .NET still hands us
+    # ownership on this exception; a genuinely dead prior instance
+    # should not permanently lock out every future launch.
+    $singleInstanceAcquired = $true
+    Write-Host "FLEET_WATCH: acquired the single-instance mutex after a prior holder exited abnormally (abandoned mutex) - continuing."
+}
+if (-not $singleInstanceAcquired) {
+    Write-Host "FLEET_WATCH: REFUSING TO START - another instance already holds the single-instance mutex ($singleInstanceMutexName). If that instance is actually dead (crashed without releasing it, which .NET would normally detect - or is confirmed hung), find and kill its process first, then relaunch."
+    $singleInstanceMutex.Dispose()
+    exit 1
+}
+
 $seats = @('CRANE', 'MASON', 'RIVET', 'ATLAS', 'SCRIBE', 'FERRITE', 'PI')
 $codexBackedSeats = @('MASON', 'RIVET')  # per docs/seats/*.md - these run on Codex CLI, not Claude
 
@@ -1351,14 +1384,27 @@ if ($EnableTriggerDaemon -and -not $Loop) {
     Write-Host "TRIGGER-DAEMON: -EnableTriggerDaemon implies persistent looping (cycle -> sleep -> cycle) even though -Loop wasn't passed separately."
 }
 
-if ($effectiveLoop) {
-    while ($true) {
-        $shouldContinue = Invoke-WatchCycle
-        if (-not $shouldContinue) { break }
-        Write-Host "Sleeping $IntervalMinutes minutes..."
-        Start-Sleep -Seconds ($IntervalMinutes * 60)
-        if (Test-KillSwitch) { break }
+try {
+    if ($effectiveLoop) {
+        while ($true) {
+            $shouldContinue = Invoke-WatchCycle
+            if (-not $shouldContinue) { break }
+            Write-Host "Sleeping $IntervalMinutes minutes..."
+            Start-Sleep -Seconds ($IntervalMinutes * 60)
+            if (Test-KillSwitch) { break }
+        }
+    } else {
+        Invoke-WatchCycle | Out-Null
     }
-} else {
-    Invoke-WatchCycle | Out-Null
+} finally {
+    # Explicit release on every normal/kill-switch exit path (Ctrl+C
+    # and other abrupt termination still fall to the OS's own
+    # process-exit mutex release, handled as an "abandoned mutex" by
+    # the next launch's WaitOne above - this finally block covers the
+    # clean-exit case so the mutex doesn't sit held-but-unreleased
+    # until the process object itself is torn down).
+    if ($singleInstanceAcquired) {
+        $singleInstanceMutex.ReleaseMutex() | Out-Null
+    }
+    $singleInstanceMutex.Dispose()
 }
