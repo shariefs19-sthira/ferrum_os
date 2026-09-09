@@ -72,6 +72,17 @@
     outline-offset: 3px;
   }
 
+  /* W-37: native controls retain their semantic cursor; every other
+     interactive affordance gets an explicit pointer and keyboard-visible
+     focus instead of relying on browser defaults. */
+  a[href], button:not(:disabled), summary, [role='button'], [role='link'],
+  [role='menuitem'], [role='option'], [role='tab'], input[type='button'],
+  input[type='checkbox'], input[type='radio'], input[type='reset'],
+  input[type='submit'], select, label[for] {
+    cursor: pointer;
+    transition: color var(--motion-ui) var(--ease-arrive), background-color var(--motion-ui) var(--ease-arrive), border-color var(--motion-ui) var(--ease-arrive), opacity var(--motion-ui) var(--ease-arrive);
+  }
+
   ::selection {
     background: var(--fe-accent);
     color: var(--fe-on-accent);
@@ -178,6 +189,14 @@ main figure {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  a[href]:hover, button:not(:disabled):hover, summary:hover, [role='button']:hover,
+  [role='link']:hover, [role='menuitem']:hover, [role='option']:hover,
+  [role='tab']:hover, input[type='button']:hover, input[type='checkbox']:hover,
+  input[type='radio']:hover, input[type='reset']:hover, input[type='submit']:hover,
+  select:hover, label[for]:hover {
+    opacity: 0.82;
+  }
+
   .ferrum-card,
   main article,
   main figure,
