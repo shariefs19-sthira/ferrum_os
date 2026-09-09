@@ -23,11 +23,11 @@ Entity facts, incorporation date, financial year, state, capital, turnover, empl
 | Before any project-economics entitlement | Enter only a project allotted by written instrument or board resolution signed by Sharief | Allotment instrument, resolution and Allotted Project Register entry | No verbal allotment accepted |
 | Monthly and project close | Reconcile receipts, attributable costs, overhead, taxes, losses, agreed reserves, distributable net profit, payments and clawbacks | Finance reconciliation approved under delegated authority | Method/timing/clawback **[OPERATOR-INPUT]** |
 | Incorporation through month 12 | Apply Project Economics Schedule exclusively; monitor prohibition on founder dividends/distributions outside it | Board/finance review and exception register | Professional settlement required |
-| Months 12–13 | Permanent Equity Determination window: working-dynamics review, professional valuation and unanimous written decision | Valuation, consent, resolutions, transfer/issuance instruments and filing plan | Ratio **[OPERATOR-DECISION]** |
-| No determination by end of month 13 | Preserve status quo; open 90-day extension and mediation; prohibit auto-conversion or forced 50/50 | Deadlock notice, mediation record and calendar entry | **[OPERATOR-DECISION: confirm default]** |
+| Months 12–13 | Permanent Equity Determination window: review the 50/50 Ferrum Projects-only status quo through professional valuation and unanimous written decision | Valuation, consent, resolutions, transfer/issuance instruments and filing plan | 50/50 continues absent executed change |
+| No determination by end of month 13 | Preserve 50/50 status quo; open 90-day extension and MCIA-framework mediation; prohibit deemed transfer/control change | Deadlock notice, mediation record and calendar entry | Adopted default; override open until filing |
 | Permanent Equity Determination Date | Record definitive date and calculate future 24-month anniversaries | Signed SHA amendment, registers and filings | **[OPERATOR-INPUT]** |
 | Every 24 months from determination date | Open one 60-day amendment window; close without change unless unanimous signed amendment completes | Calendar notice, unanimous consent, valuation, instruments, ROC evidence | No implied rollover |
-| Outside amendment window | Freeze equity except confirmed leaver/bad-leaver repurchase, court order or statutory compulsion | Professional opinion and operative instrument | **[OPERATOR-DECISION: confirm list]** |
+| Outside amendment window | Freeze equity except professionally settled leaver/bad-leaver repurchase, binding court order or statutory compulsion | Professional opinion and operative instrument | Adopted default; override open until filing |
 
 ## Recurring corporate calendar
 

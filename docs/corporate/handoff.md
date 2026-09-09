@@ -22,12 +22,12 @@ Custody date: 2026-09-09. Scope: Day-1 standalone physical-construction executio
 
 ## Open operator inputs and decisions
 
-- **[OPERATOR-DECISION: OPC-vs-Pvt-Ltd decision]**
-- **[OPERATOR-INPUT: equity ratio / cap table]**
+- Settled: Ferrum Projects Private Limited; nominal equity Sharief 50% / Shoaib 50%, confined to this entity.
+- **[PROFESSIONAL-CHOICE: DVR-vs-board-package]**
 - **[OPERATOR-DECISION: vesting terms, cliff, milestones, leaver treatment, repurchase and acceleration]**
 - **[OPERATOR-INPUT: final legal entity name, type, state/ROC, registered office, authorised and paid-up capital]**
 - **[OPERATOR-INPUT: founders' full legal identities, subscriptions and consideration — transmitted only to the practicing professional]**
-- **[OPERATOR-INPUT: Shoaib compensation, entity-confined revenue formula, exclusions, timing, reconciliation and clawback]**
+- **[OPERATOR-INPUT: Shoaib salary/retainer, benefits and reimbursement terms]**
 - **[OPERATOR-INPUT: delegated financial thresholds, emergency notice period, banking mandate and signatories]**
 - **[OPERATOR-INPUT: role start, probation, notice, benefits, leave, misconduct and termination terms]**
 - **[OPERATOR-INPUT: governing law, dispute forum, notices, liability, insurance, stamp duty and contract-specific commercials]**
