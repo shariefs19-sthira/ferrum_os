@@ -10,7 +10,7 @@
 | 4 | Freeze incorporation data | State/ROC, office, capital, 50/50 subscriptions, directors and objects | Signed data sheet | Professional fee **[OPERATOR-INPUT]** |
 | 5 | Prepare SPICe+ Part B (`INC-32` working reference) | Approved name and frozen data | Incorporation webform | Government fee/stamp duty — verify |
 | 6 | Prepare eMoA (`INC-33`) and eAoA (`INC-34`) | Professionally settled MoA/AoA | Linked constitutional forms | Eligibility/version — verify |
-| 7 | Prepare linked AGILE-PRO-S (`INC-35` working reference) | Bank, GST/EPFO/ESIC and signatory inputs | Applicable linked applications | Applicability/state support — verify |
+| 7 | Prepare mandatory linked AGILE-PRO-S (`INC-35` working reference) | Bank, optional GSTIN election, EPFO/ESIC, state-supported Profession Tax, Delhi Shops/Establishment and signatory inputs | Bank application; EPFO/ESIC registrations subject to implemented-area rules; Profession Tax for supported states; optional GSTIN; optional Delhi Shops/Establishment | Applicability/state support — verify |
 | 8 | Complete DIR-2 and INC-9 workflow | Restricted KYC and declarations | Current consents/declarations | Execution method/version — verify |
 | 9 | Assemble registered-office proof | Title/lease, owner NOC, recent utility bill | Attachment set | Recency/stamp/notarial cost — verify |
 | 10 | Pre-scrutiny, DSC, professional certification and payment | Final forms and attachments | SRN/challan | Live portal controls |
@@ -21,6 +21,8 @@
 ## Filing gate
 
 The practicing CA/CS must date and sign a verification sheet confirming current form names, versions, attachments, DSC/DIN limits, name validity, stamp duty, government fees, office-proof recency, linked registrations, commencement requirements and every portal-generated deadline. A live-portal mismatch overrides this SOP.
+
+Part A is name reservation. Part B is incorporation. The linked upload sequence and applicability must be confirmed in the live V3 workspace before submission.
 
 Official working references: MCA V3 incorporation guidance and current Companies Act/rules. Access and version date: **[OPERATOR-INPUT]**.
 

@@ -7,7 +7,7 @@ Entity facts, incorporation date, financial year, state, capital, turnover, work
 ## Incorporation and commencement
 
 - Verify COI, CIN, PAN, TAN, filed MoA/AoA and statutory registers immediately after approval.
-- Hold the first board meeting, appoint first auditor, open the bank account, receive subscription money, issue/share-stamp certificates and complete any applicable commencement filing within current statutory periods.
+- Hold the first board meeting within 30 days of incorporation under section 173(1). Appoint the first auditor, open the bank account, receive subscription money, issue/share-stamp certificates and complete any applicable commencement filing within each current statutory period verified by the practicing CS.
 - Complete registered-office, display, letterhead, GST, EPFO, ESIC, professional-tax, Shops/Establishment, BOCW, contract-labour and other applicable registrations on professional advice.
 
 ## Recurring company controls

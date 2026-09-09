@@ -22,4 +22,4 @@ Subscriber/director identity and required eligibility/offence declarations: **[O
 
 ## AGILE-PRO-S linked inputs
 
-Bank selection/data, authorised signatory, GST election and principal place, EPFO/ESIC and state-supported registrations: **[OPERATOR-INPUT]**. Applicability and mandatory fields require live-portal verification.
+AGILE-PRO-S accompanies the incorporation filing. Bank-account application and EPFO/ESIC registration are mandatory in the MCA workflow, subject to the ESIC implemented-area rule; later substantive EPFO/ESIC compliance depends on statutory thresholds. GSTIN is optional if selected. Profession Tax is integrated for Maharashtra, Karnataka and West Bengal in the cited MCA V3 FAQ; Shops and Establishment registration is optional and integrated for Delhi. Bank selection/data, authorised signatory, GST election, principal place and registration inputs: **[OPERATOR-INPUT]**. The CS must verify current state coverage and live fields before filing.
