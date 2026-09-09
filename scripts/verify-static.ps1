@@ -119,6 +119,65 @@ if (Test-Path $blogTemplatePath) {
 # _template/ is added later, wire it in the same way the blog check is.
 $violations += Test-SectionSkeleton -SectionRoot "$root/checklists" -SectionLabel "checklists" -MinH1 1 -MinH2 3 -ExcludeDirName "_template"
 
+# 5. Corporate project-economics entries require an executed-allotment trail.
+# FP-00-ALLOT-001 is both the controlled form and register. Any entry file must
+# carry concrete metadata that matches the same register row: project ID,
+# register row ID, and signed-instrument reference. Template placeholders never
+# satisfy an entry. This is a structural guard, not legal/accounting validation.
+$corporateRoot = "docs/corporate"
+$allotmentFormPath = Join-Path $corporateRoot "company-registration/FP-00-ALLOT-001_PROJECT_ALLOTMENT.md"
+$economicsRoot = Join-Path $corporateRoot "company-registration/project-economics"
+$requiredAllotmentTokens = @(
+    '[PROJECT-ID]',
+    '[CLIENT]',
+    '[PROJECT-SCOPE]',
+    '[PROJECT-VALUE]',
+    '[ALLOTMENT-DATE]',
+    '[REGISTER-ROW-ID]',
+    '[SIGNED-INSTRUMENT-REF]',
+    '[SHARIEF-SIGNATURE]'
+)
+
+if (-not (Test-Path -LiteralPath $allotmentFormPath)) {
+    $violations += "MISSING_ALLOTMENT_CONTROL: $allotmentFormPath"
+} else {
+    $allotmentContent = Get-Content -Raw -LiteralPath $allotmentFormPath
+    foreach ($token in $requiredAllotmentTokens) {
+        if (-not $allotmentContent.Contains($token)) {
+            $violations += "ALLOTMENT_FORM_FIELD_MISSING ($token): $allotmentFormPath"
+        }
+    }
+
+    if (Test-Path -LiteralPath $economicsRoot) {
+        $economicsFiles = Get-ChildItem -LiteralPath $economicsRoot -File -Filter "FP-ECON-*.md"
+        foreach ($file in $economicsFiles) {
+            $entry = Get-Content -Raw -LiteralPath $file.FullName
+            if ($entry -notmatch '(?m)^PROJECT-ECONOMICS-ENTRY:\s*true\s*$') {
+                $violations += "PROJECT_ECONOMICS_MARKER_MISSING: $($file.FullName)"
+                continue
+            }
+
+            $fields = @{}
+            foreach ($fieldName in @('Project ID', 'Register Row', 'Signed Instrument')) {
+                $fieldPattern = '(?m)^' + [regex]::Escape($fieldName) + ':\s*(\S.*?)\s*$'
+                $match = [regex]::Match($entry, $fieldPattern)
+                if (-not $match.Success -or $match.Groups[1].Value -match '^\[.*\]$|^<.*>$|^(TBD|TODO|N/A)$') {
+                    $violations += "PROJECT_ECONOMICS_FIELD_INVALID ($fieldName): $($file.FullName)"
+                } else {
+                    $fields[$fieldName] = $match.Groups[1].Value.Trim()
+                }
+            }
+
+            if ($fields.Count -eq 3) {
+                $rowPattern = '(?m)^\|\s*`?' + [regex]::Escape($fields['Register Row']) + '`?\s*\|\s*`?' + [regex]::Escape($fields['Project ID']) + '`?\s*\|\s*`?' + [regex]::Escape($fields['Signed Instrument']) + '`?\s*\|'
+                if ($allotmentContent -notmatch $rowPattern) {
+                    $violations += "PROJECT_ECONOMICS_REGISTER_MISMATCH: $($file.FullName)"
+                }
+            }
+        }
+    }
+}
+
 if ($violations.Count -gt 0) {
     Write-Host "Static-page constraint violations found:"
     $violations | ForEach-Object { Write-Host "  $_" }
@@ -127,7 +186,7 @@ if ($violations.Count -gt 0) {
     exit 1
 }
 
-Write-Host "No static-page constraint violations under $root."
+Write-Host "No static-page or corporate allotment-control violations."
 
 Write-Host "Running repo-wide type-check: pnpm --filter ./apps/web exec tsc --noEmit"
 pnpm --filter ./apps/web exec tsc --noEmit
