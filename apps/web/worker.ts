@@ -1106,6 +1106,24 @@ async function loadOwnedWorkspaceProject(env: Env, userId: string, projectId: st
     .first<WorkspaceProjectRow>()
 }
 
+app.post('/api/workspace/intent', async (c) => {
+  const user = await requireUser(c.env, c.req.header('Cookie'))
+  if (!user) return c.json({ error: 'unauthorized' }, 401)
+  const body = await c.req.json().catch(() => null)
+  const phrase = typeof body?.phrase === 'string' ? body.phrase.trim().toLowerCase() : ''
+  const projectId = typeof body?.projectId === 'string' ? body.projectId : undefined
+  if (!phrase) return c.json({ error: 'invalid_input' }, 400)
+  const route = (method: string, path: string, action: string) => c.json({ action, method, path })
+  if (/^(start a new project|create a workspace)/.test(phrase)) return route('POST', '/api/workspace/projects', 'create_project')
+  if (/^(open |switch to my )/.test(phrase) && projectId) return route('GET', `/api/workspace/projects/${projectId}`, 'open_project')
+  if (/^(rename this project|switch to feet|switch to metric)/.test(phrase) && projectId) return route('PATCH', `/api/workspace/projects/${projectId}`, 'update_project')
+  if (/^delete this project/.test(phrase) && projectId) return route('DELETE', `/api/workspace/projects/${projectId}`, 'delete_project')
+  if (/^save this as a /.test(phrase) && projectId) return route('POST', `/api/workspace/projects/${projectId}/artifacts`, 'save_artifact')
+  if (/^(show me my saved plans|show me every boq)/.test(phrase) && projectId) return route('GET', `/api/workspace/projects/${projectId}/artifacts`, 'list_artifacts')
+  if (/^(what did i change|where did this number come from)/.test(phrase) && projectId) return route('GET', `/api/workspace/projects/${projectId}/artifacts`, 'inspect_artifact_provenance')
+  return c.json({ error: 'unrecognized_intent' }, 400)
+})
+
 app.post('/api/workspace/projects', async (c) => {
   const user = await requireUser(c.env, c.req.header('Cookie'))
   if (!user) return c.json({ error: 'unauthorized' }, 401)
