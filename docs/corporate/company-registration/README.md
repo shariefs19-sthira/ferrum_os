@@ -9,7 +9,7 @@ Founders and nominal equity:
 - Sharief — Design Head — 50%.
 - Shoaib — Execution Head — 50%.
 
-Control: the Articles and SHA use a board-control package. Sharief appoints a majority of directors, chairs the board with a casting vote where lawful, and approves reserved Non-Execution Matters. Shoaib's authority is confined to approved physical execution.
+Board: exactly two directors, Sharief and Shoaib. Sharief is Permanent Chairman for procedural purposes only and has no tie-breaking vote. Substantive authority follows the Reserved Matters and Decision Resolution schedule; Shoaib's authority is confined to approved physical execution.
 
 ## Pack index
 

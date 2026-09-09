@@ -4,15 +4,21 @@
 
 ## Capital and economics
 
-Sharief: 50%. Shoaib: 50%. Share count, face value, subscription consideration and completion date: **[OPERATOR-INPUT]**. Dividends require lawfully distributable profits, tax provision, agreed reserves and valid board/shareholder action.
+Sharief: 50%. Shoaib: 50%. The split is permanent and unconditional from Day 1 for all Company revenue, profits and every lawful founder distribution. Company receipts remain Company property until applied or distributed through lawful accounts and corporate action. Share count, face value, subscription consideration and completion date: **[OPERATOR-INPUT]**.
+
+Shoaib's rights are confined solely to Ferrum Projects Private Limited. He holds zero equity, option, beneficial interest or economic entitlement in any future parent, technology entity, product entity or other business unless expressly granted later by a separate written instrument.
 
 ## Governance
 
-- The proposed Board has three directors: Sharief nominates two and Shoaib nominates one, each subject to appointment under the Act and Articles; Sharief's nominees therefore form the Board majority.
-- The chair has a casting vote where lawful and included in the finalized Articles.
+- The Board has exactly two directors: Sharief and Shoaib.
+- Sharief is Permanent Chairman for meeting procedure only and has no tie-breaking vote.
 - Shoaib has full operational participation within approved Execution Matters.
-- Sharief approval and all mandatory approvals are required for Non-Execution reserved matters listed in the AoA.
+- Authority and disagreement resolution follow Schedule SHA-1 below and the matching AoA schedule.
 - Director duties and statutory shareholder rights cannot be contracted away.
+
+## Schedule SHA-1 — Reserved Matters and Decision Resolution
+
+The Decision Type, Authority and Objective Criteria / Escalation matrix in Schedule A of the AoA is incorporated into this agreement. The definitive SHA must reproduce it verbatim, including: Sharief's design/finance/strategy/non-site-hiring domain; Shoaib's site-operations/contractor/scheduling/safety/site-hiring domain; unanimous reserved matters; automatic halt on safety-audit failure; the margin, capex, senior-hire, client-credit and dispute thresholds marked `[OPERATOR-INPUT]`; and referral within 7 days to **[OPERATOR-INPUT: mediator name or "institutional panel under MCIA rules"]** for residual disagreement. A recommendation binds only through valid advance written consent.
 
 ## Share controls
 
