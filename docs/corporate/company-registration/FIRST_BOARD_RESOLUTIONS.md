@@ -2,7 +2,9 @@
 
 > **[PROFESSIONAL-REVIEW-REQUIRED]** Draft resolutions only. Applicability, wording, forms, fees and timelines are **INDICATIVE-VERIFY-BEFORE-FILING**.
 
-Meeting date, time, place, directors, notice, consent, quorum and minute number: **[OPERATOR-INPUT]**.
+Meeting date, time, place, three-director composition (two Sharief nominees and one Shoaib nominee), notice, consent, quorum and minute number: **[OPERATOR-INPUT]**.
+
+The first meeting of the Board must be held within 30 days of incorporation under section 173(1). The practicing CS must calendar the statutory deadline from the certificate date and settle notice, participation, quorum and minutes requirements.
 
 Subject to professional confirmation, the Board resolves to:
 
