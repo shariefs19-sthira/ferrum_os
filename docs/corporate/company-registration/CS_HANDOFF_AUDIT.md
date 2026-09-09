@@ -6,7 +6,7 @@ Audit date: 2026-09-09. Scope: the ten active Day-1 documents in this directory 
 
 ## Executive Summary
 
-**Overall verdict: BLOCKED FOR FILING; READY FOR DIRECT CS EDIT.** Five filing-critical defects were found and corrected in this branch: Table A structure, section 2(68) private-company restrictions, SHA/AoA precedence, section 173(1) first-meeting deadline, and AGILE-PRO-S state/applicability mapping. No active document remains `FAIL` on those checks. The constitutional instruments remain `REQUIRES-CS-EDIT` because the CS must convert them into current MCA forms, settle the board-control mechanics and certify all particulars.
+**Overall verdict: BLOCKED FOR FILING; READY FOR DIRECT CS EDIT.** The active structure now has exactly two directors, permanent 50/50 Day-1 economics and no tie-breaking vote. Domain authority and objective criteria cannot override statutory Board/member powers or cure a 1–1 Board deadlock. The constitutional instruments remain `REQUIRES-CS-EDIT` because the CS must convert them into current MCA forms, validate the decision matrix and certify all particulars.
 
 ## Document-by-document audit
 
@@ -17,11 +17,12 @@ Audit date: 2026-09-09. Scope: the ten active Day-1 documents in this directory 
 | `AOA.md` | Table F baseline | REQUIRES-CS-EDIT | s.5; Schedule I, Table F | Express Table F adoption added subject to modifications; CS must map every modification into eAoA and remove conflicts. |
 | `AOA.md` | Transfer restriction, maximum 200 members, no public invitation | PASS | s.2(68)(i)–(iii) | Mandatory restrictions added, including statutory employee/joint-holder qualifications. CS must settle the operative transfer procedure. |
 | `AOA.md` | Minimum two members/subscribers and two directors | PASS | ss.3(1)(b), 149(1)(a) | Minimums added; CS must verify identities, DIN/DSC and continued compliance. |
-| `AOA.md` | Majority-director nomination and casting vote | REQUIRES-CS-EDIT | ss.149, 152, 161; Schedule I Table F arts.67–69, subject to current consolidated text | Draft now specifies a three-director Board (two Sharief nominees, one Shoaib nominee), distinguishes nomination from appointment and limits casting vote. CS must validate composition, quorum, chair election, minority protection and exact Articles language. |
-| `AOA.md` | Cited ss.150 and 260 | PASS WITH CORRECTION | s.150; s.161; s.260 | s.150 concerns independent-director selection if applicable. s.260 concerns a company administrator, not additional directors; s.161 is the relevant provision. Correction is explicit. |
-| `FOUNDERS_AGREEMENT.md` | Roles, 50/50 ownership and execution confinement align with Articles | REQUIRES-CS-EDIT | ss.5–6, 149, 166; Articles/SHA | No direct statutory filing form. CS/lawyer must align authority, duties, compensation, leaver and dispute clauses with final Articles/SHA. |
+| `AOA.md` | Exactly two directors and quorum | REQUIRES-CS-EDIT | ss.149, 152, 173, 174 | Sharief and Shoaib are the only directors. With statutory quorum of two, both ordinarily must participate; CS must validate applicable private/small-company exemptions and Articles language. |
+| `AOA.md` | Permanent Chairman without tie-breaking vote | REQUIRES-CS-EDIT | Schedule I Table F regs.68 and 70; ss.5, 166, 174 | Procedural chair role retained; Table F regulation 68(ii) expressly excluded subject to CS confirmation. A 1–1 split is not approval. |
+| `AOA.md` | Domain and objective decision matrix | REQUIRES-CS-EDIT | ss.166, 179–180 and applicable Board-power rules | Delegation must exclude non-delegable Board/member powers; thresholds and mediator remain operator inputs. |
+| `FOUNDERS_AGREEMENT.md` | Permanent unconditional 50/50 Company economics and role confinement | REQUIRES-CS-EDIT | ss.5–6, 123, 166; Articles/SHA | No project/year condition remains. CS/CA/lawyer must settle lawful accounting and distribution mechanisms and entity-boundary clause. |
 | `SHAREHOLDERS_AGREEMENT.md` | Explicit AoA supremacy and Act override | PASS | s.6; ss.5, 10 | Missing clause was a failure; branch added an express Act/AoA-precedence clause and document-alignment duty. |
-| `SHAREHOLDERS_AGREEMENT.md` | Board-control and reserved matters enforceability | REQUIRES-CS-EDIT | ss.149, 152, 161, 166; Schedule I Table F | CS/lawyer must ensure private agreement does not purport to bind Company organs contrary to filed Articles or mandatory law. |
+| `SHAREHOLDERS_AGREEMENT.md` | Two-director decision framework and reserved matters | REQUIRES-CS-EDIT | ss.166, 173–175, 179–180; Schedule I Table F | CS/lawyer must ensure domain authority is valid delegation, objective rules do not replace required resolutions, and residual disagreement preserves status quo. |
 | `REGISTRATION_SOP.md` | Part A name reservation; Part B incorporation; linked forms | PASS | MCA SPICe+ V3 FAQs; ss.4, 7 | Mapping is explicit. CS must confirm live form versions, upload sequence, attachments, fees and stamp duty. |
 | `REGISTRATION_SOP.md` | AGILE-PRO-S linkage | PASS | MCA SPICe+ V3 FAQ qq.39–45; AGILE-PRO-S instruction kit | Corrected: bank and EPFO/ESIC workflow, optional GSTIN, state-specific Profession Tax and optional Delhi Shops/Establishment; live coverage still requires verification. |
 | `STATUTORY_FORMS_WORKING_SHEETS.md` | SPICe+ A/B data separation | PASS | MCA SPICe+ V3 FAQs | Name and incorporation inputs remain separately mapped. |
@@ -40,7 +41,7 @@ The corrected draft now follows Table A's six-part architecture and makes the RC
 
 ### AoA / private-company definition
 
-The corrected draft contains all three section 2(68) restrictions and the minimum two-member/two-director controls. The majority-director and casting-vote design is not self-executing: appointment must occur under the Act and filed Articles. Section 260 is not an additional-director provision; section 161 is. This discrepancy is corrected rather than repeated.
+The corrected draft contains all three section 2(68) restrictions and the minimum two-member/two-director controls. The Board is locked to Sharief and Shoaib. Sharief's chairmanship is procedural and carries no tie-breaking vote. Both directors ordinarily constitute quorum under section 174; domain delegations do not turn a 1–1 disagreement on a reserved Board matter into approval.
 
 ### SHA supremacy
 
@@ -65,8 +66,9 @@ The CS must physically obtain or verify, outside this repository:
 - `[OPERATOR-INPUT]` GSTIN election and tax jurisdiction; EPFO/ESIC implemented-area and threshold position; Profession Tax state; Delhi Shops/Establishment choice if applicable;
 - `[OPERATOR-INPUT]` share subscription consideration and bank receipt; share-certificate/stamp evidence;
 - `[OPERATOR-INPUT]` first Board meeting date within 30 days, notice, attendance, quorum, disclosures, minutes and first-auditor consent;
-- `[OPERATOR-INPUT]` board size, Sharief nomination mechanics, chair election, casting-vote wording and reserved-matter schedule;
-- `[OPERATOR-INPUT]` third-director legal identity, DIN/DSC, consent, eligibility and nominee appointment evidence;
+- `[OPERATOR-INPUT]` final reserved-matter thresholds, delegation instruments and Permanent Chairman wording;
+- `[OPERATOR-INPUT]` project margin floor (recommend 12%), unanimous capex threshold (recommend ₹10 lakh), senior-hire threshold (recommend ₹20 LPA), client credit-rating floor (recommend BBB), client-contract threshold and mediation dispute threshold (recommend ₹5 lakh);
+- `[OPERATOR-INPUT]` mediator name or institutional panel under MCIA rules and advance-binding-consent language;
 - `[OPERATOR-INPUT]` government fee, state stamp duty, professional fee, SRN/challan, resubmission deadline and filing receipt from the live portal;
 - `[OPERATOR-INPUT]` commencement-filing applicability and subscription-money evidence;
 - `[OPERATOR-INPUT]` project/client permissions and statutory website particulars before publication.
