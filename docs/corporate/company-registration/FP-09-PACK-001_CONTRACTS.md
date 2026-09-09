@@ -77,3 +77,38 @@ Use when the Company buys a defined output—such as a BOQ, estimate or analysis
 ## Signing control
 
 Before any use: practicing lawyer settles enforceability; CA/CS confirms corporate approvals, related-party treatment, taxes, stamp duty and registers; authorised signatory and counterparty KYC are supplied outside this repository; attachments are versioned; and executed copies enter the controlled Company record set.
+
+## Schedule CP-1 — Head of Execution completeness terms
+
+This schedule forms part of Contract A only after professional settlement and signature.
+
+1. **Reserved matters.** Shoaib must not bind the Company on ownership, securities, borrowing, guarantees, bank mandates, unbudgeted expenditure, new business lines, tender acceptance, client price or risk changes, litigation, related-party dealings, technology, data, brand, intellectual property, senior appointments, constitutional changes, or any other matter reserved by the Articles, SHA, board, or Schedule 1 of FP-01-PACK-001.
+2. **Fiduciary and statutory conduct.** To the extent Shoaib is appointed as a director or officer, he must act in good faith for the Company's lawful objects, exercise due care, skill, diligence and independent judgment, avoid or disclose conflicts, and comply with all non-waivable statutory duties. This role contract does not dilute those duties or create authority beyond a valid corporate approval.
+3. **Execution-only economics.** Revenue entitlement applies only to **[OPERATOR-INPUT: identified receipts, exclusions, calculation base, rate, payment date, reconciliation, set-off and clawback]** of this entity. It does not attach to Ferrum OS, Sharief Prior/Outside IP, another entity, a lead not accepted by this entity, or revenue received after exit except as the signed formula expressly provides.
+4. **Exit consequences.** On notice, suspension, termination, incapacity or other exit: execution authority and system access cease at the time stated in the written notice; site, safety, measurement, payment and handover records transfer to the named custodian; Company property and credentials are returned; open commitments are disclosed; no new commitment is made; final compensation and any earned revenue amount are reconciled under **[OPERATOR-INPUT]**; and confidentiality, IP, audit, records and lawful remedies survive. Equity/leaver consequences exist only in the professionally settled SHA and Founders' Agreement.
+
+## Schedule CP-2 — Ferrum OS prior-IP and segregation covenant
+
+For Contract B, `Protected Platform Property` means Sharief Prior/Outside IP identified in FP-01-PACK-001, including Ferrum OS source and object code, repositories, products, models, prompts, datasets, knowledge bases, system architecture, credentials, domains, brand masters, research and derivatives. The schedule records categories, not confidential contents; the definitive schedule is **[OPERATOR-INPUT: controlled schedule reference]**.
+
+- **Credential segregation.** Company and project credentials must be unique, held in Company-approved custody, least-privilege, and never reused for or stored in Ferrum OS or another Sharief environment. Protected Platform credentials must never be requested, shared, copied, reset, escrowed or placed in Company records.
+- **Data segregation.** Company execution data may enter only approved Company/project stores for the documented purpose. It must not be mixed with, uploaded to, used to train, or used to improve any Ferrum OS model, dataset or knowledge base without a separate written, purpose-specific agreement and all required consent. Protected Platform data must not be copied into Company systems.
+- **Incident duty.** Misdelivery, accidental access, credential exposure or boundary crossing must be contained without inspection beyond what containment requires and reported immediately through **[OPERATOR-INPUT: incident channel and deadline]**.
+
+### Return/deletion certificate
+
+At request or exit, Recipient certifies after a documented search that all Company and Protected Platform material received for the engagement has been returned or securely deleted from devices, accounts, backups under Recipient control and third parties engaged by Recipient, except records whose retention is legally required and listed here: **[OPERATOR-INPUT]**. Recipient identifies systems searched, residual legal holds, completion date and responsible signatory **[OPERATOR-INPUT]**. Company verification of the certificate does not waive undiscovered breach or statutory rights.
+
+## Schedule CP-3 — pack coverage control
+
+| Standing-ruling requirement | Controlled document location | Settlement gap |
+|---|---|---|
+| Head of Execution mandate, execution-only joint authority | Contract A §§1–3 | Appointment form, reporting line and delegation limits **[OPERATOR-INPUT]** |
+| Entity-confined revenue entitlement | Contract A §4; CP-1 §3 | Formula and treatment **[OPERATOR-INPUT]** |
+| Reserved matters, fiduciary duties, exit consequences | CP-1 §§1–4 | Professional enforceability and operative terms |
+| NDA, restraint and no-tech-access | Contract B | Counsel to narrow restraints to lawful scope |
+| Prior-IP, credential/data segregation, return/deletion | CP-2 | Controlled schedule and incident channel **[OPERATOR-INPUT]** |
+| Subcontract work order | Contract C | Project schedules **[OPERATOR-INPUT]** |
+| Vendor/material pack | Contract D | Commercial and quality schedules **[OPERATOR-INPUT]** |
+| Arm's-length output purchase | Contract F | Output, price support and approvals **[OPERATOR-INPUT]** |
+| Future IP licence and master project allotment | FUTURE section | Not operative on Day 1; separate approval required |
