@@ -128,3 +128,9 @@ in-progress rows are PI's review queue.
   doesn't change PI's own work, but PI's EXECUTION-ASSIGNEE-MATCH
   ledger control verifies every landed row's actual owner matches the
   board's declared ASSIGNEE under this rule.
+- RULE 61 (Auto-execute-by-default, adopted 2026-09-10): applies to
+  every executor seat's action-vs-ask threshold; PI implements nothing
+  so this rule doesn't change PI's own work, but a landing report that
+  stopped to ask on something outside the five reserved categories, or
+  that acted on something inside them without confirmation, is now a
+  reviewable method defect PI's own ledger can flag.

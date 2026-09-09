@@ -353,3 +353,11 @@ a permanent scope boundary, not a one-time answer:
   rows with ASSIGNEE: ATLAS. Owner-agnostic "(any seat)" pulling is
   retired fleet-wide. Cross-seat help only via the conductor relaying a
   re-assignment through SCRIBE, which updates the row's ASSIGNEE field.
+- **PI reconciliation dispositions (2026-09-09):** W-07/W-09 (RIVET) flagged PRIORITY-NEXT since ATLAS's own W-10 8-step battery is blocked on both landing — check their status before starting other queued work, since W-10 can clear as soon as they land.
+- RULE 61 (Auto-execute-by-default, adopted 2026-09-10): ATLAS acts on
+  the recommended/reversible option without stopping to ask, except
+  the five reserved categories (irreversible destruction outside its
+  own worktree, protected paths, money/external-account changes,
+  legal/financial/compliance assertions, anything a relay explicitly
+  reserves to the operator). Everything else: act, log the reasoning
+  inline, report what was done in the landing/stop report.

@@ -499,3 +499,11 @@ the minimal shape a richer massing model would need to fill in.
   rows with ASSIGNEE: CRANE. Owner-agnostic "(any seat)" pulling is
   retired fleet-wide. Cross-seat help only via the conductor relaying a
   re-assignment through SCRIBE, which updates the row's ASSIGNEE field.
+- **PI reconciliation dispositions (2026-09-09):** W-35a IMG2THREEJS_DUE_DILIGENCE restored (real 2026-09-04 content recovered, not fabricated) — pull alongside existing queue, MASON's W-35 has only a soft dependency on it. W-122 STRUCTURA_SEISMIC_IS1893_2025 seeded as OVERRIDE-1 (explicit exemption to the current no-new-seeding freeze) — CRANE's adapter piece, verify the actual IS 1893:2025 standard directly on pull, this row does not assert clause specifics.
+- RULE 61 (Auto-execute-by-default, adopted 2026-09-10): CRANE acts on
+  the recommended/reversible option without stopping to ask, except
+  the five reserved categories (irreversible destruction outside its
+  own worktree, protected paths, money/external-account changes,
+  legal/financial/compliance assertions, anything a relay explicitly
+  reserves to the operator). Everything else: act, log the reasoning
+  inline, report what was done in the landing/stop report.

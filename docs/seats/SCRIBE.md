@@ -351,3 +351,10 @@ This was a fresh baseline: it explicitly does not claim any prior
   incremental: rows W-70 through W-85 (and others) reassigned so far,
   tracked in docs/TASK_BOARD.md's own Notes section, not rewritten
   retroactively in one pass.
+- RULE 61 (Auto-execute-by-default, adopted 2026-09-10): SCRIBE acts on
+  the recommended/reversible option without stopping to ask, except
+  the five reserved categories (irreversible destruction outside its
+  own worktree, protected paths, money/external-account changes,
+  legal/financial/compliance assertions, anything a relay explicitly
+  reserves to the operator). Everything else: act, log the reasoning
+  inline, report what was done in the landing/stop report.

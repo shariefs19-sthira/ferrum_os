@@ -247,24 +247,34 @@ None of these are seeded onto `docs/TASK_BOARD.md` by this document.
    class of loss, simply not yet caught. Real ask, real prior seeding,
    currently no row.
 
-2. **W-18, W-19, W-21.** Multiple later instructions reference these
-   IDs directly (W-22's original dependency list named W-21;
-   `docs/UX_FLOW.md` was asked to cite W-19 and W-21 as acceptance
-   references) but the board's own Notes state plainly: "W-18, W-19,
-   W-21 do not exist as seeded rows... SCRIBE has not invented scope
-   for any of the three." Whatever operator ask these numbers were
-   meant to hold was never captured in a form SCRIBE has seen — a real
-   gap, not a numbering artifact (unlike W-15/36/49/56/57/62/86, which
-   the board's Notes confirm trace to no seeding commit and no
-   authored deliverable under any name, and are genuinely just unused
-   numbers).
+2. **W-18, W-19, W-21 — CLOSED 2026-09-09 (PI reconciliation
+   dispositions pass), no longer an open gap.** Multiple later
+   instructions reference these IDs directly (W-22's original
+   dependency list named W-21; `docs/UX_FLOW.md` was asked to cite
+   W-19 and W-21 as acceptance references), but no real ask was ever
+   captured for any of the three despite being flagged three separate
+   times over five days (2026-09-04 seeding entry, TASK_BOARD.md's own
+   Notes, `docs/UX_FLOW.md`'s Notes) — the operator/conductor never
+   supplied the missing scope. Per the operator's disposition
+   instruction ("capture the referenced asks as real rows, or mark
+   formally ABANDONED with reason — references without rows are
+   debt"), formally closed on `docs/TASK_BOARD.md` as ABANDONED rather
+   than left open indefinitely or fabricated: reason recorded is "no
+   real scope ever supplied despite repeated flags," not invented
+   content standing in for a real ask.
 
-3. **W-86.** Named as a live step in the operator's own MASON
-   assignment sequence (2026-09-08, per the board's Notes section), but
-   no W-86 row, seeding commit, or authored deliverable exists anywhere
-   on disk under any branch name. Currently recorded only as a
-   skip-and-wait step on `docs/seats/MASON.md` — the underlying ask
-   itself has no board coverage.
+3. **W-86 — RESOLVED 2026-09-09 (PI reconciliation dispositions
+   pass), no longer an open gap.** Named as a live step in the
+   operator's own MASON assignment sequence (2026-09-08), but no W-86
+   row, seeding commit, or authored deliverable ever existed anywhere
+   on disk under any branch name, and no real ask was ever supplied
+   for it despite being flagged since it first appeared. Per the
+   operator's disposition instruction ("either seed with owner and
+   deliverable or strike every reference"), struck from
+   `docs/seats/MASON.md`'s assignment sequence rather than seeded as a
+   fabricated row. The number itself remains an intentionally-unused
+   gap in the operator's own numbering (same convention as
+   W-107/W-108) — not a debt item.
 
 4. **W-64 BOOTSTRAP_LAUNCH's original scope.** Only a later amendment
    ("bootstrap = zero investor dependency, not reduced features; the
@@ -379,3 +389,20 @@ step's progress/sequence data), W-119 (Invest step's indicative IRR/NPV
 figure), and W-52 (workspace-entry prompt on step click) — reuses each
 rather than building a parallel path. Board/docs landing only, same
 "NO triggers" scope as §M/§N/§O.
+
+## Q. 2026-09-09 — PI reconciliation dispositions (W-35/35a restored,
+W-18/19/21 closed, W-86 struck, W-122 override, W-07/09 flagged)
+
+| Item | Ask-source | Disposition |
+|---|---|---|
+| W-35a/W-35 | Operator 2026-09-09: "re-seed if scope still live in ACTIVITY_LOG/Board Notes, else close formally with reason." | **Restored, not merged/new.** Real content recovered from `docs/ACTIVITY_LOG.md`'s 2026-09-04 seeding entry — genuinely dropped from a later board rewrite, scope confirmed never executed (no landing found in ACTIVITY_LOG or EXECUTION_LEDGER), so restored as still-live READY rows rather than closed. |
+| W-18, W-19, W-21 | Operator 2026-09-09: "capture the referenced asks as real rows or mark formally ABANDONED with reason." | **Closed ABANDONED**, each its own row on `docs/TASK_BOARD.md` — no real scope was ever supplied for any of the three despite three flags over five days; not fabricated to fill the gap. |
+| W-86 | Operator 2026-09-09: "either seed with owner+deliverable or strike every reference to it from MASON's sequence docs." | **Struck** from `docs/seats/MASON.md`'s assignment sequence — no row/commit/deliverable/ask exists anywhere; not seeded as a fabricated row. |
+| W-122 STRUCTURA_SEISMIC_IS1893_2025 | Operator 2026-09-09 (OVERRIDE-1, conductor-logged safety exemption): "update all Structura seismic zone citations/KB to IS 1893:2025 (new Zone VI), verify every dependent output path, headless proof of changed constants." | **New row, explicit override to the current no-new-seeding freeze** — the operator's own exemption, not a resumption of general seeding. MASON (engine/KB) + CRANE (adapters); CRANE verifies actual IS 1893:2025 clause specifics on pull, not asserted here. |
+| W-07, W-09 | Operator 2026-09-09: "confirm owners... and flag them priority-next so ATLAS's blocked W-10 can clear in the following drain cycle." | **No reassignment needed** — both already RIVET-owned; flagged PRIORITY-NEXT in place on `docs/TASK_BOARD.md`. |
+
+This is the only new-row seeding under the current freeze — the
+explicit OVERRIDE-1 exemption (W-122), not a lift of the freeze
+itself. SCRIBE otherwise continues to hold on new task seeding until
+PI's next full register shows zero open rows, per the operator's own
+standing instruction.
