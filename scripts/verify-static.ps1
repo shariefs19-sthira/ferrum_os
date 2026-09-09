@@ -125,8 +125,8 @@ $violations += Test-SectionSkeleton -SectionRoot "$root/checklists" -SectionLabe
 # register row ID, and signed-instrument reference. Template placeholders never
 # satisfy an entry. This is a structural guard, not legal/accounting validation.
 $corporateRoot = "docs/corporate"
-$allotmentFormPath = Join-Path $corporateRoot "company-registration/FP-00-ALLOT-001_PROJECT_ALLOTMENT.md"
-$economicsRoot = Join-Path $corporateRoot "company-registration/project-economics"
+$allotmentFormPath = Join-Path $corporateRoot "ARCHIVED_DAY2_BLUEPRINT/FP-00-ALLOT-001_PROJECT_ALLOTMENT.md"
+$economicsRoot = Join-Path $corporateRoot "ARCHIVED_DAY2_BLUEPRINT/project-economics"
 $requiredAllotmentTokens = @(
     '[PROJECT-ID]',
     '[CLIENT]',
