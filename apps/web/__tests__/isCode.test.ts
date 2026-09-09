@@ -63,6 +63,13 @@ describe('runIsCheck — seismic-coefficient (IS 1893:2016 Cl 6.4.2)', () => {
     const result = runIsCheck('seismic-coefficient', { Z: 0.36 })
     expect(result.checks[0].pass).toBe(false)
   })
+
+  it('rejects a factor from the withdrawn 2025 edition', () => {
+    const result = runIsCheck('seismic-coefficient', { Z: 0.75, I: 1.5, R: 5, T: 0.5, soilType: 2 })
+    expect(result.checks[0].pass).toBe(false)
+    expect(result.checks[0].note).toMatch(/withdrawn/i)
+    expect(result.checks[0].note).toContain('2026-03-05')
+  })
 })
 
 describe('runIsCheck — wind-pressure (IS 875:2015 Part 3 Cl 6.3/7.2)', () => {

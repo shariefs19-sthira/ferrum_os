@@ -7,6 +7,8 @@
 // the MCP tool (AGENT_INTERFACE.md §0's one-capability-two-transports
 // commitment).
 
+import { isGoverningZoneFactor, SEISMIC_STANDARD } from './seismicStandard'
+
 export type IsCheckResult = {
   code: string
   checks: Array<{ rule: string; pass: boolean; note: string }>
@@ -91,6 +93,16 @@ export function runIsCheck(structureType: string, params: Record<string, number>
         ],
       }
     }
+    if (!isGoverningZoneFactor(Z)) {
+      return {
+        code: 'IS 1893',
+        checks: [{
+          rule: 'Governing seismic-zone factor',
+          pass: false,
+          note: `Z=${Z} is not in the operative ${SEISMIC_STANDARD.governingEdition} Zone II-V set. IS 1893 (Part 1):2025 is recorded by BIS as withdrawn on ${SEISMIC_STANDARD.withdrawnEdition.withdrawnOn}; its proposed constants are not accepted by this engine.`,
+        }],
+      }
+    }
     const Ah = (Z / 2) * (I / R) * saOverG
     return {
       code: 'IS 1893',
@@ -98,7 +110,7 @@ export function runIsCheck(structureType: string, params: Record<string, number>
         {
           rule: 'Cl 6.4.2 design horizontal seismic coefficient',
           pass: true,
-          note: `Sa/g = ${saOverG.toFixed(3)} (T=${T}s, soil type ${soilType}). Ah = (Z/2)(I/R)(Sa/g) = ${Ah.toFixed(4)}. This is a coefficient for base shear (VB = Ah × W), not a pass/fail limit — verify against your structure's seismic weight and R/I selection per Table 7/6.`,
+          note: `Sa/g = ${saOverG.toFixed(3)} (T=${T}s, soil type ${soilType}). Ah = (Z/2)(I/R)(Sa/g) = ${Ah.toFixed(4)} under ${SEISMIC_STANDARD.governingEdition}. This is a coefficient for base shear (VB = Ah × W), not a pass/fail limit — verify against your structure's seismic weight and R/I selection per Table 7/6.`,
         },
       ],
     }

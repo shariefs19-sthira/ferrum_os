@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 import { structureFacts, structureGaps } from "./structure"
 import { getKbCoverageManifest } from "../manifest"
 import { SPAN_DEPTH_BASIC_RATIO } from "../../studio/structuralLive"
+import { SEISMIC_STANDARD } from "../../checks/seismicStandard"
 
 describe("W-29 KB structure domain (adapter-first seed)", () => {
   it("every fact carries real, non-empty provenance - never an unsourced value", () => {
@@ -53,7 +54,7 @@ describe("W-29 KB structure domain (adapter-first seed)", () => {
   it("the seismic zone factor fact carries the real NBC 2016 Part 6 Table 42 values, with its own provenance", () => {
     const fact = structureFacts.find((f) => f.clauseId === "NBC 2016 (SP 7) Part 6 Section 1 Cl 5.3.4.2 (Table 42)")!
     const data = fact.data as { seismicZoneFactorZ: Record<string, number> }
-    expect(data.seismicZoneFactorZ).toEqual({ II: 0.10, III: 0.16, IV: 0.24, V: 0.36 })
+    expect(data.seismicZoneFactorZ).toEqual(SEISMIC_STANDARD.zoneFactors)
     expect(fact.provenance.status).toBe("VERIFIED-SAMPLE")
     expect(fact.provenance.sourceUrl).toMatch(/archive\.org/)
   })
@@ -63,6 +64,7 @@ describe("W-29 KB structure domain (adapter-first seed)", () => {
     const data = fact.data as { currencyNote: string }
     expect(data.currencyNote).toMatch(/IS 1893.*2025/)
     expect(data.currencyNote).toMatch(/withdrawn/i)
+    expect(SEISMIC_STANDARD.withdrawnEdition.operative).toBe(false)
     const zoneViGap = structureGaps.find((g) => g.clauseId === "IS 1893 (Part 1):2025 Seismic Zone VI (withdrawn)")!
     expect(zoneViGap.reason).toBe("GAP-NOT-CODIFIED")
     expect(zoneViGap.queuedAction).toMatch(/March 2026/)
