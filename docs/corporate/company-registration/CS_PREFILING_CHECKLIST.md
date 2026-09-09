@@ -18,18 +18,16 @@
 - [ ] Confirm every tie-breaking-vote provision is excluded; specifically reconcile Table F regulation 68(ii).
 - [ ] Confirm agenda control includes fair notice/papers and cannot suppress a director's statutory information or participation.
 
-## Decision matrix
+## Decision framework and Threshold Schedule Annexure
 
-- [ ] Map each Sharief domain, Shoaib domain, unanimous matter and objective rule into both AoA and SHA identically.
+- [ ] Confirm the AoA and SHA contain the identical Threshold Schedule Annexure reference clause and consistent domain/reserved-matter allocation.
 - [ ] Identify powers that sections 179–180 or other law reserve to the Board/members and exclude them from unilateral delegation.
-- [ ] Complete project-margin floor: `[OPERATOR-INPUT: recommend 12%]`.
-- [ ] Complete unanimous capex threshold: `[OPERATOR-INPUT: recommend ₹10 lakh]`.
-- [ ] Complete senior-hire threshold: `[OPERATOR-INPUT: recommend ₹20 LPA CTC]`.
-- [ ] Complete client credit-rating floor: `[OPERATOR-INPUT: recommend BBB]`.
-- [ ] Complete client-contract threshold: `[OPERATOR-INPUT]`.
+- [ ] Confirm the Annexure cannot amend the Act, AoA, SHA, statutory powers, director duties or shareholder rights.
+- [ ] Complete all seven `[OPERATOR-INPUT]` commercial/escalation fields in `THRESHOLD_SCHEDULE_ANNEXURE.md`.
+- [ ] Complete Annexure version, effective date and effective Board-resolution reference.
+- [ ] Verify notice, quorum and majority for the adopting ordinary Board Resolution; a 1–1 vote is not approval.
+- [ ] Establish controlled-version custody and retain each superseded version with its resolution cross-reference.
 - [ ] Confirm safety-audit failure produces an automatic operational halt and define documented clearance authority.
-- [ ] Complete mediation threshold: `[OPERATOR-INPUT: recommend ₹5 lakh]`.
-- [ ] Complete `[OPERATOR-INPUT: mediator name or "institutional panel under MCIA rules"]` and verify the 7-day referral mechanism.
 - [ ] Counsel confirms whether and how an advance agreement can make a mediator recommendation binding; otherwise retain non-binding recommendation and status quo.
 
 ## Filing coherence

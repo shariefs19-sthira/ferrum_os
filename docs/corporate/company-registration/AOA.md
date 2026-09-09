@@ -26,28 +26,11 @@ Initial nominal equity is Sharief 50% and Shoaib 50%. Share numbers, face value,
 
 ## Schedule A — Reserved Matters and Decision Resolution
 
-Thresholds marked `[OPERATOR-INPUT]` are recommended working values only and are not operative until completed in the filed Articles/SHA.
+Sharief's domain comprises design, finance, strategy, non-site hiring and client contracting, subject to statute, approved budgets and the reserved matters. Shoaib's domain comprises site operations, contractor selection, project scheduling, safety compliance and site-staff hiring, within approved contracts, designs and budgets. Capital/share changes, borrowing, guarantees, disposals, dividends, related-party matters and constitutional amendments require joint consent and every approval required by law. A failed safety audit or imminent-danger finding automatically halts affected work until documented clearance.
 
-| Decision Type | Authority | Objective Criteria / Escalation |
-|---|---|---|
-| Design standards, constructability and design coordination | Sharief sole | Within signed client scope, law and approved budget; material scope change goes joint unanimous |
-| Finance, strategy, annual budget and banking proposal | Sharief sole | Any action statutorily reserved to Board/members still requires that approval |
-| Non-site hiring below senior-hire threshold | Sharief sole | Within approved headcount/budget |
-| Client contract above ₹ `[OPERATOR-INPUT: contract-value threshold]` | Joint unanimous | Margin and credit rules below must pass before approval |
-| New project acceptance | Objective rule applies, then joint unanimous | Project margin below `[OPERATOR-INPUT: recommend 12%]` = reject; client credit rating below `[OPERATOR-INPUT: recommend BBB]` = reject |
-| Capital expenditure above `[OPERATOR-INPUT: recommend ₹10 lakh]` | Joint unanimous | Written business case and funding source required; disagreement follows residual escalation |
-| Senior hire above `[OPERATOR-INPUT: recommend ₹20 LPA CTC]` | Joint unanimous | Role, budget and conflict check required |
-| Site operations and approved method deployment | Shoaib sole | Within contract, approved budget, design, safety plan and law |
-| Contractor selection within approved project/budget | Shoaib sole | Documented comparison, competence, compliance and conflict checks required |
-| Project scheduling, labour/plant allocation and site-staff hiring | Shoaib sole | Within approved programme, headcount, wage and delegated limits |
-| Safety compliance | Shoaib sole operational duty | Any failed safety audit or imminent-danger finding = automatic work halt until documented clearance |
-| Capital/share change, borrowing, guarantee, disposal, dividend, related party or constitutional amendment | Joint unanimous | Complete every mandatory Board/member approval, disclosure and filing |
-| Dispute/exposure above `[OPERATOR-INPUT: recommend ₹5 lakh]` | Joint unanimous | Refer to residual escalation within 7 days |
-| Unclassified decision or domain overlap | Objective rule applies | Apply written criteria; if still unresolved, use residual escalation |
+**Matters requiring joint consent, domain authority, and objective resolution shall be governed by the Board-approved Threshold Schedule Annexure, as amended from time to time by ordinary Board Resolution.**
 
-### Residual escalation
-
-If a decision is not resolved by the domain allocation or objective rules, the founders refer it within 7 days to **[OPERATOR-INPUT: mediator name or "institutional panel under MCIA rules"]**. A mediator's recommendation is binding only if both founders have agreed in advance, in a professionally settled written instrument, that the specified recommendation will bind them and applicable law permits that effect. Otherwise it is non-binding and the status quo continues; no director may claim unilateral approval.
+The Threshold Schedule Annexure cannot amend these Articles, reallocate a statutory Board/member power, relax directors' duties, or treat a 1–1 disagreement as approval. Any amendment must be validly passed with the required notice, quorum and majority. An unresolved matter remains unapproved unless an applicable domain rule or objective rule in the Annexure lawfully resolves it.
 
 ## Transfers and deadlock
 
