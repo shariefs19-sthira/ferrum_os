@@ -17,6 +17,7 @@ Board: exactly two directors, Sharief and Shoaib. Sharief is Permanent Chairman 
 - `AOA.md` — governance and board-control terms.
 - `FOUNDERS_AGREEMENT.md` — roles, equity and founder obligations.
 - `SHAREHOLDERS_AGREEMENT.md` — 50/50 economics and control package.
+- `THRESHOLD_SCHEDULE_ANNEXURE.md` — Board-controlled commercial thresholds, authorities and escalation rules.
 - `REGISTRATION_SOP.md` — incorporation workflow.
 - `STATUTORY_FORMS_WORKING_SHEETS.md` — SPICe+ inputs, DIR-2 and INC-9.
 - `FIRST_BOARD_RESOLUTIONS.md` — first-meeting draft resolutions.

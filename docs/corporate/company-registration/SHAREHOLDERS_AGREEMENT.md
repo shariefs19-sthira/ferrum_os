@@ -18,7 +18,11 @@ Shoaib's rights are confined solely to Ferrum Projects Private Limited. He holds
 
 ## Schedule SHA-1 — Reserved Matters and Decision Resolution
 
-The Decision Type, Authority and Objective Criteria / Escalation matrix in Schedule A of the AoA is incorporated into this agreement. The definitive SHA must reproduce it verbatim, including: Sharief's design/finance/strategy/non-site-hiring domain; Shoaib's site-operations/contractor/scheduling/safety/site-hiring domain; unanimous reserved matters; automatic halt on safety-audit failure; the margin, capex, senior-hire, client-credit and dispute thresholds marked `[OPERATOR-INPUT]`; and referral within 7 days to **[OPERATOR-INPUT: mediator name or "institutional panel under MCIA rules"]** for residual disagreement. A recommendation binds only through valid advance written consent.
+Sharief's domain comprises design, finance, strategy, non-site hiring and client contracting. Shoaib's domain comprises site operations, contractor selection, project scheduling, safety compliance and site-staff hiring. Unanimous reserved matters and the automatic halt following a failed safety audit remain governed by the matching AoA provisions.
+
+**Matters requiring joint consent, domain authority, and objective resolution shall be governed by the Board-approved Threshold Schedule Annexure, as amended from time to time by ordinary Board Resolution.**
+
+The Annexure is subordinate to the Act, the AoA and this agreement. It cannot amend constitutional authority, statutory approval requirements or shareholder rights. A change is effective only after a valid ordinary Board Resolution and controlled-version entry; an unresolved 1–1 Board vote is not approval.
 
 ## Share controls
 

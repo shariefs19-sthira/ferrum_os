@@ -6,7 +6,7 @@ Audit date: 2026-09-09. Scope: the ten active Day-1 documents in this directory 
 
 ## Executive Summary
 
-**Overall verdict: BLOCKED FOR FILING; READY FOR DIRECT CS EDIT.** The active structure now has exactly two directors, permanent 50/50 Day-1 economics and no tie-breaking vote. Domain authority and objective criteria cannot override statutory Board/member powers or cure a 1–1 Board deadlock. The constitutional instruments remain `REQUIRES-CS-EDIT` because the CS must convert them into current MCA forms, validate the decision matrix and certify all particulars.
+**Overall verdict: BLOCKED FOR FILING; READY FOR DIRECT CS EDIT.** The active structure now has exactly two directors, permanent 50/50 Day-1 economics and no tie-breaking vote. Commercial thresholds sit in a controlled Board annexure rather than the constitutional instruments. Domain authority and objective criteria cannot override statutory Board/member powers or cure a 1–1 Board deadlock. The constitutional instruments remain `REQUIRES-CS-EDIT` because the CS must convert them into current MCA forms, validate the annexure delegation and certify all particulars.
 
 ## Document-by-document audit
 
@@ -19,10 +19,11 @@ Audit date: 2026-09-09. Scope: the ten active Day-1 documents in this directory 
 | `AOA.md` | Minimum two members/subscribers and two directors | PASS | ss.3(1)(b), 149(1)(a) | Minimums added; CS must verify identities, DIN/DSC and continued compliance. |
 | `AOA.md` | Exactly two directors and quorum | REQUIRES-CS-EDIT | ss.149, 152, 173, 174 | Sharief and Shoaib are the only directors. With statutory quorum of two, both ordinarily must participate; CS must validate applicable private/small-company exemptions and Articles language. |
 | `AOA.md` | Permanent Chairman without tie-breaking vote | REQUIRES-CS-EDIT | Schedule I Table F regs.68 and 70; ss.5, 166, 174 | Procedural chair role retained; Table F regulation 68(ii) expressly excluded subject to CS confirmation. A 1–1 split is not approval. |
-| `AOA.md` | Domain and objective decision matrix | REQUIRES-CS-EDIT | ss.166, 179–180 and applicable Board-power rules | Delegation must exclude non-delegable Board/member powers; thresholds and mediator remain operator inputs. |
+| `AOA.md` | Domain allocation and Threshold Schedule Annexure reference | REQUIRES-CS-EDIT | ss.166, 173–175, 179–180 and applicable Board-power rules | Confirm the Annexure mechanism cannot amend the Articles or delegate non-delegable Board/member powers; an ordinary Board Resolution still requires a valid majority. |
 | `FOUNDERS_AGREEMENT.md` | Permanent unconditional 50/50 Company economics and role confinement | REQUIRES-CS-EDIT | ss.5–6, 123, 166; Articles/SHA | No project/year condition remains. CS/CA/lawyer must settle lawful accounting and distribution mechanisms and entity-boundary clause. |
 | `SHAREHOLDERS_AGREEMENT.md` | Explicit AoA supremacy and Act override | PASS | s.6; ss.5, 10 | Missing clause was a failure; branch added an express Act/AoA-precedence clause and document-alignment duty. |
-| `SHAREHOLDERS_AGREEMENT.md` | Two-director decision framework and reserved matters | REQUIRES-CS-EDIT | ss.166, 173–175, 179–180; Schedule I Table F | CS/lawyer must ensure domain authority is valid delegation, objective rules do not replace required resolutions, and residual disagreement preserves status quo. |
+| `SHAREHOLDERS_AGREEMENT.md` | Two-director framework and controlled Annexure incorporation | REQUIRES-CS-EDIT | ss.166, 173–175, 179–180; Schedule I Table F | Confirm the Annexure is subordinate to the Act/AoA/SHA, objective rules do not replace required resolutions, and residual disagreement preserves status quo. |
+| `THRESHOLD_SCHEDULE_ANNEXURE.md` | Board-controlled commercial rules and amendment record | REQUIRES-CS-EDIT | ss.166, 173–175, 179–180; filed AoA | Complete all seven operator inputs; validate authority, Board competence, notice, quorum, majority, resolution reference and version control before adoption. |
 | `REGISTRATION_SOP.md` | Part A name reservation; Part B incorporation; linked forms | PASS | MCA SPICe+ V3 FAQs; ss.4, 7 | Mapping is explicit. CS must confirm live form versions, upload sequence, attachments, fees and stamp duty. |
 | `REGISTRATION_SOP.md` | AGILE-PRO-S linkage | PASS | MCA SPICe+ V3 FAQ qq.39–45; AGILE-PRO-S instruction kit | Corrected: bank and EPFO/ESIC workflow, optional GSTIN, state-specific Profession Tax and optional Delhi Shops/Establishment; live coverage still requires verification. |
 | `STATUTORY_FORMS_WORKING_SHEETS.md` | SPICe+ A/B data separation | PASS | MCA SPICe+ V3 FAQs | Name and incorporation inputs remain separately mapped. |
@@ -66,9 +67,8 @@ The CS must physically obtain or verify, outside this repository:
 - `[OPERATOR-INPUT]` GSTIN election and tax jurisdiction; EPFO/ESIC implemented-area and threshold position; Profession Tax state; Delhi Shops/Establishment choice if applicable;
 - `[OPERATOR-INPUT]` share subscription consideration and bank receipt; share-certificate/stamp evidence;
 - `[OPERATOR-INPUT]` first Board meeting date within 30 days, notice, attendance, quorum, disclosures, minutes and first-auditor consent;
-- `[OPERATOR-INPUT]` final reserved-matter thresholds, delegation instruments and Permanent Chairman wording;
-- `[OPERATOR-INPUT]` project margin floor (recommend 12%), unanimous capex threshold (recommend ₹10 lakh), senior-hire threshold (recommend ₹20 LPA), client credit-rating floor (recommend BBB), client-contract threshold and mediation dispute threshold (recommend ₹5 lakh);
-- `[OPERATOR-INPUT]` mediator name or institutional panel under MCIA rules and advance-binding-consent language;
+- `[OPERATOR-INPUT]` all seven fields in `THRESHOLD_SCHEDULE_ANNEXURE.md`: project-margin floor, capex threshold, senior-hire threshold, client-credit floor, client-contract threshold, dispute threshold, and mediator/panel;
+- `[OPERATOR-INPUT]` Annexure version, effective date, adopting Board-resolution reference and evidence of a valid ordinary Board Resolution;
 - `[OPERATOR-INPUT]` government fee, state stamp duty, professional fee, SRN/challan, resubmission deadline and filing receipt from the live portal;
 - `[OPERATOR-INPUT]` commencement-filing applicability and subscription-money evidence;
 - `[OPERATOR-INPUT]` project/client permissions and statutory website particulars before publication.
