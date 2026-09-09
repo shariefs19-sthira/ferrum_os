@@ -4,7 +4,7 @@
 
 | # | Registry name | Product tag | Classification | Scope | Co-founder slot | Authority/economics boundary | Legal state |
 |---:|---|---|---|---|---|---|---|
-| 1 | Ferrum Projects / Builds | BUILDS | Day-1 execution entity | Physical construction execution only; software/SaaS expressly excluded | Shoaib — Head of Execution only; equity **[OPERATOR-INPUT]** | Joint authority only on approved execution matters; any revenue entitlement confined to this entity; no Ferrum OS or other-product claim | Type/name/registration **[OPERATOR-DECISION: OPC-vs-Pvt-Ltd]** |
+| 1 | Ferrum Projects Private Limited / Builds | BUILDS | Day-1 execution entity | Physical construction execution only; software/SaaS expressly excluded | Sharief 50%; Shoaib 50% — this entity only | Equal economics; control via **[PROFESSIONAL-CHOICE: DVR-vs-board-package]**; Shoaib joint authority only on approved execution matters | Proposed private company; filing/professional verification pending |
 | 2 | LandIntel | LANDINTEL | DIVISION | Land intelligence product | **EMPTY — [OPERATOR-DECISION]** | No rights granted | Not a separate entity |
 | 3 | DesignStudio | DESIGNSTUDIO | DIVISION | Design and test-fit product | **EMPTY — [OPERATOR-DECISION]** | No rights granted | Not a separate entity |
 | 4 | Structura | STRUCTURA | DIVISION | Structural analysis product | **EMPTY — [OPERATOR-DECISION]** | No rights granted | Not a separate entity |
@@ -19,6 +19,7 @@
 ## Registry controls
 
 - All DIVISION entries are Sharief-controlled product scopes and do not imply separate legal personality.
+- Shoaib holds and is promised zero equity, beneficial interest, option, warrant, profit interest or voting right in any parent, product SPV, division, affiliate or future entity. His 50% is confined absolutely to Ferrum Projects Private Limited.
 - Every co-founder slot other than entry #1 is deliberately empty. Filling one requires a discrete operator decision and signed scope-confined instrument.
 - Ferrum Projects/Builds may buy final outputs from a division only under a written arm's-length service purchase; underlying IP, credentials and platform data never transfer by use.
 - Brand use by Ferrum Projects/Builds requires a future written licence. Until then, group presentation must not imply ownership of Ferrum OS brand assets.

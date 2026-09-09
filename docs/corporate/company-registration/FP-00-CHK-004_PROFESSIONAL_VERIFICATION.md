@@ -2,7 +2,7 @@
 
 > **DRAFT CHECKLIST FOR COMPLETION AND CERTIFICATION BY A PRACTICING CA, CS, AND LAWYER BEFORE SIGNING OR FILING.** Not legal, tax or filing advice. Every form number, fee, figure and timeline below is **INDICATIVE-VERIFY-BEFORE-FILING**. A blank check is an unresolved gate, never implied approval.
 
-Matter: Ferrum Projects **[OPERATOR-INPUT: proposed legal name]**. Entity form: **[OPERATOR-DECISION: OPC-vs-Pvt-Ltd]**. Verification date/professional/membership or enrolment details: **[OPERATOR-INPUT]**.
+Matter: Ferrum Projects Private Limited. Entity form: private company limited by shares. Nominal equity: Sharief 50%; Shoaib 50%; this entity only. Control implementation: **[PROFESSIONAL-CHOICE: DVR-vs-board-package]**. Verification date/professional/membership or enrolment details: **[OPERATOR-INPUT]**.
 
 ## 1 — Structure, eligibility and name
 
@@ -51,6 +51,7 @@ Matter: Ferrum Projects **[OPERATOR-INPUT: proposed legal name]**. Entity form: 
 
 - [ ] Reconcile MoA, AoA, Founders' Agreement, SHA, delegated-authority annex, Shoaib role contract, NDA/covenant and first-board resolutions.
 - [ ] Settle statutory-duty savings, reserved matters, execution-only authority/revenue, cap table, vesting/leaver mechanics, restraints, exit consequences and dispute terms.
+- [ ] Verify the section 43(a)(ii)/Rule 4 DVR route, section 47 voting consequences (including section 47(2) if preference shares are used), section 48 class rights, and the board-control fallback; record **[PROFESSIONAL-CHOICE: DVR-vs-board-package]**.
 - [ ] Verify related-party approval, arm's-length evidence, valuation, GST/TDS, transfer pricing, stamp duty and accounting for any purchased Ferrum OS output.
 - [ ] Confirm no Ferrum OS IP, brand, credential, data or platform right enters the Day-1 entity; future licences/allotments remain non-operative.
 

@@ -4,7 +4,7 @@
 
 | Order | Control | Evidence | Status |
 |---:|---|---|---|
-| 1 | Entity type, legal name, registered state and office approved | Signed `[OPERATOR-INPUT]` sheet | ☐ |
+| 1 | Ferrum Projects Private Limited name availability, registered state and office approved | Signed `[OPERATOR-INPUT]` sheet | ☐ |
 | 2 | Equity, authorised/issued capital, vesting and revenue split approved | Signed cap/economics schedule | ☐ |
 | 3 | Reserved matters and execution-only delegation reconciled across AoA/SHA/employment agreement | Lawyer/CS reconciliation | ☐ |
 | 4 | Ferrum OS/platform/brand prior-IP schedule confirms zero transfer | Lawyer sign-off | ☐ |
