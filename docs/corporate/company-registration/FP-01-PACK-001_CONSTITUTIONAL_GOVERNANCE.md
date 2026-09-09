@@ -59,7 +59,7 @@ Sharief **[OPERATOR-INPUT]** and Shoaib **[OPERATOR-INPUT]** agree to establish 
 
 ### 2. Roles and economic confinement
 
-Sharief is Chief Founder with the authority described above. Shoaib is Head of Execution with joint authority only for defined Execution Matters. Any revenue share, incentive or participation for Shoaib is confined to revenue actually received by this Company under the formula **[OPERATOR-INPUT]**; it creates no entitlement to revenue, equity, value or opportunity of Sharief's outside businesses, Ferrum OS, or any digital product.
+Sharief is Chief Founder with the authority described above. Shoaib is Head of Execution with joint authority only for defined Execution Matters. Project economics are governed exclusively by Schedule FA-2. The 50/50 allocation there is a contractual project-profit entitlement, not voting equity, and creates no entitlement to revenue, equity, value or opportunity of Sharief's outside businesses, Ferrum OS, or any digital product.
 
 ### 3. Prior IP and Outside Business — absolute carve-out
 
@@ -83,9 +83,18 @@ Each founder protects Company confidential execution information and Sharief Pri
 
 The document titled `MOU_Collaboration Draft` concerning Ferrum Projects and Sama Infra was **never signed or executed**. It is superseded in full, has no legal or commercial force between the founders or the Company, and creates no partnership, agency, authority, exclusivity, revenue right, liability or continuing obligation. Its PDF is retained only as archival reference outside Company records and is not an adopted Company document.
 
+### Schedule FA-2 — Project Economics Schedule
+
+1. **Written allotment is the only gateway.** A project is an `Allotted Project` only when a project-specific written allotment instrument or board resolution identifies the project and is signed by Sharief before the entitlement is claimed. A verbal statement, discussion, introduction, participation, site activity, estimate, lead, tender, draft, course of dealing or expectation is never an allotment and creates no entitlement.
+2. **Allotted Project split.** Distributable Net Profit of each Allotted Project is allocated 50% to Sharief and 50% to Shoaib, subject to the definitive agreement's lawful payment mechanism. `Distributable Net Profit` means project receipts actually realised by the Company less attributable project costs, overhead allocation, taxes, losses, liabilities and agreed reserves, with accounting policy, reconciliation, payment timing, reserve methodology, set-off and clawback remaining **[OPERATOR-INPUT]** for professional settlement.
+3. **Everything else excluded.** Shoaib receives zero project-economics entitlement from a project that is not an Allotted Project. Ferrum OS, software, SaaS, product, parent, platform, data, model, licensing, brand, technology, digital-service and every other outside-business revenue or value are excluded absolutely, whether earned by Sharief, an affiliate, a future parent, or another product line.
+4. **No equity or vote.** This schedule does not issue, transfer, vest or promise shares; alter voting rights; create a partnership; or convert project economics into ownership. Voting equity must preserve Sharief-majority control at **[OPERATOR-INPUT: exact voting-equity ratio]**.
+5. **Structure decision.** The practicing CA/CS/lawyer must settle **[OPERATOR-DECISION: mechanism — economics-schedule-with-majority-control (recommended) vs 50/50-equity-with-DVR]** and confirm corporate, tax, accounting, employment, distribution and enforceability treatment before signature.
+6. **Allotment register.** The Company must maintain a controlled Allotted Project Register within its statutory/corporate books, recording instrument number, project, client, scope, signature date, Sharief authorisation, effective period, amendments, close-out, receipts, costs, reserves, taxes, reconciliations, distributions and clawbacks. The register evidences signed allotments but cannot cure an absent written instrument.
+
 ## Part D — Shareholders' Agreement: fresh term sheet
 
-Parties, issued capital, share classes and percentages: **[OPERATOR-INPUT]**. Subscription consideration and completion conditions: **[OPERATOR-INPUT]**. Vesting and leaver mechanics: **[OPERATOR-DECISION]**.
+Parties, issued capital, share classes and percentages: **[OPERATOR-INPUT: exact Sharief-majority voting-equity ratio]**. Subscription consideration and completion conditions: **[OPERATOR-INPUT]**. Vesting and leaver mechanics: **[OPERATOR-DECISION]**. Schedule FA-2 must be incorporated into the definitive SHA as the exclusive project-economics schedule: 50/50 Distributable Net Profit applies only to projects allotted in writing by an instrument or board resolution signed by Sharief; it is economics, not votes or equity. Projects without that written allotment and all technology/product/parent/platform revenue confer zero entitlement on Shoaib.
 
 The definitive SHA must incorporate: the authority hierarchy and exhaustive reserved matters above; execution-scope confinement; Sharief Prior/Outside IP acknowledgment; information and inspection rights that do not grant technology access; pre-emption, permitted transfers, tag/drag, valuation and default mechanics **[OPERATOR-DECISION]**; distribution policy **[OPERATOR-DECISION]**; related-party approval; deadlock confined to matters on which the affected shareholder lawfully has a vote; dispute resolution and governing law **[OPERATOR-INPUT]**. Where the SHA and Articles differ, parties must vote to align them, but neither private agreement overrides mandatory law.
 
@@ -122,6 +131,7 @@ Draft resolutions, each subject to professional confirmation of applicability:
 10. approve employment/role and related-party contracts only after disclosure, arm's-length and statutory review;
 11. authorise commencement filing and registrations applicable to the Company;
 12. record registered-office display, letterhead and beneficial-ownership actions as applicable.
+13. establish the controlled Allotted Project Register and prohibit any project-economics entry without the underlying written instrument or board resolution signed by Sharief.
 
 Meeting date, attendees, disclosures, quorum, resolution wording and filing authorisations: **[OPERATOR-INPUT]**.
 
