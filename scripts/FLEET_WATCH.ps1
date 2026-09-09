@@ -90,6 +90,18 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
+# Belt-and-braces for any residual/future npx call in this file or a
+# process it spawns (per operator ask, 2026-09-10, alongside pinning
+# wrangler as a devDependency above - the pin is the real fix for the
+# specific `npx wrangler deploy` install-confirmation prompt that
+# actually happened; this env var is a second layer of defense for any
+# OTHER, currently-unpinned npx invocation that might exist or get
+# added later, not a replacement for pinning). Set once, process-wide,
+# so every child process this script starts (git/pnpm/wrangler/codex/
+# claude via Start-Process) inherits it.
+$env:npm_config_yes = "true"
+
 $repoRoot = "D:\ferrum_os_recovered"
 $missionFile = "D:\ferrum_os\overnight_codex.md"
 $killSwitchPath = Join-Path $repoRoot "docs\FLEET_WATCH_STOP"
@@ -918,16 +930,48 @@ function Invoke-AutoDeployIfAdvanced {
         $buildOutput = pnpm build 2>&1 | Out-String
         Write-Host $buildOutput
         if ($LASTEXITCODE -ne 0) { throw "pnpm build failed" }
+        # FIXED live 2026-09-10: `npx wrangler deploy` prompted "Ok to
+        # proceed? (y)" for wrangler@4.130.0 mid-cycle - npx offers to
+        # install a package it doesn't find already resolved locally,
+        # and a headless daemon has no stdin to answer that prompt with;
+        # npm canceled the run (a real, correctly-triggered
+        # AUTO-DEPLOY-FAILED alert, not a false alarm). Fixed at the
+        # root cause, not by suppressing the prompt: wrangler is now a
+        # pinned root devDependency (pnpm add -D -w wrangler@4.130.0),
+        # so `pnpm exec wrangler` resolves the binary straight from
+        # node_modules/.bin - no registry lookup, no install-confirm
+        # prompt, ever, regardless of npm's interactive-prompt defaults
+        # changing again in the future. $env:npm_config_yes = "true" is
+        # also set for the whole daemon process (belt-and-braces) in
+        # case any OTHER, unpinned npx call exists in this file or gets
+        # added later - it does not replace the pin above, which is the
+        # actual fix; the env var alone would not have prevented this
+        # specific failure, since npm's confirmation prompt for a
+        # brand-new major/minor version is a separate mechanism from
+        # the classic "package not found, install it?" npm_config_yes
+        # covers.
         $wranglerOutputFile = Join-Path $env:TEMP "fleet-watch-wrangler-deploy-$remoteSha.ndjson"
         if (Test-Path $wranglerOutputFile) { Remove-Item $wranglerOutputFile -Force }
         $previousOutputFileEnv = $env:WRANGLER_OUTPUT_FILE_PATH
         $env:WRANGLER_OUTPUT_FILE_PATH = $wranglerOutputFile
         try {
-            $deployOutput = npx wrangler deploy 2>&1 | Out-String
+            $deployOutput = pnpm exec wrangler deploy 2>&1 | Out-String
         } finally {
             $env:WRANGLER_OUTPUT_FILE_PATH = $previousOutputFileEnv
         }
         Write-Host $deployOutput
+        # ASSERTION (per operator ask, 2026-09-10): this throw is the
+        # ENTIRE mechanism that keeps a failed deploy from being
+        # recorded as deployed. Every line below this point through
+        # Save-DeployState (LastDeployedSha/LastVersionId/DeployHistory)
+        # only executes if this line does NOT throw - a failure here
+        # jumps straight to the catch block below, which never touches
+        # deploy state, so $state.LastDeployedSha stays at whatever it
+        # already was and the next cycle sees origin/main as still
+        # "not yet deployed" and retries automatically. Do not move the
+        # state-write above this line, and do not add a state-write
+        # inside the catch block - regression-tested in
+        # scripts/tests/deploy-state-no-write-on-failure.test.ps1.
         if ($LASTEXITCODE -ne 0) { throw "wrangler deploy failed: $deployOutput" }
         $versionId = Get-WranglerDeployVersionId -OutputFilePath $wranglerOutputFile
         if (Test-Path $wranglerOutputFile) { Remove-Item $wranglerOutputFile -Force }
