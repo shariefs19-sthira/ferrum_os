@@ -1227,6 +1227,25 @@ this the seat the correction should have gone to" genuinely ambiguous
 in the ledger, exactly the kind of ambiguity RULE 55's oversight
 machinery exists to eliminate.
 
+## RULE 60 — DAILY_TOOLING_INTEL (adopted 2026-09-09):
+
+1. Cadence: daily at 09:00 IST, exact, via Windows Task Scheduler
+   (FerrumDailyIntel), independent of daemon state and seat limits.
+2. Scope: Claude Code + Codex ecosystems — plugins, connectors, skills,
+   MCP servers, hooks, unofficial developer tools, CLI shortcuts, release
+   notes, community agent tooling.
+3. Output: docs/intel/DAILY_TOOLING_YYYY-MM-DD.md, date-stamped; a
+   no-findings day is still a filed entry; absence of the day's file is
+   a defect.
+4. Dedup: append-only ledger docs/intel/TOOLING_INTEL_LEDGER.md (tool,
+   version, date first covered, verdict ADOPT/CONCEPT/REJECT); runner
+   reads ledger first; unchanged items are never re-researched; only
+   version deltas or expired verdicts are re-examined.
+5. Runner: ATLAS primary; MASON fallback whenever Claude is
+   limit-blocked; ledger records the runner.
+6. Verification: PI checks each cycle that yesterday's date-stamped file
+   exists; missing day = defect row.
+
 ## Reuse policy — stopped ferrum project
 Content and config may be extracted, read-only, from the stopped ferrum
 project for reuse here. The two repos are never merged. Anything ported
