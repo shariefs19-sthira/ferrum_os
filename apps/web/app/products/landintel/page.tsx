@@ -9,6 +9,7 @@ import UlpinMapExplorer from '../../../components/sections/UlpinMapExplorer'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 import ZoningSummary from '../../../components/landintel/ZoningSummary'
 import SoilHazardPanel from '../../../components/landintel/SoilHazardPanel'
+import ClimateYearPanel from '../../../components/landintel/ClimateYearPanel'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
 // map (real Leaflet/OSM component) are real. Zoning, soil/hazard,
@@ -104,7 +105,7 @@ export default function LandIntelPage() {
       </SectionShell>
 
       <SectionShell>
-        <div className="mx-auto grid max-w-5xl gap-6"><ZoningSummary /><SoilHazardPanel /></div>
+        <div className="mx-auto grid max-w-5xl gap-6"><ZoningSummary /><SoilHazardPanel /><ClimateYearPanel /></div>
       </SectionShell>
 
       <SectionShell background="surface-secondary">
