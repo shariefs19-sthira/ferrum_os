@@ -1,0 +1,1 @@
+Quarantine custody pointer: 8 security/licensing-risk items identified; custody action dated 2026-09-09; full restricted manifest retained outside the repository under `D:\QUARANTINE_not_company_assets\2026-09-09\`.
