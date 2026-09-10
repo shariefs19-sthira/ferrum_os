@@ -201,12 +201,13 @@ OBJECTIVE
 {task_value(task, 'objective', 'description', default=acceptance)}
 
 OPERATING RULES
-1. Read AGENTS.md, your docs/seats/{seat}.md contract, and the exact current board row before editing.
-2. If disk state, assignment, dependencies, or allowed paths disagree with this contract, make no edits and return blocked with the exact discrepancy.
-3. Stay inside the allowed paths. Do not modify protected paths unless this contract explicitly lists them.
-4. Choose the implementation method and record the reasoning. Verify the actual result, not only compilation.
-5. Commit and push only this feature branch. Do not run scripts/land.ps1, deploy, edit main, or start another agent; the runner owns landing and deployment.
-6. Return only the structured result required by the supplied schema. Include every changed path, verification command, commit SHA, and blocker.
+1. Read AGENTS.md, your docs/seats/{seat}.md contract, the exact current board row, and only the latest materially applicable available skill before editing.
+2. Reuse cited SHA, deployment, packet, and test evidence. Inspect the task diff and allowed paths first; do not reread unrelated history or rerun unchanged broad checks unless acceptance requires them.
+3. If disk state, assignment, dependencies, or allowed paths disagree with this contract, make no edits and return blocked with the exact discrepancy.
+4. Stay inside the allowed paths. Do not modify protected paths unless this contract explicitly lists them.
+5. Choose the implementation method and record the reasoning. Run the smallest verification that can disprove the changed behavior, plus every check explicitly required by acceptance.
+6. Commit and push only this feature branch. Do not run scripts/land.ps1, deploy, edit main, or start another agent; the runner owns landing and deployment.
+7. Return only the structured result required by the supplied schema. Include every changed path, verification command, commit SHA, and blocker; omit repeated narrative and unrelated suggestions.
 
 Compiled row:
 {json.dumps(info, indent=2, ensure_ascii=False)}

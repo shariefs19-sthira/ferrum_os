@@ -2,11 +2,32 @@ import tempfile
 import unittest
 import subprocess
 from pathlib import Path
+from unittest.mock import patch
 
-from fleet.runner import read_structured_result, record_runtime_hold, validate_worker_result
+from fleet.runner import build_prompt, read_structured_result, record_runtime_hold, validate_worker_result
 
 
 class RunnerTests(unittest.TestCase):
+    def test_prompt_enforces_skill_currency_and_token_economy(self):
+        with patch("fleet.runner.run_git") as run_git_mock:
+            run_git_mock.return_value = subprocess.CompletedProcess([], 0, "abc123\n", "")
+            prompt = build_prompt(
+                Path("repo"),
+                {
+                    "task_id": "W-1",
+                    "title": "Focused task",
+                    "allowed_paths": ["apps/web/a.ts"],
+                    "dependencies": [],
+                    "acceptance": "targeted check passes",
+                },
+                "CRANE",
+                Path("worktree"),
+                "crane/w-1",
+            )
+        self.assertIn("latest materially applicable available skill", prompt)
+        self.assertIn("Inspect the task diff and allowed paths first", prompt)
+        self.assertIn("smallest verification that can disprove", prompt)
+
     def test_reads_schema_shaped_last_message(self):
         with tempfile.TemporaryDirectory() as directory:
             result = Path(directory) / "result.json"

@@ -68,6 +68,12 @@ existing work, resolves governance conflicts, and only then generates the
 one-task prompt consumed by a VS Code execution seat. This intake gate applies
 even when a widget expresses high confidence.
 
+All participants follow the protocol's skill-currency and token-economy rules:
+select the latest materially applicable host skill, reuse SHA/deployment/packet
+evidence, inspect the exact diff and task paths first, and avoid repeated broad
+research or unchanged test matrices. Required state-transition evidence remains
+mandatory and is cached for reuse rather than recomputed without cause.
+
 ## Dispatch lifecycle
 
 1. Read repository rules, stop controls, task board, seat contract, and current
