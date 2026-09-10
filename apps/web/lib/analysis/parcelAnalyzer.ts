@@ -23,27 +23,25 @@ export class ParcelAnalyzer {
   /** Runs every sub-analysis and returns a reconciled, honesty-labelled result. */
   async analyze(): Promise<AnalysisResult> {
     const [zoningRisk, soilRisk, climateRisk, historyRisk, trends] = await Promise.all([this.analyzeZoning(), this.analyzeSoil(), this.analyzeClimate(), this.analyzeHistory(), getHistoricalTrends(this.parcelId)])
-    const factors: RiskFactors = { zoningRisk, soilRisk, climateRisk, historyRisk, marketRisk: factor(this.parcelId, "market") }
+    const factors: RiskFactors = { zoning: zoningRisk, soil: soilRisk, climate: climateRisk, history: historyRisk, market: factor(this.parcelId, "market") }
     const riskScore = calculateRiskScore(factors)
     this.result = { parcelId: this.parcelId, factors, riskScore, riskLevel: getRiskLevel(riskScore), trends, recommendations: [], analyzedAt: new Date().toISOString(), status: "INDICATIVE" }
-    this.result.recommendations = this.getRecommendations()
+    this.result.recommendations = this.getRecommendations(riskScore)
     return this.result
   }
 
-  /** Returns the most recently calculated normalized score, or zero before analysis. */
-  getRiskScore(): number { return this.result?.riskScore ?? 0 }
+  /** Calculates a score for supplied factors, or returns the most recent analysis score when omitted. */
+  getRiskScore(factors?: RiskFactors): number { return factors ? calculateRiskScore(factors) : this.result?.riskScore ?? 0 }
 
-  /** Returns deterministic next-step recommendations for the dominant risks. */
-  getRecommendations(): string[] {
-    if (!this.result) return ["Run parcel analysis before reviewing indicative risk recommendations."]
-    const recommendations: string[] = []
-    if (this.result.factors.zoningRisk >= 50) recommendations.push("Verify zoning, land use, setbacks, and development rights with the competent authority.")
-    if (this.result.factors.soilRisk >= 50) recommendations.push("Commission a parcel-specific geotechnical investigation before foundation design.")
-    if (this.result.factors.climateRisk >= 50) recommendations.push("Obtain site-specific flood, drainage, wind, and heat-resilience inputs.")
-    if (this.result.factors.historyRisk >= 50) recommendations.push("Review the title chain, encumbrance records, and prior land-use changes with qualified professionals.")
-    if (this.result.factors.marketRisk >= 50) recommendations.push("Commission a current independent valuation and sensitivity analysis.")
-    if (!recommendations.length) recommendations.push("Maintain normal professional due diligence; low indicative risk is not clearance or certification.")
-    return recommendations
+  /** Returns deterministic next-step recommendations for the supplied or latest risk score. */
+  getRecommendations(score?: number): string[] {
+    const effectiveScore = score ?? this.result?.riskScore
+    if (effectiveScore === undefined) return ["Run parcel analysis before reviewing indicative risk recommendations."]
+    const level = getRiskLevel(effectiveScore)
+    if (level === "critical") return ["Pause the decision and commission verified zoning, geotechnical, climate, title-history, and valuation reviews."]
+    if (level === "high") return ["Resolve the dominant risks with qualified, parcel-specific investigations before proceeding."]
+    if (level === "medium") return ["Complete targeted due diligence for the higher-scoring domains before commitment."]
+    return ["Maintain normal professional due diligence; low indicative risk is not clearance or certification."]
   }
 
   /** Produces an indicative zoning-risk input pending a verified authority adapter. */

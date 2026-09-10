@@ -1,8 +1,8 @@
-/** Normalized risk inputs. Each factor is constrained to the inclusive 0–100 range. */
-export interface RiskFactors { zoningRisk: number; soilRisk: number; climateRisk: number; historyRisk: number; marketRisk: number }
+/** Normalized risk inputs. Each named domain is constrained to the inclusive 0–100 range. */
+export interface RiskFactors { zoning: number; soil: number; climate: number; history: number; market: number }
 
 /** One annual observation in an indicative parcel-value series. */
-export interface TrendData { year: number; value: number; changePercent: number; category: "INDICATIVE" | "PROJECTED_INDICATIVE" }
+export interface TrendData { year: number; value: number; changePercent: number; category?: "INDICATIVE" | "PROJECTED_INDICATIVE" }
 
 /** Complete deterministic parcel-analysis result. */
 export interface AnalysisResult {
