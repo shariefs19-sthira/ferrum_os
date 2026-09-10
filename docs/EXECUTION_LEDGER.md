@@ -435,3 +435,100 @@ version or PI-held rendered-edge screenshot was found for UI/API work.
 
 Cycle 1 is the first entry above — subsequent cycle summaries append
 below it, per RULE 55.
+
+## Cycle 2 — pace audit (2026-09-09, conductor-directed OVERRIDE-3)
+
+**Purpose and method.** This is a measurement note, not a status change.
+For each row in the closed-time cohort, PI took: (1) the first
+`TASK_BOARD.md` seed commit, (2) the first task-tagged author commit, (3) the
+verified `origin/main` landing-marker timestamp, and (4) PI's first
+disposition timestamp, `abfee9e5` at `2026-09-08T10:57:43+05:30`. `land →
+PI` below therefore means *first PI review*, not a fabricated PASS: only
+W-68 and W-77 had a static PASS-equivalent disposition in that review. UI and
+runtime rows retain their existing live-proof status. Times are elapsed
+wall-clock time and are summed per row, so the aggregate measures queue-time
+share, not calendar duration.
+
+| Row | execution seat | seed → first touch | first touch → land | land → first PI review |
+|---|---|---:|---:|---:|
+| W-39 | MASON | 12h 59m | 0m 41s | 73h 20m |
+| W-52 | MASON | 4h 42m | 0m 44s | 68h 10m |
+| W-54 | MASON | 3h 56m | 0m 34s | 67h 53m |
+| W-59 | CRANE | 54h 41m | 0m 41s | 16h 33m |
+| W-61 | MASON | 10m 11s | 0m 33s | 67h 49m |
+| W-68 | ATLAS | 2m 53s | 0m 31s | 47h 28m |
+| W-73 | CRANE | 13m 19s | 0m 47s | 46h 08m |
+| W-76 | MASON | 20m 55s | 0m 37s | 46h 00m |
+| W-77 | ATLAS | 15m 35s | 0m 34s | 46h 06m |
+| W-81 | RIVET | 2h 50m | 0m 42s | 43h 06m |
+| W-82 | MASON | 2h 40m | 0m 43s | 43h 16m |
+| W-84 | RIVET | 10m 36s | 59m 38s | 15h 24m |
+| W-89 | MASON | 16m 42s | 0m 40s | 15h 44m |
+| W-96 | ATLAS | 0m 18s | 0m 37s | 15h 36m |
+
+**Measured bottleneck.** Across those 14 rows: wait = **5,001.0 min
+(12.0%)**; execution = **68.1 min (0.2%)**; first PI review = **36,758.3 min
+(87.9%)**; total = **41,827.4 row-minutes**. The true measured bottleneck is
+verification cadence/queueing, not execution capacity. This does not licence
+premature DONE: reducing review latency means issuing a prompt PI review with
+the evidence already required by RULE 25.
+
+**Open timing states.** W-37 (RIVET) waited **121h 19m** before its first
+new task-tagged touch on 2026-09-09 and remains unlanded/unreviewed. W-97
+(ATLAS: 2h 32m wait, 2m 35s execution), W-98 (CRANE: 2h 43m, 37m 15s),
+W-103 (ATLAS: 21m 02s, 0m 39s), W-109 (ATLAS: 24m 09s, 0m 41s), and W-120
+(ATLAS: 24m 12s, 0m 46s) landed after PI's Cycle 1 review and have no PI
+review/PASS record yet. W-46, W-50, W-90, and W-93 are excluded from the
+cohort because author/landing evidence predates their board seed — a recovery
+defect, not a negative wait time.
+
+**Per-row completeness boundary.** The remaining 42 Cycle 1 rows have no
+valid four-point path and are recorded as `ND` rather than assigned invented
+durations: W-37, W-38, W-40, W-41, W-42, W-43, W-44, W-45, W-47, W-48,
+W-49, W-51, W-53, W-55, W-56, W-57, W-58, W-60, W-62, W-63, W-64, W-65,
+W-66, W-67, W-69, W-70, W-71, W-72, W-74, W-75, W-78, W-79, W-80, W-83,
+W-85, W-86, W-87, W-88, W-91, W-92, W-94, and W-95. Their missing point is
+an author touch, a verified landing, or a PI review; the row's existing
+evidence block states which. This is the complete per-row accounting for the
+W-37..W-96 audit set: 14 valid timed paths + 4 pre-seed recovery defects +
+42 `ND` paths.
+
+**Death/revival cost (queue invisibility, not execution time).** RIVET's
+W-37/W-38/W-39 record was absent for **86h 27m** before restoration; W-37's
+actual first new touch is the 121h 19m value above. MASON's W-39 landing then
+sat without a board record for **73h 28m**. CRANE's W-50 landed artifact sat
+unboarded for **84h 46m**. ATLAS's W-90 and W-93 artifacts waited **16h 01m**
+and **15h 46m** respectively for recovery (**31h 47m** total). No comparable
+death/revival trace is evidenced for the remaining seats.
+
+**Cap and daemon constraint.** `.fleet-trigger-daemon-log.ndjson` records
+seven consecutive 2026-09-08 cycles in which CRANE, ATLAS, SCRIBE, FERRITE,
+and PI were rate-limited; MASON and RIVET were not rate-limited but exited
+`1` in about two seconds without a landing. The 2026-09-09 cycle shows Claude
+seats reachable but still no landing, and the Codex exits persist. The old
+`FLEET_SCHEDULE.md` is corrupt and is not timing evidence. The watch interval
+is 60 minutes; rate-limit retry backoff can reach four hours.
+
+**Lever ranking — measured effect under that constraint.**
+
+1. **Critical-path-first dispatch.** Highest evidenced potential: removing
+   W-59's 3,281-minute wait alone removes **7.8%** of the closed-cohort
+   row-time (and **65.6%** of measured waiting). Dispatch must select a READY
+   dependency root, not merely the first textual row.
+2. **Halve the cycle interval.** At most 30 minutes average / 60 minutes
+   worst-case saved per eligible non-capped dispatch; optimistic cohort upper
+   bound is **~1.0%**. It cannot defeat a four-hour cap backoff.
+3. **Bring Codex seats out of DARK.** Current measured direct effect is
+   **0** until the non-rate-limit exit-1/no-landing condition is repaired;
+   the log proves this is a dispatch reliability issue, not available Codex
+   capacity. Once repaired it can reduce wait, but not the 87.9% review share.
+4. **Add two Claude seats.** Current measured effect is **0 or adverse**:
+   every existing Claude-backed probe was rate-limited in the observed seven
+   cycles, so two additional seats appear to share the binding cap rather than
+   add throughput. No reset-window telemetry exists to support a numerical
+   uplift claim.
+
+**Conductor action.** Keep the current seat count; repair Codex daemon
+execution; dispatch dependency roots before cosmetics; and trigger PI review
+immediately after each landing with SHA, tests, deploy version, and live proof.
+This targets the measured bottleneck without weakening acceptance.
