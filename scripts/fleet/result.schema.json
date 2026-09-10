@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "status", "summary", "changed_paths", "tests", "commit_sha", "blocker"],
+  "properties": {
+    "task_id": {"type": "string"},
+    "status": {"enum": ["completed", "blocked", "failed", "no_change"]},
+    "summary": {"type": "string"},
+    "changed_paths": {"type": "array", "items": {"type": "string"}},
+    "tests": {"type": "array", "items": {"type": "string"}},
+    "commit_sha": {"type": ["string", "null"]},
+    "blocker": {"type": ["string", "null"]}
+  }
+}
