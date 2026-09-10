@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ferrum budget",
+  "type": "object",
+  "required": ["maxBudget", "allocatedBudget", "remainingBudget", "currency", "thresholds"],
+  "properties": {
+    "maxBudget": { "type": "number", "minimum": 0 },
+    "allocatedBudget": { "type": "number", "minimum": 0 },
+    "remainingBudget": { "type": "number", "minimum": 0 },
+    "currency": { "const": "INR" },
+    "thresholds": { "type": "object", "required": ["warning", "critical"], "properties": { "warning": { "const": 80 }, "critical": { "const": 95 } } }
+  }
+}
