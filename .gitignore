@@ -87,6 +87,10 @@ apps/web/tsconfig.tsbuildinfo
 .fleet-trigger-daemon-log.json
 .fleet-trigger-daemon-log.ndjson
 
+# New fleet runner state, leases, event streams, and transient Python data.
+# Python bytecode/cache patterns are already covered globally above.
+.fleet-runtime/
+
 # W-98 follow-up (2026-09-08): Write-FleetSchedule's actual write call
 # has now been removed from scripts/FLEET_WATCH.ps1 entirely (not just
 # gitignored) per the operator's explicit follow-up ask - this entry
