@@ -47,10 +47,26 @@ them during the W-98 canary.
 | Deployment | Deployment record tied to the landed SHA |
 | User-visible acceptance | Required rendered-edge evidence |
 | Architectural impact | Graphify output, advisory only |
+| Browser observation and reference leads | `docs/fleet/WIDGET_OBSERVER_PROTOCOL.md` packets, advisory until verified |
 
 The runtime directory is local and ignored by Git. A restart reconstructs
 durable task facts from Git and the board, then reconciles unexpired leases; it
 does not infer completion from old prompts or chat summaries.
+
+## Widget observer intake
+
+The appointed browser observers are CLAUDE-LOOKOUT for deployed-edge inspection
+and primary-source reference discovery, and CODEX-SENTINEL for requirement
+normalization and semantic-clash detection. Their mandates, persistent prompts,
+and mandatory evidence-packet schema are defined in
+`docs/fleet/WIDGET_OBSERVER_PROTOCOL.md`.
+
+Widgets report to the CONDUCTOR through the operator. They do not write task
+folders, self-assign board rows, or prompt execution seats. CONDUCTOR verifies
+each packet against current Git and live evidence, deduplicates it against
+existing work, resolves governance conflicts, and only then generates the
+one-task prompt consumed by a VS Code execution seat. This intake gate applies
+even when a widget expresses high confidence.
 
 ## Dispatch lifecycle
 
