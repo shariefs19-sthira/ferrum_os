@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import type { AnalysisResult } from '../types/analysis'
+import { ParcelAnalyzer } from '../analysis/parcelAnalyzer'
 
 export const PARCEL_CONTEXT_KEY = 'ferrum-parcel-context-v1'
 export const PARCEL_CONTEXT_EVENT = 'ferrum:parcel-context'
@@ -65,4 +67,43 @@ export function useParcelContext(): ParcelContext | null {
     return subscribeParcelContext(setContext)
   }, [])
   return context
+}
+
+const ANALYSIS_TTL_MS = 5 * 60 * 1000
+const analysisCache = new Map<string, { expiresAt: number; result: AnalysisResult }>()
+const analysisLoading = new Set<string>()
+
+const analysisId = (context: ParcelContext) => context.ulpin?.trim() || `${context.method}:${context.state}:${context.district}:${context.area_sqm}:${context.land_use}`
+
+/** Returns whether analysis is currently loading for this parcel context. */
+export function isParcelAnalysisLoading(context: ParcelContext): boolean {
+  return analysisLoading.has(analysisId(context))
+}
+
+/**
+ * Analyzes a parcel with a five-minute in-memory cache.
+ * The optional loading callback receives balanced true/false transitions even
+ * when analysis rejects. Cached reads do not enter a loading state.
+ */
+export async function analyzeParcel(context: ParcelContext, onLoadingChange?: (loading: boolean) => void): Promise<AnalysisResult> {
+  if (!isParcelContext(context)) throw new Error('Invalid parcel context')
+  const id = analysisId(context)
+  const cached = analysisCache.get(id)
+  if (cached && cached.expiresAt > Date.now()) return cached.result
+  analysisLoading.add(id)
+  onLoadingChange?.(true)
+  try {
+    const result = await new ParcelAnalyzer(id).analyze()
+    analysisCache.set(id, { expiresAt: Date.now() + ANALYSIS_TTL_MS, result })
+    return result
+  } finally {
+    analysisLoading.delete(id)
+    onLoadingChange?.(false)
+  }
+}
+
+/** Clears cached parcel analyses; exported for explicit refresh and tests. */
+export function clearParcelAnalysisCache(): void {
+  analysisCache.clear()
+  analysisLoading.clear()
 }
