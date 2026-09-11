@@ -23,5 +23,18 @@
     { "id": "SCRIBE",  "adapter": "claude", "worktreeGlob": "scribe-*", "missionFile": "docs/seats/SCRIBE.md",  "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null },
     { "id": "FERRITE", "adapter": "claude", "worktreeGlob": "ferrite-*", "missionFile": "docs/seats/FERRITE.md", "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null },
     { "id": "PI",      "adapter": "claude", "worktreeGlob": "pi-*",      "missionFile": "docs/seats/PI.md",      "heartbeatFile": null, "reviveCmdTemplate": "claude -p \"{brief}\"",             "lastStop": null, "nextReviveAt": null }
-  ]
+  ],
+  "leanFleetMapping": {
+    "_comment": "Declarative role mapping only, adopted 2026-09-11 per the operator-approved lean-fleet decision (see AGENTS.md RULE 1's LEAN-FLEET MAPPING section, the authoritative version of this table). This field does NOT change dispatcher behavior by itself - the 'seats' array above (worktreeGlob/reviveCmdTemplate/etc.) is unchanged and is what scripts/FLEET_WATCH.ps1 actually reads today. FERRITE's dormant:true below is a declared state, not yet runtime-enforced; making the dispatcher honor it is an explicit CRANE follow-up, not done in this pass.",
+    "adoptedAt": "2026-09-11",
+    "functions": {
+      "platformRelease":   { "seat": "CRANE" },
+      "productClient":     { "seat": "MASON", "note": "absorbs RIVET client-surface work going forward; RIVET's own history/commits unaffected" },
+      "executionOversight":{ "seat": "ASTRA", "note": "absorbs PI's RULE 55 role" },
+      "routineObservation":{ "seat": "CLAUDE-LOOKOUT", "note": "absorbs ATLAS's routine observation/research duties" },
+      "conditionalSpecialists": ["SCRIBE", "ATLAS"],
+      "conditionalCounterAuditor": "CODEX-SENTINEL",
+      "dormant": ["FERRITE"]
+    }
+  }
 }

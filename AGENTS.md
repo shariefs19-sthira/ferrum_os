@@ -30,6 +30,32 @@ PARKED: GIRDER (Qoder) and the older Copilot/Continue/Jules/Cline seats —
 reactivatable when Cursor joins.
 CONDUCTOR: Qwen-Web. OPERATOR: human. Full detail in docs/ROLE_MAP.md.
 
+**LEAN-FLEET MAPPING (adopted 2026-09-11, operator-approved).** This is
+a functional-role remapping over the seat roster above, not a rewrite
+of it — every seat name and its commit history above stays historically
+accurate; nothing here reattributes past work.
+
+| Function | Seat(s) | Notes |
+|---|---|---|
+| Active execution — platform/release | CRANE | Unchanged; remains platform/release owner. |
+| Active execution — product/client | MASON | Absorbs RIVET's client-surface work per this decision. RIVET's own name/commit history is unaffected; this is a forward-looking assignment shift, executed incrementally per RULE 59 (SCRIBE re-assigns specific rows, not a retroactive bulk rewrite). |
+| Conductor/oversight function | ASTRA | Absorbs PI's execution-oversight role (RULE 55) — implements nothing, maintains the ledger, same standing PI held. |
+| Conductor/observer function | CLAUDE-LOOKOUT | Absorbs ATLAS's routine observation/research duties. Does not replace ATLAS as a seat name in history; distinguishes the ongoing-observation function from ATLAS's own conditional-specialist standing below. |
+| Conditional specialist | SCRIBE | Docs/ledger/rules/registry maintenance — activates for governance work like this pass, not a standing always-on executor. |
+| Conditional specialist | ATLAS | Reserved for work CLAUDE-LOOKOUT's routine observation doesn't cover — non-routine architecture/research asks. |
+| Conditional counter-auditor | CODEX-SENTINEL | Independent counter-audit function, activated conditionally, not a standing seat with its own row queue. |
+| Dormant | FERRITE | Per this decision, dormant — its RULE 33 gap-filler trigger (both CRANE and MASON simultaneously at limit) is not itself removed by this mapping, just not currently the active path. |
+
+**Dormancy is a declared-state field, not a runtime guarantee.**
+Marking FERRITE (or any function) dormant here does not, by itself,
+stop any dispatcher from still invoking it — that requires every active
+dispatcher (`scripts/FLEET_WATCH.ps1` and any successor) to actually
+read and honor this dormancy field. **That runtime enforcement is an
+explicit CRANE follow-up, not done by this pass** — this mapping
+change is declarative/governance-layer only; presenting dormancy as
+already runtime-enforced would be false until CRANE's dispatcher
+changes land and are verified.
+
 **ATLAS/CRANE disjoint-ownership protocol (2026-09-01):** ATLAS and CRANE
 work separate slices of docs/WAVE_QUEUE.md concurrently, not overlapping
 files: ATLAS never edits worker.ts / auth / payments files; CRANE never
