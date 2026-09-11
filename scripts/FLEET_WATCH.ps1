@@ -234,11 +234,59 @@ function Resolve-SeatWorktree([string]$Glob) {
     return $null
 }
 
-# DISPATCH: table order in docs/TASK_BOARD.md is the board's own
-# priority order (RULE 35(2): a seat claims the TOP ready row it's
-# eligible for) - no separate numeric priority column exists on disk,
-# so this reads table order rather than inventing one.
-#
+# DISPATCH ORDERING: table order in docs/TASK_BOARD.md is NOT a real
+# priority signal - no numeric priority column exists on disk, and
+# table position never changes once a row is written, so a row planted
+# low in the file starved indefinitely behind rows above it (confirmed
+# live: W-59 waited 3,281 minutes while later cycles kept re-picking
+# earlier rows in the same table positions). Fixed by tracking, per
+# row ID, the timestamp this harness FIRST observed it as READY
+# (RowFirstSeenReady in $stateFile, an untracked file per the existing
+# state-never-in-git rule below) and sorting READY candidates oldest-
+# wait-first before applying the landed-check filter. Table order is
+# now only the tiebreaker for two rows first seen in the same cycle,
+# not the primary ordering.
+function Register-RowFirstSeenReady([string[]]$RowIds) {
+    if (-not $RowIds -or $RowIds.Count -eq 0) { return }
+    $state = Get-WatchState
+    if (-not ($state.PSObject.Properties.Name -contains 'RowFirstSeenReady')) {
+        $state | Add-Member -NotePropertyName RowFirstSeenReady -NotePropertyValue ([PSCustomObject]@{}) -Force
+    }
+    $changed = $false
+    $nowIso = (Get-Date).ToUniversalTime().ToString("o")
+    foreach ($id in $RowIds) {
+        if (-not ($state.RowFirstSeenReady.PSObject.Properties.Name -contains $id)) {
+            $state.RowFirstSeenReady | Add-Member -NotePropertyName $id -NotePropertyValue $nowIso -Force
+            $changed = $true
+        }
+    }
+    if ($changed) { Save-WatchState -State $state }
+}
+
+# Wait-start epoch for a row - the first time this harness recorded it
+# as READY, not "now" (a row seen for the first time this very cycle
+# sorts as newest/last, which is correct: it hasn't waited yet).
+function Get-RowWaitEpoch([string]$RowId) {
+    $state = Get-WatchState
+    if (($state.PSObject.Properties.Name -contains 'RowFirstSeenReady') -and ($state.RowFirstSeenReady.PSObject.Properties.Name -contains $RowId)) {
+        try { return [long](Get-Date ([datetime]$state.RowFirstSeenReady.$RowId).ToUniversalTime() -UFormat %s) } catch { }
+    }
+    return [long](Get-Date -UFormat %s)
+}
+
+# Registers every candidate's first-seen-READY time, then returns them
+# sorted oldest-waiting-first (table order as the stable tiebreaker for
+# rows first seen in the same cycle).
+function Sort-ReadyRowsByWait($Candidates) {
+    $list = @($Candidates)
+    if ($list.Count -eq 0) { return @() }
+    Register-RowFirstSeenReady -RowIds @($list | ForEach-Object { $_.Id })
+    $indexed = for ($i = 0; $i -lt $list.Count; $i++) {
+        [PSCustomObject]@{ Row = $list[$i]; WaitEpoch = (Get-RowWaitEpoch -RowId $list[$i].Id); OriginalIndex = $i }
+    }
+    return ($indexed | Sort-Object WaitEpoch, OriginalIndex | ForEach-Object { $_.Row })
+}
+
 # Filters through Test-RowAlreadyLanded (per operator ask: wire the
 # landed-check into EVERY spawn path, not just the trigger daemon's
 # own Get-SeatDispatchableRow). Found live 2026-09-08: W-24 still got
@@ -253,6 +301,7 @@ function Resolve-SeatWorktree([string]$Glob) {
 function Get-TopReadyRow {
     if (-not (Test-Path $taskBoardFile)) { return $null }
     $lines = Get-Content $taskBoardFile
+    $candidates = @()
     foreach ($line in $lines) {
         if ($line -notmatch '^\|\s*(W-\d+[a-z]?)\s*\|') { continue }
         $cells = $line -split '\|'
@@ -261,26 +310,30 @@ function Get-TopReadyRow {
         $title = $cells[2].Trim()
         $status = $cells[7].Trim()
         if ($status -match '^READY') {
-            if (Test-RowAlreadyLanded -RowId $id) {
-                Write-Host "DISPATCH: $id already has a [land:...] commit on origin/main - board text is stale, skipping to the next READY row."
-                continue
-            }
-            return [PSCustomObject]@{ Id = $id; Title = $title; Status = $status }
+            $candidates += [PSCustomObject]@{ Id = $id; Title = $title; Status = $status }
         }
+    }
+    foreach ($row in (Sort-ReadyRowsByWait -Candidates $candidates)) {
+        if (Test-RowAlreadyLanded -RowId $row.Id) {
+            Write-Host "DISPATCH: $($row.Id) already has a [land:...] commit on origin/main - board text is stale, skipping to the next READY row."
+            continue
+        }
+        return $row
     }
     return $null
 }
 
 # All READY rows in docs/TASK_BOARD.md whose Eligible-seats column
 # names this seat (substring match, since that column sometimes reads
-# "RIVET or MASON" / "RIVET + CRANE + MASON" rather than a single name).
-# Same Test-RowAlreadyLanded filter as Get-TopReadyRow above, and for
-# the same reason - this function feeds Test-SilentIdleSeat's
+# "RIVET or MASON" / "RIVET + CRANE + MASON" rather than a single name),
+# oldest-waiting-first (see Sort-ReadyRowsByWait above). Same
+# Test-RowAlreadyLanded filter as Get-TopReadyRow above, and for the
+# same reason - this function feeds Test-SilentIdleSeat's
 # idleFinding.TopRow, a second real dispatch path.
 function Get-SeatOwnedReadyRows([string]$Seat) {
     if (-not (Test-Path $taskBoardFile)) { return @() }
     $lines = Get-Content $taskBoardFile
-    $rows = @()
+    $candidates = @()
     foreach ($line in $lines) {
         if ($line -notmatch '^\|\s*(W-\d+[a-z]?)\s*\|') { continue }
         $cells = $line -split '\|'
@@ -290,12 +343,16 @@ function Get-SeatOwnedReadyRows([string]$Seat) {
         $eligible = $cells[4].Trim()
         $status = $cells[7].Trim()
         if ($status -match '^READY' -and $eligible -match [regex]::Escape($Seat)) {
-            if (Test-RowAlreadyLanded -RowId $id) {
-                Write-Host "DISPATCH: $id (owned by $Seat) already has a [land:...] commit on origin/main - board text is stale, excluding from the owned-rows list."
-                continue
-            }
-            $rows += [PSCustomObject]@{ Id = $id; Title = $title; Eligible = $eligible }
+            $candidates += [PSCustomObject]@{ Id = $id; Title = $title; Eligible = $eligible }
         }
+    }
+    $rows = @()
+    foreach ($row in (Sort-ReadyRowsByWait -Candidates $candidates)) {
+        if (Test-RowAlreadyLanded -RowId $row.Id) {
+            Write-Host "DISPATCH: $($row.Id) (owned by $Seat) already has a [land:...] commit on origin/main - board text is stale, excluding from the owned-rows list."
+            continue
+        }
+        $rows += $row
     }
     return $rows
 }
@@ -304,8 +361,8 @@ function Get-SeatOwnedReadyRows([string]$Seat) {
 # first (same priority as the rest of this file), falling back to the
 # top owner-agnostic READY row (Eligible column reading "any seat" /
 # "owner-agnostic") if it has none of its own - matching RULE 35(2)'s
-# "your envelope or owner-agnostic" pull rule, not a new priority
-# scheme invented for this row.
+# "your envelope or owner-agnostic" pull rule. Both tiers are ordered
+# oldest-waiting-first per Sort-ReadyRowsByWait, not table order.
 function Get-SeatDispatchableRow([string]$Seat) {
     # @() forces array context - without it, PowerShell unwraps a
     # single-element array returned via the output stream into a bare
@@ -317,6 +374,7 @@ function Get-SeatDispatchableRow([string]$Seat) {
     if ($owned.Count -gt 0) { return $owned[0] }
     if (-not (Test-Path $taskBoardFile)) { return $null }
     $lines = Get-Content $taskBoardFile
+    $candidates = @()
     foreach ($line in $lines) {
         if ($line -notmatch '^\|\s*(W-\d+[a-z]?)\s*\|') { continue }
         $cells = $line -split '\|'
@@ -326,12 +384,15 @@ function Get-SeatDispatchableRow([string]$Seat) {
         $eligible = $cells[4].Trim()
         $status = $cells[7].Trim()
         if ($status -match '^READY' -and $eligible -match '(?i)any seat|owner-agnostic') {
-            if (Test-RowAlreadyLanded -RowId $id) {
-                Write-Host "DISPATCH: $id (owner-agnostic) already has a [land:...] commit on origin/main - board text is stale, skipping."
-                continue
-            }
-            return [PSCustomObject]@{ Id = $id; Title = $title; Eligible = $eligible }
+            $candidates += [PSCustomObject]@{ Id = $id; Title = $title; Eligible = $eligible }
         }
+    }
+    foreach ($row in (Sort-ReadyRowsByWait -Candidates $candidates)) {
+        if (Test-RowAlreadyLanded -RowId $row.Id) {
+            Write-Host "DISPATCH: $($row.Id) (owner-agnostic) already has a [land:...] commit on origin/main - board text is stale, skipping."
+            continue
+        }
+        return $row
     }
     return $null
 }
@@ -471,6 +532,35 @@ function Get-DrainPrompt($IdleFinding) {
     return "Silent-idle detected: your last output was $($IdleFinding.AgeMinutes) minutes ago, docs/TASK_BOARD.md still has $($IdleFinding.OwnedReadyCount) READY row(s) you own, and no question was posted. Per the drain clause (stop only at empty queue, limit, or an operator decision - never after a single item): pull the top row now, $($row.Id) - $($row.Title), execute it, land it, then keep pulling."
 }
 
+# SESSION TRACKING: every headless launch gets a ledger entry, not
+# just the ones that go through Invoke-SeatTriggerDaemon. Found live:
+# Start-CodexMission and Start-ClaudeSeat, called directly from
+# Invoke-WatchCycle's main dispatch, the silent-idle revival path, and
+# the scheduled-revival path, wrote NOTHING to any ledger - the only
+# audit trail (Add-TriggerDaemonLedgerEntry) lived entirely inside the
+# trigger daemon, so most real headless sessions this script starts
+# were unrecorded. This can't capture ExitedAt/ExitCode/Landed (these
+# call Start-Process fire-and-forget, not -Wait, unlike the daemon's
+# own synchronous spawn) - it records what IS knowable at launch time
+# (who, what row, what command, when) so a stuck/long-running session
+# is at least visible in the ledger rather than invisible until the
+# operator notices the wait by hand, which is how W-59's 3,281-minute
+# wait went undetected as long as it did.
+function Add-DirectLaunchLedgerEntry([string]$SeatId, $DispatchedRow, [string]$Command, [string]$Source) {
+    Add-TriggerDaemonLedgerEntry -Entry ([PSCustomObject]@{
+        Seat        = $SeatId
+        RowId       = if ($DispatchedRow) { $DispatchedRow.Id } else { $null }
+        RowTitle    = if ($DispatchedRow) { $DispatchedRow.Title } else { $null }
+        Command     = $Command
+        SpawnedAt   = (Get-Date).ToUniversalTime().ToString("o")
+        Source      = $Source
+        ExitedAt    = $null
+        ExitCode    = $null
+        RateLimited = $null
+        Landed      = $null
+    })
+}
+
 # CLAUDE ADAPTER (wired, gated behind -EnableClaudeAdapter - "used
 # after operator flip" per the operator's own instruction). Builds the
 # real command; only runs it in a real (non-dry-run) cycle with the
@@ -490,6 +580,7 @@ function Start-ClaudeSeat($Seat, $DispatchedRow, [string]$OverrideBrief) {
         return
     }
     Write-Host "Launching Claude seat $($Seat.id) headless: $cmd"
+    Add-DirectLaunchLedgerEntry -SeatId $Seat.id -DispatchedRow $DispatchedRow -Command $cmd -Source "direct-launch(claude-adapter)"
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $cmd -WindowStyle Hidden
 }
 
@@ -1155,6 +1246,7 @@ function Start-CodexMission($DispatchedRow) {
         return
     }
     Write-Host "Launching Codex mission file headless: $missionFile"
+    Add-DirectLaunchLedgerEntry -SeatId "CODEX-MISSION" -DispatchedRow $DispatchedRow -Command $cmd -Source "direct-launch(codex-mission)"
     Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $cmd -WorkingDirectory $repoRoot -WindowStyle Hidden
 }
 
@@ -1406,7 +1498,23 @@ function Invoke-WatchCycle {
     }
 
     $state = Invoke-InboxAlertCheck -State $state
-    Save-WatchState -State $state
+    # Merge onto the freshest on-disk state rather than clobbering it:
+    # Register-RowFirstSeenReady (via Get-TopReadyRow/Get-SeatOwnedReadyRows
+    # above) and Set-SeatRevival/Set-SeatTriggerBackoff each do their own
+    # independent read-modify-write against $stateFile mid-cycle. $state
+    # here was loaded at the TOP of this cycle, before any of those ran -
+    # saving it verbatim would silently stomp whatever they wrote since
+    # then (confirmed live while testing the RowFirstSeenReady dispatch
+    # fix: the property was written by Get-TopReadyRow, then vanished
+    # from disk because this exact line re-saved the stale pre-dispatch
+    # copy over it). Only CodexWasDark/LastStalledAlertEpoch/
+    # LastInboxCheckEpoch are actually mutated by this function, so only
+    # those three are carried onto a fresh reload before the final save.
+    $freshState = Get-WatchState
+    $freshState.CodexWasDark = $state.CodexWasDark
+    $freshState.LastStalledAlertEpoch = $state.LastStalledAlertEpoch
+    $freshState.LastInboxCheckEpoch = $state.LastInboxCheckEpoch
+    Save-WatchState -State $freshState
 
     # W-98 TRIGGER_DAEMON: inert unless -EnableTriggerDaemon was passed
     # at launch (checked inside the function itself, not gated here, so
