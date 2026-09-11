@@ -5,6 +5,7 @@ import ParcelMap from "./ParcelMap"
 import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
 import { ProvenanceStrip } from "../ProvenanceStrip"
 import { writeParcelContext } from "../../lib/workspace/parcelContext"
+import { convertArea } from "../../lib/units"
 
 // Rough India bounding box, used only to place an unlabeled preview pin
 // before any lookup — never presented as a parcel or a real location.
@@ -33,6 +34,21 @@ type ParcelResult = {
 
 const SAMPLE_ULPINS = ["KA-BLR-0001-2024", "MH-PUN-0002-2024", "TN-CHN-0003-2024"]
 
+const PREVIEW_RECORD: ParcelResult = {
+  ulpin: "KA-BLR-0001-2024",
+  state: "Karnataka",
+  district: "Bengaluru Urban",
+  area_sqm: 1200,
+  land_use: "Residential",
+  indicative: true,
+  plot_intel: {
+    ruleset: {
+      version: "PREVIEW",
+      source_note: "Preview sample — replaced in place after a seeded lookup",
+    },
+  },
+}
+
 // City reference centres for orienting the three seeded records — never
 // presented as parcel coordinates or boundaries. OpenStreetMap references:
 // Bengaluru: https://wiki.openstreetmap.org/wiki/Bengaluru
@@ -52,6 +68,8 @@ export default function UlpinMapExplorer() {
   const [loading, setLoading] = useState(false)
   const [previewCenter, setPreviewCenter] = useState<{ lat: number; lng: number } | null>(null)
   const selectedMap = SAMPLE_MAPS[ulpin]
+  const displayedRecord = result ?? PREVIEW_RECORD
+  const displayedArea = convertArea(displayedRecord.area_sqm)
 
   // Randomized client-side, after mount — this static-exported page has no
   // per-request server, so a random value picked during the build would be
@@ -135,22 +153,27 @@ export default function UlpinMapExplorer() {
           </button>
         </div>
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
-        {result && (
-          <div className="mt-4 grid grid-cols-2 gap-2 text-sm text-relume-ink sm:grid-cols-4 lg:grid-cols-2">
-            <p><strong>State:</strong> {result.state}</p>
-            <p><strong>District:</strong> {result.district}</p>
-            <p><strong>Area:</strong> {result.area_sqm} m²</p>
-            <p><strong>Land use:</strong> {result.land_use}</p>
+        <div className="mt-4 rounded-lg border border-relume-border bg-relume-surface-secondary p-4" data-ulpin-record-card>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">Parcel record</p>
+            <span className="rounded-full border border-relume-accent bg-orange-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-ink" data-record-status>
+              {result ? "INDICATIVE LOOKUP" : "PREVIEW · SAMPLE"}
+            </span>
           </div>
-        )}
-        {result?.plot_intel?.ruleset && (
-          <div className="mt-3">
+          <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-relume-ink sm:grid-cols-3 lg:grid-cols-2">
+            <div><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">ULPIN</dt><dd className="mt-1 break-all font-medium">{displayedRecord.ulpin}</dd></div>
+            <div><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">State</dt><dd className="mt-1 font-medium">{displayedRecord.state}</dd></div>
+            <div><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">District</dt><dd className="mt-1 font-medium">{displayedRecord.district}</dd></div>
+            <div><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">Land use</dt><dd className="mt-1 font-medium">{displayedRecord.land_use}</dd></div>
+            <div className="col-span-2"><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">Area</dt><dd className="mt-1 font-mono font-medium tabular-nums">{displayedArea.sqm.toLocaleString("en-IN")} m² · {displayedArea.sqft.toLocaleString("en-IN", { maximumFractionDigits: 0 })} sq ft</dd></div>
+          </dl>
+          {displayedRecord.plot_intel?.ruleset && <div className="mt-4">
             <ProvenanceStrip
-              source={result.plot_intel.ruleset.source_note}
-              freshness={result.plot_intel.ruleset.version}
+              source={displayedRecord.plot_intel.ruleset.source_note}
+              freshness={displayedRecord.plot_intel.ruleset.version}
             />
-          </div>
-        )}
+          </div>}
+        </div>
         {result && (
           <div className="mt-4">
             <SaveToWorkspaceButton
