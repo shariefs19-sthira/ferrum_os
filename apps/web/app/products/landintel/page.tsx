@@ -98,7 +98,7 @@ export default function LandIntelPage() {
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
-            <ProductCockpitPreview product="landintel" label="LandIntel">
+            <ProductCockpitPreview product="landintel" label="LandIntel" contained>
               <UlpinMapExplorer />
             </ProductCockpitPreview>
           </div>

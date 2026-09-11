@@ -22,7 +22,7 @@ const presets: Record<CockpitProduct, StudioParameters> = {
   transact: { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 },
 }
 
-export default function ProductCockpitPreview({ product, label, children }: { product: CockpitProduct; label: string; children?: ReactNode }) {
+export default function ProductCockpitPreview({ product, label, children, contained = false }: { product: CockpitProduct; label: string; children?: ReactNode; contained?: boolean }) {
   const [parameters, setParameters] = useState<StudioParameters>(presets[product])
   const persistHandoff = useCallback(() => {
     window.localStorage.setItem('ferrum-cockpit-handoff', JSON.stringify({ version: 1, source: product, parameters }))
@@ -30,7 +30,13 @@ export default function ProductCockpitPreview({ product, label, children }: { pr
   }, [parameters, product])
 
   return (
-    <div className="relative left-1/2 min-h-[70vh] w-screen min-w-0 -translate-x-1/2" data-product-cockpit={product}>
+    <div
+      className={contained
+        ? 'relative min-h-[70vh] min-w-0 max-w-full'
+        : 'relative left-1/2 min-h-[70vh] w-screen min-w-0 -translate-x-1/2'}
+      data-product-cockpit={product}
+      data-cockpit-layout={contained ? 'contained' : 'viewport'}
+    >
       {children && <div className="mb-4" data-product-live-tool={product}>{children}</div>}
       <CrossProductLiveSummary product={product} parameters={parameters} />
       <FullscreenController previewSource={product}>{fullscreen => <WorkspaceCockpit controlProduct={product} initialParameters={presets[product]} onParametersChange={setParameters} previewLabel={label} fullscreenControl={{ active: fullscreen.active, label: 'Open in workspace ⛶', onClick: () => { persistHandoff(); fullscreen.toggle() } }} />}</FullscreenController>
