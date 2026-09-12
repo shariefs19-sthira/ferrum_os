@@ -8,6 +8,15 @@ const features = [
   'Move into the Project Workspace immediately',
 ]
 
+const previewGateShellCss = `
+  body:has([data-preview-gate]) > header,
+  body:has([data-preview-gate]) > footer,
+  body:has([data-preview-gate]) > aside[aria-label="Cookie consent"],
+  body:has([data-preview-gate]) > button[aria-label="Open Ferrum OS concierge"] {
+    display: none;
+  }
+`
+
 export default function PreviewGate() {
   const enterPreview = () => {
     window.localStorage.setItem('ferrum-preview-session', 'active')
@@ -45,14 +54,7 @@ export default function PreviewGate() {
           </ul>
         </aside>
       </div>
-      <style>{`
-        body:has([data-preview-gate]) > header,
-        body:has([data-preview-gate]) > footer,
-        body:has([data-preview-gate]) > aside[aria-label="Cookie consent"],
-        body:has([data-preview-gate]) > button[aria-label="Open Ferrum OS concierge"] {
-          display: none;
-        }
-      `}</style>
+      <style dangerouslySetInnerHTML={{ __html: previewGateShellCss }} />
     </main>
   )
 }
