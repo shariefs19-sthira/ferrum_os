@@ -85,6 +85,7 @@ type WorkspaceCockpitProps = {
   onParametersChange?: (parameters: StudioParameters) => void
   previewLabel?: string
   canvasFirst?: boolean
+  embedMode?: 'default' | 'full-bleed'
   controlProduct?: ProductControlId
   fullscreenControl?: { active: boolean; label: string; onClick: () => void }
   activeProduct?: WorkspaceProduct
@@ -92,7 +93,7 @@ type WorkspaceCockpitProps = {
 
 const defaultParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 }
 
-export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, controlProduct, fullscreenControl, activeProduct }: WorkspaceCockpitProps) {
+export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, embedMode = 'default', controlProduct, fullscreenControl, activeProduct }: WorkspaceCockpitProps) {
   const [parameters, setParameters] = useState<StudioParameters>(initialParameters)
   const [projectStateReady, setProjectStateReady] = useState(false)
   const [view, setView] = useState<StudioView>('space')
@@ -102,6 +103,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [commandResult, setCommandResult] = useState('Choose an option or describe a change above.')
   const [optionStage, setOptionStage] = useState<OptionStage>('use')
   const [showDiagram, setShowDiagram] = useState(false)
+  const [showExtract, setShowExtract] = useState(false)
   const [landUse, setLandUse] = useState<LandUse>('Residential')
   const [permalinkStatus, setPermalinkStatus] = useState('')
   const ruleset = getRulesetForState('Karnataka')
@@ -295,8 +297,10 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     await navigator.clipboard?.writeText(url.toString()).catch(()=>undefined);setPermalinkStatus('View permalink ready')
   }
 
+  const fullBleedEmbed = embedMode === 'full-bleed'
+
   return (
-    <section className={`overflow-hidden border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col' : 'rounded-relume'}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined}>
+    <section className={`overflow-hidden border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col' : 'rounded-relume'} ${fullBleedEmbed ? 'min-h-[70vh]' : ''}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined} data-embed-mode={embedMode}>
       {!canvasFirst && <header className="flex flex-wrap items-center gap-3 border-b border-relume-border px-4 py-3">
         <Link href="/" className="font-heading text-sm font-bold text-relume-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" aria-label="Ferrum home">Ferrum</Link>
         <div className="mr-auto">
@@ -322,7 +326,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         </section>
       )}
 
-      <div className={`grid min-w-0 ${canvasFirst ? 'min-h-0 flex-1 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      <div className={`grid min-w-0 ${canvasFirst || fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
@@ -339,7 +343,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           </div>
         </aside>}
 
-        <div className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst?'min-h-0':''}`}>
+        <div data-cockpit-canvas-section className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst || fullBleedEmbed ? 'min-h-0' : ''}`}>
           <div className="relative z-40 flex flex-wrap gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
             {views.map((candidate) => (
               <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => setView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
@@ -364,13 +368,23 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {optionStage === 'rooms' && ['Social-first', 'Balanced', 'Private-first'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('plotWidthM', Math.max(8, Math.min(80, parameters.plotWidthM + index - 1))); setOptionStage('compliance'); setCommandResult(`${choice} room split applied to the deterministic plan proportions.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage('use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>
-          <div className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : "h-[32rem] min-h-[24rem]"}>
+          <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
             {view === 'space' ? <Space3D plan={plan} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} />}
           </div>
           {controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} onChange={update}/>}
+          {fullBleedEmbed && <>
+            <button type="button" onClick={() => setShowExtract((value) => !value)} aria-expanded={showExtract} className="absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow-sm" data-extract-toggle>
+              {showExtract ? 'Hide data extract' : 'Data extract'}
+            </button>
+            <aside className={`absolute bottom-16 right-4 z-30 w-[min(24rem,calc(100%-2rem))] rounded-relume border border-relume-border bg-white p-4 shadow-sm transition ${showExtract ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`} aria-label="Plan data extract" aria-hidden={!showExtract} data-contextual-extract>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Data extract · contextual</p>
+              <dl className="mt-3 grid grid-cols-2 gap-3 text-xs"><div><dt className="text-relume-muted">Gross floor area</dt><dd className="mt-1 font-mono text-lg">{format(grossArea, 1)} m²</dd></div><div><dt className="text-relume-muted">Rooms</dt><dd className="mt-1 font-mono text-lg">{plan.rooms.length}</dd></div></dl>
+              <p className="mt-3 text-[10px] leading-4 text-relume-muted">INDICATIVE — deterministic geometry; authority and site verification remain required.</p>
+            </aside>
+          </>}
         </div>
 
-        {!canvasFirst && <aside className="order-3 border-t border-relume-border p-4 xl:order-none xl:border-l xl:border-t-0" aria-label="Plan data extract">
+        {!canvasFirst && !fullBleedEmbed && <aside className="order-3 border-t border-relume-border p-4 xl:order-none xl:border-l xl:border-t-0" aria-label="Plan data extract">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Data extract</p>
           <dl className="mt-4 grid grid-cols-2 gap-3 text-xs">
             <div className="rounded-relume bg-relume-command p-3 text-white"><dt className="text-white/65">Gross floor area</dt><dd className="mt-1 font-mono text-lg">{format(grossArea, 1)} m²</dd></div>
