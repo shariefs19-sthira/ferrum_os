@@ -37,4 +37,12 @@ describe('ProductCockpitPreview state handoff', () => {
     expect(cockpit?.classList.contains('max-w-full')).toBe(true)
     expect(cockpit?.classList.contains('w-screen')).toBe(false)
   })
+
+  it('uses the section width for a product-page cockpit rather than a viewport breakout', () => {
+    const { container } = render(<ProductCockpitPreview product="landintel" label="LandIntel" layout="product-page" />)
+    const cockpit = container.querySelector('[data-product-cockpit="landintel"]')
+    expect(cockpit?.getAttribute('data-cockpit-layout')).toBe('product-page')
+    expect(cockpit?.classList.contains('w-full')).toBe(true)
+    expect(cockpit?.classList.contains('w-screen')).toBe(false)
+  })
 })

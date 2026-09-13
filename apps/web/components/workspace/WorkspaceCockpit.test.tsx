@@ -85,4 +85,17 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     expect(buildExtracts.some((item: { label: string }) => item.label.startsWith("BUILD ·"))).toBe(true)
     expect(buildExtracts.some((item: { label: string }) => item.label.startsWith("BUY ·"))).toBe(false)
   })
+
+  it('keeps the canvas full width and exposes the extract as a dismissible overlay in a full-bleed embed', async () => {
+    render(<WorkspaceCockpit embedMode="full-bleed" />)
+    const cockpit = document.querySelector('[data-workspace-cockpit]')
+    const canvas = document.querySelector('[data-cockpit-canvas]')
+    expect(cockpit?.getAttribute('data-embed-mode')).toBe('full-bleed')
+    expect(canvas?.parentElement?.classList.contains('min-w-0')).toBe(true)
+    const toggle = screen.getByRole('button', { name: 'Data extract' })
+    expect(document.querySelector('[data-contextual-extract]')?.getAttribute('aria-hidden')).toBe('true')
+    fireEvent.click(toggle)
+    expect(screen.getByRole('button', { name: 'Hide data extract' })).toBeTruthy()
+    expect(document.querySelector('[data-contextual-extract]')?.getAttribute('aria-hidden')).toBe('false')
+  })
 })

@@ -79,31 +79,33 @@ const faqItems = [
 export default function LandIntelPage() {
   return (
     <main>
-      {/* 1. Hero */}
-      <SectionShell>
-        <div className="grid gap-10 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1.45fr)] lg:items-start">
-          <div>
-            <Eyebrow>LandIntel</Eyebrow>
-            <SectionHeading as="h1" className="mt-4">
-              Know your land before you buy or build
-            </SectionHeading>
-            <p className="mt-6 text-base leading-7 text-relume-ink">
-              Look up a seeded ULPIN/Bhu-Aadhaar record first. The returned record and city-reference map are clearly labelled indicative; official zoning, soil, hazard, and entitlement data remain on the roadmap.
-            </p>
-            <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>ULPIN/Bhu-Aadhaar lookup (seeded, indicative)</li>
-              <li>Sample FAR and coverage forecast (secondary, indicative)</li>
-              <li>Zoning &amp; soil data — roadmap</li>
-              <li>Investment forecasts — roadmap</li>
+      {/* The rail gives the real lookup context before the working surface at every width. */}
+      <section className="bg-relume-surface py-relume-section" data-landintel-hero>
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="border-y border-relume-border py-6 lg:grid lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:items-end lg:gap-12" data-landintel-context-rail>
+            <div>
+              <Eyebrow>LandIntel</Eyebrow>
+              <SectionHeading as="h1" className="mt-4 max-w-4xl text-balance">
+                Know your land before you buy or build
+              </SectionHeading>
+              <p className="mt-4 max-w-3xl text-base leading-7 text-relume-ink">
+                Look up a seeded ULPIN/Bhu-Aadhaar record first. Returned records and city-reference maps are clearly labelled indicative; official zoning, soil, hazard, and entitlement data remain on the roadmap.
+              </p>
+            </div>
+            <ul className="mt-6 grid gap-3 text-sm text-relume-ink sm:grid-cols-2 lg:mt-0" aria-label="LandIntel availability">
+              <li className="border-l-2 border-relume-command pl-3">ULPIN/Bhu-Aadhaar lookup <span className="text-relume-muted">— seeded, indicative</span></li>
+              <li className="border-l-2 border-relume-command pl-3">Sample FAR and coverage forecast <span className="text-relume-muted">— secondary, indicative</span></li>
+              <li className="border-l-2 border-relume-border pl-3">Zoning &amp; soil data <span className="text-relume-muted">— roadmap</span></li>
+              <li className="border-l-2 border-relume-border pl-3">Investment forecasts <span className="text-relume-muted">— roadmap</span></li>
             </ul>
           </div>
-          <div className="order-first min-w-0 lg:order-none">
-            <ProductCockpitPreview product="landintel" label="LandIntel" contained>
-              <UlpinMapExplorer />
-            </ProductCockpitPreview>
-          </div>
         </div>
-      </SectionShell>
+        <div className="mt-6 min-w-0 w-full" data-landintel-working-row>
+          <ProductCockpitPreview product="landintel" label="LandIntel" layout="product-page">
+            <UlpinMapExplorer />
+          </ProductCockpitPreview>
+        </div>
+      </section>
 
       <SectionShell>
         <div className="mx-auto grid max-w-5xl gap-6"><ZoningSummary /><SoilHazardPanel /><ClimateYearPanel /><HistoryCenturyPanel /></div>
