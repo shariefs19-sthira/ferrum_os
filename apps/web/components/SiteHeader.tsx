@@ -50,6 +50,15 @@ export default function SiteHeader() {
         </nav>
 
         <div className="hidden shrink-0 items-center gap-3 whitespace-nowrap lg:flex">
+          <a
+            href="https://ferrumprojects.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ferrum Projects, sister site (opens in a new tab)"
+            className="text-sm text-relume-muted transition hover:text-relume-ink"
+          >
+            Ferrum Projects
+          </a>
           <Link
             href="/login"
             className="inline-flex items-center justify-center rounded-full border border-relume-border px-5 py-2.5 text-sm font-medium text-relume-ink transition hover:bg-relume-surface-secondary"

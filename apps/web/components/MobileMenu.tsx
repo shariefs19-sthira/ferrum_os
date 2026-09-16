@@ -145,6 +145,16 @@ export default function MobileMenu() {
                     {link.name}
                   </Link>
                 ))}
+                <a
+                  href="https://ferrumprojects.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                  aria-label="Ferrum Projects, sister site (opens in a new tab)"
+                  className="flex min-h-11 items-center rounded-xl px-3 py-2 text-sm text-relume-muted transition hover:bg-relume-surface-secondary hover:text-relume-ink"
+                >
+                  Ferrum Projects
+                </a>
               </div>
             </div>
 
