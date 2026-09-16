@@ -3,9 +3,9 @@
   "appName": "Ferrum OS",
   "webDir": "web",
   "server": {
-    "url": "https://ferrum-os.shariefsatyala.workers.dev",
+    "url": "https://ferrumos-preview.shariefsatyala.workers.dev",
     "cleartext": false,
     "androidScheme": "https",
-    "allowNavigation": ["ferrum-os.shariefsatyala.workers.dev"]
+    "allowNavigation": ["ferrumos-preview.shariefsatyala.workers.dev"]
   }
 }
