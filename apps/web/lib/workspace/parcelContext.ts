@@ -27,7 +27,7 @@ export function isParcelContext(value: unknown): value is ParcelContext {
   if (!value || typeof value !== 'object') return false
   const item = value as Partial<ParcelContext>
   return item.version === 1 && typeof item.method === 'string' && typeof item.state === 'string' &&
-    typeof item.district === 'string' && Number.isFinite(item.area_sqm) && Number(item.area_sqm) > 0 &&
+    typeof item.district === 'string' && Number.isFinite(item.area_sqm) && Number(item.area_sqm) >= 0 &&
     typeof item.land_use === 'string' && !!item.provenance && typeof item.provenance.source === 'string'
 }
 
