@@ -21,8 +21,11 @@ describe('parcel context', () => {
     expect(readParcelContext()).toEqual(context)
   })
 
-  it('rejects malformed and sample-default storage', () => {
-    localStorage.setItem(PARCEL_CONTEXT_KEY, JSON.stringify({ version: 1, area_sqm: 0 }))
+  it('rejects malformed storage and preserves a location-only GAP context', () => {
+    localStorage.setItem(PARCEL_CONTEXT_KEY, JSON.stringify({ version: 1, area_sqm: -1 }))
     expect(readParcelContext()).toBeNull()
+    const locationOnly = { ...context, ulpin: null, state: 'GAP', district: 'Coordinate-only location', area_sqm: 0, land_use: 'GAP', coordinates: { lat: 12.9716, lng: 77.5946 }, provenance: { source: 'User-entered coordinates', vintage: '2026-09-16', status: 'GAP' as const } }
+    writeParcelContext(locationOnly)
+    expect(readParcelContext()).toEqual(locationOnly)
   })
 })

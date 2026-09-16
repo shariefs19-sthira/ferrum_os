@@ -1,239 +1,95 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import ParcelMap from "./ParcelMap"
-import SaveToWorkspaceButton from "../SaveToWorkspaceButton"
-import { ProvenanceStrip } from "../ProvenanceStrip"
-import { writeParcelContext } from "../../lib/workspace/parcelContext"
-import { convertArea } from "../../lib/units"
+import { useRef, useState } from 'react'
+import ParcelMap from './ParcelMap'
+import { ProvenanceStrip } from '../ProvenanceStrip'
+import { writeParcelContext } from '../../lib/workspace/parcelContext'
 
-// Rough India bounding box, used only to place an unlabeled preview pin
-// before any lookup — never presented as a parcel or a real location.
-const INDIA_BOUNDS = { latMin: 8, latMax: 35, lngMin: 68, lngMax: 97 }
+type Mode = 'ulpin' | 'pin' | 'coordinates' | 'place' | 'location' | 'survey'
+type Coordinates = { lat: number; lng: number }
+type Geocode = { display_name: string; lat: string; lon: string }
+type ParcelRecord = { ulpin: string | null; state: string; district: string; area_sqm: number; land_use: string; coordinates: Coordinates; source: string; status: 'INDICATIVE' | 'GAP' }
 
-function randomIndiaPoint() {
-  return {
-    lat: INDIA_BOUNDS.latMin + Math.random() * (INDIA_BOUNDS.latMax - INDIA_BOUNDS.latMin),
-    lng: INDIA_BOUNDS.lngMin + Math.random() * (INDIA_BOUNDS.lngMax - INDIA_BOUNDS.lngMin),
-  }
+const BENGALURU: Coordinates = { lat: 12.9716, lng: 77.5946 }
+const SAMPLE_ULPINS = ['KA-BLR-0001-2024', 'MH-PUN-0002-2024', 'TN-CHN-0003-2024']
+const modeLabels: Record<Mode, string> = { ulpin: 'ULPIN', pin: 'Map pin', coordinates: 'Coordinates', place: 'Address', location: 'My location', survey: 'Survey / khasra' }
+
+const parseCoordinate = (value: string, positive: 'N' | 'E', negative: 'S' | 'W') => {
+  const decimal = Number(value)
+  if (Number.isFinite(decimal)) return decimal
+  const values = value.match(/\d+(?:\.\d+)?/g)
+  const direction = value.trim().slice(-1).toUpperCase()
+  if (!values || values.length !== 3 || ![positive, negative].includes(direction as typeof positive)) return Number.NaN
+  const result = Number(values[0]) + Number(values[1]) / 60 + Number(values[2]) / 3600
+  return direction === negative ? -result : result
 }
 
-type PlotIntel = {
-  ruleset: { version: string; source_note: string } | null
-}
-
-type ParcelResult = {
-  ulpin: string
-  state: string
-  district: string
-  area_sqm: number
-  land_use: string
-  indicative: boolean
-  plot_intel?: PlotIntel | null
-}
-
-const SAMPLE_ULPINS = ["KA-BLR-0001-2024", "MH-PUN-0002-2024", "TN-CHN-0003-2024"]
-
-const PREVIEW_RECORD: ParcelResult = {
-  ulpin: "KA-BLR-0001-2024",
-  state: "Karnataka",
-  district: "Bengaluru Urban",
-  area_sqm: 1200,
-  land_use: "Residential",
-  indicative: true,
-  plot_intel: {
-    ruleset: {
-      version: "PREVIEW",
-      source_note: "Preview sample — replaced in place after a seeded lookup",
-    },
-  },
-}
-
-// City reference centres for orienting the three seeded records — never
-// presented as parcel coordinates or boundaries. OpenStreetMap references:
-// Bengaluru: https://wiki.openstreetmap.org/wiki/Bengaluru
-// Pune: https://www.openstreetmap.org/?mlat=18.5208&mlon=73.8551&zoom=11
-// Chennai: https://wiki.openstreetmap.org/wiki/Chennai
-const SAMPLE_MAPS: Record<string, { lat: number; lng: number; city: string }> = {
-  "KA-BLR-0001-2024": { lat: 12.9767936, lng: 77.590082, city: "Bengaluru" },
-  "MH-PUN-0002-2024": { lat: 18.5208, lng: 73.8551, city: "Pune" },
-  "TN-CHN-0003-2024": { lat: 13.09, lng: 80.27, city: "Chennai" },
-}
-
-/** One D1-backed ULPIN lookup surface with a synchronized city-reference map. */
+/** Map-first, source-qualified parcel finder. It never asserts a parcel boundary or authority verification. */
 export default function UlpinMapExplorer() {
-  const [ulpin, setUlpin] = useState("")
-  const [result, setResult] = useState<ParcelResult | null>(null)
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [previewCenter, setPreviewCenter] = useState<{ lat: number; lng: number } | null>(null)
-  const selectedMap = SAMPLE_MAPS[ulpin]
-  const displayedRecord = result ?? PREVIEW_RECORD
-  const displayedArea = convertArea(displayedRecord.area_sqm)
-
-  // Randomized client-side, after mount — this static-exported page has no
-  // per-request server, so a random value picked during the build would be
-  // baked into every visitor's HTML and never actually vary "per load".
-  useEffect(() => {
-    setPreviewCenter(randomIndiaPoint())
-  }, [])
-
-  const selectSample = (sample: string) => {
-    setUlpin(sample)
-    setResult(null)
-    setError("")
+  const [mode, setMode] = useState<Mode>('ulpin')
+  const [railOpen, setRailOpen] = useState(false)
+  const [center, setCenter] = useState(BENGALURU)
+  const [ulpin, setUlpin] = useState('')
+  const [latitude, setLatitude] = useState('')
+  const [longitude, setLongitude] = useState('')
+  const [place, setPlace] = useState('')
+  const [matches, setMatches] = useState<Geocode[]>([])
+  const [record, setRecord] = useState<ParcelRecord | null>(null)
+  const [message, setMessage] = useState('SAMPLE LOCATION · Bengaluru reference centre — not a parcel.')
+  const launcherRef = useRef<HTMLButtonElement>(null)
+  const closeRail = () => { setRailOpen(false); requestAnimationFrame(() => launcherRef.current?.focus()) }
+  const commit = (next: ParcelRecord, nextMessage: string) => {
+    setCenter(next.coordinates); setRecord(next); setMessage(nextMessage)
+    writeParcelContext({ version: 1, method: next.ulpin ? 'ulpin' : mode, ulpin: next.ulpin, state: next.state, district: next.district, area_sqm: next.area_sqm, land_use: next.land_use, coordinates: next.coordinates, provenance: { source: next.source, vintage: new Date().toISOString().slice(0, 10), status: next.status } })
+  }
+  const locationRecord = (coordinates: Coordinates, source: string, placeName = 'Coordinate-only location'): ParcelRecord => ({ ulpin: null, state: 'GAP', district: placeName, area_sqm: 0, land_use: 'GAP', coordinates, source, status: 'GAP' })
+  const showError = (text: string) => { setMessage(text); setMatches([]) }
+  const lookupUlpin = async () => {
+    if (!ulpin.trim()) return showError('Enter a seeded sample ULPIN before lookup.')
+    const response = await fetch(`/api/ulpin/${encodeURIComponent(ulpin.trim())}`)
+    if (!response.ok) return showError('No seeded sample record found. Official registry lookup is not connected.')
+    const item = await response.json() as { ulpin: string; state: string; district: string; area_sqm: number; land_use: string }
+    const coordinates = item.ulpin.startsWith('MH') ? { lat: 18.5208, lng: 73.8551 } : item.ulpin.startsWith('TN') ? { lat: 13.09, lng: 80.27 } : BENGALURU
+    commit({ ...item, coordinates, source: 'Ferrum seeded D1 ULPIN record — not an official registry result', status: 'INDICATIVE' }, `ULPIN · seeded D1 sample · ${item.district}`)
+  }
+  const resolveCoordinates = () => {
+    const lat = parseCoordinate(latitude, 'N', 'S'), lng = parseCoordinate(longitude, 'E', 'W')
+    if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) return showError('Enter valid decimal or DMS coordinates, for example 12.9716 or 12°58′18″N.')
+    commit(locationRecord({ lat, lng }, 'User-entered coordinates — address and parcel attributes are GAP'), `Coordinates · ${lat.toFixed(5)}, ${lng.toFixed(5)} · attributes GAP`)
+  }
+  const searchPlace = async () => {
+    if (!place.trim()) return showError('Enter an address or place name before search.')
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q=${encodeURIComponent(place.trim())}`)
+    if (!response.ok) return showError('Address search is unavailable. Try coordinates or a seeded ULPIN.')
+    const found = await response.json() as Geocode[]
+    if (!found.length) return showError('No address result found. Try a more specific place name.')
+    setMatches(found); setMessage('Address candidates from OpenStreetMap Nominatim — confirm one to set a location-only context.')
+  }
+  const selectPlace = (item: Geocode) => commit(locationRecord({ lat: Number(item.lat), lng: Number(item.lon) }, 'OpenStreetMap Nominatim geocode — parcel attributes are GAP', item.display_name), `Address · OpenStreetMap Nominatim · ${item.display_name}`)
+  const resolvePin = async (coordinates: Coordinates) => {
+    setMode('place'); setRailOpen(true)
+    try { const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coordinates.lat}&lon=${coordinates.lng}`); if (!response.ok) throw new Error('reverse unavailable'); const item = await response.json() as { display_name?: string }; commit(locationRecord(coordinates, 'OpenStreetMap Nominatim reverse geocode — parcel attributes are GAP', item.display_name ?? 'Reverse-geocode GAP'), `Map pin · reverse-geocoded · ${item.display_name ?? 'address GAP'}`) }
+    catch { commit(locationRecord(coordinates, 'Map pin coordinates — reverse-geocode GAP'), `Map pin · ${coordinates.lat.toFixed(5)}, ${coordinates.lng.toFixed(5)} · address GAP`) }
+  }
+  const useMyLocation = () => {
+    if (!navigator.geolocation) return showError('This browser does not expose geolocation. Use coordinates instead.')
+    navigator.geolocation.getCurrentPosition((position) => commit(locationRecord({ lat: position.coords.latitude, lng: position.coords.longitude }, 'Browser geolocation — parcel attributes are GAP'), 'Browser geolocation · permission granted · attributes GAP'), (error) => showError(error.code === 1 ? 'Location permission was denied. No location was set.' : 'Location could not be resolved. Use coordinates or address search.'), { enableHighAccuracy: false, timeout: 10000 })
   }
 
-  const handleLookup = async () => {
-    setLoading(true)
-    setError("")
-    setResult(null)
-    try {
-      const response = await fetch(`/api/ulpin/${encodeURIComponent(ulpin)}`)
-      if (!response.ok) {
-        setError("No sample parcel found for that ULPIN. Try one of the sample IDs above.")
-        return
-      }
-      const resolved = await response.json() as ParcelResult
-      setResult(resolved)
-      writeParcelContext({
-        version: 1,
-        method: 'ulpin',
-        ulpin: resolved.ulpin,
-        state: resolved.state,
-        district: resolved.district,
-        area_sqm: resolved.area_sqm,
-        land_use: resolved.land_use,
-        coordinates: null,
-        provenance: {
-          source: 'Ferrum seeded D1 ULPIN record — not an official registry result',
-          vintage: '2026-09-10',
-          status: 'INDICATIVE',
-        },
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  return (
-    <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-      <div className="min-w-0 rounded-lg border border-relume-border bg-relume-surface p-6">
-        <div className="flex flex-wrap gap-2">
-          {SAMPLE_ULPINS.map((sample) => (
-            <button
-              key={sample}
-              type="button"
-              onClick={() => selectSample(sample)}
-              aria-pressed={ulpin === sample}
-              className={`min-h-11 rounded-full border px-3 py-1 text-xs font-medium ${ulpin === sample ? "border-relume-ink bg-relume-ink text-white" : "border-relume-border text-relume-ink"}`}
-            >
-              {sample}
-            </button>
-          ))}
-        </div>
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-          <label className="sr-only" htmlFor="ulpin-map-input">Sample ULPIN</label>
-          <input
-            id="ulpin-map-input"
-            value={ulpin}
-            onChange={(event) => {
-              setUlpin(event.target.value)
-              setResult(null)
-            }}
-            className="min-w-0 flex-1 rounded-lg border border-relume-border px-3 py-2 text-sm"
-          />
-          <button
-            type="button"
-            onClick={handleLookup}
-            disabled={loading}
-            className="rounded-full bg-relume-ink px-6 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
-          >
-            {loading ? "Looking up..." : "Lookup"}
-          </button>
-        </div>
-        {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
-        <div className="mt-4 rounded-lg border border-relume-border bg-relume-surface-secondary p-4" data-ulpin-record-card>
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">Parcel record</p>
-            <span className="rounded-full border border-relume-accent bg-orange-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-ink" data-record-status>
-              {result ? "INDICATIVE LOOKUP" : "PREVIEW · SAMPLE"}
-            </span>
-          </div>
-          <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-relume-ink sm:grid-cols-3 lg:grid-cols-2">
-            <div><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">ULPIN</dt><dd className="mt-1 break-all font-medium">{displayedRecord.ulpin}</dd></div>
-            <div><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">State</dt><dd className="mt-1 font-medium">{displayedRecord.state}</dd></div>
-            <div><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">District</dt><dd className="mt-1 font-medium">{displayedRecord.district}</dd></div>
-            <div><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">Land use</dt><dd className="mt-1 font-medium">{displayedRecord.land_use}</dd></div>
-            <div className="col-span-2"><dt className="text-[10px] uppercase tracking-[0.12em] text-relume-muted">Area</dt><dd className="mt-1 font-mono font-medium tabular-nums">{displayedArea.sqm.toLocaleString("en-IN")} m² · {displayedArea.sqft.toLocaleString("en-IN", { maximumFractionDigits: 0 })} sq ft</dd></div>
-          </dl>
-          {displayedRecord.plot_intel?.ruleset && <div className="mt-4">
-            <ProvenanceStrip
-              source={displayedRecord.plot_intel.ruleset.source_note}
-              freshness={displayedRecord.plot_intel.ruleset.version}
-            />
-          </div>}
-        </div>
-        {result && (
-          <div className="mt-4">
-            <SaveToWorkspaceButton
-              type="ulpin_lookup"
-              title={`ULPIN — ${result.ulpin}`}
-              data={result}
-              provenanceSource={result.plot_intel?.ruleset?.source_note}
-              provenanceFreshness={result.plot_intel?.ruleset?.version}
-            />
-          </div>
-        )}
-        <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-relume-muted">
-          Indicative sample data
-        </p>
-      </div>
-
-      {selectedMap ? (
-        <div>
-          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-            <p className="text-sm font-medium text-relume-ink">{selectedMap.city} reference centre</p>
-            <span className="rounded-full border border-relume-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">
-              Indicative map
-            </span>
-          </div>
-          <ParcelMap
-            lat={selectedMap.lat}
-            lng={selectedMap.lng}
-            zoom={11}
-            label={`${ulpin} — ${selectedMap.city} city reference centre, not parcel geometry`}
-          />
-          <p className="mt-3 text-[11px] leading-5 text-relume-muted">
-            City orientation only. The sample data contains no parcel coordinates or boundary geometry.
-          </p>
-        </div>
-      ) : ulpin === "" ? (
-        previewCenter ? (
-          <div>
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-              <p className="text-sm font-medium text-relume-ink">Preview — random location. Run a lookup to jump to a parcel.</p>
-              <span className="rounded-full border border-relume-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">
-                Preview
-              </span>
-            </div>
-            <ParcelMap
-              lat={previewCenter.lat}
-              lng={previewCenter.lng}
-              zoom={4}
-              label="Preview — random location within India, not a parcel or lookup result"
-            />
-          </div>
-        ) : (
-          <div className="flex min-h-80 items-center justify-center rounded-lg border border-dashed border-relume-border p-6 text-center" />
-        )
-      ) : (
-        <div className="flex min-h-80 items-center justify-center rounded-lg border border-dashed border-relume-border p-6 text-center">
-          <p className="max-w-sm text-sm leading-6 text-relume-muted">
-            Map unavailable for custom IDs. Select one of the three mapped sample records.
-          </p>
-        </div>
-      )}
-    </div>
-  )
+  return <section className="relative min-w-0 overflow-hidden rounded-relume border border-relume-border bg-relume-surface" data-land-detect>
+    <ParcelMap lat={center.lat} lng={center.lng} zoom={record ? 13 : 11} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} className="h-[min(70vh,48rem)] min-h-[32rem]" />
+    <button ref={launcherRef} type="button" onClick={() => setRailOpen(true)} className="absolute left-4 top-4 z-[500] min-h-11 rounded-full border border-relume-border bg-white px-4 text-sm font-semibold text-relume-command shadow-sm" aria-expanded={railOpen} aria-controls="find-parcel-rail">Find parcel</button>
+    <aside id="find-parcel-rail" className={`absolute z-[600] border border-relume-border bg-white p-4 shadow-sm transition-transform ${railOpen ? 'translate-y-0' : 'translate-y-[calc(100%-5rem)]'} inset-x-0 bottom-0 h-[min(75dvh,34rem)] lg:bottom-4 lg:left-4 lg:right-auto lg:top-4 lg:h-auto lg:w-80 ${railOpen ? 'lg:translate-x-0' : 'lg:-translate-x-[calc(100%+1.5rem)]'}`} aria-label="Find parcel" aria-hidden={!railOpen}>
+      <div className="flex items-center justify-between gap-2"><p className="text-sm font-semibold text-relume-command">Find parcel</p><button type="button" onClick={closeRail} className="min-h-11 rounded-full px-3 text-xs font-semibold">Close</button></div>
+      <div className="mt-3 flex flex-wrap gap-2" aria-label="Location method">{(Object.keys(modeLabels) as Mode[]).map((item) => <button key={item} type="button" onClick={() => { setMode(item); setMatches([]) }} aria-pressed={mode === item} className={`min-h-9 rounded-full border px-3 text-xs font-semibold ${mode === item ? 'border-relume-command bg-relume-command text-white' : 'border-relume-border text-relume-command'}`}>{modeLabels[item]}</button>)}</div>
+      <div className="mt-4 space-y-3">{mode === 'ulpin' && <><div className="flex flex-wrap gap-2">{SAMPLE_ULPINS.map((sample) => <button key={sample} type="button" onClick={() => setUlpin(sample)} aria-pressed={ulpin === sample} className="min-h-9 rounded-full border border-relume-border px-3 text-xs">{sample}</button>)}</div><label className="block text-xs font-semibold">Seeded ULPIN<input value={ulpin} onChange={(event) => setUlpin(event.target.value)} className="mt-1 w-full rounded-relume border border-relume-border px-3 py-2" /></label><button type="button" onClick={() => void lookupUlpin()} className="min-h-11 rounded-full bg-relume-command px-4 text-sm font-semibold text-white">Lookup seeded record</button></>}
+      {mode === 'pin' && <p className="rounded-relume border border-relume-border bg-relume-surface-secondary p-3 text-xs leading-5 text-relume-muted">Click any map point to set a location. Ferrum requests a reverse-geocoded address from OpenStreetMap Nominatim; parcel attributes remain GAP.</p>}
+      {mode === 'coordinates' && <><label className="block text-xs font-semibold">Latitude<input value={latitude} onChange={(event) => setLatitude(event.target.value)} placeholder="12.9716 or 12°58′18″N" className="mt-1 w-full rounded-relume border border-relume-border px-3 py-2" /></label><label className="block text-xs font-semibold">Longitude<input value={longitude} onChange={(event) => setLongitude(event.target.value)} placeholder="77.5946 or 77°35′41″E" className="mt-1 w-full rounded-relume border border-relume-border px-3 py-2" /></label><button type="button" onClick={resolveCoordinates} className="min-h-11 rounded-full bg-relume-command px-4 text-sm font-semibold text-white">Set coordinates</button></>}
+      {mode === 'place' && <><label className="block text-xs font-semibold">Address or place<input value={place} onChange={(event) => setPlace(event.target.value)} className="mt-1 w-full rounded-relume border border-relume-border px-3 py-2" /></label><button type="button" onClick={() => void searchPlace()} className="min-h-11 rounded-full bg-relume-command px-4 text-sm font-semibold text-white">Search address</button>{matches.map((item) => <button key={`${item.lat}-${item.lon}`} type="button" onClick={() => selectPlace(item)} className="block w-full rounded-relume border border-relume-border p-2 text-left text-xs">{item.display_name}</button>)}</>}
+      {mode === 'location' && <><p className="text-xs leading-5 text-relume-muted">Your browser asks permission. Ferrum receives coordinates only in this local session; parcel attributes remain GAP.</p><button type="button" onClick={useMyLocation} className="min-h-11 rounded-full bg-relume-command px-4 text-sm font-semibold text-white">Use my location</button></>}
+      {mode === 'survey' && <p className="rounded-relume border border-relume-border bg-relume-surface-secondary p-3 text-xs leading-5 text-relume-muted"><strong className="text-relume-command">ROADMAP</strong> — survey, khasra and plot numbering needs a state-specific adapter. No registry lookup is available here.</p>}</div>
+      <p className="mt-4 text-xs leading-5 text-relume-muted" role="status" aria-live="polite">{message}</p>
+      {record && <div className="mt-3 rounded-relume bg-relume-surface-secondary p-3" data-ulpin-record-card><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Selected location</p><p className="mt-1 text-xs font-medium">{record.district}</p><ProvenanceStrip source={record.source} freshness={new Date().toISOString().slice(0, 10)} /></div>}
+    </aside>
+  </section>
 }
