@@ -5,7 +5,7 @@ import { PrimaryButton, SecondaryButton } from '../components/sections/Buttons'
 import BookingConsultCta from '../components/BookingConsultCta'
 import CardGrid from '../components/sections/CardGrid'
 import SliderLeaf from '../components/sections/SliderLeaf'
-import HeroComposite from '../components/sections/HeroComposite'
+import HomepageCockpitHero from '../components/sections/HomepageCockpitHero'
 
 // The protected /boq-pro app page still exists separately (RULE 6); this
 // card links to its Relume marketing page at /products/boq-pro (W2-250).
@@ -66,32 +66,8 @@ const pricingPlans = [
 export default function HomePage() {
   return (
     <main>
-      {/* 1. Hero */}
-      <SectionShell>
-        <div className="grid gap-10 xl:grid-cols-2 xl:items-center">
-          <div>
-            <Eyebrow>The complete build platform</Eyebrow>
-            <SectionHeading as="h1" className="mt-4">
-              India&rsquo;s first end-to-end construction &amp; investment platform
-            </SectionHeading>
-            <p className="mt-6 text-base leading-7 text-relume-ink">
-              From land to design, build and invest — run your entire project on one India-first
-              platform. Ten integrated products, one shared data model.
-            </p>
-            <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>Land feasibility &amp; ULPIN lookup</li>
-              <li>AI-generated design &amp; engineering</li>
-              <li>Estimate, procure, build &amp; manage</li>
-              <li>Invest &amp; raise capital</li>
-            </ul>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
-              <SecondaryButton href="/products">Explore Products</SecondaryButton>
-            </div>
-          </div>
-          <HeroComposite />
-        </div>
-      </SectionShell>
+      {/* 1. Product-led cockpit hero */}
+      <HomepageCockpitHero />
 
       {/* 2. Value Proposition */}
       <SectionShell background="surface-secondary">
