@@ -13,7 +13,7 @@ const concrete = 0xf4f2ec
 const glass = 0x93bac2
 const metal = 0x202a30
 
-export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; demoMode?: boolean }) {
+export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE LOCATION Bengaluru, Karnataka" }: { plan: StudioPlan; demoMode?: boolean; contextLabel?: string }) {
   const hostRef = useRef<HTMLDivElement>(null)
   const [selected, setSelected] = useState("Podium")
   const [profile, setProfile] = useState<"full" | "reduced" | "diagram">("full")
@@ -358,7 +358,7 @@ export default function Space3D({ plan, demoMode = false }: { plan: StudioPlan; 
     <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
       {profile === 'diagram' && <div className="absolute inset-0 grid place-items-center bg-relume-surface-secondary p-8 text-center text-sm text-relume-command"><p><strong>Reduced diagram mode</strong><br />{contextLost ? 'The 3D graphics context was lost mid-session (a device/driver event, not an app error).' : 'WebGL2 is unavailable.'} Use Plan or Elevation for the same deterministic geometry.</p></div>}
       <div className="pointer-events-none absolute bottom-3 left-3 right-3 z-10 overflow-hidden rounded-full bg-relume-command/90 px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-lg" data-canvas-status-bar>
-        <p className="truncate"><span className="text-relume-accent">INDICATIVE</span> · {profile === 'full' ? 'Full presentation' : profile === 'reduced' ? 'Reduced rendering' : 'Diagram'} · SAMPLE LOCATION Bengaluru · OSM context 2026-09-05 · © OpenStreetMap contributors · existing-from-OSM, not a survey · boundary indicative</p>
+        <p className="truncate"><span className="text-relume-accent">INDICATIVE</span> · {profile === 'full' ? 'Full presentation' : profile === 'reduced' ? 'Reduced rendering' : 'Diagram'} · {contextLabel} · OSM context 2026-09-05 · © OpenStreetMap contributors · existing-from-OSM, not a survey · boundary indicative</p>
       </div>
       <div className="pointer-events-none absolute right-3 top-3 z-10 rounded bg-white/90 px-3 py-2 text-xs text-relume-command shadow">
         Selected: <strong>{selected}</strong><br />Click or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fit
