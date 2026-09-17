@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useState, type ReactNode } from 'react'
-import type { StudioParameters } from '../../lib/types'
+import type { StudioParameters, StudioView } from '../../lib/types'
 import WorkspaceCockpit from './WorkspaceCockpit'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import FullscreenController from './FullscreenController'
@@ -24,7 +24,7 @@ const presets: Record<CockpitProduct, StudioParameters> = {
 
 type CockpitLayout = 'viewport' | 'contained' | 'product-page'
 
-export default function ProductCockpitPreview({ product, label, children, contained = false, layout }: { product: CockpitProduct; label: string; children?: ReactNode; contained?: boolean; layout?: CockpitLayout }) {
+export default function ProductCockpitPreview({ product, label, children, contained = false, layout, defaultView }: { product: CockpitProduct; label: string; children?: ReactNode; contained?: boolean; layout?: CockpitLayout; defaultView?: StudioView }) {
   const [parameters, setParameters] = useState<StudioParameters>(presets[product])
   const resolvedLayout: CockpitLayout = layout ?? (contained ? 'contained' : 'viewport')
   const persistHandoff = useCallback(() => {
@@ -44,7 +44,7 @@ export default function ProductCockpitPreview({ product, label, children, contai
     >
       {children && <div className="mb-4" data-product-live-tool={product}>{children}</div>}
       <CrossProductLiveSummary product={product} parameters={parameters} />
-      <FullscreenController previewSource={product}>{fullscreen => <WorkspaceCockpit controlProduct={product} initialParameters={presets[product]} onParametersChange={setParameters} previewLabel={label} embedMode={resolvedLayout === 'product-page' ? 'full-bleed' : 'default'} fullscreenControl={{ active: fullscreen.active, label: 'Open in workspace ⛶', onClick: () => { persistHandoff(); fullscreen.toggle() } }} />}</FullscreenController>
+      <FullscreenController previewSource={product}>{fullscreen => <WorkspaceCockpit controlProduct={product} initialParameters={presets[product]} onParametersChange={setParameters} previewLabel={label} embedMode={resolvedLayout === 'product-page' ? 'full-bleed' : 'default'} fullscreenControl={{ active: fullscreen.active, label: 'Open in workspace ⛶', onClick: () => { persistHandoff(); fullscreen.toggle() } }} initialView={defaultView} />}</FullscreenController>
       <div className="mt-3 rounded-relume border border-relume-border bg-white p-3">
         <p className="text-xs text-relume-muted"><strong className="text-relume-command">INDICATIVE</strong> deterministic geometry; verify site, code, and authority constraints.</p>
       </div>
