@@ -78,7 +78,13 @@ export default function SharedArtifactPage() {
       <p className="mt-2 text-sm text-relume-muted">
         {artifact.type} · saved {new Date(artifact.created_at).toLocaleString()}
       </p>
-      <pre className="mt-6 overflow-x-auto rounded-relume border border-relume-border bg-relume-surface-secondary p-4 text-xs">
+      {/* W2-503: this is pretty-printed JSON — long lines (long string
+          values, deeply-indented keys) used to force a horizontal scroll.
+          whitespace-pre-wrap keeps newlines/indentation (still readable
+          as JSON) while letting long lines wrap; break-words/
+          overflow-wrap-anywhere covers unbroken long tokens (URLs, ids)
+          that have no natural wrap point. */}
+      <pre className="mt-6 whitespace-pre-wrap break-words rounded-relume border border-relume-border bg-relume-surface-secondary p-4 text-xs [overflow-wrap:anywhere]">
         {JSON.stringify(artifact.data, null, 2)}
       </pre>
     </main>

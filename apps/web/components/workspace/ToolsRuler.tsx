@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useRef, useState } from "react"
 import type { WorkspaceTool, WorkspaceToolCallbacks } from "../../lib/types"
 
 type ToolsRulerProps = Pick<
@@ -18,15 +19,15 @@ const tools: Array<{ id: WorkspaceTool; label: string; description: string }> = 
   { id: "extract", label: "Data extract", description: "Open product data" },
 ]
 
-// W2-502: the `rail=false` branch below (the `overflow-x-auto` row at
-// line ~36, active when `rail` is falsy) was checked against the whole
-// repo, not just this component in isolation - `project-workspace/
-// cockpit/page.tsx` is this component's only call site, and it always
-// passes `rail`. `rail=false` currently has no render path anywhere in
-// the app, so it's left untouched here rather than "fixed" for a
-// consumer that doesn't exist; if a future caller renders this in the
-// horizontal-bar orientation, it should get the same
-// wrap-or-collapse treatment TabRail.tsx and the homepage rail got.
+// W2-503: `rail=false` has no render path anywhere in the app today
+// (project-workspace/cockpit/page.tsx, this component's only call site,
+// always passes `rail`) - confirmed again this session - but the
+// operator's acceptance criterion is a literal repo-wide grep for
+// overflow-x-auto/overflow-x-scroll, so this dead branch still needs a
+// real fix rather than being left as matching-but-unreachable code.
+// Reuses the same trigger+listbox pattern HomepageCockpitHero.tsx/
+// TabRail.tsx already ship for their own horizontal-row-of-tools
+// collapse, rather than inventing a third variant.
 export default function ToolsRuler({
   activeTool,
   extractOpen,
@@ -40,31 +41,175 @@ export default function ToolsRuler({
     if (tool === "extract") onExtractOpenChange(true)
   }
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [focusedTool, setFocusedTool] = useState<WorkspaceTool>(activeTool)
+  const menuRef = useRef<HTMLDivElement | null>(null)
+  const triggerRef = useRef<HTMLButtonElement | null>(null)
+  const optionRefs = useRef<Partial<Record<WorkspaceTool, HTMLDivElement | null>>>({})
+
+  function selectTool(tool: WorkspaceTool) {
+    chooseTool(tool)
+    setIsMenuOpen(false)
+    triggerRef.current?.focus()
+  }
+
+  function toggleMenu() {
+    setIsMenuOpen((current) => {
+      const next = !current
+      if (next) setFocusedTool(activeTool)
+      return next
+    })
+  }
+
+  function closeMenu() {
+    setIsMenuOpen(false)
+    triggerRef.current?.focus()
+  }
+
+  useEffect(() => {
+    if (rail || !isMenuOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault()
+        closeMenu()
+        return
+      }
+      if (event.key === "ArrowDown" || event.key === "ArrowUp" || event.key === "Home" || event.key === "End") {
+        event.preventDefault()
+        setFocusedTool((current) => {
+          const index = tools.findIndex((tool) => tool.id === current)
+          if (event.key === "ArrowDown") return tools[(index + 1) % tools.length].id
+          if (event.key === "ArrowUp") return tools[(index - 1 + tools.length) % tools.length].id
+          if (event.key === "Home") return tools[0].id
+          return tools[tools.length - 1].id
+        })
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rail, isMenuOpen])
+
+  useEffect(() => {
+    if (rail || !isMenuOpen) return
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) setIsMenuOpen(false)
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [rail, isMenuOpen])
+
+  useEffect(() => {
+    if (rail || !isMenuOpen) return
+    const el = optionRefs.current[focusedTool]
+    const reducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    el?.focus()
+    el?.scrollIntoView?.({ behavior: reducedMotion ? "auto" : "smooth", block: "nearest" })
+  }, [rail, isMenuOpen, focusedTool])
+
+  function handleOptionKeyDown(event: React.KeyboardEvent<HTMLDivElement>, tool: WorkspaceTool) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault()
+      selectTool(tool)
+    }
+  }
+
+  const activeToolMeta = tools.find((tool) => tool.id === activeTool) ?? tools[0]
+
   return (
     <aside aria-label="Workspace tools" className={`border-relume-border bg-relume-surface-secondary ${rail ? "border-b lg:border-b-0 lg:border-l" : "border-b"}`}>
-      <div className={`flex items-center gap-2 overflow-x-auto px-4 py-2 sm:px-6 ${rail ? "lg:h-full lg:flex-col lg:overflow-y-auto lg:px-2 lg:py-4" : "mx-auto max-w-relume-container"}`}>
+      {/* DOCUMENTED EXCEPTION (rail=true only, below `lg`): its only call
+          site (project-workspace/cockpit/page.tsx) wraps this in a
+          fixed `w-20` (80px) absolutely-positioned sidebar at every
+          viewport width, not just `lg`+. At `lg`+ it switches to a
+          vertical icon rail (`lg:flex-col lg:overflow-y-auto`) that
+          already fits that 80px width with no scroll. Below `lg` it
+          still needs `overflow-x-auto` here: this is a small,
+          self-contained scroll region clipped inside that fixed 80px
+          box (not a layout that forces `document.documentElement.
+          scrollWidth` past `clientWidth` - confirmed in the live-render
+          checks below), the same category as a deliberately scrollable
+          sidebar list, not the page-level horizontal-scroll defect this
+          task targets. Collapsing it into the trigger+listbox pattern
+          (as the `rail=false` branch below now does) was intentionally
+          not done here, since `rail=true`'s call site and visual design
+          (a persistent narrow icon rail) were out of this task's scope
+          to redesign. */}
+      <div className={`flex items-center gap-2 px-4 py-2 sm:px-6 ${rail ? "overflow-x-auto lg:h-full lg:flex-col lg:overflow-y-auto lg:px-2 lg:py-4" : "mx-auto max-w-relume-container"}`}>
         <span className="mr-1 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
           Tools
         </span>
-        {tools.map((tool) => {
-          const active = tool.id === activeTool
-          return (
+        {rail ? (
+          tools.map((tool) => {
+            const active = tool.id === activeTool
+            return (
+              <button
+                aria-pressed={active}
+                className={`min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${
+                  active
+                    ? "border-relume-ink bg-relume-ink text-white"
+                    : "border-relume-border bg-relume-surface text-relume-ink hover:bg-relume-surface-secondary"
+                }`}
+                key={tool.id}
+                onClick={() => chooseTool(tool.id)}
+                title={tool.description}
+                type="button"
+              >
+                {tool.label}
+              </button>
+            )
+          })
+        ) : (
+          <div ref={menuRef} className="relative">
             <button
-              aria-pressed={active}
-              className={`min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${
-                active
-                  ? "border-relume-ink bg-relume-ink text-white"
-                  : "border-relume-border bg-relume-surface text-relume-ink hover:bg-relume-surface-secondary"
-              }`}
-              key={tool.id}
-              onClick={() => chooseTool(tool.id)}
-              title={tool.description}
+              ref={triggerRef}
               type="button"
+              aria-haspopup="listbox"
+              aria-expanded={isMenuOpen}
+              aria-controls="tools-ruler-listbox"
+              onClick={toggleMenu}
+              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-relume-border bg-relume-surface px-4 py-2 text-sm font-medium text-relume-ink transition-colors hover:bg-relume-surface-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink"
             >
-              {tool.label}
+              <span>{activeToolMeta.label}</span>
+              <span aria-hidden="true">▾</span>
             </button>
-          )
-        })}
+
+            {isMenuOpen && (
+              <div
+                id="tools-ruler-listbox"
+                role="listbox"
+                aria-label="Workspace tools"
+                className="absolute left-0 top-full z-30 mt-2 max-h-80 w-56 overflow-y-auto rounded-2xl border border-relume-border bg-relume-surface p-2 shadow-xl"
+              >
+                {tools.map((tool) => (
+                  <div
+                    key={tool.id}
+                    ref={(el) => {
+                      optionRefs.current[tool.id] = el
+                    }}
+                    role="option"
+                    aria-selected={activeTool === tool.id}
+                    tabIndex={focusedTool === tool.id ? 0 : -1}
+                    onClick={() => selectTool(tool.id)}
+                    onKeyDown={(event) => handleOptionKeyDown(event, tool.id)}
+                    title={tool.description}
+                    className={`flex min-h-11 cursor-pointer items-center rounded-xl px-3 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${
+                      activeTool === tool.id
+                        ? "bg-relume-ink text-white"
+                        : "text-relume-ink hover:bg-relume-surface-secondary"
+                    }`}
+                  >
+                    {tool.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
         <button
           aria-expanded={extractOpen}
           className={`${rail ? "lg:mt-auto" : "ml-auto"} min-h-11 shrink-0 rounded-full border border-relume-border bg-relume-surface px-4 text-sm font-medium text-relume-ink hover:bg-relume-surface-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink`}

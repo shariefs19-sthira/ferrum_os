@@ -78,8 +78,24 @@ export default function AdminLeadsView() {
         {status === "error" && <p className="mt-4 text-sm text-red-600">Invalid token or request failed.</p>}
 
         {leads && (
-          <div className="mt-6 overflow-x-auto rounded-lg border border-relume-border bg-white">
-            <table className="min-w-full divide-y divide-slate-200 text-sm">
+          <div className="mt-6 rounded-lg border border-relume-border bg-white">
+            {/* W2-503: five columns including a full email address don't
+                fit a real <table> below `sm` without forcing a horizontal
+                scroll. Below `sm`: one labelled card per lead (each
+                column header becomes the card's `label:` prefix). At
+                `sm`+: the original table, unchanged. */}
+            <ul className="divide-y divide-slate-100 sm:hidden">
+              {leads.map((l) => (
+                <li key={l.id} className="space-y-1 p-4 text-sm">
+                  <p className="font-medium text-relume-ink">{l.name}</p>
+                  <p className="break-words text-relume-muted"><span className="font-medium text-relume-ink">Email: </span>{l.email}</p>
+                  <p className="text-relume-muted"><span className="font-medium text-relume-ink">Product: </span>{l.product}</p>
+                  <p className="text-relume-muted"><span className="font-medium text-relume-ink">Source: </span>{l.source_page}</p>
+                  <p className="text-relume-muted"><span className="font-medium text-relume-ink">Created: </span>{new Date(l.created_at).toLocaleString()}</p>
+                </li>
+              ))}
+            </ul>
+            <table className="hidden min-w-full divide-y divide-slate-200 text-sm sm:table">
               <thead className="bg-relume-surface-secondary">
                 <tr>
                   <th className="px-4 py-2 text-left font-medium text-relume-muted">Name</th>

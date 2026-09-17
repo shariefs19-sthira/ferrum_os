@@ -68,8 +68,10 @@ function SensitivityBars({ points }: { points: SensitivityPoint[] }) {
           </div>
         ))}
       </div>
-      <div className="overflow-x-auto rounded-relume border border-relume-border">
-        <table className="w-full min-w-[28rem] text-left text-xs">
+      {/* W2-503: two short columns (rate delta, formatted currency) fit
+          at every supported width — the forced min-w was the defect. */}
+      <div className="rounded-relume border border-relume-border">
+        <table className="w-full text-left text-xs">
           <caption className="px-3 py-2 text-left font-semibold uppercase tracking-[0.1em] text-relume-muted">
             Accessible data table
           </caption>
@@ -194,8 +196,23 @@ export default function AnalysisTab({ projectId }: { projectId: string }) {
         {data.cost.line_items.length === 0 ? (
           <p className="mt-4 text-sm text-relume-muted">No BOQ items attached to this project yet.</p>
         ) : (
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full min-w-[420px] text-sm">
+          <div className="mt-4">
+            {/* W2-503: five columns (category, qty, rate, total, source)
+                don't fit a real <table> below `sm`. Below `sm`: one
+                labelled card per line item. At `sm`+: the original
+                table, unchanged. */}
+            <ul className="divide-y divide-relume-border sm:hidden">
+              {data.cost.line_items.map((li) => (
+                <li key={li.category} className="space-y-1 py-3 text-sm">
+                  <p className="font-medium text-relume-ink">{li.category}</p>
+                  <p className="text-relume-muted"><span className="font-medium text-relume-ink">Qty: </span>{li.quantity} {li.unit}</p>
+                  <p className="text-relume-muted"><span className="font-medium text-relume-ink">Rate: </span>{inr(li.rate)}</p>
+                  <p className="text-relume-muted"><span className="font-medium text-relume-ink">Total: </span>{inr(li.line_total)}</p>
+                  <p className="text-xs text-relume-muted"><span className="font-medium text-relume-ink">Source: </span>{li.matched_govt_rate ? "Govt reference" : "Unmatched"}</p>
+                </li>
+              ))}
+            </ul>
+            <table className="hidden w-full text-sm sm:table">
               <thead>
                 <tr className="border-b border-relume-border text-left text-xs uppercase tracking-[0.08em] text-relume-muted">
                   <th className="py-2 pr-2">Category</th>
@@ -263,8 +280,9 @@ export default function AnalysisTab({ projectId }: { projectId: string }) {
         <div className="mt-5">
           <CityComparisonBars rows={data.city_comparison} />
         </div>
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full min-w-[420px] text-sm">
+        {/* W2-503: three short columns fit without a forced min-width. */}
+        <div className="mt-4">
+          <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-relume-border text-left text-xs uppercase tracking-[0.08em] text-relume-muted">
                 <th className="py-2 pr-2">City</th>
