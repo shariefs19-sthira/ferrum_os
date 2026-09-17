@@ -338,7 +338,15 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
       {showDiagram && (
         <section aria-label="Compliance chain diagram" data-compliance-diagram className="border-b border-relume-border bg-relume-surface-secondary p-4">
           <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Explain this building - live compliance chain</p>
-          <div className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: complianceDiagramSvg }} />
+          {/* W2-503: this SVG is generated in-repo (lib/diagramGen/
+              svgFlowDiagram.ts renderFlowDiagramSvg) - not a third-party
+              embed with a fixed pixel canvas - and it already ships
+              `viewBox="0 0 <width> <height>"` with `width="100%"
+              height="auto"`, so it scales down to its container instead
+              of needing to scroll. The overflow-x-auto here was
+              unnecessary; genuinely scaling it (not documenting an
+              exception) is the real fix. */}
+          <div dangerouslySetInnerHTML={{ __html: complianceDiagramSvg }} />
         </section>
       )}
 
@@ -387,7 +395,25 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {fullscreenControl && <button type="button" aria-pressed={fullscreenControl.active} onClick={fullscreenControl.onClick} className="relative z-30 ml-auto min-h-11 rounded-full border border-relume-border bg-relume-command px-4 text-xs font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" data-fullscreen-toggle>{fullscreenControl.label}</button>}
             <button type="button" onClick={() => void createPermalink()} className="min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command" data-view-permalink>Copy view link</button>
           </div>
-          <div className="absolute left-3 right-3 top-16 z-20 flex items-center gap-2 overflow-x-auto rounded-full border border-white/40 bg-relume-command/90 p-2 shadow-xl backdrop-blur-sm md:left-1/2 md:right-auto md:max-w-[calc(100%-2rem)] md:-translate-x-1/2" aria-label={`${optionStage} options`} data-option-chip-flow data-option-stage={optionStage}>
+          {/* W2-503: this floating strip's chip count is bounded, not
+              unbounded, across every optionStage branch - 'use'/
+              'massing'/'rooms' each offer 3 choices, 'compliance' offers
+              2, and 'floors' (the actual max) offers `maxFloors`, which
+              is capped by both the land-use ruleset's max_height_m/
+              floorHeightM and the FAR/coverage ratio (sampleRulesets.ts:
+              max_height_m tops out at 24 m at 3 m/floor, i.e. at most 8
+              floor options) - never the ten-item, long-label rail that
+              TabRail.tsx/HomepageCockpitHero.tsx collapse into a
+              trigger+listbox. flex-wrap (instead of horizontal scroll)
+              is chosen over reinventing that listbox here: with short
+              chip labels ("1 floor".."8 floors") this wraps to at most a
+              couple of rows even at narrow widths, keeps every option
+              visible/tappable with no extra open-menu step (this strip
+              floats over the live 3D canvas mid-flow, where one-tap
+              selection matters more than on a static nav rail), and the
+              wrap is transient - each tap advances `optionStage` and
+              collapses back to the next stage's (smaller) option set. */}
+          <div className="absolute left-3 right-3 top-16 z-20 flex flex-wrap items-center gap-2 rounded-2xl border border-white/40 bg-relume-command/90 p-2 shadow-xl backdrop-blur-sm md:left-1/2 md:right-auto md:max-w-[calc(100%-2rem)] md:-translate-x-1/2" aria-label={`${optionStage} options`} data-option-chip-flow data-option-stage={optionStage}>
             <span className="shrink-0 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-accent">{optionStage} · INDICATIVE</span>
             {optionStage === 'use' && (['Residential', 'Commercial', 'Mixed Use'] as LandUse[]).map((choice) => <button key={choice} type="button" onClick={() => { const rule = ruleset?.land_use_rules[choice]; setLandUse(choice); if (rule) update('setbackM', rule.min_setback_m); setOptionStage('floors'); setCommandResult(`${choice} selected from ${ruleset?.city_label ?? rulesetState} ${ruleset?.version ?? 'GAP'} ruleset.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'floors' && Array.from({ length: maxFloors }, (_, index) => index + 1).map((floors) => <button key={floors} type="button" onClick={() => { update('floors', floors); setOptionStage('massing'); setCommandResult(`${floors} floor${floors === 1 ? '' : 's'} selected; sample FAR and height caps allow up to ${maxFloors}.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{floors} floor{floors === 1 ? '' : 's'}</button>)}
@@ -428,7 +454,13 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           <div className="mt-6" data-measured-boq>
             <div className="flex items-center justify-between gap-2"><p className="text-xs font-semibold">Measured BOQ</p><span className="rounded-full bg-amber-100 px-2 py-1 text-[9px] font-bold text-amber-950">INDICATIVE · RATES REQUIRED</span></div>
             <p className="mt-2 text-[10px] leading-relaxed text-relume-muted">Geometry-derived quantities. Catalog rates remain blank until independently verified.</p>
-            <div className="mt-3 overflow-x-auto"><table className="w-full text-left text-[10px]"><thead><tr className="border-b border-relume-border text-relume-muted"><th className="py-2">Item</th><th className="py-2 text-right">Quantity</th><th className="py-2 text-right">Amount</th></tr></thead><tbody>{measuredBoq.map(line=><tr key={line.item.id} className="border-b border-relume-border/70" title={line.basis}><td className="max-w-32 py-2 pr-2"><span className="block font-medium">{line.item.name}</span><span className="font-mono text-[9px] text-relume-muted">{line.item.itemCode}</span></td><td className="py-2 text-right font-mono tabular-nums">{format(line.quantity,2)} {line.unit}</td><td className="py-2 text-right font-medium">{line.amountInr===null?'Rate required':`₹${format(line.amountInr,2)}`}</td></tr>)}</tbody></table></div>
+            {/* W2-503: this sidebar column is itself narrow (an xl:
+                18rem aside), so item names/codes wrapping inside a
+                fixed-width first column is what forced the scroll, not
+                genuine column count - removing the overflow-x-auto and
+                letting the first column wrap (already `max-w-32`) fixes
+                it without needing a card layout. */}
+            <div className="mt-3"><table className="w-full text-left text-[10px]"><thead><tr className="border-b border-relume-border text-relume-muted"><th className="py-2">Item</th><th className="py-2 text-right">Quantity</th><th className="py-2 text-right">Amount</th></tr></thead><tbody>{measuredBoq.map(line=><tr key={line.item.id} className="border-b border-relume-border/70" title={line.basis}><td className="max-w-32 break-words py-2 pr-2"><span className="block font-medium">{line.item.name}</span><span className="font-mono text-[9px] text-relume-muted">{line.item.itemCode}</span></td><td className="py-2 text-right font-mono tabular-nums">{format(line.quantity,2)} {line.unit}</td><td className="py-2 text-right font-medium">{line.amountInr===null?'Rate required':`₹${format(line.amountInr,2)}`}</td></tr>)}</tbody></table></div>
           </div>
           <p className="mt-6 text-xs leading-5 text-relume-muted">INDICATIVE — deterministic rectangular zoning only. It does not resolve structure, circulation compliance, daylight, Vaastu, services, or authority approval.</p>
         </aside>}

@@ -40,8 +40,12 @@ export default function RateCompareCalculator() {
         {loading ? "Comparing..." : "Compare rates"}
       </button>
       {result && result.rates.length > 0 && (
-        <div className="mt-6 overflow-x-auto">
-          <table className="w-full min-w-[28rem] text-left text-sm">
+        // W2-503: three short columns (Region/Rate/Unit) fit at every
+        // supported width without a forced min-width, so the fix here is
+        // simply removing the overflow-x-auto/min-w that forced a scroll
+        // that was never actually needed.
+        <div className="mt-6">
+          <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-relume-border">
                 <th className="py-2 pr-4 font-semibold text-relume-ink">Region</th>
@@ -52,7 +56,7 @@ export default function RateCompareCalculator() {
             <tbody>
               {result.rates.map((row) => (
                 <tr key={row.region} className="border-b border-relume-border">
-                  <td className="py-2 pr-4 text-relume-ink">{row.region}</td>
+                  <td className="py-2 pr-4 text-relume-ink break-words">{row.region}</td>
                   <td className="py-2 pr-4 text-relume-ink">₹{row.rate}</td>
                   <td className="py-2 text-relume-ink">{row.unit}</td>
                 </tr>

@@ -98,4 +98,32 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     expect(screen.getByRole('button', { name: 'Hide data extract' })).toBeTruthy()
     expect(document.querySelector('[data-contextual-extract]')?.getAttribute('aria-hidden')).toBe('false')
   })
+
+  // W2-503: three intentional horizontal-scroll interactions removed
+  // from this file — the option-chip flow (now wraps instead of
+  // scrolling), the compliance diagram (the SVG scales via its own
+  // viewBox instead of scrolling), and the measured-BOQ table (fits its
+  // narrow sidebar column without a forced scroll).
+  it('has no overflow-x-auto scroll container anywhere in its render', async () => {
+    const onLiveMetricsChange = vi.fn()
+    render(<WorkspaceCockpit onLiveMetricsChange={onLiveMetricsChange} />)
+    await waitFor(() => expect(onLiveMetricsChange).toHaveBeenCalled())
+
+    const optionChipFlow = document.querySelector('[data-option-chip-flow]')
+    expect(optionChipFlow).toBeTruthy()
+    expect(optionChipFlow?.className).not.toMatch(/overflow-x-auto/)
+    expect(optionChipFlow?.className).toMatch(/flex-wrap/)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Explain this building' }))
+    const diagram = await waitFor(() => {
+      const el = document.querySelector('[data-compliance-diagram]')
+      expect(el).toBeTruthy()
+      return el as HTMLElement
+    })
+    expect(diagram.innerHTML).not.toMatch(/overflow-x-auto/)
+    expect(diagram.querySelector('svg')?.getAttribute('viewBox')).toBeTruthy()
+
+    expect(document.querySelector('[data-measured-boq] .overflow-x-auto')).toBeNull()
+    expect(document.querySelectorAll('.overflow-x-auto').length).toBe(0)
+  })
 })

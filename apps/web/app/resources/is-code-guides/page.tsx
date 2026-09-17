@@ -80,8 +80,22 @@ export default function IsCodeGuidesPage() {
       <SectionShell background="surface-secondary">
         <div className="rounded-lg border border-relume-border bg-relume-surface p-6 sm:p-8">
           <h2 className="text-2xl font-semibold tracking-relume-tight text-relume-ink">IS 1200 vs CESMM4</h2>
-          <div className="mt-6 overflow-x-auto">
-            <table className="min-w-full border-separate border-spacing-y-2 text-left">
+          {/* W2-503: "Primary use" and "Decision note" are full sentences,
+              so four columns don't fit a real <table> below `sm`. Below
+              `sm`: one labelled card per standard. At `sm`+: the original
+              table, unchanged. */}
+          <ul className="mt-6 space-y-4 sm:hidden">
+            {measurementRows.map((row) => (
+              <li key={row.standard} className="rounded-lg border border-relume-border p-4">
+                <p className="font-semibold text-relume-ink">{row.standard}</p>
+                <p className="mt-2 text-sm text-relume-ink"><span className="font-medium">Primary use: </span>{row.use}</p>
+                <p className="mt-2"><span className={stanceClass(row.stance)}>{row.stance}</span></p>
+                <p className="mt-2 text-sm text-relume-ink"><span className="font-medium">Decision note: </span>{row.note}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 hidden sm:block">
+            <table className="w-full border-separate border-spacing-y-2 text-left">
               <thead>
                 <tr className="text-sm uppercase tracking-[0.12em] text-relume-ink">
                   <th className="px-4 py-3 font-semibold">Standard</th>
