@@ -45,7 +45,14 @@ export default function EvidenceStateBadge({ state, className = '' }: { state: E
   return (
     <span
       role="status"
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] ${stateStyles[state]} ${className}`}
+      // Monospace treatment for this provenance/status text specifically
+      // (W2-500 visual pass), never for headline/body copy. `font-mono`
+      // already resolves to this repo's own configured stack
+      // (apps/web/tailwind.config.js `theme.extend.fontFamily.mono` =
+      // ui-monospace/SFMono-Regular/Consolas/monospace) — a token that
+      // already existed before this change, so no new webfont import or
+      // layout.tsx change was needed.
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] ${stateStyles[state]} ${className}`}
     >
       {state}
     </span>

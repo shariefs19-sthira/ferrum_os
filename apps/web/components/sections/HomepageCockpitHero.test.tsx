@@ -64,4 +64,42 @@ describe('HomepageCockpitHero', () => {
     expect(screen.getByTestId('cockpit').textContent).toBe('designstudio:DesignStudio')
     expect(screen.queryByTestId('hero-preview-placeholder')).toBeNull()
   })
+
+  it('scrolls the selected product tab into view on selection, respecting prefers-reduced-motion', () => {
+    // jsdom does not implement scrollIntoView; stub it so the call can be observed.
+    const scrollIntoView = vi.fn()
+    // jsdom has no real scrollIntoView implementation.
+    HTMLElement.prototype.scrollIntoView = scrollIntoView
+
+    render(<HomepageCockpitHero />)
+    fireEvent.click(screen.getByRole('tab', { name: 'DesignStudio' }))
+
+    expect(scrollIntoView).toHaveBeenCalledWith(
+      expect.objectContaining({ behavior: 'smooth', inline: 'center', block: 'nearest' }),
+    )
+  })
+
+  it('uses instant (non-smooth) scroll-into-view when prefers-reduced-motion is set', () => {
+    const scrollIntoView = vi.fn()
+    // jsdom has no real scrollIntoView implementation.
+    HTMLElement.prototype.scrollIntoView = scrollIntoView
+    const matchMedia = vi.fn().mockReturnValue({ matches: true })
+    // Partial matchMedia stub, sufficient for this check.
+    window.matchMedia = matchMedia as unknown as typeof window.matchMedia
+
+    render(<HomepageCockpitHero />)
+    fireEvent.click(screen.getByRole('tab', { name: 'Structura' }))
+
+    expect(scrollIntoView).toHaveBeenCalledWith(
+      expect.objectContaining({ behavior: 'auto', inline: 'center', block: 'nearest' }),
+    )
+  })
+
+  it('renders all ten product tabs inside one non-wrapping tablist container', () => {
+    render(<HomepageCockpitHero />)
+    const tablist = screen.getByRole('tablist', { name: 'Ferrum product cockpits' })
+    expect(tablist.className).toMatch(/overflow-x-auto/)
+    expect(tablist.className).toMatch(/min-\[1366px\]:grid-cols-10/)
+    expect(tablist.querySelectorAll('[role="tab"]')).toHaveLength(10)
+  })
 })
