@@ -123,8 +123,27 @@ export default function PricingPage() {
         <div className="mx-auto max-w-3xl text-center">
           <SectionHeading>Every product, one simple price</SectionHeading>
         </div>
-        <div className="mt-12 overflow-x-auto">
-          <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+        {/* W2-503: measured live at 320px — "CommunityBuild" (the
+            longest product name) plus three price columns does not
+            fit without a forced min-width once every product is shown
+            ("Show all 9 subscription products"), so this needed the
+            same card/table split as the other wide tables, not just
+            removing the min-w. Below `sm`: one labelled card per
+            product. At `sm`+: the original table, unchanged. */}
+        <div className="mt-12">
+          <ul className="space-y-3 sm:hidden">
+            {visibleProducts.map((product) => (
+              <li key={product} className="rounded-lg border border-relume-border p-4 text-sm">
+                <p className="font-semibold text-relume-ink">{product}</p>
+                <dl className="mt-2 grid grid-cols-3 gap-2">
+                  <div><dt className="text-xs text-relume-muted">Freemium</dt><dd className="text-relume-ink">Free</dd></div>
+                  <div><dt className="text-xs text-relume-muted">Pro</dt><dd className="text-relume-ink">₹499</dd></div>
+                  <div><dt className="text-xs text-relume-muted">Enterprise</dt><dd className="text-relume-ink">₹9,999</dd></div>
+                </dl>
+              </li>
+            ))}
+          </ul>
+          <table className="hidden w-full border-collapse text-left text-sm sm:table">
             <thead>
               <tr className="border-b border-relume-border">
                 <th className="py-3 pr-4 font-semibold text-relume-ink">Product</th>
