@@ -10,13 +10,13 @@ type TabRailProps = Pick<WorkspaceToolCallbacks, "onProductChange"> & {
 export default function TabRail({ activeProduct, onProductChange }: TabRailProps) {
   return (
     <nav aria-label="Workspace product rail" className="border-b border-relume-border bg-relume-surface">
-      <div className="mx-auto flex max-w-relume-container gap-1 overflow-x-auto px-4 sm:px-6">
+      <div className="mx-auto flex max-w-relume-container flex-wrap gap-0.5 px-2 sm:gap-1 sm:px-6">
         {workspaceProducts.map((product) => {
           const active = product === activeProduct
           return (
             <button
               aria-current={active ? "page" : undefined}
-              className={`min-h-11 shrink-0 border-b-2 px-4 py-3 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-relume-ink ${
+              className={`min-h-11 shrink-0 border-b-2 px-2.5 py-3 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-relume-ink sm:px-4 sm:text-sm ${
                 active
                   ? "border-relume-ink text-relume-ink"
                   : "border-transparent text-relume-muted hover:border-relume-border hover:text-relume-ink"
