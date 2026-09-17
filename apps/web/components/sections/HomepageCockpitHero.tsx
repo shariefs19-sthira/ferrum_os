@@ -3,40 +3,47 @@
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 import ProductCockpitPreview, { type CockpitProduct } from '../workspace/ProductCockpitPreview'
-import EvidenceStateBadge, { type EvidenceState } from './EvidenceStateBadge'
+import EvidenceStateBadge from './EvidenceStateBadge'
 import HeroPreviewPlaceholder from './HeroPreviewPlaceholder'
-import { stageCopy, stageForProduct } from '../../lib/homepageStages'
+import HeroRoadmapPreview from './HeroRoadmapPreview'
+import { stageCopy } from '../../lib/homepageStages'
+import { productExperienceList, type ProductAccentToken } from '../../lib/productExperienceRegistry'
 
-// evidenceState reflects the truthfulness of *this cockpit preview
-// specifically* (every ProductCockpitPreview instance renders deterministic,
-// unverified geometry regardless of product), not that product's full
-// marketing-page feature list — BuildOS/ProcureHub are marked ROADMAP
-// because their product pages disclose zero live functionality today
-// (docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md); the rest show
-// INDICATIVE, matching the existing "INDICATIVE deterministic geometry"
-// disclosure already present in ProductCockpitPreview.tsx.
-const products: Array<{ id: CockpitProduct; label: string; href: string; state: string; evidenceState: EvidenceState }> = [
-  { id: 'landintel', label: 'LandIntel', href: '/products/landintel', state: 'Seeded lookup + map', evidenceState: 'INDICATIVE' },
-  { id: 'designstudio', label: 'DesignStudio', href: '/products/designstudio', state: 'Deterministic massing', evidenceState: 'INDICATIVE' },
-  { id: 'structura', label: 'Structura', href: '/products/structura', state: 'Textbook check preview', evidenceState: 'INDICATIVE' },
-  { id: 'boq-pro', label: 'BOQ Pro', href: '/products/boq-pro', state: 'Measured quantities', evidenceState: 'INDICATIVE' },
-  { id: 'promarket', label: 'ProMarket', href: '/products/promarket', state: 'Seeded comparison', evidenceState: 'INDICATIVE' },
-  { id: 'buildos', label: 'BuildOS', href: '/products/buildos', state: 'Roadmap workflow', evidenceState: 'ROADMAP' },
-  { id: 'procurehub', label: 'ProcureHub', href: '/products/procurehub', state: 'Roadmap workflow', evidenceState: 'ROADMAP' },
-  { id: 'investflow', label: 'InvestFlow', href: '/products/investflow', state: 'Indicative model', evidenceState: 'INDICATIVE' },
-  { id: 'communitybuild', label: 'CommunityBuild', href: '/products/communitybuild', state: 'Sample project state', evidenceState: 'INDICATIVE' },
-  { id: 'transact', label: 'Transact', href: '/products/transact', state: 'Indicative estimate', evidenceState: 'INDICATIVE' },
-]
+// W2-500: all ten products' data now comes from one place
+// (lib/productExperienceRegistry.ts) instead of an inline array here.
+// Selecting a product tab updates the preview/tool area, the stage
+// indicator, the evidence badge, the CTA and the accent styling all from
+// the same registry entry in one state update (setActiveId below) — there
+// is no separate per-field state to fall out of sync.
+const products = productExperienceList
+
+// Accent tokens are a fixed, small set (see productExperienceRegistry.ts's
+// ProductAccentToken comment) mapped to literal Tailwind classes so the
+// JIT compiler can see them — `border-${token}`-style interpolation would
+// not be detected by Tailwind's static analysis.
+const accentBorderClass: Record<ProductAccentToken, string> = {
+  'relume-command': 'border-relume-command',
+  'relume-steel': 'border-relume-steel',
+}
+const accentDotClass: Record<ProductAccentToken, string> = {
+  'relume-command': 'bg-relume-command',
+  'relume-steel': 'bg-relume-steel',
+}
 
 export default function HomepageCockpitHero() {
   const [activeId, setActiveId] = useState<CockpitProduct>('landintel')
   // 3D-mount gate (see HeroPreviewPlaceholder.tsx for the full rationale):
   // stays false until the visitor explicitly clicks "Load interactive
   // preview" once; from then on the real cockpit chain (and therefore
-  // Space3D) stays mounted for every subsequently selected product too.
+  // Space3D) stays mounted for every subsequently selected product too —
+  // but only for products whose registry `tool.kind` is 'live-cockpit'.
+  // BuildOS/ProcureHub/CommunityBuild have no real cockpit to gate: there
+  // is nothing to mount, live or delayed, so this flag is simply never
+  // consulted for them (see `isLiveTool`/`showRoadmap` below).
   const [hasInteracted, setHasInteracted] = useState(false)
   const active = products.find((product) => product.id === activeId) ?? products[0]
-  const activeStage = stageForProduct[activeId]
+  const activeStage = active.stage
+  const isLiveTool = active.tool.kind === 'live-cockpit'
 
   // Product-rail tab refs, keyed by product id, so a selection (click or
   // keyboard activation of the native <button>) can scroll the newly
@@ -83,13 +90,25 @@ export default function HomepageCockpitHero() {
               Move between land, design, engineering, quantities and delivery through one working cockpit. Every surface below is labelled as live, sample, indicative, gap or roadmap.
             </p>
 
+            {/* Restrained per-product accent (see productExperienceRegistry.ts's
+                ProductAccentToken comment): a small dot plus persona/lens line,
+                not a full background recolor. */}
+            <p className="mt-4 flex items-start gap-2 text-sm leading-6 text-relume-muted" data-product-lens>
+              <span aria-hidden="true" className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${accentDotClass[active.accent]}`} />
+              <span>
+                <strong className="text-relume-ink">For: </strong>{active.persona}
+                <br />
+                <strong className="text-relume-ink">Decision: </strong>{active.lens}
+              </span>
+            </p>
+
             {/* One primary CTA (dominant visual weight: solid fill) and one
                 subordinate secondary CTA (outline only) — per the Console
                 spec's "one primary hero CTA, one secondary product-discovery
                 CTA" requirement. */}
             <div className="mt-5 flex flex-wrap gap-3">
-              <Link href={active.href} className="inline-flex min-h-11 items-center rounded-full bg-relume-ink px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink">
-                Open {active.label} cockpit
+              <Link href={active.primaryCta.href} className="inline-flex min-h-11 items-center rounded-full bg-relume-ink px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink">
+                {active.primaryCta.label}
               </Link>
               <Link href="/products" className="inline-flex min-h-11 items-center rounded-full border border-relume-border px-6 py-3 text-sm font-medium text-relume-muted transition-colors duration-200 hover:bg-relume-surface-secondary hover:text-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink">
                 See all 10 products
@@ -97,8 +116,9 @@ export default function HomepageCockpitHero() {
             </div>
 
             {/* Stage indicator: Land / Design / Build / Invest, tied to the
-                active product via lib/homepageStages.ts. Purely indicative
-                (not independently tappable), so no touch-target constraint
+                active product via lib/homepageStages.ts (sourced through
+                the registry's `stage` field). Purely indicative (not
+                independently tappable), so no touch-target constraint
                 applies to it (docs/design/HOMEPAGE_REDESIGN_2026.md §5.4,
                 "Mobile section sequence"). relume-accent is intentionally
                 not used here — the selected stage pill uses relume-ink,
@@ -123,24 +143,40 @@ export default function HomepageCockpitHero() {
             </div>
           </div>
 
-          {/* Right column: the selected product's preview (placeholder
-              before interaction, real cockpit after — gate logic
-              unchanged). Sits beside the left column at `lg`+ so the
-              preview is visible above the fold at 1366x768; stacks below
-              the rail on mobile via `order-3`. */}
+          {/* Right column: the selected product's preview. Three states:
+                - registry `tool.kind !== 'live-cockpit'` (BuildOS,
+                  ProcureHub, CommunityBuild): always the honest
+                  HeroRoadmapPreview, regardless of `hasInteracted` — there
+                  is nothing real to gate or mount for these three.
+                - live-cockpit products, before the gate fires: the
+                  existing HeroPreviewPlaceholder ("Load interactive
+                  preview").
+                - live-cockpit products, after the gate fires: the real
+                  ProductCockpitPreview -> WorkspaceCockpit -> Space3D
+                  chain, opened on this product's registry-specified
+                  `defaultView`.
+              Sits beside the left column at `lg`+ so the preview is
+              visible above the fold at 1366x768; stacks below the rail on
+              mobile via `order-3`. */}
           <div
             id="homepage-cockpit-stage"
             role="tabpanel"
             aria-label={`${active.label} cockpit`}
-            className="order-3 min-w-0 lg:order-2 lg:col-span-7"
+            className={`order-3 min-w-0 border-t-2 lg:order-2 lg:col-span-7 ${accentBorderClass[active.accent]}`}
             data-home-cockpit-product={active.id}
           >
-            {hasInteracted ? (
-              <ProductCockpitPreview key={active.id} product={active.id} label={active.label} layout="product-page" />
+            {!isLiveTool ? (
+              <HeroRoadmapPreview
+                productLabel={active.label}
+                reason={active.tool.kind === 'ROADMAP' || active.tool.kind === 'GAP' ? active.tool.reason : ''}
+                evidenceState={active.evidenceState}
+              />
+            ) : hasInteracted ? (
+              <ProductCockpitPreview key={active.id} product={active.id} label={active.label} layout="product-page" defaultView={active.defaultView} />
             ) : (
               <HeroPreviewPlaceholder
                 productLabel={active.label}
-                task={active.state}
+                task={active.outputCards[0] ?? active.provenance}
                 evidenceState={active.evidenceState}
                 onLoad={() => setHasInteracted(true)}
               />
@@ -204,11 +240,22 @@ export default function HomepageCockpitHero() {
               surrounding text (product name, task, note) stays on the
               regular sans body font, matching the "monospace for
               provenance/status only, never headline/body copy" rule. */}
-          <div className="order-4 flex flex-wrap items-center justify-between gap-2 border-t border-relume-border py-2 text-xs text-relume-muted lg:col-span-12">
+          <div className="order-4 flex flex-col gap-2 border-t border-relume-border py-2 text-xs text-relume-muted lg:col-span-12">
             <p className="flex flex-wrap items-center gap-2">
-              <strong className="text-relume-ink">{active.label}</strong> · {active.state}
+              <strong className="text-relume-ink">{active.label}</strong>
               <EvidenceStateBadge state={active.evidenceState} />
+              <span data-product-provenance>{active.provenance}</span>
             </p>
+            {active.outputCards.length > 0 && (
+              <p data-product-output-cards>
+                <strong className="text-relume-ink">Shows: </strong>{active.outputCards.join(' · ')}
+              </p>
+            )}
+            {active.controls.length > 0 && (
+              <p data-product-controls>
+                <strong className="text-relume-ink">Adjustable: </strong>{active.controls.join(' · ')}
+              </p>
+            )}
             <p>Product state is preserved locally in this browser.</p>
           </div>
         </div>

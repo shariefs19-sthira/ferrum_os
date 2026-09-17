@@ -91,14 +91,24 @@ type WorkspaceCockpitProps = {
   controlProduct?: ProductControlId
   fullscreenControl?: { active: boolean; label: string; onClick: () => void }
   activeProduct?: WorkspaceProduct
+  // W2-500 (productExperienceRegistry): which of the four model views
+  // (`views` below) this cockpit instance opens on, per-product, via
+  // `productExperienceRegistry.ts`'s `defaultView` field. Before this
+  // prop existed, `view` was hardcoded to `useState<StudioView>('space')`
+  // for every product with no way to differentiate — this is a real,
+  // minimal wiring of that per-product intent, not a cosmetic label. A
+  // URL permalink (`?workspaceView=`), if present, still overrides this
+  // on mount (see the `decodeWorkspaceView` effect below), same as it
+  // already overrode the previous hardcoded default.
+  initialView?: StudioView
 }
 
 const defaultParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 }
 
-export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, embedMode = 'default', controlProduct, fullscreenControl, activeProduct }: WorkspaceCockpitProps) {
+export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, embedMode = 'default', controlProduct, fullscreenControl, activeProduct, initialView }: WorkspaceCockpitProps) {
   const [parameters, setParameters] = useState<StudioParameters>(initialParameters)
   const [projectStateReady, setProjectStateReady] = useState(false)
-  const [view, setView] = useState<StudioView>('space')
+  const [view, setView] = useState<StudioView>(initialView ?? 'space')
   const [activeFloor, setActiveFloor] = useState(1)
   const [primaryAreaUnit, setPrimaryAreaUnit] = useState<typeof areaUnits[number]>('sqm')
   const [showFineControls, setShowFineControls] = useState(false)
