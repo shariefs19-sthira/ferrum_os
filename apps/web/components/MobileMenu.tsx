@@ -16,8 +16,10 @@ const productLinks = [
   { name: 'Transact', href: '/products/transact' }
 ];
 
+// W2-500: "Pricing" removed, alongside the "Log in" / "Start Free Trial"
+// buttons rendered below — see the matching comment in SiteHeader.tsx for
+// why (docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md).
 const utilityLinks = [
-  { name: 'Pricing', href: '/pricing' },
   { name: 'Resources', href: '/resources/blog' },
   { name: 'Documentation', href: '/documentation' },
   { name: 'About', href: '/about' }
@@ -145,17 +147,6 @@ export default function MobileMenu() {
                     {link.name}
                   </Link>
                 ))}
-              </div>
-            </div>
-
-            <div className="border-t border-relume-border pt-3">
-              <div className="space-y-2">
-                <Link href="/login" onClick={closeMenu} className="flex min-h-11 items-center rounded-xl border border-relume-border px-3 py-2.5 text-sm font-medium text-relume-muted transition hover:bg-relume-surface-secondary">
-                  Log in
-                </Link>
-                <Link href="/signup" onClick={closeMenu} className="flex min-h-11 items-center rounded-xl bg-relume-ink px-3 py-2.5 text-sm font-medium text-white transition hover:opacity-90">
-                  Start Free Trial
-                </Link>
               </div>
             </div>
           </div>

@@ -1,8 +1,6 @@
 import SectionShell from '../components/sections/SectionShell'
 import Eyebrow from '../components/sections/Eyebrow'
 import SectionHeading from '../components/sections/SectionHeading'
-import { PrimaryButton, SecondaryButton } from '../components/sections/Buttons'
-import BookingConsultCta from '../components/BookingConsultCta'
 import CardGrid from '../components/sections/CardGrid'
 import SliderLeaf from '../components/sections/SliderLeaf'
 import HomepageCockpitHero from '../components/sections/HomepageCockpitHero'
@@ -22,13 +20,6 @@ const productShowcaseItems = [
   { title: 'Transact', body: 'Indicative stamp-duty & ask-band estimation', href: '/products/transact' },
 ]
 
-const valuePropItems = [
-  { title: 'Land', body: 'Check feasibility, zoning and risk before you buy or build.' },
-  { title: 'Design', body: 'Generate plans and get them engineered to IS codes.' },
-  { title: 'Build', body: 'Estimate, procure, manage and track your project.' },
-  { title: 'Invest', body: 'Model returns and raise capital with confidence.' },
-]
-
 // W2-347: rewritten to match each linked product page's real vs. roadmap
 // split (LandIntel/DesignStudio/ProcureHub/CommunityBuild steps were
 // overstating unbuilt capability as present-tense, same defect class
@@ -41,50 +32,32 @@ const howItWorksSteps = [
   { title: 'Invest & grow', body: 'Model IRR/NPV today; capital-raising and fractional investment on the roadmap.' },
 ]
 
-const pricingPlans = [
-  {
-    name: 'Freemium',
-    price: 'Free',
-    features: ['1 active project', 'ULPIN land lookups', 'Basic BOQ & estimates', 'Community support'],
-    button: 'Start Free Trial',
-  },
-  {
-    name: 'Pro',
-    price: '₹499/mo',
-    tag: 'Most popular',
-    features: ['Unlimited projects', 'All 9 subscription products', 'IS code compliance', 'Priority support'],
-    button: 'Start Free Trial',
-  },
-  {
-    name: 'Enterprise',
-    price: '₹9,999/mo',
-    features: ['Unlimited everything', 'API access', 'Dedicated account manager', 'Custom integrations'],
-    button: 'Contact sales',
-  },
-]
-
+// W2-500 (Project Decision Console): the old "Value Proposition" section
+// that used to render here (its own `valuePropItems` array, prose-only
+// Land/Design/Build/Invest framing) has been removed — that same
+// four-stage framing is now the hero's stage indicator (see
+// apps/web/lib/homepageStages.ts and HomepageCockpitHero.tsx), so the
+// concept is presented once on the page instead of twice (once as prose,
+// once implicitly via the product grid). The ten-product map below is
+// relocated to sit directly after the hero, per
+// docs/design/HOMEPAGE_REDESIGN_2026.md §5.4.
+//
+// The Pricing Preview section (`pricingPlans`) and the final "Start Free
+// Trial" CTA section have also been removed entirely. Per
+// docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md, `/pricing` is HOLD
+// (unattributed ₹499/₹9,999 figures, payment processing falls back to a
+// stub provider when Razorpay isn't configured) and `/signup`/`/login`
+// are real source-level implementations but not deployed-account
+// verified — neither should be promoted as a homepage CTA ahead of that
+// verification. Removing the pricing block also removes the unattributed
+// "60-90% below global tools" comparison that lived inside it.
 export default function HomePage() {
   return (
     <main>
-      {/* 1. Product-led cockpit hero */}
+      {/* 1. Product-led cockpit hero (Project Decision Console) */}
       <HomepageCockpitHero />
 
-      {/* 2. Value Proposition */}
-      <SectionShell background="surface-secondary">
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Land → Design → Build → Invest</Eyebrow>
-          <SectionHeading className="mt-4">One platform, the whole journey</SectionHeading>
-          <p className="mt-6 text-base leading-7 text-relume-ink">
-            Four connected stages. Ten products. One shared data model — so nothing is
-            re-entered and every decision flows into the next.
-          </p>
-        </div>
-        <div className="mt-12">
-          <CardGrid items={valuePropItems} columns={4} />
-        </div>
-      </SectionShell>
-
-      {/* 3. Product Showcase */}
+      {/* 2. Ten-product map, directly below the working preview */}
       <SectionShell>
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>Explore the products</Eyebrow>
@@ -102,7 +75,7 @@ export default function HomePage() {
         </div>
       </SectionShell>
 
-      {/* 4. How It Works */}
+      {/* 3. How It Works */}
       <SectionShell background="surface-secondary">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>How it works</Eyebrow>
@@ -116,40 +89,6 @@ export default function HomePage() {
         </div>
       </SectionShell>
 
-      {/* 5. Pricing Preview */}
-      <SectionShell>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Pricing</Eyebrow>
-          <SectionHeading className="mt-4">Simple, SMB-friendly pricing</SectionHeading>
-          <p className="mt-6 text-base leading-7 text-relume-ink">
-            Start free. Scale as you build. Plans from ₹499/month — 60–90% below global tools.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {pricingPlans.map((plan) => (
-            <div key={plan.name} className="rounded-lg border border-relume-border bg-relume-surface p-8">
-              {plan.tag && (
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-relume-ink">
-                  {plan.tag}
-                </p>
-              )}
-              <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">{plan.name}</h3>
-              <p className="mt-2 text-3xl font-semibold tracking-relume-tight text-relume-ink">{plan.price}</p>
-              <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-                {plan.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-              <div className="mt-8">
-                <PrimaryButton href={plan.button === 'Contact sales' ? '/contact' : '/signup'}>
-                  {plan.button}
-                </PrimaryButton>
-              </div>
-            </div>
-          ))}
-        </div>
-      </SectionShell>
-
       {/* Testimonials section removed under W2-345 (SITEWIDE_CLAIM_TRUTH):
           it presented three fabricated customer quotes attributed to
           invented named individuals (Rahul Mehta, Priya Sharma, Arjun Nair)
@@ -158,22 +97,6 @@ export default function HomePage() {
           there is no honest version of a customer testimonial section before
           there are customers. Reinstate with real, attributed quotes once
           they exist. */}
-
-      {/* 7. Start Free Trial */}
-      <SectionShell>
-        <div className="mx-auto max-w-xl rounded-lg border border-relume-border bg-relume-surface-secondary p-10 text-center">
-          <Eyebrow>Start free</Eyebrow>
-          <SectionHeading className="mt-4">Start building with Ferrum Build</SectionHeading>
-          <p className="mt-6 text-base leading-7 text-relume-ink">
-            No credit card required. Set up your first project in minutes.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <PrimaryButton href="/signup">Start Free Trial</PrimaryButton>
-            <SecondaryButton href="/pricing">Talk to sales</SecondaryButton>
-            <BookingConsultCta />
-          </div>
-        </div>
-      </SectionShell>
     </main>
   )
 }

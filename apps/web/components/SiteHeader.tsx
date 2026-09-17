@@ -17,9 +17,16 @@ import BrandMark from './BrandMark'
  * the auth pair as Relume's secondary (bordered) + primary (flat) buttons.
  */
 
+// W2-500: "Pricing" nav link removed, alongside the "Log in" / "Start
+// Free Trial" header buttons below. Per
+// docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md, /pricing is HOLD
+// (unattributed figures, stub payment fallback) and /signup /login are
+// real source-level implementations but not deployed-account verified —
+// none of the three should be promoted from the global header ahead of
+// that verification. The routes/pages themselves are untouched; only
+// their promotional presence in this header nav is removed.
 const navLinks = [
   { name: 'Products', href: '/products' },
-  { name: 'Pricing', href: '/pricing' },
   { name: 'Resources', href: '/resources' },
   { name: 'Documentation', href: '/documentation' },
   { name: 'About', href: '/about' },
@@ -48,21 +55,6 @@ export default function SiteHeader() {
             ))}
           </ul>
         </nav>
-
-        <div className="hidden shrink-0 items-center gap-3 whitespace-nowrap lg:flex">
-          <Link
-            href="/login"
-            className="inline-flex items-center justify-center rounded-full border border-relume-border px-5 py-2.5 text-sm font-medium text-relume-ink transition hover:bg-relume-surface-secondary"
-          >
-            Log in
-          </Link>
-          <Link
-            href="/signup"
-            className="inline-flex items-center justify-center rounded-full bg-relume-ink px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
-          >
-            Start Free Trial
-          </Link>
-        </div>
 
         <MobileMenu />
       </div>
