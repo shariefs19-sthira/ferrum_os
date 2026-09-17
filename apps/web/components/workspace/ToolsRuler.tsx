@@ -18,6 +18,15 @@ const tools: Array<{ id: WorkspaceTool; label: string; description: string }> = 
   { id: "extract", label: "Data extract", description: "Open product data" },
 ]
 
+// W2-502: the `rail=false` branch below (the `overflow-x-auto` row at
+// line ~36, active when `rail` is falsy) was checked against the whole
+// repo, not just this component in isolation - `project-workspace/
+// cockpit/page.tsx` is this component's only call site, and it always
+// passes `rail`. `rail=false` currently has no render path anywhere in
+// the app, so it's left untouched here rather than "fixed" for a
+// consumer that doesn't exist; if a future caller renders this in the
+// horizontal-bar orientation, it should get the same
+// wrap-or-collapse treatment TabRail.tsx and the homepage rail got.
 export default function ToolsRuler({
   activeTool,
   extractOpen,

@@ -342,7 +342,18 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         </section>
       )}
 
-      <div className={`grid min-w-0 ${canvasFirst || fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      {/* W2-502 root-cause fix: as a flex item of the `canvasFirst` section
+          above (`flex h-full min-h-0 flex-col`), this grid must carry
+          `flex-1` to actually fill the section's available height -
+          without it the grid sizes to its content's natural height,
+          leaving the absolutely-positioned `data-cockpit-canvas` below
+          (which is sized `inset-x-0 bottom-0 top-[3.75rem]` relative to
+          `data-cockpit-canvas-section`, itself a child of this grid) with
+          no real height to fill. This was the entire dead-white-space
+          defect; `fullBleedEmbed` doesn't need it (its section isn't
+          `flex-col`, so this grid already gets its height from the normal
+          document flow / `min-h-[70vh]` on the section). */}
+      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst || fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
