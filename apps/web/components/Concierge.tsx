@@ -2,11 +2,17 @@
 
 import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { matchIntent, FALLBACK_MESSAGE } from "../lib/concierge/intents"
+import { answerWithGrounding, type Citation, type ConciergeAnswer } from "../lib/ai/concierge"
+import { recordFeedback } from "../lib/ai/feedback"
 
 type Message = {
   role: "user" | "assistant"
   text: string
+  citations?: Citation[]
+  source?: ConciergeAnswer["source"]
+  query?: string
+  feedback?: "useful" | "not-useful"
+  correctionOpen?: boolean
 }
 
 const QUICK_REPLIES = [
@@ -17,12 +23,12 @@ const QUICK_REPLIES = [
 ]
 
 /**
- * CONCIERGE — W2-307. Deterministic intent-router assistant: no LLM,
- * no external network calls. Matches user text against a build-time
- * catalog (lib/concierge/catalog.ts) and either navigates
- * (router.push) or gives a polite fallback + lead-handoff link. Voice
- * follows docs/COMPLIANCE_GATE.md's register — helpful and specific,
- * never a guarantee, never inventing a capability that isn't real.
+ * CONCIERGE — W2-307, grounded per AI-02 (CLAUDE-20260917-AI-FOUNDATION-LIVE).
+ * Still no LLM, no external network call: answerWithGrounding tries the
+ * deterministic catalog route first (free, instant), then a deterministic
+ * keyword-retrieval index with visible citations, then an honest fallback
+ * — never a fabricated answer. AI-03 adds local useful/not-useful +
+ * optional correction capture, stored client-side only.
  */
 export default function Concierge() {
   const router = useRouter()
@@ -32,6 +38,7 @@ export default function Concierge() {
     { role: "assistant", text: "Hi — I can point you to a Ferrum OS product, tool, or page. What are you looking for?" },
   ])
   const panelRef = useRef<HTMLDivElement>(null)
+  const [correctionDrafts, setCorrectionDrafts] = useState<Record<number, string>>({})
 
   useEffect(() => {
     if (open && panelRef.current) panelRef.current.focus()
@@ -40,17 +47,36 @@ export default function Concierge() {
   const handleSend = (text: string) => {
     if (!text.trim()) return
     setMessages((prev) => [...prev, { role: "user", text }])
-    const match = matchIntent(text)
-    if (match) {
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", text: `Here's ${match.entry.label} — taking you there now.` },
-      ])
-      setTimeout(() => router.push(match.entry.href), 400)
-    } else {
-      setMessages((prev) => [...prev, { role: "assistant", text: FALLBACK_MESSAGE }])
+    const answer = answerWithGrounding(text)
+    setMessages((prev) => [
+      ...prev,
+      { role: "assistant", text: answer.text, citations: answer.citations, source: answer.source, query: text },
+    ])
+    if (answer.navigateHref) {
+      setTimeout(() => router.push(answer.navigateHref as string), 400)
     }
     setInput("")
+  }
+
+  const handleFeedback = (index: number, useful: boolean, correction?: string) => {
+    setMessages((prev) => {
+      const next = [...prev]
+      const m = next[index]
+      if (!m || m.role !== "assistant" || m.feedback) return prev
+      if (!useful && correction === undefined) {
+        next[index] = { ...m, correctionOpen: true }
+        return next
+      }
+      next[index] = { ...m, feedback: useful ? "useful" : "not-useful", correctionOpen: false }
+      recordFeedback({
+        query: m.query ?? "",
+        answerText: m.text,
+        answerSource: m.source ?? "fallback",
+        useful,
+        correction: correction?.trim() || undefined,
+      })
+      return next
+    })
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -104,6 +130,64 @@ export default function Concierge() {
             >
               {m.text}
             </span>
+            {m.role === "assistant" && m.citations && m.citations.length > 0 && (
+              <div className="mt-1 flex flex-wrap gap-x-2 gap-y-1 text-xs text-relume-muted">
+                <span>Source{m.citations.length > 1 ? "s" : ""}:</span>
+                {m.citations.map((c, ci) => (
+                  <a
+                    key={ci}
+                    href={c.href}
+                    className="underline decoration-dotted hover:text-relume-ink"
+                  >
+                    {c.title}
+                  </a>
+                ))}
+              </div>
+            )}
+            {m.role === "assistant" && m.source && m.source !== "deterministic" && (
+              <div className="mt-1 text-xs text-relume-muted">
+                {m.feedback ? (
+                  <span>Thanks for the feedback.</span>
+                ) : m.correctionOpen ? (
+                  <div className="flex flex-wrap items-center gap-2">
+                    <input
+                      value={correctionDrafts[i] ?? ""}
+                      onChange={(e) => setCorrectionDrafts((prev) => ({ ...prev, [i]: e.target.value }))}
+                      placeholder="What should it have said? (optional)"
+                      aria-label="Correction for this answer"
+                      className="min-h-11 min-w-0 flex-1 rounded-lg border border-relume-border px-2 py-1 text-xs"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleFeedback(i, false, correctionDrafts[i] ?? "")}
+                      className="inline-flex min-h-11 items-center justify-center rounded-full border border-relume-border px-3 text-relume-ink"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <span>Was this useful?</span>
+                    <button
+                      type="button"
+                      onClick={() => handleFeedback(i, true)}
+                      aria-label="Mark answer as useful"
+                      className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-relume-border px-2 text-relume-ink"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleFeedback(i, false)}
+                      aria-label="Mark answer as not useful"
+                      className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-relume-border px-2 text-relume-ink"
+                    >
+                      No
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>
