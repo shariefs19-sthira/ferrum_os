@@ -617,6 +617,521 @@ Relevant knowns from the code actually read for this spec:
   longer exists anywhere on the rendered homepage.
 - Every new interactive element has a computed touch target ≥44×44px.
 
+## 5. Reconciliation against the operator's Project Decision Console decision (supersedes §4's selection)
+
+### 5.1 The operator's stated requirement
+
+Since §4 was written, the operator has given explicit, direct product
+requirements for a **"Project Decision Console"** concept. These
+requirements take precedence over the three abstract directions weighed
+in §2 — they are the operator's own stated decision about what the
+homepage must do, not a fourth candidate to be scored against A/B/C on
+equal footing. Reproduced in full below, compiled from the requirements
+as given to this task (every clause maps to language the operator
+specified; nothing here is invented):
+
+> **Project Decision Console — operator requirements**
+> - Lead with **one** project decision and its evidence immediately in
+>   the hero — not ten equal products.
+> - An interactive product switcher changes preview/task/CTA/evidence
+>   state on selection.
+> - LandIntel is the initial INDICATIVE preview shown before any user
+>   interaction.
+> - Image-first hero: load expensive interaction only after user
+>   intent. The initial visual must not require 3D JavaScript.
+> - One primary hero CTA and one secondary product-discovery CTA.
+> - The four lifecycle stages (Land / Design / Build / Invest) are
+>   shown as a structural element.
+> - The full ten-product map is moved below the working preview — not
+>   omitted, not the primary structure.
+> - One consistent visual system for LIVE / INDICATIVE /
+>   SOURCE-VERIFIED / GAP / ROADMAP states.
+> - Remove duplicated product navigation, generic trial/sales actions,
+>   unsupported superlatives, and initial decorative 3D dependencies.
+> - Sales-oriented calls to action are held wherever functionality or
+>   commercial authority is unverified.
+> - Acceptance bar: 375/430/1366/1440px with zero horizontal overflow,
+>   44×44px touch targets, visible keyboard focus, reduced-motion
+>   support, one clear task-primary hero CTA, no 3D JS dependency in
+>   the initial visual, and production LCP ≤2.5s at p75 as a stated —
+>   currently unverifiable — target.
+
+### 5.2 Direction B against the Project Decision Console requirements, criterion by criterion
+
+**1. Lead with the decision, in the hero, with a live product
+switcher.** This is structurally close to what already exists today.
+`HomepageCockpitHero.tsx` is already mounted first on the page
+(`page.tsx:69-70`, the `{/* 1. Product-led cockpit hero */}` comment
+and `<HomepageCockpitHero />` call), already renders a real tab
+switcher across all 10 products (`HomepageCockpitHero.tsx:7-18`), and
+already changes the mounted `ProductCockpitPreview` on selection
+(`HomepageCockpitHero.tsx:68-70`, keyed by `active.id`). Direction B's
+own plan does the opposite of what Console asks: it explicitly
+relocates this same hero out of position 1 and into beat 4, behind two
+new narrative `StageNarrativeSection`s (§4, "Desktop section sequence,"
+items 1-4). Moving the decision *away* from the hero is the reverse of
+"lead with the decision and its evidence."
+
+**2. Image-first hero; no 3D JS before user intent.** This is a direct,
+explicit fix for the exact two open risks §3's comparison table flagged
+against Direction A — "mobile 3D fallback and non-visual demo
+alternative are both real open problems," rated "Highest risk" (§3,
+Accessibility/performance row). Checked against the code: today the 3D
+chunk is *not* gated behind interaction at all. `WorkspaceCockpit.tsx`
+defaults its view state to `'space'` (`WorkspaceCockpit.tsx:101`,
+`useState<StudioView>('space')`), and the JSX branch that renders
+`Space3D` fires on that default (`WorkspaceCockpit.tsx:378`,
+`{view === 'space' ? <Space3D .../> : <PlanElevationView .../>}`).
+Because `HomepageCockpitHero.tsx:68-70` mounts `ProductCockpitPreview` →
+`WorkspaceCockpit` unconditionally as soon as the hero — the page's
+first section — renders, the `next/dynamic(..., { ssr: false })`
+Space3D chunk (`WorkspaceCockpit.tsx:33-40`, ~148KB gz per the existing
+W-27 comment) fetches on first paint today, with zero user interaction.
+The operator's requirement is a concrete engineering fix for precisely
+the risk that made Direction A "riskiest floor" in §4's own selection
+reasoning — it supplies the missing discipline (defer 3D, image-first
+initial paint) that A lacked, which removes the original reason B was
+preferred over a demo-led approach.
+
+**3. Ten-product map moved below the working preview, not omitted.**
+Compatible with keeping `productShowcaseItems`
+(`page.tsx:12-23`) largely as-is, just relocated — a smaller structural
+change than B's plan to build four new `StageNarrativeSection`
+components for Land/Design/Build/Invest as a narrative spine the
+visitor must scroll through before any product interaction happens
+(§4, "New components needed"). Console's version needs one relocation;
+B's version needs four new components plus a relocation.
+
+**4. One consistent LIVE/INDICATIVE/SOURCE-VERIFIED/GAP/ROADMAP visual
+system.** This is a more rigorous, more explicit version of what §1's
+"what's weak" section already flagged: `ProvenanceStrip.tsx:16-26`'s
+`IndicativeChip` hardcodes `amber-300`/`amber-50`/`amber-800`, not the
+in-namespace `relume-accent` used elsewhere for the same concept. Reading
+further for this reconciliation surfaces the defect class is wider than
+§0/§1 already caught: `WorkspaceCockpit.tsx:316`'s header "INDICATIVE"
+badge uses a *third* independent treatment
+(`border-relume-accent bg-orange-50`), `WorkspaceCockpit.tsx:317-319`'s
+"IS 456 PASS/REVIEW" badge uses a *fourth* ad-hoc pairing
+(`bg-emerald-100 text-emerald-900` / `bg-amber-100 text-amber-950`), and
+`ProductCockpitPreview.tsx:49` renders "INDICATIVE" as plain
+`text-relume-command` inline text with no chip at all — a fifth,
+unstyled variant. Four independent visual treatments of the same
+underlying concept, all on the cockpit render path alone. Project
+Decision Console doesn't just tolerate fixing this — it requires it as
+infrastructure. This is a real improvement over B's plan, which used
+per-stage IS-code citations as its credibility mechanism (§4,
+"Credibility and trust structure") — a content strategy that does
+nothing by itself to address this token-consistency defect.
+
+**5. Where the two converge, not conflict.** B's insight that the site
+needs the four Land/Design/Build/Invest stages as an organizing device
+is not discarded — Console lists the same four lifecycle stages as a
+required structural element too. The real difference is sequencing: B
+tells the story first and arrives at proof (§4, "Information hierarchy
+and narrative": "here is the journey... → here is proof it's real...");
+Console puts the proof (one live, selected project decision) first and
+uses the four stages to organize what's reachable from there, not as a
+prerequisite narrative gate before interaction. B's thinking was not
+wrong — the operator's explicit product requirement resolves the
+sequencing question B and Console differ on, in Console's favor, for
+the concrete reasons above (the fix for A's floor risk, the smaller
+structural diff, the more rigorous evidence-labeling requirement), not
+merely because the operator said so.
+
+### 5.3 Final decision
+
+**Project Decision Console is selected**, superseding §4's Direction B
+selection for actual implementation purposes. §2-§4 are left unchanged
+above as the honest record of how the decision was reached — both
+analyses remain in this document; neither is deleted or rewritten to
+make the outcome look predetermined.
+
+### 5.4 Specification — Project Decision Console
+
+#### Desktop section sequence
+
+1. **Hero — the Project Decision Console.** One product's decision plus
+   its evidence, immediately visible, no scroll required. Default
+   selected product: **LandIntel** — this already matches current
+   behavior (`HomepageCockpitHero.tsx:21`,
+   `useState<CockpitProduct>('landintel')`); no code change needed on
+   this specific point, only confirmation it should stay this way, which
+   it should. Product switcher (`HomepageCockpitHero.tsx:47-61`) is
+   kept. New: an initial **image-first** state per product (see
+   Imagery below) shown before the visitor interacts with the tab bar
+   or the embedded cockpit; a **stage indicator** row tied to the
+   selected product (see Information hierarchy below); one primary CTA
+   + one secondary CTA (see CTAs below); the 3D chunk gate (see
+   Performance below).
+2. **Ten-product map** — the existing `productShowcaseItems` grid
+   (`page.tsx:12-23`), relocated to sit directly below the hero. This
+   replaces the current second section (Value Prop,
+   `page.tsx:72-85`) in page order — the Value Prop section's
+   Land/Design/Build/Invest framing (`valuePropItems`, `page.tsx:25-30`)
+   moves into the hero's new stage indicator (item 1) instead of
+   persisting as a separate, subsequent section that repeats the same
+   four labels a second time. This directly satisfies the operator's
+   "remove duplicated product navigation" instruction: today a visitor
+   sees the Land/Design/Build/Invest framing once as prose
+   (`valuePropItems`) and, functionally, a second time as the product
+   grid's implicit grouping — folding the former into the hero's stage
+   indicator removes that duplication rather than adding a third
+   representation of it.
+3. **How It Works** — the existing `SliderLeaf`/`howItWorksSteps`
+   section (`page.tsx:36-42`, `page.tsx:105-117`) is kept as-is. Console
+   does not require removing it, and per the smaller-structural-diff
+   reasoning in §5.2 item 3, the default here is "keep unless the
+   operator's requirements say otherwise" rather than folding it into a
+   new component the way B did.
+4. **Pricing** — the existing 3-tier block (`page.tsx:119-151`) stays in
+   its current position. The operator's requirements don't direct a
+   relocation, and Console's model addresses the credibility gap §1
+   flagged (pricing with "nothing establishing trust in front of it")
+   differently from B: by attaching evidence directly to the decision in
+   the hero (item 1) and to each product-map entry (item 2) via the new
+   `EvidenceStateBadge` (see Credibility below), rather than by
+   inserting a dedicated trust section later in the scroll. This residual
+   §1 concern is addressed by the badge system, not left open.
+5. **Final CTA** — existing block (`page.tsx:162-176`), with the same
+   "Ferrum Build" → "Ferrum OS" string fix §4 already specified
+   (`page.tsx:166`) — this fix is direction-independent and still
+   applies.
+
+#### Mobile section sequence
+
+Same 5 beats, same order. What changes on mobile:
+
+- The hero's product switcher keeps `overflow-x-auto`
+  (`HomepageCockpitHero.tsx:47`) for the 10-tab strip; the image-first
+  initial state (item 1 above) is what keeps this affordable on mobile
+  — the visitor sees a static image and a tab bar first, not a live 3D
+  canvas competing for a small viewport and a mobile GPU/thermal budget.
+- The stage indicator collapses from a row to a compact
+  label-plus-dot pattern under the product name, consistent with the
+  44×44px touch-target minimum applied to its interactive elements (if
+  any stage becomes independently tappable) or, if purely indicative
+  (not clickable), no touch-target constraint applies to it at all.
+- The ten-product map (item 2) reflows from `CardGrid`'s desktop column
+  count down to 1 column, matching `CardGrid.tsx`'s existing responsive
+  behavior — no new component needed for this.
+
+#### Information hierarchy and narrative
+
+The page argues, in order: *here is one real decision, with its
+evidence, right now → here are the other nine if this one isn't your
+project → here is how the whole workflow fits together, if you want
+detail → here is the price → here is the ask.* Unlike B, there is no
+narrative gate the visitor must pass before the product is usable — the
+four lifecycle stages are present as a structural orientation device
+(the stage indicator, item 1) rather than as sequential prose sections
+that have to be read in order. This is the sequencing choice reasoned
+through in §5.2 item 5: proof first, stages as an organizing frame
+around it, not a prerequisite gate before it.
+
+**Stage indicator — new mapping required.** No product-to-stage mapping
+exists in code today. `ProductControlId` (`controlRegistry.ts`) has no
+stage field, and the only 10-value product enum in the codebase,
+`WorkspaceProduct` (`lib/types.ts:6-17`: `Land, Design, Structure, Cost,
+Market, Procure, Invest, Build, Community, Transact`), is a set of
+per-product short names — not a 4-stage grouping, despite two of its
+values ("Land," "Build") sharing words with the `valuePropItems` stage
+names. (This is worth stating explicitly because the overlap in wording
+invites misreading it as an existing stage map; it is not one — it's
+used for per-product compliance-permission scoping in
+`WorkspaceCockpit.tsx:131-135`, unrelated to the journey stages.) The
+following product→stage mapping is therefore **new work**, proposed
+here as a suggestion for operator/implementer confirmation before
+building it, grounded in each product's own tagline in
+`productShowcaseItems` (`page.tsx:12-23`) and each stage's own body copy
+in `valuePropItems` (`page.tsx:25-30`):
+
+| Stage (`valuePropItems`) | Products |
+|---|---|
+| Land | LandIntel |
+| Design (`page.tsx:27`: "...get them engineered to IS codes" — already bundles design + structural engineering in one stage) | DesignStudio, Structura |
+| Build (`page.tsx:28`: "Estimate, procure, manage and track...") | BOQ Pro, ProMarket, BuildOS, ProcureHub |
+| Invest (`page.tsx:29`: "Model returns and raise capital...") | InvestFlow, CommunityBuild, Transact |
+
+#### Typography / spacing / color / imagery / motion
+
+Type, spacing, and shape tokens are unchanged from §4's guidance — same
+`font-sans`/`font-heading`, same `relume-ink`/`relume-surface`/
+`relume-muted`/`relume-border` palette, same `py-relume-section`/
+`p-relume-card`/`max-w-relume-container` spacing scale, same
+`rounded-relume`/pill-button shape system, all per §0's ground-truth
+correction (`apps/web/tailwind.config.js`) rather than the stale
+Inter/pure-monochrome description. What's different from §4:
+
+- **Color — the new evidence-state system.** A new shared
+  `EvidenceStateBadge` component (see Credibility below) standardizes on
+  a single token pairing per state (LIVE / INDICATIVE /
+  SOURCE-VERIFIED / GAP / ROADMAP) instead of the five treatments
+  currently in the codebase (§5.2 item 4). Exact token assignment needs
+  the same WCAG-AA contrast check §4 already flagged for
+  `relume-accent`-as-text — that constraint is unchanged and repeated
+  under Accessibility below.
+- **Imagery — new asset requirement.** Each of the 10 products needs a
+  static preview image/illustration for the hero's pre-interaction
+  state. Checked: no such imagery exists today.
+  `apps/web/public` contains only `favicon.svg`, `social-card.png`,
+  `llms.txt`, `sw.js`, `_headers`, and `_redirects` — zero per-product
+  preview assets. This is a new asset requirement, not a relabeling of
+  something that already exists; do not assume placeholder imagery is
+  available.
+- **Motion — reduced, not added.** Unlike B, this direction introduces
+  no new scroll-triggered reveal pattern; the existing
+  `MotionObserver.tsx`/`data-reveal` pattern and its
+  `prefers-reduced-motion` guard (`MotionObserver.tsx:7`,
+  `globals.css:190-193`) remain available for the relocated product-map
+  section if a subtle reveal is wanted there, but nothing here requires
+  it.
+
+#### Product-demonstration strategy
+
+The cockpit demo's full desktop capability
+(`HomepageCockpitHero.tsx`/`ProductCockpitPreview.tsx`/
+`WorkspaceCockpit.tsx`/`Space3D.tsx`) is unchanged in function and stays
+in the hero position it already occupies today (`page.tsx:69-70`) — no
+relocation, unlike B. What's new:
+
+- **Already there, unchanged:** the per-product tab switcher
+  (`HomepageCockpitHero.tsx:47-61`), the state-per-tab behavior via
+  `ProductCockpitPreview`'s keyed remount (`HomepageCockpitHero.tsx:69`,
+  `key={active.id}`), `localStorage`-persisted parameters
+  (`ProductCockpitPreview.tsx:31-33`), and the primary/secondary CTA
+  pattern that already changes with the active tab
+  (`HomepageCockpitHero.tsx:38-43`, `Open {active.label} cockpit`).
+  Console's "selecting a product changes preview/task/CTA/evidence
+  state" requirement is therefore **largely already true** of this
+  component today — it is not a new interaction model to invent.
+- **New:** (a) the pre-interaction image-first state (Imagery above),
+  shown until the visitor picks a tab or the embedded cockpit is
+  scrolled into view; (b) the 3D-chunk mount gate (Performance below),
+  which is genuinely new — today the chunk fetches unconditionally on
+  page load, not "already largely there" like the tab-switching
+  behavior; (c) the `EvidenceStateBadge` attached per-product so
+  "evidence state" changes with the tab as explicitly as
+  "preview/task/CTA" already do.
+
+#### Credibility and trust structure
+
+No testimonials, client logos, user counts, or case studies — same
+constraint §4 already established and still binding
+(`page.tsx:153-160`, W2-345). What's new for this direction:
+
+- **`EvidenceStateBadge`** — a new shared component replacing both
+  `ProvenanceStrip.tsx`'s off-token `IndicativeChip` (amber-300/50/800,
+  `ProvenanceStrip.tsx:16-26`) and the ad-hoc "INDICATIVE" text/chip
+  instances found across the cockpit render path
+  (`ProductCockpitPreview.tsx:49`; `WorkspaceCockpit.tsx:316`,
+  `border-relume-accent bg-orange-50`; `WorkspaceCockpit.tsx:317-319`,
+  ad-hoc emerald/amber). One component, one set of tokens, five states
+  (LIVE / INDICATIVE / SOURCE-VERIFIED / GAP / ROADMAP) rendered as
+  visible text plus color, never color alone (continuing the existing
+  `ProvenanceStrip.tsx` discipline stated in its own file header
+  comment, lines 1-6). **Flag this as bigger than cosmetic work**: it
+  touches at minimum `ProvenanceStrip.tsx`, `ProductCockpitPreview.tsx`,
+  and `WorkspaceCockpit.tsx` (three files, four call sites already
+  identified), and any other sitewide use of the current
+  `IndicativeChip` not audited as part of this homepage-scoped spec —
+  an implementer should grep for `IndicativeChip` usage sitewide before
+  starting, not assume the homepage is the only consumer.
+- **The product itself as evidence** — each hero state and each
+  product-map card cites what's actually live vs. roadmap for that
+  specific product, extending the existing `howItWorksSteps`
+  (`page.tsx:36-42`) discipline down to the per-product level rather
+  than only the workflow-step level.
+- **No dedicated new "trust section"** — unlike B's `CredibilityStrip`
+  (§4, "New components needed"), Console's model distributes evidence to
+  where the decision is made (the hero, the product cards) instead of
+  concentrating it in one later section. This is the direct
+  consequence of §5.2's sequencing conclusion: proof attached to the
+  decision, not proof as a separate later beat.
+
+#### Primary and secondary CTAs (suggested copy)
+
+- **Hero primary:** **"Open [product] cockpit"** — this already exists
+  in substance (`HomepageCockpitHero.tsx:38-40`, "Open {active.label}
+  cockpit"); keep the pattern, it already satisfies "one clear
+  task-primary hero CTA."
+- **Hero secondary:** **"See all 10 products"** — a copy change from
+  the current "Explore products" (`HomepageCockpitHero.tsx:41-43`) to
+  match the operator's product-discovery framing more explicitly;
+  functionally the same link target (`/products`), copy-only change,
+  suggestion labeled as such.
+- **Pricing / Final CTA:** unchanged from §4 — **"Start Free Trial"** /
+  **"Contact sales"** (`page.tsx:49,56,62`), **"Talk to sales"**
+  (`page.tsx:172`), `BookingConsultCta` (`page.tsx:173`, conditional on
+  `healthyBookingUrl`), with the same "Ferrum Build" → "Ferrum OS"
+  heading fix (`page.tsx:166`).
+- Per the operator's "sales-oriented CTAs held wherever functionality
+  or commercial authority is unverified" instruction: this direction
+  does **not** add any new trial/signup CTA beyond what already exists
+  in Pricing and Final CTA — see
+  `docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md`'s route matrix
+  for why `/signup`/`/login` are themselves fine (real, working auth)
+  while promoting them ahead of unverified commercial claims is not.
+
+#### Component and asset requirements
+
+**Reuse as-is, unchanged in function:** `HomepageCockpitHero.tsx`,
+`ProductCockpitPreview.tsx`, `WorkspaceCockpit.tsx`, `Space3D.tsx`
+(logic untouched; only the mount gate below is new),
+`SectionShell.tsx`, `Eyebrow.tsx`, `SectionHeading.tsx`, `Buttons.tsx`,
+`CardGrid.tsx` (product map, relocated but not restyled), `SliderLeaf.tsx`
+(How It Works, kept — unlike B, not retired), `BookingConsultCta.tsx`.
+
+**Reuse with modification:**
+- `ProvenanceStrip.tsx` — `IndicativeChip` replaced by
+  `EvidenceStateBadge` (see Credibility above); `ProvenanceStrip`'s
+  outer component keeps its source/freshness text pattern.
+- `HomepageCockpitHero.tsx` — add the image-first pre-interaction state,
+  the stage indicator, and the updated secondary CTA copy; no change to
+  its position in `page.tsx` or to the tab-switching logic itself.
+- `WorkspaceCockpit.tsx` — add the 3D-mount gate (see Performance
+  below); the `IndicativeChip`/ad-hoc badge instances at lines 316-319
+  are replaced by `EvidenceStateBadge`.
+
+**New components needed:**
+- `EvidenceStateBadge` — the cross-cutting evidence-state system
+  described under Credibility above. The single largest net-new piece
+  of engineering in this spec.
+- A stage-indicator component (name suggested: `StageIndicator`) — small,
+  tied to the active product via the new product→stage mapping
+  (Information hierarchy above), rendered in the hero.
+- A minimal pre-interaction image component for the hero (could be as
+  simple as a conditionally-rendered `<img>`/`next/image` swapped for
+  the live cockpit on interaction — no new design language, just new
+  markup and new image assets).
+
+**New assets:** 10 static product preview images (one per product;
+confirmed none exist today — see Imagery above).
+
+#### Accessibility constraints
+
+- **Heading hierarchy:** one `h1` (`HomepageCockpitHero.tsx:30`,
+  unchanged position), `h2` per major section (product map, how it
+  works, pricing, final CTA) — no skipped levels, same rule as §4.
+- **Focus visibility:** every new interactive element (stage indicator,
+  if any part of it is interactive; the badge component if it ever
+  carries a tooltip/expand affordance) carries the same
+  `focus-visible:outline focus-visible:outline-2
+  focus-visible:outline-offset-2 focus-visible:outline-relume-ink`
+  pattern already used throughout
+  (`HomepageCockpitHero.tsx:38,41,56`, `Buttons.tsx`).
+- **Reduced motion:** the image-to-live-cockpit transition on
+  interaction must not itself be an animated transition that ignores
+  `prefers-reduced-motion` — a reduced-motion visitor gets an
+  instant swap, using the same guard pattern as
+  `MotionObserver.tsx:7`/`globals.css:190-193`.
+- **Touch targets:** ≥44px (`min-h-11`) on every new interactive
+  element, matching the sitewide convention and the operator's stated
+  44×44px bar.
+- **Non-visual equivalent for the pre-interaction image:** each static
+  preview image needs real alt text describing what the product does
+  (not `alt=""`), since — unlike B's live-demo-as-imagery approach —
+  this is genuinely new decorative-vs-informational imagery that must
+  be classified correctly.
+- **Color contrast:** the same WCAG-AA contrast check §4 flagged for
+  `relume-accent` as text applies directly to `EvidenceStateBadge`'s
+  token choice — this needs an explicit check during implementation,
+  across all five states, not an assumption either way.
+
+#### Performance constraints
+
+This is a static-exported Next.js site behind a Cloudflare Worker; same
+platform facts as §4.
+
+- **The 3D-mount gate is the core new performance requirement.** Today,
+  confirmed by reading the code (not assumed): `WorkspaceCockpit.tsx:101`
+  defaults `view` to `'space'`, and `WorkspaceCockpit.tsx:378` renders
+  `Space3D` on that default — meaning the `next/dynamic(..., { ssr:
+  false })` Space3D chunk (`WorkspaceCockpit.tsx:33-40`, ~591KB raw /
+  ~148KB gz per the existing W-27 comment) fetches as soon as the hero
+  mounts, i.e., on first paint, with no user interaction required. The
+  operator's "initial visual has no 3D JS dependency" requirement means
+  this must change: gate the Space3D chunk's fetch behind an explicit
+  user action (selecting a product tab, or an explicit "view live 3D"
+  affordance on the pre-interaction image) — **extending**, not
+  replacing, the existing `next/dynamic(..., { ssr: false })` pattern
+  at `WorkspaceCockpit.tsx:33-40` with an additional interaction gate on
+  top of it. The dynamic-import code-splitting stays exactly as it is;
+  what's new is *when* the import is triggered.
+- No performance-budget file exists in this repo (checked, consistent
+  with §0.4's finding) — acceptance criteria below are structural where
+  no repo-verifiable number exists.
+- **Production LCP ≤2.5s at p75 — stated but not currently
+  verifiable.** This repo has no live traffic or Real User Monitoring
+  data (per the research already done for §0.4's `budgets.json` search
+  and confirmed again here). State this honestly: it is a target for
+  production, not a claim this spec can certify against anything in
+  this repository today.
+
+#### Material to remove from the existing homepage
+
+1. **"Start building with Ferrum Build" → "Start building with Ferrum
+   OS."** Same fix as §4 (`page.tsx:166`); direction-independent.
+2. **The unattributed "60–90% below global tools" claim**
+   (`page.tsx:125`) — same flag as §1/§4, carried forward unchanged.
+   Also present, not previously flagged in this document: the identical
+   claim is repeated on the dedicated pricing page
+   (`apps/web/app/pricing/page.tsx:60`, "pricing runs 60–90% below
+   global construction-tech tools"); whatever verification/softening
+   decision is made for the homepage instance should extend to this one
+   too, since it's the same unverified comparative figure in two
+   places, not two independent claims.
+3. **Duplicated product-navigation framing** — the current Value Prop
+   section (`page.tsx:72-85`) and product-showcase grid
+   (`page.tsx:87-103`) both implicitly present the Land/Design/Build/
+   Invest grouping (the former as prose, the latter as an ungrouped
+   10-card list); folding the former into the hero's stage indicator
+   (Information hierarchy above) removes this duplication.
+4. **Initial 3D dependency on first paint** — see Performance above;
+   this is the concrete instance of the operator's "initial decorative
+   3D dependencies" removal instruction.
+5. **No change required to `SiteHeader.tsx`/`MobileMenu.tsx`** — same
+   as §3's finding that no direction in this document touches Ferrum
+   Projects nav content; still true here. See
+   `docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md` for the
+   separate, already-drafted W2-498 nav-link work and its own open
+   items.
+
+#### Measurable implementation acceptance criteria
+
+- Zero horizontal overflow at 375px, 430px, 1366px, and 1440px viewport
+  widths, across every changed section (widths per the operator's
+  stated acceptance bar; note this supersedes §4's 1728px figure with
+  1440px, per the operator's explicit list — both are reasonable desktop
+  checkpoints and testing both would not be wrong, but 1440px is what
+  Console's own acceptance bar specifies).
+- Every interactive element (product tabs, hero CTAs, badge component if
+  interactive, pricing buttons, final CTA buttons) is reachable via
+  keyboard in visual order, with a visible focus ring at each stop.
+- With `prefers-reduced-motion: reduce` set, the image-to-cockpit
+  transition and any relocated product-map reveal produce no animated
+  transition.
+- Exactly one `<h1>` renders on the page; each major section uses
+  exactly one `<h2>`, no level skipped.
+- **The Space3D chunk does not begin fetching on initial page load.** A
+  network trace of a fresh page load must show zero `Space3D`-chunk
+  requests until the visitor selects a product tab or otherwise
+  triggers the 3D view — this is the direct, verifiable form of "initial
+  visual has no 3D JS dependency" and is a stricter, more specific
+  criterion than §4's beat-4-scroll-trigger version, since here there is
+  no scroll distance to rely on at all (the hero is position 1).
+- One clear task-primary hero CTA (`Open [product] cockpit`) — verified
+  by inspecting the hero markup for exactly one primary-styled CTA.
+- No new homepage copy introduces a named person, company, testimonial,
+  user count, or case study.
+- Every new interactive element has a computed touch target ≥44×44px.
+- **Production LCP ≤2.5s at p75 is recorded as a target, not verified**
+  — this criterion cannot be checked against anything in this repository
+  (no RUM/production traffic exists) and must not be marked complete
+  until real production measurement exists; stating it as met without
+  that data would repeat the same defect class (an unverifiable
+  quantitative claim asserted as fact) this document has flagged
+  elsewhere (§1, the "60–90% below global tools" claim).
+
 ## Assumptions made where the repo didn't give a clean answer
 
 - **Design-token source of truth (§0.1–0.2):** treated
