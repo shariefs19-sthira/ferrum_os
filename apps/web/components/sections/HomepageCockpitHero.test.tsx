@@ -10,24 +10,26 @@ vi.mock('../workspace/ProductCockpitPreview', () => ({
 const ROADMAP_IDS = new Set(['buildos', 'procurehub', 'communitybuild'])
 
 describe('HomepageCockpitHero', () => {
-  it('opens with LandIntel and switches the placeholder target before any interaction', () => {
+  it('opens with LandIntel and switches the active preview before any interaction', () => {
     render(<HomepageCockpitHero />)
     expect(screen.getAllByRole('tab')).toHaveLength(10)
     expect(screen.getByTestId('hero-preview-placeholder').textContent).toContain('LandIntel')
-    expect(screen.getByRole('link', { name: 'Open LandIntel cockpit' }).getAttribute('href')).toBe('/products/landintel')
 
     fireEvent.click(screen.getByRole('tab', { name: 'DesignStudio' }))
     expect(screen.getByTestId('hero-preview-placeholder').textContent).toContain('DesignStudio')
-    expect(screen.getByRole('link', { name: 'Open DesignStudio cockpit' }).getAttribute('href')).toBe('/products/designstudio')
 
     fireEvent.click(screen.getByRole('tab', { name: 'Structura' }))
     expect(screen.getByText(/live, sample, indicative, gap or roadmap/i)).toBeTruthy()
   })
 
-  it('has exactly one primary CTA and one secondary product-discovery CTA', () => {
+  it('does not render the removed "Open {label} cockpit" or "See all 10 products" buttons, and adds no replacement product-navigation control in their place', () => {
     render(<HomepageCockpitHero />)
-    expect(screen.getByRole('link', { name: /Open LandIntel cockpit/ })).toBeTruthy()
-    expect(screen.getByRole('link', { name: 'See all 10 products' })).toBeTruthy()
+    expect(screen.queryByRole('link', { name: /Open .* cockpit/ })).toBeNull()
+    expect(screen.queryByRole('link', { name: 'See all 10 products' })).toBeNull()
+    // The rail (tablist at >=1366px, trigger+listbox below it) remains the
+    // only product-selection mechanism — no other link/button targets a
+    // per-product marketing page from within the shell.
+    expect(screen.queryAllByRole('link').filter((link) => link.getAttribute('href')?.startsWith('/products/'))).toHaveLength(0)
   })
 
   it('shows a stage indicator that tracks the active product\'s lifecycle stage', () => {
@@ -68,41 +70,15 @@ describe('HomepageCockpitHero', () => {
     expect(screen.queryByTestId('hero-preview-placeholder')).toBeNull()
   })
 
-  it('scrolls the selected product tab into view on selection, respecting prefers-reduced-motion', () => {
-    // jsdom does not implement scrollIntoView; stub it so the call can be observed.
-    const scrollIntoView = vi.fn()
-    // jsdom has no real scrollIntoView implementation.
-    HTMLElement.prototype.scrollIntoView = scrollIntoView
-
-    render(<HomepageCockpitHero />)
-    fireEvent.click(screen.getByRole('tab', { name: 'DesignStudio' }))
-
-    expect(scrollIntoView).toHaveBeenCalledWith(
-      expect.objectContaining({ behavior: 'smooth', inline: 'center', block: 'nearest' }),
-    )
-  })
-
-  it('uses instant (non-smooth) scroll-into-view when prefers-reduced-motion is set', () => {
-    const scrollIntoView = vi.fn()
-    // jsdom has no real scrollIntoView implementation.
-    HTMLElement.prototype.scrollIntoView = scrollIntoView
-    const matchMedia = vi.fn().mockReturnValue({ matches: true })
-    // Partial matchMedia stub, sufficient for this check.
-    window.matchMedia = matchMedia as unknown as typeof window.matchMedia
-
-    render(<HomepageCockpitHero />)
-    fireEvent.click(screen.getByRole('tab', { name: 'Structura' }))
-
-    expect(scrollIntoView).toHaveBeenCalledWith(
-      expect.objectContaining({ behavior: 'auto', inline: 'center', block: 'nearest' }),
-    )
-  })
-
-  it('renders all ten product tabs inside one non-wrapping tablist container', () => {
+  it('renders all ten product tabs inside one non-wrapping tablist grid at the >=1366px breakpoint', () => {
     render(<HomepageCockpitHero />)
     const tablist = screen.getByRole('tablist', { name: 'Ferrum product cockpits' })
-    expect(tablist.className).toMatch(/overflow-x-auto/)
     expect(tablist.className).toMatch(/min-\[1366px\]:grid-cols-10/)
+    // No horizontal-scroll classes on the >=1366px grid rail — the old
+    // overflow-x-auto row was replaced entirely by the narrow-screen
+    // listbox below; the grid rail itself never scrolled and still
+    // doesn't.
+    expect(tablist.className).not.toMatch(/overflow-x-auto/)
     expect(tablist.querySelectorAll('[role="tab"]')).toHaveLength(10)
   })
 
@@ -115,13 +91,105 @@ describe('HomepageCockpitHero', () => {
     }
   })
 
+  describe('narrow-screen rail trigger + listbox', () => {
+    it('is closed by default and opens the listbox on trigger click, showing all ten options with none using role="tab"', () => {
+      render(<HomepageCockpitHero />)
+      expect(screen.queryByRole('listbox')).toBeNull()
+
+      const trigger = screen.getByRole('button', { name: /LandIntel/ })
+      expect(trigger.getAttribute('aria-expanded')).toBe('false')
+      expect(trigger.getAttribute('aria-haspopup')).toBe('listbox')
+
+      fireEvent.click(trigger)
+
+      expect(trigger.getAttribute('aria-expanded')).toBe('true')
+      const listbox = screen.getByRole('listbox', { name: 'Ferrum product cockpits' })
+      const options = screen.getAllByRole('option')
+      expect(options).toHaveLength(10)
+      for (const option of options) {
+        expect(option.getAttribute('role')).toBe('option')
+      }
+      expect(listbox.className).not.toMatch(/overflow-x-auto/)
+    })
+
+    it('closes on Escape and returns focus to the trigger', () => {
+      render(<HomepageCockpitHero />)
+      const trigger = screen.getByRole('button', { name: /LandIntel/ })
+      fireEvent.click(trigger)
+      expect(screen.getByRole('listbox')).toBeTruthy()
+
+      fireEvent.keyDown(document, { key: 'Escape' })
+
+      expect(screen.queryByRole('listbox')).toBeNull()
+      expect(document.activeElement).toBe(trigger)
+    })
+
+    it('closes on selecting an option, and calls the same selectProduct handler (updates the active product)', () => {
+      render(<HomepageCockpitHero />)
+      fireEvent.click(screen.getByRole('button', { name: /LandIntel/ }))
+      fireEvent.click(screen.getByRole('option', { name: 'DesignStudio' }))
+
+      expect(screen.queryByRole('listbox')).toBeNull()
+      expect(screen.getByRole('button', { name: /DesignStudio/ })).toBeTruthy()
+      expect(screen.getByTestId('hero-preview-placeholder').textContent).toContain('DesignStudio')
+      const tabs = screen.getAllByRole('tab')
+      expect(tabs.find((tab) => tab.textContent === 'DesignStudio')?.getAttribute('aria-selected')).toBe('true')
+    })
+
+    it('closes on click-outside', () => {
+      render(<HomepageCockpitHero />)
+      fireEvent.click(screen.getByRole('button', { name: /LandIntel/ }))
+      expect(screen.getByRole('listbox')).toBeTruthy()
+
+      fireEvent.mouseDown(document.body)
+
+      expect(screen.queryByRole('listbox')).toBeNull()
+    })
+
+    it('every option is keyboard-reachable via roving tabindex (ArrowDown/ArrowUp/Home/End) and selectable with Enter', () => {
+      render(<HomepageCockpitHero />)
+      fireEvent.click(screen.getByRole('button', { name: /LandIntel/ }))
+
+      const optionByName = (name: string) => screen.getByRole('option', { name })
+
+      // Starts focused on the active option (LandIntel).
+      expect(document.activeElement).toBe(optionByName('LandIntel'))
+
+      fireEvent.keyDown(document, { key: 'ArrowDown' })
+      expect(document.activeElement).toBe(optionByName('DesignStudio'))
+
+      fireEvent.keyDown(document, { key: 'End' })
+      expect(document.activeElement).toBe(optionByName('Transact'))
+
+      fireEvent.keyDown(document, { key: 'Home' })
+      expect(document.activeElement).toBe(optionByName('LandIntel'))
+
+      fireEvent.keyDown(document, { key: 'ArrowUp' })
+      expect(document.activeElement).toBe(optionByName('Transact'))
+
+      fireEvent.keyDown(optionByName('Transact'), { key: 'Enter' })
+      expect(screen.queryByRole('listbox')).toBeNull()
+      expect(screen.getByRole('button', { name: /Transact/ })).toBeTruthy()
+    })
+
+    it('every one of the ten options has a min-h-11 (44px) touch target', () => {
+      render(<HomepageCockpitHero />)
+      fireEvent.click(screen.getByRole('button', { name: /LandIntel/ }))
+      const trigger = screen.getByRole('button', { name: /LandIntel/ })
+      expect(trigger.className).toMatch(/min-h-11/)
+      for (const option of screen.getAllByRole('option')) {
+        expect(option.className).toMatch(/min-h-11/)
+      }
+    })
+  })
+
   // W2-500 productExperienceRegistry: one exhaustive pass over all ten
   // products, each individually, rather than spot-checking one or two —
   // covers lifecycle stage, persona/lens, tool-vs-roadmap rendering,
-  // evidence badge, CTA, output-card content, and (for ROADMAP products)
-  // the absence of any control implying live functionality.
+  // evidence badge, output-card content, and (for ROADMAP products) the
+  // absence of any control implying live functionality.
   describe.each(productExperienceList)('product: $label', (product) => {
-    it('renders the correct lifecycle stage, persona/lens, evidence badge and CTA', () => {
+    it('renders the correct lifecycle stage, persona/lens and evidence badge', () => {
       render(<HomepageCockpitHero />)
       fireEvent.click(screen.getByRole('tab', { name: product.label }))
 
@@ -134,9 +202,6 @@ describe('HomepageCockpitHero', () => {
 
       const badges = screen.getAllByText(product.evidenceState)
       expect(badges.length).toBeGreaterThan(0)
-
-      const cta = screen.getByRole('link', { name: product.primaryCta.label })
-      expect(cta.getAttribute('href')).toBe(product.primaryCta.href)
     })
 
     it(ROADMAP_IDS.has(product.id)
@@ -202,8 +267,7 @@ describe('HomepageCockpitHero', () => {
       // Native <button> elements activate on Enter/Space via a click event
       // in both real browsers and Testing Library's fireEvent — firing
       // 'click' here exercises the same onClick handler a real keydown
-      // would trigger, matching this file's existing keyboard-adjacent
-      // coverage (scrollIntoView tests above use the same pattern).
+      // would trigger.
       fireEvent.click(tab)
       expect(tab.getAttribute('aria-selected')).toBe('true')
       expect(screen.getByLabelText('Project lifecycle stage').querySelector('[aria-current="true"]')?.textContent).toBe(product.stage)

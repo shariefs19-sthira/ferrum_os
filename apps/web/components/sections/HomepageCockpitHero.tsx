@@ -1,7 +1,6 @@
 "use client"
 
-import { useRef, useState } from 'react'
-import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 import ProductCockpitPreview, { type CockpitProduct } from '../workspace/ProductCockpitPreview'
 import EvidenceStateBadge from './EvidenceStateBadge'
 import HeroPreviewPlaceholder from './HeroPreviewPlaceholder'
@@ -45,202 +44,320 @@ export default function HomepageCockpitHero() {
   const activeStage = active.stage
   const isLiveTool = active.tool.kind === 'live-cockpit'
 
-  // Product-rail tab refs, keyed by product id, so a selection (click or
-  // keyboard activation of the native <button>) can scroll the newly
-  // selected tab into view within the horizontally-scrolling rail. Only
-  // matters below the 1366px breakpoint where the rail is `overflow-x-auto`
-  // rather than a full 10-column grid (see the rail markup below).
-  const tabRefs = useRef<Partial<Record<CockpitProduct, HTMLButtonElement | null>>>({})
+  // W2-501: below 1366px the ten-product rail is no longer a horizontally
+  // scrolling row of tabs — it's a compact trigger ("<Label> ▾") that opens
+  // a floating vertical listbox. `isRailMenuOpen` / `focusedId` implement
+  // that listbox's own open state and roving-tabindex keyboard focus,
+  // independent of `activeId` (the *selected* product) so arrowing through
+  // options previews nothing until Enter/Space/click commits a selection —
+  // the same selection semantics a native <select> has.
+  const [isRailMenuOpen, setIsRailMenuOpen] = useState(false)
+  const [focusedId, setFocusedId] = useState<CockpitProduct>(activeId)
+  const railMenuRef = useRef<HTMLDivElement | null>(null)
+  const railTriggerRef = useRef<HTMLButtonElement | null>(null)
+  const optionRefs = useRef<Partial<Record<CockpitProduct, HTMLDivElement | null>>>({})
 
   function selectProduct(id: CockpitProduct) {
     setActiveId(id)
-    const el = tabRefs.current[id]
-    // jsdom (unit tests) does not implement scrollIntoView, hence the
-    // optional call; matches the reduced-motion pattern already used by
-    // MotionObserver.tsx / Space3D.tsx (`matchMedia('(prefers-reduced-motion: reduce)')`).
+    setIsRailMenuOpen(false)
+    railTriggerRef.current?.focus()
+  }
+
+  function toggleRailMenu() {
+    setIsRailMenuOpen((current) => {
+      const next = !current
+      if (next) setFocusedId(activeId)
+      return next
+    })
+  }
+
+  function closeRailMenu() {
+    setIsRailMenuOpen(false)
+    railTriggerRef.current?.focus()
+  }
+
+  // Escape closes the listbox and returns focus to its trigger; Arrow/Home/
+  // End move the roving-tabindex focus among the ten options. This is the
+  // same document-level-listener-while-open shape MobileMenu.tsx already
+  // uses for its Escape handling, reused here rather than inventing a new
+  // one.
+  useEffect(() => {
+    if (!isRailMenuOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        closeRailMenu()
+        return
+      }
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Home' || event.key === 'End') {
+        event.preventDefault()
+        setFocusedId((current) => {
+          const index = products.findIndex((product) => product.id === current)
+          if (event.key === 'ArrowDown') return products[(index + 1) % products.length].id
+          if (event.key === 'ArrowUp') return products[(index - 1 + products.length) % products.length].id
+          if (event.key === 'Home') return products[0].id
+          return products[products.length - 1].id
+        })
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRailMenuOpen])
+
+  // Click-outside close — same containerRef-wraps-trigger-and-panel /
+  // `mousedown` + `!ref.contains(target)` shape as MobileMenu.tsx.
+  useEffect(() => {
+    if (!isRailMenuOpen) return
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (railMenuRef.current && !railMenuRef.current.contains(event.target as Node)) {
+        setIsRailMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isRailMenuOpen])
+
+  // Moves real DOM focus to the roving-tabindex option and — since the ten
+  // options (each min-h-11 / 44px) can exceed the popover's capped height —
+  // scrolls it into view, honouring prefers-reduced-motion the same way
+  // the old horizontally-scrolling rail's tab-select did (that call is now
+  // dead code at its original site: the >=1366px grid rail shows all ten
+  // tabs at once and never scrolls, so the pattern moved here instead of
+  // being duplicated).
+  useEffect(() => {
+    if (!isRailMenuOpen) return
+    const el = optionRefs.current[focusedId]
     const reducedMotion =
       typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    el?.scrollIntoView?.({ behavior: reducedMotion ? 'auto' : 'smooth', inline: 'center', block: 'nearest' })
+    el?.focus()
+    el?.scrollIntoView?.({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'nearest' })
+  }, [isRailMenuOpen, focusedId])
+
+  function handleOptionKeyDown(event: React.KeyboardEvent<HTMLDivElement>, id: CockpitProduct) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      selectProduct(id)
+    }
   }
 
   return (
     <section className="overflow-hidden border-b border-relume-border bg-relume-surface" data-home-cockpit-hero>
       <div className="mx-auto w-full max-w-relume-container px-4 pb-5 pt-6 sm:px-6 lg:px-8">
         {/*
-          Mobile content order (below `lg`): proposition -> CTA -> product
-          rail -> selected preview -> evidence metadata. Achieved with
-          Tailwind `order-*` utilities on this single responsive grid
-          (grid-cols-1 below `lg`, 12-column side-by-side at `lg`+) rather
-          than duplicating JSX per breakpoint — each child below sets both
-          its unprefixed (mobile) order and its `lg:` order explicitly.
-          CSS Grid's auto-placement algorithm follows computed `order`, not
-          DOM order, so the same four blocks can be laid out completely
-          differently at each breakpoint from one markup pass.
+          W2-501: the rail, proposition/preview composition and evidence
+          line now render inside one bordered shell — "cockpit framing" —
+          instead of a hero section with a rail floating below it. The
+          rail is the shell's top toolbar (rendered first, above the
+          proposition/preview content); the balanced proposition-left/
+          preview-right grid and the evidence-metadata line sit below it,
+          each separated only by a rule (border-t), never a color or
+          background change, keeping the whole shell reading as one
+          application surface built from existing relume-* tokens.
         */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-start lg:gap-8">
-          {/* Left column: eyebrow, headline, proposition, CTAs, stage indicator. */}
-          <div className="order-1 min-w-0 lg:order-1 lg:col-span-5">
-            <p className="border-b border-relume-border pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
-              Ferrum OS · project operating environment
-            </p>
-            <h1 className="mt-3 text-3xl font-semibold tracking-relume-tight text-relume-ink sm:text-4xl lg:text-5xl">
-              See the project. Change the decision. Keep the evidence attached.
-            </h1>
-            <p className="mt-3 text-base leading-7 text-relume-muted">
-              Move between land, design, engineering, quantities and delivery through one working cockpit. Every surface below is labelled as live, sample, indicative, gap or roadmap.
-            </p>
-
-            {/* Restrained per-product accent (see productExperienceRegistry.ts's
-                ProductAccentToken comment): a small dot plus persona/lens line,
-                not a full background recolor. */}
-            <p className="mt-4 flex items-start gap-2 text-sm leading-6 text-relume-muted" data-product-lens>
-              <span aria-hidden="true" className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${accentDotClass[active.accent]}`} />
-              <span>
-                <strong className="text-relume-ink">For: </strong>{active.persona}
-                <br />
-                <strong className="text-relume-ink">Decision: </strong>{active.lens}
-              </span>
-            </p>
-
-            {/* One primary CTA (dominant visual weight: solid fill) and one
-                subordinate secondary CTA (outline only) — per the Console
-                spec's "one primary hero CTA, one secondary product-discovery
-                CTA" requirement. */}
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link href={active.primaryCta.href} className="inline-flex min-h-11 items-center rounded-full bg-relume-ink px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink">
-                {active.primaryCta.label}
-              </Link>
-              <Link href="/products" className="inline-flex min-h-11 items-center rounded-full border border-relume-border px-6 py-3 text-sm font-medium text-relume-muted transition-colors duration-200 hover:bg-relume-surface-secondary hover:text-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink">
-                See all 10 products
-              </Link>
-            </div>
-
-            {/* Stage indicator: Land / Design / Build / Invest, tied to the
-                active product via lib/homepageStages.ts (sourced through
-                the registry's `stage` field). Purely indicative (not
-                independently tappable), so no touch-target constraint
-                applies to it (docs/design/HOMEPAGE_REDESIGN_2026.md §5.4,
-                "Mobile section sequence"). relume-accent is intentionally
-                not used here — the selected stage pill uses relume-ink,
-                the same "one selected-state treatment" token as the
-                product tabs, keeping relume-accent reserved for evidence
-                badges only. */}
-            <div className="mt-5 flex flex-wrap gap-2" aria-label="Project lifecycle stage" data-stage-indicator>
-              {stageCopy.map((stage) => (
-                <span
-                  key={stage.title}
-                  aria-current={stage.title === activeStage ? 'true' : undefined}
-                  title={stage.body}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors duration-200 ${
-                    stage.title === activeStage
-                      ? 'border-relume-ink bg-relume-ink text-white'
-                      : 'border-relume-border text-relume-muted'
-                  }`}
-                >
-                  {stage.title}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Right column: the selected product's preview. Three states:
-                - registry `tool.kind !== 'live-cockpit'` (BuildOS,
-                  ProcureHub, CommunityBuild): always the honest
-                  HeroRoadmapPreview, regardless of `hasInteracted` — there
-                  is nothing real to gate or mount for these three.
-                - live-cockpit products, before the gate fires: the
-                  existing HeroPreviewPlaceholder ("Load interactive
-                  preview").
-                - live-cockpit products, after the gate fires: the real
-                  ProductCockpitPreview -> WorkspaceCockpit -> Space3D
-                  chain, opened on this product's registry-specified
-                  `defaultView`.
-              Sits beside the left column at `lg`+ so the preview is
-              visible above the fold at 1366x768; stacks below the rail on
-              mobile via `order-3`. */}
-          <div
-            id="homepage-cockpit-stage"
-            role="tabpanel"
-            aria-label={`${active.label} cockpit`}
-            className={`order-3 min-w-0 border-t-2 lg:order-2 lg:col-span-7 ${accentBorderClass[active.accent]}`}
-            data-home-cockpit-product={active.id}
-          >
-            {!isLiveTool ? (
-              <HeroRoadmapPreview
-                productLabel={active.label}
-                reason={active.tool.kind === 'ROADMAP' || active.tool.kind === 'GAP' ? active.tool.reason : ''}
-                evidenceState={active.evidenceState}
-              />
-            ) : hasInteracted ? (
-              <ProductCockpitPreview key={active.id} product={active.id} label={active.label} layout="product-page" defaultView={active.defaultView} />
-            ) : (
-              <HeroPreviewPlaceholder
-                productLabel={active.label}
-                task={active.outputCards[0] ?? active.provenance}
-                evidenceState={active.evidenceState}
-                onLoad={() => setHasInteracted(true)}
-              />
-            )}
-          </div>
-
-          {/* Product rail — full width, spans both columns, sits below
-              them. Two distinct layouts:
-                - below 1366px: a horizontally-scrolling row (unchanged
-                  structural approach) with scroll-snap and a trailing
-                  fade affordance.
-                - at >=1366px: a 10-column grid so all ten tabs are visible
-                  simultaneously with no scroll. 1366px has no matching
-                  default Tailwind breakpoint, so this uses the arbitrary
-                  `min-[1366px]:` variant (supported by the installed
-                  Tailwind 3.4) rather than widening `lg` (1024px) itself,
-                  which stays the breakpoint for the two-column hero split. */}
-          <div className="relative order-2 min-w-0 lg:order-3 lg:col-span-12">
+        <div className="overflow-hidden rounded-2xl border border-relume-border bg-relume-surface" data-cockpit-shell>
+          {/* Tool rail / tab-strip — the shell's top toolbar. Two distinct
+              layouts:
+                - below 1366px: a compact trigger ("<Label> ▾") that opens
+                  a floating vertical listbox (role="listbox" / role="option")
+                  — no horizontal scroll anywhere at this width.
+                - at >=1366px: unchanged from before — a 10-column grid so
+                  all ten tabs are visible simultaneously with no scroll.
+                  1366px has no matching default Tailwind breakpoint, so
+                  this uses the arbitrary `min-[1366px]:` variant
+                  (supported by the installed Tailwind 3.4) rather than
+                  widening `lg` (1024px) itself, which stays the
+                  breakpoint for the two-column proposition/preview split
+                  below. */}
+          <div className="border-b border-relume-border px-2 py-2 sm:px-3" data-cockpit-rail>
+            {/* >=1366px: full ten-tab grid — role="tab"/role="tablist"/
+                aria-selected semantics unchanged. */}
             <div
               role="tablist"
               aria-label="Ferrum product cockpits"
-              className="flex snap-x snap-mandatory items-stretch gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden min-[1366px]:grid min-[1366px]:snap-none min-[1366px]:grid-cols-10 min-[1366px]:gap-0 min-[1366px]:divide-x min-[1366px]:divide-relume-border min-[1366px]:overflow-visible min-[1366px]:pb-0"
+              className="hidden min-[1366px]:grid min-[1366px]:grid-cols-10 min-[1366px]:divide-x min-[1366px]:divide-relume-border"
             >
               {products.map((product) => (
                 <button
                   key={product.id}
-                  ref={(el) => {
-                    tabRefs.current[product.id] = el
-                  }}
                   type="button"
                   role="tab"
                   aria-selected={activeId === product.id}
                   aria-controls="homepage-cockpit-stage"
                   onClick={() => selectProduct(product.id)}
-                  className={`min-h-11 shrink-0 snap-start whitespace-nowrap rounded-full border px-4 text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink min-[1366px]:min-w-0 min-[1366px]:flex-1 min-[1366px]:justify-center min-[1366px]:rounded-none min-[1366px]:border-0 min-[1366px]:px-2 min-[1366px]:text-[11px] min-[1366px]:tracking-tight ${
+                  className={`min-h-11 min-w-0 flex-1 justify-center whitespace-nowrap rounded-none border-0 px-2 text-[11px] font-medium tracking-tight transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${
                     activeId === product.id
-                      ? 'border-relume-ink bg-relume-ink text-white'
-                      : 'border-relume-border bg-relume-surface text-relume-ink hover:bg-relume-surface-secondary'
+                      ? 'bg-relume-ink text-white'
+                      : 'bg-relume-surface text-relume-ink hover:bg-relume-surface-secondary'
                   }`}
                 >
                   {product.label}
                 </button>
               ))}
             </div>
-            {/* Trailing-edge fade — a visual hint that more tabs are
-                scrollable, not a click target (native scroll/swipe/keyboard
-                remains the primary mechanism, per the scrollbar being
-                hidden only because this affordance keeps the overflow
-                discoverable). Hidden at >=1366px, where the rail no longer
-                scrolls. */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute right-0 top-0 h-11 w-10 bg-gradient-to-l from-relume-surface to-transparent min-[1366px]:hidden"
-            />
+
+            {/* Below 1366px: compact trigger + floating listbox. Reuses
+                MobileMenu.tsx's containerRef-wraps-trigger-and-panel /
+                Escape-returns-focus / click-outside-closes pattern. */}
+            <div ref={railMenuRef} className="relative min-[1366px]:hidden">
+              <button
+                ref={railTriggerRef}
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded={isRailMenuOpen}
+                aria-controls="homepage-cockpit-rail-listbox"
+                onClick={toggleRailMenu}
+                className="inline-flex min-h-11 w-full items-center justify-between gap-2 rounded-full border border-relume-border bg-relume-surface px-6 py-3 text-sm font-medium text-relume-ink transition-colors duration-200 hover:bg-relume-surface-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink"
+              >
+                <span>{active.label}</span>
+                <span aria-hidden="true">▾</span>
+              </button>
+
+              {isRailMenuOpen && (
+                <div
+                  id="homepage-cockpit-rail-listbox"
+                  role="listbox"
+                  aria-label="Ferrum product cockpits"
+                  className="absolute left-0 right-0 top-full z-20 mt-2 max-h-80 overflow-y-auto rounded-2xl border border-relume-border bg-relume-surface p-2 shadow-xl"
+                >
+                  {products.map((product) => (
+                    <div
+                      key={product.id}
+                      ref={(el) => {
+                        optionRefs.current[product.id] = el
+                      }}
+                      role="option"
+                      aria-selected={activeId === product.id}
+                      tabIndex={focusedId === product.id ? 0 : -1}
+                      onClick={() => selectProduct(product.id)}
+                      onKeyDown={(event) => handleOptionKeyDown(event, product.id)}
+                      className={`flex min-h-11 cursor-pointer items-center rounded-xl px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${
+                        activeId === product.id
+                          ? 'bg-relume-ink text-white'
+                          : 'text-relume-ink hover:bg-relume-surface-secondary'
+                      }`}
+                    >
+                      {product.label}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Evidence metadata line — moved below the preview on mobile
-              (order-4), stays directly under the rail at `lg`+. Provenance/
-              status text (the evidence badge) uses the monospace stack via
-              EvidenceStateBadge's own `font-mono` class; this file's
-              surrounding text (product name, task, note) stays on the
-              regular sans body font, matching the "monospace for
-              provenance/status only, never headline/body copy" rule. */}
-          <div className="order-4 flex flex-col gap-2 border-t border-relume-border py-2 text-xs text-relume-muted lg:col-span-12">
+          {/*
+            Mobile content order (below `lg`, within the shell, below the
+            rail toolbar above): proposition -> selected preview.
+            Achieved with Tailwind `order-*` utilities on this single
+            responsive grid (grid-cols-1 below `lg`, 12-column side-by-side
+            at `lg`+) rather than duplicating JSX per breakpoint.
+          */}
+          <div className="grid grid-cols-1 gap-6 p-4 sm:p-6 lg:grid-cols-12 lg:items-start lg:gap-8 lg:p-8">
+            {/* Left column: eyebrow, headline, proposition, stage indicator. */}
+            <div className="order-1 min-w-0 lg:order-1 lg:col-span-5">
+              <p className="border-b border-relume-border pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
+                Ferrum OS · project operating environment
+              </p>
+              <h1 className="mt-3 text-3xl font-semibold tracking-relume-tight text-relume-ink sm:text-4xl lg:text-5xl">
+                See the project. Change the decision. Keep the evidence attached.
+              </h1>
+              <p className="mt-3 text-base leading-7 text-relume-muted">
+                Move between land, design, engineering, quantities and delivery through one working cockpit. Every surface below is labelled as live, sample, indicative, gap or roadmap.
+              </p>
+
+              {/* Restrained per-product accent (see productExperienceRegistry.ts's
+                  ProductAccentToken comment): a small dot plus persona/lens line,
+                  not a full background recolor. */}
+              <p className="mt-4 flex items-start gap-2 text-sm leading-6 text-relume-muted" data-product-lens>
+                <span aria-hidden="true" className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${accentDotClass[active.accent]}`} />
+                <span>
+                  <strong className="text-relume-ink">For: </strong>{active.persona}
+                  <br />
+                  <strong className="text-relume-ink">Decision: </strong>{active.lens}
+                </span>
+              </p>
+
+              {/* Stage indicator: Land / Design / Build / Invest, tied to the
+                  active product via lib/homepageStages.ts (sourced through
+                  the registry's `stage` field). Purely indicative (not
+                  independently tappable), so no touch-target constraint
+                  applies to it (docs/design/HOMEPAGE_REDESIGN_2026.md §5.4,
+                  "Mobile section sequence"). relume-accent is intentionally
+                  not used here — the selected stage pill uses relume-ink,
+                  the same "one selected-state treatment" token as the
+                  product tabs, keeping relume-accent reserved for evidence
+                  badges only. */}
+              <div className="mt-5 flex flex-wrap gap-2" aria-label="Project lifecycle stage" data-stage-indicator>
+                {stageCopy.map((stage) => (
+                  <span
+                    key={stage.title}
+                    aria-current={stage.title === activeStage ? 'true' : undefined}
+                    title={stage.body}
+                    className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors duration-200 ${
+                      stage.title === activeStage
+                        ? 'border-relume-ink bg-relume-ink text-white'
+                        : 'border-relume-border text-relume-muted'
+                    }`}
+                  >
+                    {stage.title}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right column: the selected product's preview. Three states:
+                  - registry `tool.kind !== 'live-cockpit'` (BuildOS,
+                    ProcureHub, CommunityBuild): always the honest
+                    HeroRoadmapPreview, regardless of `hasInteracted` — there
+                    is nothing real to gate or mount for these three.
+                  - live-cockpit products, before the gate fires: the
+                    existing HeroPreviewPlaceholder ("Load interactive
+                    preview").
+                  - live-cockpit products, after the gate fires: the real
+                    ProductCockpitPreview -> WorkspaceCockpit -> Space3D
+                    chain, opened on this product's registry-specified
+                    `defaultView`.
+                Sits beside the left column at `lg`+ so the preview is
+                visible above the fold at 1366x768; stacks below the
+                proposition on mobile via `order-2`. */}
+            <div
+              id="homepage-cockpit-stage"
+              role="tabpanel"
+              aria-label={`${active.label} cockpit`}
+              className={`order-2 min-w-0 border-t-2 lg:order-2 lg:col-span-7 ${accentBorderClass[active.accent]}`}
+              data-home-cockpit-product={active.id}
+            >
+              {!isLiveTool ? (
+                <HeroRoadmapPreview
+                  productLabel={active.label}
+                  reason={active.tool.kind === 'ROADMAP' || active.tool.kind === 'GAP' ? active.tool.reason : ''}
+                  evidenceState={active.evidenceState}
+                />
+              ) : hasInteracted ? (
+                <ProductCockpitPreview key={active.id} product={active.id} label={active.label} layout="product-page" defaultView={active.defaultView} />
+              ) : (
+                <HeroPreviewPlaceholder
+                  productLabel={active.label}
+                  task={active.outputCards[0] ?? active.provenance}
+                  evidenceState={active.evidenceState}
+                  onLoad={() => setHasInteracted(true)}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Evidence metadata line — always the shell's last strip.
+              Provenance/status text (the evidence badge) uses the
+              monospace stack via EvidenceStateBadge's own `font-mono`
+              class; this file's surrounding text (product name, task,
+              note) stays on the regular sans body font, matching the
+              "monospace for provenance/status only, never headline/body
+              copy" rule. */}
+          <div className="flex flex-col gap-2 border-t border-relume-border px-4 py-2 text-xs text-relume-muted sm:px-6 lg:px-8">
             <p className="flex flex-wrap items-center gap-2">
               <strong className="text-relume-ink">{active.label}</strong>
               <EvidenceStateBadge state={active.evidenceState} />
