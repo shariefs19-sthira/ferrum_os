@@ -967,10 +967,13 @@ constraint §4 already established and still binding
 - Per the operator's "sales-oriented CTAs held wherever functionality
   or commercial authority is unverified" instruction: this direction
   does **not** add any new trial/signup CTA beyond what already exists
-  in Pricing and Final CTA — see
-  `docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md`'s route matrix
-  for why `/signup`/`/login` are themselves fine (real, working auth)
-  while promoting them ahead of unverified commercial claims is not.
+  in Pricing and Final CTA. Per the corrected evidence standard in
+  `docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md`, source-level
+  auth code (`worker.ts`'s signup/login handlers) is not the same claim
+  as a deployed, end-to-end-verified account service — the route matrix
+  now distinguishes those explicitly rather than calling `/signup`/
+  `/login` unqualifiedly "fine." This direction does not promote either
+  ahead of that verification.
 
 #### Component and asset requirements
 
