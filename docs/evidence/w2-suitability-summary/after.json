@@ -1,0 +1,307 @@
+{
+  "generatedAt": "2026-09-18T22:00:11.045Z",
+  "route": "/products/designstudio.html",
+  "widths": [
+    320,
+    375,
+    390,
+    430,
+    768,
+    1024,
+    1366,
+    1440,
+    1920
+  ],
+  "combinations": 9,
+  "failingCombinations": 0,
+  "results": [
+    {
+      "width": 320,
+      "height": 844,
+      "status": 200,
+      "metrics": {
+        "documentWidth": 320,
+        "horizontalOverflow": 0,
+        "overflowElements": [],
+        "cockpitPresent": true,
+        "cockpitBox": {
+          "width": 272,
+          "height": 4066,
+          "top": 141,
+          "bottom": 4207
+        },
+        "summaryPresent": true,
+        "summaryBox": {
+          "width": 272,
+          "height": 3841,
+          "top": 14953,
+          "bottom": 18795
+        },
+        "summaryText": "DesignStudio · building-template suitabilitySuitability across seven evidence-linked dimensionsPhysical fit, planning, environmental, structural, geotechnical, ",
+        "dimensionCount": 7,
+        "overallStateRendered": "BLOCKED",
+        "headingPresent": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "violations": []
+    },
+    {
+      "width": 375,
+      "height": 844,
+      "status": 200,
+      "metrics": {
+        "documentWidth": 375,
+        "horizontalOverflow": 0,
+        "overflowElements": [],
+        "cockpitPresent": true,
+        "cockpitBox": {
+          "width": 327,
+          "height": 3946,
+          "top": 141,
+          "bottom": 4087
+        },
+        "summaryPresent": true,
+        "summaryBox": {
+          "width": 327,
+          "height": 3302,
+          "top": 13835,
+          "bottom": 17137
+        },
+        "summaryText": "DesignStudio · building-template suitabilitySuitability across seven evidence-linked dimensionsPhysical fit, planning, environmental, structural, geotechnical, ",
+        "dimensionCount": 7,
+        "overallStateRendered": "BLOCKED",
+        "headingPresent": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "violations": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "metrics": {
+        "documentWidth": 390,
+        "horizontalOverflow": 0,
+        "overflowElements": [],
+        "cockpitPresent": true,
+        "cockpitBox": {
+          "width": 342,
+          "height": 3880,
+          "top": 149,
+          "bottom": 4029
+        },
+        "summaryPresent": true,
+        "summaryBox": {
+          "width": 342,
+          "height": 3226,
+          "top": 13522,
+          "bottom": 16748
+        },
+        "summaryText": "DesignStudio · building-template suitabilitySuitability across seven evidence-linked dimensionsPhysical fit, planning, environmental, structural, geotechnical, ",
+        "dimensionCount": 7,
+        "overallStateRendered": "BLOCKED",
+        "headingPresent": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "violations": []
+    },
+    {
+      "width": 430,
+      "height": 844,
+      "status": 200,
+      "metrics": {
+        "documentWidth": 430,
+        "horizontalOverflow": 0,
+        "overflowElements": [],
+        "cockpitPresent": true,
+        "cockpitBox": {
+          "width": 382,
+          "height": 3742,
+          "top": 153,
+          "bottom": 3895
+        },
+        "summaryPresent": true,
+        "summaryBox": {
+          "width": 382,
+          "height": 3034,
+          "top": 12811,
+          "bottom": 15845
+        },
+        "summaryText": "DesignStudio · building-template suitabilitySuitability across seven evidence-linked dimensionsPhysical fit, planning, environmental, structural, geotechnical, ",
+        "dimensionCount": 7,
+        "overallStateRendered": "BLOCKED",
+        "headingPresent": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "violations": []
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "status": 200,
+      "metrics": {
+        "documentWidth": 768,
+        "horizontalOverflow": 0,
+        "overflowElements": [],
+        "cockpitPresent": true,
+        "cockpitBox": {
+          "width": 640,
+          "height": 3261,
+          "top": 169,
+          "bottom": 3430
+        },
+        "summaryPresent": true,
+        "summaryBox": {
+          "width": 640,
+          "height": 2091,
+          "top": 10641,
+          "bottom": 12732
+        },
+        "summaryText": "DesignStudio · building-template suitabilitySuitability across seven evidence-linked dimensionsPhysical fit, planning, environmental, structural, geotechnical, ",
+        "dimensionCount": 7,
+        "overallStateRendered": "BLOCKED",
+        "headingPresent": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "violations": []
+    },
+    {
+      "width": 1024,
+      "height": 1024,
+      "status": 200,
+      "metrics": {
+        "documentWidth": 1024,
+        "horizontalOverflow": 0,
+        "overflowElements": [],
+        "cockpitPresent": true,
+        "cockpitBox": {
+          "width": 568,
+          "height": 3077,
+          "top": 169,
+          "bottom": 3246
+        },
+        "summaryPresent": true,
+        "summaryBox": {
+          "width": 896,
+          "height": 1769,
+          "top": 9458,
+          "bottom": 11227
+        },
+        "summaryText": "DesignStudio · building-template suitabilitySuitability across seven evidence-linked dimensionsPhysical fit, planning, environmental, structural, geotechnical, ",
+        "dimensionCount": 7,
+        "overallStateRendered": "BLOCKED",
+        "headingPresent": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "height": 900,
+      "status": 200,
+      "metrics": {
+        "documentWidth": 1366,
+        "horizontalOverflow": 0,
+        "overflowElements": [],
+        "cockpitPresent": true,
+        "cockpitBox": {
+          "width": 853,
+          "height": 2488,
+          "top": 167,
+          "bottom": 2654
+        },
+        "summaryPresent": true,
+        "summaryBox": {
+          "width": 1216,
+          "height": 1481,
+          "top": 6972,
+          "bottom": 8453
+        },
+        "summaryText": "DesignStudio · building-template suitabilitySuitability across seven evidence-linked dimensionsPhysical fit, planning, environmental, structural, geotechnical, ",
+        "dimensionCount": 7,
+        "overallStateRendered": "BLOCKED",
+        "headingPresent": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "metrics": {
+        "documentWidth": 1440,
+        "horizontalOverflow": 0,
+        "overflowElements": [],
+        "cockpitPresent": true,
+        "cockpitBox": {
+          "width": 853,
+          "height": 2488,
+          "top": 157,
+          "bottom": 2645
+        },
+        "summaryPresent": true,
+        "summaryBox": {
+          "width": 1216,
+          "height": 1481,
+          "top": 6960,
+          "bottom": 8441
+        },
+        "summaryText": "DesignStudio · building-template suitabilitySuitability across seven evidence-linked dimensionsPhysical fit, planning, environmental, structural, geotechnical, ",
+        "dimensionCount": 7,
+        "overallStateRendered": "BLOCKED",
+        "headingPresent": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "violations": []
+    },
+    {
+      "width": 1920,
+      "height": 900,
+      "status": 200,
+      "metrics": {
+        "documentWidth": 1920,
+        "horizontalOverflow": 0,
+        "overflowElements": [],
+        "cockpitPresent": true,
+        "cockpitBox": {
+          "width": 853,
+          "height": 2488,
+          "top": 169,
+          "bottom": 2657
+        },
+        "summaryPresent": true,
+        "summaryBox": {
+          "width": 1216,
+          "height": 1481,
+          "top": 6972,
+          "bottom": 8453
+        },
+        "summaryText": "DesignStudio · building-template suitabilitySuitability across seven evidence-linked dimensionsPhysical fit, planning, environmental, structural, geotechnical, ",
+        "dimensionCount": 7,
+        "overallStateRendered": "BLOCKED",
+        "headingPresent": true
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "violations": []
+    }
+  ]
+}
