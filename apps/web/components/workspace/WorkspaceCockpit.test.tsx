@@ -179,6 +179,18 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     expect(document.querySelector('[data-mobile-sheet="controls"]')).toBeTruthy()
   })
 
+  it('keeps the workspace action visible and discoverable in the compact mobile toolbar', () => {
+    const fullscreenControl = { active: false, label: 'Open in workspace', onClick: vi.fn() }
+    render(<WorkspaceCockpit embedMode="full-bleed" fullscreenControl={fullscreenControl} />)
+    const action = screen.getByRole('button', { name: 'Open in workspace' })
+    expect(action.getAttribute('title')).toBe('Open in workspace')
+    expect(action.className).toMatch(/min-h-11/)
+    expect(action.className).toMatch(/min-w-11/)
+    expect(action.className).toMatch(/shrink-0/)
+    expect(action.querySelector('[data-compact-workspace-icon]')?.classList.contains('sm:hidden')).toBe(true)
+    expect(action.querySelector('[data-workspace-action-label]')?.className).toContain('hidden sm:inline')
+  })
+
   it('dispatches cockpit selection context (the channel SutraPanel listens on) when an opening is selected', async () => {
     render(<WorkspaceCockpit canvasFirst />)
     fireEvent.click(screen.getByRole('tab', { name: 'Plan' }))

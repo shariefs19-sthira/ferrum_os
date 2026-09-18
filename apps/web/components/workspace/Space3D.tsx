@@ -427,7 +427,9 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       <div className="pointer-events-none absolute bottom-5 left-5 z-10 hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white drop-shadow md:block">Axonometric</div>
     </div>
     <div className="flex min-h-14 items-center gap-2 border-t border-relume-border bg-white px-3 py-2" data-mobile-canvas-status>
-      <p className="min-w-0 flex-1 truncate text-[9px] font-semibold uppercase tracking-[0.08em] text-relume-muted"><span className="text-relume-command">INDICATIVE</span> · {shell?.name ?? 'Deterministic massing'} · {profile === 'full' ? 'PBR' : profile === 'reduced' ? 'Reduced' : 'Diagram'} · not a survey</p>
+      <p className="min-w-0 flex-1 whitespace-normal break-words text-[9px] font-semibold uppercase leading-4 tracking-[0.08em] text-relume-muted" data-canvas-evidence>
+        <span className="text-relume-command">INDICATIVE</span> · {shell?.name ?? 'Deterministic massing'} · {profile === 'full' ? 'PBR' : profile === 'reduced' ? 'Reduced' : 'Diagram'} · <span className="text-relume-command">NOT A SURVEY</span>
+      </p>
       {shell && profile === 'full' && <button type="button" onClick={() => setBeautyMode((value) => !value)} aria-pressed={beautyMode} className="min-h-11 shrink-0 rounded-full border border-relume-border bg-white px-3 text-[10px] font-semibold text-relume-command" data-mobile-beauty-preview>{beautyMode ? 'Interactive' : 'Beauty'}</button>}
     </div>
     </div>
