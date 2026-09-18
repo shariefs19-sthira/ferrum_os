@@ -66,7 +66,9 @@ async function capture({ name, mobile, prepare, evidence }) {
   page.on('response', (res) => { if (res.status() >= 400 && !res.url().includes('/api/region')) consoleErrors.push(`HTTP ${res.status()} for ${res.url()}`) })
   const response = await page.goto(`http://localhost:${port}/products/landintel`, { waitUntil: 'load', timeout: 30_000 })
   await prepare(page)
-  await page.screenshot({ path: `${evidenceDir}/${name}.png`, fullPage: false })
+  const cookieConsent = page.getByRole('button', { name: 'Got it' })
+  if (await cookieConsent.isVisible()) await cookieConsent.click()
+  await page.locator('[data-geotechnical-map-layer-legend]').screenshot({ path: `${evidenceDir}/${name}.png` })
   report.captures.push({
     name,
     mobile: !!mobile,
@@ -93,6 +95,7 @@ for (const mobile of [false, true]) {
       legendHeading: await text(page, '#geotechnical-map-layer-heading'),
       declarativeNotMapDisclosure: await text(page, '[data-geotechnical-map-layer-disclosure]'),
       connectorStatus: await text(page, '[data-geotechnical-map-layer-connector-status]'),
+      authorityBoundary: await text(page, '[data-geotechnical-map-layer-authority-boundary]'),
       unknownGapCount: await text(page, '[data-map-layer-category="UNKNOWN_GAP"] [data-map-layer-count]'),
       authoritativeCoverageCount: await text(page, '[data-map-layer-category="AUTHORITATIVE_COVERAGE"] [data-map-layer-count]'),
       horizontalOverflow: await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth),

@@ -54,6 +54,22 @@ describe('geotechnical map-layer categorisation', () => {
   it('routes verified regional evidence to AUTHORITATIVE_COVERAGE', () => {
     expect(categorizeEvidence(evidence({ status: 'SOURCE-VERIFIED', scope: 'REGIONAL_SCREENING', coverage: { kind: 'REGION', label: 'Karnataka geology index', coverageGaps: [] } }))).toBe('AUTHORITATIVE_COVERAGE')
   })
+
+  it.each([
+    ['SOURCE-VERIFIED', 'AUTHORITATIVE_COVERAGE'],
+    ['USER-PROVIDED', 'UNKNOWN_GAP'],
+    ['INDICATIVE', 'UNKNOWN_GAP'],
+    ['INFERRED', 'UNKNOWN_GAP'],
+    ['UNKNOWN', 'UNKNOWN_GAP'],
+    ['STALE UPSTREAM DATA', 'STALE_AREA'],
+    ['CONFLICT', 'CONFLICT'],
+  ] as const)('classifies regional %s evidence as %s without granting unsupported authority', (status, category) => {
+    expect(categorizeEvidence(evidence({
+      status,
+      scope: 'REGIONAL_SCREENING',
+      coverage: { kind: 'REGION', label: 'Karnataka geology index', coverageGaps: [] },
+    }))).toBe(category)
+  })
 })
 
 describe('buildGeotechnicalMapLayers', () => {
@@ -70,6 +86,8 @@ describe('buildGeotechnicalMapLayers', () => {
     expect(point.category).toBe('PROJECT_INVESTIGATION_POINT')
     expect(point.geometry).toEqual({ kind: 'PROJECT_POINT', coordinates: projectInput({}).coordinates })
     expect(point.disclosure.jurisdiction).toBe('EPSG:4326')
+    expect(regional.disclosure.evidenceStatus).toBe('SOURCE-VERIFIED')
+    expect(point.disclosure.evidenceStatus).toBe('USER-PROVIDED')
   })
 
   it('omits project inputs with no coordinates rather than inventing a location', () => {

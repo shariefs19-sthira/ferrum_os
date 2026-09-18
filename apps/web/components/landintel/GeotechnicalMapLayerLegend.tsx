@@ -75,6 +75,9 @@ export default function GeotechnicalMapLayerLegend({
         <p className="mt-2 text-xs text-relume-muted" data-geotechnical-map-layer-connector-status>
           {declarativeCount} of {governmentGeotechnicalSources.length} government source connectors are DECLARATIVE ONLY -- none is wired to live credentials or an endpoint in this build.
         </p>
+        <p className="mt-2 text-xs text-relume-muted" data-geotechnical-map-layer-authority-boundary>
+          “Authoritative mapped coverage” is reserved for SOURCE-VERIFIED regional evidence with known coverage. INDICATIVE, INFERRED and regional USER-PROVIDED evidence remains non-authoritative; its source status and provenance are retained for a future map renderer.
+        </p>
       </div>
 
       <div className="grid gap-3 p-5 sm:grid-cols-2 sm:p-6 lg:grid-cols-5" aria-label="Geotechnical map-layer categories">

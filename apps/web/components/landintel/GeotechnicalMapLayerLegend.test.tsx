@@ -40,6 +40,18 @@ describe('GeotechnicalMapLayerLegend', () => {
     expect(screen.getByText(/DECLARATIVE ONLY -- none is wired to live credentials/)).toBeTruthy()
   })
 
+  it('states the authority boundary visibly and preserves non-authoritative evidence as a gap', () => {
+    const evidence: GeotechnicalEvidence[] = [
+      { id: 'indicative-a', topic: 'regional-geology-lithology', label: 'Indicative geology', value: 'Alluvium', unit: null, status: 'INDICATIVE', method: 'MODELLED', scope: 'REGIONAL_SCREENING', confidence: 'MEDIUM', coverage: { kind: 'REGION', label: 'Karnataka', coverageGaps: [] }, lineage: null, limitations: [], validUntil: null },
+      { id: 'inferred-a', topic: 'groundwater', label: 'Inferred groundwater', value: null, unit: null, status: 'INFERRED', method: 'INFERRED', scope: 'REGIONAL_SCREENING', confidence: 'LOW', coverage: { kind: 'REGION', label: 'Karnataka', coverageGaps: [] }, lineage: null, limitations: [], validUntil: null },
+      { id: 'provided-a', topic: 'flood-drainage', label: 'Provided flood note', value: null, unit: null, status: 'USER-PROVIDED', method: 'OBSERVED', scope: 'REGIONAL_SCREENING', confidence: 'LOW', coverage: { kind: 'REGION', label: 'Karnataka', coverageGaps: [] }, lineage: null, limitations: [], validUntil: null },
+    ]
+    render(<GeotechnicalMapLayerLegend assessment={assessGeotechnicalEvidence(evidence)} />)
+    expect(screen.getByText(/reserved for SOURCE-VERIFIED regional evidence with known coverage/)).toBeTruthy()
+    expect(screen.getByText('Authoritative mapped coverage').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('0')
+    expect(screen.getByText('UNKNOWN gap').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('3')
+  })
+
   it('never claims to render map geometry -- describes a declarative categorisation only', () => {
     render(<GeotechnicalMapLayerLegend />)
     expect(screen.getByText(/declarative categorisation, not a rendered map/)).toBeTruthy()

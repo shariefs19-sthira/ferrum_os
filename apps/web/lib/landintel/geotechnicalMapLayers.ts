@@ -13,6 +13,7 @@
 import type {
   CoordinateReference,
   GeotechnicalEvidence,
+  GeotechnicalEvidenceStatus,
   ProjectGeotechnicalInput,
   SpatialCoverage,
 } from './geotechnicalIntelligence'
@@ -31,6 +32,7 @@ export type MapLayerGeometry =
 
 export type MapLayerDisclosure = {
   source: string
+  evidenceStatus: GeotechnicalEvidenceStatus | 'USER-PROVIDED'
   licence: string
   observationDate: string | null
   publicationDate: string | null
@@ -53,20 +55,23 @@ export type GeotechnicalMapLayerFeature = {
 /**
  * One evidence item maps to exactly one category, most-severe first: a
  * CONFLICT or STALE status always wins the categorisation regardless of
- * scope, so a stale or disputed project point is never shown as if it were
- * still an authoritative regional layer.
+ * scope. AUTHORITATIVE_COVERAGE is deliberately narrower: it is reserved
+ * for SOURCE-VERIFIED regional evidence with known coverage. INDICATIVE,
+ * INFERRED and USER-PROVIDED regional evidence remain non-authoritative,
+ * so none can acquire an authority label merely because it has a region.
  */
 export function categorizeEvidence(item: GeotechnicalEvidence): MapLayerCategory {
   if (item.status === 'CONFLICT') return 'CONFLICT'
   if (item.status === 'STALE UPSTREAM DATA') return 'STALE_AREA'
   if (item.scope === 'PROJECT_INVESTIGATION') return 'PROJECT_INVESTIGATION_POINT'
   if (item.status === 'UNKNOWN' || item.coverage.kind === 'UNKNOWN') return 'UNKNOWN_GAP'
-  return 'AUTHORITATIVE_COVERAGE'
+  return item.status === 'SOURCE-VERIFIED' ? 'AUTHORITATIVE_COVERAGE' : 'UNKNOWN_GAP'
 }
 
 function disclosureFromEvidence(item: GeotechnicalEvidence): MapLayerDisclosure {
   return {
     source: item.lineage?.sourceUri ?? item.lineage?.sourceId ?? 'Not connected',
+    evidenceStatus: item.status,
     licence: 'See the government source registry entry for this topic before treating this as licensed for reuse.',
     observationDate: item.lineage?.observationDate ?? null,
     publicationDate: item.lineage?.publicationDate ?? null,
@@ -81,6 +86,7 @@ function disclosureFromEvidence(item: GeotechnicalEvidence): MapLayerDisclosure 
 function disclosureFromProjectInput(input: ProjectGeotechnicalInput, coordinates: CoordinateReference): MapLayerDisclosure {
   return {
     source: input.responsibleParty || 'Responsible party not recorded',
+    evidenceStatus: input.status,
     licence: 'Project-owned investigation data; not a public/redistributable source.',
     observationDate: input.issueDate,
     publicationDate: null,
@@ -143,11 +149,11 @@ export function withLiveStaleness(
 }
 
 export const mapLayerLegend: Record<MapLayerCategory, { label: string; description: string }> = {
-  AUTHORITATIVE_COVERAGE: { label: 'Authoritative mapped coverage', description: 'A declared government/authority source at regional-screening scope. Never a project-investigation result.' },
+  AUTHORITATIVE_COVERAGE: { label: 'Authoritative mapped coverage', description: 'SOURCE-VERIFIED regional evidence with known declared coverage. Never an INDICATIVE, INFERRED, USER-PROVIDED or project-investigation result.' },
   PROJECT_INVESTIGATION_POINT: { label: 'Project investigation point', description: 'A user-provided borehole, CPT/SPT or laboratory point tied to this project, kept USER-PROVIDED until independently verified.' },
   CONFLICT: { label: 'Conflict', description: 'Two or more evidence items disagree at this location; suitability is BLOCKED until resolved.' },
   STALE_AREA: { label: 'Stale', description: 'Upstream data is stale, or the active site has changed since this was generated; recompute before relying on it.' },
-  UNKNOWN_GAP: { label: 'UNKNOWN gap', description: 'No source-qualified evidence is connected for this topic or area.' },
+  UNKNOWN_GAP: { label: 'UNKNOWN gap', description: 'No source-qualified evidence is connected for this topic or area, including non-authoritative INDICATIVE, INFERRED or regional USER-PROVIDED evidence.' },
 }
 
 export const mapLayerCategoryOrder: MapLayerCategory[] = [
