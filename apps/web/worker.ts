@@ -40,6 +40,7 @@ import { computeCityComparison } from './lib/analysis/cityComparison'
 import { SAMPLE_GOVT_RATES, SAMPLE_STAMP_DUTY, SAMPLE_ALLOWABLE_FSI, SAMPLE_MIN_SETBACK_M, CITIES } from './lib/analysis/sampleData'
 import type { City, BoqItem, LandData, RegulatoryData } from './lib/analysis/types'
 import { computePlotIntel } from './lib/parcelIntel/parcelIntel'
+import { createRequestId, normalizeClientError, normalizeError, redactRoute, writeOpsEvent } from './lib/ops/observability'
 
 async function requireUser(env: Env, cookieHeader: string | undefined) {
   const sessionId = parseSessionCookie(cookieHeader)
@@ -85,9 +86,75 @@ export type Env = {
   TRANSACT_DOCS?: R2Bucket
 }
 
-const app = new Hono<{ Bindings: Env }>()
+type Variables = { requestId: string }
+
+const app = new Hono<{ Bindings: Env; Variables: Variables }>()
+
+function isObservedRequest(pathname: string): boolean {
+  return pathname.startsWith('/api/') || pathname === '/mcp' || pathname === '/docs/api'
+}
+
+app.use('*', async (c, next) => {
+  const startedAt = Date.now()
+  const requestId = createRequestId(c.req.header('X-Request-ID'))
+  const route = redactRoute(c.req.url)
+  c.set('requestId', requestId)
+
+  await next()
+  c.header('X-Request-ID', requestId)
+
+  if (isObservedRequest(new URL(c.req.url).pathname)) {
+    writeOpsEvent({
+      level: c.res.status >= 500 ? 'error' : 'info',
+      event: 'edge.request_completed',
+      source: 'edge',
+      request_id: requestId,
+      route,
+      method: c.req.method,
+      status: c.res.status,
+      duration_ms: Date.now() - startedAt,
+    })
+  }
+})
+
+app.onError((error, c) => {
+  const requestId = c.get('requestId') || createRequestId(null)
+  c.header('X-Request-ID', requestId)
+  writeOpsEvent({
+    level: 'error',
+    event: 'edge.request_failed',
+    source: 'edge',
+    request_id: requestId,
+    route: redactRoute(c.req.url),
+    method: c.req.method,
+    status: 500,
+    ...normalizeError(error),
+  })
+  return c.json({ error: 'internal_error', request_id: requestId }, 500)
+})
 
 app.get('/api/health', (c) => c.json({ status: 'ok' }))
+
+app.post('/api/ops/client-errors', async (c) => {
+  if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'client-errors', 20, 60))) {
+    return c.json({ error: 'rate_limited' }, 429)
+  }
+  const report = normalizeClientError(await c.req.json().catch(() => null))
+  if (!report) return c.json({ error: 'invalid_input' }, 400)
+
+  const requestId = c.get('requestId')
+  writeOpsEvent({
+    level: 'error',
+    event: 'client.render_error',
+    source: 'client',
+    request_id: requestId,
+    route: report.route,
+    error_name: report.name,
+    error_message: report.message,
+    component_stack: report.component_stack,
+  })
+  return c.json({ status: 'accepted', request_id: requestId }, 202)
+})
 
 app.get('/api/ulpin/:id', async (c) => {
   const provider = new LiveLandRecordsProvider(c.env.DB, c.env.OGD_API_KEY)

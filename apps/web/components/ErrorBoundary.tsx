@@ -1,6 +1,7 @@
 "use client"
 
 import { Component, type ErrorInfo, type ReactNode } from "react"
+import { reportClientRenderError } from "../lib/ops/clientError"
 
 type Props = { children: ReactNode }
 type State = { error: Error | null; copied: boolean }
@@ -29,6 +30,7 @@ export default class ErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, info: ErrorInfo) {
     // eslint-disable-next-line no-console
     console.error("[ErrorBoundary] caught a render error:", error, info.componentStack)
+    void reportClientRenderError(error, info.componentStack ?? undefined)
   }
 
   private reportDetails() {
