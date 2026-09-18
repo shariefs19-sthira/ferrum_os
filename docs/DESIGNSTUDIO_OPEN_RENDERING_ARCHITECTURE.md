@@ -80,3 +80,9 @@ Ferrum OS is worldwide in scope. India is the first deep jurisdiction pack, not 
 Country support is released through independently versioned jurisdiction packs. Each pack resolves the country, subnational authority, municipality or authority having jurisdiction, rule edition, effective date, local amendments, official source and licence. A pack cannot convert a design into an approval; it can show checked clauses, unresolved requirements and the professional or authority responsible for closure.
 
 Where a reviewed pack is unavailable, the design and environmental simulation tools remain usable while regulatory conclusions stay `UNKNOWN`. SUTRA must never apply Indian, United States, European or other rules outside their recorded scope.
+
+### Regional delivery contract
+
+Ferrum may use Cloudflare's coarse edge country/region signal to localize discovery, currency, language and the set of jurisdiction packs presented to a visitor. The signal is returned by `/api/region`, is not persisted by that endpoint, and can be overridden by the user.
+
+User location never selects the governing design code. Project Context owns the project country, authority and parcel location. A user in India working on a London project receives the United Kingdom project pack once that project jurisdiction is selected and verified. The governing rule is: **user location personalizes discovery; project location governs design and compliance.**

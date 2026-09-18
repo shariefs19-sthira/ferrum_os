@@ -15,7 +15,7 @@ export const openApiSpec: OpenAPIV3.Document = {
     title: 'Ferrum OS API',
     version: '1.0.0',
     description:
-      'India-first construction & investment platform — land feasibility, AI design, structural checks, BOQ estimation, rate comparison, IRR/NPV modeling, CDE status. See docs/AGENT_INTERFACE.md for the full agent-interface spec; every read route here has an identical MCP tool at /mcp.',
+      'Global construction intelligence platform — land feasibility, design, structural checks, BOQ estimation, rate comparison, investment modeling and controlled project information. See docs/AGENT_INTERFACE.md for the full agent-interface specification.',
   },
   servers: [{ url: '/' }],
   paths: {
@@ -23,6 +23,30 @@ export const openApiSpec: OpenAPIV3.Document = {
       get: {
         summary: 'Health check',
         responses: { '200': { description: 'OK', content: { 'application/json': { schema: { type: 'object', properties: { status: { type: 'string' } } } } } } },
+      },
+    },
+    '/api/region': {
+      get: {
+        summary: 'Resolve coarse experience region and available jurisdiction pack',
+        description: 'Uses the Cloudflare edge country/region signal for non-persisted experience localization. Project Context, not this endpoint, governs project design and compliance.',
+        responses: {
+          '200': {
+            description: 'Regional experience profile',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    detected: { type: 'object' },
+                    profile: { type: 'object' },
+                    rule: { type: 'string' },
+                    projectJurisdiction: { type: 'string' },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     },
     '/api/ulpin/{id}': {

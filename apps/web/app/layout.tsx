@@ -18,23 +18,23 @@ export const metadata: Metadata = {
   manifest: '/manifest.webmanifest',
   metadataBase: new URL(SITE_BASE_URL),
   title: {
-    default: 'Ferrum OS - AI-native construction platform for India',
+    default: 'Ferrum OS - global construction intelligence platform',
     template: '%s | Ferrum OS',
   },
   description:
-    'Ferrum OS is an India-first, AI-native construction platform covering land intelligence, design, structural checks, BOQ, procurement, and project finance.',
+    'Ferrum OS connects land intelligence, building design, structural checks, quantities, procurement, and project finance through one evidence-controlled platform.',
   openGraph: {
-    title: 'Ferrum OS - AI-native construction platform for India',
+    title: 'Ferrum OS - global construction intelligence platform',
     description:
-      'Ferrum OS is an India-first, AI-native construction platform covering land intelligence, design, structural checks, BOQ, procurement, and project finance.',
+      'Ferrum OS connects land intelligence, building design, structural checks, quantities, procurement, and project finance through one evidence-controlled platform.',
     type: 'website',
-    locale: 'en_IN',
+    locale: 'en',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ferrum OS - AI-native construction platform for India',
+    title: 'Ferrum OS - global construction intelligence platform',
     description:
-      'Ferrum OS is an India-first, AI-native construction platform covering land intelligence, design, structural checks, BOQ, procurement, and project finance.',
+      'Ferrum OS connects land intelligence, building design, structural checks, quantities, procurement, and project finance through one evidence-controlled platform.',
   },
 }
 
