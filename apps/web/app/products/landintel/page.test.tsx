@@ -22,15 +22,11 @@ describe('LandIntel hero composition', () => {
     expect(source).toContain('<GeotechnicalIntelligencePanel />')
   })
 
-  it('organizes the evidence surface into all five governed analytical themes', () => {
-    expect(source).toContain('EvidenceThemeTabs')
-    for (const theme of ["id: 'land'", "id: 'access'", "id: 'environment'", "id: 'regulation'", "id: 'market'"]) {
-      expect(source).toContain(theme)
-    }
-    expect(source).toContain('<AccessConnectivityPanel />')
-    expect(source).toContain('<ProximityCatchmentPanel />')
-    expect(source).toContain('<MarketContextPanel />')
-    expect(source).toContain('nothing is synthesized to fill a gap')
+  it('renders the geotechnical map-layer legend beside the geotechnical evidence panel, in the same Land theme', () => {
+    expect(source).toContain('<GeotechnicalMapLayerLegend />')
+    expect(source.indexOf('<GeotechnicalIntelligencePanel />')).toBeLessThan(source.indexOf('<GeotechnicalMapLayerLegend />'))
+    expect(source.indexOf("id: 'land'")).toBeLessThan(source.indexOf('<GeotechnicalMapLayerLegend />'))
+    expect(source.indexOf('<GeotechnicalMapLayerLegend />')).toBeLessThan(source.indexOf("id: 'access'"))
   })
 
   it('organizes the evidence surface into all five governed analytical themes', () => {

@@ -1,0 +1,36 @@
+{
+  "capturedAt": "2026-09-18T21:02:46.785Z",
+  "source": "LOCAL STATIC BUILD (apps/web/out) -- not a deployed edge",
+  "captures": [
+    {
+      "name": "landintel-geotech-maplayer-legend-desktop",
+      "mobile": false,
+      "httpStatus": 200,
+      "evidence": {
+        "legendHeading": "Every spatial feature carries one honest category",
+        "connectorStatus": "5 of 5 government source connectors are DECLARATIVE ONLY -- none is wired to live credentials or an endpoint in this build.",
+        "unknownGapCount": "20",
+        "authoritativeCoverageCount": "0",
+        "horizontalOverflow": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "name": "landintel-geotech-maplayer-legend-mobile",
+      "mobile": true,
+      "httpStatus": 200,
+      "evidence": {
+        "legendHeading": "Every spatial feature carries one honest category",
+        "connectorStatus": "5 of 5 government source connectors are DECLARATIVE ONLY -- none is wired to live credentials or an endpoint in this build.",
+        "unknownGapCount": "20",
+        "authoritativeCoverageCount": "0",
+        "horizontalOverflow": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    }
+  ]
+}
