@@ -31,6 +31,15 @@ describe('product feature registry', () => {
     expect(answer?.citations).toEqual([{ title: 'LandIntel: Governed terrain intelligence', href: '/products/landintel' }])
   })
 
+  it('grounds model preview and controlled-release explanations in the shared registry', () => {
+    const preview = answerProductKnowledge('Explain model preview on ingestion in DesignStudio')
+    const release = answerProductKnowledge('Explain approved for machine in BuildOS')
+    expect(preview?.text).toContain('Model preview on ingestion')
+    expect(preview?.text).toContain('PREVIEWED only')
+    expect(release?.text).toContain('APPROVED FOR MACHINE')
+    expect(release?.text).toContain('revision-specific')
+  })
+
   it('keeps every product page on the shared registry', () => {
     for (const productId of Object.keys(productFeatureRegistry)) {
       const source = fs.readFileSync(path.join(process.cwd(), 'app', 'products', productId, 'page.tsx'), 'utf8')

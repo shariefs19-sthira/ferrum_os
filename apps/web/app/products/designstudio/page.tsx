@@ -7,6 +7,7 @@ import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
+import ModelIntakePanel from '../../../components/model-intake/ModelIntakePanel'
 
 const featureItems = productFeatureRegistry.designstudio
 
@@ -92,6 +93,8 @@ export default function DesignStudioPage() {
           </div>
         </div>
       </SectionShell>
+
+      <ModelIntakePanel />
 
       {/* 2. Features */}
       <SectionShell background="surface-secondary">

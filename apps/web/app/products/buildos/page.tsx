@@ -7,6 +7,7 @@ import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
+import ModelIntakePanel from '../../../components/model-intake/ModelIntakePanel'
 
 // W2-345: BuildOS has zero shipped tool of any kind — no task management,
 // no RFI/submittal tracking, no QA/QC or HSE checklists, no progress
@@ -96,6 +97,8 @@ export default function BuildOSPage() {
           </ProductCockpitPreview>
         </div>
       </SectionShell>
+
+      <ModelIntakePanel />
 
       {/* 2. Features */}
       <SectionShell background="surface-secondary">
