@@ -957,3 +957,28 @@ the deployed `ac5b220c2` Worker release above.
 UNDO for this section: `git revert <sha>` of this pass's own landing commit
 (docs/evidence only; removes this appended reconciliation and its evidence
 bundle without changing product code or deployment state).
+
+## SCRIBE W2-336 observability closure — 2026-09-18
+
+W2-336 edge logging/tracing landed on `main` as
+`ebcd6436155d9943da751dbb7a99ada47c485e92`. The final deployed release is
+`63fa536835ef999e3fee381011df7c034ab7007c`, Cloudflare version
+`011a498e-c950-4262-b5ee-df013cc4f662`.
+
+Runtime correlation was verified at the public edge: `GET /api/health`
+returned HTTP 200 with an `X-Request-ID`; a simultaneous live Wrangler tail
+emitted a structured `edge.request_completed` event carrying the same
+correlation ID, redacted route `/api/health`, and status 200. This proves the
+request-ID handoff and structured edge completion event on the deployed
+Worker. **W2-336 is DONE/LIVE for this bounded observability acceptance.** It
+does not assert broader tracing coverage beyond the verified request path.
+
+The external gates in the immediately preceding reconciliation remain open
+and unchanged: `ferrumprojects.in` WHOIS/KYC registrar verification,
+W2-308/W2-315 LLM provisioning/cost/retrieval/budget controls, W2-287 counsel
+sign-off, W2-409's operator release milestone, Google Tiles provider controls,
+authoritative LandIntel sources, the cockpit mobile IFC overlap defect, and
+the unresolved formal RULE 34 lift.
+
+UNDO for this section: `git revert <sha>` of this docs-only reconciliation
+commit; product implementation and deployment state are unaffected.
