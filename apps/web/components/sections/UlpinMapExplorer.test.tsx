@@ -14,7 +14,8 @@ describe('UlpinMapExplorer W-85 parcel finder', () => {
   it('exposes a concise hover and focus explanation for every location tool', () => {
     render(<UlpinMapExplorer />)
     const coordinates = screen.getByRole('button', { name: 'Coordinates' })
-    expect(coordinates.getAttribute('title')).toContain('decimal coordinates')
+    expect(coordinates.hasAttribute('title')).toBe(false)
+    expect(coordinates.getAttribute('aria-describedby')).toBe('landintel-location-coordinates-tip')
     expect(coordinates.getAttribute('data-sutra-feature-id')).toBe('location-coordinates')
     expect(screen.getAllByRole('tooltip', { hidden: true })).toHaveLength(6)
   })
