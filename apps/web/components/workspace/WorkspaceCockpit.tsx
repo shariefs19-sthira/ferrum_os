@@ -130,6 +130,9 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const parcelContext = useParcelContext()
   const rulesetState = parcelContext && getRulesetForState(parcelContext.state) ? parcelContext.state : 'Karnataka'
   const ruleset = getRulesetForState(rulesetState)
+  const parcelLandUse = parcelContext && ruleset?.land_use_rules[parcelContext.land_use as LandUse]
+    ? parcelContext.land_use as LandUse
+    : null
   const siteContextLabel = parcelContext ? `${parcelContext.district}, ${parcelContext.state}` : 'SAMPLE LOCATION Bengaluru, Karnataka'
   const authorityEvidence = useMemo(() => getSiteConstraintsEvidence(parcelContext), [parcelContext])
   const landRule = ruleset?.land_use_rules[landUse]
@@ -152,6 +155,11 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     : activeProduct === 'Build'
       ? compliance.permissions.filter((item) => item.stage === 'BUILD')
       : [], [activeProduct, compliance])
+  useEffect(() => {
+    if (!parcelLandUse) return
+    setLandUse(parcelLandUse)
+    setOptionStage((current) => current === 'use' ? 'floors' : current)
+  }, [parcelLandUse])
   // Battery-fail (2): a tool mutate (any Parameter slider below) must
   // recompute the bottom extract panel live. onLiveMetricsChange runs
   // from real derived state (plan/grossArea/governingSpanM/
@@ -287,6 +295,12 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         setParameters((current) => ({ ...current, floors: Math.max(1, Math.min(maxFloors, amount)) }))
         setCommandResult(`Floor count set to ${amount}. Massing and quantities updated.`)
       } else if (/set use/.test(command)) {
+        if (parcelContext) {
+          setCommandResult(parcelLandUse
+            ? `Use remains ${parcelLandUse}, derived from the selected parcel's recorded land use. Verify the competent-authority zoning record before design reliance.`
+            : 'Use cannot be selected manually while a parcel is active. Competent-authority zoning verification is required.')
+          return
+        }
         const nextUse: LandUse = command.includes('mixed') ? 'Mixed Use' : command.includes('commercial') ? 'Commercial' : 'Residential'
         setLandUse(nextUse)
         const nextRule = getRulesetForState(rulesetState)?.land_use_rules[nextUse]
@@ -337,7 +351,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     }
     window.addEventListener('ferrum:workspace-command', applyCommand)
     return () => window.removeEventListener('ferrum:workspace-command', applyCommand)
-  }, [initialParameters, maxFloors, rulesetState])
+  }, [initialParameters, maxFloors, parcelContext, parcelLandUse, rulesetState])
   const updateAreaUnit = (unit: typeof areaUnits[number]) => {
     setPrimaryAreaUnit(unit)
     window.localStorage.setItem('ferrum-area-unit', unit)
@@ -479,11 +493,12 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
               only interactive control. */}
           {!canvasFirst && <div className="absolute left-3 right-3 top-16 z-20 flex flex-wrap items-center gap-2 rounded-2xl border border-white/40 bg-relume-command/90 p-2 shadow-xl backdrop-blur-sm md:left-1/2 md:right-auto md:max-w-[calc(100%-2rem)] md:-translate-x-1/2" aria-label={`${optionStage} options`} data-option-chip-flow data-option-stage={optionStage}>
             <span className="shrink-0 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-accent">{optionStage} · INDICATIVE</span>
-            {optionStage === 'use' && (['Residential', 'Commercial', 'Mixed Use'] as LandUse[]).map((choice) => <button key={choice} type="button" onClick={() => { const rule = ruleset?.land_use_rules[choice]; setLandUse(choice); if (rule) update('setbackM', rule.min_setback_m); setOptionStage('floors'); setCommandResult(`${choice} selected from ${ruleset?.city_label ?? rulesetState} ${ruleset?.version ?? 'GAP'} ruleset.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
+            {optionStage === 'use' && parcelContext && <span className="rounded-full bg-white px-4 py-3 text-xs font-semibold text-relume-command">{parcelLandUse ? `Recorded use: ${parcelLandUse} · zoning verification required` : 'Use UNKNOWN · zoning verification required'}</span>}
+            {optionStage === 'use' && !parcelContext && (['Residential', 'Commercial', 'Mixed Use'] as LandUse[]).map((choice) => <button key={choice} type="button" onClick={() => { const rule = ruleset?.land_use_rules[choice]; setLandUse(choice); if (rule) update('setbackM', rule.min_setback_m); setOptionStage('floors'); setCommandResult(`${choice} selected from ${ruleset?.city_label ?? rulesetState} ${ruleset?.version ?? 'GAP'} ruleset.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'floors' && Array.from({ length: maxFloors }, (_, index) => index + 1).map((floors) => <button key={floors} type="button" onClick={() => { update('floors', floors); setOptionStage('massing'); setCommandResult(`${floors} floor${floors === 1 ? '' : 's'} selected; sample FAR and height caps allow up to ${maxFloors}.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{floors} floor{floors === 1 ? '' : 's'}</button>)}
             {optionStage === 'massing' && ['Compact', 'Balanced', 'Slender'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', Math.max(landRule?.min_setback_m ?? 1.5, (landRule?.min_setback_m ?? 1.5) + index * 0.5)); setOptionStage('rooms'); setCommandResult(`${choice} massing applied within the sample setback floor.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'rooms' && ['Social-first', 'Balanced', 'Private-first'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('plotWidthM', Math.max(8, Math.min(80, parameters.plotWidthM + index - 1))); setOptionStage('compliance'); setCommandResult(`${choice} room split applied to the deterministic plan proportions.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
-            {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage('use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
+            {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage(parcelContext ? 'floors' : 'use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>}
           <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
             {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} />}

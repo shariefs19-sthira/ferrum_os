@@ -7,7 +7,7 @@ vi.mock('./ParcelMap', () => ({ default: ({ onPinDrop }: { onPinDrop?: (point: {
 vi.mock('../ProvenanceStrip', () => ({ ProvenanceStrip: ({ source }: { source: string }) => <span>Source: {source}</span> }))
 vi.mock('../../lib/workspace/parcelContext', () => ({ writeParcelContext: vi.fn() }))
 
-const seeded = { ulpin: 'KA-BLR-0001-2024', state: 'Karnataka', district: 'Bengaluru Urban', area_sqm: 1500, land_use: 'Commercial' }
+const seeded = { ulpin: 'KA-BLR-0001-2024', state: 'Karnataka', district: 'Bengaluru Urban', area_sqm: 1500, land_use: 'Commercial', plot_intel: { advisable_types: [{ building_type: 'Retail complex', reason: 'Sample commercial rule fit' }] } }
 describe('UlpinMapExplorer W-85 parcel finder', () => {
   beforeEach(() => { vi.clearAllMocks(); vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => seeded })) })
 
@@ -16,6 +16,13 @@ describe('UlpinMapExplorer W-85 parcel finder', () => {
     expect(screen.getAllByRole('button', { name: /ULPIN|Map pin|Coordinates|Address|My location|Survey \/ khasra/ })).toHaveLength(6)
     fireEvent.click(screen.getByRole('button', { name: seeded.ulpin })); fireEvent.click(screen.getByRole('button', { name: 'Lookup seeded record' }))
     await waitFor(() => expect(writeParcelContext).toHaveBeenCalledWith(expect.objectContaining({ method: 'ulpin', ulpin: seeded.ulpin, coordinates: { lat: 12.9716, lng: 77.5946 }, provenance: expect.objectContaining({ status: 'INDICATIVE' }) })))
+    expect(screen.getByText('Commercial')).toBeTruthy()
+    expect(screen.getByText('REQUIRES AUTHORITY VERIFICATION')).toBeTruthy()
+    expect(screen.getByText('Retail complex')).toBeTruthy()
+    expect(screen.getByText(/recommendations, not authority-permitted uses/)).toBeTruthy()
+    expect(screen.queryByRole('button', { name: 'Residential' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Commercial' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Mixed Use' })).toBeNull()
     expect(screen.getByRole('button', { name: 'Map showing sample' })).toBe(map)
   })
 

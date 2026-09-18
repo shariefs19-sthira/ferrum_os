@@ -4,8 +4,33 @@ import { useEffect, useRef, useState } from 'react'
 import ProductCockpitPreview, { type CockpitProduct } from '../workspace/ProductCockpitPreview'
 import EvidenceStateBadge from './EvidenceStateBadge'
 import HeroRoadmapPreview from './HeroRoadmapPreview'
+import UlpinMapExplorer from './UlpinMapExplorer'
+import StampDutyEstimator from './StampDutyEstimator'
+import SteppedForecastModule, { type ForecastProduct } from './SteppedForecastModule'
 import { productExperienceList, type ProductAccentToken } from '../../lib/productExperienceRegistry'
 import { journeyRows, journeyRowForProduct } from '../../lib/homepageJourney'
+
+// PRODUCT-ISOLATION-001-selected-product-only. The homepage cockpit used to
+// call <ProductCockpitPreview> with no children at all, so every
+// live-cockpit product fell straight through to WorkspaceCockpit's one
+// shared massing/plan/3D model -- LandIntel's cockpit looked identical to
+// DesignStudio's, just with different floating sliders. Every one of these
+// ten product pages (apps/web/app/products/<id>/page.tsx) already solves
+// this correctly: it passes its own real, product-specific tool as
+// <ProductCockpitPreview>'s children, rendered above the shared chain. This
+// map is that exact same pairing, reused verbatim -- not new content, not a
+// new component, just wiring the homepage hero up the same way every
+// product's own page already works.
+function ProductPrimaryPanel({ id }: { id: CockpitProduct }) {
+  if (id === 'landintel') return <UlpinMapExplorer />
+  if (id === 'transact') return <StampDutyEstimator />
+  if (id === 'designstudio' || id === 'structura' || id === 'boq-pro' || id === 'promarket' || id === 'investflow') {
+    return <SteppedForecastModule product={id as ForecastProduct} />
+  }
+  // buildos/procurehub/communitybuild never reach here -- they render
+  // HeroRoadmapPreview instead (see `isLiveTool` below), same as before.
+  return null
+}
 
 // W2-500: all ten products' data now comes from one place
 // (lib/productExperienceRegistry.ts) instead of an inline array here.
@@ -32,6 +57,7 @@ export default function HomepageCockpitHero() {
   const [activeId, setActiveId] = useState<CockpitProduct>('landintel')
   const active = products.find((product) => product.id === activeId) ?? products[0]
   const activeJourneyRowId = journeyRowForProduct[activeId]
+  const activeJourneyRow = journeyRows.find((row) => row.id === activeJourneyRowId) ?? journeyRows[0]
   const isLiveTool = active.tool.kind === 'live-cockpit'
 
   // W2-501: below 1366px the ten-product rail is no longer a horizontally
@@ -262,41 +288,35 @@ export default function HomepageCockpitHero() {
                 dominant) per the required desktop 1366+ proportion. */}
             <div className="order-1 min-w-0 lg:order-1 lg:col-span-4">
               <p className="border-b border-relume-border pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
-                What you can do in Ferrum
+                {active.label} · selected product
               </p>
               <h1 className="mt-3 text-2xl font-semibold tracking-relume-tight text-relume-ink sm:text-3xl lg:text-4xl">
-                Move one project through its connected decisions.
+                {active.lens}
               </h1>
               <p className="mt-3 text-sm leading-6 text-relume-muted">
-                Start at the question you have. Keep the project context visible as you examine feasibility, develop the design, define scope, coordinate delivery, and understand commercial options.
+                {active.persona}
               </p>
 
               <ul className="mt-5 space-y-2" aria-label="Project journey" data-journey-panel>
-                {journeyRows.map((row) => {
-                  const isActiveRow = row.id === activeJourneyRowId
+                {(() => {
+                  const row = activeJourneyRow
                   return (
                     <li
                       key={row.id}
-                      aria-current={isActiveRow ? 'true' : undefined}
+                      aria-current="true"
                       data-journey-row={row.id}
-                      data-journey-row-active={isActiveRow || undefined}
-                      className={`rounded-xl border px-3 py-2.5 transition-colors duration-200 ${
-                        isActiveRow ? 'border-relume-ink bg-relume-ink text-white' : 'border-relume-border text-relume-ink'
-                      }`}
+                      data-journey-row-active="true"
+                      className="rounded-xl border border-relume-ink bg-relume-ink px-3 py-2.5 text-white transition-colors duration-200"
                     >
-                      <p className={`text-sm font-semibold ${isActiveRow ? 'text-white' : 'text-relume-ink'}`}>{row.title}</p>
-                      <p className={`mt-1 text-xs leading-5 ${isActiveRow ? 'text-white/80' : 'text-relume-muted'}`}>{row.body}</p>
-                      {isActiveRow && (
-                        <p className="mt-2 flex items-start gap-2 text-xs leading-5 text-white/80" data-journey-row-active-product>
-                          <span aria-hidden="true" className={`mt-1 h-2 w-2 shrink-0 rounded-full ${accentDotClass[active.accent]}`} />
-                          <span>
-                            <strong className="text-white">{active.label}</strong> — {active.persona}
-                          </span>
-                        </p>
-                      )}
+                      <p className="text-sm font-semibold text-white">{row.title}</p>
+                      <p className="mt-1 text-xs leading-5 text-white/80">{row.body}</p>
+                      <p className="mt-2 flex items-start gap-2 text-xs leading-5 text-white/80" data-journey-row-active-product>
+                        <span aria-hidden="true" className={`mt-1 h-2 w-2 shrink-0 rounded-full ${accentDotClass[active.accent]}`} />
+                        <span><strong className="text-white">{active.label}</strong> — {active.persona}</span>
+                      </p>
                     </li>
                   )
-                })}
+                })()}
               </ul>
             </div>
 
@@ -332,7 +352,9 @@ export default function HomepageCockpitHero() {
                   evidenceState={active.evidenceState}
                 />
               ) : (
-                <ProductCockpitPreview key={active.id} product={active.id} label={active.label} layout="product-page" defaultView={active.defaultView} />
+                <ProductCockpitPreview key={active.id} product={active.id} label={active.label} layout="product-page" defaultView={active.defaultView}>
+                  <ProductPrimaryPanel id={active.id} />
+                </ProductCockpitPreview>
               )}
             </div>
           </div>

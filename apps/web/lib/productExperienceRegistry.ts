@@ -89,8 +89,8 @@ export const productExperienceRegistry: Record<CockpitProduct, ProductExperience
     // Plot/site orientation is the natural default for a land-evaluation tool.
     defaultView: 'plan',
     tool: { kind: 'live-cockpit', component: 'ProductCockpitPreview' },
-    controls: ['ULPIN sample-record selector', 'open-ground / setback slider'],
-    outputCards: ['ULPIN parcel record (state, district, area, land use)', 'sample FAR/coverage scenario'],
+    controls: ['ULPIN/location lookup methods'],
+    outputCards: ['ULPIN parcel record (state, district, area, recorded land use)', 'read-only indicative building-type guidance when a compatible sample ruleset exists', 'authority zoning verification status'],
     evidenceState: 'INDICATIVE',
     provenance: 'ULPIN lookup returns 3 seeded, indicative records only (GET /api/ulpin/:id) — not an official land-record integration; the FAR scenario applies a disclosed sample Karnataka ruleset.',
     primaryCta: { label: 'Open LandIntel cockpit', href: '/products/landintel' },

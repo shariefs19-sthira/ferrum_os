@@ -6,6 +6,7 @@ import type { LandUse } from "../../lib/parcelIntel/types"
 import { normalizeProfessionalTerms, termsIn } from "../../lib/workspace/vocabulary"
 import { commandEvents, isProjectStateCommand, type SutraEvent, type SutraInputSource } from "../../lib/sutra/events"
 import { subscribeCockpitSelection, type CockpitSelectionContext } from "../../lib/sutra/selectionContext"
+import { useParcelContext } from "../../lib/workspace/parcelContext"
 
 type Stage = "use" | "floors" | "massing" | "coverage" | "rooms" | "material" | "compliance" | "output"
 type Message = { id: number; role: "operator" | "sutra"; text: string; citations?: string[] }
@@ -14,7 +15,7 @@ type RecognitionConstructor = new()=>Recognition
 
 const stages: Stage[] = ["use","floors","massing","coverage","rooms","material","compliance","output"]
 const labels: Record<Stage,string> = { use:"Use", floors:"Floors", massing:"Massing style", coverage:"Setback / coverage", rooms:"Rooms split", material:"Material grade", compliance:"Diligence / permits", output:"Extract / export / share" }
-const demoIntents = ["add one floor","set use residential","set setback 3","show BOQ extract"]
+const demoIntents = ["add one floor","set floors 2","set setback 3","show BOQ extract"]
 const ruleCitation = "Karnataka 2026.1-SAMPLE · INDICATIVE land-use structure; verify competent-authority records."
 const outputCitation = "Workspace export contract · DXF live; IFC queued; local save only."
 
@@ -31,12 +32,14 @@ export default function SutraPanel({ onEvent }: { onEvent:(event:SutraEvent)=>vo
   const [selectionContext,setSelectionContext] = useState<CockpitSelectionContext|null>(null)
   const nextId = useRef(1)
   const recognition = useRef<Recognition|null>(null)
-  const ruleset = getRulesetForState("Karnataka")
-  const use = (selected.use ?? "Residential") as LandUse
+  const parcel = useParcelContext()
+  const ruleset = getRulesetForState(parcel?.state ?? "Karnataka")
+  const parcelUse = parcel && ruleset?.land_use_rules[parcel.land_use as LandUse] ? parcel.land_use as LandUse : null
+  const use = (parcelUse ?? selected.use ?? "Residential") as LandUse
   const rule = ruleset?.land_use_rules[use]
   const maxFloors = Math.max(1,Math.min(8,Math.floor((rule?.max_height_m ?? 15)/3.2),Math.floor((rule?.far ?? 1.5)/Math.max((rule?.max_coverage_pct ?? 60)/100,.01))))
   const options: Record<Stage,{label:string;command:string;citation?:string}[]> = {
-    use: (["Residential","Commercial","Mixed Use"] as LandUse[]).filter(item=>ruleset?.land_use_rules[item]).map(item=>({label:item,command:`set use ${item.toLowerCase()}`,citation:ruleCitation})),
+    use: parcel ? [] : (["Residential","Commercial","Mixed Use"] as LandUse[]).filter(item=>ruleset?.land_use_rules[item]).map(item=>({label:item,command:`set use ${item.toLowerCase()}`,citation:ruleCitation})),
     floors: Array.from({length:maxFloors},(_,index)=>({label:`${index+1} floor${index ? "s":""}`,command:`set floors ${index+1}`,citation:ruleCitation})),
     massing: ["Compact","Balanced","Slender"].map(item=>({label:item,command:`set massing ${item.toLowerCase()}`})),
     coverage: [{label:`Minimum ${rule?.min_setback_m ?? 1.5} m`,command:`set setback ${rule?.min_setback_m ?? 1.5}`,citation:ruleCitation},{label:"Add 0.5 m margin",command:`set setback ${(rule?.min_setback_m ?? 1.5)+.5}`,citation:ruleCitation},{label:`Coverage ≤ ${rule?.max_coverage_pct ?? 60}%`,command:`set coverage ${rule?.max_coverage_pct ?? 60}`,citation:ruleCitation}],
@@ -58,6 +61,11 @@ export default function SutraPanel({ onEvent }: { onEvent:(event:SutraEvent)=>vo
     const command=raw.trim()
     if(!command)return
     if(isDemo){setMessages(current=>[...current.slice(-5),{id:nextId.current++,role:"operator",text:`Demo preview: ${command}`},{id:nextId.current++,role:"sutra",...answer(command)}]);setValue("");return}
+    if(parcel && /set use/i.test(command)){
+      setMessages(current=>[...current.slice(-5),{id:nextId.current++,role:"operator",text:command},{id:nextId.current++,role:"sutra",text:parcelUse?`Use remains ${parcelUse}, derived from the selected parcel record. Verify competent-authority zoning before reliance.`:"Use cannot be selected manually for this parcel. Competent-authority zoning verification is required."}])
+      setValue("")
+      return
+    }
     if(isProjectStateCommand(command)){
       setPending({command,source})
       setMessages(current=>[...current.slice(-5),{id:nextId.current++,role:"operator",text:command},{id:nextId.current++,role:"sutra",text:`Proposed change: "${command}". Confirm to apply it to the project, or cancel to discard.`}])
@@ -67,7 +75,7 @@ export default function SutraPanel({ onEvent }: { onEvent:(event:SutraEvent)=>vo
     commandEvents(command,source).forEach(event=>onEvent(event))
     setMessages(current=>[...current.slice(-5),{id:nextId.current++,role:"operator",text:command},{id:nextId.current++,role:"sutra",...answer(command)}])
     setValue("")
-  },[onEvent])
+  },[onEvent,parcel,parcelUse])
   const confirmPending = useCallback(() => {
     if(!pending)return
     commandEvents(pending.command,pending.source).forEach(event=>onEvent(event))
@@ -87,6 +95,11 @@ export default function SutraPanel({ onEvent }: { onEvent:(event:SutraEvent)=>vo
     setSelectionContext(context)
     setMessages(current=>[...current.slice(-5),{id:nextId.current++,role:"sutra",text:`Context: ${context.label}${context.detail?` (${context.detail})`:""} selected on the cockpit.`}])
   }),[])
+  useEffect(()=>{
+    if(!parcelUse)return
+    setSelected(current=>({...current,use:parcelUse}))
+    setStage(current=>current==="use"?"floors":current)
+  },[parcelUse])
   const choose = (label:string,command:string) => { const currentStage=stage; onEvent({type:"STATE_DELTA",path:"guided.selection",value:{stage:currentStage,label}}); setSelected(current=>({...current,[currentStage]:label})); const index=stages.indexOf(currentStage); if(index<stages.length-1){setHistory(current=>[...current,currentStage]);setStage(stages[index+1])}; run(command,"chip") }
   const back = () => setHistory(current=>{const prior=current[current.length-1];if(prior)setStage(prior);return current.slice(0,-1)})
   const skip = () => {const index=stages.indexOf(stage);if(index<stages.length-1){setHistory(current=>[...current,stage]);setStage(stages[index+1])}}
@@ -95,7 +108,7 @@ export default function SutraPanel({ onEvent }: { onEvent:(event:SutraEvent)=>vo
   return <aside className="flex min-h-[22rem] flex-col border border-relume-border bg-relume-command text-white lg:h-full" aria-label="SUTRA design assistant" data-sutra-panel data-guided-stage={stage} data-demo-paused={demoPaused} data-guided-open={guidedOpen}>
     <header className="border-b border-white/15 px-4 py-3 pr-16"><div className="flex items-center gap-3"><h1 className="font-heading text-lg font-semibold">SUTRA — your digital Sthapati</h1><span className="rounded-full border border-relume-accent px-2 py-1 text-[10px] font-bold tracking-wider text-relume-accent">INDICATIVE</span></div><p className="mt-1 text-xs text-white/65">Constrained choices over the deterministic workspace.</p></header>
     <button type="button" aria-expanded={guidedOpen} onClick={()=>setGuidedOpen(value=>!value)} className="mx-4 mt-3 min-h-11 rounded-full border border-white/25 px-4 text-left text-xs font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent">{guidedOpen?"Describe it instead":"Can't describe it? Choose instead"}</button>
-    <section className="border-b border-white/15 p-4" aria-labelledby="sutra-question"><div className="flex justify-between text-[10px] font-semibold uppercase tracking-[.14em] text-white/60"><span>Step {stages.indexOf(stage)+1} / {stages.length}</span><span>{Object.keys(selected).length} chosen</span></div><div className="mt-2 h-1 overflow-hidden rounded-full bg-white/15"><div className="h-full bg-relume-accent transition-[width] motion-reduce:transition-none" style={{width:`${((stages.indexOf(stage)+1)/stages.length)*100}%`}} /></div><h2 id="sutra-question" className="mt-4 font-heading text-base font-semibold">{labels[stage]}</h2><p className="mt-1 text-xs text-white/65">{stage==="floors"?`For ${use}, the sample envelope permits up to ${maxFloors}.`:`Choose one; the next question adapts to this state.`}</p><div className="mt-3 flex flex-wrap gap-2" data-sutra-chip-tree>{options[stage].map(option=><button key={option.label} type="button" title={option.citation} onClick={()=>choose(option.label,option.command)} className="min-h-11 rounded-full border border-white/25 bg-white/10 px-4 text-xs font-semibold hover:border-relume-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent">{option.label}</button>)}</div><div className="mt-3 flex justify-between"><button type="button" onClick={back} disabled={!history.length} className="min-h-11 px-2 text-xs font-semibold disabled:opacity-35">← Back</button><button type="button" onClick={skip} disabled={stage==="output"} className="min-h-11 px-2 text-xs font-semibold disabled:opacity-35">Skip →</button></div></section>
+    <section className="border-b border-white/15 p-4" aria-labelledby="sutra-question"><div className="flex justify-between text-[10px] font-semibold uppercase tracking-[.14em] text-white/60"><span>Step {stages.indexOf(stage)+1} / {stages.length}</span><span>{Object.keys(selected).length} chosen</span></div><div className="mt-2 h-1 overflow-hidden rounded-full bg-white/15"><div className="h-full bg-relume-accent transition-[width] motion-reduce:transition-none" style={{width:`${((stages.indexOf(stage)+1)/stages.length)*100}%`}} /></div><h2 id="sutra-question" className="mt-4 font-heading text-base font-semibold">{labels[stage]}</h2><p className="mt-1 text-xs text-white/65">{stage==="use"&&parcel?(parcelUse?`Recorded use: ${parcelUse}. Competent-authority zoning verification remains required.`:"Use UNKNOWN. Competent-authority zoning verification is required before design choices."):stage==="floors"?`For ${use}, the sample envelope permits up to ${maxFloors}.`:`Choose one; the next question adapts to this state.`}</p><div className="mt-3 flex flex-wrap gap-2" data-sutra-chip-tree>{options[stage].map(option=><button key={option.label} type="button" title={option.citation} onClick={()=>choose(option.label,option.command)} className="min-h-11 rounded-full border border-white/25 bg-white/10 px-4 text-xs font-semibold hover:border-relume-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent">{option.label}</button>)}</div><div className="mt-3 flex justify-between"><button type="button" onClick={back} disabled={!history.length} className="min-h-11 px-2 text-xs font-semibold disabled:opacity-35">← Back</button><button type="button" onClick={skip} disabled={stage==="output"} className="min-h-11 px-2 text-xs font-semibold disabled:opacity-35">Skip →</button></div></section>
     <div className="min-h-24 flex-1 space-y-3 overflow-y-auto p-4" aria-live="polite" data-sutra-selection-context={selectionContext?.targetId}>{messages.slice(-3).map(message=><article key={message.id} className={`rounded-2xl p-3 text-xs ${message.role==="operator"?"ml-5 bg-white text-relume-ink":"mr-5 border border-white/15 bg-white/5"}`}><p>{message.text}</p>{message.citations&&<ol aria-label="Citations" className="mt-2 border-t border-current/15 pt-2 text-[10px] opacity-75">{message.citations.map(citation=><li key={citation}><cite className="not-italic">[{citation}]</cite></li>)}</ol>}</article>)}</div>
     {pending && <div className="border-t border-relume-accent bg-white/10 p-3" data-sutra-pending-confirm role="alert"><p className="text-xs font-semibold">Confirm project-state change?</p><p className="mt-1 text-xs text-white/75">&ldquo;{pending.command}&rdquo; will change the model until confirmed.</p><div className="mt-2 flex gap-2"><button type="button" onClick={confirmPending} className="min-h-11 rounded-full bg-relume-accent px-4 text-xs font-semibold text-relume-command">Confirm</button><button type="button" onClick={cancelPending} className="min-h-11 rounded-full border border-white/30 px-4 text-xs font-semibold">Cancel</button></div></div>}
     <form onSubmit={event=>{event.preventDefault();run(value,"text")}} className="border-t border-white/15 p-3"><label htmlFor="sutra-command" className="sr-only">Ask SUTRA</label><div className="flex gap-2"><input id="sutra-command" value={value} onChange={event=>setValue(event.target.value)} placeholder="Ask with a clause citation…" className="min-h-11 min-w-0 flex-1 rounded-full border border-white/25 bg-white px-4 text-sm text-relume-ink"/><button type="button" onClick={toggleVoice} aria-pressed={listening} aria-label={listening?"Stop voice input":"Start voice input"} className="min-h-11 min-w-11 rounded-full border border-white/30">◉</button><button type="submit" className="min-h-11 rounded-full bg-relume-accent px-4 text-sm font-semibold text-relume-command">Send</button></div><p className="mt-2 text-[10px] text-white/55">Idle demo cycles floor · use · setback · BOQ{demoPaused?" · paused for reduced motion":""}.</p></form>
