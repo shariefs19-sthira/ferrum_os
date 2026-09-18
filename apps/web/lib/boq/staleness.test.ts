@@ -3,6 +3,7 @@ import { buildLineageRecord } from './lineage'
 import type { NewTakeoffLineageInput } from './lineage'
 import {
   DocumentMismatchError,
+  InvalidCurrentSourceRevisionError,
   InvalidLineageRecordError,
   StaleLineageError,
   isLineStale,
@@ -119,28 +120,27 @@ describe('isLineStale', () => {
 describe('checker-state lifecycle', () => {
   it('advances DRAFT -> CHECK_REQUIRED -> CHECKED', () => {
     const draft = buildLineageRecord(baseInput())
-    const checkRequired = requestCheck(draft)
+    const checkRequired = requestCheck(draft, revisionB)
     expect(checkRequired.checkerState).toBe('CHECK_REQUIRED')
-    const checked = markChecked(checkRequired)
+    const checked = markChecked(checkRequired, revisionB)
     expect(checked.checkerState).toBe('CHECKED')
   })
 
   it('refuses to advance a STALE_UPSTREAM_DATA line without reconciliation first', () => {
     const stale = { ...buildLineageRecord(baseInput({ checkerState: 'CHECKED' })), checkerState: 'STALE_UPSTREAM_DATA' as const }
-    expect(() => requestCheck(stale)).toThrow(StaleLineageError)
-    expect(() => markChecked(stale)).toThrow(StaleLineageError)
+    expect(() => requestCheck(stale, revisionB)).toThrow(StaleLineageError)
+    expect(() => markChecked(stale, revisionB)).toThrow(StaleLineageError)
   })
 
   it('refuses to skip CHECK_REQUIRED when marking a DRAFT record as checked', () => {
     const draft = buildLineageRecord(baseInput())
-    expect(() => markChecked(draft)).toThrow(/must be CHECK_REQUIRED/)
+    expect(() => markChecked(draft, revisionB)).toThrow(/must be CHECK_REQUIRED/)
   })
 
   it('refuses invalid deserialized records even when their predecessor is CHECK_REQUIRED', () => {
-    const checkRequired = requestCheck(buildLineageRecord(baseInput()))
+    const checkRequired = requestCheck(buildLineageRecord(baseInput()), revisionB)
     const invalidDeserialized = {
       ...checkRequired,
-      sourceDocument: { ...checkRequired.sourceDocument, checksumSha256: 'not-a-checksum' },
       unit: '',
       measurementGeometryRef: {
         ...checkRequired.measurementGeometryRef,
@@ -152,18 +152,30 @@ describe('checker-state lifecycle', () => {
       },
     }
 
-    expect(() => markChecked(invalidDeserialized)).toThrow(InvalidLineageRecordError)
+    expect(() => markChecked(invalidDeserialized, revisionB)).toThrow(InvalidLineageRecordError)
     try {
-      markChecked(invalidDeserialized)
+      markChecked(invalidDeserialized, revisionB)
     } catch (error) {
       expect(error).toBeInstanceOf(InvalidLineageRecordError)
       expect((error as InvalidLineageRecordError).issues).toEqual(expect.arrayContaining([
-        'sourceDocument.checksumSha256 must be a 64-character hexadecimal SHA-256 checksum',
         'unit is empty',
         'measurementGeometryRef.coordinates[0] must have finite x and y values',
         'dimensionChain.steps[0].valueM must be finite',
         'dimensionChain.formula is empty',
       ]))
     }
+  })
+
+  it('reconciles against the current authoritative source before transition, so an unseen upstream change cannot be checked', () => {
+    const draft = buildLineageRecord(baseInput())
+    expect(() => requestCheck(draft, revisionC)).toThrow(StaleLineageError)
+
+    const checkRequired = requestCheck(draft, revisionB)
+    expect(() => markChecked(checkRequired, revisionC)).toThrow(StaleLineageError)
+  })
+
+  it('requires a complete authoritative current revision and checksum for every transition', () => {
+    const draft = buildLineageRecord(baseInput())
+    expect(() => requestCheck(draft, { ...revisionB, revisionLabel: '', checksumSha256: 'not-a-checksum' })).toThrow(InvalidCurrentSourceRevisionError)
   })
 })

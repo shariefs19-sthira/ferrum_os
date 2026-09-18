@@ -67,6 +67,16 @@ export class StaleLineageError extends Error {
   }
 }
 
+/** Current-source metadata is evidence for a transition, not optional UI
+ * context. Reject incomplete metadata rather than reconciling against an
+ * unverifiable revision. */
+export class InvalidCurrentSourceRevisionError extends Error {
+  constructor(readonly issues: ReadonlyArray<string>) {
+    super('cannot advance checker state without an authoritative current source revision and checksum')
+    this.name = 'InvalidCurrentSourceRevisionError'
+  }
+}
+
 /** Thrown when a caller tries to check a record that fails the lineage
  * contract. Keeping the issues attached lets an intake or review layer show
  * conservative remediation without ever treating malformed stored data as
@@ -81,17 +91,47 @@ export class InvalidLineageRecordError extends Error {
   }
 }
 
-export function requestCheck(record: TakeoffLineageRecord): TakeoffLineageRecord {
-  if (record.checkerState === 'STALE_UPSTREAM_DATA') throw new StaleLineageError(record.lineId)
-  return { ...record, checkerState: 'CHECK_REQUIRED' }
+/**
+ * The checker cannot advance a stored record using its own source metadata as
+ * evidence of currency. A caller must provide the authoritative current
+ * source revision on every transition, which is reconciled immediately before
+ * the lifecycle guard runs.
+ */
+function reconcileForTransition(
+  record: TakeoffLineageRecord,
+  currentSourceDocument: SourceDocumentRevision,
+): TakeoffLineageRecord {
+  const issues: string[] = []
+  if (!currentSourceDocument.documentId.trim()) issues.push('currentSourceDocument.documentId is empty')
+  if (!currentSourceDocument.revisionLabel.trim()) issues.push('currentSourceDocument.revisionLabel is empty')
+  if (!/^[a-f0-9]{64}$/i.test(currentSourceDocument.checksumSha256)) {
+    issues.push('currentSourceDocument.checksumSha256 must be a 64-character hexadecimal SHA-256 checksum')
+  }
+  if (issues.length > 0) throw new InvalidCurrentSourceRevisionError(issues)
+  const checkerState = reconcileCheckerState(record, currentSourceDocument)
+  if (checkerState === 'STALE_UPSTREAM_DATA') throw new StaleLineageError(record.lineId)
+  return checkerState === record.checkerState ? record : { ...record, checkerState }
 }
 
-export function markChecked(record: TakeoffLineageRecord): TakeoffLineageRecord {
-  if (record.checkerState === 'STALE_UPSTREAM_DATA') throw new StaleLineageError(record.lineId)
-  if (record.checkerState !== 'CHECK_REQUIRED') {
-    throw new Error(`line ${record.lineId} must be CHECK_REQUIRED before it can be marked CHECKED`)
+export function requestCheck(
+  record: TakeoffLineageRecord,
+  currentSourceDocument: SourceDocumentRevision,
+): TakeoffLineageRecord {
+  const reconciled = reconcileForTransition(record, currentSourceDocument)
+  if (reconciled.checkerState === 'STALE_UPSTREAM_DATA') throw new StaleLineageError(reconciled.lineId)
+  return { ...reconciled, checkerState: 'CHECK_REQUIRED' }
+}
+
+export function markChecked(
+  record: TakeoffLineageRecord,
+  currentSourceDocument: SourceDocumentRevision,
+): TakeoffLineageRecord {
+  const reconciled = reconcileForTransition(record, currentSourceDocument)
+  if (reconciled.checkerState === 'STALE_UPSTREAM_DATA') throw new StaleLineageError(reconciled.lineId)
+  if (reconciled.checkerState !== 'CHECK_REQUIRED') {
+    throw new Error(`line ${reconciled.lineId} must be CHECK_REQUIRED before it can be marked CHECKED`)
   }
-  const issues = validateLineageRecord(record)
+  const issues = validateLineageRecord(reconciled)
   if (issues.length > 0) throw new InvalidLineageRecordError(issues)
-  return { ...record, checkerState: 'CHECKED' }
+  return { ...reconciled, checkerState: 'CHECKED' }
 }

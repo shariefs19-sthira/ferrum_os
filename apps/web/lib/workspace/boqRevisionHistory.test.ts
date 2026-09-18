@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { generateStudioPlan } from '../plan-gen'
-import { appendBoqRevision, readBoqRevisionHistory, readOrInitializeBoqRevisionHistory, setLatestCheckerStatus, BOQ_REVISION_HISTORY_KEY } from './boqRevisionHistory'
+import { appendBoqRevision, readBoqRevisionHistory, readOrInitializeBoqRevisionHistory, transitionLatestCheckerStatus, BOQ_REVISION_HISTORY_KEY } from './boqRevisionHistory'
 
 const plan3Floors = generateStudioPlan({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 })
 const plan4Floors = generateStudioPlan({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 4 })
@@ -33,12 +33,19 @@ describe('boq revision history persistence', () => {
     expect(history).toHaveLength(1)
   })
 
-  it('records a checker-status change on the latest revision without touching earlier ones', () => {
+  it('records a governed checker lifecycle transition on the latest revision without touching earlier ones', () => {
     appendBoqRevision(plan3Floors)
     appendBoqRevision(plan4Floors)
-    const updated = setLatestCheckerStatus('CHECKED')
+    transitionLatestCheckerStatus(plan4Floors, 'REQUEST_CHECK')
+    const updated = transitionLatestCheckerStatus(plan4Floors, 'MARK_CHECKED')
     expect(updated[0].checkerStatus).toBe('DRAFT')
     expect(updated[1].checkerStatus).toBe('CHECKED')
+  })
+
+  it('records STALE UPSTREAM DATA rather than accepting a checker action against changed geometry', () => {
+    appendBoqRevision(plan3Floors)
+    const updated = transitionLatestCheckerStatus(plan4Floors, 'REQUEST_CHECK')
+    expect(updated[0].checkerStatus).toBe('STALE UPSTREAM DATA')
   })
 
   it('preserves a held revision when upstream geometry changes until recalculation is explicitly requested', () => {

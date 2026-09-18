@@ -24,6 +24,7 @@ export {
 
 export {
   DocumentMismatchError,
+  InvalidCurrentSourceRevisionError,
   InvalidLineageRecordError,
   StaleLineageError,
   isLineStale,
