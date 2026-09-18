@@ -103,4 +103,13 @@ describe("Concierge", () => {
     expect(screen.getByText(/Autodesk Construction Cloud/)).toBeTruthy()
     expect(screen.getByText(/not claims of active integration/)).toBeTruthy()
   })
+
+  it("keeps the composer free of generic suggestion chips", () => {
+    render(<Concierge />)
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    expect(screen.queryByRole("button", { name: "Products" })).toBeNull()
+    expect(screen.queryByRole("button", { name: "Pricing" })).toBeNull()
+    expect(screen.queryByRole("button", { name: "Try a tool" })).toBeNull()
+    expect(screen.queryByRole("button", { name: "Talk to someone" })).toBeNull()
+  })
 })

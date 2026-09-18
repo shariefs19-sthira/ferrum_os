@@ -29,13 +29,6 @@ type SutraContext = {
   controls: string[]
 }
 
-const QUICK_REPLIES = [
-  { label: "Products", query: "products" },
-  { label: "Pricing", query: "pricing" },
-  { label: "Try a tool", query: "test-fit" },
-  { label: "Talk to someone", query: "contact" },
-]
-
 /**
  * SUTRA — W2-307, grounded per AI-02 (CLAUDE-20260917-AI-FOUNDATION-LIVE).
  * Still no LLM, no external network call: answerWithGrounding tries the
@@ -269,18 +262,6 @@ export default function Concierge() {
       </div>}
 
       <div className="border-t border-relume-border px-4 py-3">
-        <div className="mb-3 flex flex-wrap gap-2">
-          {QUICK_REPLIES.map((q) => (
-            <button
-              key={q.label}
-              type="button"
-              onClick={() => handleSend(q.query)}
-              className="min-h-11 rounded-full border border-relume-border px-3 py-1 text-xs font-medium text-relume-ink"
-            >
-              {q.label}
-            </button>
-          ))}
-        </div>
         <form onSubmit={handleSubmit} className="flex gap-2">
           <input
             value={input}
