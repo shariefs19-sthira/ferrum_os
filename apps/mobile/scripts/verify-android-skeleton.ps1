@@ -7,7 +7,7 @@ $mainActivityPath = Join-Path $mobileRoot 'android/app/src/main/java/dev/ferrumo
 $offlineActivityPath = Join-Path $mobileRoot 'android/app/src/main/java/dev/ferrumos/shell/OfflineActivity.java'
 $offlineLayoutPath = Join-Path $mobileRoot 'android/app/src/main/res/layout/offline_notice.xml'
 $splashPath = Join-Path $mobileRoot 'android/app/src/main/res/drawable/splash_screen.xml'
-$expectedUrl = 'https://ferrum-os.shariefsatyala.workers.dev'
+$expectedUrl = 'https://ferrumos-preview.shariefsatyala.workers.dev'
 $config = Get-Content -Raw $configPath | ConvertFrom-Json
 $androidConfig = Get-Content -Raw $androidConfigPath | ConvertFrom-Json
 foreach ($candidate in @($config, $androidConfig)) {
@@ -15,7 +15,7 @@ foreach ($candidate in @($config, $androidConfig)) {
     if ($candidate.server.url -ne $expectedUrl) { throw 'Unexpected Capacitor server URL.' }
     if ($candidate.server.cleartext -ne $false) { throw 'Cleartext traffic must remain disabled.' }
     if ($candidate.server.androidScheme -ne 'https') { throw 'Android scheme must remain HTTPS.' }
-    if ($candidate.server.allowNavigation -notcontains 'ferrum-os.shariefsatyala.workers.dev') { throw 'Navigation host is invalid.' }
+    if ($candidate.server.allowNavigation -notcontains 'ferrumos-preview.shariefsatyala.workers.dev') { throw 'Navigation host is invalid.' }
 }
 $manifest = Get-Content -Raw $manifestPath
 if ($manifest -notmatch 'android.permission.INTERNET') { throw 'Internet permission is required.' }
