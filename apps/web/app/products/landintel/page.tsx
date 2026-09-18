@@ -105,19 +105,29 @@ export default function LandIntelPage() {
             <UlpinMapExplorer />
           </ProductCockpitPreview>
         </div>
+        {/* Moved directly beside the working lookup tool (previously two
+            full sections lower, after the Zoning/Soil/Climate/History
+            roadmap panels) so the forecast is visible alongside a lookup's
+            results without scrolling past unrelated roadmap content.
+            SteppedForecastModule's LandIntelForecast already reads the
+            shared parcel context UlpinMapExplorer's commit() writes on
+            every successful lookup (any mode: ULPIN, map pin, coordinates,
+            address, my location) - this is a positional fix only, the
+            data wiring already existed. Still framed as secondary/
+            indicative, per RULE 29 Feature Conservation - not promoted
+            to equal or primary standing. */}
+        <div className="mt-6 min-w-0 w-full" data-landintel-forecast-row>
+          <div className="mx-auto max-w-4xl text-center">
+            <Eyebrow>Secondary tool</Eyebrow>
+            <SectionHeading className="mt-4">Indicative land-use forecast</SectionHeading>
+            <p className="mt-4 text-base leading-7 text-relume-ink">This scenario is not a parcel result. It uses a disclosed sample Karnataka FAR ruleset and remains secondary to the ULPIN lookup above.</p>
+          </div>
+          <div className="mx-auto mt-8 max-w-4xl"><SteppedForecastModule product="landintel" /></div>
+        </div>
       </section>
 
       <SectionShell>
         <div className="mx-auto grid max-w-5xl gap-6"><ZoningSummary /><SoilHazardPanel /><ClimateYearPanel /><HistoryCenturyPanel /></div>
-      </SectionShell>
-
-      <SectionShell background="surface-secondary">
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Secondary tool</Eyebrow>
-          <SectionHeading className="mt-4">Indicative land-use forecast</SectionHeading>
-          <p className="mt-4 text-base leading-7 text-relume-ink">This scenario is not a parcel result. It uses a disclosed sample Karnataka FAR ruleset and remains secondary to the ULPIN lookup above.</p>
-        </div>
-        <div className="mx-auto mt-8 max-w-4xl"><SteppedForecastModule product="landintel" /></div>
       </SectionShell>
 
       {/* 2. Features */}
