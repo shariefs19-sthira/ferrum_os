@@ -286,7 +286,7 @@ export default function HomepageCockpitHero() {
                 lib/homepageJourney.ts's product -> row mapping.
                 lg:col-span-4/8 (roughly one third / two thirds, cockpit
                 dominant) per the required desktop 1366+ proportion. */}
-            <div className="order-1 min-w-0 lg:order-1 lg:col-span-4">
+            <div className="order-1 min-w-0 lg:order-1 lg:col-span-4 lg:flex lg:min-h-full lg:flex-col" data-product-summary-column>
               <p className="border-b border-relume-border pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
                 {active.label} · selected product
               </p>
@@ -318,6 +318,31 @@ export default function HomepageCockpitHero() {
                   )
                 })()}
               </ul>
+
+              <aside className="mt-5 rounded-relume border border-relume-border bg-relume-surface-secondary p-4 text-xs text-relume-muted" aria-label={`${active.label} product evidence`} data-product-evidence>
+                <div className="flex flex-wrap items-center gap-2 border-b border-relume-border pb-3">
+                  <strong className="text-sm text-relume-ink">{active.label}</strong>
+                  <EvidenceStateBadge state={active.evidenceState} />
+                </div>
+                <p className="mt-3 leading-5" data-product-provenance>{active.provenance}</p>
+                {active.outputCards.length > 0 && (
+                  <div className="mt-4" data-product-output-cards>
+                    <p className="font-semibold text-relume-ink">Available outputs</p>
+                    <ul className="mt-2 space-y-2">
+                      {active.outputCards.map((output) => <li key={output} className="border-l-2 border-relume-border pl-3 leading-5">{output}</li>)}
+                    </ul>
+                  </div>
+                )}
+                {active.controls.length > 0 && (
+                  <div className="mt-4" data-product-controls>
+                    <p className="font-semibold text-relume-ink">Adjustable inputs</p>
+                    <ul className="mt-2 space-y-2">
+                      {active.controls.map((control) => <li key={control} className="border-l-2 border-relume-border pl-3 leading-5">{control}</li>)}
+                    </ul>
+                  </div>
+                )}
+                <p className="mt-4 border-t border-relume-border pt-3 leading-5">Product state is preserved locally in this browser.</p>
+              </aside>
             </div>
 
             {/* Right column: the selected product's preview. Two states,
@@ -359,31 +384,6 @@ export default function HomepageCockpitHero() {
             </div>
           </div>
 
-          {/* Evidence metadata line — always the shell's last strip.
-              Provenance/status text (the evidence badge) uses the
-              monospace stack via EvidenceStateBadge's own `font-mono`
-              class; this file's surrounding text (product name, task,
-              note) stays on the regular sans body font, matching the
-              "monospace for provenance/status only, never headline/body
-              copy" rule. */}
-          <div className="flex flex-col gap-2 border-t border-relume-border px-4 py-2 text-xs text-relume-muted sm:px-6 lg:px-8">
-            <p className="flex flex-wrap items-center gap-2">
-              <strong className="text-relume-ink">{active.label}</strong>
-              <EvidenceStateBadge state={active.evidenceState} />
-              <span data-product-provenance>{active.provenance}</span>
-            </p>
-            {active.outputCards.length > 0 && (
-              <p data-product-output-cards>
-                <strong className="text-relume-ink">Shows: </strong>{active.outputCards.join(' · ')}
-              </p>
-            )}
-            {active.controls.length > 0 && (
-              <p data-product-controls>
-                <strong className="text-relume-ink">Adjustable: </strong>{active.controls.join(' · ')}
-              </p>
-            )}
-            <p>Product state is preserved locally in this browser.</p>
-          </div>
         </div>
       </div>
     </section>

@@ -57,6 +57,9 @@ describe('HomepageCockpitHero', () => {
     expect(screen.getByText('LandIntel · selected product')).toBeTruthy()
     expect(screen.getByRole('heading', { level: 1, name: productExperienceList[0].lens })).toBeTruthy()
     expect(screen.getAllByText(productExperienceList[0].persona).length).toBeGreaterThan(0)
+    const summary = document.querySelector('[data-product-summary-column]')
+    const evidence = document.querySelector('[data-product-evidence]')
+    expect(summary?.contains(evidence)).toBe(true)
   })
 
   it('shows only the active product journey row and replaces it on product selection', () => {
