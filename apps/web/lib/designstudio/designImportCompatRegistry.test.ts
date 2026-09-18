@@ -26,6 +26,23 @@ describe('design import compatibility registry', () => {
     expect(getFormatCapability('not-a-format')).toBeUndefined()
   })
 
+  it('is the only format wired to a real, implemented parser (web-ifc 0.0.77, reconciled with apps/web/lib/ifcIntake.ts)', () => {
+    const ifc = getFormatCapability('ifc')!
+    expect(ifc.parserAvailability).toBe('IMPLEMENTED_METADATA_PARSER')
+    expect(ifc.geometryFidelity).toBe('METADATA_AND_ENTITY_COUNTS_ONLY')
+    expect(ifc.implementedParser).toEqual({ engine: 'web-ifc', engineVersion: '0.0.77', intakeModule: 'apps/web/lib/ifcIntake.ts' })
+    expect(ifc.interoperabilityNote).toContain('VALIDATION REQUIRED')
+    expect(ifc.interoperabilityNote).not.toContain('CRS extraction is implemented')
+  })
+
+  it('gives every other format no `implementedParser` reference — none is real yet', () => {
+    for (const format of designImportFormats) {
+      if (format.id === 'ifc') continue
+      expect(format.implementedParser).toBeUndefined()
+      expect(format.parserAvailability).not.toBe('IMPLEMENTED_METADATA_PARSER')
+    }
+  })
+
   it('is truthful about DWG: metadata-only, no geometry access, no future-parser promise', () => {
     const dwg = getFormatCapability('dwg')!
     expect(dwg.parserAvailability).toBe('METADATA_ONLY')
@@ -42,7 +59,7 @@ describe('design import compatibility registry', () => {
     expect(rvt.applicableWarnings).toEqual(['EXTERNAL_REFERENCE_UNRESOLVED'])
   })
 
-  it('never claims a native parser is implemented for any format', () => {
+  it('never claims a native parser exists for a format beyond the one actually implemented', () => {
     for (const format of designImportFormats) {
       expect(format.interoperabilityNote.toLowerCase()).not.toContain('fully supported')
       expect(format.parserAvailability).not.toBe('NATIVE_PARSER')

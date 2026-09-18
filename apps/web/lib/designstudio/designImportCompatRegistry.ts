@@ -2,17 +2,30 @@
  * Design/import compatibility registry — capability contracts for the file
  * formats a construction-design intake pipeline is commonly asked to accept.
  *
- * No parser for any format is implemented in this repo. Every entry states
- * what is truthfully achievable today (metadata-only, reference-only, or "no
- * native parser exists yet") rather than asserting interoperability that has
- * not been built and proven. `designIntakeStateEvaluator.ts` reads this
- * registry to cap what approval state an intake can honestly reach.
+ * Reconciled against the one format that actually has a working intake path
+ * on `origin/main`: IFC, via `apps/web/lib/ifcIntake.ts` +
+ * `apps/web/lib/modelIntake.ts` (web-ifc 0.0.77). That module is read here
+ * for its types only — nothing in this slice edits it. Every other format
+ * has no parser implemented in this repo; each entry states what is
+ * truthfully achievable today (metadata-only, reference-only, or "no native
+ * parser exists yet") rather than asserting interoperability that has not
+ * been built and proven. `designIntakeStateEvaluator.ts` reads this registry
+ * to cap what approval state an intake can honestly reach, and never lets a
+ * format without an implemented parser progress past PREVIEWED.
  */
 
 export type RequirementLevel = 'REQUIRED' | 'RECOMMENDED' | 'NOT_APPLICABLE'
 
 /** Truthful description of what this repo can actually do with the format today. */
 export type ParserAvailability =
+  /**
+   * A parser is actually implemented and wired into a live intake path in
+   * this repo (currently only IFC, via web-ifc 0.0.77 in
+   * `lib/ifcIntake.ts`). It still only extracts metadata / entity counts —
+   * not full validated geometry — so it unlocks `VALIDATION REQUIRED` as an
+   * automated ceiling, never `VALIDATED` or beyond on its own.
+   */
+  | 'IMPLEMENTED_METADATA_PARSER'
   /** Open, text/XML-encoded, geometry-bearing format. No parser exists in this repo yet; one is structurally feasible to build. */
   | 'NO_PARSER_OPEN_TEXT'
   /** Open but binary-encoded, geometry-bearing format. No parser exists in this repo yet; feasible but non-trivial. */
@@ -27,6 +40,7 @@ export type ParserAvailability =
   | 'DOCUMENT_ONLY'
 
 export type GeometryFidelity =
+  | 'METADATA_AND_ENTITY_COUNTS_ONLY'
   | 'FULL_BREP_POTENTIAL'
   | 'MESH_ONLY_POTENTIAL'
   | 'CURVE_2D_POTENTIAL'
@@ -89,6 +103,13 @@ export type FormatRequirements = {
   revision: RequirementLevel
 }
 
+/** Only present when `parserAvailability` is `IMPLEMENTED_METADATA_PARSER` — points at the real code, never duplicates its logic. */
+export type ImplementedParserReference = {
+  engine: string
+  engineVersion: string
+  intakeModule: string
+}
+
 export type DesignImportFormat = {
   id: string
   label: string
@@ -102,6 +123,7 @@ export type DesignImportFormat = {
   /** True only when the format is open enough that a native parser is a plausible future build, never a claim one exists. */
   eligibleForFutureNativeParser: boolean
   interoperabilityNote: string
+  implementedParser?: ImplementedParserReference
 }
 
 export const geometryWarningCatalog: Record<GeometryWarningCategoryId, GeometryWarningDefinition> = {
@@ -196,12 +218,13 @@ const req = (units: RequirementLevel, crs: RequirementLevel, datum: RequirementL
 export const designImportFormats: DesignImportFormat[] = [
   {
     id: 'ifc', label: 'IFC (Industry Foundation Classes)', extensions: ['.ifc', '.ifcxml', '.ifczip'],
-    category: 'BIM', parserAvailability: 'NO_PARSER_OPEN_TEXT', geometryFidelity: 'FULL_BREP_POTENTIAL',
+    category: 'BIM', parserAvailability: 'IMPLEMENTED_METADATA_PARSER', geometryFidelity: 'METADATA_AND_ENTITY_COUNTS_ONLY',
     requirements: req('REQUIRED', 'REQUIRED', 'REQUIRED', 'REQUIRED', 'REQUIRED'),
     applicableWarnings: ['UNIT_MISMATCH', 'MISSING_CRS', 'MISSING_DATUM', 'NON_ORIGIN_ALIGNED', 'MISSING_REVISION_METADATA', 'DEGENERATE_GEOMETRY', 'OUT_OF_TOLERANCE_SCALE', 'UNSUPPORTED_ENTITY_TYPES'],
     downstreamConsumers: ['STRUCTURAL_MODEL', 'CLASH_REPORT', 'BOQ_TAKEOFF', 'COST_ESTIMATE', 'COMPLIANCE_CHECK', 'RENDER_CACHE'],
     eligibleForFutureNativeParser: true,
-    interoperabilityNote: 'Open ISO 16739 standard, SPF/XML text-encoded — structurally parseable, but no IFC parser is implemented in this repo, so no full-model interoperability is claimed.',
+    interoperabilityNote: 'web-ifc 0.0.77 is wired into a live browser intake path (apps/web/lib/ifcIntake.ts, apps/web/lib/modelIntake.ts): it computes a SHA-256 checksum, opens the model, and reads the IFC schema, per-type entity counts, the coordination-matrix origin and the declared IFCSIUNIT length unit. It does NOT extract CRS, vertical datum, geometry bounds, full BREP geometry, or evaluate geometry warnings — those stay UNKNOWN/NOT EVALUATED. Every parse today returns intake state VALIDATION REQUIRED with an empty approval-evidence list; reaching VALIDATED requires a human reviewer to supply the evidence the parser itself cannot produce.',
+    implementedParser: { engine: 'web-ifc', engineVersion: '0.0.77', intakeModule: 'apps/web/lib/ifcIntake.ts' },
   },
   {
     id: 'dxf', label: 'DXF (Drawing Exchange Format)', extensions: ['.dxf'],

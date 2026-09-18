@@ -1,8 +1,11 @@
 # Design/import compatibility registry + intake-state evaluator
 
-Two isolated modules, no dependency on or edit to the existing OpenBIM
-ingestion code (`lib/ifcIntake.ts`, `lib/modelIntake.ts`, `lib/ifc-export.ts`,
-`lib/dxf/`):
+Two isolated modules. Neither edits the existing OpenBIM ingestion code
+(`lib/ifcIntake.ts`, `lib/modelIntake.ts`, `lib/ifc-export.ts`, `lib/dxf/`) —
+`designIntakeStateEvaluator.ts` imports `ModelIntakeState`, `EvidenceValue<T>`
+and `machineReleaseChecks` from `lib/modelIntake.ts` **as types/constants
+only**, to stay reconciled with the real intake state machine rather than
+inventing a parallel one.
 
 - `designImportCompatRegistry.ts` — a capability contract per industry file
   format: parser availability, geometry fidelity, units/CRS/datum/origin/
@@ -14,36 +17,53 @@ ingestion code (`lib/ifcIntake.ts`, `lib/modelIntake.ts`, `lib/ifc-export.ts`,
 
 ## Ground rule
 
-**No parser for any format is implemented in this repo.** Every registry
-entry states what's truthfully possible today, not what's aspirational:
+**Exactly one format has a real, implemented parser wired into this repo:
+IFC, via `web-ifc 0.0.77` in `apps/web/lib/ifcIntake.ts` +
+`apps/web/lib/modelIntake.ts`.** Every other format is `parserAvailability:
+'NO_PARSER_*' | 'METADATA_ONLY' | 'REFERENCE_ONLY' | 'TABULAR_TEXT' |
+'DOCUMENT_ONLY'` — no parser exists for them here, and the evaluator refuses
+to let any evidence a caller supplies move them off `PREVIEWED`.
 
-| Tier | Meaning |
-|---|---|
-| `NO_PARSER_OPEN_TEXT` / `NO_PARSER_OPEN_BINARY` | Open, documented format; structurally parseable; no reader built yet. |
-| `METADATA_ONLY` | Proprietary binary (DWG, DGN); only file-level metadata is honest — no geometry access. |
-| `REFERENCE_ONLY` | Proprietary and effectively closed (RVT); tracked as a pointer only, never opened. |
-| `TABULAR_TEXT` | Plain delimited text (CSV); attribute-only, never geometry. |
-| `DOCUMENT_ONLY` | A rendered document (PDF); reference only. |
+Even for IFC, `web-ifc` only reads schema, per-type entity counts, the
+coordination-matrix origin and the declared length unit. It does **not**
+extract CRS, vertical datum, geometry bounds, or evaluate geometry warnings —
+`ifcIntake.ts` returns intake state `VALIDATION REQUIRED` with an empty
+`approval.evidence` array on every parse, never `VALIDATED` on its own.
 
-Because no format has a verified native geometry parser, **`APPROVED_FOR_MACHINE`
-is unreachable for every format today** — the evaluator caps at `VALIDATED`
-for open/structured formats (`NO_PARSER_OPEN_TEXT`/`NO_PARSER_OPEN_BINARY`/
-`TABULAR_TEXT`) and at `PREVIEWED` for anything opaque or unopened
-(`METADATA_ONLY`, `REFERENCE_ONLY`, `DOCUMENT_ONLY`) — since for those,
-"no warning found" would only mean "never checked," not "checked and clean."
-The specific reason is stated in `blockedReasons` rather than silently
-allowing the top state or hiding the gap.
+## Approval states (reconciled with `modelIntake.ts`'s `ModelIntakeState`)
 
-## Approval states
+`PREVIEWED` → `VALIDATION REQUIRED` → `VALIDATED` — `'APPROVED FOR MACHINE'`
+is a real `ModelIntakeState` value this evaluator **never returns**; see
+`approvedForMachineUnreachableReason`.
 
-`PREVIEWED` → `VALIDATED` → `APPROVED_FOR_MACHINE`
+- **PREVIEWED**: format recognized; no parse has happened yet (or the format
+  has no implemented parser at all).
+- **VALIDATION REQUIRED**: a real parser ran (`parserEvidence` supplied for
+  IFC) but required evidence or a human review remain open. This is where
+  `ifcIntake.ts` leaves every fresh parse today.
+- **VALIDATED**: every `REQUIRED` field is `EvidenceValue.status ===
+  'OBSERVED'` (parser-produced) *or* named in a completed human
+  `ReviewRecord.verifiedFields`, no `BLOCKING` geometry warning is
+  outstanding, and the `ReviewRecord` itself has a reviewer, a timestamp and
+  at least one evidence entry.
 
-- **PREVIEWED**: format recognized; no metadata or geometry checks required.
-- **VALIDATED**: every `REQUIRED` metadata field for the format is present
-  (per `designImportCompatRegistry.ts`'s `requirements`) and no `BLOCKING`
-  geometry warning is outstanding.
-- **APPROVED_FOR_MACHINE**: `VALIDATED`, plus a verified native geometry
-  parser for the format — not present for any format in this registry yet.
+**A caller cannot reach VALIDATED by asserting plain booleans, an empty
+warnings list, or `'USER PROVIDED'` declarations alone** — the evaluator's
+types force structured `EvidenceValue`/`ReviewRecord` input, and
+`'USER PROVIDED'` (an uploader's own unverified claim) is explicitly
+insufficient, matching `ifcIntake.ts`'s own note that a declared revision
+"must be confirmed against the project register."
+
+## Why APPROVED FOR MACHINE is never computed here
+
+Real machine release requires all six `modelIntake.machineReleaseChecks`
+(exact revision/checksum selected, units/CRS/datum/control validated,
+warnings closed, previous-revision reviewed, export compatibility validated,
+named approver + audit evidence) — several of which (checksum/previous-
+revision comparison, export compatibility) this evaluator has no way to
+verify. Rather than build a partial, guessable path to that state, this
+module caps at `VALIDATED` and exports
+`approvedForMachineUnreachableReason` stating why.
 
 ## Downstream stale-impact rule
 
@@ -56,10 +76,14 @@ conservative rather than guessing at partial invalidation it can't verify.
 
 ## Formats covered
 
-IFC, DXF, DWG (metadata-only), RVT (reference-only), DGN (metadata-only),
-LandXML, gbXML, BCF, SAF, STEP, STL, OBJ, glTF/GLB, CSV, PDF (document-only).
+IFC (`IMPLEMENTED_METADATA_PARSER` — web-ifc 0.0.77, the only real parser),
+DXF, DWG (metadata-only), RVT (reference-only), DGN (metadata-only),
+LandXML, gbXML, BCF, SAF, STEP, STL, OBJ, glTF/GLB, CSV, PDF (document-only)
+— all fourteen non-IFC formats are capped at `PREVIEWED` unconditionally.
 
 ## Tests
 
 `designImportCompatRegistry.test.ts`, `designIntakeStateEvaluator.test.ts` —
-run via `pnpm --filter ./apps/web exec vitest run lib/designstudio/designImport lib/designstudio/designIntakeState`.
+covering forged/caller-supplied metadata, current IFC capability parity with
+`ifcIntake.ts`, and every unsupported format's truthful `PREVIEWED` cap. Run:
+`pnpm --filter ./apps/web exec vitest run lib/designstudio/designImport lib/designstudio/designIntakeState`.
