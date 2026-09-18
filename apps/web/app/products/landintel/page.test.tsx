@@ -19,7 +19,18 @@ describe('LandIntel hero composition', () => {
     expect(source.indexOf('<SuitabilityLayerPanel />')).toBeLessThan(source.indexOf('data-landintel-forecast-row'))
     expect(source.indexOf('<SuitabilityLayerPanel />')).toBeLessThan(source.indexOf('<MapComposerGate />'))
     expect(source.indexOf('<MapComposerGate />')).toBeLessThan(source.indexOf('data-landintel-forecast-row'))
-    expect(source).toContain('<GeotechnicalIntelligencePanel />')
+    expect(source).toContain('<GeotechnicalEvidenceSection />')
+  })
+
+  it('wires the geotechnical evidence panel + map-layer legend pair (GeotechnicalEvidenceSection) into the Land theme, not the bare unwired panels', () => {
+    // The section owns the persisted generatedFor capture per its own doc
+    // comment -- page.tsx must go through it, never render the map-layer
+    // legend on its own (which would default generatedFor to null and make
+    // staleness unobservable on the live page).
+    expect(source).not.toContain('<GeotechnicalMapLayerLegend')
+    expect(source).not.toContain('<GeotechnicalIntelligencePanel')
+    expect(source.indexOf("id: 'land'")).toBeLessThan(source.indexOf('<GeotechnicalEvidenceSection />'))
+    expect(source.indexOf('<GeotechnicalEvidenceSection />')).toBeLessThan(source.indexOf("id: 'access'"))
   })
 
   it('organizes the evidence surface into all five governed analytical themes', () => {
