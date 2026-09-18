@@ -33,15 +33,27 @@ export default function RegistryControls(props: Props) {
   const [open, setOpen] = useState(false)
   const [modified, setModified] = useState(false)
 
+  // CODEX-SENTINEL-20260918-1708-sutra-command-cockpit-output: this used to
+  // sit at `left-3`, directly underneath the left tool rail (ToolsRuler,
+  // rendered by project-workspace/cockpit/page.tsx as `absolute bottom-2
+  // left-2 top-2 z-30 w-20`) -- a literal, persistent overlap, not just a
+  // z-index fight. Moved to the right edge of the canvas, which has no
+  // other persistent overlay, to remove that collision.
   if (props.product !== 'landintel') {
-    return <aside className="absolute bottom-3 left-3 z-20 w-[min(22rem,calc(100%-1.5rem))] rounded-relume border border-relume-border bg-white p-3" aria-label={`${props.product} controls`} data-control-registry={props.product}>
+    return <aside className="absolute bottom-14 right-3 z-20 w-[min(22rem,calc(100%-1.5rem))] rounded-relume border border-relume-border bg-white p-3" aria-label={`${props.product} controls`} data-control-registry={props.product}>
       <ProductControls {...props} />
     </aside>
   }
 
   const evidence = props.authorityEvidence
   const selected = open || modified
-  return <div className="absolute bottom-3 left-3 z-30 max-w-[calc(100%-1.5rem)]" data-control-registry={props.product} data-site-constraints-state={open ? 'open' : modified ? 'modified' : 'closed'}>
+  // bottom-14, not bottom-3: Space3D's own canvas status bar
+  // (data-canvas-status-bar, "INDICATIVE · rendering profile · context ·
+  // OSM attribution...") is a full-width `absolute bottom-3 left-3
+  // right-3` strip -- sitting at bottom-3 here put the Site Constraints
+  // toggle directly on top of it (z-30 over z-10), visually truncating
+  // that attribution text. Clears it with room to spare.
+  return <div className="absolute bottom-14 right-3 z-30 max-w-[calc(100%-1.5rem)]" data-control-registry={props.product} data-site-constraints-state={open ? 'open' : modified ? 'modified' : 'closed'}>
     <button
       type="button"
       onClick={() => setOpen((value) => !value)}
