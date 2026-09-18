@@ -95,10 +95,15 @@ export default function UlpinMapExplorer() {
         {mode === 'survey' && <p className="text-xs leading-5 text-relume-muted"><strong className="text-relume-command">ROADMAP</strong> — survey, khasra and plot numbering needs a state-specific adapter. No registry lookup is available here.</p>}
       </div>
       <p id="parcel-finder-status" className="mt-3 text-xs leading-5 text-relume-muted" role="status" aria-live="polite">{message}</p>
-      {record && <div className="mt-3 grid gap-3 rounded-relume border border-relume-border bg-white p-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start" data-ulpin-record-card>
+    </div>
+    <div className="relative" data-parcel-map-stage>
+      <ParcelMap lat={center.lat} lng={center.lng} zoom={record ? 13 : 11} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} className="h-[min(70vh,48rem)] min-h-[32rem] border-0" />
+      {record && <div className="absolute inset-x-3 top-3 z-[500] max-h-[calc(100%-1.5rem)] overflow-y-auto rounded-relume border border-relume-border bg-white/95 p-3 backdrop-blur-sm sm:left-auto sm:w-[min(30rem,calc(100%-1.5rem))]" data-ulpin-record-card data-map-overlay>
         <div className="min-w-0">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Selected location</p>
-          <p className="mt-1 text-xs font-medium">{record.district}</p>
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Selected location</p><p className="mt-1 text-xs font-medium">{record.district}</p></div>
+            <SaveToWorkspaceButton type="parcel" title={record.ulpin ?? record.district} data={record} />
+          </div>
           <dl className="mt-3 grid gap-2 text-xs sm:grid-cols-2">
             <div><dt className="text-relume-muted">Recorded land use</dt><dd className="mt-1 font-semibold text-relume-command">{record.land_use}</dd></div>
             <div><dt className="text-relume-muted">Zoning verification status</dt><dd className="mt-1 font-semibold text-relume-command">{record.status === 'INDICATIVE' ? 'REQUIRES AUTHORITY VERIFICATION' : 'UNKNOWN'}</dd></div>
@@ -111,9 +116,7 @@ export default function UlpinMapExplorer() {
           </div> : <p className="mt-3 text-xs font-semibold text-relume-muted" data-building-types-gap>Building-type guidance: GAP until compatible zoning evidence is available.</p>}
           <ProvenanceStrip source={record.source} freshness={new Date().toISOString().slice(0, 10)} />
         </div>
-        <SaveToWorkspaceButton type="parcel" title={record.ulpin ?? record.district} data={record} />
       </div>}
     </div>
-    <ParcelMap lat={center.lat} lng={center.lng} zoom={record ? 13 : 11} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} className="h-[min(70vh,48rem)] min-h-[32rem] border-0" />
   </section>
 }
