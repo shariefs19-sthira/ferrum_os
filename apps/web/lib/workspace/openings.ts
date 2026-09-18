@@ -2,6 +2,33 @@ import type { StudioOpening, StudioOpeningEdge, StudioPlan, StudioRoom } from '.
 
 export type OpeningEdit = Partial<Pick<StudioOpening, 'widthM' | 'heightM' | 'sillM' | 'configuration'>>
 export type OpeningEditResult = { opening: StudioOpening; error?: string; clamped?: boolean }
+export type OpeningSegment = { x1: number; y1: number; x2: number; y2: number }
+
+/** Symbol geometry is shared by the SVG plan and the DXF export. */
+export function openingSegments(opening: StudioOpening, room: StudioRoom): OpeningSegment[] {
+  const horizontal = opening.hostEdge === 'north' || opening.hostEdge === 'south'
+  const base = horizontal
+    ? { x1: room.xM + opening.positionM, y1: room.yM + (opening.hostEdge === 'north' ? 0 : room.depthM), x2: room.xM + opening.positionM + opening.widthM, y2: room.yM + (opening.hostEdge === 'north' ? 0 : room.depthM) }
+    : { x1: room.xM + (opening.hostEdge === 'west' ? 0 : room.widthM), y1: room.yM + opening.positionM, x2: room.xM + (opening.hostEdge === 'west' ? 0 : room.widthM), y2: room.yM + opening.positionM + opening.widthM }
+  const inward = opening.hostEdge === 'north' ? 1 : opening.hostEdge === 'south' ? -1 : opening.hostEdge === 'east' ? -1 : 1
+  const inset = Math.min(opening.widthM / 2, 0.7)
+  const midpoint = horizontal ? { x: (base.x1 + base.x2) / 2, y: base.y1 + inward * inset } : { x: base.x1 + inward * inset, y: (base.y1 + base.y2) / 2 }
+  if (opening.configuration === 'fixed') return [base]
+  if (opening.configuration === 'sliding') return [base, horizontal ? { ...base, y1: base.y1 + inward * 0.16, y2: base.y2 + inward * 0.16 } : { ...base, x1: base.x1 + inward * 0.16, x2: base.x2 + inward * 0.16 }]
+  if (opening.configuration === 'double-swing') return [base, { x1: base.x1, y1: base.y1, x2: midpoint.x, y2: midpoint.y }, { x1: base.x2, y1: base.y2, x2: midpoint.x, y2: midpoint.y }]
+  return [base, { x1: base.x1, y1: base.y1, x2: midpoint.x, y2: midpoint.y }]
+}
+
+export function getFacadeOpenings(plan: StudioPlan, facade: 'front' | 'side') {
+  return (plan.openings ?? []).flatMap((opening) => {
+    const room = plan.rooms.find((candidate) => candidate.id === opening.roomId)
+    if (!room) return []
+    const exposed = facade === 'front'
+      ? opening.hostEdge === 'north' && Math.abs(room.yM) < 0.001
+      : opening.hostEdge === 'east' && Math.abs(room.xM + room.widthM - plan.buildingWidthM) < 0.001
+    return exposed ? [{ opening, room }] : []
+  })
+}
 
 const edgeLength = (room: StudioRoom, edge: StudioOpeningEdge) => edge === 'north' || edge === 'south' ? room.widthM : room.depthM
 const openingMinimum = (opening: StudioOpening) => opening.kind === 'door' ? 0.7 : 0.3

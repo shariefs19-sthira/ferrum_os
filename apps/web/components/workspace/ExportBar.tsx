@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { writeDxf } from '../../lib/dxf/writeDxf'
 import type { StudioPlan } from '../../lib/types'
+import { openingSegments } from '../../lib/workspace/openings'
 
 function download(data: BlobPart, type: string, filename: string) {
   const url = URL.createObjectURL(new Blob([data], { type }))
@@ -31,14 +32,7 @@ export default function ExportBar({ plan }: { plan: StudioPlan }) {
       const room = plan.rooms.find((candidate) => candidate.id === opening.roomId)
       if (!room) return []
       const layer = opening.kind === 'door' ? 'DOORS' : 'WINDOWS'
-      if (opening.hostEdge === 'north' || opening.hostEdge === 'south') {
-        const y = plan.setbackM + room.yM + (opening.hostEdge === 'north' ? 0 : room.depthM)
-        const x = plan.setbackM + room.xM + opening.positionM
-        return [{ layer, x1: x, y1: y, x2: x + opening.widthM, y2: y }]
-      }
-      const x = plan.setbackM + room.xM + (opening.hostEdge === 'west' ? 0 : room.widthM)
-      const y = plan.setbackM + room.yM + opening.positionM
-      return [{ layer, x1: x, y1: y, x2: x, y2: y + opening.widthM }]
+      return openingSegments(opening, room).map((segment) => ({ layer, x1: plan.setbackM + segment.x1, y1: plan.setbackM + segment.y1, x2: plan.setbackM + segment.x2, y2: plan.setbackM + segment.y2 }))
     })
     download(writeDxf({ rects, lines }), 'application/dxf', 'ferrum-plan.dxf')
     setStatus(`DXF exported with ${rects.length - 1} ground-floor rooms and ${lines.length} opening segments on DOORS/WINDOWS layers.`)

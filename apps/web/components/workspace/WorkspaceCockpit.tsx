@@ -203,16 +203,18 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   }
   const selectedOpening = plan.openings?.find((opening) => opening.id === selectedOpeningId)
   const commitOpening = (edit: OpeningEdit) => {
-    if (!selectedOpening) return 'Select an opening before editing its properties.'
+    if (!selectedOpening) return undefined
     const result = applyOpeningEdit(selectedOpening, plan.rooms.find((room) => room.id === selectedOpening.roomId), plan.floorHeightM, edit)
-    if (result.error && !result.clamped) return result.error
+    if (result.error && !result.clamped) return { opening: selectedOpening, message: result.error }
     setOpeningEdits((current) => ({ ...current, [selectedOpening.id]: { ...current[selectedOpening.id], widthM: result.opening.widthM, heightM: result.opening.heightM, sillM: result.opening.sillM, configuration: result.opening.configuration } }))
-    return result.error
+    return { opening: result.opening, message: result.error }
   }
   useEffect(() => {
     const stored = window.localStorage.getItem('ferrum-area-unit')
     if (areaUnits.some((unit) => unit === stored)) setPrimaryAreaUnit(stored as typeof areaUnits[number])
-    let nextParameters = readProjectState(initialParameters).parameters
+    const projectState = readProjectState(initialParameters)
+    let nextParameters = projectState.parameters
+    if (Object.keys(projectState.openingEdits ?? {}).length) setOpeningEdits(projectState.openingEdits ?? {})
     if (!previewLabel) {
       const handoff = window.localStorage.getItem('ferrum-cockpit-handoff')
       if (handoff) {
@@ -235,12 +237,13 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const projectStateSource = previewLabel ? `preview:${controlProduct ?? 'product'}` : 'workspace:cockpit'
   useEffect(() => {
     if (!projectStateReady) return
-    writeProjectState(parameters, projectStateSource)
+    writeProjectState(parameters, projectStateSource, openingEdits)
     onParametersChange?.(parameters)
-  }, [parameters, onParametersChange, projectStateReady, projectStateSource])
+  }, [parameters, openingEdits, onParametersChange, projectStateReady, projectStateSource])
   useEffect(() => subscribeProjectState((state) => {
     if (state.source === projectStateSource) return
     setParameters((current) => sameParameters(current, state.parameters) ? current : state.parameters)
+    setOpeningEdits(state.openingEdits ?? {})
   }), [projectStateSource])
   useEffect(() => {
     const openAdvanced = () => setShowFineControls(true)
@@ -434,12 +437,12 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage('use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>
           <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
-            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} onSelectOpening={(openingId) => setSelectedOpeningId(openingId)} />}
+            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} onSelectOpening={(openingId) => { setShowExtract(false); setSelectedOpeningId(openingId) }} />}
           </div>
-          {view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
-          {controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
-          {fullBleedEmbed && <>
-            <button type="button" onClick={() => setShowExtract((value) => !value)} aria-expanded={showExtract} className="absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow-sm" data-extract-toggle>
+          {view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
+          {!selectedOpening && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
+          {fullBleedEmbed && !selectedOpening && <>
+            <button type="button" onClick={() => setShowExtract((value) => { const next = !value; if (next) setSelectedOpeningId(undefined); return next })} aria-expanded={showExtract} className="absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow-sm" data-extract-toggle>
               {showExtract ? 'Hide data extract' : 'Data extract'}
             </button>
             <aside className={`absolute bottom-16 right-4 z-30 w-[min(24rem,calc(100%-2rem))] rounded-relume border border-relume-border bg-white p-4 shadow-sm transition ${showExtract ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`} aria-label="Plan data extract" aria-hidden={!showExtract} data-contextual-extract>

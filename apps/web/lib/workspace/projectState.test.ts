@@ -17,6 +17,13 @@ describe('shared project state', () => {
     window.removeEventListener(PROJECT_STATE_EVENT, listener)
   })
 
+  it('preserves optional opening edits while reading older parameter-only v1 handoffs', () => {
+    writeProjectState(fallback, 'test:openings', { 'room-1-door': { widthM: 1.1, configuration: 'sliding' } })
+    expect(readProjectState(fallback).openingEdits?.['room-1-door']).toMatchObject({ widthM: 1.1, configuration: 'sliding' })
+    window.localStorage.setItem(PROJECT_STATE_KEY, JSON.stringify({ version: 1, revision: 1, parameters: fallback }))
+    expect(readProjectState(fallback).openingEdits).toEqual({})
+  })
+
   it('rejects malformed state and preserves deterministic fallback', () => {
     window.localStorage.setItem(PROJECT_STATE_KEY, '{"version":1,"parameters":{"floors":"many"}}')
     expect(readProjectState(fallback).parameters).toEqual(fallback)

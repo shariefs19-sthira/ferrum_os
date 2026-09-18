@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { generateStudioPlan } from '../plan-gen'
-import { applyOpeningEdit, withOpeningEdits } from './openings'
+import { applyOpeningEdit, getFacadeOpenings, openingSegments, withOpeningEdits } from './openings'
 
 describe('parametric openings', () => {
   it('generates stable hosted doors and windows inside every room edge', () => {
@@ -12,6 +12,18 @@ describe('parametric openings', () => {
       expect(opening.positionM).toBeGreaterThanOrEqual(0)
       expect(opening.positionM + opening.widthM).toBeLessThanOrEqual(edgeLength)
     }
+  })
+
+  it('uses configuration geometry and only exposes openings on the selected external facade', () => {
+    const plan = generateStudioPlan({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 1 })
+    const front = getFacadeOpenings(plan, 'front')
+    const side = getFacadeOpenings(plan, 'side')
+    expect(front.every(({ opening, room }) => opening.hostEdge === 'north' && room.yM === 0)).toBe(true)
+    expect(side.every(({ opening, room }) => opening.hostEdge === 'east' && room.xM + room.widthM === plan.buildingWidthM)).toBe(true)
+    const door = plan.openings!.find((opening) => opening.kind === 'door')!
+    const room = plan.rooms.find((candidate) => candidate.id === door.roomId)!
+    expect(openingSegments({ ...door, configuration: 'single-swing' }, room)).toHaveLength(2)
+    expect(openingSegments({ ...door, configuration: 'double-swing' }, room)).toHaveLength(3)
   })
 
   it('rejects invalid dimensions and clamps feasible edits without corrupting the plan', () => {
