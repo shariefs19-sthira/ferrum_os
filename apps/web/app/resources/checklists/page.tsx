@@ -21,6 +21,26 @@ const checklists = [
     name: 'Concrete Pour Readiness',
     href: '/resources/checklists/concrete-pour-readiness',
     summary: 'A pre-pour readiness checklist: formwork and reinforcement, concrete and site conditions, and sign-off records.'
+  },
+  {
+    name: 'Crane Lift Plan',
+    href: '/resources/checklists/crane-lift-plan',
+    summary: 'A pre-lift checklist: load, rigging, ground conditions, exclusion zone, and sign-off before a crane lift proceeds.'
+  },
+  {
+    name: 'Crane Maintenance',
+    href: '/resources/checklists/crane-maintenance',
+    summary: 'A scheduled maintenance checklist for site cranes: inspection points, wear items, and sign-off records.'
+  },
+  {
+    name: 'Material Receiving',
+    href: '/resources/checklists/material-receiving',
+    summary: 'A receiving checklist for incoming site materials: quantity, quality, documentation, and storage handoff.'
+  },
+  {
+    name: 'Scaffold Handover',
+    href: '/resources/checklists/scaffold-handover',
+    summary: 'A handover checklist for erected scaffold: inspection tag, load rating, access, and sign-off before use.'
   }
 ];
 

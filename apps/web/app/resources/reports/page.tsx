@@ -1,98 +1,57 @@
 import Link from 'next/link';
 
-const reports = [
-  {
-    slug: 'india-construction-cost-benchmarks-2026',
-    title: 'India construction cost benchmarks, 2026 edition',
-    year: '2026',
-    type: 'Annual benchmark',
-    summary:
-      'A 48-page benchmark of unit costs across residential, commercial, and infrastructure projects in 12 Indian cities, with a methodology section explaining how each line item is sourced and reconciled.'
-  },
-  {
-    slug: 'standards-discipline-survey',
-    title: 'Standards discipline survey: developer and contractor practice',
-    year: '2026',
-    type: 'Industry survey',
-    summary:
-      'A 32-page survey of how 140 Indian developers and 90 contractors actually apply IS Codes, CESMM, and internal estimating templates in their award and execution decisions, with a gap analysis between policy and practice.'
-  },
-  {
-    slug: 'monsoon-impact-report',
-    title: 'Monsoon impact report, three-year panel',
-    year: '2025',
-    type: 'Field study',
-    summary:
-      'A three-year panel study of monsoon-related schedule and cost deviations across 38 active projects, with a comparison of the documentation discipline that closed the gap versus the projects that did not.'
-  },
-  {
-    slug: 'procurement-cycle-times',
-    title: 'Procurement cycle times, mid-rise residential',
-    year: '2025',
-    type: 'Process benchmark',
-    summary:
-      'A 24-page benchmark of procurement cycle times for the 40 most-bought item categories in Indian mid-rise residential, with a breakdown of which approval gates add the most days and how leading teams compress them.'
-  }
-];
-
+// CLAUDE-20260918-RESOURCE-RESEARCH-CASES-LIVE (follow-up correction).
+// Withdrawn: the previous version of this page presented invented survey
+// and benchmark statistics -- specific page-count, city-count, respondent-
+// count, and project-count figures -- as though they were real research
+// Ferrum OS had conducted. No such research exists, so this page is
+// withdrawn from public discovery -- noindex, removed from the sitemap,
+// removed from every internal link -- rather than relabeled or kept live
+// with the same unsupported figures. It stays reachable at this URL only so
+// an inbound link or bookmark doesn't 404. (Deliberately not repeating the
+// specific invented numbers here: registry.test.ts regression-guards their
+// exact absence from this file, comments included.)
 export const metadata = {
-  title: 'Reports — Ferrum OS Resources',
-  description:
-    'Annual benchmarks, industry surveys, and field studies from the Ferrum OS team on cost, schedule, and standards discipline in Indian construction.',
-  openGraph: {
-    title: 'Reports — Ferrum OS Resources',
-    description:
-      'Annual benchmarks, industry surveys, and field studies from the Ferrum OS team.',
-    type: 'article',
-    locale: 'en_US'
-  }
+  title: 'Reports has moved - Ferrum OS',
+  description: 'This page has been withdrawn from public discovery. See Research Cases for source-cited material.',
+  robots: { index: false, follow: true },
+  alternates: { canonical: '/resources/research-cases' },
 };
 
 export default function ReportsPage() {
   return (
-    <div className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-relume-tight text-relume-ink">
-            Reports
-          </h1>
-          <p className="mt-4 text-xl text-relume-muted">
-            Annual benchmarks, industry surveys, and field studies
-          </p>
-        </div>
-
-        <div className="bg-white rounded-relume border border-relume-border p-8 space-y-8">
-          {reports.map((report) => (
-            <article key={report.slug} className="border-b border-relume-border pb-8 last:border-b-0 last:pb-0">
-              <div className="flex items-baseline justify-between flex-wrap gap-2">
-                <h2 className="text-2xl sm:text-3xl font-semibold tracking-relume-tight text-relume-ink">{report.title}</h2>
-                <span className="text-sm font-medium text-relume-muted">
-                  {report.year} · {report.type}
-                </span>
-              </div>
-              <p className="mt-3 text-relume-muted">{report.summary}</p>
-              <p className="mt-4 text-sm text-relume-muted">
-                Reference this report with its Ferrum OS slug:{' '}
-                <code className="font-mono text-relume-muted">{report.slug}</code>
-              </p>
-            </article>
-          ))}
-
-          <div className="pt-4 border-t border-relume-border text-sm text-relume-muted">
-            <p>
-              For shorter, working-team material, see the{' '}
-              <Link href="/resources/blog" className="text-relume-ink hover:underline">
-                blog
-              </Link>{' '}
-              or the{' '}
-              <Link href="/resources/whitepapers" className="text-relume-ink hover:underline">
-                whitepapers
-              </Link>
-              .
-            </p>
-          </div>
+    <main className="min-h-screen bg-relume-surface-secondary py-16 sm:py-20 px-6 md:px-8">
+      <div className="mx-auto max-w-2xl rounded-lg border border-relume-border bg-white p-8 text-center sm:p-10">
+        <span className="inline-flex rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">
+          Page withdrawn
+        </span>
+        <h1 className="mt-4 text-2xl font-semibold tracking-relume-tight text-relume-ink sm:text-3xl">Reports</h1>
+        <p className="mt-4 text-sm leading-6 text-relume-muted">
+          This page has been withdrawn from public discovery. It previously described survey and
+          benchmark reports with specific figures (page counts, respondent counts, project counts)
+          that Ferrum OS cannot evidence as real research. Nothing on this page was ever a real,
+          published survey or benchmark result.
+        </p>
+        <p className="mt-4 text-sm leading-6 text-relume-muted">
+          For source-cited material, see Research Cases -- independent analysis grounded in named
+          primary sources (government codes, statutes, and open datasets), each with its source,
+          jurisdiction, and evidence status stated.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <Link
+            href="/resources/research-cases"
+            className="inline-flex items-center justify-center rounded-full bg-relume-ink px-5 py-3 text-sm font-medium text-white transition hover:bg-relume-ink"
+          >
+            Open Research Cases
+          </Link>
+          <Link
+            href="/resources"
+            className="inline-flex items-center justify-center rounded-full border border-relume-border bg-white px-5 py-3 text-sm font-medium text-relume-muted transition hover:border-relume-border hover:text-relume-ink"
+          >
+            Back to Resources
+          </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

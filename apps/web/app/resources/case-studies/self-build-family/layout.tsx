@@ -1,32 +1,12 @@
 import { Metadata } from 'next'
-import { ArticleJsonLd } from '../../_components/ArticleJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Self-Build Family Home Case Study - Ferrum OS',
-  description: 'How a self-build family delivered a custom home 10% under budget while keeping full control over design and construction with Ferrum OS.',
-  openGraph: {
-    title: 'Self-Build Family Home Case Study - Ferrum OS',
-    description: 'How a self-build family delivered a custom home 10% under budget while keeping full control over design and construction with Ferrum OS.',
-    type: 'article',
-    locale: 'en_US',
-  },
+  title: 'Self-Build Family Home has moved - Ferrum OS',
+  description: 'This page has been withdrawn from public discovery. See Research Cases for source-cited material.',
+  robots: { index: false, follow: true },
+  alternates: { canonical: '/resources/research-cases' },
 }
 
-export default function SelfBuildFamilyLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <>
-      <ArticleJsonLd
-        headline={metadata.title as string}
-        description={metadata.description as string}
-        url="/resources/case-studies/self-build-family"
-        datePublished="2026-08-30"
-        authorSeat="Cline-GLM-Flash"
-      />
-      {children}
-    </>
-  )
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return children
 }

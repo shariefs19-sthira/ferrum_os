@@ -27,8 +27,8 @@ const products = [
 
 const resources = [
   { name: 'Blog', href: '/resources/blog' },
-  { name: 'Case Studies', href: '/resources/case-studies' },
-  { name: 'IS Code Guides', href: '/resources/is-code-guides' },
+  { name: 'Research Cases', href: '/resources/research-cases' },
+  { name: 'Standards Navigator', href: '/resources/standards-navigator' },
   { name: 'Checklists', href: '/resources/checklists' },
   { name: 'Glossary', href: '/resources/glossary' },
   { name: 'FAQ', href: '/resources/faq' },

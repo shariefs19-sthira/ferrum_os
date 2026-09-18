@@ -3,8 +3,8 @@ import Link from 'next/link';
 const guides = [
   {
     label: 'Standards',
-    href: '/resources/is-code-guides',
-    name: 'IS Code Guides',
+    href: '/resources/standards-navigator',
+    name: 'Standards Navigator',
     summary:
       'A practical radar for Indian construction standards: what to adopt, hold, or drop in real land, design, and delivery workflows.'
   },
@@ -13,7 +13,7 @@ const guides = [
     href: '/resources/glossary',
     name: 'Glossary',
     summary:
-      'Plain-language definitions for the land, design, and delivery terms that show up across our articles, case studies, and standards guides.'
+      'Plain-language definitions for the land, design, and delivery terms that show up across our articles, research cases, and standards guides.'
   },
   {
     label: 'Help',
@@ -27,11 +27,11 @@ const guides = [
 export const metadata = {
   title: 'Guides — Ferrum OS Resources',
   description:
-    'A reading path through the Ferrum OS reference library: IS Code Guides, Glossary, and FAQ, with one-line descriptions of each.',
+    'A reading path through the Ferrum OS reference library: Standards Navigator, Glossary, and FAQ, with one-line descriptions of each.',
   openGraph: {
     title: 'Guides — Ferrum OS Resources',
     description:
-      'A reading path through the Ferrum OS reference library: IS Code Guides, Glossary, and FAQ.',
+      'A reading path through the Ferrum OS reference library: Standards Navigator, Glossary, and FAQ.',
     type: 'article',
     locale: 'en_US'
   }
@@ -78,16 +78,16 @@ export default function ResourcesGuidesPage() {
         </div>
 
         <p className="mt-10 max-w-2xl text-sm leading-6 text-relume-muted">
-          Looking for articles or client stories instead?{' '}
+          Looking for articles or source-cited research instead?{' '}
           <Link href="/resources/blog" className="font-medium text-relume-ink hover:text-relume-ink">
             Browse the blog
           </Link>{' '}
           or{' '}
           <Link
-            href="/resources/case-studies"
+            href="/resources/research-cases"
             className="font-medium text-relume-ink hover:text-relume-ink"
           >
-            read a case study
+            read a research case
           </Link>
           .
         </p>

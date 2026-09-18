@@ -1,32 +1,12 @@
 import { Metadata } from 'next'
-import { ArticleJsonLd } from '../../_components/ArticleJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Municipal Market Structural Retrofit Case Study - Ferrum OS',
-  description: 'Retrofitting a trading hall without closing it: rotating work zones sequenced around active trading hours so every vendor kept trading throughout.',
-  openGraph: {
-    title: 'Municipal Market Structural Retrofit Case Study - Ferrum OS',
-    description: 'Retrofitting a trading hall without closing it: rotating work zones sequenced around active trading hours so every vendor kept trading throughout.',
-    type: 'article',
-    locale: 'en_US',
-  },
+  title: 'Municipal Market Structural Retrofit has moved - Ferrum OS',
+  description: 'This page has been withdrawn from public discovery. See Research Cases for source-cited material.',
+  robots: { index: false, follow: true },
+  alternates: { canonical: '/resources/research-cases' },
 }
 
-export default function MunicipalMarketRetrofitLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <>
-      <ArticleJsonLd
-        headline={metadata.title as string}
-        description={metadata.description as string}
-        url="/resources/case-studies/municipal-market-retrofit"
-        datePublished="2026-09-01"
-        authorSeat="CRANE"
-      />
-      {children}
-    </>
-  )
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return children
 }

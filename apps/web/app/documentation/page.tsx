@@ -25,17 +25,18 @@ export default function DocumentationPage() {
         <ol className="mx-auto mt-12 max-w-3xl space-y-4">
           <li>
             <Link
-              href="/resources/is-code-guides"
+              href="/resources/standards-navigator"
               className="flex items-start gap-4 rounded-lg border border-relume-border bg-relume-surface p-5"
             >
               <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-relume-border text-sm font-semibold text-relume-ink">1</span>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">Skim the IS-Code guides</h3>
+                <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">Skim the Standards Navigator</h3>
                 <p className="mt-1 text-sm text-relume-ink">
-                  Five-minute primers on the IS codes (IS 456, IS 1200, IS 800, IS 875, CESMM4) that
-                  Ferrum OS applies under the hood.
+                  Five-minute primers on the standards (IS 456:2000, IS 800:2007, IS 875 (Part 3):2015,
+                  IS 2062:2011) that Ferrum OS applies under the hood, each with its publisher and
+                  official source page stated.
                 </p>
-                <span className="mt-2 inline-block text-sm font-medium text-relume-ink underline underline-offset-4">Open IS-Code Guides &rarr;</span>
+                <span className="mt-2 inline-block text-sm font-medium text-relume-ink underline underline-offset-4">Open Standards Navigator &rarr;</span>
               </div>
             </Link>
           </li>
@@ -57,17 +58,17 @@ export default function DocumentationPage() {
           </li>
           <li>
             <Link
-              href="/resources/case-studies"
+              href="/resources/research-cases"
               className="flex items-start gap-4 rounded-lg border border-relume-border bg-relume-surface p-5"
             >
               <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-relume-border text-sm font-semibold text-relume-ink">3</span>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">Explore case studies</h3>
+                <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">Explore research cases</h3>
                 <p className="mt-1 text-sm text-relume-ink">
-                  How greenfield developers, self-build families, contractors, and infrastructure
-                  operators use Ferrum OS in production.
+                  Source-cited explainers grounded in named primary sources -- government codes,
+                  statutes, and open datasets -- not customer or delivery claims.
                 </p>
-                <span className="mt-2 inline-block text-sm font-medium text-relume-ink underline underline-offset-4">Open Case Studies &rarr;</span>
+                <span className="mt-2 inline-block text-sm font-medium text-relume-ink underline underline-offset-4">Open Research Cases &rarr;</span>
               </div>
             </Link>
           </li>
@@ -79,13 +80,13 @@ export default function DocumentationPage() {
           <SectionHeading>Resources</SectionHeading>
         </div>
         <div className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <Link href="/resources/is-code-guides">
+          <Link href="/resources/standards-navigator">
             <div className="flex h-full flex-col rounded-lg border border-relume-border bg-relume-surface p-6">
               <div className="flex items-start gap-4">
                 <span className="text-3xl">📖</span>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold tracking-relume-tight text-relume-ink">IS-Code Guides</h3>
-                  <p className="mt-2 mb-4 text-sm text-relume-ink">Learn how to integrate and use IS-Code.</p>
+                  <h3 className="text-xl font-semibold tracking-relume-tight text-relume-ink">Standards Navigator</h3>
+                  <p className="mt-2 mb-4 text-sm text-relume-ink">What to adopt, hold, or drop across Indian construction standards.</p>
                   <div className="flex items-center text-sm font-medium text-relume-ink">
                     <span>Learn more</span>
                     <span className="ml-1">→</span>
@@ -109,13 +110,13 @@ export default function DocumentationPage() {
               </div>
             </div>
           </Link>
-          <Link href="/resources/case-studies">
+          <Link href="/resources/research-cases">
             <div className="flex h-full flex-col rounded-lg border border-relume-border bg-relume-surface p-6">
               <div className="flex items-start gap-4">
                 <span className="text-3xl">📊</span>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold tracking-relume-tight text-relume-ink">Case Studies</h3>
-                  <p className="mt-2 mb-4 text-sm text-relume-ink">Real-world examples and success stories.</p>
+                  <h3 className="text-xl font-semibold tracking-relume-tight text-relume-ink">Research Cases</h3>
+                  <p className="mt-2 mb-4 text-sm text-relume-ink">Source-cited explainers grounded in named primary sources.</p>
                   <div className="flex items-center text-sm font-medium text-relume-ink">
                     <span>Learn more</span>
                     <span className="ml-1">→</span>
