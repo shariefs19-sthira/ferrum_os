@@ -41,4 +41,11 @@ describe('answerWithGrounding', () => {
     expect(answer.text).toContain('FEA analysis')
     expect(answer.text).toContain('Sign-off workflow')
   })
+
+  it('explains the governed concept-visualization roadmap without overstating readiness', () => {
+    const answer = answerWithGrounding('Explain constraint-preserving concept visualization in DesignStudio')
+    expect(answer.text).toContain('ROADMAP')
+    expect(answer.text).toContain('spatial constraints are locked')
+    expect(answer.text).toContain('NOT FOR CONSTRUCTION OR APPROVAL')
+  })
 })
