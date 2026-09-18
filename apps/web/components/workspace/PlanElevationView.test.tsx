@@ -38,4 +38,10 @@ describe('PlanElevationView openings', () => {
     rerender(<PlanElevationView plan={sliding} view="front-elevation" activeFloor={1} />)
     expect(container.querySelector(`[data-opening-id="${window.id}"]`)?.parentElement?.innerHTML).not.toBe(fixedSymbol)
   })
+
+  it('can fit an allocated canvas row without preserving the normal 24rem minimum', () => {
+    const plan = generateStudioPlan({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 1 })
+    const { container } = render(<PlanElevationView plan={plan} view="plan" activeFloor={1} fitAllocatedHeight />)
+    expect(container.querySelector('svg')?.getAttribute('class')).toContain('min-h-0')
+  })
 })
