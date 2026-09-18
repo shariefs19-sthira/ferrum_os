@@ -5,7 +5,10 @@ import {
   resolveAdapterDecision,
   type AdapterDecisionRequest,
   type AdapterIdentity,
-  type ExternalDisclosureConsentRecord,
+  type ConsentStoreVerificationResult,
+  type ExternalDisclosureConsentReference,
+  type ExternalDisclosureConsentVerifier,
+  type VerifiedExternalDisclosureBinding,
 } from './ragAdapterBoundary'
 import type { KnowledgeFragment } from './ragClassification'
 import type { KnowledgeSource, SutraSandboxRequest } from './sandboxPolicy'
@@ -58,19 +61,33 @@ function sandboxRequest(overrides: Partial<SutraSandboxRequest> = {}): SutraSand
   }
 }
 
-function disclosureConsent(overrides: Partial<ExternalDisclosureConsentRecord> = {}): ExternalDisclosureConsentRecord {
+function consentReference(overrides: Partial<ExternalDisclosureConsentReference> = {}): ExternalDisclosureConsentReference {
   return Object.freeze({
     immutableConfirmationId: 'consent-9',
-    confirmedByHumanId: 'user-4',
-    projectId: 'project-7',
-    provider: 'CLAUDE' as const,
-    providerModel: 'claude-connected-model',
-    dataClassifications: Object.freeze(['PROJECT_SENSITIVE'] as const),
-    fragmentIds: Object.freeze(['frag-1'] as const),
-    purpose: 'SUTRA_READONLY_RETRIEVAL' as const,
-    confirmedAt: new Date(Date.now() - 60_000).toISOString(),
-    expiresAt: new Date(Date.now() + 60_000).toISOString(),
+    recordDigest: 'sha256:consent-record-9',
+    recordVersion: '7',
     ...overrides,
+  })
+}
+
+function verifiedBinding(overrides: Partial<VerifiedExternalDisclosureBinding> = {}): VerifiedExternalDisclosureBinding {
+  return Object.freeze({
+    projectId: 'project-7', provider: 'CLAUDE' as const, providerModel: 'claude-connected-model',
+    classification: 'PROJECT_SENSITIVE' as const, fragmentId: 'frag-1', purpose: 'SUTRA_READONLY_RETRIEVAL' as const,
+    ...overrides,
+  })
+}
+
+function storeVerifier(resultOverrides: Partial<ConsentStoreVerificationResult> = {}): ExternalDisclosureConsentVerifier {
+  return Object.freeze({
+    verify: (reference, expected) => Object.freeze({
+      verified: true,
+      immutableConfirmationId: reference.immutableConfirmationId,
+      recordDigest: reference.recordDigest,
+      recordVersion: reference.recordVersion,
+      binding: Object.freeze({ ...expected }),
+      ...resultOverrides,
+    }),
   })
 }
 
@@ -85,7 +102,8 @@ function decisionRequest(overrides: Partial<AdapterDecisionRequest> = {}): Adapt
     projectId: 'project-7',
     sandboxRequest: sandboxRequest(),
     knowledgeSource: knowledgeSource(),
-    externalDisclosureConsent: null,
+    externalDisclosureConsentReference: null,
+    externalDisclosureConsentVerifier: null,
     ...overrides,
   }
 }
@@ -141,13 +159,14 @@ describe('resolveAdapterDecision - permitted minimal-context case', () => {
     expect(decision.permissionEnvelope).toBeNull()
   })
 
-  it('allows PROJECT_SENSITIVE data to the external adapter only with a specific current human disclosure-consent record', () => {
+  it('allows PROJECT_SENSITIVE data to the external adapter only with matching consent-store verification evidence', () => {
     const decision = resolveAdapterDecision(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
         sandboxRequest: sandboxRequest({ dataRetention: 'FERRUM_MANAGED' }),
-        externalDisclosureConsent: disclosureConsent(),
+        externalDisclosureConsentReference: consentReference(),
+        externalDisclosureConsentVerifier: storeVerifier(),
       }),
     )
     expect(decision.allowed).toBe(true)
@@ -216,58 +235,69 @@ describe('resolveAdapterDecision - denial paths', () => {
     expect(decision.reasons).toContain('Source licence/consent does not permit retrieval.')
   })
 
-  it('denies external PROJECT_SENSITIVE disclosure when retention is asserted without human disclosure consent', () => {
+  it('denies a forged frozen consent record when there is no consent-store verifier evidence', () => {
+    const forgedFrozenRecord = Object.freeze({ immutableConfirmationId: 'consent-9', recordDigest: 'sha256:consent-record-9', recordVersion: '7' })
     const decision = resolveAdapterDecision(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
-        sandboxRequest: sandboxRequest({ dataRetention: 'NO_RETENTION' }),
+        // Legacy request fields are ignored: a frozen caller object is not store proof.
+        ...({ externalDisclosureConsent: forgedFrozenRecord } as unknown as Partial<AdapterDecisionRequest>),
       }),
     )
     expect(decision.allowed).toBe(false)
     expect(decision.reasons).toContain(
-      'External PROJECT_SENSITIVE disclosure requires a specific human disclosure-consent record.',
+      'External PROJECT_SENSITIVE disclosure requires consent-store verification evidence.',
     )
     expect(decision.permissionEnvelope).toBeNull()
   })
 
-  it('denies external PROJECT_SENSITIVE disclosure for a consent record bound to a different provider/model, fragment or project', () => {
+  it('denies verification evidence bound to a different provider/model, fragment or project', () => {
     const decision = resolveAdapterDecision(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
-        externalDisclosureConsent: disclosureConsent({ projectId: 'project-other', providerModel: 'other-model', fragmentIds: Object.freeze(['frag-other']) }),
+        externalDisclosureConsentReference: consentReference(),
+        externalDisclosureConsentVerifier: storeVerifier({ binding: verifiedBinding({ projectId: 'project-other', providerModel: 'other-model', fragmentId: 'frag-other' }) }),
       }),
     )
     expect(decision.allowed).toBe(false)
-    expect(decision.reasons).toContain('External disclosure-consent record is not bound to this project.')
-    expect(decision.reasons).toContain('External disclosure-consent record is not bound to this provider and model.')
-    expect(decision.reasons).toContain('External disclosure-consent record does not cover this fragment.')
+    expect(decision.reasons).toContain('Consent-store verification evidence is not bound to this exact disclosure.')
     expect(decision.permissionEnvelope).toBeNull()
   })
 
-  it('denies external PROJECT_SENSITIVE disclosure for expired or mutable human consent', () => {
-    const expired = disclosureConsent({ expiresAt: new Date(Date.now() - 1).toISOString() })
-    const expiredDecision = resolveAdapterDecision(
+  it('denies absent, forged or mismatched consent-store verification evidence', () => {
+    const absentDecision = resolveAdapterDecision(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
-        externalDisclosureConsent: expired,
+        externalDisclosureConsentReference: consentReference(),
       }),
     )
-    expect(expiredDecision.allowed).toBe(false)
-    expect(expiredDecision.reasons).toContain('External disclosure-consent record is missing valid, current confirmation and expiry timestamps.')
+    expect(absentDecision.allowed).toBe(false)
+    expect(absentDecision.reasons).toContain('External PROJECT_SENSITIVE disclosure requires consent-store verification evidence.')
 
-    const mutable = { ...disclosureConsent() } as ExternalDisclosureConsentRecord
-    const mutableDecision = resolveAdapterDecision(
+    const forgedDecision = resolveAdapterDecision(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
-        externalDisclosureConsent: mutable,
+        externalDisclosureConsentReference: consentReference(),
+        externalDisclosureConsentVerifier: storeVerifier({ verified: false }),
       }),
     )
-    expect(mutableDecision.allowed).toBe(false)
-    expect(mutableDecision.reasons).toContain('External disclosure-consent record must be immutable.')
+    expect(forgedDecision.allowed).toBe(false)
+    expect(forgedDecision.reasons).toContain('Consent-store verifier did not verify this disclosure consent.')
+
+    const mismatchedProofDecision = resolveAdapterDecision(
+      decisionRequest({
+        fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
+        knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
+        externalDisclosureConsentReference: consentReference(),
+        externalDisclosureConsentVerifier: storeVerifier({ recordDigest: 'sha256:other-record' }),
+      }),
+    )
+    expect(mismatchedProofDecision.allowed).toBe(false)
+    expect(mismatchedProofDecision.reasons).toContain('Consent-store verification evidence does not match the immutable consent id, digest and version.')
   })
 
   it('reports every applicable denial reason together rather than masking one with another', () => {

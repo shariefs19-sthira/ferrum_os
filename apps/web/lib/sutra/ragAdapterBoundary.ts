@@ -71,23 +71,42 @@ export function isClassificationEligibleForAdapter(classification: DataClassific
 export type ExternalDisclosurePurpose = 'SUTRA_READONLY_RETRIEVAL'
 
 /**
- * A human-issued consent artefact for a bounded external disclosure. The
- * confirmation id is immutable: a record is accepted only when frozen, so a
- * caller cannot alter its binding after it has been approved. Production code
- * must obtain this record from the consent store; this module deliberately
- * provides no request-derived fallback or record creation path.
+ * Stable reference to a consent record held by the consent store. This is
+ * deliberately not the record: a caller can freeze a forged object, but that
+ * does not make it store-issued evidence.
  */
-export type ExternalDisclosureConsentRecord = Readonly<{
+export type ExternalDisclosureConsentReference = Readonly<{
   immutableConfirmationId: string
-  confirmedByHumanId: string
+  recordDigest: string
+  recordVersion: string
+}>
+
+/** The exact disclosure binding a deterministic consent-store verifier returns. */
+export type VerifiedExternalDisclosureBinding = Readonly<{
   projectId: string
   provider: ExternalModelProvider
   providerModel: string
-  dataClassifications: readonly DataClassification[]
-  fragmentIds: readonly string[]
+  classification: DataClassification
+  fragmentId: string
   purpose: ExternalDisclosurePurpose
-  confirmedAt: string
-  expiresAt: string
+}>
+
+/**
+ * Deterministic verification boundary owned by the consent-store integration.
+ * It receives the immutable reference plus the intended disclosure binding,
+ * then returns evidence from the store. It must perform no provider/network
+ * work; a production adapter may supply a cached store-backed implementation.
+ */
+export type ExternalDisclosureConsentVerifier = Readonly<{
+  verify(reference: ExternalDisclosureConsentReference, expected: VerifiedExternalDisclosureBinding): ConsentStoreVerificationResult
+}>
+
+export type ConsentStoreVerificationResult = Readonly<{
+  verified: boolean
+  immutableConfirmationId: string
+  recordDigest: string
+  recordVersion: string
+  binding: VerifiedExternalDisclosureBinding
 }>
 
 export type AdapterDecision = {
@@ -105,8 +124,9 @@ export type AdapterDecisionRequest = {
   sandboxRequest: SutraSandboxRequest
   /** The knowledge source `fragment` was drawn from - its licence/consent is checked via sandboxPolicy.ts's own `canUseForRetrieval`, never re-derived here. */
   knowledgeSource: KnowledgeSource
-  /** Human disclosure consent, supplied by the consent store. Required only for external PROJECT_SENSITIVE disclosure. */
-  externalDisclosureConsent: ExternalDisclosureConsentRecord | null
+  /** Store reference and deterministic verifier. Both are required for external PROJECT_SENSITIVE disclosure. */
+  externalDisclosureConsentReference: ExternalDisclosureConsentReference | null
+  externalDisclosureConsentVerifier: ExternalDisclosureConsentVerifier | null
 }
 
 /**
@@ -132,7 +152,7 @@ export type AdapterDecisionRequest = {
  * outcome.
  */
 export function resolveAdapterDecision(request: AdapterDecisionRequest): AdapterDecision {
-  const { fragment, identity, tenantId, projectId, sandboxRequest, knowledgeSource, externalDisclosureConsent } = request
+  const { fragment, identity, tenantId, projectId, sandboxRequest, knowledgeSource, externalDisclosureConsentReference, externalDisclosureConsentVerifier } = request
   const reasons: string[] = []
 
   if (!isVisibleToTenant(fragment, tenantId, projectId)) {
@@ -161,7 +181,7 @@ export function resolveAdapterDecision(request: AdapterDecisionRequest): Adapter
   }
 
   if (identity.kind === 'EXTERNAL_MODEL' && fragment.classification === 'PROJECT_SENSITIVE') {
-    reasons.push(...validateExternalDisclosureConsent(externalDisclosureConsent, { fragment, identity, projectId, sandboxRequest }))
+    reasons.push(...validateExternalDisclosureConsent(externalDisclosureConsentReference, externalDisclosureConsentVerifier, { fragment, identity, projectId, sandboxRequest }))
   }
 
   const allowed = reasons.length === 0
@@ -173,29 +193,41 @@ export function resolveAdapterDecision(request: AdapterDecisionRequest): Adapter
 }
 
 function validateExternalDisclosureConsent(
-  consent: ExternalDisclosureConsentRecord | null,
+  reference: ExternalDisclosureConsentReference | null,
+  verifier: ExternalDisclosureConsentVerifier | null,
   context: Pick<AdapterDecisionRequest, 'fragment' | 'identity' | 'projectId' | 'sandboxRequest'>,
 ): string[] {
-  if (!consent) return ['External PROJECT_SENSITIVE disclosure requires a specific human disclosure-consent record.']
+  if (!reference || !verifier) return ['External PROJECT_SENSITIVE disclosure requires consent-store verification evidence.']
 
   const reasons: string[] = []
-  if (!Object.isFrozen(consent) || !Object.isFrozen(consent.dataClassifications) || !Object.isFrozen(consent.fragmentIds)) {
-    reasons.push('External disclosure-consent record must be immutable.')
+  if (!Object.isFrozen(reference) || !reference.immutableConfirmationId || !reference.recordDigest || !reference.recordVersion) {
+    reasons.push('External disclosure consent reference must carry immutable id, digest and version.')
+    return reasons
   }
-  if (!consent.immutableConfirmationId || !consent.confirmedByHumanId) reasons.push('External disclosure-consent record requires an immutable confirmation id and human confirmer.')
-  if (consent.projectId !== context.projectId || consent.projectId !== context.sandboxRequest.projectId) reasons.push('External disclosure-consent record is not bound to this project.')
-  if (context.identity.kind !== 'EXTERNAL_MODEL' || consent.provider !== context.identity.provider || consent.providerModel !== context.identity.modelId || consent.providerModel !== context.sandboxRequest.providerModel) {
-    reasons.push('External disclosure-consent record is not bound to this provider and model.')
-  }
-  if (!consent.dataClassifications.includes(context.fragment.classification)) reasons.push('External disclosure-consent record does not cover this data classification.')
-  if (!consent.fragmentIds.includes(context.fragment.fragmentId)) reasons.push('External disclosure-consent record does not cover this fragment.')
-  if (consent.purpose !== 'SUTRA_READONLY_RETRIEVAL') reasons.push('External disclosure-consent record does not authorize the SUTRA read-only retrieval purpose.')
+  if (context.identity.kind !== 'EXTERNAL_MODEL') return ['External disclosure consent verification was requested for a non-external adapter.']
 
-  const confirmedAt = Date.parse(consent.confirmedAt)
-  const expiresAt = Date.parse(consent.expiresAt)
-  const now = Date.now()
-  if (!Number.isFinite(confirmedAt) || !Number.isFinite(expiresAt) || confirmedAt > now || expiresAt <= now || expiresAt <= confirmedAt) {
-    reasons.push('External disclosure-consent record is missing valid, current confirmation and expiry timestamps.')
+  const expected: VerifiedExternalDisclosureBinding = Object.freeze({
+    projectId: context.projectId ?? '',
+    provider: context.identity.provider,
+    providerModel: context.identity.modelId,
+    classification: context.fragment.classification,
+    fragmentId: context.fragment.fragmentId,
+    purpose: 'SUTRA_READONLY_RETRIEVAL',
+  })
+  let result: ConsentStoreVerificationResult
+  try {
+    result = verifier.verify(reference, expected)
+  } catch {
+    return ['Consent-store verifier did not produce verification evidence.']
   }
+  if (!Object.isFrozen(result) || !Object.isFrozen(result.binding)) reasons.push('Consent-store verification evidence must be immutable.')
+  if (!result.verified) reasons.push('Consent-store verifier did not verify this disclosure consent.')
+  if (result.immutableConfirmationId !== reference.immutableConfirmationId || result.recordDigest !== reference.recordDigest || result.recordVersion !== reference.recordVersion) {
+    reasons.push('Consent-store verification evidence does not match the immutable consent id, digest and version.')
+  }
+  if (
+    result.binding.projectId !== expected.projectId || result.binding.provider !== expected.provider || result.binding.providerModel !== expected.providerModel ||
+    result.binding.classification !== expected.classification || result.binding.fragmentId !== expected.fragmentId || result.binding.purpose !== expected.purpose
+  ) reasons.push('Consent-store verification evidence is not bound to this exact disclosure.')
   return reasons
 }

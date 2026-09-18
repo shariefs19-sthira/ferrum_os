@@ -90,10 +90,10 @@ below govern what an agent may *read* to inform that action.
 ## Explicit non-goals of this slice
 
 - No network calls, no real knowledge-base wiring, no UI.
-- External `PROJECT_SENSITIVE` disclosure needs a frozen human consent record
-  with an immutable confirmation id, bound to the project, provider/model,
-  data classification, fragment, read-only retrieval purpose, and valid
-  confirmation/expiry interval. Request-asserted retention does not qualify.
+- External `PROJECT_SENSITIVE` disclosure needs a consent-store verifier result,
+  matched against an immutable consent id, record digest/version, project,
+  provider/model, classification, fragment and read-only retrieval purpose. A
+  caller-supplied frozen consent record and request-asserted retention do not qualify.
 - No claim that any model is "trained" on Ferrum data — training
   consent lives entirely in `sandboxPolicy.ts`'s existing
   `TrainingConsent` type, which this slice does not alter.
