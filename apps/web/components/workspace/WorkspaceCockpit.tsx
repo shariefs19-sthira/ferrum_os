@@ -28,6 +28,7 @@ import { getSiteConstraintsEvidence } from '../../lib/parcelIntel/siteConstraint
 import { dispatchCockpitSelection } from '../../lib/sutra/selectionContext'
 import ShellCatalogPanel from '../designstudio/ShellCatalogPanel'
 import { getBuildingShell, recommendBuildingShells } from '../../lib/designstudio/shellCatalog'
+import type { ProjectTemplateInputs } from '../../lib/designstudio/buildingLibraryKernel'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -146,6 +147,25 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const activeRooms = plan.rooms.filter((room) => room.floor === activeFloor)
   const grossArea = plan.buildingWidthM * plan.buildingDepthM * plan.floors
   const measuredBoq = useMemo(() => measureBoq(plan), [plan])
+  const templateProjectInputs = useMemo<ProjectTemplateInputs>(() => ({
+    jurisdictionId: parcelContext ? `${parcelContext.state}:${parcelContext.district}` : null,
+    soilBearingKpa: null,
+    windSpeedMps: null,
+    seismicClass: null,
+    snowLoadKpa: null,
+    floorCount: plan.floors,
+    grossFloorAreaSqm: grossArea,
+    buildingWidthM: plan.buildingWidthM,
+    buildingDepthM: plan.buildingDepthM,
+    storeyHeightM: plan.floorHeightM,
+    materials: [],
+    deadLoadKpa: null,
+    liveLoadKpa: null,
+    userChanges: [
+      ...(!sameParameters(parameters, initialParameters) ? ['GEOMETRY' as const] : []),
+      ...(Object.keys(openingEdits).length ? ['OPENING' as const] : []),
+    ],
+  }), [grossArea, initialParameters, openingEdits, parameters, parcelContext, plan])
   const governingSpanM = Math.max(...activeRooms.map((room) => room.widthM), 0)
   const structural = checkStructuralLive([{ id: 'active-floor-beam', kind: 'beam', span_m: governingSpanM, depth_mm: 300, width_mm: 300, udl_kn_per_m: 8, support: 'simple' }])
   const structuralPass = structural.results.every((result) => result.checks.every((check) => check.pass))
@@ -514,7 +534,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
             {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} shell={isDesignExperience ? selectedShell : undefined} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} />}
           </div>
-          {isDesignExperience && <ShellCatalogPanel parcel={parcelContext} selectedShell={selectedShell} onSelect={(shell) => setSelectedShellId(shell.id)} />}
+          {isDesignExperience && <ShellCatalogPanel parcel={parcelContext} selectedShell={selectedShell} projectInputs={templateProjectInputs} onSelect={(shell) => setSelectedShellId(shell.id)} />}
           {!canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
           {!selectedOpening && !sutraOccludesCanvas && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
           {fullBleedEmbed && !selectedOpening && <>
