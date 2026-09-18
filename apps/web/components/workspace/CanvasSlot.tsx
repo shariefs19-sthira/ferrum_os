@@ -4,7 +4,7 @@ import type { WorkspaceExtract, WorkspaceProduct, WorkspaceProvenance } from "..
 import WorkspaceCockpit from "./WorkspaceCockpit"
 import type { ProductControlId } from "../../lib/workspace/controlRegistry"
 
-const productControls: Record<WorkspaceProduct, ProductControlId> = { Land:"landintel", Design:"designstudio", Structure:"structura", Cost:"boq-pro", Market:"promarket", Procure:"procurehub", Invest:"investflow", Build:"buildos", Community:"communitybuild", Transact:"transact" }
+export const productControls: Record<WorkspaceProduct, ProductControlId> = { Land:"landintel", Design:"designstudio", Structure:"structura", Cost:"boq-pro", Market:"promarket", Procure:"procurehub", Invest:"investflow", Build:"buildos", Community:"communitybuild", Transact:"transact" }
 
 type LiveMetrics = {
   extracts: WorkspaceExtract[]

@@ -1,6 +1,7 @@
 import type { CockpitProduct } from '../components/workspace/ProductCockpitPreview'
 import { landIntelSuitabilityLayers } from './landintel/suitabilityLayers'
 import { mapComposerRequirements } from './landintel/mapComposerRequirements'
+import { governedOrchestrationFeatureBody } from './governedOrchestration'
 
 export type FeatureAvailability = 'AVAILABLE' | 'ROADMAP' | 'TEST_MODE'
 
@@ -88,6 +89,7 @@ export const productFeatureRegistry: Record<CockpitProduct, ProductFeature[]> = 
     roadmap('reviews-ratings', 'Reviews & ratings (roadmap)', 'Verified reviews and performance ratings are not yet built.', ['review', 'rating']),
   ],
   buildos: [
+    roadmap('governed-cross-functional-closure', 'Governed cross-functional closure', governedOrchestrationFeatureBody, ['design revision', 'quantity impact', 'procurement hold', 'cost impact', 'site instruction', 'acceptance evidence', 'controlled closure', 'audit trail', 'ai accountability']),
     roadmap('common-data-environment', 'Common data environment', 'A shared, governed source of project truth is not yet built.', ['cde', 'documents', 'project data']),
     roadmap('task-management', 'Task management', 'Creating, assigning, tracking, and closing project tasks are not yet built.', ['task', 'assignment']),
     roadmap('rfis-submittals', 'RFIs & submittals', 'RFI and submittal review workflows are not yet built.', ['rfi', 'submittal']),

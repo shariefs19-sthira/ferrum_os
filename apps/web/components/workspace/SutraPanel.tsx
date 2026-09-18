@@ -7,6 +7,9 @@ import { normalizeProfessionalTerms, termsIn } from "../../lib/workspace/vocabul
 import { commandEvents, isProjectStateCommand, type SutraEvent, type SutraInputSource } from "../../lib/sutra/events"
 import { subscribeCockpitSelection, type CockpitSelectionContext } from "../../lib/sutra/selectionContext"
 import { useParcelContext } from "../../lib/workspace/parcelContext"
+import { answerProductKnowledge } from "../../lib/ai/productKnowledge"
+import { productLabels } from "../../lib/productFeatureRegistry"
+import type { CockpitProduct } from "./ProductCockpitPreview"
 
 type Stage = "use" | "floors" | "massing" | "coverage" | "rooms" | "material" | "compliance" | "output"
 type Message = { id: number; role: "operator" | "sutra"; text: string; citations?: string[] }
@@ -19,7 +22,7 @@ const demoIntents = ["add one floor","set floors 2","set setback 3","show BOQ ex
 const ruleCitation = "Karnataka 2026.1-SAMPLE · INDICATIVE land-use structure; verify competent-authority records."
 const outputCitation = "Workspace export contract · DXF live; IFC queued; local save only."
 
-export default function SutraPanel({ onEvent }: { onEvent:(event:SutraEvent)=>void }) {
+export default function SutraPanel({ onEvent, activeProduct }: { onEvent:(event:SutraEvent)=>void; activeProduct?: CockpitProduct }) {
   const [stage,setStage] = useState<Stage>("use")
   const [history,setHistory] = useState<Stage[]>([])
   const [selected,setSelected] = useState<Partial<Record<Stage,string>>>({})
@@ -48,7 +51,13 @@ export default function SutraPanel({ onEvent }: { onEvent:(event:SutraEvent)=>vo
     compliance: [{label:"Title diligence",command:"open diligence checklist",citation:ruleCitation},{label:"Permit checklist",command:"open permit checklist",citation:ruleCitation},{label:"Both",command:"open diligence and permit checklists",citation:ruleCitation}],
     output: [{label:"Measured extract",command:"show BOQ extract",citation:outputCitation},{label:"Export DXF",command:"export DXF",citation:outputCitation},{label:"Share brief",command:"share workspace brief",citation:outputCitation},{label:"Reset model",command:"reset model"}],
   }
-  const answer = (command:string) => { const normalized=normalizeProfessionalTerms(command); const terms=termsIn(command); return /boq|extract|export/.test(normalized) ? {text:"Opening the measured workspace output. Rates remain blank until verified.",citations:[outputCitation]} : /setback|far|coverage|use|approval|noc/.test(normalized) ? {text:`I read ${terms.join(', ') || 'land-use'} terminology and constrained the next choice to the sample authority envelope.`,citations:[ruleCitation]} : /structure|mep|irr|ticket/.test(normalized) ? {text:`I read ${terms.join(', ')} terminology and routed it to the matching workspace lens; figures remain INDICATIVE.`} : {text:"Sent through the deterministic workspace command path."} }
+  const answer = useCallback((command:string) => {
+    const productKnowledge = answerProductKnowledge(activeProduct ? `${command} in ${productLabels[activeProduct]}` : command)
+    if (productKnowledge) return { text: productKnowledge.text, citations: productKnowledge.citations?.map((citation) => citation.title) }
+    const normalized=normalizeProfessionalTerms(command)
+    const terms=termsIn(command)
+    return /boq|extract|export/.test(normalized) ? {text:"Opening the measured workspace output. Rates remain blank until verified.",citations:[outputCitation]} : /setback|far|coverage|use|approval|noc/.test(normalized) ? {text:`I read ${terms.join(', ') || 'land-use'} terminology and constrained the next choice to the sample authority envelope.`,citations:[ruleCitation]} : /structure|mep|irr|ticket/.test(normalized) ? {text:`I read ${terms.join(', ')} terminology and routed it to the matching workspace lens; figures remain INDICATIVE.`} : {text:"Sent through the deterministic workspace command path."}
+  }, [activeProduct])
   // CODEX-SENTINEL-20260918-1708-sutra-command-cockpit-output: "Reversible
   // view-only changes may apply immediately; any project-state change must
   // be proposed and explicitly confirmed through SUTRA." A view-only
@@ -75,13 +84,13 @@ export default function SutraPanel({ onEvent }: { onEvent:(event:SutraEvent)=>vo
     commandEvents(command,source).forEach(event=>onEvent(event))
     setMessages(current=>[...current.slice(-5),{id:nextId.current++,role:"operator",text:command},{id:nextId.current++,role:"sutra",...answer(command)}])
     setValue("")
-  },[onEvent,parcel,parcelUse])
+  },[onEvent,parcel,parcelUse,answer])
   const confirmPending = useCallback(() => {
     if(!pending)return
     commandEvents(pending.command,pending.source).forEach(event=>onEvent(event))
     setMessages(current=>[...current.slice(-5),{id:nextId.current++,role:"sutra",...answer(pending.command)}])
     setPending(null)
-  },[pending,onEvent])
+  },[pending,onEvent,answer])
   const cancelPending = useCallback(() => {
     if(!pending)return
     setMessages(current=>[...current.slice(-5),{id:nextId.current++,role:"sutra",text:"Change discarded. Project state unchanged."}])
