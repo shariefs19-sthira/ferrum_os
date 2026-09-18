@@ -16,7 +16,6 @@ const tools: Array<{ id: WorkspaceTool; label: string; description: string }> = 
   { id: "select", label: "Select", description: "Choose an attached output" },
   { id: "measure", label: "Measure", description: "Read dimensions in both units" },
   { id: "compare", label: "Compare", description: "Compare product outputs" },
-  { id: "extract", label: "Data extract", description: "Open product data" },
 ]
 
 // W2-503: `rail=false` has no render path anywhere in the app today
@@ -38,7 +37,6 @@ export default function ToolsRuler({
 }: ToolsRulerProps) {
   const chooseTool = (tool: WorkspaceTool) => {
     onToolChange(tool)
-    if (tool === "extract") onExtractOpenChange(true)
   }
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
