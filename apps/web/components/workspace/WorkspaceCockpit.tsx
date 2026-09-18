@@ -13,7 +13,9 @@ import { buildComplianceChainNodes } from '../../lib/diagramGen/complianceChain'
 import { renderFlowDiagramSvg } from '../../lib/diagramGen/svgFlowDiagram'
 import ExportBar from './ExportBar'
 import PlanElevationView from './PlanElevationView'
+import OpeningInspector from './OpeningInspector'
 import { measureBoq } from '../../lib/workspace/measuredBoq'
+import { applyOpeningEdit, type OpeningEdit, withOpeningEdits } from '../../lib/workspace/openings'
 import RegistryControls from './RegistryControls'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
@@ -118,13 +120,15 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [showExtract, setShowExtract] = useState(false)
   const [landUse, setLandUse] = useState<LandUse>('Residential')
   const [permalinkStatus, setPermalinkStatus] = useState('')
+  const [openingEdits, setOpeningEdits] = useState<Record<string, OpeningEdit>>({})
+  const [selectedOpeningId, setSelectedOpeningId] = useState<string>()
   const parcelContext = useParcelContext()
   const rulesetState = parcelContext && getRulesetForState(parcelContext.state) ? parcelContext.state : 'Karnataka'
   const ruleset = getRulesetForState(rulesetState)
   const siteContextLabel = parcelContext ? `${parcelContext.district}, ${parcelContext.state}` : 'SAMPLE LOCATION Bengaluru, Karnataka'
   const authorityEvidence = useMemo(() => getSiteConstraintsEvidence(parcelContext), [parcelContext])
   const landRule = ruleset?.land_use_rules[landUse]
-  const plan = useMemo(() => generateStudioPlan({ ...parameters, maxHeightM: landRule?.max_height_m }), [parameters, landRule?.max_height_m])
+  const plan = useMemo(() => withOpeningEdits(generateStudioPlan({ ...parameters, maxHeightM: landRule?.max_height_m }), openingEdits), [parameters, landRule?.max_height_m, openingEdits])
   const activeRooms = plan.rooms.filter((room) => room.floor === activeFloor)
   const grossArea = plan.buildingWidthM * plan.buildingDepthM * plan.floors
   const measuredBoq = useMemo(() => measureBoq(plan), [plan])
@@ -197,10 +201,20 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     setParameters((current) => ({ ...current, [key]: value }))
     if (key === 'floors') setActiveFloor((floor) => Math.min(floor, value))
   }
+  const selectedOpening = plan.openings?.find((opening) => opening.id === selectedOpeningId)
+  const commitOpening = (edit: OpeningEdit) => {
+    if (!selectedOpening) return undefined
+    const result = applyOpeningEdit(selectedOpening, plan.rooms.find((room) => room.id === selectedOpening.roomId), plan.floorHeightM, edit)
+    if (result.error && !result.clamped) return { opening: selectedOpening, message: result.error }
+    setOpeningEdits((current) => ({ ...current, [selectedOpening.id]: { ...current[selectedOpening.id], widthM: result.opening.widthM, heightM: result.opening.heightM, sillM: result.opening.sillM, configuration: result.opening.configuration } }))
+    return { opening: result.opening, message: result.error }
+  }
   useEffect(() => {
     const stored = window.localStorage.getItem('ferrum-area-unit')
     if (areaUnits.some((unit) => unit === stored)) setPrimaryAreaUnit(stored as typeof areaUnits[number])
-    let nextParameters = readProjectState(initialParameters).parameters
+    const projectState = readProjectState(initialParameters)
+    let nextParameters = projectState.parameters
+    if (Object.keys(projectState.openingEdits ?? {}).length) setOpeningEdits(projectState.openingEdits ?? {})
     if (!previewLabel) {
       const handoff = window.localStorage.getItem('ferrum-cockpit-handoff')
       if (handoff) {
@@ -223,12 +237,13 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const projectStateSource = previewLabel ? `preview:${controlProduct ?? 'product'}` : 'workspace:cockpit'
   useEffect(() => {
     if (!projectStateReady) return
-    writeProjectState(parameters, projectStateSource)
+    writeProjectState(parameters, projectStateSource, openingEdits)
     onParametersChange?.(parameters)
-  }, [parameters, onParametersChange, projectStateReady, projectStateSource])
+  }, [parameters, openingEdits, onParametersChange, projectStateReady, projectStateSource])
   useEffect(() => subscribeProjectState((state) => {
     if (state.source === projectStateSource) return
     setParameters((current) => sameParameters(current, state.parameters) ? current : state.parameters)
+    setOpeningEdits(state.openingEdits ?? {})
   }), [projectStateSource])
   useEffect(() => {
     const openAdvanced = () => setShowFineControls(true)
@@ -314,6 +329,10 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   }
 
   const fullBleedEmbed = embedMode === 'full-bleed'
+  const chooseView = (nextView: StudioView) => {
+    setView(nextView)
+    if (nextView === 'space') setSelectedOpeningId(undefined)
+  }
 
   return (
     <section className={`overflow-hidden border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col' : 'rounded-relume'} ${fullBleedEmbed ? 'min-h-[70vh]' : ''}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined} data-embed-mode={embedMode}>
@@ -361,7 +380,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           defect; `fullBleedEmbed` doesn't need it (its section isn't
           `flex-col`, so this grid already gets its height from the normal
           document flow / `min-h-[70vh]` on the section). */}
-      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst || fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : ''}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
@@ -381,7 +400,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         <div data-cockpit-canvas-section className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst || fullBleedEmbed ? 'min-h-0' : ''}`}>
           <div className="relative z-40 flex flex-wrap gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
             {views.map((candidate) => (
-              <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => setView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
+              <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => chooseView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
                 {candidate.label}
               </button>
             ))}
@@ -422,11 +441,12 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage('use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>
           <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
-            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} />}
+            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={(openingId) => { setShowExtract(false); setSelectedOpeningId(openingId) }} />}
           </div>
-          {controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
-          {fullBleedEmbed && <>
-            <button type="button" onClick={() => setShowExtract((value) => !value)} aria-expanded={showExtract} className="absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow-sm" data-extract-toggle>
+          {!canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
+          {!selectedOpening && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
+          {fullBleedEmbed && !selectedOpening && <>
+            <button type="button" onClick={() => setShowExtract((value) => { const next = !value; if (next) setSelectedOpeningId(undefined); return next })} aria-expanded={showExtract} className="absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow-sm" data-extract-toggle>
               {showExtract ? 'Hide data extract' : 'Data extract'}
             </button>
             <aside className={`absolute bottom-16 right-4 z-30 w-[min(24rem,calc(100%-2rem))] rounded-relume border border-relume-border bg-white p-4 shadow-sm transition ${showExtract ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`} aria-label="Plan data extract" aria-hidden={!showExtract} data-contextual-extract>
@@ -436,6 +456,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             </aside>
           </>}
         </div>
+
+        {canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} className="max-h-[40dvh] overflow-y-auto" />}
 
         {!canvasFirst && !fullBleedEmbed && <aside className="order-3 border-t border-relume-border p-4 xl:order-none xl:border-l xl:border-t-0" aria-label="Plan data extract">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Data extract</p>

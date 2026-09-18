@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { writeDxf } from '../../lib/dxf/writeDxf'
 import type { StudioPlan } from '../../lib/types'
+import { openingSegments } from '../../lib/workspace/openings'
 
 function download(data: BlobPart, type: string, filename: string) {
   const url = URL.createObjectURL(new Blob([data], { type }))
@@ -27,8 +28,14 @@ export default function ExportBar({ plan }: { plan: StudioPlan }) {
         height: room.depthM,
       })),
     ]
-    download(writeDxf({ rects }), 'application/dxf', 'ferrum-plan.dxf')
-    setStatus(`DXF exported with ${rects.length - 1} ground-floor rooms.`)
+    const lines = (plan.openings ?? []).filter((opening) => opening.floor === 1).flatMap((opening) => {
+      const room = plan.rooms.find((candidate) => candidate.id === opening.roomId)
+      if (!room) return []
+      const layer = opening.kind === 'door' ? 'DOORS' : 'WINDOWS'
+      return openingSegments(opening, room).map((segment) => ({ layer, x1: plan.setbackM + segment.x1, y1: plan.setbackM + segment.y1, x2: plan.setbackM + segment.x2, y2: plan.setbackM + segment.y2 }))
+    })
+    download(writeDxf({ rects, lines }), 'application/dxf', 'ferrum-plan.dxf')
+    setStatus(`DXF exported with ${rects.length - 1} ground-floor rooms and ${lines.length} opening segments on DOORS/WINDOWS layers.`)
   }
 
   useEffect(() => {

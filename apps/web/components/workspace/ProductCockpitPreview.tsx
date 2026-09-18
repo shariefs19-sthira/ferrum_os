@@ -38,7 +38,7 @@ export default function ProductCockpitPreview({ product, label, children, contai
         ? 'relative min-h-[70vh] min-w-0 w-full'
         : resolvedLayout === 'contained'
           ? 'relative min-h-[70vh] min-w-0 max-w-full'
-          : 'relative left-1/2 min-h-[70vh] w-screen min-w-0 -translate-x-1/2'}
+          : 'relative min-h-[70vh] w-full min-w-0'}
       data-product-cockpit={product}
       data-cockpit-layout={resolvedLayout}
     >

@@ -70,6 +70,27 @@ export type StudioElevation = {
   floorLinesM: number[]
 }
 
+export type StudioOpeningKind = 'door' | 'window'
+export type StudioOpeningEdge = 'north' | 'east' | 'south' | 'west'
+export type StudioDoorConfiguration = 'single-swing' | 'double-swing' | 'sliding'
+export type StudioWindowConfiguration = 'fixed' | 'casement' | 'sliding'
+
+/** A deterministic opening hosted on a generated room edge, in metres. */
+export type StudioOpening = {
+  id: string
+  kind: StudioOpeningKind
+  floor: number
+  roomId: string
+  hostEdge: StudioOpeningEdge
+  /** Distance from the edge's local origin to the opening's leading edge. */
+  positionM: number
+  widthM: number
+  heightM: number
+  /** Windows use this; doors remain at ground level (0 m). */
+  sillM: number
+  configuration: StudioDoorConfiguration | StudioWindowConfiguration
+}
+
 export type StudioPlan = {
   schema: "ferrum-plan-v1"
   plotWidthM: number
@@ -80,6 +101,8 @@ export type StudioPlan = {
   floors: number
   floorHeightM: number
   rooms: StudioRoom[]
+  /** Optional for compatibility with plans created before parametric openings. */
+  openings?: StudioOpening[]
   elevations: StudioElevation[]
   generatedBy: "deterministic-layout-v1"
 }

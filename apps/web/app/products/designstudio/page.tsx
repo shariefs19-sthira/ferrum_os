@@ -7,29 +7,21 @@ import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 
-// W2-345: only "Test-fit massing" and "DXF export" are shipped and real
-// (the plot-massing calculator on this page, powered by /api/testfit, and
-// client-side DXF export). "AI plan generation", "Elevation library",
-// "Plan editor" and "3D viewer" describe capability that does not exist —
-// no AI/LLM plan generation, elevation library, drag-edit plan editor or
-// 3D viewer is implemented anywhere in the codebase. Roadmap-labeled
-// rather than deleted since they describe the product's real intended
-// direction, not an abandoned idea.
 const featureItems = [
-  { title: 'Test-fit massing (live)', body: 'Enter plot dimensions and floor count to get a real massing calculation.' },
+  { title: 'Parametric openings (INDICATIVE)', body: 'Select generated doors and windows and adjust bounded dimensions and configuration in the preview.' },
+  { title: 'Test-fit massing', body: 'Enter plot dimensions and floor count to get a deterministic massing preview.' },
   { title: 'AI plan generation (roadmap)', body: 'Floor plans and elevations generated from a brief — not yet built.' },
-  { title: 'Elevation library (roadmap)', body: 'Browse and apply ready-made facade styles — not yet built.' },
-  { title: 'Plan editor (roadmap)', body: 'Drag walls, rooms and doors to fine-tune the layout — not yet built.' },
-  { title: '3D viewer (roadmap)', body: 'Walk through your design in three dimensions — not yet built.' },
-  { title: 'DXF export', body: 'Export the massing output as a build-ready DXF file.' },
+  { title: 'General plan editing (roadmap)', body: 'Wall and room dragging, freehand drafting and broader CAD controls are not available.' },
+  { title: 'Issue sets (roadmap)', body: 'PDF issue sets and collaboration are not available.' },
+  { title: 'DXF preview export', body: 'Export the indicative plot, rooms and opening geometry to DXF layers.' },
 ]
 
 // W2-345: rewritten to describe the shipped test-fit tool rather than the
 // unbuilt AI brief-wizard workflow (see featureItems above).
 const howItWorksSteps = [
   { title: 'Enter plot dimensions', body: 'Plot width, depth and floor count.' },
-  { title: 'Get a massing result', body: 'Buildable-area calculation and a visual massing output.' },
-  { title: 'Export DXF', body: 'Export the massing as a DXF file for engineering.' },
+  { title: 'Adjust an opening', body: 'Select a door or window in plan or elevation and change its bounded properties.' },
+  { title: 'Export DXF preview', body: 'Export the indicative plot, rooms and opening layers for further review.' },
 ]
 
 const integrationItems = [
@@ -42,7 +34,7 @@ const pricingPlans = [
   {
     name: 'Free',
     price: 'Free',
-    features: ['1 active design', 'Brief wizard', 'Basic plan editor', 'Community support'],
+    features: ['Indicative test-fit preview', 'Bounded parametric openings', 'Local preview session', 'Community support'],
     button: 'Start Free Trial',
   },
   {
@@ -63,19 +55,19 @@ const pricingPlans = [
 const faqItems = [
   {
     question: 'Is AI plan generation available yet?',
-    answer: 'Not yet — AI-generated plans, the elevation library and a drag-edit plan editor are on the roadmap. What is live today is a test-fit massing calculator (plot dimensions and floor count in, a buildable-area massing result out) with DXF export.',
+    answer: 'No. AI plan generation remains on the roadmap. The available workspace is an INDICATIVE deterministic preview with bounded parametric door and window editing.',
   },
   {
     question: 'What file formats can I export?',
-    answer: 'The test-fit massing tool exports to DXF today. PDF export is on the roadmap.',
+    answer: 'The preview can export plot, room, door and window geometry to DXF layers. PDF issue sets are on the roadmap.',
   },
   {
     question: 'Can I edit the generated plans?',
-    answer: 'Not yet — a drag-edit plan editor (walls, rooms, doors) is on the roadmap. Today\'s test-fit tool is calculator-only: change the inputs and re-run it.',
+    answer: 'You can select generated doors and windows and edit bounded dimensions, sill and configuration. Wall and room dragging, freehand CAD drafting and AI plan generation remain on the roadmap.',
   },
   {
     question: 'Do I need design experience?',
-    answer: 'No. The brief wizard guides you from a plain-language description to build-ready plans.',
+    answer: 'The preview supports a small deterministic test-fit workflow. It does not produce build-ready or production documentation.',
   },
 ]
 
@@ -88,16 +80,15 @@ export default function DesignStudioPage() {
           <div>
             <Eyebrow>DesignStudio</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
-              Design your building with AI
+              Test-fit a building with deterministic geometry
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              AI plan generation, editable floor plans, and a 3D viewer are on the roadmap.
-              Live today: a test-fit massing calculator with DXF export.
+              This is an INDICATIVE DesignStudio preview. You can select generated doors and windows in plan and elevation views, edit bounded opening properties, and inspect geometry-derived quantities.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
               <li>AI plan generation — roadmap</li>
-              <li>3D viewer — roadmap</li>
-              <li>DXF export (live) / PDF export — roadmap</li>
+              <li>Parametric door and window editing — INDICATIVE preview</li>
+              <li>DXF preview export / PDF issue sets — roadmap</li>
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
@@ -114,7 +105,7 @@ export default function DesignStudioPage() {
           <Eyebrow>Features</Eyebrow>
           <SectionHeading className="mt-4">Everything you need to design</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            From first sketch to build-ready drawings, all in one studio.
+            The current preview is deterministic and indicative; it is not CAD, BIM or production documentation.
           </p>
         </div>
         <div className="mt-12">
@@ -128,7 +119,7 @@ export default function DesignStudioPage() {
           <Eyebrow>How it works</Eyebrow>
           <SectionHeading className="mt-4">From brief to plans in minutes</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            Describe what you need, and let the studio do the drafting.
+            Start with plot inputs, then inspect and adjust the generated preview.
           </p>
         </div>
         <div className="mt-12">
@@ -142,7 +133,7 @@ export default function DesignStudioPage() {
           <Eyebrow>Integrations</Eyebrow>
           <SectionHeading className="mt-4">Designs flow into the build</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            Your drawings hand off to engineering, costing and construction automatically.
+            The preview can expose geometry-derived context for review; downstream verification remains required.
           </p>
         </div>
         <div className="mt-12">

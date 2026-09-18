@@ -16,7 +16,10 @@ export type DxfRect = {
 
 export type DxfExportInput = {
   rects: DxfRect[]
+  lines?: DxfLine[]
 }
+
+export type DxfLine = { layer: string; x1: number; y1: number; x2: number; y2: number }
 
 function line(layer: string, x1: number, y1: number, x2: number, y2: number): string {
   return [
@@ -49,7 +52,7 @@ function rectLines(rect: DxfRect): string {
  * reference a table (LINE qualifies).
  */
 export function writeDxf(input: DxfExportInput): string {
-  const entities = input.rects.map(rectLines).join('\n')
+  const entities = [...input.rects.map(rectLines), ...(input.lines ?? []).map((segment) => line(segment.layer, segment.x1, segment.y1, segment.x2, segment.y2))].join('\n')
   return [
     '0', 'SECTION',
     '2', 'HEADER',

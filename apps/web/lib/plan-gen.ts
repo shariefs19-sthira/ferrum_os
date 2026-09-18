@@ -1,4 +1,5 @@
 import type { StudioPlan, StudioRoom } from './types'
+import { createDefaultOpenings } from './workspace/openings'
 
 type PlanInput = {
   plotWidthM: number
@@ -78,6 +79,7 @@ export function generateStudioPlan(input: PlanInput): StudioPlan {
     floors,
     floorHeightM,
     rooms,
+    openings: createDefaultOpenings(rooms, floorHeightM),
     elevations: [
       { id: 'north', name: 'North elevation', widthM: buildingWidthM, heightM, floorLinesM },
       { id: 'east', name: 'East elevation', widthM: buildingDepthM, heightM, floorLinesM },
