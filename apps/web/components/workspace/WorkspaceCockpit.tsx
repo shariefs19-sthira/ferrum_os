@@ -26,6 +26,8 @@ import { decodeWorkspaceView, encodeWorkspaceView, type WorkspaceViewState } fro
 import { useParcelContext } from '../../lib/workspace/parcelContext'
 import { getSiteConstraintsEvidence } from '../../lib/parcelIntel/siteConstraints'
 import { dispatchCockpitSelection } from '../../lib/sutra/selectionContext'
+import ShellCatalogPanel from '../designstudio/ShellCatalogPanel'
+import { getBuildingShell, recommendBuildingShells } from '../../lib/designstudio/shellCatalog'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -128,6 +130,10 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [openingEdits, setOpeningEdits] = useState<Record<string, OpeningEdit>>({})
   const [selectedOpeningId, setSelectedOpeningId] = useState<string>()
   const parcelContext = useParcelContext()
+  const isDesignExperience = controlProduct === 'designstudio' || activeProduct === 'Design'
+  const shellRecommendations = useMemo(() => recommendBuildingShells(parcelContext, 4), [parcelContext])
+  const [selectedShellId, setSelectedShellId] = useState('india-neutral-adaptive')
+  const selectedShell = getBuildingShell(selectedShellId)
   const rulesetState = parcelContext && getRulesetForState(parcelContext.state) ? parcelContext.state : 'Karnataka'
   const ruleset = getRulesetForState(rulesetState)
   const parcelLandUse = parcelContext && ruleset?.land_use_rules[parcelContext.land_use as LandUse]
@@ -155,6 +161,11 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     : activeProduct === 'Build'
       ? compliance.permissions.filter((item) => item.stage === 'BUILD')
       : [], [activeProduct, compliance])
+  useEffect(() => {
+    if (!isDesignExperience) return
+    setSelectedShellId(shellRecommendations[0]?.shell.id ?? 'india-neutral-adaptive')
+    setView('space')
+  }, [isDesignExperience, parcelContext?.ulpin, parcelContext?.state, parcelContext?.district]) // eslint-disable-line react-hooks/exhaustive-deps -- refresh the locality recommendation only when Project Context changes
   useEffect(() => {
     if (!parcelLandUse) return
     setLandUse(parcelLandUse)
@@ -435,7 +446,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
 
         <div data-cockpit-canvas-section className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst || fullBleedEmbed ? 'min-h-0' : ''}`}>
           <div className="relative z-40 flex flex-wrap gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
-            {views.map((candidate) => (
+            {(isDesignExperience ? views.filter((candidate) => candidate.id === 'space') : views).map((candidate) => (
               <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => chooseView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
                 {candidate.label}
               </button>
@@ -501,8 +512,9 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage(parcelContext ? 'floors' : 'use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>}
           <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
-            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} />}
+            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} shell={isDesignExperience ? selectedShell : undefined} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} />}
           </div>
+          {isDesignExperience && <ShellCatalogPanel parcel={parcelContext} selectedShell={selectedShell} onSelect={(shell) => setSelectedShellId(shell.id)} />}
           {!canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
           {!selectedOpening && !sutraOccludesCanvas && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
           {fullBleedEmbed && !selectedOpening && <>

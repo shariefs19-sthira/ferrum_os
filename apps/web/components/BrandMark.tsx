@@ -1,8 +1,6 @@
-// Fe·26 brand mark (W2-368, revised per operator spec — no chakra/wheel):
-// rounded-square tricolor tile, large bold navy "Fe" as the dominant
-// centered symbol, small white "26" as the footer/atomic-number text in
-// the green band. Same SVG as public/favicon.svg, inlined here so
-// header/footer/Command Deck can render it without an extra image request.
+// International Fe·26 brand mark: neutral deep-navy material tile with a
+// single Ferrum-orange accent. No flag, national colour banding or country
+// symbol is encoded in the product identity. Same SVG as public/favicon.svg.
 export default function BrandMark({ size = 24, className = '' }: { size?: number; className?: string }) {
   return (
     <svg
@@ -14,17 +12,16 @@ export default function BrandMark({ size = 24, className = '' }: { size?: number
       className={className}
     >
       <defs>
-        <clipPath id="fe26-tile">
-          <rect x="0" y="0" width="64" height="64" rx="10" ry="10" />
-        </clipPath>
+        <linearGradient id="fe26-field" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#123A60" />
+          <stop offset="1" stopColor="#07182B" />
+        </linearGradient>
       </defs>
-      <g clipPath="url(#fe26-tile)">
-        <rect x="0" y="0" width="64" height="21.33" fill="#FF9933" />
-        <rect x="0" y="21.33" width="64" height="21.33" fill="#FFFFFF" />
-        <rect x="0" y="42.67" width="64" height="21.33" fill="#138808" />
-      </g>
-      <text x="32" y="39" textAnchor="middle" fontFamily="Georgia, serif" fontWeight={700} fontSize="27" fill="#0B1F3A">Fe</text>
-      <text x="32" y="58.5" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight={700} fontSize="11" fill="#FFFFFF">26</text>
+      <rect width="64" height="64" rx="11" fill="url(#fe26-field)" />
+      <rect x="4.5" y="4.5" width="55" height="55" rx="8.5" fill="none" stroke="#4F7897" strokeOpacity="0.55" />
+      <rect x="13" y="10" width="38" height="4" rx="2" fill="#FF9933" />
+      <text x="32" y="41" textAnchor="middle" fontFamily="Georgia, serif" fontWeight={700} fontSize="29" fill="#FFFFFF">Fe</text>
+      <text x="32" y="55" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight={700} fontSize="10" fill="#FFB05F">26</text>
     </svg>
   )
 }

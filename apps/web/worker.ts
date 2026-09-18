@@ -41,6 +41,7 @@ import { SAMPLE_GOVT_RATES, SAMPLE_STAMP_DUTY, SAMPLE_ALLOWABLE_FSI, SAMPLE_MIN_
 import type { City, BoqItem, LandData, RegulatoryData } from './lib/analysis/types'
 import { computePlotIntel } from './lib/parcelIntel/parcelIntel'
 import { createRequestId, normalizeClientError, normalizeError, redactRoute, writeOpsEvent } from './lib/ops/observability'
+import { regionPolicyRule, resolveUserRegion } from './lib/regions/regionPolicy'
 
 async function requireUser(env: Env, cookieHeader: string | undefined) {
   const sessionId = parseSessionCookie(cookieHeader)
@@ -134,6 +135,23 @@ app.onError((error, c) => {
 })
 
 app.get('/api/health', (c) => c.json({ status: 'ok' }))
+
+app.get('/api/region', (c) => {
+  const edge = c.req.raw.cf as { country?: string; region?: string; timezone?: string } | undefined
+  const profile = resolveUserRegion(edge?.country)
+  return c.json({
+    detected: {
+      countryCode: profile.countryCode,
+      region: edge?.region ?? null,
+      timezone: edge?.timezone ?? null,
+      precision: "EDGE-COARSE",
+      persisted: false,
+    },
+    profile,
+    rule: regionPolicyRule,
+    projectJurisdiction: "SELECTED_FROM_PROJECT_CONTEXT",
+  })
+})
 
 app.post('/api/ops/client-errors', async (c) => {
   if (!(await checkIpRateLimit(c.env.DB, c.req.raw, 'client-errors', 20, 60))) {

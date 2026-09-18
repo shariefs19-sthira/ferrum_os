@@ -7,6 +7,7 @@ import { recordFeedback } from "../lib/ai/feedback"
 import { AGENT_MODELS, CONSTRUCTION_CONNECTOR_GROUPS, canRunModel, type AgentModelId } from "../lib/ai/agentRegistry"
 import { productFeatureRegistry, productLabels, type ProductFeature } from "../lib/productFeatureRegistry"
 import type { CockpitProduct } from "./workspace/ProductCockpitPreview"
+import type { UserRegionProfile } from "../lib/regions/regionPolicy"
 
 type Message = {
   role: "user" | "assistant"
@@ -50,6 +51,7 @@ export default function Concierge() {
   const [showConnections, setShowConnections] = useState(false)
   const [workspaceContext, setWorkspaceContext] = useState<SutraContext | null>(null)
   const [activeFeature, setActiveFeature] = useState<{ productId: CockpitProduct; feature: ProductFeature } | null>(null)
+  const [regionProfile, setRegionProfile] = useState<UserRegionProfile | null>(null)
 
   useEffect(() => {
     if (open && panelRef.current) panelRef.current.focus()
@@ -68,6 +70,15 @@ export default function Concierge() {
   }, [])
 
   useEffect(() => {
+    const controller = new AbortController()
+    fetch("/api/region", { signal: controller.signal })
+      .then((response) => response.ok ? response.json() : null)
+      .then((payload) => setRegionProfile(payload?.profile ?? null))
+      .catch(() => setRegionProfile(null))
+    return () => controller.abort()
+  }, [])
+
+  useEffect(() => {
     const handleToolSelection = (event: MouseEvent) => {
       const target = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-sutra-product][data-sutra-feature-id]") : null
       if (!target) return
@@ -82,6 +93,16 @@ export default function Concierge() {
   const handleSend = (text: string) => {
     if (!text.trim()) return
     setMessages((prev) => [...prev, { role: "user", text }])
+    if (/my (region|country)|available in (my|this) (region|country)|regional availability/i.test(text) && regionProfile) {
+      setMessages((prev) => [...prev, {
+        role: "assistant",
+        text: `${regionProfile.label} is detected as a coarse, non-persisted experience region. Available now: ${regionProfile.enabledExperience.join(", ")}. Held pending a verified project jurisdiction: ${regionProfile.heldExperience.join(", ")}. Your project location, not this detected user location, governs design and compliance.`,
+        source: "deterministic",
+        query: text,
+      }])
+      setInput("")
+      return
+    }
     if (!canRunModel(selectedModel)) {
       const model = AGENT_MODELS.find((item) => item.id === selectedModel)
       setMessages((prev) => [...prev, { role: "assistant", text: `${model?.label ?? "This model"} needs an approved provider connection before it can run here. Until connected, it receives no Ferrum data or tool access. Select SUTRA to continue now.`, source: "deterministic", query: text }])
@@ -174,6 +195,11 @@ export default function Concierge() {
         <div className="mt-2 flex items-center justify-between gap-2">
           <p className="text-[10px] leading-4 text-relume-muted">Ferrum permissions govern every model and tool action.</p>
           <button type="button" onClick={() => setShowConnections((current) => !current)} className="min-h-11 shrink-0 rounded-full border border-relume-border px-3 text-xs font-semibold text-relume-command" aria-expanded={showConnections}>Connections</button>
+        </div>
+        <div className="mt-2 rounded-relume border border-relume-border bg-relume-surface-secondary px-3 py-2" data-region-profile>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-relume-muted">Experience region</p>
+          <p className="mt-1 text-xs font-semibold text-relume-command">{regionProfile ? `${regionProfile.label} · ${regionProfile.readiness}` : "Detecting coarse region…"}</p>
+          <p className="mt-1 text-[10px] leading-4 text-relume-muted">User location personalizes discovery. Project location governs design and compliance.</p>
         </div>
       </div>
 
