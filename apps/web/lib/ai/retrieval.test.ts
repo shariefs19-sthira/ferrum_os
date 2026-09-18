@@ -21,7 +21,7 @@ describe('retrieve', () => {
   it('ranks a strong keyword match above unrelated docs', () => {
     const hits = retrieve('IS 456 structural design')
     expect(hits.length).toBeGreaterThan(0)
-    expect(hits[0].doc.id).toBe('is-code:structural')
+    expect(hits[0].doc.id).toBe('standard:is-456')
   })
 
   it('finds the LandIntel product for a ULPIN question', () => {

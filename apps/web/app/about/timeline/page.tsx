@@ -48,7 +48,7 @@ const milestones: Milestone[] = [
     year: '2026',
     phase: 'Knowledge',
     title: 'Resources library and code guides',
-    detail: 'The /resources hub brought articles, case studies, IS Code Guides, glossary, and FAQ into one home so field knowledge could live next to the product.'
+    detail: 'The /resources hub brought articles, research cases, a standards navigator, checklists, glossary, and FAQ into one home so field knowledge could live next to the product.'
   }
 ];
 

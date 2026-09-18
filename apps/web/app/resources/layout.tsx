@@ -2,10 +2,10 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Resources - Ferrum OS',
-  description: 'Comprehensive collection of articles, case studies, and guides for real estate and construction professionals.',
+  description: 'Articles, source-cited research cases, standards guidance, checklists, glossary, and FAQ for real estate and construction professionals.',
   openGraph: {
     title: 'Resources - Ferrum OS',
-    description: 'Comprehensive collection of articles, case studies, and guides for real estate and construction professionals.',
+    description: 'Articles, source-cited research cases, standards guidance, checklists, glossary, and FAQ for real estate and construction professionals.',
     type: 'website',
     locale: 'en_US',
   },
