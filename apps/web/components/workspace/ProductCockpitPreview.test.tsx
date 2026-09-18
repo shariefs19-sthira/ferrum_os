@@ -36,6 +36,9 @@ describe('ProductCockpitPreview state handoff', () => {
     expect(cockpit?.getAttribute('data-cockpit-layout')).toBe('contained')
     expect(cockpit?.classList.contains('max-w-full')).toBe(true)
     expect(cockpit?.classList.contains('w-screen')).toBe(false)
+    expect(screen.getByText('Lookup')).toBeTruthy()
+    expect(screen.queryByRole('button', { name: 'Mutate preview' })).toBeNull()
+    expect(container.querySelector('[data-cross-product-live]')).toBeNull()
   })
 
   it('uses the section width for a product-page cockpit rather than a viewport breakout', () => {

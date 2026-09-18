@@ -7,11 +7,37 @@ import { journeyRows, journeyRowForProduct } from '../../lib/homepageJourney'
 const rowTitleById = Object.fromEntries(journeyRows.map((row) => [row.id, row.title]))
 const expectedRowTitleFor = (productId: string) => rowTitleById[journeyRowForProduct[productId as keyof typeof journeyRowForProduct]]
 
+// Children render in a sibling container, not inside `cockpit` itself, so
+// every pre-existing `getByTestId('cockpit').textContent).toBe('id:Label')`
+// exact-match assertion keeps working unchanged.
 vi.mock('../workspace/ProductCockpitPreview', () => ({
-  default: ({ product, label }: { product: string; label: string }) => <div data-testid="cockpit">{product}:{label}</div>,
+  default: ({ product, label, children }: { product: string; label: string; children?: React.ReactNode }) => (
+    <div>
+      <div data-testid="cockpit-children">{children}</div>
+      <div data-testid="cockpit">{product}:{label}</div>
+    </div>
+  ),
+}))
+
+// PRODUCT-ISOLATION-001-selected-product-only: each product's real primary
+// panel component, mocked here to a stable, queryable marker -- these are
+// the exact same components each product's own /products/<id>/page.tsx
+// passes as ProductCockpitPreview's children (verified against their own,
+// separately-tested source: UlpinMapExplorer.test.tsx etc.). What this file
+// tests is the WIRING (the right one appears for the right product, and no
+// other), not those components' own internal behavior.
+vi.mock('./UlpinMapExplorer', () => ({
+  default: () => <div data-testid="ulpin-map-explorer">UlpinMapExplorer</div>,
+}))
+vi.mock('./StampDutyEstimator', () => ({
+  default: () => <div data-testid="stamp-duty-estimator">StampDutyEstimator</div>,
+}))
+vi.mock('./SteppedForecastModule', () => ({
+  default: ({ product }: { product: string }) => <div data-testid="stepped-forecast-module" data-product={product}>SteppedForecastModule:{product}</div>,
 }))
 
 const ROADMAP_IDS = new Set(['buildos', 'procurehub', 'communitybuild'])
+const ALL_PANEL_TESTIDS = ['ulpin-map-explorer', 'stamp-duty-estimator', 'stepped-forecast-module']
 
 describe('HomepageCockpitHero', () => {
   it('opens with LandIntel\'s real cockpit rendered automatically, and switches it on tab click with no load gate', () => {
@@ -26,28 +52,28 @@ describe('HomepageCockpitHero', () => {
     expect(screen.getAllByText(/INDICATIVE|LIVE|SAMPLE|GAP|ROADMAP/).length).toBeGreaterThan(0)
   })
 
-  it('shows the project-journey panel with its required title, headline and supporting copy', () => {
+  it('shows only the selected product narrative', () => {
     render(<HomepageCockpitHero />)
-    expect(screen.getByText('What you can do in Ferrum')).toBeTruthy()
-    expect(screen.getByRole('heading', { level: 1, name: 'Move one project through its connected decisions.' })).toBeTruthy()
-    expect(screen.getByText(/Start at the question you have\./)).toBeTruthy()
+    expect(screen.getByText('LandIntel · selected product')).toBeTruthy()
+    expect(screen.getByRole('heading', { level: 1, name: productExperienceList[0].lens })).toBeTruthy()
+    expect(screen.getAllByText(productExperienceList[0].persona).length).toBeGreaterThan(0)
   })
 
-  it('shows all five journey rows permanently, not as duplicate controls (no click handler, no role change on select)', () => {
+  it('shows only the active product journey row and replaces it on product selection', () => {
     render(<HomepageCockpitHero />)
     const panel = screen.getByLabelText('Project journey')
     const rows = Array.from(panel.querySelectorAll('[data-journey-row]'))
-    expect(rows).toHaveLength(5)
-    expect(rows.map((row) => row.textContent)).toEqual(
-      expect.arrayContaining(journeyRows.map((row) => expect.stringContaining(row.title))),
-    )
+    expect(rows).toHaveLength(1)
+    expect(rows[0].textContent).toContain('Understand the site')
     for (const row of rows) {
       expect(row.tagName).toBe('LI')
       expect(row.querySelector('button, a, input, select')).toBeNull()
     }
 
     fireEvent.click(screen.getByRole('tab', { name: 'BOQ Pro' }))
-    expect(panel.querySelectorAll('[data-journey-row]')).toHaveLength(5)
+    expect(panel.querySelectorAll('[data-journey-row]')).toHaveLength(1)
+    expect(panel.textContent).toContain('Define scope and cost')
+    expect(panel.textContent).not.toContain('Understand the site')
   })
 
   it('does not render the removed "Open {label} cockpit" or "See all 10 products" buttons, and adds no replacement product-navigation control in their place', () => {
@@ -304,6 +330,69 @@ describe('HomepageCockpitHero', () => {
       fireEvent.click(tab)
       expect(tab.getAttribute('aria-selected')).toBe('true')
       expect(screen.getByLabelText('Project journey').querySelector('[aria-current="true"]')?.textContent).toContain(expectedRowTitleFor(product.id))
+    })
+  })
+
+  // PRODUCT-ISOLATION-001-selected-product-only.
+  describe('product isolation', () => {
+    const panelMarkerFor: Record<string, string> = {
+      landintel: 'ulpin-map-explorer',
+      designstudio: 'stepped-forecast-module',
+      structura: 'stepped-forecast-module',
+      'boq-pro': 'stepped-forecast-module',
+      promarket: 'stepped-forecast-module',
+      investflow: 'stepped-forecast-module',
+      transact: 'stamp-duty-estimator',
+    }
+
+    it.each(Object.entries(panelMarkerFor))('shows only %s\'s own real primary panel, and none of the other panel types', (productId, expectedTestId) => {
+      render(<HomepageCockpitHero />)
+      const product = productExperienceList.find((item) => item.id === productId)!
+      fireEvent.click(screen.getByRole('tab', { name: product.label }))
+
+      const container = screen.getByTestId('cockpit-children')
+      expect(container.querySelector(`[data-testid="${expectedTestId}"]`), `${productId} should render ${expectedTestId}`).toBeTruthy()
+      for (const otherTestId of ALL_PANEL_TESTIDS) {
+        if (otherTestId === expectedTestId) continue
+        expect(container.querySelector(`[data-testid="${otherTestId}"]`), `${productId} should not render ${otherTestId}`).toBeNull()
+      }
+    })
+
+    it('the SteppedForecastModule variant passed matches the active product exactly (DesignStudio\'s massing forecast never leaks into LandIntel/BOQ Pro/etc.)', () => {
+      render(<HomepageCockpitHero />)
+      for (const productId of ['designstudio', 'structura', 'boq-pro', 'promarket', 'investflow']) {
+        const product = productExperienceList.find((item) => item.id === productId)!
+        fireEvent.click(screen.getByRole('tab', { name: product.label }))
+        const forecastModule = screen.getByTestId('stepped-forecast-module')
+        expect(forecastModule.getAttribute('data-product')).toBe(productId)
+      }
+    })
+
+    it('switching products atomically replaces the primary panel -- no stale prior-product panel remains visible', () => {
+      render(<HomepageCockpitHero />)
+      fireEvent.click(screen.getByRole('tab', { name: 'LandIntel' }))
+      expect(screen.getByTestId('ulpin-map-explorer')).toBeTruthy()
+
+      fireEvent.click(screen.getByRole('tab', { name: 'Transact' }))
+      expect(screen.queryByTestId('ulpin-map-explorer')).toBeNull()
+      expect(screen.getByTestId('stamp-duty-estimator')).toBeTruthy()
+
+      fireEvent.click(screen.getByRole('tab', { name: 'DesignStudio' }))
+      expect(screen.queryByTestId('stamp-duty-estimator')).toBeNull()
+      expect(screen.getByTestId('stepped-forecast-module').getAttribute('data-product')).toBe('designstudio')
+    })
+
+    it('ROADMAP products (BuildOS, ProcureHub, CommunityBuild) render none of the live-cockpit primary panels -- only the honest roadmap state', () => {
+      render(<HomepageCockpitHero />)
+      for (const productId of Array.from(ROADMAP_IDS)) {
+        const product = productExperienceList.find((item) => item.id === productId)!
+        fireEvent.click(screen.getByRole('tab', { name: product.label }))
+        expect(screen.getByTestId('hero-roadmap-preview')).toBeTruthy()
+        for (const testId of ALL_PANEL_TESTIDS) {
+          expect(screen.queryByTestId(testId), `${productId} should not render ${testId}`).toBeNull()
+        }
+        expect(screen.queryByTestId('cockpit')).toBeNull()
+      }
     })
   })
 })

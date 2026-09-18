@@ -5,11 +5,12 @@ import ParcelMap from './ParcelMap'
 import { ProvenanceStrip } from '../ProvenanceStrip'
 import SaveToWorkspaceButton from '../SaveToWorkspaceButton'
 import { writeParcelContext } from '../../lib/workspace/parcelContext'
+import type { PlotIntel } from '../../lib/parcelIntel/types'
 
 type Mode = 'ulpin' | 'pin' | 'coordinates' | 'place' | 'location' | 'survey'
 type Coordinates = { lat: number; lng: number }
 type Geocode = { display_name: string; lat: string; lon: string }
-type ParcelRecord = { ulpin: string | null; state: string; district: string; area_sqm: number; land_use: string; coordinates: Coordinates; source: string; status: 'INDICATIVE' | 'GAP' }
+type ParcelRecord = { ulpin: string | null; state: string; district: string; area_sqm: number; land_use: string; coordinates: Coordinates; source: string; status: 'INDICATIVE' | 'GAP'; plot_intel?: PlotIntel }
 
 const BENGALURU: Coordinates = { lat: 12.9716, lng: 77.5946 }
 const SAMPLE_ULPINS = ['KA-BLR-0001-2024', 'MH-PUN-0002-2024', 'TN-CHN-0003-2024']
@@ -46,7 +47,7 @@ export default function UlpinMapExplorer() {
     if (!ulpin.trim()) return showError('Enter a seeded sample ULPIN before lookup.')
     const response = await fetch(`/api/ulpin/${encodeURIComponent(ulpin.trim())}`)
     if (!response.ok) return showError('No seeded sample record found. Official registry lookup is not connected.')
-    const item = await response.json() as { ulpin: string; state: string; district: string; area_sqm: number; land_use: string }
+    const item = await response.json() as { ulpin: string; state: string; district: string; area_sqm: number; land_use: string; plot_intel?: PlotIntel }
     const coordinates = item.ulpin.startsWith('MH') ? { lat: 18.5208, lng: 73.8551 } : item.ulpin.startsWith('TN') ? { lat: 13.09, lng: 80.27 } : BENGALURU
     commit({ ...item, coordinates, source: 'Ferrum seeded D1 ULPIN record — not an official registry result', status: 'INDICATIVE' }, `ULPIN · seeded D1 sample · ${item.district}`)
   }
@@ -94,7 +95,24 @@ export default function UlpinMapExplorer() {
         {mode === 'survey' && <p className="text-xs leading-5 text-relume-muted"><strong className="text-relume-command">ROADMAP</strong> — survey, khasra and plot numbering needs a state-specific adapter. No registry lookup is available here.</p>}
       </div>
       <p id="parcel-finder-status" className="mt-3 text-xs leading-5 text-relume-muted" role="status" aria-live="polite">{message}</p>
-      {record && <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-relume border border-relume-border bg-white p-3" data-ulpin-record-card><div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Selected location</p><p className="mt-1 text-xs font-medium">{record.district}</p><ProvenanceStrip source={record.source} freshness={new Date().toISOString().slice(0, 10)} /></div><SaveToWorkspaceButton type="parcel" title={record.ulpin ?? record.district} data={record} /></div>}
+      {record && <div className="mt-3 grid gap-3 rounded-relume border border-relume-border bg-white p-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start" data-ulpin-record-card>
+        <div className="min-w-0">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Selected location</p>
+          <p className="mt-1 text-xs font-medium">{record.district}</p>
+          <dl className="mt-3 grid gap-2 text-xs sm:grid-cols-2">
+            <div><dt className="text-relume-muted">Recorded land use</dt><dd className="mt-1 font-semibold text-relume-command">{record.land_use}</dd></div>
+            <div><dt className="text-relume-muted">Zoning verification status</dt><dd className="mt-1 font-semibold text-relume-command">{record.status === 'INDICATIVE' ? 'REQUIRES AUTHORITY VERIFICATION' : 'UNKNOWN'}</dd></div>
+          </dl>
+          <p className="mt-2 text-[10px] leading-4 text-relume-muted">ULPIN identifies the parcel. Building use is derived only after the competent planning authority&apos;s current zoning record is verified; Ferrum does not offer unrestricted use choices.</p>
+          {record.plot_intel?.advisable_types?.length ? <div className="mt-3 rounded-relume border border-relume-border bg-relume-surface-secondary p-3" data-indicative-building-types>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Indicative building types · sample ruleset</p>
+            <ul className="mt-2 space-y-2 text-xs">{record.plot_intel.advisable_types.map((item) => <li key={item.building_type}><strong className="text-relume-command">{item.building_type}</strong><span className="block text-relume-muted">{item.reason}</span></li>)}</ul>
+            <p className="mt-2 text-[10px] text-relume-muted">Automatically derived from the seeded land-use value and an indicative sample ruleset. These are recommendations, not authority-permitted uses.</p>
+          </div> : <p className="mt-3 text-xs font-semibold text-relume-muted" data-building-types-gap>Building-type guidance: GAP until compatible zoning evidence is available.</p>}
+          <ProvenanceStrip source={record.source} freshness={new Date().toISOString().slice(0, 10)} />
+        </div>
+        <SaveToWorkspaceButton type="parcel" title={record.ulpin ?? record.district} data={record} />
+      </div>}
     </div>
     <ParcelMap lat={center.lat} lng={center.lng} zoom={record ? 13 : 11} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} className="h-[min(70vh,48rem)] min-h-[32rem] border-0" />
   </section>
