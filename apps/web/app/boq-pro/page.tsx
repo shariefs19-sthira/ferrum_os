@@ -82,8 +82,63 @@ export default function BOQProPage() {
       <p className="mt-2 text-sm text-relume-muted">Save/load/clear estimates locally and export a print/PDF summary (GST 18%).</p>
 
       <div className="mt-6">
-        <div className="overflow-x-auto">
-          <table className="w-full table-auto border-collapse">
+        {/* W2-503: five columns (material, qty, rate, total, remove
+            action) with live editable inputs don't fit a real <table>
+            below `sm`. Below `sm`: one labelled card per material with
+            the same inputs. At `sm`+: the original table, unchanged. */}
+        <div className="space-y-3 sm:hidden">
+          {materials.map((m) => (
+            <div key={m.id} className="rounded border p-3">
+              <label className="block text-xs font-medium text-relume-muted">
+                Material
+                <input
+                  className="mt-1 w-full border rounded px-2 py-1"
+                  value={m.name}
+                  onChange={(e) => updateField(m.id, "name", e.target.value)}
+                  placeholder="Material description"
+                />
+              </label>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                <label className="block text-xs font-medium text-relume-muted">
+                  Qty
+                  <input
+                    type="number"
+                    className="mt-1 w-full border rounded px-2 py-1 text-right"
+                    value={m.qty}
+                    onChange={(e) => updateField(m.id, "qty", Number(e.target.value))}
+                  />
+                </label>
+                <label className="block text-xs font-medium text-relume-muted">
+                  Rate
+                  <input
+                    type="number"
+                    className="mt-1 w-full border rounded px-2 py-1 text-right"
+                    value={m.rate}
+                    onChange={(e) => updateField(m.id, "rate", Number(e.target.value))}
+                  />
+                </label>
+              </div>
+              <div className="mt-2 flex items-center justify-between text-sm">
+                <span className="font-medium text-relume-muted">Total: {((Number(m.qty) || 0) * (Number(m.rate) || 0)).toFixed(2)}</span>
+                <button
+                  className="text-sm text-red-600 hover:underline no-print"
+                  onClick={() => removeRow(m.id)}
+                  aria-label="Remove row"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+          {materials.length === 0 && <p className="p-4 text-center text-sm text-relume-muted">No materials. Use Add to create rows.</p>}
+          <div className="rounded border p-3 text-sm">
+            <div className="flex justify-between"><span className="font-semibold">Subtotal</span><span>{subtotal.toFixed(2)}</span></div>
+            <div className="mt-1 flex justify-between"><span className="font-semibold">GST (18%)</span><span>{gst.toFixed(2)}</span></div>
+            <div className="mt-1 flex justify-between bg-relume-surface-secondary px-1 py-1"><span className="font-bold">Grand Total</span><span className="font-bold">{grandTotal.toFixed(2)}</span></div>
+          </div>
+        </div>
+        <div className="hidden sm:block">
+        <table className="w-full table-auto border-collapse">
             <thead>
               <tr className="bg-relume-surface-secondary">
                 <th className="p-2 text-left">Material</th>
