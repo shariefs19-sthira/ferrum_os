@@ -14,7 +14,7 @@ import {
   withLiveStaleness,
   type MapLayerCategory,
 } from '../../lib/landintel/geotechnicalMapLayers'
-import { useParcelContext } from '../../lib/workspace/parcelContext'
+import { useParcelContext, type ParcelContext } from '../../lib/workspace/parcelContext'
 
 const CATEGORY_BADGE: Record<MapLayerCategory, string> = {
   AUTHORITATIVE_COVERAGE: 'border-relume-command bg-relume-command text-white',
@@ -25,24 +25,36 @@ const CATEGORY_BADGE: Record<MapLayerCategory, string> = {
 }
 
 /**
- * Spatial legend for LandIntel's geotechnical evidence map-layer contract
- * (lib/landintel/geotechnicalMapLayers.ts). Isolated from the cockpit/map
- * rendering surfaces (no ParcelMap/Leaflet, WorkspaceCockpit or mobile
- * dependency) -- it summarizes the five spatial categories and the
- * declarative connector registry as data, so any future map renderer
- * (cockpit-owned) can consume the same categorisation without this
- * component needing to own the map itself.
+ * Declarative category legend for LandIntel's geotechnical evidence
+ * map-layer contract (lib/landintel/geotechnicalMapLayers.ts). This
+ * component does NOT render map geometry, a map canvas, or any spatial
+ * drawing -- it lists the five categories a future map renderer (cockpit-
+ * owned) would use to place features, and shows how many currently-loaded
+ * items fall into each. Isolated from the cockpit/map rendering surfaces
+ * (no ParcelMap/Leaflet, WorkspaceCockpit or mobile dependency).
+ *
+ * `generatedFor` is the parcel context the supplied `assessment`/
+ * `projectInputs` were actually produced against -- distinct from
+ * whatever the LIVE active site is. It must be passed explicitly by the
+ * caller (e.g. captured at analysis time) rather than defaulted from
+ * `useParcelContext()`, or a parcel swap could never be detected: comparing
+ * the live context against itself is never stale by construction. The
+ * component still subscribes to the live context (`useParcelContext`)
+ * purely to re-render when the active site changes; that subscribed value
+ * is never used as the staleness comparison target.
  */
 export default function GeotechnicalMapLayerLegend({
   assessment = createUnknownGeotechnicalScreening(),
   projectInputs = [],
+  generatedFor = null,
 }: {
   assessment?: GeotechnicalAssessment
   projectInputs?: ProjectGeotechnicalInput[]
+  generatedFor?: ParcelContext | null
 }) {
-  const parcel = useParcelContext()
+  useParcelContext() // re-render on live site changes only; see generatedFor note above.
   const rawFeatures = buildGeotechnicalMapLayers(assessment.evidence, projectInputs)
-  const features = withLiveStaleness(rawFeatures, parcel)
+  const features = withLiveStaleness(rawFeatures, generatedFor)
   const summary = summarizeMapLayers(features)
   const declarativeCount = governmentGeotechnicalSources.filter((source) => source.connectorState === 'DECLARATIVE ONLY').length
 
@@ -53,12 +65,12 @@ export default function GeotechnicalMapLayerLegend({
       data-geotechnical-map-layer-legend
     >
       <div className="border-b border-relume-border p-5 sm:p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">LandIntel · geotechnical map layers</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">LandIntel · geotechnical map-layer categories</p>
         <h2 id="geotechnical-map-layer-heading" className="mt-3 text-xl font-semibold tracking-relume-tight text-relume-ink">
-          Every spatial feature carries one honest category
+          Every item is categorised, not drawn
         </h2>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-relume-ink">
-          Authoritative mapped coverage, project investigation points, conflicts, stale areas and UNKNOWN gaps are kept spatially distinct -- a regional screening layer is never rendered as if it were a real borehole point, and a stale or disputed feature is never silently merged back into a clean result.
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-relume-ink" data-geotechnical-map-layer-disclosure>
+          This is a declarative categorisation, not a rendered map: no map canvas or geometry is drawn on this page. Every evidence item and project-investigation input is classified as authoritative mapped coverage, a project investigation point, a conflict, a stale area, or an UNKNOWN gap, so that a map surface built later can place it correctly -- a regional screening item is never classified as if it were a real borehole point, and a stale or disputed item is never silently reclassified back to clean.
         </p>
         <p className="mt-2 text-xs text-relume-muted" data-geotechnical-map-layer-connector-status>
           {declarativeCount} of {governmentGeotechnicalSources.length} government source connectors are DECLARATIVE ONLY -- none is wired to live credentials or an endpoint in this build.

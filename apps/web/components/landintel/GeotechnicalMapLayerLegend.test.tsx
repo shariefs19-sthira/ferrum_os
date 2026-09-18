@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import GeotechnicalMapLayerLegend from './GeotechnicalMapLayerLegend'
-import { useParcelContext } from '../../lib/workspace/parcelContext'
+import { useParcelContext, writeParcelContext, type ParcelContext } from '../../lib/workspace/parcelContext'
 import { assessGeotechnicalEvidence } from '../../lib/landintel/geotechnicalIntelligence'
 import type { GeotechnicalEvidence, ProjectGeotechnicalInput } from '../../lib/landintel/geotechnicalIntelligence'
 
@@ -10,8 +10,18 @@ vi.mock('../../lib/workspace/parcelContext', async () => {
   return { ...actual, useParcelContext: vi.fn() }
 })
 
+const parcelContext = (overrides: Partial<ParcelContext> = {}): ParcelContext => ({
+  version: 1, method: 'ulpin', ulpin: 'KA-BLR-0001-2024', state: 'Karnataka', district: 'Bengaluru Urban',
+  area_sqm: 1200, land_use: 'Residential', coordinates: { lat: 12.97, lng: 77.59 },
+  provenance: { source: 'Seeded D1 record', vintage: '2026-09-18', status: 'INDICATIVE' },
+  ...overrides,
+})
+
 describe('GeotechnicalMapLayerLegend', () => {
-  beforeEach(() => vi.mocked(useParcelContext).mockReturnValue(null))
+  beforeEach(() => {
+    localStorage.clear()
+    vi.mocked(useParcelContext).mockReturnValue(null)
+  })
 
   it('renders all five categories with a real description, never blank on an UNKNOWN-only screen', () => {
     render(<GeotechnicalMapLayerLegend />)
@@ -30,7 +40,14 @@ describe('GeotechnicalMapLayerLegend', () => {
     expect(screen.getByText(/DECLARATIVE ONLY -- none is wired to live credentials/)).toBeTruthy()
   })
 
-  it('keeps a project investigation point spatially distinct from a conflicting regional layer', () => {
+  it('never claims to render map geometry -- describes a declarative categorisation only', () => {
+    render(<GeotechnicalMapLayerLegend />)
+    expect(screen.getByText(/declarative categorisation, not a rendered map/)).toBeTruthy()
+    expect(screen.getByText(/no map canvas or geometry is drawn on this page/)).toBeTruthy()
+    expect(screen.queryByText(/kept spatially distinct/)).toBeNull()
+  })
+
+  it('keeps a project investigation point distinct from a conflicting regional layer', () => {
     const evidence: GeotechnicalEvidence[] = [
       { id: 'regional-a', topic: 'regional-geology-lithology', label: 'Regional geology', value: 'Alluvium', unit: null, status: 'CONFLICT', method: 'MODELLED', scope: 'REGIONAL_SCREENING', confidence: 'MEDIUM', coverage: { kind: 'REGION', label: 'Karnataka', coverageGaps: [] }, lineage: null, limitations: [], validUntil: null },
     ]
@@ -42,5 +59,42 @@ describe('GeotechnicalMapLayerLegend', () => {
     const pointCount = screen.getByText('Project investigation point').parentElement!
     expect(conflictCount.querySelector('[data-map-layer-count]')!.textContent).toBe('1')
     expect(pointCount.querySelector('[data-map-layer-count]')!.textContent).toBe('1')
+  })
+
+  it('does NOT go stale when no generatedFor context is supplied, even if the active site changes', () => {
+    const evidence: GeotechnicalEvidence[] = [
+      { id: 'regional-a', topic: 'regional-geology-lithology', label: 'Regional geology', value: 'Alluvium', unit: null, status: 'SOURCE-VERIFIED', method: 'MODELLED', scope: 'REGIONAL_SCREENING', confidence: 'MEDIUM', coverage: { kind: 'REGION', label: 'Karnataka', coverageGaps: [] }, lineage: null, limitations: [], validUntil: null },
+    ]
+    writeParcelContext(parcelContext())
+    render(<GeotechnicalMapLayerLegend assessment={assessGeotechnicalEvidence(evidence)} />)
+    expect(screen.getByText('Authoritative mapped coverage').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('1')
+    expect(screen.getByText('Stale').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('0')
+  })
+
+  it('a real parcel swap reclassifies non-conflict items to Stale, proving generatedFor is compared against the ACTIVE context, not itself', () => {
+    const generatedFor = parcelContext({ ulpin: 'KA-BLR-0001-2024', district: 'Bengaluru Urban' })
+    writeParcelContext(generatedFor)
+    const evidence: GeotechnicalEvidence[] = [
+      { id: 'regional-a', topic: 'regional-geology-lithology', label: 'Regional geology', value: 'Alluvium', unit: null, status: 'SOURCE-VERIFIED', method: 'MODELLED', scope: 'REGIONAL_SCREENING', confidence: 'MEDIUM', coverage: { kind: 'REGION', label: 'Karnataka', coverageGaps: [] }, lineage: null, limitations: [], validUntil: null },
+      { id: 'conflict-a', topic: 'seismic-hazard', label: 'Seismic hazard', value: null, unit: null, status: 'CONFLICT', method: 'MODELLED', scope: 'REGIONAL_SCREENING', confidence: 'LOW', coverage: { kind: 'REGION', label: 'Karnataka', coverageGaps: [] }, lineage: null, limitations: [], validUntil: null },
+    ]
+    const assessment = assessGeotechnicalEvidence(evidence)
+    const { rerender } = render(<GeotechnicalMapLayerLegend assessment={assessment} generatedFor={generatedFor} />)
+
+    // Still the active site: no reclassification yet.
+    expect(screen.getByText('Authoritative mapped coverage').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('1')
+    expect(screen.getByText('Conflict').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('1')
+    expect(screen.getByText('Stale').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('0')
+
+    // The user resolves a DIFFERENT site elsewhere in the app -- this is the
+    // real parcel-swap regression this test guards: `generatedFor` (fixed,
+    // from the caller) must be compared against the freshly-active context
+    // read at render time, never against a copy of the live value itself.
+    writeParcelContext(parcelContext({ ulpin: 'MH-PUN-0002-2024', district: 'Pune', state: 'Maharashtra' }))
+    rerender(<GeotechnicalMapLayerLegend assessment={assessment} generatedFor={generatedFor} />)
+
+    expect(screen.getByText('Authoritative mapped coverage').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('0')
+    expect(screen.getByText('Conflict').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('1')
+    expect(screen.getByText('Stale').parentElement!.querySelector('[data-map-layer-count]')!.textContent).toBe('1')
   })
 })

@@ -47,8 +47,17 @@ const report = { capturedAt: new Date().toISOString(), source: 'LOCAL STATIC BUI
 async function capture({ name, mobile, prepare, evidence }) {
   const context = await browser.newContext(mobile ? { ...devices['iPhone 13'], colorScheme: 'light' } : { viewport: { width: 1366, height: 900 }, colorScheme: 'light' })
   const page = await context.newPage()
+  // /api/region is a Worker-backed route a static file server structurally
+  // cannot serve (RULE 25's own static-vs-edge distinction) -- it is fetched
+  // site-wide, unrelated to the geotechnical map-layer legend this capture
+  // is actually evidencing. Stubbed here only so the capture log stays free
+  // of noise from a route this local static-build harness was never going
+  // to be able to answer; not a claim that /api/region works, and not part
+  // of what this evidence is verifying.
+  await page.route('**/api/region', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{}' }))
   const consoleErrors = []
   page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()) })
+  page.on('response', (res) => { if (res.status() >= 400 && !res.url().includes('/api/region')) consoleErrors.push(`HTTP ${res.status()} for ${res.url()}`) })
   const response = await page.goto(`http://localhost:${port}/products/landintel`, { waitUntil: 'load', timeout: 30_000 })
   await prepare(page)
   await page.screenshot({ path: `${evidenceDir}/${name}.png`, fullPage: false })
@@ -68,6 +77,7 @@ for (const mobile of [false, true]) {
     },
     evidence: async (page) => ({
       legendHeading: await text(page, '#geotechnical-map-layer-heading'),
+      declarativeNotMapDisclosure: await text(page, '[data-geotechnical-map-layer-disclosure]'),
       connectorStatus: await text(page, '[data-geotechnical-map-layer-connector-status]'),
       unknownGapCount: await text(page, '[data-map-layer-category="UNKNOWN_GAP"] [data-map-layer-count]'),
       authoritativeCoverageCount: await text(page, '[data-map-layer-category="AUTHORITATIVE_COVERAGE"] [data-map-layer-count]'),
