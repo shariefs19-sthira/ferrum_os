@@ -23,6 +23,9 @@ describe('UlpinMapExplorer W-85 parcel finder', () => {
     expect(screen.queryByRole('button', { name: 'Residential' })).toBeNull()
     expect(screen.queryByRole('button', { name: 'Commercial' })).toBeNull()
     expect(screen.queryByRole('button', { name: 'Mixed Use' })).toBeNull()
+    const overlay = document.querySelector('[data-map-overlay]')
+    expect(document.querySelector('[data-parcel-map-stage]')?.contains(overlay)).toBe(true)
+    expect(overlay?.className).toContain('absolute')
     expect(screen.getByRole('button', { name: 'Map showing sample' })).toBe(map)
   })
 
