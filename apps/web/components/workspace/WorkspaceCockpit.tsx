@@ -329,6 +329,10 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   }
 
   const fullBleedEmbed = embedMode === 'full-bleed'
+  const chooseView = (nextView: StudioView) => {
+    setView(nextView)
+    if (nextView === 'space') setSelectedOpeningId(undefined)
+  }
 
   return (
     <section className={`overflow-hidden border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col' : 'rounded-relume'} ${fullBleedEmbed ? 'min-h-[70vh]' : ''}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined} data-embed-mode={embedMode}>
@@ -376,7 +380,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           defect; `fullBleedEmbed` doesn't need it (its section isn't
           `flex-col`, so this grid already gets its height from the normal
           document flow / `min-h-[70vh]` on the section). */}
-      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst || fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : ''}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
@@ -396,7 +400,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         <div data-cockpit-canvas-section className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst || fullBleedEmbed ? 'min-h-0' : ''}`}>
           <div className="relative z-40 flex flex-wrap gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
             {views.map((candidate) => (
-              <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => setView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
+              <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => chooseView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
                 {candidate.label}
               </button>
             ))}
@@ -439,7 +443,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
             {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} onSelectOpening={(openingId) => { setShowExtract(false); setSelectedOpeningId(openingId) }} />}
           </div>
-          {view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
+          {!canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
           {!selectedOpening && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
           {fullBleedEmbed && !selectedOpening && <>
             <button type="button" onClick={() => setShowExtract((value) => { const next = !value; if (next) setSelectedOpeningId(undefined); return next })} aria-expanded={showExtract} className="absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow-sm" data-extract-toggle>
@@ -452,6 +456,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             </aside>
           </>}
         </div>
+
+        {canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} className="max-h-[40dvh] overflow-y-auto" />}
 
         {!canvasFirst && !fullBleedEmbed && <aside className="order-3 border-t border-relume-border p-4 xl:order-none xl:border-l xl:border-t-0" aria-label="Plan data extract">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Data extract</p>

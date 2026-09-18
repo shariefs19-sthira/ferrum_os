@@ -119,6 +119,26 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     expect(screen.getByRole('button', { name: 'Close inspector' })).toBeTruthy()
   })
 
+  it('clears opening selection on Space so the contextual extract returns', async () => {
+    render(<WorkspaceCockpit embedMode="full-bleed" />)
+    fireEvent.click(screen.getByRole('tab', { name: 'Plan' }))
+    fireEvent.click(await waitFor(() => screen.getAllByRole('button', { name: /select door/i })[0]))
+    expect(screen.getByRole('button', { name: 'Close inspector' })).toBeTruthy()
+    fireEvent.click(screen.getByRole('tab', { name: '3D space' }))
+    expect(screen.queryByRole('button', { name: 'Close inspector' })).toBeNull()
+    expect(screen.getByRole('button', { name: 'Data extract' })).toBeTruthy()
+  })
+
+  it('reserves a scrollable inspector row below the canvas-first model', async () => {
+    render(<WorkspaceCockpit canvasFirst />)
+    fireEvent.click(screen.getByRole('tab', { name: 'Plan' }))
+    fireEvent.click(await waitFor(() => screen.getAllByRole('button', { name: /select door/i })[0]))
+    const inspector = document.querySelector('[data-opening-inspector]') as HTMLElement
+    expect(inspector.className).toMatch(/overflow-y-auto/)
+    fireEvent.click(screen.getByRole('button', { name: 'Close inspector' }))
+    expect(document.querySelector('[data-opening-inspector]')).toBeNull()
+  })
+
   // W2-503: three intentional horizontal-scroll interactions removed
   // from this file — the option-chip flow (now wraps instead of
   // scrolling), the compliance diagram (the SVG scales via its own

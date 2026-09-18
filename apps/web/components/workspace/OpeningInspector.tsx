@@ -7,7 +7,7 @@ import type { OpeningEdit } from '../../lib/workspace/openings'
 type Draft = { widthM: string; heightM: string; sillM: string; configuration: string }
 const draftFrom = (opening: StudioOpening): Draft => ({ widthM: String(opening.widthM), heightM: String(opening.heightM), sillM: String(opening.sillM), configuration: opening.configuration })
 
-export default function OpeningInspector({ opening, onCommit, onClose, doorCount, windowCount }: { opening?: StudioOpening; onCommit: (edit: OpeningEdit) => { opening: StudioOpening; message?: string } | undefined; onClose: () => void; doorCount: number; windowCount: number }) {
+export default function OpeningInspector({ opening, onCommit, onClose, doorCount, windowCount, className = '' }: { opening?: StudioOpening; onCommit: (edit: OpeningEdit) => { opening: StudioOpening; message?: string } | undefined; onClose: () => void; doorCount: number; windowCount: number; className?: string }) {
   const [draft, setDraft] = useState<Draft | undefined>(opening ? draftFrom(opening) : undefined)
   const [message, setMessage] = useState('')
   useEffect(() => { setDraft(opening ? draftFrom(opening) : undefined); setMessage('') }, [opening?.id])
@@ -22,7 +22,7 @@ export default function OpeningInspector({ opening, onCommit, onClose, doorCount
     setMessage(result?.message ?? '')
   }
   const label = opening.kind === 'door' ? 'Door' : 'Window'
-  return <aside className="w-full border-t border-relume-border bg-white p-4 xl:border-l xl:border-t-0" aria-label={`${label} property inspector`} data-opening-inspector>
+  return <aside className={`w-full border-t border-relume-border bg-white p-4 xl:border-l xl:border-t-0 ${className}`} aria-label={`${label} property inspector`} data-opening-inspector>
     <div className="flex items-start justify-between gap-3"><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Selected opening</p><button type="button" onClick={onClose} className="min-h-11 rounded-full border border-relume-border px-3 text-xs font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-command">Close inspector</button></div>
     <h3 className="mt-1 text-base font-semibold tracking-relume-tight text-relume-ink">{label} · floor {opening.floor}</h3>
     <p className="mt-1 text-xs text-relume-muted">Hosted on the {opening.hostEdge} edge. Measurements are metres and remain INDICATIVE.</p>

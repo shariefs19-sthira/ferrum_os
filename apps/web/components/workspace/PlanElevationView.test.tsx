@@ -27,4 +27,15 @@ describe('PlanElevationView openings', () => {
     const marker = screen.getAllByRole('button', { name: /select door/i })[0]
     expect(marker.getAttribute('class')).toContain('focus-visible:stroke')
   })
+
+  it('draws configuration-specific elevation symbols from the shared opening configuration', () => {
+    const plan = generateStudioPlan({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 1 })
+    const window = plan.openings!.find((opening) => opening.kind === 'window')!
+    const fixed = { ...plan, openings: plan.openings!.map((opening) => opening.id === window.id ? { ...opening, configuration: 'fixed' as const } : opening) }
+    const sliding = { ...plan, openings: plan.openings!.map((opening) => opening.id === window.id ? { ...opening, configuration: 'sliding' as const } : opening) }
+    const { container, rerender } = render(<PlanElevationView plan={fixed} view="front-elevation" activeFloor={1} />)
+    const fixedSymbol = container.querySelector(`[data-opening-id="${window.id}"]`)?.parentElement?.innerHTML
+    rerender(<PlanElevationView plan={sliding} view="front-elevation" activeFloor={1} />)
+    expect(container.querySelector(`[data-opening-id="${window.id}"]`)?.parentElement?.innerHTML).not.toBe(fixedSymbol)
+  })
 })
