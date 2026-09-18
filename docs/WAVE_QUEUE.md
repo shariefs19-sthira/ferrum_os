@@ -867,3 +867,93 @@ DONE, until the required screenshots are captured and recorded.
 UNDO for this section: `git revert <sha>` of this pass's own landing
 commit (docs-only; removes this appended reconciliation, restores no
 other row).
+
+## SCRIBE final deployed-evidence reconciliation — 2026-09-18 23:32 IST
+
+This entry appends evidence to the preceding reconciliation; it does not
+rewrite historical row states. The public Worker
+`https://ferrumos-preview.shariefsatyala.workers.dev` returned HTTP 200 for
+every captured route at deployed Git SHA
+`ac5b220c22e9e49d0321df6f0d40cc18509c0891`, Cloudflare version
+`cb1db4b8-e31c-4128-b134-d3e35b32816e`. Durable screenshots, the downloaded
+IFC file, the reproducible capture procedure and the machine-readable report
+are stored under `docs/evidence/queue-close-20260918/`; the exact acceptance
+matrix and artifact hashes are in that directory's `README.md`.
+
+### Rendered-edge findings for the active bundle
+
+- **BOQ Pro model-linked take-off — rendered LIVE for the bounded
+  deterministic sample workflow.** Desktop (1366 x 900) and mobile (390 x
+  664) evidence show a selected BOQ line highlighting source geometry, its
+  formula, source element IDs, assumptions/exclusions, revision fingerprint,
+  checker state, `UNKNOWN` formwork and the `INDICATIVE` qualification. This
+  does not establish engineering certification or independently verified
+  rates. Evidence: `boq-model-linked-desktop.png`,
+  `boq-model-linked-mobile.png`, and `capture-report.json`.
+- **LandIntel site intelligence — governed disclosure UI is rendered LIVE;
+  underlying analysis is not.** Environment, terrain and access/proximity
+  surfaces render at the edge. The terrain and access modules correctly state
+  `NO ... SOURCE CONNECTED`, preserve `UNKNOWN`, identify required evidence,
+  and label their analyses `ROADMAP`. No terrain ingestion, terrain result,
+  licensed POI/routing result or real parcel-context result is claimed LIVE.
+  Evidence: `landintel-environment-desktop.png`,
+  `landintel-terrain-desktop.png`, `landintel-access-mobile.png`, and
+  `capture-report.json`.
+- **DesignStudio environmental context — guarded context panel is rendered
+  LIVE; its gated providers are not.** Desktop and mobile evidence show
+  separated source layers, provenance fields, export controls and
+  `INDICATIVE — CONTEXT ONLY`. Google Photorealistic 3D Tiles remains
+  `GATED UNAVAILABLE`; surveyed boundary and qualified terrain sources remain
+  unconnected. Evidence: `designstudio-environment-desktop.png`,
+  `designstudio-environment-mobile.png`, and `capture-report.json`.
+- **Project cockpit IFC export — rendered LIVE on desktop for the bounded
+  sample export; mobile remains OPEN.** A real desktop pointer click generated
+  `ferrum-plan.ifc` (12,655 bytes, SHA-256
+  `1ce93b5a37de3e17f1b9fa4380870847d00078232cb0dd8a8473e09e55ae18f3`)
+  and rendered `IFC4 exported with 3 storey(s) — 12 walls, 3 slabs, 3 spaces.`
+  On the mobile viewport, the tool rail overlapped the export control and
+  intercepted the real pointer click. The mobile path therefore remains an
+  internal acceptance defect and is not LIVE. Evidence:
+  `cockpit-ifc-export-desktop.png`, `cockpit-ifc-export-mobile.png`,
+  `ferrum-plan.ifc`, and `capture-report.json`.
+
+No captured route emitted a console error or page error during this evidence
+run. The Worker screenshots prove only the deployed `ac5b220c2` release; the
+newer `main` commit below is not silently treated as part of that deployment.
+
+### W2-390 PI trial — final governance disposition
+
+The bounded PI trial closure landed on `main` as
+`15fee93c63dc34f85386420e4f8528e45c548815`. Its recorded verdict is final:
+**dissolve the experimental PI executor role and retain PI as the independent
+Execution Controller.** PI remains outside implementation so that acceptance
+evidence and method challenges remain independent. The landing closes the
+historic trial decision; it is not evidence that `15fee93c6` was included in
+the deployed `ac5b220c2` Worker release above.
+
+### Remaining open or externally gated conditions
+
+- **`ferrumprojects.in` — external registrar gate:** GoDaddy has placed the
+  domain on hold pending WHOIS/KYC contact verification. DNS currently returns
+  NXDOMAIN. Public activation remains blocked until the verification is
+  submitted and accepted; repository work cannot clear this gate.
+- **W2-308/W2-315 CONCIERGE_LLM:** API secret provisioning, abuse/cost review,
+  retrieval-grounding design and operator budget approval remain open.
+- **W2-287 Stage-2 Transact:** qualified-counsel sign-off remains mandatory.
+- **W2-409 REAL_AUTH_RELIVE:** remains `ROADMAP-LABEL` until the operator-set
+  live-release milestone is recorded.
+- **DesignStudio Google Photorealistic 3D Tiles:** provider API key, recorded
+  terms acceptance, attribution rendering and quota/cost handling remain
+  external integration gates.
+- **LandIntel evidence sources:** authoritative parcel, terrain, access,
+  routing/POI, regulatory and market sources remain unconnected or `UNKNOWN`
+  where the rendered panels say so. The visible disclosure surface does not
+  convert those absent sources into data.
+- **Cockpit mobile IFC export:** the overlapping tool rail is an internal open
+  acceptance defect. Desktop evidence does not close the mobile path.
+- **RULE 34:** no formal lift row plus `ACTIVITY_LOG.md` entry was found; the
+  historical DEFERRED list retains the ambiguity recorded in Finding 3.
+
+UNDO for this section: `git revert <sha>` of this pass's own landing commit
+(docs/evidence only; removes this appended reconciliation and its evidence
+bundle without changing product code or deployment state).
