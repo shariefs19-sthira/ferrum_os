@@ -2,6 +2,10 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import HomepageCockpitHero from './HomepageCockpitHero'
 import { productExperienceList } from '../../lib/productExperienceRegistry'
+import { journeyRows, journeyRowForProduct } from '../../lib/homepageJourney'
+
+const rowTitleById = Object.fromEntries(journeyRows.map((row) => [row.id, row.title]))
+const expectedRowTitleFor = (productId: string) => rowTitleById[journeyRowForProduct[productId as keyof typeof journeyRowForProduct]]
 
 vi.mock('../workspace/ProductCockpitPreview', () => ({
   default: ({ product, label }: { product: string; label: string }) => <div data-testid="cockpit">{product}:{label}</div>,
@@ -19,7 +23,31 @@ describe('HomepageCockpitHero', () => {
     expect(screen.getByTestId('hero-preview-placeholder').textContent).toContain('DesignStudio')
 
     fireEvent.click(screen.getByRole('tab', { name: 'Structura' }))
-    expect(screen.getByText(/live, sample, indicative, gap or roadmap/i)).toBeTruthy()
+    expect(screen.getAllByText(/INDICATIVE|LIVE|SAMPLE|GAP|ROADMAP/).length).toBeGreaterThan(0)
+  })
+
+  it('shows the project-journey panel with its required title, headline and supporting copy', () => {
+    render(<HomepageCockpitHero />)
+    expect(screen.getByText('What you can do in Ferrum')).toBeTruthy()
+    expect(screen.getByRole('heading', { level: 1, name: 'Move one project through its connected decisions.' })).toBeTruthy()
+    expect(screen.getByText(/Start at the question you have\./)).toBeTruthy()
+  })
+
+  it('shows all five journey rows permanently, not as duplicate controls (no click handler, no role change on select)', () => {
+    render(<HomepageCockpitHero />)
+    const panel = screen.getByLabelText('Project journey')
+    const rows = Array.from(panel.querySelectorAll('[data-journey-row]'))
+    expect(rows).toHaveLength(5)
+    expect(rows.map((row) => row.textContent)).toEqual(
+      expect.arrayContaining(journeyRows.map((row) => expect.stringContaining(row.title))),
+    )
+    for (const row of rows) {
+      expect(row.tagName).toBe('LI')
+      expect(row.querySelector('button, a, input, select')).toBeNull()
+    }
+
+    fireEvent.click(screen.getByRole('tab', { name: 'BOQ Pro' }))
+    expect(panel.querySelectorAll('[data-journey-row]')).toHaveLength(5)
   })
 
   it('does not render the removed "Open {label} cockpit" or "See all 10 products" buttons, and adds no replacement product-navigation control in their place', () => {
@@ -32,16 +60,23 @@ describe('HomepageCockpitHero', () => {
     expect(screen.queryAllByRole('link').filter((link) => link.getAttribute('href')?.startsWith('/products/'))).toHaveLength(0)
   })
 
-  it('shows a stage indicator that tracks the active product\'s lifecycle stage', () => {
+  it('emphasizes the journey row matching the active product\'s category, and only that one', () => {
     render(<HomepageCockpitHero />)
-    const indicator = screen.getByLabelText('Project lifecycle stage')
-    expect(indicator.querySelector('[aria-current="true"]')?.textContent).toBe('Land')
+    const panel = screen.getByLabelText('Project journey')
+    expect(panel.querySelector('[aria-current="true"]')?.textContent).toContain('Understand the site')
 
     fireEvent.click(screen.getByRole('tab', { name: 'BOQ Pro' }))
-    expect(indicator.querySelector('[aria-current="true"]')?.textContent).toBe('Build')
+    expect(panel.querySelectorAll('[aria-current="true"]')).toHaveLength(1)
+    expect(panel.querySelector('[aria-current="true"]')?.textContent).toContain('Define scope and cost')
+
+    fireEvent.click(screen.getByRole('tab', { name: 'BuildOS' }))
+    expect(panel.querySelector('[aria-current="true"]')?.textContent).toContain('Coordinate delivery')
 
     fireEvent.click(screen.getByRole('tab', { name: 'InvestFlow' }))
-    expect(indicator.querySelector('[aria-current="true"]')?.textContent).toBe('Invest')
+    expect(panel.querySelector('[aria-current="true"]')?.textContent).toContain('Evaluate the commercial path')
+
+    fireEvent.click(screen.getByRole('tab', { name: 'DesignStudio' }))
+    expect(panel.querySelector('[aria-current="true"]')?.textContent).toContain('Develop the scheme')
   })
 
   it('shows an evidence-state badge that updates per product', () => {
@@ -189,16 +224,16 @@ describe('HomepageCockpitHero', () => {
   // evidence badge, output-card content, and (for ROADMAP products) the
   // absence of any control implying live functionality.
   describe.each(productExperienceList)('product: $label', (product) => {
-    it('renders the correct lifecycle stage, persona/lens and evidence badge', () => {
+    it('emphasizes the correct journey row, shows the active product\'s persona under it, and the evidence badge', () => {
       render(<HomepageCockpitHero />)
       fireEvent.click(screen.getByRole('tab', { name: product.label }))
 
-      const indicator = screen.getByLabelText('Project lifecycle stage')
-      expect(indicator.querySelector('[aria-current="true"]')?.textContent).toBe(product.stage)
+      const panel = screen.getByLabelText('Project journey')
+      expect(panel.querySelector('[aria-current="true"]')?.textContent).toContain(expectedRowTitleFor(product.id))
 
-      const lens = document.querySelector('[data-product-lens]')
-      expect(lens?.textContent).toContain(product.persona)
-      expect(lens?.textContent).toContain(product.lens)
+      const activeProductLine = document.querySelector('[data-journey-row-active-product]')
+      expect(activeProductLine?.textContent).toContain(product.label)
+      expect(activeProductLine?.textContent).toContain(product.persona)
 
       const badges = screen.getAllByText(product.evidenceState)
       expect(badges.length).toBeGreaterThan(0)
@@ -270,7 +305,7 @@ describe('HomepageCockpitHero', () => {
       // would trigger.
       fireEvent.click(tab)
       expect(tab.getAttribute('aria-selected')).toBe('true')
-      expect(screen.getByLabelText('Project lifecycle stage').querySelector('[aria-current="true"]')?.textContent).toBe(product.stage)
+      expect(screen.getByLabelText('Project journey').querySelector('[aria-current="true"]')?.textContent).toContain(expectedRowTitleFor(product.id))
     })
   })
 })

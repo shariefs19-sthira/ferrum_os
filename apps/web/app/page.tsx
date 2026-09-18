@@ -1,24 +1,8 @@
 import SectionShell from '../components/sections/SectionShell'
 import Eyebrow from '../components/sections/Eyebrow'
 import SectionHeading from '../components/sections/SectionHeading'
-import CardGrid from '../components/sections/CardGrid'
 import SliderLeaf from '../components/sections/SliderLeaf'
 import HomepageCockpitHero from '../components/sections/HomepageCockpitHero'
-
-// The protected /boq-pro app page still exists separately (RULE 6); this
-// card links to its Relume marketing page at /products/boq-pro (W2-250).
-const productShowcaseItems = [
-  { title: 'LandIntel', body: 'Land feasibility & ULPIN lookup', href: '/products/landintel' },
-  { title: 'DesignStudio', body: 'AI architectural design', href: '/products/designstudio' },
-  { title: 'Structura', body: 'Structural analysis & IS compliance', href: '/products/structura' },
-  { title: 'BOQ Pro', body: 'Automated BOQ & cost estimation', href: '/products/boq-pro' },
-  { title: 'ProMarket', body: 'Verified professionals marketplace', href: '/products/promarket' },
-  { title: 'BuildOS', body: 'Project management & digital PMC', href: '/products/buildos' },
-  { title: 'ProcureHub', body: 'Material procurement & suppliers', href: '/products/procurehub' },
-  { title: 'InvestFlow', body: 'Investment forecasting', href: '/products/investflow' },
-  { title: 'CommunityBuild', body: 'Fractional development', href: '/products/communitybuild' },
-  { title: 'Transact', body: 'Indicative stamp-duty & ask-band estimation', href: '/products/transact' },
-]
 
 // W2-347: rewritten to match each linked product page's real vs. roadmap
 // split (LandIntel/DesignStudio/ProcureHub/CommunityBuild steps were
@@ -38,9 +22,18 @@ const howItWorksSteps = [
 // four-stage framing is now the hero's stage indicator (see
 // apps/web/lib/homepageStages.ts and HomepageCockpitHero.tsx), so the
 // concept is presented once on the page instead of twice (once as prose,
-// once implicitly via the product grid). The ten-product map below is
-// relocated to sit directly after the hero, per
-// docs/design/HOMEPAGE_REDESIGN_2026.md §5.4.
+// once implicitly via the product grid).
+//
+// CODEX-SENTINEL-20260918-1700-cockpit-journey-context: the ten-product
+// "Explore the products" CardGrid section that used to render directly
+// below the hero has been removed outright, not relocated -- it was a
+// literal duplicate of the /products catalogue page (same title, same
+// items, same copy) rendered a second time on the homepage. The
+// single-homepage-product-navigation rule this task enforces means the
+// hero's own product tab rail is the one homepage product-selection
+// surface; every product page stays reachable via the header's "Products"
+// link (-> /products, which lists and links all ten) and the footer's
+// Products column, so removing this duplicate strands no route.
 //
 // The Pricing Preview section (`pricingPlans`) and the final "Start Free
 // Trial" CTA section have also been removed entirely. Per
@@ -57,31 +50,18 @@ export default function HomePage() {
       {/* 1. Product-led cockpit hero (Project Decision Console) */}
       <HomepageCockpitHero />
 
-      {/* 2. Ten-product map, directly below the working preview */}
-      <SectionShell>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Explore the products</Eyebrow>
-          <SectionHeading className="mt-4">Ten products. One platform.</SectionHeading>
-          <p className="mt-6 text-base leading-7 text-relume-ink">
-            Each product works standalone or plugs into the full workflow — so you can start
-            with one and grow into the rest.
-          </p>
-        </div>
-        <div className="mt-12">
-          <CardGrid
-            items={productShowcaseItems.map((p) => ({ ...p, linkLabel: 'Learn more' }))}
-            columns={3}
-          />
-        </div>
-      </SectionShell>
-
-      {/* 3. How It Works */}
+      {/* 2. How It Works */}
       <SectionShell background="surface-secondary">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>How it works</Eyebrow>
-          <SectionHeading className="mt-4">From plot to profit in five steps</SectionHeading>
+          {/* CODEX-SENTINEL-20260918-1700-cockpit-journey-context: "profit"
+              was an unverified outcome claim (Ferrum OS is pre-launch, no
+              real project has completed through it) — "delivery" states
+              what the last workflow step in `howItWorksSteps` (Build &
+              manage) actually is. */}
+          <SectionHeading className="mt-4">From plot to delivery in five steps</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            A clear path from your first land lookup to a finished, funded project.
+            A clear path from your first land lookup through design, cost, and delivery.
           </p>
         </div>
         <div className="mx-auto mt-12 max-w-xl">

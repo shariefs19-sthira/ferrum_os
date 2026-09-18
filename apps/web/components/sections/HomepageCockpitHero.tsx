@@ -5,8 +5,8 @@ import ProductCockpitPreview, { type CockpitProduct } from '../workspace/Product
 import EvidenceStateBadge from './EvidenceStateBadge'
 import HeroPreviewPlaceholder from './HeroPreviewPlaceholder'
 import HeroRoadmapPreview from './HeroRoadmapPreview'
-import { stageCopy } from '../../lib/homepageStages'
 import { productExperienceList, type ProductAccentToken } from '../../lib/productExperienceRegistry'
+import { journeyRows, journeyRowForProduct } from '../../lib/homepageJourney'
 
 // W2-500: all ten products' data now comes from one place
 // (lib/productExperienceRegistry.ts) instead of an inline array here.
@@ -41,7 +41,7 @@ export default function HomepageCockpitHero() {
   // consulted for them (see `isLiveTool`/`showRoadmap` below).
   const [hasInteracted, setHasInteracted] = useState(false)
   const active = products.find((product) => product.id === activeId) ?? products[0]
-  const activeStage = active.stage
+  const activeJourneyRowId = journeyRowForProduct[activeId]
   const isLiveTool = active.tool.kind === 'live-cockpit'
 
   // W2-501: below 1366px the ten-product rail is no longer a horizontally
@@ -257,56 +257,57 @@ export default function HomepageCockpitHero() {
             at `lg`+) rather than duplicating JSX per breakpoint.
           */}
           <div className="grid grid-cols-1 gap-6 p-4 sm:p-6 lg:grid-cols-12 lg:items-start lg:gap-8 lg:p-8">
-            {/* Left column: eyebrow, headline, proposition, stage indicator. */}
-            <div className="order-1 min-w-0 lg:order-1 lg:col-span-5">
+            {/* Left column: the project-journey panel. Replaces the former
+                hero narrative (headline/proposition prose + a four-stage
+                pill indicator) with a compact, permanently visible
+                five-row breakdown of the same underlying concept, at finer
+                grain (the old "Build" stage lumped four different products'
+                different jobs together). This is NOT a second navigation
+                system: the rows are non-interactive -- the tab rail above
+                is still the only clickable product/category control. A row
+                only ever changes emphasis, driven by the same `activeId`
+                the rail and cockpit already share, via
+                lib/homepageJourney.ts's product -> row mapping.
+                lg:col-span-4/8 (roughly one third / two thirds, cockpit
+                dominant) per the required desktop 1366+ proportion. */}
+            <div className="order-1 min-w-0 lg:order-1 lg:col-span-4">
               <p className="border-b border-relume-border pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
-                Ferrum OS · project operating environment
+                What you can do in Ferrum
               </p>
-              <h1 className="mt-3 text-3xl font-semibold tracking-relume-tight text-relume-ink sm:text-4xl lg:text-5xl">
-                See the project. Change the decision. Keep the evidence attached.
+              <h1 className="mt-3 text-2xl font-semibold tracking-relume-tight text-relume-ink sm:text-3xl lg:text-4xl">
+                Move one project through its connected decisions.
               </h1>
-              <p className="mt-3 text-base leading-7 text-relume-muted">
-                Move between land, design, engineering, quantities and delivery through one working cockpit. Every surface below is labelled as live, sample, indicative, gap or roadmap.
+              <p className="mt-3 text-sm leading-6 text-relume-muted">
+                Start at the question you have. Keep the project context visible as you examine feasibility, develop the design, define scope, coordinate delivery, and understand commercial options.
               </p>
 
-              {/* Restrained per-product accent (see productExperienceRegistry.ts's
-                  ProductAccentToken comment): a small dot plus persona/lens line,
-                  not a full background recolor. */}
-              <p className="mt-4 flex items-start gap-2 text-sm leading-6 text-relume-muted" data-product-lens>
-                <span aria-hidden="true" className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${accentDotClass[active.accent]}`} />
-                <span>
-                  <strong className="text-relume-ink">For: </strong>{active.persona}
-                  <br />
-                  <strong className="text-relume-ink">Decision: </strong>{active.lens}
-                </span>
-              </p>
-
-              {/* Stage indicator: Land / Design / Build / Invest, tied to the
-                  active product via lib/homepageStages.ts (sourced through
-                  the registry's `stage` field). Purely indicative (not
-                  independently tappable), so no touch-target constraint
-                  applies to it (docs/design/HOMEPAGE_REDESIGN_2026.md §5.4,
-                  "Mobile section sequence"). relume-accent is intentionally
-                  not used here — the selected stage pill uses relume-ink,
-                  the same "one selected-state treatment" token as the
-                  product tabs, keeping relume-accent reserved for evidence
-                  badges only. */}
-              <div className="mt-5 flex flex-wrap gap-2" aria-label="Project lifecycle stage" data-stage-indicator>
-                {stageCopy.map((stage) => (
-                  <span
-                    key={stage.title}
-                    aria-current={stage.title === activeStage ? 'true' : undefined}
-                    title={stage.body}
-                    className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors duration-200 ${
-                      stage.title === activeStage
-                        ? 'border-relume-ink bg-relume-ink text-white'
-                        : 'border-relume-border text-relume-muted'
-                    }`}
-                  >
-                    {stage.title}
-                  </span>
-                ))}
-              </div>
+              <ul className="mt-5 space-y-2" aria-label="Project journey" data-journey-panel>
+                {journeyRows.map((row) => {
+                  const isActiveRow = row.id === activeJourneyRowId
+                  return (
+                    <li
+                      key={row.id}
+                      aria-current={isActiveRow ? 'true' : undefined}
+                      data-journey-row={row.id}
+                      data-journey-row-active={isActiveRow || undefined}
+                      className={`rounded-xl border px-3 py-2.5 transition-colors duration-200 ${
+                        isActiveRow ? 'border-relume-ink bg-relume-ink text-white' : 'border-relume-border text-relume-ink'
+                      }`}
+                    >
+                      <p className={`text-sm font-semibold ${isActiveRow ? 'text-white' : 'text-relume-ink'}`}>{row.title}</p>
+                      <p className={`mt-1 text-xs leading-5 ${isActiveRow ? 'text-white/80' : 'text-relume-muted'}`}>{row.body}</p>
+                      {isActiveRow && (
+                        <p className="mt-2 flex items-start gap-2 text-xs leading-5 text-white/80" data-journey-row-active-product>
+                          <span aria-hidden="true" className={`mt-1 h-2 w-2 shrink-0 rounded-full ${accentDotClass[active.accent]}`} />
+                          <span>
+                            <strong className="text-white">{active.label}</strong> — {active.persona}
+                          </span>
+                        </p>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
             </div>
 
             {/* Right column: the selected product's preview. Three states:
@@ -328,7 +329,7 @@ export default function HomepageCockpitHero() {
               id="homepage-cockpit-stage"
               role="tabpanel"
               aria-label={`${active.label} cockpit`}
-              className={`order-2 min-w-0 border-t-2 lg:order-2 lg:col-span-7 ${accentBorderClass[active.accent]}`}
+              className={`order-2 min-w-0 border-t-2 lg:order-2 lg:col-span-8 ${accentBorderClass[active.accent]}`}
               data-home-cockpit-product={active.id}
             >
               {!isLiveTool ? (
