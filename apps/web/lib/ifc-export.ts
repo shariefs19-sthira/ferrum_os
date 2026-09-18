@@ -18,8 +18,14 @@
 // perimeter walls (a rectangle from plot_width_m x plot_depth_m), one slab,
 // one space, and one door-sized opening in the south wall (via
 // IfcRelVoidsElement, no boolean CSG - openings are related, not subtracted).
-
-type IfcAPIType = import('web-ifc').IfcAPI
+//
+// This module is imported directly by the "use client" ExportBar component,
+// so it stays free of any `web-ifc` runtime import - exportMassingToIfc()
+// below is a pure STEP/SPFF text writer with zero dependencies. The
+// web-ifc-backed round-trip parser (countIfcGeometry) lives in the sibling
+// ifc-export-verify.ts instead: it forces Node's CommonJS require path via
+// `import('module')`, which webpack/Turbopack fails to resolve when it ends
+// up in a client bundle, even on a code path that never runs in the browser.
 
 export type MassingModel = {
   plot_width_m: number
@@ -261,41 +267,4 @@ export function exportMassingToIfc(model: MassingModel): Uint8Array {
   )
 
   return new TextEncoder().encode(s.toStepText())
-}
-
-/**
- * Parses IFC bytes back via web-ifc and counts the four element types the
- * export produces. Used by the round-trip test; also usable as a general
- * "does this look like a real IFC file" sanity check.
- */
-export async function countIfcGeometry(bytes: Uint8Array): Promise<GeometryCounts> {
-  const { IfcAPI, IFCWALLSTANDARDCASE, IFCSLAB, IFCSPACE, IFCOPENINGELEMENT } = await getWebIfc()
-  const api: IfcAPIType = new IfcAPI()
-  await api.Init()
-  try {
-    const modelID = api.OpenModel(bytes)
-    if (modelID < 0) throw new Error('web-ifc failed to open the exported model')
-    const counts: GeometryCounts = {
-      walls: api.GetLineIDsWithType(modelID, IFCWALLSTANDARDCASE).size(),
-      slabs: api.GetLineIDsWithType(modelID, IFCSLAB).size(),
-      spaces: api.GetLineIDsWithType(modelID, IFCSPACE).size(),
-      openings: api.GetLineIDsWithType(modelID, IFCOPENINGELEMENT).size(),
-    }
-    api.CloseModel(modelID)
-    return counts
-  } finally {
-    api.Dispose?.()
-  }
-}
-
-// web-ifc ships separate node/browser entry points behind package.json's
-// "exports" map (require -> web-ifc-api-node.js, import -> the browser
-// build, which tries to fetch its .wasm by URL and does not work under
-// plain Node/Workers). Force the "require" condition via createRequire so
-// this resolves to the Node build regardless of how this module itself
-// was imported (CJS test runner or ESM).
-async function getWebIfc() {
-  const { createRequire } = await import('module')
-  const require = createRequire(import.meta.url)
-  return require('web-ifc') as typeof import('web-ifc')
 }
