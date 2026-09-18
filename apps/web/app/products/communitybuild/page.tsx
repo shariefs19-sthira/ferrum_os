@@ -28,7 +28,7 @@ const howItWorksSteps = [
 const integrationItems = [
   { title: 'LandIntel', body: 'Start from verified land feasibility data.' },
   { title: 'InvestFlow', body: 'Model returns for the fractional build.' },
-  { title: 'BuildOS', body: 'Track construction against the project.' },
+  { title: 'Ferrum Projects', body: 'Track construction against the project.' },
 ]
 
 const pricingPlans = [

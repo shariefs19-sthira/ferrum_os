@@ -34,7 +34,7 @@ export type ProductAccentToken = 'relume-command' | 'relume-steel'
 
 /**
  * Either the real, working tool that renders for this product today
- * (every product except BuildOS/ProcureHub/CommunityBuild routes through
+ * (every product except Ferrum Projects/ProcureHub/CommunityBuild routes through
  * ProductCockpitPreview -> WorkspaceCockpit, confirmed live by reading
  * apps/web/worker.ts's routes it calls into), or an explicit roadmap/gap
  * marker with a one-line reason — never a fake interactive substitute.
@@ -75,8 +75,8 @@ export type ProductExperience = {
   primaryCta: { label: string; href: string }
 }
 
-const roadmapReason = (label: string) =>
-  `${label}'s own product page (apps/web/app/products/${label.toLowerCase().replace(/\s+/g, '')}/page.tsx) discloses zero "(live)" features — every workflow on it is explicitly roadmap.`
+const roadmapReason = (label: string, routeOverride?: string) =>
+  `${label}'s own product page (apps/web/app/products/${routeOverride ?? label.toLowerCase().replace(/\s+/g, '')}/page.tsx) discloses zero "(live)" features — every workflow on it is explicitly roadmap.`
 
 export const productExperienceRegistry: Record<CockpitProduct, ProductExperience> = {
   landintel: {
@@ -160,18 +160,18 @@ export const productExperienceRegistry: Record<CockpitProduct, ProductExperience
   },
   buildos: {
     id: 'buildos',
-    label: 'BuildOS',
+    label: 'Ferrum Projects',
     stage: stageForProduct.buildos,
     persona: 'Construction project manager / site team',
     lens: 'Not applicable yet — no live workflow exists to make a decision with.',
     accent: 'relume-steel',
     defaultView: 'space',
-    tool: { kind: 'ROADMAP', reason: roadmapReason('BuildOS') },
+    tool: { kind: 'ROADMAP', reason: roadmapReason('Ferrum Projects', 'ferrum-projects') },
     controls: [],
     outputCards: [],
     evidenceState: 'ROADMAP',
-    provenance: "BuildOS's own product page states plainly: \"nothing on it is buildable or usable today.\" No task management, RFIs, QA/QC, progress tracking or MB/RA billing exist anywhere in this codebase.",
-    primaryCta: { label: 'See the BuildOS roadmap', href: '/products/buildos' },
+    provenance: "Ferrum Projects' own product page states plainly: \"nothing on it is buildable or usable today.\" No task management, RFIs, QA/QC, progress tracking or MB/RA billing exist anywhere in this codebase.",
+    primaryCta: { label: 'See the Ferrum Projects roadmap', href: '/products/ferrum-projects' },
   },
   procurehub: {
     id: 'procurehub',

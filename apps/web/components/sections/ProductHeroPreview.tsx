@@ -186,7 +186,7 @@ export default function ProductHeroPreview({ product }: { product: ProductPrevie
       <PreviewShell
         tool="Delivery workspace status"
         status="Roadmap"
-        note="No live BuildOS workflow or sample project record is presented here."
+        note="No live Ferrum Projects workflow or sample project record is presented here."
       >
         <RoadmapRows rows={['Project workspace', 'RFIs and submittals', 'QA/QC and HSE']} />
       </PreviewShell>

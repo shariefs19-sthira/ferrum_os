@@ -9,7 +9,7 @@
 import { PRODUCTS, TOOLS, GENERAL, type CatalogEntry } from '../concierge/catalog'
 import { faqs } from '../../app/resources/faq/data'
 import { STANDARDS } from '../resources/registry'
-import { productFeatureList, productLabels } from '../productFeatureRegistry'
+import { productFeatureList, productLabels, productRoutes } from '../productFeatureRegistry'
 
 export type CorpusDoc = {
   id: string
@@ -56,7 +56,7 @@ const STANDARDS_DOCS: CorpusDoc[] = STANDARDS.map((standard) => ({
 export const PRODUCT_FEATURE_DOCS: CorpusDoc[] = productFeatureList.map((feature) => ({
   id: `product-feature:${feature.productId}:${feature.id}`,
   title: `${productLabels[feature.productId]}: ${feature.title}`,
-  href: `/products/${feature.productId}`,
+  href: `/products/${productRoutes[feature.productId]}`,
   text: `${feature.title} is ${feature.availability.replace('_', ' ').toLowerCase()} in ${productLabels[feature.productId]}. ${feature.body}`,
   keywords: [feature.productId, productLabels[feature.productId], feature.title, feature.availability, ...feature.keywords],
 }))

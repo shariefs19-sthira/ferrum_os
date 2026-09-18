@@ -19,7 +19,7 @@ export const PRODUCTS: CatalogEntry[] = [
   { id: 'structura', label: 'Structura', href: '/products/structura', keywords: ['structural', 'is 456', 'is 800', 'is code', 'reinforcement', 'column', 'beam', 'compliance'] },
   { id: 'boq-pro', label: 'BOQ Pro', href: '/products/boq-pro', keywords: ['boq', 'estimate', 'bill of quantities', 'cost'] },
   { id: 'promarket', label: 'ProMarket', href: '/products/promarket', keywords: ['rate', 'material rate', 'labor rate', 'compare rates', 'hire', 'professional'] },
-  { id: 'buildos', label: 'BuildOS', href: '/products/buildos', keywords: ['project management', 'buildos', 'site diary'] },
+  { id: 'buildos', label: 'Ferrum Projects', href: '/products/ferrum-projects', keywords: ['project management', 'buildos', 'ferrum projects', 'site diary'] },
   { id: 'procurehub', label: 'ProcureHub', href: '/products/procurehub', keywords: ['procurement', 'supplier', 'material'] },
   { id: 'investflow', label: 'InvestFlow', href: '/products/investflow', keywords: ['irr', 'npv', 'investment', 'return', 'invest'] },
   { id: 'communitybuild', label: 'CommunityBuild', href: '/products/communitybuild', keywords: ['fractional', 'spv', 'community', 'cde', 'common data environment'] },

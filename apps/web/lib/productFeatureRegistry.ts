@@ -21,11 +21,32 @@ export const productLabels: Record<CockpitProduct, string> = {
   structura: 'Structura',
   'boq-pro': 'BOQ Pro',
   promarket: 'ProMarket',
-  buildos: 'BuildOS',
+  buildos: 'Ferrum Projects',
   procurehub: 'ProcureHub',
   investflow: 'InvestFlow',
   communitybuild: 'CommunityBuild',
   transact: 'Transact',
+}
+
+/**
+ * Compatibility mapping: registry key -> canonical `/products/<route>` slug.
+ * The `buildos` internal identifier (CockpitProduct/ProductControlId, stored
+ * cockpit state, test ids) is intentionally left unrenamed to avoid risking
+ * stored state; only its outward route and label moved to Ferrum Projects.
+ * Every href built from a registry key should go through this map rather
+ * than assuming `id === route`.
+ */
+export const productRoutes: Record<CockpitProduct, string> = {
+  landintel: 'landintel',
+  designstudio: 'designstudio',
+  structura: 'structura',
+  'boq-pro': 'boq-pro',
+  promarket: 'promarket',
+  buildos: 'ferrum-projects',
+  procurehub: 'procurehub',
+  investflow: 'investflow',
+  communitybuild: 'communitybuild',
+  transact: 'transact',
 }
 
 const available = (id: string, title: string, body: string, keywords: string[] = []): ProductFeature => ({ id, title, body, availability: 'AVAILABLE', keywords })

@@ -61,7 +61,7 @@ export function createLiveEmbeds(input: LiveEmbedInput): LiveEmbed[] {
     },
     {
       step: "build",
-      href: "/products/buildos",
+      href: "/products/ferrum-projects",
       status: "INDICATIVE",
       caption: "Planned sequence quantities, not reported site progress",
       phases: [

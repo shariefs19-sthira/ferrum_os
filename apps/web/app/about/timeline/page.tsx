@@ -35,8 +35,8 @@ const milestones: Milestone[] = [
   {
     year: '2025',
     phase: 'Execution',
-    title: 'BuildOS and Structura go live',
-    detail: 'BuildOS gave teams a place to coordinate workfronts and milestones, while Structura brought structural analysis into the same operating model.'
+    title: 'Ferrum Projects and Structura go live',
+    detail: 'Ferrum Projects gave teams a place to coordinate workfronts and milestones, while Structura brought structural analysis into the same operating model.'
   },
   {
     year: '2025',

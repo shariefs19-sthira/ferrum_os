@@ -13,7 +13,7 @@ export default function ModelIntakePanel() {
         <div className="grid gap-5 border-b border-relume-border p-4 sm:p-6 xl:grid-cols-[minmax(0,1fr)_minmax(20rem,0.42fr)] xl:items-end">
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">DesignStudio + BuildOS · preview on ingestion</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">DesignStudio + Ferrum Projects · preview on ingestion</p>
               <span className="rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Roadmap contract</span>
             </div>
             <h2 id="model-intake-heading" className="mt-3 text-2xl font-semibold tracking-relume-tight text-relume-command sm:text-3xl">A rendered model is inspected, not automatically validated</h2>

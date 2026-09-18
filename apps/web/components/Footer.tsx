@@ -18,7 +18,7 @@ const products = [
   { name: 'Structura', href: '/products/structura' },
   { name: 'BOQ Pro', href: '/products/boq-pro' },
   { name: 'ProMarket', href: '/products/promarket' },
-  { name: 'BuildOS', href: '/products/buildos' },
+  { name: 'Ferrum Projects', href: '/products/ferrum-projects' },
   { name: 'ProcureHub', href: '/products/procurehub' },
   { name: 'InvestFlow', href: '/products/investflow' },
   { name: 'CommunityBuild', href: '/products/communitybuild' },

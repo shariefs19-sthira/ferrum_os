@@ -23,7 +23,7 @@ const howItWorksSteps = [
 const integrationItems = [
   { title: 'LandIntel', body: 'Model returns from land feasibility data.' },
   { title: 'CommunityBuild', body: 'Feed fractional investment deals into the model.' },
-  { title: 'BuildOS', body: 'Track costs against your investment model.' },
+  { title: 'Ferrum Projects', body: 'Track costs against your investment model.' },
 ]
 
 const pricingPlans = [

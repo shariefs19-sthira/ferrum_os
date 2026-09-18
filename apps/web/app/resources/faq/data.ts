@@ -12,7 +12,7 @@ export const faqs = [
   {
     category: 'Reading',
     question: 'Do I need a Ferrum OS account to read the resources?',
-    answer: 'No. All articles, research cases, the standards navigator, and this FAQ are public. Account access is only required to use the live product workflows such as LandIntel lookups, BOQ generation, and BuildOS project views.'
+    answer: 'No. All articles, research cases, the standards navigator, and this FAQ are public. Account access is only required to use the live product workflows such as LandIntel lookups, BOQ generation, and Ferrum Projects project views.'
   },
   {
     category: 'Citations',

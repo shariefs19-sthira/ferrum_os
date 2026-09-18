@@ -12,7 +12,7 @@ type State = "loading" | "ready" | "unavailable"
 const stages = [
   ["Land", "/products/landintel", "TEST MODE", ["land", "ulpin", "parcel"]], ["Design", "/products/designstudio", "TEST MODE", ["design", "plan"]],
   ["Structure", "/products/structura", "TEST MODE", ["struct", "is-code"]], ["Cost", "/products/boq-pro", "TEST MODE", ["boq", "cost", "estimate"]],
-  ["Procure", "/products/procurehub", "ROADMAP", ["procure", "vendor"]], ["Build", "/products/buildos", "ROADMAP", ["build", "site"]],
+  ["Procure", "/products/procurehub", "ROADMAP", ["procure", "vendor"]], ["Build", "/products/ferrum-projects", "ROADMAP", ["build", "site", "ferrum projects"]],
   ["Invest", "/products/investflow", "ROADMAP", ["invest", "irr", "npv"]], ["Transact", "/products/transact", "ROADMAP", ["transact", "title"]],
 ] as const
 

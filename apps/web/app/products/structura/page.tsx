@@ -30,7 +30,7 @@ const howItWorksSteps = [
 const integrationItems = [
   { title: 'DesignStudio', body: 'Analyse plans straight from the design studio.' },
   { title: 'BOQ Pro', body: 'Cost your structure from the analysis.' },
-  { title: 'BuildOS', body: 'Manage construction against the approved design.' },
+  { title: 'Ferrum Projects', body: 'Manage construction against the approved design.' },
 ]
 
 const pricingPlans = [

@@ -14,7 +14,7 @@ const products = [
   { title: 'Structura', body: 'Structural analysis & IS compliance', href: '/products/structura' },
   { title: 'BOQ Pro', body: 'Automated BOQ & cost estimation', href: '/products/boq-pro' },
   { title: 'ProMarket', body: 'Verified professionals marketplace', href: '/products/promarket' },
-  { title: 'BuildOS', body: 'Project management & digital PMC', href: '/products/buildos' },
+  { title: 'Ferrum Projects', body: 'Project management & digital PMC', href: '/products/ferrum-projects' },
   { title: 'ProcureHub', body: 'Material procurement & suppliers', href: '/products/procurehub' },
   { title: 'InvestFlow', body: 'Investment forecasting', href: '/products/investflow' },
   { title: 'CommunityBuild', body: 'Fractional development', href: '/products/communitybuild' },

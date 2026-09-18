@@ -366,7 +366,7 @@ export default function HomepageCockpitHero() {
 
             {/* Right column: the selected product's preview. Two states,
                 both rendered automatically -- no click gate:
-                  - registry `tool.kind !== 'live-cockpit'` (BuildOS,
+                  - registry `tool.kind !== 'live-cockpit'` (Ferrum Projects,
                     ProcureHub, CommunityBuild): the honest HeroRoadmapPreview
                     — there is no real cockpit to mount for these three.
                   - live-cockpit products: ProductCockpitPreview ->
