@@ -13,7 +13,9 @@ import { buildComplianceChainNodes } from '../../lib/diagramGen/complianceChain'
 import { renderFlowDiagramSvg } from '../../lib/diagramGen/svgFlowDiagram'
 import ExportBar from './ExportBar'
 import PlanElevationView from './PlanElevationView'
+import OpeningInspector from './OpeningInspector'
 import { measureBoq } from '../../lib/workspace/measuredBoq'
+import { applyOpeningEdit, type OpeningEdit, withOpeningEdits } from '../../lib/workspace/openings'
 import RegistryControls from './RegistryControls'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
@@ -118,13 +120,15 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [showExtract, setShowExtract] = useState(false)
   const [landUse, setLandUse] = useState<LandUse>('Residential')
   const [permalinkStatus, setPermalinkStatus] = useState('')
+  const [openingEdits, setOpeningEdits] = useState<Record<string, OpeningEdit>>({})
+  const [selectedOpeningId, setSelectedOpeningId] = useState<string>()
   const parcelContext = useParcelContext()
   const rulesetState = parcelContext && getRulesetForState(parcelContext.state) ? parcelContext.state : 'Karnataka'
   const ruleset = getRulesetForState(rulesetState)
   const siteContextLabel = parcelContext ? `${parcelContext.district}, ${parcelContext.state}` : 'SAMPLE LOCATION Bengaluru, Karnataka'
   const authorityEvidence = useMemo(() => getSiteConstraintsEvidence(parcelContext), [parcelContext])
   const landRule = ruleset?.land_use_rules[landUse]
-  const plan = useMemo(() => generateStudioPlan({ ...parameters, maxHeightM: landRule?.max_height_m }), [parameters, landRule?.max_height_m])
+  const plan = useMemo(() => withOpeningEdits(generateStudioPlan({ ...parameters, maxHeightM: landRule?.max_height_m }), openingEdits), [parameters, landRule?.max_height_m, openingEdits])
   const activeRooms = plan.rooms.filter((room) => room.floor === activeFloor)
   const grossArea = plan.buildingWidthM * plan.buildingDepthM * plan.floors
   const measuredBoq = useMemo(() => measureBoq(plan), [plan])
@@ -196,6 +200,14 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const update = (key: keyof StudioParameters, value: number) => {
     setParameters((current) => ({ ...current, [key]: value }))
     if (key === 'floors') setActiveFloor((floor) => Math.min(floor, value))
+  }
+  const selectedOpening = plan.openings?.find((opening) => opening.id === selectedOpeningId)
+  const commitOpening = (edit: OpeningEdit) => {
+    if (!selectedOpening) return 'Select an opening before editing its properties.'
+    const result = applyOpeningEdit(selectedOpening, plan.rooms.find((room) => room.id === selectedOpening.roomId), plan.floorHeightM, edit)
+    if (result.error && !result.clamped) return result.error
+    setOpeningEdits((current) => ({ ...current, [selectedOpening.id]: { ...current[selectedOpening.id], widthM: result.opening.widthM, heightM: result.opening.heightM, sillM: result.opening.sillM, configuration: result.opening.configuration } }))
+    return result.error
   }
   useEffect(() => {
     const stored = window.localStorage.getItem('ferrum-area-unit')
@@ -422,8 +434,9 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage('use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>
           <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
-            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} />}
+            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} onSelectOpening={(openingId) => setSelectedOpeningId(openingId)} />}
           </div>
+          {view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
           {controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
           {fullBleedEmbed && <>
             <button type="button" onClick={() => setShowExtract((value) => !value)} aria-expanded={showExtract} className="absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow-sm" data-extract-toggle>

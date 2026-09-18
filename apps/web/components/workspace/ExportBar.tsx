@@ -27,8 +27,21 @@ export default function ExportBar({ plan }: { plan: StudioPlan }) {
         height: room.depthM,
       })),
     ]
-    download(writeDxf({ rects }), 'application/dxf', 'ferrum-plan.dxf')
-    setStatus(`DXF exported with ${rects.length - 1} ground-floor rooms.`)
+    const lines = (plan.openings ?? []).filter((opening) => opening.floor === 1).flatMap((opening) => {
+      const room = plan.rooms.find((candidate) => candidate.id === opening.roomId)
+      if (!room) return []
+      const layer = opening.kind === 'door' ? 'DOORS' : 'WINDOWS'
+      if (opening.hostEdge === 'north' || opening.hostEdge === 'south') {
+        const y = plan.setbackM + room.yM + (opening.hostEdge === 'north' ? 0 : room.depthM)
+        const x = plan.setbackM + room.xM + opening.positionM
+        return [{ layer, x1: x, y1: y, x2: x + opening.widthM, y2: y }]
+      }
+      const x = plan.setbackM + room.xM + (opening.hostEdge === 'west' ? 0 : room.widthM)
+      const y = plan.setbackM + room.yM + opening.positionM
+      return [{ layer, x1: x, y1: y, x2: x, y2: y + opening.widthM }]
+    })
+    download(writeDxf({ rects, lines }), 'application/dxf', 'ferrum-plan.dxf')
+    setStatus(`DXF exported with ${rects.length - 1} ground-floor rooms and ${lines.length} opening segments on DOORS/WINDOWS layers.`)
   }
 
   useEffect(() => {

@@ -10,7 +10,10 @@ export function measureBoq(plan:StudioPlan,catalog:CatalogItem[]=workspaceBoqCat
  const footprint=plan.buildingWidthM*plan.buildingDepthM
  const gross=footprint*plan.floors
  const wallFace=2*(plan.buildingWidthM+plan.buildingDepthM)*plan.floorHeightM*plan.floors
- const quantities=[footprint*.45,footprint*.075,gross*.125,gross*.125*95,wallFace*.85,wallFace*1.7,gross,wallFace*1.7+gross,plan.rooms.length,plan.rooms.length]
- const bases=["footprint × 0.45 m","footprint × 0.075 m","gross floor area × 0.125 m","RCC volume × 95 kg/m³","perimeter wall face × 85%","perimeter wall face × 1.7 faces","gross floor area","plaster area + ceilings","one per generated room","one per generated room"]
+ const openings=plan.openings
+ const doorCount=openings?openings.filter(opening=>opening.kind==="door").length:plan.rooms.length
+ const windowCount=openings?openings.filter(opening=>opening.kind==="window").length:plan.rooms.length
+ const quantities=[footprint*.45,footprint*.075,gross*.125,gross*.125*95,wallFace*.85,wallFace*1.7,gross,wallFace*1.7+gross,doorCount,windowCount]
+ const bases=["footprint × 0.45 m","footprint × 0.075 m","gross floor area × 0.125 m","RCC volume × 95 kg/m³","perimeter wall face × 85%","perimeter wall face × 1.7 faces","gross floor area","plaster area + ceilings",openings?"count of plan.openings where kind = door":"legacy plan fallback: one per generated room",openings?"count of plan.openings where kind = window":"legacy plan fallback: one per generated room"]
  return catalog.slice(0,10).map((item,index)=>{const rate=item.price?.provenance.status==="VERIFIED-PUBLIC"?item.price.amountInr:null;const quantity=Number(quantities[index].toFixed(item.hooks.unit==="nos"?0:2));return{item,quantity,unit:item.hooks.unit,rateInr:rate,amountInr:rate===null?null:Number((quantity*rate).toFixed(2)),basis:bases[index]}})
 }
