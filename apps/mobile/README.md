@@ -1,7 +1,7 @@
 # Ferrum OS mobile shell
 
 This is the Android Capacitor shell for the deployed Ferrum OS origin:
-`https://ferrum-os.shariefsatyala.workers.dev`.
+`https://ferrumos-preview.shariefsatyala.workers.dev`.
 
 The shell uses a remote HTTPS origin. It does not duplicate the web
 application or its data model. Cleartext is disabled and navigation is
