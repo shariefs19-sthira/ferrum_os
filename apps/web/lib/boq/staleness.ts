@@ -1,4 +1,4 @@
-import { isSameSourceRevision } from './lineage'
+import { isSameSourceRevision, validateLineageRecord } from './lineage'
 import type { CheckerState, SourceDocumentRevision, TakeoffLineageRecord } from './types'
 
 /** Thrown when a caller tries to reconcile a lineage record against a
@@ -67,6 +67,20 @@ export class StaleLineageError extends Error {
   }
 }
 
+/** Thrown when a caller tries to check a record that fails the lineage
+ * contract. Keeping the issues attached lets an intake or review layer show
+ * conservative remediation without ever treating malformed stored data as
+ * reviewed. */
+export class InvalidLineageRecordError extends Error {
+  readonly issues: ReadonlyArray<string>
+
+  constructor(issues: ReadonlyArray<string>) {
+    super('cannot mark checked: lineage record failed validation')
+    this.name = 'InvalidLineageRecordError'
+    this.issues = issues
+  }
+}
+
 export function requestCheck(record: TakeoffLineageRecord): TakeoffLineageRecord {
   if (record.checkerState === 'STALE_UPSTREAM_DATA') throw new StaleLineageError(record.lineId)
   return { ...record, checkerState: 'CHECK_REQUIRED' }
@@ -74,5 +88,10 @@ export function requestCheck(record: TakeoffLineageRecord): TakeoffLineageRecord
 
 export function markChecked(record: TakeoffLineageRecord): TakeoffLineageRecord {
   if (record.checkerState === 'STALE_UPSTREAM_DATA') throw new StaleLineageError(record.lineId)
+  if (record.checkerState !== 'CHECK_REQUIRED') {
+    throw new Error(`line ${record.lineId} must be CHECK_REQUIRED before it can be marked CHECKED`)
+  }
+  const issues = validateLineageRecord(record)
+  if (issues.length > 0) throw new InvalidLineageRecordError(issues)
   return { ...record, checkerState: 'CHECKED' }
 }

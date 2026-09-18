@@ -91,6 +91,31 @@ describe('validateLineageRecord', () => {
     expect(issues).toContain('dimensionChain.steps is empty')
   })
 
+  it('rejects malformed checksum, formula, units, dimensions, and geometry coordinates', () => {
+    const record = buildLineageRecord(baseInput())
+    const broken = {
+      ...record,
+      sourceDocument: { ...record.sourceDocument, checksumSha256: 'not-a-checksum' },
+      unit: '  ',
+      measurementGeometryRef: {
+        ...record.measurementGeometryRef,
+        coordinates: [{ x: Number.NaN, y: Number.POSITIVE_INFINITY }],
+      },
+      dimensionChain: {
+        formula: ' ',
+        steps: [{ label: 'length', valueM: Number.NEGATIVE_INFINITY, origin: 'MEASURED' as const }],
+      },
+    }
+
+    expect(validateLineageRecord(broken)).toEqual(expect.arrayContaining([
+      'sourceDocument.checksumSha256 must be a 64-character hexadecimal SHA-256 checksum',
+      'unit is empty',
+      'measurementGeometryRef.coordinates[0] must have finite x and y values',
+      'dimensionChain.steps[0].valueM must be finite',
+      'dimensionChain.formula is empty',
+    ]))
+  })
+
   it('flags a lineId that no longer matches its own document/element/item triple', () => {
     const record = buildLineageRecord(baseInput())
     const tampered = { ...record, lineId: 'wrong-id' }

@@ -35,18 +35,34 @@ export function buildLineageRecord(input: NewTakeoffLineageInput): TakeoffLineag
  * failing fast on the first one, so a caller can report a complete list. */
 export function validateLineageRecord(record: TakeoffLineageRecord): string[] {
   const issues: string[] = []
+  if (!record.sourceDocument.documentId) issues.push('sourceDocument.documentId is empty')
+  if (!/^[a-f0-9]{64}$/i.test(record.sourceDocument.checksumSha256)) {
+    issues.push('sourceDocument.checksumSha256 must be a 64-character hexadecimal SHA-256 checksum')
+  }
   if (!record.elementId) issues.push('elementId is empty')
   if (!record.boqItemId) issues.push('boqItemId is empty')
   if (!record.floorOrZone) issues.push('floorOrZone is empty')
+  if (!record.unit.trim()) issues.push('unit is empty')
   if (record.measurementGeometryRef.documentId !== record.sourceDocument.documentId) {
     issues.push('measurementGeometryRef.documentId does not match sourceDocument.documentId')
   }
   if (record.measurementGeometryRef.coordinates.length === 0) {
     issues.push('measurementGeometryRef.coordinates is empty')
   }
+  record.measurementGeometryRef.coordinates.forEach((coordinate, index) => {
+    if (!Number.isFinite(coordinate.x) || !Number.isFinite(coordinate.y)) {
+      issues.push(`measurementGeometryRef.coordinates[${index}] must have finite x and y values`)
+    }
+  })
   if (record.dimensionChain.steps.length === 0) {
     issues.push('dimensionChain.steps is empty')
   }
+  record.dimensionChain.steps.forEach((step, index) => {
+    if (!Number.isFinite(step.valueM)) {
+      issues.push(`dimensionChain.steps[${index}].valueM must be finite`)
+    }
+  })
+  if (!record.dimensionChain.formula.trim()) issues.push('dimensionChain.formula is empty')
   if (!Number.isFinite(record.quantity) || record.quantity < 0) {
     issues.push('quantity must be a finite, non-negative number')
   }

@@ -3,6 +3,7 @@ import { buildLineageRecord } from './lineage'
 import type { NewTakeoffLineageInput } from './lineage'
 import {
   DocumentMismatchError,
+  InvalidLineageRecordError,
   StaleLineageError,
   isLineStale,
   markChecked,
@@ -128,5 +129,41 @@ describe('checker-state lifecycle', () => {
     const stale = { ...buildLineageRecord(baseInput({ checkerState: 'CHECKED' })), checkerState: 'STALE_UPSTREAM_DATA' as const }
     expect(() => requestCheck(stale)).toThrow(StaleLineageError)
     expect(() => markChecked(stale)).toThrow(StaleLineageError)
+  })
+
+  it('refuses to skip CHECK_REQUIRED when marking a DRAFT record as checked', () => {
+    const draft = buildLineageRecord(baseInput())
+    expect(() => markChecked(draft)).toThrow(/must be CHECK_REQUIRED/)
+  })
+
+  it('refuses invalid deserialized records even when their predecessor is CHECK_REQUIRED', () => {
+    const checkRequired = requestCheck(buildLineageRecord(baseInput()))
+    const invalidDeserialized = {
+      ...checkRequired,
+      sourceDocument: { ...checkRequired.sourceDocument, checksumSha256: 'not-a-checksum' },
+      unit: '',
+      measurementGeometryRef: {
+        ...checkRequired.measurementGeometryRef,
+        coordinates: [{ x: Number.NaN, y: 0 }],
+      },
+      dimensionChain: {
+        formula: '',
+        steps: [{ label: 'length', valueM: Number.POSITIVE_INFINITY, origin: 'MEASURED' as const }],
+      },
+    }
+
+    expect(() => markChecked(invalidDeserialized)).toThrow(InvalidLineageRecordError)
+    try {
+      markChecked(invalidDeserialized)
+    } catch (error) {
+      expect(error).toBeInstanceOf(InvalidLineageRecordError)
+      expect((error as InvalidLineageRecordError).issues).toEqual(expect.arrayContaining([
+        'sourceDocument.checksumSha256 must be a 64-character hexadecimal SHA-256 checksum',
+        'unit is empty',
+        'measurementGeometryRef.coordinates[0] must have finite x and y values',
+        'dimensionChain.steps[0].valueM must be finite',
+        'dimensionChain.formula is empty',
+      ]))
+    }
   })
 })
