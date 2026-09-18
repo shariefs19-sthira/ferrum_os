@@ -13,6 +13,7 @@ import ClimateYearPanel from '../../../components/landintel/ClimateYearPanel'
 import HistoryCenturyPanel from '../../../components/landintel/HistoryCenturyPanel'
 import SuitabilityLayerPanel from '../../../components/landintel/SuitabilityLayerPanel'
 import MapComposerGate from '../../../components/landintel/MapComposerGate'
+import TerrainIntelligencePanel from '../../../components/landintel/TerrainIntelligencePanel'
 import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
@@ -101,6 +102,7 @@ export default function LandIntelPage() {
           </ProductCockpitPreview>
         </div>
         <SuitabilityLayerPanel />
+        <TerrainIntelligencePanel />
         <MapComposerGate />
         {/* Moved directly beside the working lookup tool (previously two
             full sections lower, after the Zoning/Soil/Climate/History

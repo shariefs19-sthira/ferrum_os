@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { PRODUCT_FEATURE_DOCS } from './ai/corpus'
+import { answerProductKnowledge } from './ai/productKnowledge'
 import { productFeatureList, productFeatureRegistry } from './productFeatureRegistry'
 
 describe('product feature registry', () => {
@@ -20,6 +21,14 @@ describe('product feature registry', () => {
   it('automatically exposes every registered feature to SUTRA', () => {
     expect(PRODUCT_FEATURE_DOCS).toHaveLength(productFeatureList.length)
     expect(new Set(PRODUCT_FEATURE_DOCS.map((doc) => doc.id)).size).toBe(productFeatureList.length)
+  })
+
+  it('grounds SUTRA terrain explanations in the LandIntel registry', () => {
+    const answer = answerProductKnowledge('Explain LiDAR terrain intelligence in LandIntel')
+    expect(answer?.source).toBe('retrieval')
+    expect(answer?.text).toContain('Governed terrain intelligence')
+    expect(answer?.text).toContain('INDICATIVE until validated against a project survey')
+    expect(answer?.citations).toEqual([{ title: 'LandIntel: Governed terrain intelligence', href: '/products/landintel' }])
   })
 
   it('keeps every product page on the shared registry', () => {
