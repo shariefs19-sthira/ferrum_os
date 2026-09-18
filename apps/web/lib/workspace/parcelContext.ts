@@ -73,11 +73,39 @@ const ANALYSIS_TTL_MS = 5 * 60 * 1000
 const analysisCache = new Map<string, { expiresAt: number; result: AnalysisResult }>()
 const analysisLoading = new Set<string>()
 
-const analysisId = (context: ParcelContext) => context.ulpin?.trim() || `${context.method}:${context.state}:${context.district}:${context.area_sqm}:${context.land_use}`
+export const analysisId = (context: ParcelContext) => context.ulpin?.trim() || `${context.method}:${context.state}:${context.district}:${context.area_sqm}:${context.land_use}`
 
 /** Returns whether analysis is currently loading for this parcel context. */
 export function isParcelAnalysisLoading(context: ParcelContext): boolean {
   return analysisLoading.has(analysisId(context))
+}
+
+/**
+ * Explicit deeper-analysis lifecycle a UI can render directly, rather than a
+ * bare loading boolean. QUEUED covers the brief real window between a call
+ * being made and its work actually starting (meaningful once more than one
+ * analysis can be in flight); it is never held open artificially.
+ */
+export type ParcelAnalysisStatus = 'QUEUED' | 'RUNNING' | 'COMPLETE' | 'FAILED'
+
+const analysisStatus = new Map<string, ParcelAnalysisStatus>()
+const statusListeners = new Set<() => void>()
+
+const setAnalysisStatus = (id: string, status: ParcelAnalysisStatus | null) => {
+  if (status === null) analysisStatus.delete(id)
+  else analysisStatus.set(id, status)
+  statusListeners.forEach((listener) => listener())
+}
+
+/** Returns the last known explicit lifecycle state for this parcel context, or undefined before any analysis has ever been requested. */
+export function getParcelAnalysisStatus(context: ParcelContext): ParcelAnalysisStatus | undefined {
+  return analysisStatus.get(analysisId(context))
+}
+
+/** Subscribes to any parcel-analysis status transition, across all parcel ids. */
+export function subscribeParcelAnalysisStatus(listener: () => void): () => void {
+  statusListeners.add(listener)
+  return () => statusListeners.delete(listener)
 }
 
 /**
@@ -90,12 +118,18 @@ export async function analyzeParcel(context: ParcelContext, onLoadingChange?: (l
   const id = analysisId(context)
   const cached = analysisCache.get(id)
   if (cached && cached.expiresAt > Date.now()) return cached.result
+  setAnalysisStatus(id, 'QUEUED')
   analysisLoading.add(id)
   onLoadingChange?.(true)
   try {
+    setAnalysisStatus(id, 'RUNNING')
     const result = await new ParcelAnalyzer(id).analyze()
     analysisCache.set(id, { expiresAt: Date.now() + ANALYSIS_TTL_MS, result })
+    setAnalysisStatus(id, 'COMPLETE')
     return result
+  } catch (error) {
+    setAnalysisStatus(id, 'FAILED')
+    throw error
   } finally {
     analysisLoading.delete(id)
     onLoadingChange?.(false)
@@ -106,4 +140,30 @@ export async function analyzeParcel(context: ParcelContext, onLoadingChange?: (l
 export function clearParcelAnalysisCache(): void {
   analysisCache.clear()
   analysisLoading.clear()
+  analysisStatus.clear()
+}
+
+/**
+ * True when `generatedFor` is not the currently active parcel context — i.e.
+ * a downstream artifact (a saved report, a Project Context snapshot handed
+ * to LandForecast/DesignStudio) was produced for a site the user has since
+ * moved away from, and must be recomputed before it can be trusted again.
+ * Returns true (stale) when there is no active context at all.
+ */
+export function isParcelAnalysisStale(generatedFor: ParcelContext): boolean {
+  const active = readParcelContext()
+  if (!active) return true
+  return analysisId(active) !== analysisId(generatedFor)
+}
+
+/** Live-subscribes to a parcel context's explicit analysis lifecycle state for rendering (QUEUED/RUNNING/COMPLETE/FAILED, or undefined before any request). */
+export function useParcelAnalysisStatus(context: ParcelContext | null): ParcelAnalysisStatus | undefined {
+  const id = context ? analysisId(context) : null
+  const [status, setStatus] = useState<ParcelAnalysisStatus | undefined>(() => (context ? getParcelAnalysisStatus(context) : undefined))
+  useEffect(() => {
+    if (!context) { setStatus(undefined); return }
+    setStatus(getParcelAnalysisStatus(context))
+    return subscribeParcelAnalysisStatus(() => setStatus(getParcelAnalysisStatus(context)))
+  }, [id]) // eslint-disable-line react-hooks/exhaustive-deps -- id is context's own stable identity
+  return status
 }
