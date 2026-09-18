@@ -532,3 +532,61 @@ is 60 minutes; rate-limit retry backoff can reach four hours.
 execution; dispatch dependency roots before cosmetics; and trigger PI review
 immediately after each landing with SHA, tests, deploy version, and live proof.
 This targets the measured bottleneck without weakening acceptance.
+
+## Cycle 3 — W2-390 PI_SEAT_TRIAL closure review (2026-09-18)
+
+### W2-390 — PI_SEAT_TRIAL
+- **Status:** HALFWAY — the single bounded trial vector completed on a pushed
+  branch, but PI did not land or deploy it. `docs/WAVE_QUEUE.md` therefore
+  remains authoritative and the row cannot read `DONE` until the normal
+  landing gate is satisfied.
+- **Owner:** PI, under the conductor-directed one-wave closure of the historic
+  experimental trial. The trial used the documentation-sweep option permitted
+  by the original row and did not modify product code.
+- **ORDER:** fresh `origin/main` worktree at `ac5b220c2` -> read `AGENTS.md`,
+  `docs/APPROVAL_QUEUE.md`, and the Ferrum discipline skill -> execute one
+  bounded export-integrity Vitest vector -> record the verdict in PI's ledger
+  -> run mandatory static and type gates -> push the isolated branch; **PASS**.
+- **Method review:** A non-mutating acceptance sweep is the only defensible
+  present-day interpretation of this superseded trial. A fresh product-code
+  implementation by PI would violate the later RULE 55 segregation between
+  execution and independent acceptance. The selected vector materially tests
+  truthful export claims: an IFC4 STEP envelope, round-trip element counts,
+  minimum-storey clamping, filename/MIME wiring, and parity between the UI
+  control and the text-command route.
+- **Technical execution data:** base SHA `ac5b220c2`; focused result **2 test
+  files passed, 9 tests passed, 0 failed** in 1.83 s; no retry; no protected
+  path changed; no deployment attempted. Landing SHA and deploy version are
+  correctly absent at this pre-landing stage.
+- **TECH_METHOD:**
+  - **Approach:** Re-run the existing IFC export and workspace export-control
+    contracts as one bounded acceptance vector, then record the governance
+    verdict without changing the tested implementation.
+  - **Libraries/APIs:** Vitest 1.6.1, Testing Library DOM events, Web IFC
+    round-trip verifier, browser `Blob`/object-URL contract mocks.
+  - **Key files inspected:**
+    `apps/web/__tests__/studio/ifcExport.test.ts`,
+    `apps/web/components/workspace/ExportBar.test.tsx`,
+    `apps/web/lib/ifc-export.ts`, and
+    `apps/web/lib/ifc-export-verify.ts`.
+  - **Key file changed:** `docs/EXECUTION_LEDGER.md` only.
+  - **Algorithm/derivation:** The vector exports deterministic massing inputs,
+    parses generated IFC bytes back into geometry counts, and independently
+    checks that UI and command events produce the expected `.ifc`/`.dxf`
+    download contracts. No inference from a rendered preview substitutes for
+    file-structure evidence.
+  - **Verification commands:**
+    `pnpm --filter ./apps/web test:run -- __tests__/studio/ifcExport.test.ts components/workspace/ExportBar.test.tsx`;
+    `powershell -ExecutionPolicy Bypass -File scripts/verify-static.ps1`;
+    `pnpm --filter ./apps/web exec tsc --noEmit`.
+  - **ORDER compliance:** yes; one vector only, no second row claimed, no
+    product implementation, no `docs/WAVE_QUEUE.md` edit, no landing/deploy.
+
+**Trial verdict — DISSOLVE the experimental PI executor capability; RETAIN PI
+as the independent Execution Controller.** The acceptance vector shows that PI
+can run a bounded technical audit, but it does not justify a second executor.
+RULE 55 has already established the higher-value role: PI must remain outside
+the implementation path so its acceptance evidence and method challenges stay
+independent. The historical one-wave experiment should be closed after this
+branch lands, with future PI work limited to the execution ledger and review
+relays.

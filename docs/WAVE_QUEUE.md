@@ -559,3 +559,426 @@ point every row listed above returns to OPEN/CLAIMED status as it stood
 before this declaration.
 
 | W2-409 | | B2 | J08 | (unassigned) | ROADMAP-LABEL | | REAL_AUTH_RELIVE — re-expose the already-built W2-326 AUTH_COMPLETE credential UI on /signup and /login once an operator-set "live release" milestone is reached, replacing the W-17 preview gate. Not new backend work — W2-326's PBKDF2/WebCrypto auth, sessions, and verify/reset flows already exist and land on `origin/main` (`4ef78791`); this row is the frontend re-exposure step only. Explicitly deferred post-live per the operator's own W-17 instruction, not scheduled now. UNDO: n/a (roadmap label, no code yet). |
+
+## 2026-09-18 — SCRIBE queue reconciliation pass (worktree `scribe-queue-reconcile`, mission: make the execution queue truthful)
+
+Method, per RULE 22/40: every claim below is checked against `origin/main`
+directly (`git log`, `git show --stat`, `git ls-tree`, file greps across
+every governance doc), not against a row's own status label or chat
+memory. Nothing below deletes or edits prior row text — this is an
+appended correction pass, per RULE 3/RULE 7. Where evidence disagreed
+or was incomplete, it is recorded as UNVERIFIED, not guessed.
+
+### Finding 1 — internal duplication defect in this file (mechanical, not a status change)
+
+Lines ~176–213 and ~375–428 of this file contain roughly four to five
+byte-identical repeats of the same OPEN-status blocks for W2-240,
+W2-244..252, W2-287/283..286, W2-360, W2-361, W2-362, and W2-363 —
+each already superseded earlier in this same file (either by a DONE
+entry with a real SHA, e.g. W2-244..252 at lines 114-130, or by the
+2026-09-04 RULE 34 DEFERRED declaration at lines 492-559). This is
+consistent with RULE 9's "rebase onto `origin/main`, resolve shared
+docs files by keeping both additions" merge policy being applied
+repeatedly across several SCRIBE sessions without recognizing that the
+"both additions" were textually identical, not two genuine edits —
+each rebase re-appended the same stale OPEN block instead of a new
+one. **Not deleted, per RULE 3** — the duplicate text stays on disk as
+existing history. **Canonical status for every Task ID duplicated
+above:** whatever status that ID carries in its EARLIEST appearance in
+this file (its DONE/SHA entry, or the RULE 34 DEFERRED declaration) is
+authoritative; the repeated later OPEN blocks are the defect, not a
+correction. Recommend `scripts/land.ps1` or its docs-branch rebase step
+gain a dedupe check (diff the incoming "both additions" block against
+existing file content before appending) so this doesn't recur —
+flagged as a CRANE tooling follow-up, not fixed in this pass (out of
+SCRIBE's own scope per RULE 7 — SCRIBE authors docs, not landing
+scripts).
+
+### Finding 2 — governance ledger staleness (verified via `git log -- <path>` against `origin/main`, all times IST)
+
+| File | Last touched | Days stale (today 2026-09-18) |
+|---|---|---|
+| docs/WAVE_QUEUE.md (this file) | 2026-09-04 15:12 | 14 |
+| docs/APPROVAL_QUEUE.md | 2026-09-04 20:11 | 14 |
+| docs/EXECUTION_LEDGER.md | 2026-09-10 11:38 | 8 |
+| docs/ACTIVITY_LOG.md | 2026-09-11 21:22 | 7 |
+| docs/TASK_BOARD.md | 2026-09-11 21:47 | 7 |
+| docs/RESUME_ATLAS.md, RESUME_MASON.md, RESUME_PI.md, RESUME_RIVET.md, RESUME_SCRIBE.md | 2026-09-04 15:06 | 14 |
+| docs/RESUME_CRANE.md | 2026-09-04 16:13 | 14 |
+| docs/RESUME_FERRITE.md | 2026-09-04 20:29 | 14 |
+
+RULE 21(3) requires every seat's `docs/RESUME_<SEAT>.md` be "updated
+every turn" — none of the seven have been touched in 14 days, despite
+40 commits landing on `origin/main` in that window (Finding 4). The
+living-resume/heartbeat mechanism has not been operating in practice
+for two weeks; this is a real gap, not assumed malice or a single
+missed turn.
+
+### Finding 3 — RULE 34 (single-outcome Workspace focus) status is UNVERIFIED, not lifted, not confidently still-binding
+
+RULE 34's own lift condition (§6 of `docs/WORKSPACE_SPEC.md` fully
+checked off against the deployed edge, ATLAS's independent audit, a
+new WAVE_QUEUE.md row + ACTIVITY_LOG.md entry recording the lift) has
+never been executed — no such row/entry exists anywhere in either
+file. Formally, RULE 34 is therefore still in force and every row in
+the 2026-09-04 DEFERRED declaration (lines 492-559 above) is still
+DEFERRED. **In practice**, the fleet has operated well outside that
+scope since at least 2026-09-08: RULE 59 (2026-09-08) retired RULE 35's
+owner-agnostic pulling model that `docs/TASK_BOARD.md`'s own header
+says RULE 34 was gating; the 2026-09-11 LEAN-FLEET MAPPING
+restructured the entire seat roster (ASTRA/CLAUDE-LOOKOUT/
+CODEX-SENTINEL introduced as functional roles); and Finding 4 below
+shows a week of landed work (LandIntel terrain/suitability/map
+features, homepage journey/console work, SUTRA command-cockpit,
+model-intake) with no plausible reading as "W2-400/401 Workspace
+object-model" scope. **This is recorded as a discrepancy, not
+resolved either way** — SCRIBE has not declared RULE 34 lifted (no §6
+audit exists to justify that) and has not enforced it as still-binding
+either (that would mean flagging ~35 real, seemingly-wanted landings as
+rule violations after the fact, which is not this pass's call to make
+unilaterally). **Recommend:** the operator/conductor either (a) runs
+the real §6 audit and logs a formal lift, or (b) explicitly declares
+RULE 34 superseded-in-practice as of a stated date, so the DEFERRED
+list above stops being ambiguous. Until one of those happens, treat
+every row in the DEFERRED declaration as ambiguous-status, not as
+either OPEN or DEFERRED with confidence.
+
+### Finding 4 — 40 commits landed on `origin/main` since the last ledger touch, zero of them referenced anywhere in governance docs
+
+Checked every commit landed since `docs/TASK_BOARD.md`'s last touch
+(2026-09-11 21:47, the most recent of the five ledger files) against
+`docs/WAVE_QUEUE.md`, `docs/TASK_BOARD.md`, `docs/EXECUTION_LEDGER.md`,
+`docs/ACTIVITY_LOG.md`, `docs/MASTER_TASK_LIST.md`,
+`docs/HANDOFFS.md`, `docs/OPERATOR_INBOX.md`, and every `docs/seats/*.md`
+file by branch-name/keyword grep — none of the 39 commits after the
+first are mentioned anywhere. The first (`3df97d097`) is the W-124
+DOCS_SUITE landing the 2026-09-11 entry itself anticipated ("CRANE
+pulls W-124... lands via land.ps1") and needs only a DONE mark, not a
+new row.
+
+| SHA (short) | Landed (IST) | Branch / subject | Likely product (from branch name — NOT an acceptance judgment) |
+|---|---|---|---|
+| `3df97d097` | 09-11 22:10 | `w2-496-w124-docs-suite` | CROSS (docs) — anticipated, needs DONE mark only |
+| `0bb9e1023` | 09-13 11:54 | `mason/landintel-context-rail` | LandIntel |
+| `fb39ec4da` | 09-16 16:45 | `mason/w85-land-detect` | LandIntel — **this is TASK_BOARD row W-85**, see Finding 4a |
+| `adec43a98` | 09-16 21:54 | `rivet/homepage-cockpit-hero` | CROSS (homepage/cockpit) |
+| `87c1918cf` | 09-16 21:54 | `mason/site-constraints` | DesignStudio (likely) |
+| `68ef47896` | 09-17 15:33 | `w2-500-homepage-console-impl` | Homepage |
+| `e7f3d4d10` | 09-17 18:08 | `w2-ai-foundation-live` | CROSS (AI) |
+| `b06a00775` | 09-17 18:26 | `w2-501-cockpit-top-rail` | Workspace/cockpit |
+| `77f5a1076` | 09-17 18:46 | `w2-502-workspace-shell-reflow` | Workspace |
+| `382cbc436` | 09-17 20:30 | `w2-504-no-h-scroll-safe` | CROSS (layout defect) |
+| `4f7560b35` | 09-18 16:28 | `w2-506-landintel-forecast-link` | LandIntel |
+| `8268cd78b` | 09-18 16:29 | `w2-505-no-h-scroll-boqpro-protected` [AI: CODEX] | BOQPro — touches the RULE 6 protected path `apps/web/app/boq-pro/page.tsx` directly (verified via `git show --stat`); the operator subsequently supplied explicit protected-path approval in the active execution session. |
+| `8c70cda50` | 09-18 17:21 | `mason/claude-20260917-designstudio-parametric-openings` | DesignStudio |
+| `f1aacd727` | 09-18 17:37 | `astra/designstudio-live-tabrail-fix` | DesignStudio |
+| `8812d08cb` | 09-18 18:25 | `claude/resource-research-cases` | Resources |
+| `675b874a9` | 09-18 18:50 | `claude/sutra-command-cockpit` | SUTRA/cockpit |
+| `ce670e5ba` | 09-18 18:53 | `astra/sutra-toolrail-no-x-scroll` | SUTRA/cockpit |
+| `80ca84e52` | 09-18 19:06 | `claude/homepage-journey-context` | Homepage |
+| `15edba3a4` | 09-18 19:14 | `claude/click-001-always-on-cockpit` | Cockpit |
+| `e896c3a5d` | 09-18 19:31 | `claude/product-isolation-001` | CROSS |
+| `5c4c8828b` | 09-18 19:43 | `codex/homepage-details-rail` | Homepage |
+| `10ec289cd` | 09-18 19:47 | `codex/landintel-map-overlay` | LandIntel |
+| `564dfe827` | 09-18 19:52 | `codex/landintel-map-stable-y` | LandIntel |
+| `fbc85fcef` | 09-18 20:13 | `codex/landintel-desktop-fit` | LandIntel |
+| `63bb802f6` | 09-18 20:29 | "ground SUTRA in product feature registry" | SUTRA — **no `[land:branch]` marker, no `[AI: SEAT]` tag (breaks RULE 2/18), see Finding 5** |
+| `62d7feed7` | 09-18 20:33 | "show one contextual SUTRA tool action" | SUTRA — same Finding 5 flag |
+| `1ff710c53` | 09-18 20:40 | "remove generic SUTRA suggestions" | SUTRA — same Finding 5 flag |
+| `31350d004` | 09-18 20:44 | "add governed concept visualization roadmap" | CROSS — same Finding 5 flag |
+| `40e617e06` | 09-18 20:57 | `codex/landintel-suitability-layers` | LandIntel — initial landing (9 files, +280) |
+| `757d8cac3` | 09-18 21:01 | `codex/landintel-suitability-layers` | LandIntel — same-branch follow-up fix 4 minutes later (2 files, +4/-2); **checked via `git show --stat` on both — this is a legitimate fix-forward re-land, not a duplicate-landing defect** |
+| `eb247a520` | 09-18 21:23 | `codex/governed-orchestration-chain` | CROSS (SUTRA/orchestration — likely related to the four unmarked commits above) |
+| `8aca5b732` | 09-18 21:33 | `worktree-claude-map-composer-phase1` | LandIntel (map composer — likely related to `landintel-suitability-layers`'s `MapComposerGate.tsx`) |
+| `f958214b2` | 09-18 21:38 | `codex/landintel-terrain-intelligence` | LandIntel |
+| `94a1309db` | 09-18 21:47 | `codex/model-intake-controlled-release` | CROSS (AI/model) |
+| `a321b9442` | 09-18 22:04 | `codex/homepage-journey-split` | Homepage |
+| `41fb52bb0` | 09-18 22:22 | `worktree-ferrum-projects-migration` | CROSS (infra) |
+| `1f96bf5c8` | 09-18 22:45 | `crane/ci-deploy-node22-fix` | CROSS (deployment tooling) |
+| `8cd6a6432` | 09-18 23:02 | `worktree-crane-boq-traceable-takeoff` | BOQPro — protected-path approval was supplied directly by the operator in the active execution session |
+| `f07da409a` | 09-18 23:05 | `worktree-rivet-mobile-queue-drain` | CROSS (mobile shell endpoint) |
+| `30ab1032b` | 09-18 23:08 | `worktree-atlas-designstudio-environment-context` | DesignStudio |
+| `ae475f947` | 09-18 23:11 | `worktree-mason-landintel-site-intelligence` | LandIntel — current `origin/main` tip as of this pass |
+
+None of the above are marked DONE anywhere by this pass — landing is
+not live proof (RULE 25), and most lack a board row with acceptance
+criteria; W-85 is the documented exception handled in Finding 4a.
+**Action needed, not taken
+by SCRIBE in this pass:** each owning seat (readable from its branch
+prefix — mason/, rivet/, codex/, astra/, claude/) backfills a real
+board row (TASK_BOARD.md, tagged per RULE 57) or WAVE_QUEUE.md row for
+its own landed work, stating actual acceptance criteria and live-proof
+status — SCRIBE has not invented acceptance criteria for work it did
+not spec or execute, per RULE 5/40.
+
+### Finding 4a — TASK_BOARD row W-85 (LAND_DETECT_IN) has new landed evidence
+
+`docs/TASK_BOARD.md`'s W-85 row was last reconciled 2026-09-10 with
+"no implementation exists yet, remains absolute top of queue." Finding
+4 shows `fb39ec4da` "[land:mason/w85-land-detect]" landed 2026-09-16 —
+real landing evidence postdating that note. Per RULE 25/55, a landing
+SHA alone caps a UI-affecting row at HALFWAY, not DONE — no deployed-
+screenshot evidence for W-85's acceptance criteria (pin-drop reverse-
+geocode, coordinate entry, place search, geolocation prompt, sample-
+location default chip) was found or produced by this pass. A landing-
+evidence note on W-85's own row in `docs/TASK_BOARD.md` is still
+required; this docs-only pass does not
+edit that independently-owned ledger. Live-proof re-verification remains
+PI/ATLAS's job per RULE 55, not decided here.
+
+### Finding 5 — attribution gap: four commits carry no `[land:...]` marker and no `[AI: SEAT]` tag
+
+`63bb802f6`, `62d7feed7`, `1ff710c53`, `31350d004` (all landed 2026-09-18
+20:29–20:44, consecutively, same author identity as every other commit
+in this repo) break RULE 2 ("every commit is tagged `[AI: <SEAT>]`")
+and RULE 18 (landing is `scripts/land.ps1`-only, which stamps
+`[land:branch]`). Author identity alone does not distinguish a direct
+operator commit from a seat/tool commit in this repo's history, so
+SCRIBE is not asserting who made these — only that they fall outside
+the tagging convention every other commit in Finding 4's table
+follows. Flagged for conductor/operator clarification, not assumed to
+be a violation requiring correction.
+
+### Finding 6 — worktree ownership boundaries (recorded per mission instruction, from `git worktree list` + branch-name evidence, not invented)
+
+**Protected paths (RULE 6, unchanged):** `apps/web/app/boq-pro/**`,
+`package.json`, `pnpm-lock.yaml`, `next.config.js`, `middleware.ts` —
+no seat touches these without explicit per-instance operator approval
+recorded on the relevant row (W2-360's BOQ_PAGE_TRUTH is the on-record
+precedent for how that approval should look; `8268cd78b` above is the
+one recent BOQ-Pro touch with NO equivalent record found).
+
+**LandIntel — highest concurrent-touch area this week, real collision
+risk, no disjoint-ownership rule currently names it:** in the single
+2026-09-13→18 window, LandIntel was touched by MASON
+(`mason/landintel-context-rail`, `mason/w85-land-detect`) AND by CODEX
+(`codex/landintel-map-overlay`, `codex/landintel-map-stable-y`,
+`codex/landintel-desktop-fit`, `codex/landintel-suitability-layers`
+×2, `codex/landintel-terrain-intelligence`) AND a `worktree-*`-prefixed
+branch (`worktree-claude-map-composer-phase1`) that appears related to
+the same `MapComposerGate.tsx` surface `landintel-suitability-layers`
+introduced. AGENTS.md's only existing disjoint-ownership text (the
+2026-09-01 ATLAS/CRANE split) predates MASON's/CODEX's/ASTRA's current
+seat definitions entirely and does not mention LandIntel by name.
+**Recommend an explicit LandIntel file-scope split be added to RULE 1
+by the operator/conductor before further concurrent LandIntel work is
+dispatched** — this pass does not invent one, since SCRIBE has not
+observed which of these branches' actual diffs overlap at the file
+level (worth a real check before drawing scope lines, not a guess).
+
+**DesignStudio — second concurrent-touch area:** MASON
+(`mason/claude-20260917-designstudio-parametric-openings`,
+`mason/site-constraints`) and ASTRA (`astra/designstudio-live-tabrail-fix`)
+both landed DesignStudio-named work in the same window. Same
+recommendation as LandIntel above — flagged, not resolved.
+
+**BOQPro:** single recent protected-path touch (`8268cd78b`, Finding
+4's table) — no concurrent-touch collision observed, the open question
+is the missing approval record (Finding 4), not multi-seat overlap.
+
+**CRANE/MASON/ATLAS drains:** per AGENTS.md RULE 1's LEAN-FLEET MAPPING
+(adopted 2026-09-11), CRANE and MASON are the two standing active-
+execution seats; ATLAS is a conditional specialist (non-standing);
+ASTRA/CLAUDE-LOOKOUT absorb the prior PI/ATLAS oversight-and-observation
+functions. Finding 4's branch list shows ASTRA landing direct
+execution work (`astra/designstudio-live-tabrail-fix`,
+`astra/sutra-toolrail-no-x-scroll`) — worth the operator/conductor
+confirming this is intended under the LEAN-FLEET MAPPING's
+"conditional specialist" framing for ATLAS (ASTRA absorbs ATLAS's
+*oversight* function per that mapping's own table, not necessarily its
+occasional direct-execution use) rather than assumed either way here.
+
+### Finding 7 — APPROVAL_QUEUE.md: two pending rows are actually already executed
+
+Verified but not edited in `docs/APPROVAL_QUEUE.md` by this pass:
+CI-ROOT-SCRIPTS (root `lint`/`type-check`/`test`/`build` proxy
+scripts) and WEB-IFC-DEP (`web-ifc` dependency) are both confirmed
+present on `origin/main` right now via direct file inspection, despite
+both rows reading "(not executed)" as of 2026-09-04. SITE_BASE_URL-
+INTERIM and MCP-HEADLESS could not be confirmed as executed and remain
+pending; the root Wrangler configuration exists, but it does not prove
+either approval item was applied.
+
+### Remainder list — ordered, dependency-aware, as truthful as current evidence allows
+
+This combines the two existing authoritative sources (both now dated,
+per Finding 2) with Finding 4's new backlog. It is a status-of-status
+list, not a re-derivation of acceptance criteria SCRIBE did not author.
+
+1. **Tier 0 — must be triaged before their status can be judged at
+   all:** the 39 undocumented landed commits in Finding 4's table.
+   Each needs a real board/queue row, authored by its owning seat
+   (readable from the branch prefix), before PI or ATLAS can apply any
+   DONE/HALFWAY/BLOCKED judgment to it. The BOQ-Pro protected-path work
+   now has explicit operator approval in the active execution session.
+2. **Tier 1 — has a board row, has real landed evidence, needs live-
+   proof re-verification (RULE 25) before DONE:** W-85 LAND_DETECT_IN
+   (Finding 4a).
+3. **Tier 2 — `docs/EXECUTION_LEDGER.md`'s existing BLOCKED/HALFWAY/
+   STUCK graph (Cycle 1, 2026-09-07; Cycle 2 pace audit, 2026-09-09)**
+   remains the most detailed dependency map on disk for W-37 through
+   W-96, but is now 8 days stale relative to `origin/main` — several of
+   its BLOCKED rows name dependencies (W-24, W-53, W-58, W-65, W-88,
+   W-89) that Finding 4/4a show have since moved. **Do not treat Cycle
+   2's BLOCKED list as current without a fresh PI pass** — this pass
+   does not re-run PI's review (RULE 55 reserves that to PI), only
+   flags that it is due.
+4. **Tier 3 — WAVE_QUEUE.md's RULE 34 DEFERRED list** (lines 492-559
+   above): status ambiguous per Finding 3 until the operator/conductor
+   resolves whether RULE 34 is still binding.
+5. **Tier 4 — genuinely still-OPEN, non-deferred WAVE_QUEUE rows with
+   no RULE 34 ambiguity:** W2-308/W2-315 CONCIERGE_LLM (GATED on
+   API-key + budget approval, unchanged gate condition — no evidence
+   found either gate cleared), W2-336 OPS logging/tracing, W2-390
+   PI_SEAT_TRIAL (never resolved to a verdict per its own one-wave
+   trial design).
+
+### Finding 8 — current release evidence does not satisfy the screenshot-only LIVE rule
+
+The deployment state records `ae475f947ae3db56e2626c2e941a745826285e19`
+as the current deployed SHA, version
+`d54b7306-9087-4d25-8616-21db1e3e5cc1`, at 2026-09-18 23:13 IST. A
+direct request to the deployed Worker returned HTTP 200. The four source
+branches for BOQ take-off, DesignStudio environmental context, LandIntel
+site intelligence, and the RIVET mobile endpoint are also present on
+`origin` at `be3c77527`, `c2c85ea7f`, `42ad5b2e6`, and `61c3da65e`
+respectively, with matching `scripts/land.ps1` markers on `origin/main`
+at `8cd6a6432`, `30ab1032b`, `ae475f947`, and `f07da409a`.
+
+This proves pushed + landed + edge-deployed state. It does **not** prove
+DONE under RULE 25/RULE 55 because this pass has no 1366 px and 375 px
+rendered-edge screenshots attached to ledger rows for the user-visible
+results. Those four outcomes remain **HALFWAY / LIVE-PROOF-PENDING**, not
+DONE, until the required screenshots are captured and recorded.
+
+### Current external gates retained as open
+
+- W2-308/W2-315 CONCIERGE_LLM: API secret, abuse/cost review, retrieval
+  design, and operator budget approval remain explicit gates; no cleared
+  evidence was found.
+- W2-287 Stage-2 Transact: qualified-counsel sign-off remains mandatory.
+- W2-409 REAL_AUTH_RELIVE: remains ROADMAP-LABEL until the operator-set
+  live-release milestone is recorded.
+- `ferrumprojects.in`: DNS lookup returned NXDOMAIN during this pass;
+  domain DNS/hosting activation remains external to the repository.
+- RULE 34: no formal lift row plus ACTIVITY_LOG entry exists, so the old
+  DEFERRED list remains ambiguous exactly as recorded in Finding 3.
+
+UNDO for this section: `git revert <sha>` of this pass's own landing
+commit (docs-only; removes this appended reconciliation, restores no
+other row).
+
+## SCRIBE final deployed-evidence reconciliation — 2026-09-18 23:32 IST
+
+This entry appends evidence to the preceding reconciliation; it does not
+rewrite historical row states. The public Worker
+`https://ferrumos-preview.shariefsatyala.workers.dev` returned HTTP 200 for
+every captured route at deployed Git SHA
+`ac5b220c22e9e49d0321df6f0d40cc18509c0891`, Cloudflare version
+`cb1db4b8-e31c-4128-b134-d3e35b32816e`. Durable screenshots, the downloaded
+IFC file, the reproducible capture procedure and the machine-readable report
+are stored under `docs/evidence/queue-close-20260918/`; the exact acceptance
+matrix and artifact hashes are in that directory's `README.md`.
+
+### Rendered-edge findings for the active bundle
+
+- **BOQ Pro model-linked take-off — rendered LIVE for the bounded
+  deterministic sample workflow.** Desktop (1366 x 900) and mobile (390 x
+  664) evidence show a selected BOQ line highlighting source geometry, its
+  formula, source element IDs, assumptions/exclusions, revision fingerprint,
+  checker state, `UNKNOWN` formwork and the `INDICATIVE` qualification. This
+  does not establish engineering certification or independently verified
+  rates. Evidence: `boq-model-linked-desktop.png`,
+  `boq-model-linked-mobile.png`, and `capture-report.json`.
+- **LandIntel site intelligence — governed disclosure UI is rendered LIVE;
+  underlying analysis is not.** Environment, terrain and access/proximity
+  surfaces render at the edge. The terrain and access modules correctly state
+  `NO ... SOURCE CONNECTED`, preserve `UNKNOWN`, identify required evidence,
+  and label their analyses `ROADMAP`. No terrain ingestion, terrain result,
+  licensed POI/routing result or real parcel-context result is claimed LIVE.
+  Evidence: `landintel-environment-desktop.png`,
+  `landintel-terrain-desktop.png`, `landintel-access-mobile.png`, and
+  `capture-report.json`.
+- **DesignStudio environmental context — guarded context panel is rendered
+  LIVE; its gated providers are not.** Desktop and mobile evidence show
+  separated source layers, provenance fields, export controls and
+  `INDICATIVE — CONTEXT ONLY`. Google Photorealistic 3D Tiles remains
+  `GATED UNAVAILABLE`; surveyed boundary and qualified terrain sources remain
+  unconnected. Evidence: `designstudio-environment-desktop.png`,
+  `designstudio-environment-mobile.png`, and `capture-report.json`.
+- **Project cockpit IFC export — rendered LIVE on desktop for the bounded
+  sample export; mobile remains OPEN.** A real desktop pointer click generated
+  `ferrum-plan.ifc` (12,655 bytes, SHA-256
+  `1ce93b5a37de3e17f1b9fa4380870847d00078232cb0dd8a8473e09e55ae18f3`)
+  and rendered `IFC4 exported with 3 storey(s) — 12 walls, 3 slabs, 3 spaces.`
+  On the mobile viewport, the tool rail overlapped the export control and
+  intercepted the real pointer click. The mobile path therefore remains an
+  internal acceptance defect and is not LIVE. Evidence:
+  `cockpit-ifc-export-desktop.png`, `cockpit-ifc-export-mobile.png`,
+  `ferrum-plan.ifc`, and `capture-report.json`.
+
+No captured route emitted a console error or page error during this evidence
+run. The Worker screenshots prove only the deployed `ac5b220c2` release; the
+newer `main` commit below is not silently treated as part of that deployment.
+
+### W2-390 PI trial — final governance disposition
+
+The bounded PI trial closure landed on `main` as
+`15fee93c63dc34f85386420e4f8528e45c548815`. Its recorded verdict is final:
+**dissolve the experimental PI executor role and retain PI as the independent
+Execution Controller.** PI remains outside implementation so that acceptance
+evidence and method challenges remain independent. The landing closes the
+historic trial decision; it is not evidence that `15fee93c6` was included in
+the deployed `ac5b220c2` Worker release above.
+
+### Remaining open or externally gated conditions
+
+- **`ferrumprojects.in` — external registrar gate:** GoDaddy has placed the
+  domain on hold pending WHOIS/KYC contact verification. DNS currently returns
+  NXDOMAIN. Public activation remains blocked until the verification is
+  submitted and accepted; repository work cannot clear this gate.
+- **W2-308/W2-315 CONCIERGE_LLM:** API secret provisioning, abuse/cost review,
+  retrieval-grounding design and operator budget approval remain open.
+- **W2-287 Stage-2 Transact:** qualified-counsel sign-off remains mandatory.
+- **W2-409 REAL_AUTH_RELIVE:** remains `ROADMAP-LABEL` until the operator-set
+  live-release milestone is recorded.
+- **DesignStudio Google Photorealistic 3D Tiles:** provider API key, recorded
+  terms acceptance, attribution rendering and quota/cost handling remain
+  external integration gates.
+- **LandIntel evidence sources:** authoritative parcel, terrain, access,
+  routing/POI, regulatory and market sources remain unconnected or `UNKNOWN`
+  where the rendered panels say so. The visible disclosure surface does not
+  convert those absent sources into data.
+- **Cockpit mobile IFC export:** the overlapping tool rail is an internal open
+  acceptance defect. Desktop evidence does not close the mobile path.
+- **RULE 34:** no formal lift row plus `ACTIVITY_LOG.md` entry was found; the
+  historical DEFERRED list retains the ambiguity recorded in Finding 3.
+
+UNDO for this section: `git revert <sha>` of this pass's own landing commit
+(docs/evidence only; removes this appended reconciliation and its evidence
+bundle without changing product code or deployment state).
+
+## SCRIBE W2-336 observability closure — 2026-09-18
+
+W2-336 edge logging/tracing landed on `main` as
+`ebcd6436155d9943da751dbb7a99ada47c485e92`. The final deployed release is
+`63fa536835ef999e3fee381011df7c034ab7007c`, Cloudflare version
+`011a498e-c950-4262-b5ee-df013cc4f662`.
+
+Runtime correlation was verified at the public edge: `GET /api/health`
+returned HTTP 200 with an `X-Request-ID`; a simultaneous live Wrangler tail
+emitted a structured `edge.request_completed` event carrying the same
+correlation ID, redacted route `/api/health`, and status 200. This proves the
+request-ID handoff and structured edge completion event on the deployed
+Worker. **W2-336 is DONE/LIVE for this bounded observability acceptance.** It
+does not assert broader tracing coverage beyond the verified request path.
+
+The external gates in the immediately preceding reconciliation remain open
+and unchanged: `ferrumprojects.in` WHOIS/KYC registrar verification,
+W2-308/W2-315 LLM provisioning/cost/retrieval/budget controls, W2-287 counsel
+sign-off, W2-409's operator release milestone, Google Tiles provider controls,
+authoritative LandIntel sources, the cockpit mobile IFC overlap defect, and
+the unresolved formal RULE 34 lift.
+
+UNDO for this section: `git revert <sha>` of this docs-only reconciliation
+commit; product implementation and deployment state are unaffected.

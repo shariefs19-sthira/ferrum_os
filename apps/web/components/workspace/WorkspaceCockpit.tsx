@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { generateStudioPlan } from '../../lib/plan-gen'
 import { checkStructuralLive } from '../../lib/studio/structuralLive'
 import type { StudioParameters, StudioView, WorkspaceExtract, WorkspaceProduct, WorkspaceProvenance } from '../../lib/types'
@@ -26,6 +26,9 @@ import { decodeWorkspaceView, encodeWorkspaceView, type WorkspaceViewState } fro
 import { useParcelContext } from '../../lib/workspace/parcelContext'
 import { getSiteConstraintsEvidence } from '../../lib/parcelIntel/siteConstraints'
 import { dispatchCockpitSelection } from '../../lib/sutra/selectionContext'
+import ShellCatalogPanel from '../designstudio/ShellCatalogPanel'
+import { getBuildingShell, recommendBuildingShells } from '../../lib/designstudio/shellCatalog'
+import type { ProjectTemplateInputs } from '../../lib/designstudio/buildingLibraryKernel'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -123,11 +126,17 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [optionStage, setOptionStage] = useState<OptionStage>('use')
   const [showDiagram, setShowDiagram] = useState(false)
   const [showExtract, setShowExtract] = useState(false)
+  const [mobilePanel, setMobilePanel] = useState<'shells' | 'controls' | 'options' | 'extract' | null>(null)
+  const mobilePanelTriggerRef = useRef<HTMLButtonElement | null>(null)
   const [landUse, setLandUse] = useState<LandUse>('Residential')
   const [permalinkStatus, setPermalinkStatus] = useState('')
   const [openingEdits, setOpeningEdits] = useState<Record<string, OpeningEdit>>({})
   const [selectedOpeningId, setSelectedOpeningId] = useState<string>()
   const parcelContext = useParcelContext()
+  const isDesignExperience = controlProduct === 'designstudio' || activeProduct === 'Design'
+  const shellRecommendations = useMemo(() => recommendBuildingShells(parcelContext, 4), [parcelContext])
+  const [selectedShellId, setSelectedShellId] = useState('india-neutral-adaptive')
+  const selectedShell = getBuildingShell(selectedShellId)
   const rulesetState = parcelContext && getRulesetForState(parcelContext.state) ? parcelContext.state : 'Karnataka'
   const ruleset = getRulesetForState(rulesetState)
   const parcelLandUse = parcelContext && ruleset?.land_use_rules[parcelContext.land_use as LandUse]
@@ -140,6 +149,25 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const activeRooms = plan.rooms.filter((room) => room.floor === activeFloor)
   const grossArea = plan.buildingWidthM * plan.buildingDepthM * plan.floors
   const measuredBoq = useMemo(() => measureBoq(plan), [plan])
+  const templateProjectInputs = useMemo<ProjectTemplateInputs>(() => ({
+    jurisdictionId: parcelContext ? `${parcelContext.state}:${parcelContext.district}` : null,
+    soilBearingKpa: null,
+    windSpeedMps: null,
+    seismicClass: null,
+    snowLoadKpa: null,
+    floorCount: plan.floors,
+    grossFloorAreaSqm: grossArea,
+    buildingWidthM: plan.buildingWidthM,
+    buildingDepthM: plan.buildingDepthM,
+    storeyHeightM: plan.floorHeightM,
+    materials: [],
+    deadLoadKpa: null,
+    liveLoadKpa: null,
+    userChanges: [
+      ...(!sameParameters(parameters, initialParameters) ? ['GEOMETRY' as const] : []),
+      ...(Object.keys(openingEdits).length ? ['OPENING' as const] : []),
+    ],
+  }), [grossArea, initialParameters, openingEdits, parameters, parcelContext, plan])
   const governingSpanM = Math.max(...activeRooms.map((room) => room.widthM), 0)
   const structural = checkStructuralLive([{ id: 'active-floor-beam', kind: 'beam', span_m: governingSpanM, depth_mm: 300, width_mm: 300, udl_kn_per_m: 8, support: 'simple' }])
   const structuralPass = structural.results.every((result) => result.checks.every((check) => check.pass))
@@ -155,6 +183,11 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     : activeProduct === 'Build'
       ? compliance.permissions.filter((item) => item.stage === 'BUILD')
       : [], [activeProduct, compliance])
+  useEffect(() => {
+    if (!isDesignExperience) return
+    setSelectedShellId(shellRecommendations[0]?.shell.id ?? 'india-neutral-adaptive')
+    setView('space')
+  }, [isDesignExperience, parcelContext?.ulpin, parcelContext?.state, parcelContext?.district]) // eslint-disable-line react-hooks/exhaustive-deps -- refresh the locality recommendation only when Project Context changes
   useEffect(() => {
     if (!parcelLandUse) return
     setLandUse(parcelLandUse)
@@ -370,6 +403,28 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     if (nextView === 'space') setSelectedOpeningId(undefined)
   }
 
+  const toggleMobilePanel = (panel: NonNullable<typeof mobilePanel>, trigger: HTMLButtonElement) => {
+    mobilePanelTriggerRef.current = trigger
+    setMobilePanel((current) => current === panel ? null : panel)
+  }
+  const closeMobilePanel = () => {
+    setMobilePanel(null)
+    window.setTimeout(() => mobilePanelTriggerRef.current?.focus(), 0)
+  }
+  useEffect(() => {
+    if (!mobilePanel) return
+    const sheet = document.querySelector<HTMLElement>(`[data-mobile-sheet="${mobilePanel}"]`)
+    sheet?.querySelector<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')?.focus()
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { event.preventDefault(); closeMobilePanel() }
+    }
+    document.addEventListener('keydown', closeOnEscape)
+    return () => document.removeEventListener('keydown', closeOnEscape)
+  }, [mobilePanel])
+  useEffect(() => {
+    if (sutraOccludesCanvas) setMobilePanel(null)
+  }, [sutraOccludesCanvas])
+
   return (
     <section className={`overflow-hidden border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col' : 'rounded-relume'} ${fullBleedEmbed ? 'min-h-[70vh]' : ''}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined} data-embed-mode={embedMode}>
       {!canvasFirst && <header className="flex flex-wrap items-center gap-3 border-b border-relume-border px-4 py-3">
@@ -434,8 +489,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         </aside>}
 
         <div data-cockpit-canvas-section className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst || fullBleedEmbed ? 'min-h-0' : ''}`}>
-          <div className="relative z-40 flex flex-wrap gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
-            {views.map((candidate) => (
+          <div className="relative z-40 flex flex-nowrap gap-1 border-b border-relume-border bg-white p-2 md:flex-wrap" role="tablist" aria-label="Model views">
+            {(isDesignExperience ? views.filter((candidate) => candidate.id === 'space') : views).map((candidate) => (
               <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => chooseView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
                 {candidate.label}
               </button>
@@ -458,8 +513,15 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
                 Use: {landUse} · INDICATIVE
               </span>
             )}
-            {fullscreenControl && <button type="button" aria-pressed={fullscreenControl.active} onClick={fullscreenControl.onClick} className={`relative z-30 min-h-11 rounded-full border border-relume-border bg-relume-command px-4 text-xs font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent ${canvasFirst ? '' : 'ml-auto'}`} data-fullscreen-toggle>{fullscreenControl.label}</button>}
-            <button type="button" onClick={() => void createPermalink()} className="min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command" data-view-permalink>Copy view link</button>
+            {fullscreenControl && <button type="button" aria-pressed={fullscreenControl.active} aria-label={fullscreenControl.label} onClick={fullscreenControl.onClick} className={`relative z-30 min-h-11 min-w-11 rounded-full border border-relume-border bg-relume-command px-3 text-xs font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent md:px-4 ${canvasFirst ? '' : 'ml-auto'}`} data-fullscreen-toggle><span className="md:hidden">Workspace</span><span className="hidden md:inline">{fullscreenControl.label}</span></button>}
+            <button type="button" onClick={() => void createPermalink()} aria-label="Copy view link" className="min-h-11 min-w-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command md:px-4" data-view-permalink><span className="md:hidden">Copy</span><span className="hidden md:inline">Copy view link</span></button>
+          </div>
+          <div className="relative z-40 grid grid-cols-4 border-b border-relume-border bg-white" aria-label="Model task controls" data-mobile-cockpit-toolbar>
+            {isDesignExperience && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'shells'} onClick={(event) => toggleMobilePanel('shells', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Shells</button>}
+            {controlProduct && !sutraOccludesCanvas && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'controls'} onClick={(event) => toggleMobilePanel('controls', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Controls</button>}
+            {!canvasFirst && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'options'} onClick={(event) => toggleMobilePanel('options', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Options</button>}
+            {!canvasFirst && previewLabel && <button type="button" aria-haspopup="dialog" onClick={() => { closeMobilePanel(); window.dispatchEvent(new CustomEvent('ferrum:open-sutra')) }} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">SUTRA</button>}
+            {fullBleedEmbed && !selectedOpening && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'extract'} onClick={(event) => toggleMobilePanel('extract', event.currentTarget)} className="min-h-11 px-2 text-[11px] font-semibold text-relume-command">Evidence</button>}
           </div>
           {/* W2-503: this floating strip's chip count is bounded, not
               unbounded, across every optionStage branch - 'use'/
@@ -491,7 +553,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
               ProductCockpitPreview, ...), which render standalone with no
               SUTRA panel alongside them and would otherwise lose their
               only interactive control. */}
-          {!canvasFirst && <div className="absolute left-3 right-3 top-16 z-20 flex flex-wrap items-center gap-2 rounded-2xl border border-white/40 bg-relume-command/90 p-2 shadow-xl backdrop-blur-sm md:left-1/2 md:right-auto md:max-w-[calc(100%-2rem)] md:-translate-x-1/2" aria-label={`${optionStage} options`} data-option-chip-flow data-option-stage={optionStage}>
+          {!canvasFirst && mobilePanel === 'options' && <div className="fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] flex max-h-[min(82dvh,36rem)] flex-wrap items-center gap-2 overflow-y-auto rounded-relume border border-relume-border bg-relume-command p-3 shadow-xl motion-reduce:transition-none lg:inset-y-4 lg:left-auto lg:right-4 lg:bottom-4 lg:w-[30rem]" aria-label={`${optionStage} options`} role="dialog" aria-modal="true" data-mobile-sheet="options" data-option-chip-flow data-option-stage={optionStage}>
+            <button type="button" onClick={closeMobilePanel} className="min-h-11 rounded-full border border-white/30 px-3 text-xs font-semibold text-white">Close</button>
             <span className="shrink-0 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-accent">{optionStage} · INDICATIVE</span>
             {optionStage === 'use' && parcelContext && <span className="rounded-full bg-white px-4 py-3 text-xs font-semibold text-relume-command">{parcelLandUse ? `Recorded use: ${parcelLandUse} · zoning verification required` : 'Use UNKNOWN · zoning verification required'}</span>}
             {optionStage === 'use' && !parcelContext && (['Residential', 'Commercial', 'Mixed Use'] as LandUse[]).map((choice) => <button key={choice} type="button" onClick={() => { const rule = ruleset?.land_use_rules[choice]; setLandUse(choice); if (rule) update('setbackM', rule.min_setback_m); setOptionStage('floors'); setCommandResult(`${choice} selected from ${ruleset?.city_label ?? rulesetState} ${ruleset?.version ?? 'GAP'} ruleset.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
@@ -500,21 +563,24 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {optionStage === 'rooms' && ['Social-first', 'Balanced', 'Private-first'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('plotWidthM', Math.max(8, Math.min(80, parameters.plotWidthM + index - 1))); setOptionStage('compliance'); setCommandResult(`${choice} room split applied to the deterministic plan proportions.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage(parcelContext ? 'floors' : 'use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>}
-          <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
-            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} />}
+          <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[7.25rem]" : fullBleedEmbed ? "h-[min(68svh,44rem)] min-h-[28rem] lg:h-[calc(76vh-7.25rem)] lg:min-h-[34rem]" : "h-[32rem] min-h-[24rem]"}>
+            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} shell={isDesignExperience ? selectedShell : undefined} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} />}
           </div>
+          {isDesignExperience && <ShellCatalogPanel parcel={parcelContext} selectedShell={selectedShell} projectInputs={templateProjectInputs} onSelect={(shell) => setSelectedShellId(shell.id)} mobileOpen={mobilePanel === 'shells'} onMobileClose={closeMobilePanel} />}
           {!canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
-          {!selectedOpening && !sutraOccludesCanvas && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
+          {!selectedOpening && !sutraOccludesCanvas && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update} mobileOpen={mobilePanel === 'controls'} onMobileClose={closeMobilePanel}/>}
           {fullBleedEmbed && !selectedOpening && <>
-            <button type="button" onClick={() => setShowExtract((value) => { const next = !value; if (next) setSelectedOpeningId(undefined); return next })} aria-expanded={showExtract} className="absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow-sm" data-extract-toggle>
+            <button type="button" onClick={() => setShowExtract((value) => { const next = !value; if (next) setSelectedOpeningId(undefined); return next })} aria-expanded={showExtract} className="hidden" data-extract-toggle>
               {showExtract ? 'Hide data extract' : 'Data extract'}
             </button>
-            <aside className={`absolute bottom-16 right-4 z-30 w-[min(24rem,calc(100%-2rem))] rounded-relume border border-relume-border bg-white p-4 shadow-sm transition ${showExtract ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`} aria-label="Plan data extract" aria-hidden={!showExtract} data-contextual-extract>
+            <aside className={`${mobilePanel === 'extract' ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,36rem)] overflow-y-auto lg:inset-y-4 lg:left-auto lg:right-4 lg:bottom-4 lg:w-[24rem]' : 'hidden'} w-auto rounded-relume border border-relume-border bg-white p-4 shadow-xl motion-reduce:transition-none`} aria-label="Plan data extract" aria-modal={mobilePanel === 'extract' ? 'true' : undefined} role={mobilePanel === 'extract' ? 'dialog' : undefined} aria-hidden={mobilePanel === 'extract' ? undefined : true} data-mobile-sheet={mobilePanel === 'extract' ? 'extract' : undefined} data-contextual-extract>
+              <div className="mb-3 flex justify-end"><button type="button" onClick={closeMobilePanel} className="min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command">Close evidence</button></div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Data extract · contextual</p>
               <dl className="mt-3 grid grid-cols-2 gap-3 text-xs"><div><dt className="text-relume-muted">Gross floor area</dt><dd className="mt-1 font-mono text-lg">{format(grossArea, 1)} m²</dd></div><div><dt className="text-relume-muted">Rooms</dt><dd className="mt-1 font-mono text-lg">{plan.rooms.length}</dd></div></dl>
               <p className="mt-3 text-[10px] leading-4 text-relume-muted">INDICATIVE — deterministic geometry; authority and site verification remain required.</p>
             </aside>
           </>}
+          {mobilePanel && <button type="button" aria-label="Close open panel" onClick={closeMobilePanel} className="fixed inset-0 z-[70] bg-black/25" data-mobile-sheet-scrim />}
         </div>
 
         {canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} className="max-h-[40dvh] overflow-y-auto" />}

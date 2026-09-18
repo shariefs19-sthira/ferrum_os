@@ -21,7 +21,7 @@ describe("ToolsRuler rail=false (trigger+listbox, no horizontal scroll)", () => 
     expect(document.querySelector(".overflow-x-auto")).toBeNull()
   })
 
-  it("opens the listbox from the trigger and lists all four tools", () => {
+  it("opens the listbox from the trigger and lists the three canvas tools", () => {
     render(<ToolsRuler {...baseProps} />)
     const trigger = document.querySelector('[aria-haspopup="listbox"]') as HTMLElement
     expect(trigger).toBeTruthy()
@@ -31,7 +31,7 @@ describe("ToolsRuler rail=false (trigger+listbox, no horizontal scroll)", () => 
     expect(trigger.getAttribute("aria-expanded")).toBe("true")
     const listbox = screen.getByRole("listbox", { name: "Workspace tools" })
     const options = screen.getAllByRole("option")
-    expect(options).toHaveLength(4)
+    expect(options).toHaveLength(3)
     expect(listbox).toBeTruthy()
   })
 
@@ -62,10 +62,11 @@ describe("ToolsRuler rail=false (trigger+listbox, no horizontal scroll)", () => 
 })
 
 describe("ToolsRuler rail=true (vertical rail without horizontal scroll)", () => {
-  it("renders all four tools directly without an overflow-x container", () => {
+  it("renders canvas tools and one extract action without an overflow-x container", () => {
     render(<ToolsRuler {...baseProps} rail />)
     expect(document.querySelector('[aria-haspopup="listbox"]')).toBeNull()
     expect(document.querySelector(".overflow-x-auto")).toBeNull()
-    expect(screen.getAllByRole("button", { name: /Select|Measure|Compare|Data extract/ }).length).toBeGreaterThanOrEqual(4)
+    expect(screen.getAllByRole("button", { name: /Select|Measure|Compare/ })).toHaveLength(3)
+    expect(screen.getByRole("button", { name: "Open extract" })).toBeTruthy()
   })
 })

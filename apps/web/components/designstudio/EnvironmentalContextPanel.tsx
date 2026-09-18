@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react"
 import { buildEnvironmentalContext, type EnvironmentalLayer, type LayerConfidence, type LodLevel } from "../../lib/designstudio/environmentalContext"
 import { createGooglePhotorealistic3DTilesAdapter } from "../../lib/tileSources/googlePhotorealistic3DTilesAdapter"
+import { contextAnalysisEngines, contextTwinSources } from "../../lib/designstudio/contextTwinSources"
+import { jurisdictionPacks } from "../../lib/designstudio/jurisdictionPacks"
 import { useParcelContext } from "../../lib/workspace/parcelContext"
 import { sampleSiteContext } from "../../lib/workspace/sampleSiteContext"
 
@@ -137,6 +139,57 @@ export default function EnvironmentalContextPanel() {
       </div>
 
       <p className="mt-5 border-t border-relume-border pt-4 text-xs font-semibold leading-5 text-relume-ink">INDICATIVE — CONTEXT ONLY. Survey/cadastral geometry, terrain analytics and provider permissions must be independently verified before measurable use.</p>
+
+      <div className="mt-5 grid gap-5 border-t border-relume-border pt-5 xl:grid-cols-2">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-relume-muted">Context twin source priority</p>
+          <ul className="mt-3 space-y-3">
+            {contextTwinSources.map((source) => (
+              <li key={source.id} className="rounded-relume border border-relume-border bg-relume-surface p-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm font-semibold text-relume-ink">{source.label}</p>
+                  <span className="font-mono text-[10px] font-semibold tracking-[0.08em] text-relume-muted">{source.authority}</span>
+                </div>
+                <p className="mt-2 text-xs leading-5 text-relume-ink">{source.supplies}</p>
+                <p className="mt-1 text-xs leading-5 text-relume-muted">{source.limitation}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-relume-muted">Evidence-linked design analysis</p>
+          <ul className="mt-3 space-y-3">
+            {contextAnalysisEngines.map((engine) => (
+              <li key={engine.id} className="rounded-relume border border-relume-border bg-relume-surface p-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm font-semibold text-relume-ink">{engine.label}</p>
+                  <span className="font-mono text-[10px] font-semibold tracking-[0.08em] text-relume-muted">{engine.decisionState}</span>
+                </div>
+                <p className="mt-2 text-xs leading-5 text-relume-muted">{engine.purpose}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-xs font-semibold leading-5 text-relume-ink">SUTRA may compare and explain window, shading and massing options. Every recommendation remains a proposal until the controlling geometry, local rules and required professional review are complete.</p>
+        </div>
+      </div>
+
+      <div className="mt-5 border-t border-relume-border pt-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-relume-muted">International jurisdiction architecture</p>
+        <p className="mt-2 max-w-4xl text-sm leading-6 text-relume-ink">Ferrum uses one worldwide project kernel and independently versioned country, state and city rule packs. India is the first deep pack, not the product boundary.</p>
+        <ul className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {jurisdictionPacks.map((pack) => (
+            <li key={pack.id} className="rounded-relume border border-relume-border bg-relume-surface p-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-sm font-semibold text-relume-ink">{pack.label}</p>
+                <span className="font-mono text-[10px] font-semibold tracking-[0.08em] text-relume-muted">{pack.status}</span>
+              </div>
+              <p className="mt-2 text-xs leading-5 text-relume-muted">{pack.scope}</p>
+              <p className="mt-2 text-xs leading-5 text-relume-ink">{pack.rule}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

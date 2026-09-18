@@ -17,6 +17,7 @@ describe("ErrorBoundary (white-screen insurance)", () => {
     // environments too - suppress just this expected noise, not a real
     // silencing of unexpected errors elsewhere.
     vi.spyOn(console, "error").mockImplementation(() => {})
+    const report = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(null, { status: 202 }))
 
     render(
       <ErrorBoundary>
@@ -28,6 +29,17 @@ describe("ErrorBoundary (white-screen insurance)", () => {
     expect(screen.getByRole("button", { name: /reload page/i })).toBeTruthy()
     expect(screen.getByRole("button", { name: /try again/i })).toBeTruthy()
     expect(screen.queryByText("safe content")).toBeNull()
+    expect(report).toHaveBeenCalledWith(
+      "/api/ops/client-errors",
+      expect.objectContaining({ method: "POST", keepalive: true }),
+    )
+    const request = report.mock.calls[0][1]
+    expect(JSON.parse(request?.body as string)).toMatchObject({
+      name: "Error",
+      message: "boom - simulated render crash",
+      route: "/",
+    })
+    expect(request?.body).not.toContain("User agent")
   })
 
   it("renders children normally when nothing throws - the boundary is invisible on the happy path", () => {

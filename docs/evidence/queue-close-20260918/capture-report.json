@@ -1,0 +1,173 @@
+{
+  "capturedAt": "2026-09-18T18:02:25.100Z",
+  "baseUrl": "https://ferrumos-preview.shariefsatyala.workers.dev",
+  "expectedRelease": {
+    "sha": "ac5b220c22e9e49d0321df6f0d40cc18509c0891",
+    "cloudflareVersion": "cb1db4b8-e31c-4128-b134-d3e35b32816e"
+  },
+  "captures": [
+    {
+      "name": "boq-model-linked-desktop",
+      "path": "/boq-pro",
+      "mobile": false,
+      "viewport": {
+        "width": 1366,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "title": "BOQ Pro Calculator - Ferrum OS | Ferrum OS",
+      "evidence": {
+        "heading": "MODEL-LINKED TAKE-OFF Revision 1 · fingerprint 7298bc3e DRAFT CONCRETE VOLUME 187.2 m3 Sum of PCC blinding + RCC slab volumes across every scoped line. REINFORCEMENT WEIGHT 14,820 kg RCC volume × 95 kg/m³ indicative reinforcement ratio. FORMWORK AREA UNKNOWN Formwork/shuttering contact area requires soffit and edge geometry this deterministic rectangular-room generator does not model. Not computed — do not treat as zero. Lines · select to highlight source geometry FOUNDATION / SUBSTRUCTURE Rate required Excavation 187.2 m3 Plain cement concrete blinding 31.2 m3 FLOOR 1 Rate required Reinforced concrete slabs 52 m3 Reinforcement steel 4,940 kg External blockwork 214.2 m2 Internal and external plaster 428.4 m2 Floor finish 416 m2 Wall and ceiling paint 844.4 m2 Internal doors 5 nos Room windows 5 nos FLOOR 2 Rate required Reinforced concrete slabs 52 m3 Reinforcement steel 4,940 kg External blockwork 214.2 m2 Internal and external plaster 428.4 m2 Floor finish 416 m2 Wall and ceiling paint 844.4 m2 Internal doors 5 nos Room windows 5 nos FLOOR 3 Rate required Reinforced concrete slabs 52 m3 Reinforcement steel 4,940 kg External blockwork 214.2 m2 Internal and external plaster 428.4 m2 Floor finish 416 m2 Wall and ceiling paint 844.4 m2 Internal doors 5 nos Room windows 5 nos Excavation · Foundation / substructure Formula/basis: ground-floor footprint × 0.45 m, substructure scope (one-time, not repeated per floor) Source elements: f1-r0, f1-r1, f1-r2, f1-r3, f1-r4 Assumptions Footprint assumed constant across all floors (deterministic rectangular envelope). Exclusions Foundation type, soil-bearing capacity, and excavation depth are not modeled — this is a footprint-derived quantity, not a geotechnical design output. Element register Covers every room and opening the deterministic generator produced. Not covered as discrete structural elements: foundation, column, beam, stair, wall — this plan model does not generate these as separate members. Element Floor Detail Door f1-r0-door 1 east edge · 1.20 m × 2.10 m Window f1-r0-window 1 north edge · 1.50 m × 1.50 m Door f1-r1-door 1 east edge · 1.20 m × 2.10 m Window f1-r1-window 1 north edge · 1.50 m × 1.50 m Door f1-r2-door 1 east edge · 1.20 m × 2.10 m Window f1-r2-window 1 north edge · 1.50 m × 1.50 m Door f1-r3-door 1 east edge · 1.20 m × 2.10 m Window f1-r3-window 1 north edge · 1.50 m × 1.50 m Door f1-r4-door 1 east edge · 1.20 m × 2.10 m Window f1-r4-window 1 north edge · 1.50 m × 1.50 m Living / dining 1 9.92 m × 14.30 m · 141.86 m² Bedroom 1 6.08 m × 14.30 m · 86.94 m² Kitchen 1 5.76 m × 11.70 m · 67.39 m² Stair / circulation 1 4.48 m × 11.70 m · 52.42 m² Utility / bath 1 5.76 m × 11.70 m · 67.39 m² Door f2-r0-door 2 east edge · 1.20 m × 2.10 m Window f2-r0-window 2 north edge · 1.50 m × 1.50 m Door f2-r1-door 2 east edge · 1.20 m × 2.10 m Window f2-r1-window 2 north edge · 1.50 m × 1.50 m Door f2-r2-door 2 east edge · 1.20 m × 2.10 m Window f2-r2-window 2 north edge · 1.50 m × 1.50 m Door f2-r3-door 2 east edge · 1.20 m × 2.10 m Window f2-r3-window 2 north edge · 1.50 m × 1.50 m Door f2-r4-door 2 east edge · 1.20 m × 2.10 m Window f2-r4-window 2 north edge · 1.50 m × 1.50 m Floor 2 Family room 2 9.92 m × 14.30 m · 141.86 m² Floor 2 Bedroom 2 6.08 m × 14.30 m · 86.94 m² Floor 2 Bedroom 2 5.76 m × 11.70 m · 67.39 m² Floor 2 Stair / circulation 2 4.48 m × 11.70 m · 52.42 m² Floor 2 Bath / storage 2 5.76 m × 11.70 m · 67.39 m² Door f3-r0-door 3 east edge · 1.20 m × 2.10 m Window f3-r0-window 3 north edge · 1.50 m × 1.50 m Door f3-r1-door 3 east edge · 1.20 m × 2.10 m Window f3-r1-window 3 north edge · 1.50 m × 1.50 m Door f3-r2-door 3 east edge · 1.20 m × 2.10 m Window f3-r2-window 3 north edge · 1.50 m × 1.50 m Door f3-r3-door 3 east edge · 1.20 m × 2.10 m Window f3-r3-window 3 north edge · 1.50 m × 1.50 m Door f3-r4-door 3 east edge · 1.20 m × 2.10 m Window f3-r4-window 3 north edge · 1.50 m × 1.50 m Floor 3 Family room 3 9.92 m × 14.30 m · 141.86 m² Floor 3 Bedroom 3 6.08 m × 14.30 m · 86.94 m² Floor 3 Bedroom 3 5.76 m × 11.70 m · 67.39 m² Floor 3 Stair / circulation 3 4.48 m × 11.70 m · 52.42 m² Floor 3 Bath / storage 3 5.76 m × 11.70 m · 67.39 m² CHECKER STATUS DRAFT CHECK REQUIRED CHECKED Revision history Revision Geometry fingerprint Created Recorded status 1 7298bc3e 18/9/2026, 11:32:26 pm DRAFT INDICATIVE — deterministic geometry only. Rates remain blank until independently verified; checker status is a workflow marker, not a certification.",
+        "selectedLine": "Excavation · Foundation / substructure Formula/basis: ground-floor footprint × 0.45 m, substructure scope (one-time, not repeated per floor) Source elements: f1-r0, f1-r1, f1-r2, f1-r3, f1-r4 Assumptions Footprint assumed constant across all floors (deterministic rectangular envelope). Exclusions Foundation type, soil-bearing capacity, and excavation depth are not modeled — this is a footprint-derived quantity, not a geotechnical design output.",
+        "checkerStatus": "DRAFT"
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "boq-model-linked-desktop.png"
+    },
+    {
+      "name": "boq-model-linked-mobile",
+      "path": "/boq-pro",
+      "mobile": true,
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "httpStatus": 200,
+      "title": "BOQ Pro Calculator - Ferrum OS | Ferrum OS",
+      "evidence": {
+        "heading": "MODEL-LINKED TAKE-OFF Revision 1 · fingerprint 7298bc3e DRAFT CONCRETE VOLUME 187.2 m3 Sum of PCC blinding + RCC slab volumes across every scoped line. REINFORCEMENT WEIGHT 14,820 kg RCC volume × 95 kg/m³ indicative reinforcement ratio. FORMWORK AREA UNKNOWN Formwork/shuttering contact area requires soffit and edge geometry this deterministic rectangular-room generator does not model. Not computed — do not treat as zero. Lines · select to highlight source geometry FOUNDATION / SUBSTRUCTURE Rate required Excavation 187.2 m3 Plain cement concrete blinding 31.2 m3 FLOOR 1 Rate required Reinforced concrete slabs 52 m3 Reinforcement steel 4,940 kg External blockwork 214.2 m2 Internal and external plaster 428.4 m2 Floor finish 416 m2 Wall and ceiling paint 844.4 m2 Internal doors 5 nos Room windows 5 nos FLOOR 2 Rate required Reinforced concrete slabs 52 m3 Reinforcement steel 4,940 kg External blockwork 214.2 m2 Internal and external plaster 428.4 m2 Floor finish 416 m2 Wall and ceiling paint 844.4 m2 Internal doors 5 nos Room windows 5 nos FLOOR 3 Rate required Reinforced concrete slabs 52 m3 Reinforcement steel 4,940 kg External blockwork 214.2 m2 Internal and external plaster 428.4 m2 Floor finish 416 m2 Wall and ceiling paint 844.4 m2 Internal doors 5 nos Room windows 5 nos Excavation · Foundation / substructure Formula/basis: ground-floor footprint × 0.45 m, substructure scope (one-time, not repeated per floor) Source elements: f1-r0, f1-r1, f1-r2, f1-r3, f1-r4 Assumptions Footprint assumed constant across all floors (deterministic rectangular envelope). Exclusions Foundation type, soil-bearing capacity, and excavation depth are not modeled — this is a footprint-derived quantity, not a geotechnical design output. Element register Covers every room and opening the deterministic generator produced. Not covered as discrete structural elements: foundation, column, beam, stair, wall — this plan model does not generate these as separate members. Element Floor Detail Door f1-r0-door 1 east edge · 1.20 m × 2.10 m Window f1-r0-window 1 north edge · 1.50 m × 1.50 m Door f1-r1-door 1 east edge · 1.20 m × 2.10 m Window f1-r1-window 1 north edge · 1.50 m × 1.50 m Door f1-r2-door 1 east edge · 1.20 m × 2.10 m Window f1-r2-window 1 north edge · 1.50 m × 1.50 m Door f1-r3-door 1 east edge · 1.20 m × 2.10 m Window f1-r3-window 1 north edge · 1.50 m × 1.50 m Door f1-r4-door 1 east edge · 1.20 m × 2.10 m Window f1-r4-window 1 north edge · 1.50 m × 1.50 m Living / dining 1 9.92 m × 14.30 m · 141.86 m² Bedroom 1 6.08 m × 14.30 m · 86.94 m² Kitchen 1 5.76 m × 11.70 m · 67.39 m² Stair / circulation 1 4.48 m × 11.70 m · 52.42 m² Utility / bath 1 5.76 m × 11.70 m · 67.39 m² Door f2-r0-door 2 east edge · 1.20 m × 2.10 m Window f2-r0-window 2 north edge · 1.50 m × 1.50 m Door f2-r1-door 2 east edge · 1.20 m × 2.10 m Window f2-r1-window 2 north edge · 1.50 m × 1.50 m Door f2-r2-door 2 east edge · 1.20 m × 2.10 m Window f2-r2-window 2 north edge · 1.50 m × 1.50 m Door f2-r3-door 2 east edge · 1.20 m × 2.10 m Window f2-r3-window 2 north edge · 1.50 m × 1.50 m Door f2-r4-door 2 east edge · 1.20 m × 2.10 m Window f2-r4-window 2 north edge · 1.50 m × 1.50 m Floor 2 Family room 2 9.92 m × 14.30 m · 141.86 m² Floor 2 Bedroom 2 6.08 m × 14.30 m · 86.94 m² Floor 2 Bedroom 2 5.76 m × 11.70 m · 67.39 m² Floor 2 Stair / circulation 2 4.48 m × 11.70 m · 52.42 m² Floor 2 Bath / storage 2 5.76 m × 11.70 m · 67.39 m² Door f3-r0-door 3 east edge · 1.20 m × 2.10 m Window f3-r0-window 3 north edge · 1.50 m × 1.50 m Door f3-r1-door 3 east edge · 1.20 m × 2.10 m Window f3-r1-window 3 north edge · 1.50 m × 1.50 m Door f3-r2-door 3 east edge · 1.20 m × 2.10 m Window f3-r2-window 3 north edge · 1.50 m × 1.50 m Door f3-r3-door 3 east edge · 1.20 m × 2.10 m Window f3-r3-window 3 north edge · 1.50 m × 1.50 m Door f3-r4-door 3 east edge · 1.20 m × 2.10 m Window f3-r4-window 3 north edge · 1.50 m × 1.50 m Floor 3 Family room 3 9.92 m × 14.30 m · 141.86 m² Floor 3 Bedroom 3 6.08 m × 14.30 m · 86.94 m² Floor 3 Bedroom 3 5.76 m × 11.70 m · 67.39 m² Floor 3 Stair / circulation 3 4.48 m × 11.70 m · 52.42 m² Floor 3 Bath / storage 3 5.76 m × 11.70 m · 67.39 m² CHECKER STATUS DRAFT CHECK REQUIRED CHECKED Revision history Revision Geometry fingerprint Created Recorded status 1 7298bc3e 18/9/2026, 11:32:27 pm DRAFT INDICATIVE — deterministic geometry only. Rates remain blank until independently verified; checker status is a workflow marker, not a certification.",
+        "selectedLine": "Excavation · Foundation / substructure Formula/basis: ground-floor footprint × 0.45 m, substructure scope (one-time, not repeated per floor) Source elements: f1-r0, f1-r1, f1-r2, f1-r3, f1-r4 Assumptions Footprint assumed constant across all floors (deterministic rectangular envelope). Exclusions Foundation type, soil-bearing capacity, and excavation depth are not modeled — this is a footprint-derived quantity, not a geotechnical design output.",
+        "checkerStatus": "DRAFT"
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "boq-model-linked-mobile.png"
+    },
+    {
+      "name": "landintel-environment-desktop",
+      "path": "/products/landintel",
+      "mobile": false,
+      "viewport": {
+        "width": 1366,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "title": "LandIntel - Ferrum OS",
+      "evidence": {
+        "activeTheme": "Month-by-month climate normals and a dated century of recorded rainfall, flood, seismic and land-use history for the resolved site. Climate year and design implications No parcel context — resolve a lookup above. 100-year evidence timeline No parcel context — resolve a lookup above.",
+        "terrainStatus": "Dataset statusNO TERRAIN SOURCE CONNECTEDNo terrain surface, anomaly, level, volume or suitability conclusion is asserted."
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "landintel-environment-desktop.png"
+    },
+    {
+      "name": "landintel-terrain-desktop",
+      "path": "/products/landintel",
+      "mobile": false,
+      "viewport": {
+        "width": 1366,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "title": "LandIntel - Ferrum OS",
+      "evidence": {
+        "panel": "LANDINTEL · GOVERNED TERRAIN INTELLIGENCE ROADMAP Terrain decisions must retain their survey evidence LandIntel will connect point clouds and terrain models to project boundaries, design levels and traceable decisions. Visual relief alone is not a result: source, reference system, accuracy, resolution and gaps must remain visible. DATASET STATUS NO TERRAIN SOURCE CONNECTED No terrain surface, anomaly, level, volume or suitability conclusion is asserted. SOURCE MISSING UNKNOWN INDICATIVE SURVEY-VALIDATED ANALYSIS 01 ROADMAP Bare-earth DTM & surface DSM Separate classified ground from buildings, vegetation and other surface returns. Evidence required: Classified point cloud or authority terrain model with documented derivation. ANALYSIS 02 ROADMAP Slope & elevation analysis Screen gradients, elevation ranges and abrupt terrain changes inside the project boundary. Evidence required: Terrain elevations with horizontal and vertical reference systems and stated accuracy. ANALYSIS 03 ROADMAP Drainage paths & low points Identify preliminary flow paths, sinks and low areas for drainage review. Evidence required: Hydrologically conditioned terrain model plus rainfall and drainage context. ANALYSIS 04 ROADMAP Access-gradient screening Compare preliminary road or ramp alignments against target gradients. Evidence required: Terrain surface, proposed alignment, design criteria and verified tie-in levels. ANALYSIS 05 ROADMAP Cut-and-fill estimation Compare existing terrain with a proposed formation surface to estimate earthwork. Evidence required: Surveyed existing surface, design surface, boundary, method and tolerances. ANALYSIS 06 ROADMAP Canopy & obstruction mapping Expose above-ground obstructions and canopy that may affect access or development. Evidence required: Classified above-ground returns with acquisition date and completeness statement. ANALYSIS 07 ROADMAP Building & road cross-sections Inspect the terrain profile along a proposed building, road or user-defined line. Evidence required: Georeferenced terrain plus the current design alignment or footprint revision. ANALYSIS 08 ROADMAP Survey & design-level comparison Measure deviations between terrain evidence, project survey and design levels. Evidence required: Versioned survey and design surfaces in compatible horizontal and vertical datums. EVIDENCE RECORD Capture date Not connected SOURCE MISSING Provider Not connected SOURCE MISSING Resolution / point density UNKNOWN UNKNOWN Classification UNKNOWN UNKNOWN Horizontal CRS UNKNOWN UNKNOWN Vertical datum UNKNOWN UNKNOWN Horizontal / vertical accuracy UNKNOWN UNKNOWN Coverage gaps UNKNOWN UNKNOWN GOVERNED PROCESSING PATH 01Connect terrain source 02Validate provenance & reference systems 03Classify and derive DTM / DSM 04Stream governed 3D terrain 05Run bounded terrain analysis 06Compare survey & design levels 07Record an evidence-linked decision LIDAR DOES NOT ESTABLISH Soil bearing capacity or geotechnical suitability Buried utilities or underground obstructions Foundation type or structural adequacy Legal parcel boundaries, title or ownership INDICATIVE UNTIL VALIDATED AGAINST A PROJECT SURVEY. The module specification is visible; ingestion, terrain processing, 3D visualization and engineering calculations are not yet connected.",
+        "terrainStatus": "DATASET STATUS NO TERRAIN SOURCE CONNECTED No terrain surface, anomaly, level, volume or suitability conclusion is asserted."
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "landintel-terrain-desktop.png"
+    },
+    {
+      "name": "landintel-access-mobile",
+      "path": "/products/landintel",
+      "mobile": true,
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "httpStatus": 200,
+      "title": "LandIntel - Ferrum OS",
+      "evidence": {
+        "activeTheme": "Lawful road access and connectivity checks, plus a configurable proximity catchment — never a fabricated travel time or nearby place. LANDINTEL · ACCESS & CONNECTIVITY ROADMAP Access must be legal, not just adjacent Road frontage, right of way, transit proximity and utility connectivity each need their own verified source. Map-visible adjacency to a road is never treated as proof of lawful access. DATASET STATUS NO ACCESS SOURCE CONNECTED No frontage, right-of-way, transit or utility conclusion is asserted. SOURCE-VERIFIED INDICATIVE INFERRED UNKNOWN STALE CHECK 01 ROADMAP Legal / lawful access Confirm the parcel has a recorded right of way or frontage on a public road, not merely map-visible adjacency. Evidence required: Recorded easement, right-of-way deed, or authority road-frontage record. CHECK 02 ROADMAP Road classification & width Compare the fronting road class and carriageway width against the setback/FAR rules that depend on it. Evidence required: Authority road-width register or a surveyed carriageway measurement. CHECK 03 ROADMAP Public-transit proximity Screen straight-line and network proximity to metro, rail and organized bus stops. Evidence required: Official transit-stop registry with coordinates and a routed (not straight-line) distance/time source. CHECK 04 ROADMAP Utility connectivity Establish whether power, water and sewer connections are available at the boundary versus requiring extension. Evidence required: Utility-provider connection record or a site connectivity certificate. CHECK 05 ROADMAP Arterial / corridor connectivity Assess drive-time reach to arterial roads, ring roads and planned corridors that affect long-run accessibility. Evidence required: Routed drive-time analysis against a maintained road network, not a straight-line radius. EVIDENCE RECORD Frontage / right-of-way record Not connected UNKNOWN Road-width register Not connected UNKNOWN Transit-stop registry UNKNOWN UNKNOWN Utility connection record UNKNOWN UNKNOWN Routed drive-time engine Not connected UNKNOWN ACCESS DOES NOT ESTABLISH A guaranteed travel time to any destination Utility connection availability or capacity at the boundary Legal right of way where none is separately verified Future road-widening or corridor commitments INDICATIVE UNTIL VERIFIED AGAINST A RECORDED RIGHT OF WAY. No travel-time, transit-proximity or utility-availability figure is generated by this module today. LANDINTEL · PROXIMITY CATCHMENT CONFIGURABLE, UNKNOWN CONTENTS Set a radius. Nothing inside it is invented. This radius is a straight-line (\"as the crow flies\") distance from the resolved site, not a routed travel time. No place, business, school, hospital or transit stop is listed inside it until a licensed POI/routing source is connected — every category below reads UNKNOWN rather than an invented count or name. CURRENT RADIUS 2.00 km (1.24 mi) · straight-line radius Radius (0.5–20 km) Kilometres Miles DISPLAY UNIT Kilometres Miles Schools & education UNKNOWN Count and distance of schools within the radius. Healthcare UNKNOWN Hospitals and clinics within the radius. Public transit UNKNOWN Metro, rail and organized bus stops within the radius. Retail & daily needs UNKNOWN Grocery, pharmacy and daily-needs retail within the radius. Employment nodes UNKNOWN Major office/industrial clusters within the radius. INDICATIVE RADIUS ONLY — NOT A TRAVEL-TIME ANALYSIS. Connecting a licensed POI/routing source is required before any category above can show a real count, name or distance."
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "landintel-access-mobile.png"
+    },
+    {
+      "name": "designstudio-environment-desktop",
+      "path": "/products/designstudio",
+      "mobile": false,
+      "viewport": {
+        "width": 1366,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "title": "Design Studio - Ferrum OS",
+      "evidence": {
+        "panel": "DESIGNSTUDIO · ENVIRONMENTAL CONTEXT Keep context visible without turning it into design evidence Each source remains a separate layer with its own coordinate system, date, licence, confidence and known gaps. Context layers cannot supply dimensions, setbacks, levels or structural decisions. PROJECT CONTEXT No parcel selected No parcel is loaded in Project Context. The scene renders around a fixed sample reference point, not a real site. Parcel selection extent No authoritative parcel is loaded from Project Context. No boundary is rendered or implied. UNAVAILABLE Hide provenance CRS UNKNOWN UNITS metres HORIZONTAL DATUM UNKNOWN VERTICAL DATUM UNKNOWN - no elevation reference is attached to this boundary SOURCE DATE UNKNOWN LICENCE UNKNOWN COVERAGE None RESOLUTION UNKNOWN ATTRIBUTION No parcel selected COMPLETENESS No surveyed boundary ring exists in Project Context today; this layer shows an area-derived indicative extent, never a cadastral polygon. Terrain NO TERRAIN SOURCE CONNECTED. No slope, drainage, cut/fill or elevation conclusion is asserted. UNAVAILABLE View provenance OSM contextual buildings & roads Contextual massing only - never used for dimensions, setbacks, levels or structural decisions. SAMPLE FIXTURE View provenance Photorealistic visual context (optional) GATED UNAVAILABLE pending verified API terms, key availability, attribution and quota/cost handling. Never used for dimensions, setbacks, levels or structural decisions, even once connected. UNAVAILABLE View provenance Proposed design The only layer editable through Studio Parameters; never overwritten by terrain, OSM or photoreal context data. AUTHOR CONTROLLED View provenance SCENE DETAIL High detail Standard Low / mobile Balanced density for general review. Scene extent and boundary data are unaffected. GOOGLE PHOTOREALISTIC 3D TILES GATED UNAVAILABLE Not integrated: API key not configured; Google 3D Tiles terms-of-service acceptance not recorded; quota/cost handling not confirmed; required attribution rendering not confirmed. This adapter refuses to fetch or fabricate a tileset until every gate is met. CROSS-SOURCE ALIGNMENT No selected parcel is available for an offset check. The OSM geometry remains a fixed Bengaluru sample fixture. EXPORT CONTROLS • OSM building/road data is ODbL-licensed: any redistributed export carrying this layer must carry the \"© OpenStreetMap contributors\" attribution and remain share-alike. • Photorealistic visual context, once connected, will carry its own provider redistribution terms - never bundled into an export until those terms are independently verified. • The cadastral boundary layer is an indicative, area-derived extent, not a surveyed polygon - it must never be exported or relied on as survey evidence. • Terrain has no connected source; there is no terrain data to export. INDICATIVE — CONTEXT ONLY. Survey/cadastral geometry, terrain analytics and provider permissions must be independently verified before measurable use."
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "designstudio-environment-desktop.png"
+    },
+    {
+      "name": "designstudio-environment-mobile",
+      "path": "/products/designstudio",
+      "mobile": true,
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "httpStatus": 200,
+      "title": "Design Studio - Ferrum OS",
+      "evidence": {
+        "panel": "DESIGNSTUDIO · ENVIRONMENTAL CONTEXT Keep context visible without turning it into design evidence Each source remains a separate layer with its own coordinate system, date, licence, confidence and known gaps. Context layers cannot supply dimensions, setbacks, levels or structural decisions. PROJECT CONTEXT No parcel selected No parcel is loaded in Project Context. The scene renders around a fixed sample reference point, not a real site. Parcel selection extent No authoritative parcel is loaded from Project Context. No boundary is rendered or implied. UNAVAILABLE Hide provenance CRS UNKNOWN UNITS metres HORIZONTAL DATUM UNKNOWN VERTICAL DATUM UNKNOWN - no elevation reference is attached to this boundary SOURCE DATE UNKNOWN LICENCE UNKNOWN COVERAGE None RESOLUTION UNKNOWN ATTRIBUTION No parcel selected COMPLETENESS No surveyed boundary ring exists in Project Context today; this layer shows an area-derived indicative extent, never a cadastral polygon. Terrain NO TERRAIN SOURCE CONNECTED. No slope, drainage, cut/fill or elevation conclusion is asserted. UNAVAILABLE View provenance OSM contextual buildings & roads Contextual massing only - never used for dimensions, setbacks, levels or structural decisions. SAMPLE FIXTURE View provenance Photorealistic visual context (optional) GATED UNAVAILABLE pending verified API terms, key availability, attribution and quota/cost handling. Never used for dimensions, setbacks, levels or structural decisions, even once connected. UNAVAILABLE View provenance Proposed design The only layer editable through Studio Parameters; never overwritten by terrain, OSM or photoreal context data. AUTHOR CONTROLLED View provenance SCENE DETAIL High detail Standard Low / mobile Balanced density for general review. Scene extent and boundary data are unaffected. GOOGLE PHOTOREALISTIC 3D TILES GATED UNAVAILABLE Not integrated: API key not configured; Google 3D Tiles terms-of-service acceptance not recorded; quota/cost handling not confirmed; required attribution rendering not confirmed. This adapter refuses to fetch or fabricate a tileset until every gate is met. CROSS-SOURCE ALIGNMENT No selected parcel is available for an offset check. The OSM geometry remains a fixed Bengaluru sample fixture. EXPORT CONTROLS • OSM building/road data is ODbL-licensed: any redistributed export carrying this layer must carry the \"© OpenStreetMap contributors\" attribution and remain share-alike. • Photorealistic visual context, once connected, will carry its own provider redistribution terms - never bundled into an export until those terms are independently verified. • The cadastral boundary layer is an indicative, area-derived extent, not a surveyed polygon - it must never be exported or relied on as survey evidence. • Terrain has no connected source; there is no terrain data to export. INDICATIVE — CONTEXT ONLY. Survey/cadastral geometry, terrain analytics and provider permissions must be independently verified before measurable use."
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "designstudio-environment-mobile.png"
+    },
+    {
+      "name": "cockpit-ifc-export-desktop",
+      "path": "/project-workspace/cockpit?project=preview",
+      "mobile": false,
+      "viewport": {
+        "width": 1366,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "evidence": {
+        "status": "IFC4 exported with 3 storey(s) — 12 walls, 3 slabs, 3 spaces.",
+        "exportButton": "Export IFC",
+        "interaction": "VERIFIED: a real pointer click produced the IFC4 export status."
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "cockpit-ifc-export-desktop.png"
+    },
+    {
+      "name": "cockpit-ifc-export-mobile",
+      "path": "/project-workspace/cockpit?project=preview",
+      "mobile": true,
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "httpStatus": 200,
+      "title": "Ferrum OS - AI-native construction platform for India",
+      "evidence": {
+        "status": "Exports stay on this device.",
+        "exportButton": "Export IFC",
+        "interaction": "NOT VERIFIED: mobile tool rail overlaps the export control and intercepted the real pointer click during this evidence run."
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "cockpit-ifc-export-mobile.png"
+    }
+  ]
+}

@@ -106,7 +106,7 @@ export default function Footer() {
           <p className="text-sm text-relume-muted">
             © {new Date().getFullYear()} Ferrum OS. All rights reserved.
           </p>
-          <p className="text-sm text-relume-muted">Fe·26 — India-first construction &amp; investment platform. Launch 2026.</p>
+          <p className="text-sm text-relume-muted">Fe·26 — global project intelligence from land to delivery.</p>
         </div>
       </div>
     </footer>

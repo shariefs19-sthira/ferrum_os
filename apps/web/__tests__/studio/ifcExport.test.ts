@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { exportMassingToIfc, countIfcGeometry, type MassingModel } from '../../lib/ifc-export'
+import { exportMassingToIfc, type MassingModel } from '../../lib/ifc-export'
+import { countIfcGeometry } from '../../lib/ifc-export-verify'
 
 describe('exportMassingToIfc — round-trip via web-ifc', () => {
   it('produces a valid, non-empty IFC4 file', () => {

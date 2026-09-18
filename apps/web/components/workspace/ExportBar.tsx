@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { writeDxf } from '../../lib/dxf/writeDxf'
+import { exportMassingToIfc } from '../../lib/ifc-export'
 import type { StudioPlan } from '../../lib/types'
 import { openingSegments } from '../../lib/workspace/openings'
 
@@ -38,8 +39,28 @@ export default function ExportBar({ plan }: { plan: StudioPlan }) {
     setStatus(`DXF exported with ${rects.length - 1} ground-floor rooms and ${lines.length} opening segments on DOORS/WINDOWS layers.`)
   }
 
+  const exportIfc = () => {
+    const floors = Math.max(1, Math.round(plan.floors))
+    const bytes = exportMassingToIfc({
+      plot_width_m: plan.plotWidthM,
+      plot_depth_m: plan.plotDepthM,
+      floors,
+      floor_height_m: plan.floorHeightM,
+    })
+    // Uint8Array.from() copies into a plain (non-generic/non-shared)
+    // ArrayBuffer-backed view — BlobPart's DOM typing rejects the
+    // ArrayBufferLike-generic Uint8Array that TextEncoder.encode() (inside
+    // exportMassingToIfc) returns.
+    download(Uint8Array.from(bytes), 'model/ifc', 'ferrum-plan.ifc')
+    setStatus(`IFC4 exported with ${floors} storey(s) — ${floors * 4} walls, ${floors} slabs, ${floors} spaces.`)
+  }
+
   useEffect(() => {
-    const handleCommand = (event: Event) => { if (/export dxf/i.test(String((event as CustomEvent<string>).detail ?? ''))) exportDxf() }
+    const handleCommand = (event: Event) => {
+      const text = String((event as CustomEvent<string>).detail ?? '')
+      if (/export dxf/i.test(text)) exportDxf()
+      if (/export ifc/i.test(text)) exportIfc()
+    }
     window.addEventListener('ferrum:workspace-command', handleCommand)
     return () => window.removeEventListener('ferrum:workspace-command', handleCommand)
   })
@@ -50,9 +71,9 @@ export default function ExportBar({ plan }: { plan: StudioPlan }) {
       <button type="button" onClick={exportDxf} data-export-dxf className="min-h-11 rounded-full border border-white/30 px-4 text-sm font-semibold hover:bg-white hover:text-relume-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
         Export DXF
       </button>
-      <span className="inline-flex min-h-11 items-center rounded-full border border-white/20 px-4 text-sm font-semibold text-white/65" aria-label="IFC export queued pending browser-safe bundling">
-        IFC queued
-      </span>
+      <button type="button" onClick={exportIfc} data-export-ifc className="min-h-11 rounded-full border border-white/30 px-4 text-sm font-semibold hover:bg-white hover:text-relume-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+        Export IFC
+      </button>
     </div>
   )
 }

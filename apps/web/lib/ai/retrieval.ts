@@ -65,6 +65,14 @@ export function retrieve(query: string, topK = 3): RetrievalHit[] {
       selected[selected.length - 1] = parent
     }
   }
+  // A broad feature corpus can crowd a directly matching product overview
+  // outside topK even when none of the selected feature rows happens to be
+  // the one that triggers the parent-injection loop above. Preserve the best
+  // matching product entry as the stable navigation/citation anchor.
+  const bestProduct = hits.find((hit) => hit.doc.id.startsWith('product:'))
+  if (bestProduct && !selected.some((hit) => hit.doc.id === bestProduct.doc.id)) {
+    selected[selected.length - 1] = bestProduct
+  }
   return selected.sort((a, b) => b.score - a.score)
 }
 

@@ -15,9 +15,9 @@ const featureItems = productFeatureRegistry.designstudio
 // W2-345: rewritten to describe the shipped test-fit tool rather than the
 // unbuilt AI brief-wizard workflow (see featureItems above).
 const howItWorksSteps = [
-  { title: 'Enter plot dimensions', body: 'Plot width, depth and floor count.' },
-  { title: 'Adjust an opening', body: 'Select a door or window in plan or elevation and change its bounded properties.' },
-  { title: 'Export DXF preview', body: 'Export the indicative plot, rooms and opening layers for further review.' },
+  { title: 'Continue from LandIntel', body: 'Use the locked parcel context, or enter plot dimensions when no parcel is available.' },
+  { title: 'Swap a regional shell', body: 'Compare original typology-derived outer shells while the rendered view remains visible.' },
+  { title: 'Review the evidence', body: 'Inspect SUTRA’s reasons, UNKNOWN items, provenance and the INDICATIVE status before export.' },
 ]
 
 const integrationItems = [
@@ -37,7 +37,7 @@ const pricingPlans = [
     name: 'Pro',
     price: '₹499/mo',
     tag: 'Most popular',
-    features: ['Unlimited designs', 'AI generation — roadmap', '3D viewer — roadmap', 'DXF export', 'PDF export — roadmap'],
+    features: ['Unlimited designs', 'Regional shell catalogue', 'Three.js rendered cockpit', 'DXF export', 'PDF export — roadmap'],
     button: 'Start Free Trial',
   },
   {
@@ -76,15 +76,15 @@ export default function DesignStudioPage() {
           <div>
             <Eyebrow>DesignStudio</Eyebrow>
             <SectionHeading as="h1" className="mt-4">
-              Test-fit a building with deterministic geometry
+              Place and compare locality-aware building shells
             </SectionHeading>
             <p className="mt-6 text-base leading-7 text-relume-ink">
-              This is an INDICATIVE DesignStudio preview. You can select generated doors and windows in plan and elevation views, edit bounded opening properties, and inspect geometry-derived quantities.
+              Continue from a locked LandIntel parcel, review SUTRA’s locality-fit explanation and swap original regional shell studies inside the always-visible rendered cockpit.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-relume-ink">
-              <li>AI plan generation — roadmap</li>
-              <li>Parametric door and window editing — INDICATIVE preview</li>
-              <li>DXF preview export / PDF issue sets — roadmap</li>
+              <li>Three.js real-time PBR and progressive open-source beauty preview</li>
+              <li>Regional shells with provenance, fit reasons and explicit UNKNOWN items</li>
+              <li>Every model remains INDICATIVE until planning and professional verification</li>
             </ul>
           </div>
           <div className="order-first min-w-0 lg:order-none">
@@ -107,7 +107,7 @@ export default function DesignStudioPage() {
           <Eyebrow>Features</Eyebrow>
           <SectionHeading className="mt-4">Everything you need to design</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            The current preview is deterministic and indicative; it is not CAD, BIM or production documentation.
+            The current shell catalogue and rendered viewport are live. Engineering verification, authority approval and production documentation remain separate controlled stages.
           </p>
         </div>
         <div className="mt-12">
@@ -121,7 +121,7 @@ export default function DesignStudioPage() {
           <Eyebrow>How it works</Eyebrow>
           <SectionHeading className="mt-4">From brief to plans in minutes</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
-            Start with plot inputs, then inspect and adjust the generated preview.
+            Start from verified project context where available, compare bounded shell studies and retain the reasoning behind each selection.
           </p>
         </div>
         <div className="mt-12">

@@ -19,6 +19,18 @@ describe('LandIntel hero composition', () => {
     expect(source.indexOf('<SuitabilityLayerPanel />')).toBeLessThan(source.indexOf('data-landintel-forecast-row'))
     expect(source.indexOf('<SuitabilityLayerPanel />')).toBeLessThan(source.indexOf('<MapComposerGate />'))
     expect(source.indexOf('<MapComposerGate />')).toBeLessThan(source.indexOf('data-landintel-forecast-row'))
+    expect(source).toContain('<GeotechnicalIntelligencePanel />')
+  })
+
+  it('organizes the evidence surface into all five governed analytical themes', () => {
+    expect(source).toContain('EvidenceThemeTabs')
+    for (const theme of ["id: 'land'", "id: 'access'", "id: 'environment'", "id: 'regulation'", "id: 'market'"]) {
+      expect(source).toContain(theme)
+    }
+    expect(source).toContain('<AccessConnectivityPanel />')
+    expect(source).toContain('<ProximityCatchmentPanel />')
+    expect(source).toContain('<MarketContextPanel />')
+    expect(source).toContain('nothing is synthesized to fill a gap')
   })
 
   it('organizes the evidence surface into all five governed analytical themes', () => {

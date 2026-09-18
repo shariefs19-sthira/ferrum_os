@@ -8,15 +8,18 @@ import type { StudioPlan } from "../../lib/types"
 import { sampleSiteContext } from "../../lib/workspace/sampleSiteContext"
 import { useFullscreenState } from "./FullscreenController"
 import { decodeWorkspaceView } from "../../lib/workspace/viewPermalink"
+import type { BuildingShell } from "../../lib/designstudio/shellCatalog"
+import { WebGLPathTracer } from "three-gpu-pathtracer"
 
 const concrete = 0xf4f2ec
 const glass = 0x93bac2
 const metal = 0x202a30
 
-export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE LOCATION Bengaluru, Karnataka" }: { plan: StudioPlan; demoMode?: boolean; contextLabel?: string }) {
+export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE LOCATION Bengaluru, Karnataka", shell }: { plan: StudioPlan; demoMode?: boolean; contextLabel?: string; shell?: BuildingShell }) {
   const hostRef = useRef<HTMLDivElement>(null)
   const [selected, setSelected] = useState("Podium")
   const [profile, setProfile] = useState<"full" | "reduced" | "diagram">("full")
+  const [beautyMode, setBeautyMode] = useState(false)
   const [contextLost, setContextLost] = useState(false)
   const fullscreen = useFullscreenState()
 
@@ -69,10 +72,14 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     scene.add(sun)
     scene.add(new THREE.HemisphereLight(0xffffff, 0x67757b, 1.45))
 
-    const concreteMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: concrete }) : new THREE.MeshPhysicalMaterial({ color: concrete, roughness: 0.9, metalness: 0.02 })
+    const wallColor = shell?.geometry.wallColor ?? concrete
+    const roofColor = shell?.geometry.roofColor ?? metal
+    const accentColor = shell?.geometry.accentColor ?? 0xd59a43
+    const concreteMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: wallColor }) : new THREE.MeshPhysicalMaterial({ color: wallColor, roughness: 0.9, metalness: 0.02 })
     const glassMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: glass, transparent: false, opacity: 1 }) : new THREE.MeshPhysicalMaterial({ color: glass, roughness: 0.42, metalness: 0.04, transmission: 0, transparent: false, opacity: 1, envMapIntensity: 0.65 })
     const metalMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: metal }) : new THREE.MeshPhysicalMaterial({ color: metal, metalness: 0.9, roughness: 0.3 })
-    const selectedMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0xd59a43 }) : new THREE.MeshPhysicalMaterial({ color: 0xd59a43, roughness: 0.5, emissive: 0x5c2d00, emissiveIntensity: 0.16 })
+    const selectedMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: accentColor }) : new THREE.MeshPhysicalMaterial({ color: accentColor, roughness: 0.5, emissive: 0x5c2d00, emissiveIntensity: 0.16 })
+    const roofMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: roofColor }) : new THREE.MeshPhysicalMaterial({ color: roofColor, roughness: 0.82, metalness: 0.03 })
     const metresLon=111320*Math.cos(sampleSiteContext.center.lat*Math.PI/180)
     const groundMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0xb8c5bc }) : new THREE.MeshPhysicalMaterial({ color: 0xb8c5bc, roughness: 0.72, metalness: 0, envMapIntensity: 0.25 })
 
@@ -91,7 +98,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
 
     const floorHeight = plan.floorHeightM
     for (let floor = 0; floor < plan.floors; floor += 1) {
-      const taper = Math.max(0.62, 1 - floor * 0.025)
+      const taper = Math.max(0.62, 1 - floor * (shell?.geometry.taperPerFloor ?? 0.025))
       const width = plan.buildingWidthM * taper
       const depth = plan.buildingDepthM * taper
       const y = 0.58 + floor * floorHeight
@@ -113,9 +120,10 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       baseMaterials.set(slab, concreteMaterial)
       model.add(slab)
 
-      if (!lowPower) {
-        const balcony = new THREE.Mesh(new THREE.BoxGeometry(width * 0.54, 0.13, 1.45), concreteMaterial)
-        balcony.position.set(0, y + floorHeight * 0.32, depth / 2 + 0.72)
+      if (!lowPower && (shell?.geometry.balconyDepthM ?? 1.45) > 0) {
+        const balconyDepth = shell?.geometry.balconyDepthM ?? 1.45
+        const balcony = new THREE.Mesh(new THREE.BoxGeometry(width * 0.54, 0.13, balconyDepth), concreteMaterial)
+        balcony.position.set(0, y + floorHeight * 0.32, depth / 2 + balconyDepth / 2)
         balcony.castShadow = true
         model.add(balcony)
 
@@ -125,6 +133,36 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
           model.add(mullion)
         }
       }
+    }
+    const topTaper = Math.max(0.62, 1 - Math.max(0, plan.floors - 1) * (shell?.geometry.taperPerFloor ?? 0.025))
+    const roofWidth = plan.buildingWidthM * topTaper + (shell?.geometry.overhangM ?? 0.6) * 2
+    const roofDepth = plan.buildingDepthM * topTaper + (shell?.geometry.overhangM ?? 0.6) * 2
+    const roofBaseY = 0.58 + plan.floors * floorHeight
+    let roof: THREE.Mesh
+    if (shell && shell.geometry.roof !== 'flat') {
+      const roofHeight = Math.max(1, Math.tan(shell.geometry.roofPitchDeg * Math.PI / 180) * Math.min(roofWidth, roofDepth) * 0.34)
+      const geometry = new THREE.ConeGeometry(Math.max(roofWidth, roofDepth) * 0.72, roofHeight, 4)
+      geometry.rotateY(Math.PI / 4)
+      geometry.scale(roofWidth / Math.max(roofWidth, roofDepth), 1, roofDepth / Math.max(roofWidth, roofDepth))
+      roof = new THREE.Mesh(geometry, roofMaterial)
+      roof.position.y = roofBaseY + roofHeight / 2
+    } else {
+      roof = new THREE.Mesh(new THREE.BoxGeometry(roofWidth, 0.24, roofDepth), roofMaterial)
+      roof.position.y = roofBaseY + 0.12
+    }
+    roof.name = `shell-roof-${shell?.geometry.roof ?? 'flat'}`
+    roof.userData.label = `${shell?.name ?? 'Building'} roof`
+    roof.castShadow = !lowPower
+    pickables.push(roof)
+    baseMaterials.set(roof, roofMaterial)
+    model.add(roof)
+
+    if (shell && shell.geometry.courtyardRatio > 0.12) {
+      const court = new THREE.Mesh(new THREE.BoxGeometry(plan.buildingWidthM * Math.sqrt(shell.geometry.courtyardRatio), 0.08, plan.buildingDepthM * Math.sqrt(shell.geometry.courtyardRatio)), groundMaterial)
+      court.position.y = 0.54
+      court.name = 'indicative-courtyard-void-marker'
+      court.userData.label = 'Indicative courtyard'
+      model.add(court)
     }
     scene.add(model)
     const selectionOutline = new THREE.BoxHelper(podium, 0xff8c2a)
@@ -155,6 +193,8 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     host.dataset.buildingOpacity=String(glassMaterial.opacity)
     host.dataset.meshesAboveRoof=String(unintendedAboveRoof.length)
     host.dataset.sceneObjects=[ground.name,boundary.name,...sampleSiteContext.buildings.flatMap(item=>[`osm-drape-below-${item.osmWayId}`,`osm-building-seated-${item.osmWayId}`])].join('|')
+    host.dataset.shellId = shell?.id ?? 'default-massing'
+    host.dataset.shellStatus = shell?.provenance.status ?? 'INDICATIVE'
 
     const treeCount = mobile ? 5 : 10
     const treeGeometry = new THREE.ConeGeometry(0.72, 2.5, 7)
@@ -170,7 +210,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       trees.setMatrixAt(i, transform.matrix)
     }
     trees.castShadow = !lowPower
-    if (!lowPower) scene.add(trees)
+    if (!lowPower && !beautyMode) scene.add(trees)
 
     const perspective = new THREE.PerspectiveCamera(34, 1, 0.1, 1200)
     const top = new THREE.OrthographicCamera(-20, 20, 20, -20, 0.1, 1200)
@@ -194,6 +234,17 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       perspective.updateMatrixWorld()
     }
     fit()
+    const pathTracer = beautyMode && !lowPower ? new WebGLPathTracer(renderer) : null
+    if (pathTracer) {
+      pathTracer.bounces = 5
+      pathTracer.tiles.set(2, 2)
+      pathTracer.dynamicLowRes = true
+      pathTracer.lowResScale = 0.35
+      pathTracer.setScene(scene, perspective)
+      host.dataset.renderEngine = 'three-gpu-pathtracer'
+    } else {
+      host.dataset.renderEngine = 'three-webgl-pbr'
+    }
 
     const frameCamera = (camera: THREE.OrthographicCamera, width: number, height: number) => {
       const radius = Math.max(plan.plotWidthM, plan.plotDepthM, plan.floors * floorHeight) * 0.7
@@ -228,8 +279,13 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       const height = host.clientHeight
       controls.update()
       renderer.clear()
-      renderViewport(perspective, 0, 0, width, height)
-      if (!lowPower) {
+      if (pathTracer) {
+        renderer.setScissorTest(false)
+        pathTracer.renderSample()
+      } else {
+        renderViewport(perspective, 0, 0, width, height)
+      }
+      if (!lowPower && !pathTracer) {
         const insetW = Math.min(230, width * 0.3)
         const insetH = Math.min(155, height * 0.29)
         frameCamera(top, insetW, insetH)
@@ -306,7 +362,8 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     renderer.domElement.addEventListener("pointerup", select)
     renderer.domElement.addEventListener("pointermove", indicateSelectable)
     renderer.domElement.addEventListener("keydown", keydown)
-    controls.addEventListener("end", publishCamera)
+    const finishCameraMove = () => { publishCamera(); pathTracer?.updateCamera() }
+    controls.addEventListener("end", finishCameraMove)
     window.addEventListener("ferrum:restore-view", restoreView)
     const restoredView=decodeWorkspaceView(new URLSearchParams(location.search).get("workspaceView"));if(restoredView)restoreView(new CustomEvent("ferrum:restore-view",{detail:restoredView}))
     // preventDefault() on context-lost is required by the WebGL spec for
@@ -337,34 +394,42 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       renderer.domElement.removeEventListener("pointerup", select)
       renderer.domElement.removeEventListener("pointermove", indicateSelectable)
       renderer.domElement.removeEventListener("keydown", keydown)
-      controls.removeEventListener("end", publishCamera)
+      controls.removeEventListener("end", finishCameraMove)
       window.removeEventListener("ferrum:restore-view", restoreView)
       renderer.domElement.removeEventListener("webglcontextlost", onContextLost)
       controls.dispose()
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh || object instanceof THREE.InstancedMesh) object.geometry.dispose()
       })
-      ;[concreteMaterial, glassMaterial, metalMaterial, selectedMaterial, groundMaterial, treeMaterial,existingMaterial,drapeMaterial,boundaryMaterial].forEach((material) => material.dispose())
+      ;[concreteMaterial, glassMaterial, metalMaterial, selectedMaterial, roofMaterial, groundMaterial, treeMaterial,existingMaterial,drapeMaterial,boundaryMaterial].forEach((material) => material.dispose())
       environment?.dispose()
       pmrem.dispose()
       selectionOutline.geometry.dispose()
       selectionOutline.material.dispose()
+      pathTracer?.dispose()
       renderer.dispose()
       renderer.domElement.remove()
     }
-  }, [plan, demoMode, fullscreen.profile])
+  }, [plan, demoMode, fullscreen.profile, shell, beautyMode])
 
   return (
-    <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
+    <div className="flex h-full min-h-[24rem] flex-col bg-[#e7ecec]" data-space-3d-frame>
+    <div ref={hostRef} className="relative min-h-0 flex-1 overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
       {profile === 'diagram' && <div className="absolute inset-0 grid place-items-center bg-relume-surface-secondary p-8 text-center text-sm text-relume-command"><p><strong>Reduced diagram mode</strong><br />{contextLost ? 'The 3D graphics context was lost mid-session (a device/driver event, not an app error).' : 'WebGL2 is unavailable.'} Use Plan or Elevation for the same deterministic geometry.</p></div>}
-      <div className="pointer-events-none absolute bottom-3 left-3 right-3 z-10 overflow-hidden rounded-full bg-relume-command/90 px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-lg" data-canvas-status-bar>
-        <p className="truncate"><span className="text-relume-accent">INDICATIVE</span> · {profile === 'full' ? 'Full presentation' : profile === 'reduced' ? 'Reduced rendering' : 'Diagram'} · {contextLabel} · OSM context 2026-09-05 · © OpenStreetMap contributors · existing-from-OSM, not a survey · boundary indicative</p>
+      <div className="hidden" data-canvas-status-bar>
+        <p className="truncate"><span className="text-relume-accent">INDICATIVE</span> · {shell?.name ?? 'Deterministic massing'} · {profile === 'full' ? 'Three.js PBR' : profile === 'reduced' ? 'Reduced rendering' : 'Diagram'} · {contextLabel} · OSM context 2026-09-05 · © OpenStreetMap contributors · not a survey</p>
       </div>
-      <div className="pointer-events-none absolute right-3 top-3 z-10 rounded bg-white/90 px-3 py-2 text-xs text-relume-command shadow">
+      <div className="hidden">
         Selected: <strong>{selected}</strong><br />Click or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fit
       </div>
+      {shell && profile === 'full' && <button type="button" onClick={() => setBeautyMode((value) => !value)} aria-pressed={beautyMode} className="hidden" data-beauty-preview>{beautyMode ? 'Return to interactive PBR' : 'Render beauty preview'}</button>}
       <div className="pointer-events-none absolute left-5 top-5 z-10 hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white drop-shadow md:block">Top plan</div>
       <div className="pointer-events-none absolute bottom-5 left-5 z-10 hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white drop-shadow md:block">Axonometric</div>
+    </div>
+    <div className="flex min-h-14 items-center gap-2 border-t border-relume-border bg-white px-3 py-2" data-mobile-canvas-status>
+      <p className="min-w-0 flex-1 truncate text-[9px] font-semibold uppercase tracking-[0.08em] text-relume-muted"><span className="text-relume-command">INDICATIVE</span> · {shell?.name ?? 'Deterministic massing'} · {profile === 'full' ? 'PBR' : profile === 'reduced' ? 'Reduced' : 'Diagram'} · not a survey</p>
+      {shell && profile === 'full' && <button type="button" onClick={() => setBeautyMode((value) => !value)} aria-pressed={beautyMode} className="min-h-11 shrink-0 rounded-full border border-relume-border bg-white px-3 text-[10px] font-semibold text-relume-command" data-mobile-beauty-preview>{beautyMode ? 'Interactive' : 'Beauty'}</button>}
+    </div>
     </div>
   )
 }

@@ -8,4 +8,4 @@
 export const SITE_BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.ferrumos.com'
 
 export const SOCIAL_CARD_PATH = '/social-card.png'
-export const SOCIAL_CARD_ALT = 'Ferrum OS - India-first construction operating system from land to delivery.'
+export const SOCIAL_CARD_ALT = 'Ferrum OS - global construction operating system from land to delivery.'
