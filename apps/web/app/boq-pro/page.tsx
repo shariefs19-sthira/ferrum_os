@@ -1,7 +1,12 @@
 ﻿"use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SaveToWorkspaceButton from "../../components/SaveToWorkspaceButton";
+import { generateStudioPlan } from "../../lib/plan-gen";
+import type { StudioParameters } from "../../lib/types";
+import PlanElevationView from "../../components/workspace/PlanElevationView";
+import BoqTraceabilityPanel, { type BoqTraceabilitySelection } from "../../components/workspace/BoqTraceabilityPanel";
+import { readProjectState } from "../../lib/workspace/projectState";
 
 type Material = {
   id: string;
@@ -11,8 +16,61 @@ type Material = {
 };
 
 const STORAGE_KEY = "boqProEstimate";
+const defaultTakeoffParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 };
+
+/**
+ * Model-linked take-off tab: drawing/model element -> highlighted
+ * measurement -> formula -> BOQ line -> revision impact, built entirely
+ * on the shared StudioPlan model (same plan the Design cockpit generates)
+ * and the existing measureBoq formulas. Reads the same browser-local
+ * project state the cockpit writes, so opening this tab after designing
+ * in the cockpit shows the same building — it does not invent a second,
+ * disconnected geometry source.
+ */
+function ModelLinkedTakeoff() {
+  const [parameters, setParameters] = useState<StudioParameters>(defaultTakeoffParameters);
+  const [ready, setReady] = useState(false);
+  const [activeFloor, setActiveFloor] = useState(1);
+  const [selection, setSelection] = useState<BoqTraceabilitySelection>();
+
+  useEffect(() => {
+    setParameters(readProjectState(defaultTakeoffParameters).parameters);
+    setReady(true);
+  }, []);
+
+  const plan = useMemo(() => generateStudioPlan(parameters), [parameters]);
+
+  const onSelectLine = (next: BoqTraceabilitySelection) => {
+    setSelection(next);
+    if (next && typeof next.scope === "number") setActiveFloor(next.scope);
+  };
+
+  if (!ready) return <p className="p-4 text-sm text-relume-muted">Loading model-linked take-off…</p>;
+
+  return (
+    <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]" data-model-linked-takeoff>
+      <div className="rounded-relume border border-relume-border bg-relume-surface p-3">
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">Source drawing · floor {activeFloor}</p>
+          <label className="flex items-center gap-2 text-xs font-semibold">
+            Floor
+            <select value={activeFloor} onChange={(event) => setActiveFloor(Number(event.target.value))} className="rounded border border-relume-border bg-white px-2 py-1">
+              {Array.from({ length: plan.floors }, (_, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)}
+            </select>
+          </label>
+        </div>
+        <div className="mt-2 h-80 min-h-[18rem]">
+          <PlanElevationView plan={plan} view="plan" activeFloor={activeFloor} highlightedElementIds={selection?.sourceElementIds ?? []} fitAllocatedHeight />
+        </div>
+        <p className="mt-2 text-[10px] leading-4 text-relume-muted">Selecting a BOQ line on the right highlights the room(s)/opening(s) it was measured from, in amber. Foundation-scope lines highlight the ground-floor footprint.</p>
+      </div>
+      <BoqTraceabilityPanel plan={plan} onSelectLine={onSelectLine} />
+    </div>
+  );
+}
 
 export default function BOQProPage() {
+  const [activeTab, setActiveTab] = useState<"manual" | "model-linked">("manual");
   const [materials, setMaterials] = useState<Material[]>(() => {
     try {
       const raw = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
@@ -81,7 +139,18 @@ export default function BOQProPage() {
       <h1 className="text-3xl font-bold">BOQ Pro - Quantity Takeoff</h1>
       <p className="mt-2 text-sm text-relume-muted">Save/load/clear estimates locally and export a print/PDF summary (GST 18%).</p>
 
-      <div className="mt-6">
+      <div className="mt-4 flex gap-1 border-b border-relume-border no-print" role="tablist" aria-label="BOQ Pro mode">
+        <button type="button" role="tab" aria-selected={activeTab === "manual"} onClick={() => setActiveTab("manual")} className={`min-h-11 rounded-t-relume px-4 text-sm font-semibold ${activeTab === "manual" ? "border-b-2 border-relume-command text-relume-command" : "text-relume-muted hover:text-relume-command"}`}>
+          Manual estimate
+        </button>
+        <button type="button" role="tab" aria-selected={activeTab === "model-linked"} onClick={() => setActiveTab("model-linked")} className={`min-h-11 rounded-t-relume px-4 text-sm font-semibold ${activeTab === "model-linked" ? "border-b-2 border-relume-command text-relume-command" : "text-relume-muted hover:text-relume-command"}`}>
+          Model-linked take-off
+        </button>
+      </div>
+
+      {activeTab === "model-linked" && <ModelLinkedTakeoff />}
+
+      <div className={`mt-6 ${activeTab === "model-linked" ? "hidden" : ""}`}>
         {/* W2-503: five columns (material, qty, rate, total, remove
             action) with live editable inputs don't fit a real <table>
             below `sm`. Below `sm`: one labelled card per material with
