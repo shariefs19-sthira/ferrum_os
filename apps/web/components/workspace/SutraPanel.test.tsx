@@ -3,6 +3,16 @@ import { describe, expect, it, vi } from 'vitest'
 import SutraPanel from './SutraPanel'
 
 describe('SutraPanel idle demo', () => {
+  it('uses the shared product feature registry for in-workspace explanations', () => {
+    vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
+    render(<SutraPanel onEvent={vi.fn()} activeProduct="buildos" />)
+    fireEvent.change(screen.getByLabelText('Ask SUTRA'), { target: { value: 'Explain governed cross-functional closure' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }))
+    expect(screen.getByText(/design revision to affected quantity, procurement hold, cost impact/i)).toBeTruthy()
+    expect(screen.getByText(/roadmap contract/i)).toBeTruthy()
+    vi.unstubAllGlobals()
+  })
+
   it('never sends demo intents into real project state', () => {
     vi.useFakeTimers()
     vi.stubGlobal('matchMedia', () => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }))

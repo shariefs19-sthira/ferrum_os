@@ -8,7 +8,7 @@ import TabRail from "../../../components/workspace/TabRail"
 import ToolsRuler from "../../../components/workspace/ToolsRuler"
 import MoreDrawer from "../../../components/workspace/MoreDrawer"
 import ExtractPanel from "../../../components/workspace/ExtractPanel"
-import CanvasSlot from "../../../components/workspace/CanvasSlot"
+import CanvasSlot, { productControls } from "../../../components/workspace/CanvasSlot"
 import SutraPanel from "../../../components/workspace/SutraPanel"
 import FullscreenController from "../../../components/workspace/FullscreenController"
 import ProductSkin from "../../../components/workspace/ProductSkin"
@@ -209,7 +209,7 @@ export default function ProjectWorkspaceCockpit() {
             aria-label="SUTRA design assistant"
           >
             <button type="button" onClick={closeSutra} className="absolute right-3 top-2 z-50 min-h-11 px-2 text-xs font-semibold text-white" aria-label="Close SUTRA">Close</button>
-            <SutraPanel onEvent={handleSutraEvent} />
+            <SutraPanel onEvent={handleSutraEvent} activeProduct={productControls[activeProduct]} />
           </div>
         )}
       </div>

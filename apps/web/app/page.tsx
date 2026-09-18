@@ -3,6 +3,7 @@ import Eyebrow from '../components/sections/Eyebrow'
 import SectionHeading from '../components/sections/SectionHeading'
 import SliderLeaf from '../components/sections/SliderLeaf'
 import HomepageCockpitHero from '../components/sections/HomepageCockpitHero'
+import GovernedOrchestrationChain from '../components/sections/GovernedOrchestrationChain'
 
 // W2-347: rewritten to match each linked product page's real vs. roadmap
 // split (LandIntel/DesignStudio/ProcureHub/CommunityBuild steps were
@@ -50,7 +51,11 @@ export default function HomePage() {
       {/* 1. Product-led cockpit hero (Project Decision Console) */}
       <HomepageCockpitHero />
 
-      {/* 2. How It Works */}
+      {/* A concrete cross-product proof contract. This remains explicitly
+          ROADMAP until the state transitions and evidence links execute. */}
+      <GovernedOrchestrationChain />
+
+      {/* 3. How It Works */}
       <SectionShell background="surface-secondary">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>How it works</Eyebrow>
