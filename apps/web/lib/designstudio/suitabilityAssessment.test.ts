@@ -98,6 +98,24 @@ describe('physical fit dimension', () => {
     expect(result.state).toBe('CONDITIONAL')
     expect(result.requiredAction.join(' ')).toContain('does not confirm setbacks')
   })
+
+  it('is UNKNOWN, never BLOCKED, for a parcel with GAP provenance - unverified geometry is not "out of envelope"', () => {
+    const gapParcel: ParcelContext = { ...parcel, provenance: { ...parcel.provenance, status: 'GAP' } }
+    const result = assessPhysicalFit(template, { parcel: gapParcel, dimensions: completeInputs })
+    expect(result.state).toBe('UNKNOWN')
+    expect(result.state).not.toBe('BLOCKED')
+    expect(result.missingInputs).toContain('verified-parcel-geometry')
+    expect(result.reasons.join(' ')).not.toContain('plot-area envelope')
+  })
+
+  it('is UNKNOWN, never BLOCKED, for a parcel with area_sqm 0 - zero area is not "out of envelope"', () => {
+    const zeroAreaParcel: ParcelContext = { ...parcel, area_sqm: 0 }
+    const result = assessPhysicalFit(template, { parcel: zeroAreaParcel, dimensions: completeInputs })
+    expect(result.state).toBe('UNKNOWN')
+    expect(result.state).not.toBe('BLOCKED')
+    expect(result.missingInputs).toContain('verified-parcel-geometry')
+    expect(result.reasons.join(' ')).not.toContain('plot-area envelope')
+  })
 })
 
 describe('planning dimension', () => {
@@ -129,11 +147,39 @@ describe('environmental dimension', () => {
     expect(result.state).toBe('UNKNOWN')
   })
 
-  it('is CONDITIONAL once a parcel is loaded but terrain remains unconnected', () => {
+  it('is UNKNOWN, never CONDITIONAL, when required terrain is explicitly UNAVAILABLE', () => {
+    // buildEnvironmentalContext always reports terrain as UNAVAILABLE - no
+    // terrain source is wired up anywhere in this codebase today - so this
+    // exercises the real contract output, not a synthetic fixture.
     const context = buildEnvironmentalContext({ parcel, sampleFallbackOrigin: sampleFallback, osmSampleCentre: sampleFallback, osm })
     const result = assessEnvironmental(context)
-    expect(result.state).toBe('CONDITIONAL')
+    expect(result.state).toBe('UNKNOWN')
     expect(result.missingInputs).toContain('terrain')
+    expect(result.reasons.join(' ')).toContain('UNAVAILABLE')
+  })
+
+  it('is UNKNOWN with an explicit missing input when the layer set is empty', () => {
+    const context = buildEnvironmentalContext({ parcel, sampleFallbackOrigin: sampleFallback, osmSampleCentre: sampleFallback, osm })
+    const emptyLayers = { ...context, layers: [] }
+    const result = assessEnvironmental(emptyLayers)
+    expect(result.state).toBe('UNKNOWN')
+    expect(result.missingInputs).toEqual(expect.arrayContaining(['cadastral-boundary', 'terrain', 'osm-context', 'proposed-design']))
+    expect(result.reasons.join(' ')).toContain('No environmental layers are present')
+  })
+
+  it('is UNKNOWN with an explicit missing input when the layer set is incomplete', () => {
+    const context = buildEnvironmentalContext({ parcel, sampleFallbackOrigin: sampleFallback, osmSampleCentre: sampleFallback, osm })
+    const incompleteLayers = { ...context, layers: context.layers.filter((layer) => layer.kind !== 'osm-context') }
+    const result = assessEnvironmental(incompleteLayers)
+    expect(result.state).toBe('UNKNOWN')
+    expect(result.missingInputs).toContain('osm-context')
+    expect(result.reasons.join(' ')).toContain('missing required layer')
+  })
+
+  it('never reports SUPPORTED when a required layer is missing or unavailable', () => {
+    const context = buildEnvironmentalContext({ parcel, sampleFallbackOrigin: sampleFallback, osmSampleCentre: sampleFallback, osm })
+    expect(assessEnvironmental({ ...context, layers: [] }).state).not.toBe('SUPPORTED')
+    expect(assessEnvironmental(context).state).not.toBe('SUPPORTED')
   })
 })
 

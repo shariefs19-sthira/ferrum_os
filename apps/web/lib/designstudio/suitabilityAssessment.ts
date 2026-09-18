@@ -1,7 +1,7 @@
 import type { BuildingTemplate, ProjectTemplateInputs, RecomputeTrigger, TemplateEvaluation } from './buildingLibraryKernel'
 import { evaluateTemplateForProject } from './buildingLibraryKernel'
 import type { JurisdictionPack } from './jurisdictionPacks'
-import type { EnvironmentalContext } from './environmentalContext'
+import type { EnvironmentalContext, EnvironmentalLayerKind } from './environmentalContext'
 import type { GeotechnicalAssessment } from '../landintel/geotechnicalIntelligence'
 import type { ParcelContext } from '../workspace/parcelContext'
 
@@ -83,14 +83,24 @@ export function assessPhysicalFit(template: BuildingTemplate, input: PhysicalFit
   const missingInputs: string[] = []
   const reasons: string[] = []
 
-  if (!input.parcel) missingInputs.push('parcel-selection')
+  if (!input.parcel) {
+    missingInputs.push('parcel-selection')
+  } else if (input.parcel.provenance.status === 'GAP' || input.parcel.area_sqm <= 0) {
+    // A parcel record with GAP provenance or a zero recorded area carries no
+    // usable geometry - it is unverified, not "out of envelope". Comparing
+    // it against the plot-area envelope would fabricate a BLOCKED verdict
+    // from data that was never actually measured.
+    missingInputs.push('verified-parcel-geometry')
+    reasons.push(`Parcel record is present but not usable for a plot-area comparison (provenance status ${input.parcel.provenance.status}, recorded area ${input.parcel.area_sqm} m²); verified geometry/area is required before this dimension can move past UNKNOWN.`)
+  }
   if (input.dimensions.floorCount === null) missingInputs.push('floor-count')
   if (input.dimensions.grossFloorAreaSqm === null) missingInputs.push('gross-floor-area')
   if (input.dimensions.buildingWidthM === null) missingInputs.push('building-width')
   if (input.dimensions.buildingDepthM === null) missingInputs.push('building-depth')
   if (input.dimensions.storeyHeightM === null) missingInputs.push('storey-height')
 
-  const plotWithin = input.parcel ? within(input.parcel.area_sqm, envelope.plotAreaSqm) : null
+  const parcelGeometryUsable = input.parcel !== null && input.parcel.provenance.status !== 'GAP' && input.parcel.area_sqm > 0
+  const plotWithin = parcelGeometryUsable ? within(input.parcel!.area_sqm, envelope.plotAreaSqm) : null
   if (plotWithin === false) {
     reasons.push(`Parcel area ${input.parcel!.area_sqm} m² is outside the template's plot-area envelope (${envelope.plotAreaSqm.min}-${envelope.plotAreaSqm.max} m²).`)
   }
@@ -192,33 +202,73 @@ export function assessPlanning(pack: JurisdictionPack | undefined, template: Bui
 
 // --- Environmental -------------------------------------------------------------
 
+/**
+ * Layers this dimension actually requires to render a usable site context.
+ * `photoreal-context` is deliberately excluded: the contract itself marks it
+ * optional and gated pending provider integration, so its absence is never a
+ * gap in this dimension.
+ */
+const REQUIRED_ENVIRONMENTAL_LAYER_KINDS: EnvironmentalLayerKind[] = [
+  'cadastral-boundary',
+  'terrain',
+  'osm-context',
+  'proposed-design',
+]
+
 export function assessEnvironmental(context: EnvironmentalContext): SuitabilityDimensionAssessment {
   const missingInputs: string[] = []
   const reasons: string[] = []
   const requiredAction: string[] = []
+  let state: SuitabilityState = 'SUPPORTED'
 
-  const unavailable = context.layers.filter((layer) => layer.provenance.confidence === 'UNAVAILABLE')
-  const indicative = context.layers.filter((layer) => layer.provenance.confidence === 'INDICATIVE' || layer.provenance.confidence === 'SAMPLE-FIXTURE')
-  if (context.cadastralBoundary.status === 'NO-PARCEL-SELECTED') missingInputs.push('cadastral-boundary')
-  for (const layer of unavailable) missingInputs.push(layer.kind)
+  const byKind = new Map(context.layers.map((layer) => [layer.kind, layer]))
 
-  let state: SuitabilityState
+  // Empty or incomplete layer sets are UNKNOWN with an explicit missing
+  // input - never SUPPORTED by default (there is nothing to be confident
+  // about) and never silently treated as "no issue" because other checks
+  // below happen not to fire on an empty array.
+  const missingLayerKinds = REQUIRED_ENVIRONMENTAL_LAYER_KINDS.filter((kind) => !byKind.has(kind))
+  if (missingLayerKinds.length) {
+    state = worseState(state, 'UNKNOWN')
+    for (const kind of missingLayerKinds) missingInputs.push(kind)
+    reasons.push(
+      context.layers.length === 0
+        ? 'No environmental layers are present in this context.'
+        : `Environmental context is missing required layer(s): ${missingLayerKinds.join(', ')}.`,
+    )
+    requiredAction.push('Build a complete environmental context (cadastral boundary, terrain, contextual buildings/roads and the proposed design) before this dimension can be evaluated past UNKNOWN.')
+  }
+
   if (context.cadastralBoundary.status === 'NO-PARCEL-SELECTED') {
-    state = 'UNKNOWN'
+    state = worseState(state, 'UNKNOWN')
+    missingInputs.push('cadastral-boundary')
     reasons.push('No parcel boundary is loaded; environmental context cannot be anchored to a real site.')
     requiredAction.push('Select a parcel in Project Context before evaluating environmental context.')
-  } else if (unavailable.some((layer) => layer.kind === 'terrain')) {
-    state = 'CONDITIONAL'
-    reasons.push('No terrain source is connected; slope, drainage and elevation remain UNKNOWN.')
-    requiredAction.push('Connect a terrain/DTM source, or treat slope and drainage as UNKNOWN in downstream decisions.')
-  } else if (indicative.length) {
-    state = 'CONDITIONAL'
+  }
+
+  // An UNAVAILABLE required layer means no source is connected at all. That
+  // is never downgraded to CONDITIONAL by default - only a specific,
+  // recorded contract rationale plus supporting evidence could justify
+  // treating a missing source as an acceptable conditional pass, and no such
+  // rationale/evidence is modelled here, so the ceiling stays UNKNOWN.
+  const unavailableRequired = REQUIRED_ENVIRONMENTAL_LAYER_KINDS.filter((kind) => byKind.get(kind)?.provenance.confidence === 'UNAVAILABLE')
+  if (unavailableRequired.length) {
+    state = worseState(state, 'UNKNOWN')
+    for (const kind of unavailableRequired) missingInputs.push(kind)
+    reasons.push(`No connected source for: ${unavailableRequired.join(', ')} (confidence UNAVAILABLE); this is never treated as a conditional pass without a recorded contract rationale and supporting evidence, neither of which is present.`)
+    requiredAction.push('Connect a verified source for each UNAVAILABLE required layer, or record the specific contract rationale and evidence that justifies proceeding without it.')
+  }
+
+  const indicative = context.layers.filter(
+    (layer) => REQUIRED_ENVIRONMENTAL_LAYER_KINDS.includes(layer.kind) && (layer.provenance.confidence === 'INDICATIVE' || layer.provenance.confidence === 'SAMPLE-FIXTURE'),
+  )
+  if (indicative.length) {
+    state = worseState(state, 'CONDITIONAL')
     reasons.push('One or more environmental layers are indicative or sample-fixture data, not verified site survey.')
     requiredAction.push('Treat indicative/sample-fixture layers as contextual only; commission survey-grade data before relying on them for setbacks or levels.')
-  } else {
-    state = 'SUPPORTED'
-    requiredAction.push('No outstanding environmental-context gaps are recorded for this parcel as of this evaluation.')
   }
+
+  if (state === 'SUPPORTED') requiredAction.push('No outstanding environmental-context gaps are recorded for this parcel as of this evaluation.')
 
   return {
     dimension: 'environmental',
