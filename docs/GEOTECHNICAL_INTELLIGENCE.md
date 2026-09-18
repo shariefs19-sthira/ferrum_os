@@ -20,6 +20,7 @@ Every geotechnical observation records:
   `STALE UPSTREAM DATA` or `CONFLICT` status;
 - observed, inferred, modelled or professionally interpreted method;
 - confidence and spatial coverage, including gaps;
+- regional-screening or project-investigation scope;
 - source URI, observation/publication/retrieval dates and transformation steps;
 - input checksums, limitations and validity date.
 
@@ -27,6 +28,8 @@ Every geotechnical observation records:
 source. It does not mean the layer is accurate at foundation scale.
 `USER-PROVIDED` stays distinct until a separately governed verification step is
 completed.
+Even a `SOURCE-VERIFIED` regional record cannot satisfy a project-investigation
+requirement; provenance and engineering applicability are separate controls.
 
 ## Covered parameters
 

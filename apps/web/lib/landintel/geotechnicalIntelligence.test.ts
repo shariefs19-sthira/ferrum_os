@@ -11,6 +11,7 @@ import {
 const evidence = (overrides: Partial<GeotechnicalEvidence>): GeotechnicalEvidence => ({
   id: 'e-1', topic: 'groundwater', label: 'Groundwater', value: 2.4, unit: 'm bgl',
   status: 'USER-PROVIDED', method: 'OBSERVED', confidence: 'MEDIUM',
+  scope: 'PROJECT_INVESTIGATION',
   coverage: { kind: 'POINT', label: 'BH-01', coverageGaps: [] }, lineage: null,
   limitations: [], validUntil: null, ...overrides,
 })
@@ -41,6 +42,19 @@ describe('geotechnical intelligence contracts', () => {
     expect(result.suitability).toBe('SCREENING ONLY')
     expect(result.evidence.every((item) => item.status === 'UNKNOWN')).toBe(true)
     expect(result.holds.join(' ')).toMatch(/project investigation evidence required/i)
+  })
+
+  it('does not let source-verified regional data clear project investigation holds', () => {
+    const result = assessGeotechnicalEvidence([
+      evidence({
+        id: 'regional-soil', topic: 'soil-classification-properties', value: 'Mapped alluvium',
+        status: 'SOURCE-VERIFIED', scope: 'REGIONAL_SCREENING',
+      }),
+      evidence({ id: 'regional-groundwater', status: 'SOURCE-VERIFIED', scope: 'REGIONAL_SCREENING' }),
+    ])
+    expect(result.suitability).toBe('SCREENING ONLY')
+    expect(result.holds.join(' ')).toMatch(/soil classification and properties/i)
+    expect(result.downstreamInvalidations).toEqual(expect.arrayContaining(['Structures', 'Foundations', 'BOQ']))
   })
 
   it('requires accountable metadata and preserves USER-PROVIDED status', () => {

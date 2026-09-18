@@ -64,6 +64,7 @@ export type GeotechnicalEvidence<T = string | number | null> = {
   unit: string | null
   status: GeotechnicalEvidenceStatus
   method: GeotechnicalEvidenceMethod
+  scope: 'REGIONAL_SCREENING' | 'PROJECT_INVESTIGATION'
   confidence: 'HIGH' | 'MEDIUM' | 'LOW' | 'UNKNOWN'
   coverage: SpatialCoverage
   lineage: SourceLineage | null
@@ -213,6 +214,7 @@ export function validateProjectGeotechnicalInput(input: ProjectGeotechnicalInput
   if (input.coordinates?.groundLevel !== null && input.coordinates && !input.coordinates.verticalDatum) issues.push({ field: 'coordinates.verticalDatum', message: 'Vertical datum is required when a ground level is supplied.' })
   for (const observation of input.observations) {
     if (observation.status !== 'USER-PROVIDED') issues.push({ field: `observations.${observation.id}.status`, message: 'Uploaded observations remain USER-PROVIDED until independently verified.' })
+    if (observation.scope !== 'PROJECT_INVESTIGATION') issues.push({ field: `observations.${observation.id}.scope`, message: 'Project investigation inputs must be identified as PROJECT_INVESTIGATION evidence.' })
     if (observation.value !== null && typeof observation.value === 'number' && !observation.unit) issues.push({ field: `observations.${observation.id}.unit`, message: 'Numeric observations require units.' })
   }
   return issues
@@ -260,7 +262,11 @@ export function assessGeotechnicalEvidence(evidence: GeotechnicalEvidence[]): Ge
   const coveragePercent = Math.round((uniqueTopics.size / Object.keys(geotechnicalTopicLabels).length) * 100)
   const conflict = evidence.some((item) => item.status === 'CONFLICT')
   const stale = evidence.some((item) => item.status === 'STALE UPSTREAM DATA')
-  const missingCritical = criticalProjectTopics.filter((topic) => !evidence.some((item) => item.topic === topic && ['USER-PROVIDED', 'SOURCE-VERIFIED'].includes(item.status)))
+  const missingCritical = criticalProjectTopics.filter((topic) => !evidence.some((item) =>
+    item.topic === topic
+    && item.scope === 'PROJECT_INVESTIGATION'
+    && ['USER-PROVIDED', 'SOURCE-VERIFIED'].includes(item.status),
+  ))
   const holds = [
     ...(conflict ? ['Resolve conflicting evidence before site or foundation decisions.'] : []),
     ...(stale ? ['Refresh stale upstream evidence and recompute affected outputs.'] : []),
@@ -293,6 +299,7 @@ export function createUnknownGeotechnicalScreening(): GeotechnicalAssessment {
     unit: null,
     status: 'UNKNOWN',
     method: 'MODELLED',
+    scope: 'REGIONAL_SCREENING',
     confidence: 'UNKNOWN',
     coverage: { kind: 'UNKNOWN', label: 'No source connected', coverageGaps: ['Parcel coverage is unverified'] },
     lineage: null,
