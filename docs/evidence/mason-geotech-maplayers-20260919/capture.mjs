@@ -42,7 +42,13 @@ await new Promise((resolve) => server.listen(port, resolve))
 await mkdir(evidenceDir, { recursive: true })
 
 const browser = await chromium.launch({ headless: true })
-const report = { capturedAt: new Date().toISOString(), source: 'LOCAL STATIC BUILD (apps/web/out) -- not a deployed edge', captures: [] }
+const report = {
+  capturedAt: new Date().toISOString(),
+  status: 'NOT LIVE',
+  source: 'LOCAL STATIC BUILD (apps/web/out), served by this script’s own throwaway http server on localhost -- NOT a deployed edge, NOT origin/main, NOT verified by RULE 25/22.',
+  apiRegionStub: 'Every capture below stubs **/api/region with a fulfilled 200/{} response purely so this local harness (which cannot run the real Worker route) does not log noise unrelated to the surface under test. This is NOT a claim that /api/region works, is deployed, or was verified in any way -- it is excluded from what this evidence demonstrates.',
+  captures: [],
+}
 
 async function capture({ name, mobile, prepare, evidence }) {
   const context = await browser.newContext(mobile ? { ...devices['iPhone 13'], colorScheme: 'light' } : { viewport: { width: 1366, height: 900 }, colorScheme: 'light' })
@@ -61,7 +67,15 @@ async function capture({ name, mobile, prepare, evidence }) {
   const response = await page.goto(`http://localhost:${port}/products/landintel`, { waitUntil: 'load', timeout: 30_000 })
   await prepare(page)
   await page.screenshot({ path: `${evidenceDir}/${name}.png`, fullPage: false })
-  report.captures.push({ name, mobile: !!mobile, httpStatus: response?.status() ?? null, evidence: await evidence(page), consoleErrors })
+  report.captures.push({
+    name,
+    mobile: !!mobile,
+    status: 'NOT LIVE -- local static build only',
+    apiRegionStubbed: true,
+    httpStatus: response?.status() ?? null,
+    evidence: await evidence(page),
+    consoleErrors,
+  })
   await context.close()
 }
 

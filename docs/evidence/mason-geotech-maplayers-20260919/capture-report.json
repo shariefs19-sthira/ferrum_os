@@ -1,10 +1,14 @@
 {
-  "capturedAt": "2026-09-18T21:17:50.433Z",
-  "source": "LOCAL STATIC BUILD (apps/web/out) -- not a deployed edge",
+  "capturedAt": "2026-09-18T21:30:04.039Z",
+  "status": "NOT LIVE",
+  "source": "LOCAL STATIC BUILD (apps/web/out), served by this script’s own throwaway http server on localhost -- NOT a deployed edge, NOT origin/main, NOT verified by RULE 25/22.",
+  "apiRegionStub": "Every capture below stubs **/api/region with a fulfilled 200/{} response purely so this local harness (which cannot run the real Worker route) does not log noise unrelated to the surface under test. This is NOT a claim that /api/region works, is deployed, or was verified in any way -- it is excluded from what this evidence demonstrates.",
   "captures": [
     {
       "name": "landintel-geotech-maplayer-legend-desktop",
       "mobile": false,
+      "status": "NOT LIVE -- local static build only",
+      "apiRegionStubbed": true,
       "httpStatus": 200,
       "evidence": {
         "legendHeading": "Every item is categorised, not drawn",
@@ -19,6 +23,8 @@
     {
       "name": "landintel-geotech-maplayer-legend-mobile",
       "mobile": true,
+      "status": "NOT LIVE -- local static build only",
+      "apiRegionStubbed": true,
       "httpStatus": 200,
       "evidence": {
         "legendHeading": "Every item is categorised, not drawn",
