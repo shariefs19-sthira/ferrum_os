@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import { ParcelAnalyzer } from "../../lib/analysis/parcelAnalyzer"
 import * as historical from "../../lib/analysis/historicalTrends"
 import { compareParcels, findBestParcel, getInsights } from "../../lib/analysis/comparativeAnalysis"
-import { analyzeParcel, clearParcelAnalysisCache, isParcelAnalysisLoading, type ParcelContext } from "../../lib/workspace/parcelContext"
+import { analyzeParcel, clearParcelAnalysisCache, getParcelAnalysisStatus, isParcelAnalysisLoading, isParcelAnalysisStale, type ParcelContext } from "../../lib/workspace/parcelContext"
 
 vi.mock("../../lib/analysis/historicalTrends", async importOriginal => ({ ...(await importOriginal<typeof historical>()), getHistoricalTrends: vi.fn(async () => [{ year: 2026, value: 100, changePercent: 0, category: "INDICATIVE" }]) }))
 
@@ -23,5 +23,6 @@ describe("comparative parcel analysis", () => {
 describe("parcel-context analysis integration", () => {
   const context: ParcelContext = { version: 1, method: "test", ulpin: "ULPIN-1", state: "Karnataka", district: "Bengaluru", area_sqm: 600, land_use: "Residential", coordinates: null, provenance: { source: "Test fixture", vintage: "2026", status: "INDICATIVE" } }
   beforeEach(() => clearParcelAnalysisCache())
-  it("caches results for the active TTL and balances loading state", async () => { const loading: boolean[] = []; const first = await analyzeParcel(context, value => loading.push(value)); const second = await analyzeParcel(context, value => loading.push(value)); expect(first).toBe(second); expect(loading).toEqual([true, false]); expect(isParcelAnalysisLoading(context)).toBe(false) })
+  it("caches results for the active TTL and balances loading state", async () => { const loading: boolean[] = []; const first = await analyzeParcel(context, value => loading.push(value)); const second = await analyzeParcel(context, value => loading.push(value)); expect(first).toBe(second); expect(loading).toEqual([true, false]); expect(isParcelAnalysisLoading(context)).toBe(false); expect(getParcelAnalysisStatus(context)).toBe("COMPLETE") })
+  it("marks an output stale when the active parcel changes or disappears", () => { localStorage.clear(); expect(isParcelAnalysisStale(context)).toBe(true); localStorage.setItem("ferrum-parcel-context-v1", JSON.stringify(context)); expect(isParcelAnalysisStale(context)).toBe(false); localStorage.setItem("ferrum-parcel-context-v1", JSON.stringify({ ...context, ulpin: "ULPIN-2" })); expect(isParcelAnalysisStale(context)).toBe(true) })
 })

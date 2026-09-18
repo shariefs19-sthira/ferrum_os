@@ -14,13 +14,22 @@ import HistoryCenturyPanel from '../../../components/landintel/HistoryCenturyPan
 import SuitabilityLayerPanel from '../../../components/landintel/SuitabilityLayerPanel'
 import MapComposerGate from '../../../components/landintel/MapComposerGate'
 import TerrainIntelligencePanel from '../../../components/landintel/TerrainIntelligencePanel'
+import AccessConnectivityPanel from '../../../components/landintel/AccessConnectivityPanel'
+import MarketContextPanel from '../../../components/landintel/MarketContextPanel'
+import ProximityCatchmentPanel from '../../../components/landintel/ProximityCatchmentPanel'
+import EvidenceThemeTabs from '../../../components/landintel/EvidenceThemeTabs'
 import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
-// W2-347: only ULPIN lookup (indicative sample data) and the interactive
-// map (real Leaflet/OSM component) are real. Zoning, soil/hazard,
-// feasibility report, and investment forecasts have zero implementation —
-// The lookup returns state/district/area_sqm/land_use only, nothing
-// else. Roadmap-labeled rather than deleted per RULE 13/W2-345's pattern.
+// The ULPIN lookup (seeded sample data) and the interactive map (real
+// Leaflet/OSM component) are real, as are the Zoning/Soil/Climate/History/
+// Suitability/Terrain/Access/Market instrumentation panels below and the
+// Map Composer export gate -- every one of them is a real, rendered
+// surface, not a stub. What remains genuinely unconnected is the
+// UNDERLYING DATA each panel needs (a verified authority zoning record, a
+// geotechnical report, a licensed POI/routing feed, and so on): those
+// panels honestly read UNKNOWN/GAP/Roadmap per parcel rather than
+// synthesizing a plausible-looking result. The ULPIN lookup itself still
+// returns only state/district/area_sqm/land_use from seeded D1 records.
 const featureItems = productFeatureRegistry.landintel
 
 const howItWorksSteps = [
@@ -85,14 +94,14 @@ export default function LandIntelPage() {
                 Know your land before you buy or build
               </SectionHeading>
               <p className="mt-4 max-w-3xl text-base leading-7 text-relume-ink">
-                Look up a seeded ULPIN/Bhu-Aadhaar record first. Returned records and city-reference maps are clearly labelled indicative; official zoning, soil, hazard, and entitlement data remain on the roadmap.
+                Look up a seeded ULPIN/Bhu-Aadhaar record first, then work through land, access, environment, regulation and market evidence below. Every figure is labelled indicative, UNKNOWN or roadmap until a verified source is connected — nothing is synthesized to fill a gap.
               </p>
             </div>
             <ul className="mt-6 grid gap-3 text-sm text-relume-ink sm:grid-cols-2 lg:mt-0" aria-label="LandIntel availability">
               <li className="border-l-2 border-relume-command pl-3">ULPIN/Bhu-Aadhaar lookup <span className="text-relume-muted">— seeded, indicative</span></li>
               <li className="border-l-2 border-relume-command pl-3">Sample FAR and coverage forecast <span className="text-relume-muted">— secondary, indicative</span></li>
-              <li className="border-l-2 border-relume-border pl-3">Zoning &amp; soil data <span className="text-relume-muted">— roadmap</span></li>
-              <li className="border-l-2 border-relume-border pl-3">Investment forecasts <span className="text-relume-muted">— roadmap</span></li>
+              <li className="border-l-2 border-relume-command pl-3">Zoning, soil, climate &amp; history panels <span className="text-relume-muted">— live surfaces, data per-parcel UNKNOWN/GAP until verified</span></li>
+              <li className="border-l-2 border-relume-border pl-3">Access, market &amp; proximity catchment evidence <span className="text-relume-muted">— roadmap, no fabricated places or prices</span></li>
             </ul>
           </div>
         </div>
@@ -101,9 +110,45 @@ export default function LandIntelPage() {
             <UlpinMapExplorer />
           </ProductCockpitPreview>
         </div>
-        <SuitabilityLayerPanel />
-        <TerrainIntelligencePanel />
-        <MapComposerGate />
+        <div className="mt-6" data-landintel-evidence-themes>
+          <EvidenceThemeTabs
+            themes={[
+              {
+                id: 'land',
+                label: 'Land',
+                description: 'Parcel and statutory suitability constraints, terrain/topography and soil-geotechnical conditions for the resolved site.',
+                content: <div className="space-y-6"><SuitabilityLayerPanel /><TerrainIntelligencePanel /><SoilHazardPanel /></div>,
+              },
+              {
+                id: 'access',
+                label: 'Access',
+                description: 'Lawful road access and connectivity checks, plus a configurable proximity catchment — never a fabricated travel time or nearby place.',
+                content: <div className="space-y-6"><AccessConnectivityPanel /><ProximityCatchmentPanel /></div>,
+              },
+              {
+                id: 'environment',
+                label: 'Environment',
+                description: 'Month-by-month climate normals and a dated century of recorded rainfall, flood, seismic and land-use history for the resolved site.',
+                content: <div className="space-y-6"><ClimateYearPanel /><HistoryCenturyPanel /></div>,
+              },
+              {
+                id: 'regulation',
+                label: 'Regulation',
+                description: 'Master-plan zoning regulation for the resolved parcel, shown with a clause citation where a real source exists and an explicit GAP where it does not.',
+                content: <ZoningSummary />,
+              },
+              {
+                id: 'market',
+                label: 'Market',
+                description: 'Comparable-transaction, guidance-value, price-trend and demand evidence needs — never an appraisal, forecast or investment recommendation.',
+                content: <MarketContextPanel />,
+              },
+            ]}
+          />
+        </div>
+        <div className="mt-6 min-w-0 w-full" data-landintel-export-row>
+          <MapComposerGate />
+        </div>
         {/* Moved directly beside the working lookup tool (previously two
             full sections lower, after the Zoning/Soil/Climate/History
             roadmap panels) so the forecast is visible alongside a lookup's
@@ -124,10 +169,6 @@ export default function LandIntelPage() {
           <div className="mx-auto mt-8 max-w-4xl"><SteppedForecastModule product="landintel" /></div>
         </div>
       </section>
-
-      <SectionShell>
-        <div className="mx-auto grid max-w-5xl gap-6"><ZoningSummary /><SoilHazardPanel /><ClimateYearPanel /><HistoryCenturyPanel /></div>
-      </SectionShell>
 
       {/* 2. Features */}
       <SectionShell background="surface-secondary">
