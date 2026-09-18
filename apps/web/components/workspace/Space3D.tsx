@@ -413,17 +413,23 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
   }, [plan, demoMode, fullscreen.profile, shell, beautyMode])
 
   return (
-    <div ref={hostRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
+    <div className="flex h-full min-h-[24rem] flex-col bg-[#e7ecec]" data-space-3d-frame>
+    <div ref={hostRef} className="relative min-h-0 flex-1 overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
       {profile === 'diagram' && <div className="absolute inset-0 grid place-items-center bg-relume-surface-secondary p-8 text-center text-sm text-relume-command"><p><strong>Reduced diagram mode</strong><br />{contextLost ? 'The 3D graphics context was lost mid-session (a device/driver event, not an app error).' : 'WebGL2 is unavailable.'} Use Plan or Elevation for the same deterministic geometry.</p></div>}
-      <div className="pointer-events-none absolute bottom-3 left-3 right-3 z-10 overflow-hidden rounded-full bg-relume-command/90 px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-lg" data-canvas-status-bar>
+      <div className="hidden" data-canvas-status-bar>
         <p className="truncate"><span className="text-relume-accent">INDICATIVE</span> · {shell?.name ?? 'Deterministic massing'} · {profile === 'full' ? 'Three.js PBR' : profile === 'reduced' ? 'Reduced rendering' : 'Diagram'} · {contextLabel} · OSM context 2026-09-05 · © OpenStreetMap contributors · not a survey</p>
       </div>
-      <div className="pointer-events-none absolute right-3 top-3 z-10 rounded bg-white/90 px-3 py-2 text-xs text-relume-command shadow">
+      <div className="hidden">
         Selected: <strong>{selected}</strong><br />Click or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fit
       </div>
-      {shell && profile === 'full' && <button type="button" onClick={() => setBeautyMode((value) => !value)} aria-pressed={beautyMode} className="absolute right-3 top-20 z-20 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow" data-beauty-preview>{beautyMode ? 'Return to interactive PBR' : 'Render beauty preview'}</button>}
+      {shell && profile === 'full' && <button type="button" onClick={() => setBeautyMode((value) => !value)} aria-pressed={beautyMode} className="hidden" data-beauty-preview>{beautyMode ? 'Return to interactive PBR' : 'Render beauty preview'}</button>}
       <div className="pointer-events-none absolute left-5 top-5 z-10 hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white drop-shadow md:block">Top plan</div>
       <div className="pointer-events-none absolute bottom-5 left-5 z-10 hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white drop-shadow md:block">Axonometric</div>
+    </div>
+    <div className="flex min-h-14 items-center gap-2 border-t border-relume-border bg-white px-3 py-2" data-mobile-canvas-status>
+      <p className="min-w-0 flex-1 truncate text-[9px] font-semibold uppercase tracking-[0.08em] text-relume-muted"><span className="text-relume-command">INDICATIVE</span> · {shell?.name ?? 'Deterministic massing'} · {profile === 'full' ? 'PBR' : profile === 'reduced' ? 'Reduced' : 'Diagram'} · not a survey</p>
+      {shell && profile === 'full' && <button type="button" onClick={() => setBeautyMode((value) => !value)} aria-pressed={beautyMode} className="min-h-11 shrink-0 rounded-full border border-relume-border bg-white px-3 text-[10px] font-semibold text-relume-command" data-mobile-beauty-preview>{beautyMode ? 'Interactive' : 'Beauty'}</button>}
+    </div>
     </div>
   )
 }

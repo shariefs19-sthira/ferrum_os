@@ -86,17 +86,18 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     expect(buildExtracts.some((item: { label: string }) => item.label.startsWith("BUY ·"))).toBe(false)
   })
 
-  it('keeps the canvas full width and exposes the extract as a dismissible overlay in a full-bleed embed', async () => {
+  it('keeps the canvas full width and exposes evidence only as a dismissible task sheet', async () => {
     render(<WorkspaceCockpit embedMode="full-bleed" />)
     const cockpit = document.querySelector('[data-workspace-cockpit]')
     const canvas = document.querySelector('[data-cockpit-canvas]')
     expect(cockpit?.getAttribute('data-embed-mode')).toBe('full-bleed')
     expect(canvas?.parentElement?.classList.contains('min-w-0')).toBe(true)
-    const toggle = screen.getByRole('button', { name: 'Data extract' })
+    const toggle = screen.getByRole('button', { name: 'Evidence' })
     expect(document.querySelector('[data-contextual-extract]')?.getAttribute('aria-hidden')).toBe('true')
     fireEvent.click(toggle)
-    expect(screen.getByRole('button', { name: 'Hide data extract' })).toBeTruthy()
-    expect(document.querySelector('[data-contextual-extract]')?.getAttribute('aria-hidden')).toBe('false')
+    expect(screen.getByRole('button', { name: 'Close evidence' })).toBeTruthy()
+    expect(document.querySelector('[data-contextual-extract]')?.getAttribute('aria-hidden')).toBeNull()
+    expect(document.querySelectorAll('[data-mobile-sheet]').length).toBe(1)
   })
 
   it('retains a clamped opening edit across a browser-local reload and keeps the inspector exclusive with the extract', async () => {
@@ -105,7 +106,7 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     const marker = await waitFor(() => screen.getAllByRole('button', { name: /select door/i })[0])
     fireEvent.click(marker)
     expect(screen.getByRole('button', { name: 'Close inspector' })).toBeTruthy()
-    expect(screen.queryByRole('button', { name: 'Data extract' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Evidence' })).toBeNull()
     const width = screen.getByLabelText('Width (m)')
     fireEvent.change(width, { target: { value: '99' } })
     fireEvent.blur(width)
@@ -126,7 +127,7 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     expect(screen.getByRole('button', { name: 'Close inspector' })).toBeTruthy()
     fireEvent.click(screen.getByRole('tab', { name: '3D space' }))
     expect(screen.queryByRole('button', { name: 'Close inspector' })).toBeNull()
-    expect(screen.getByRole('button', { name: 'Data extract' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Evidence' })).toBeTruthy()
   })
 
   // CODEX-SENTINEL-20260918-1708-sutra-command-cockpit-output: the real
@@ -143,21 +144,39 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     expect(screen.queryByRole('button', { name: 'Mixed Use' })).toBeNull()
   })
 
-  it('still shows the floating land-use panel for non-canvasFirst marketing/preview embeds (no SUTRA panel present there)', async () => {
+  it('keeps guided options off the canvas until the labelled task control is selected', async () => {
     const onLiveMetricsChange = vi.fn()
     render(<WorkspaceCockpit onLiveMetricsChange={onLiveMetricsChange} />)
     await waitFor(() => expect(onLiveMetricsChange).toHaveBeenCalled())
-    expect(document.querySelector('[data-option-chip-flow]')).toBeTruthy()
+    expect(document.querySelector('[data-option-chip-flow]')).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Mixed Use' })).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: 'Options' }))
     expect(screen.getByRole('button', { name: 'Mixed Use' })).toBeTruthy()
+    expect(document.querySelector('[data-option-chip-flow]')?.getAttribute('role')).toBe('dialog')
   })
 
   it('hides Site Constraints while SUTRA overlays the canvas (sutraOccludesCanvas), so it never renders unreachable behind it', async () => {
     const onLiveMetricsChange = vi.fn()
     const { rerender } = render(<WorkspaceCockpit canvasFirst controlProduct="landintel" onLiveMetricsChange={onLiveMetricsChange} />)
     await waitFor(() => expect(onLiveMetricsChange).toHaveBeenCalled())
-    expect(screen.getByRole('button', { name: 'Site Constraints' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Controls' })).toBeTruthy()
     rerender(<WorkspaceCockpit canvasFirst controlProduct="landintel" onLiveMetricsChange={onLiveMetricsChange} sutraOccludesCanvas />)
-    expect(screen.queryByRole('button', { name: 'Site Constraints' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Controls' })).toBeNull()
+  })
+
+  it('protects the model by default and allows only one primary task sheet at a time', async () => {
+    render(<WorkspaceCockpit controlProduct="designstudio" embedMode="full-bleed" />)
+    expect(document.querySelector('[data-cockpit-canvas]')?.className).toContain('min-h-[28rem]')
+    expect(document.querySelectorAll('[data-mobile-sheet]').length).toBe(0)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Shells' }))
+    expect(document.querySelectorAll('[data-mobile-sheet]').length).toBe(1)
+    expect(document.querySelector('[data-mobile-sheet="shells"]')).toBeTruthy()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Close library' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Controls' }))
+    expect(document.querySelectorAll('[data-mobile-sheet]').length).toBe(1)
+    expect(document.querySelector('[data-mobile-sheet="controls"]')).toBeTruthy()
   })
 
   it('dispatches cockpit selection context (the channel SutraPanel listens on) when an opening is selected', async () => {
@@ -193,6 +212,7 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     render(<WorkspaceCockpit onLiveMetricsChange={onLiveMetricsChange} />)
     await waitFor(() => expect(onLiveMetricsChange).toHaveBeenCalled())
 
+    fireEvent.click(screen.getByRole('button', { name: 'Options' }))
     const optionChipFlow = document.querySelector('[data-option-chip-flow]')
     expect(optionChipFlow).toBeTruthy()
     expect(optionChipFlow?.className).not.toMatch(/overflow-x-auto/)

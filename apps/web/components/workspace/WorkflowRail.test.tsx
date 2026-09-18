@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import WorkflowRail from './WorkflowRail'
 
@@ -34,5 +34,18 @@ describe('WorkflowRail', () => {
     for (const label of ['Market signals', 'Investment analysis', 'Community funding']) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0)
     }
+  })
+
+  it('renders the workflow disclosure above the canvas and closes it with Escape', async () => {
+    render(<WorkflowRail activeProduct="Land" onProductChange={vi.fn()} />)
+    const summary = screen.getByLabelText('2 ready, 0 stale, 5 issues').closest('summary')
+    expect(summary).toBeTruthy()
+    fireEvent.click(summary as HTMLElement)
+    fireEvent(summary?.parentElement as HTMLElement, new Event('toggle'))
+    expect(screen.getByRole('button', { name: 'Close workflow menu' })).toBeTruthy()
+    expect(screen.getByRole('navigation', { name: 'Project workflow' }).className).toContain('z-[90]')
+    fireEvent.keyDown(document, { key: 'Escape' })
+    expect(screen.queryByRole('button', { name: 'Close workflow menu' })).toBeNull()
+    await waitFor(() => expect(document.activeElement).toBe(summary))
   })
 })
