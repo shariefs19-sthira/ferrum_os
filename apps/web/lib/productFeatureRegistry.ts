@@ -3,6 +3,7 @@ import { landIntelSuitabilityLayers } from './landintel/suitabilityLayers'
 import { mapComposerRequirements } from './landintel/mapComposerRequirements'
 import { terrainCapabilities } from './landintel/terrainIntelligence'
 import { governedOrchestrationFeatureBody } from './governedOrchestration'
+import { machineReleaseChecks, modelInspectionCapabilities, modelIntakeFields, modelReleaseStates } from './modelIntake'
 
 export type FeatureAvailability = 'AVAILABLE' | 'ROADMAP' | 'TEST_MODE'
 
@@ -67,6 +68,8 @@ export const productFeatureRegistry: Record<CockpitProduct, ProductFeature[]> = 
     roadmap('general-plan-editing', 'General plan editing (roadmap)', 'Wall and room dragging, freehand drafting, and broader CAD controls are not available.', ['cad', 'wall', 'room', 'drafting']),
     roadmap('issue-sets', 'Issue sets (roadmap)', 'PDF issue sets and collaborative issue workflows are not available.', ['pdf', 'issue set', 'collaboration']),
     available('dxf-preview-export', 'DXF preview export', 'Export indicative plot, room, door, and window geometry into DXF layers for further review.', ['dxf', 'export', 'layers']),
+    roadmap('model-preview-on-ingestion', 'Model preview on ingestion', 'Open compatible DXF and XML/LandXML project files in a browser inspection workspace, preserve source-model identity, and produce a visual preview together with a machine-readable intake report. A successful render remains PREVIEWED only; it does not establish correct units, coordinates, revision, engineering validity or machine suitability. File ingestion and parsing are not yet connected.', ['model preview', 'ingestion', 'dxf', 'landxml', 'xml', 'browser viewer']),
+    ...modelInspectionCapabilities.map((capability) => roadmap(`model-inspection-${capability.id}`, capability.title, `${capability.body} This inspection capability is visible in the shared model-intake contract but is not yet connected to a file parser or production viewer.`, capability.keywords)),
   ],
   structura: [
     available('is-code-checking', 'IS code checking (live)', 'Run bounded IS 456 RCC beam and IS 800 steel-column clause checks with pass/review results and citations.', ['is 456', 'is 800', 'beam', 'column']),
@@ -93,6 +96,10 @@ export const productFeatureRegistry: Record<CockpitProduct, ProductFeature[]> = 
   ],
   buildos: [
     roadmap('governed-cross-functional-closure', 'Governed cross-functional closure', governedOrchestrationFeatureBody, ['design revision', 'quantity impact', 'procurement hold', 'cost impact', 'site instruction', 'acceptance evidence', 'controlled closure', 'audit trail', 'ai accountability']),
+    roadmap('controlled-model-release', 'Controlled model release', 'Carry one model revision from browser preview through evidence-based validation to a named, revision-specific APPROVED FOR MACHINE decision. The release record includes checksum, source and responsible party, units, CRS and vertical datum, bounds and origin, parsed objects, geometry warnings, previous-revision comparison, approval evidence and affected downstream consumers. Release execution is not yet built.', ['model release', 'previewed', 'validated', 'approved for machine', 'machine control', 'audit trail']),
+    ...modelIntakeFields.map((field) => roadmap(`model-intake-${field.id}`, field.label, `${field.requirement} This field is mandatory in the shared model-intake report and remains UNKNOWN until a real model and evidence source are connected.`, [field.label.toLowerCase(), 'model intake'])),
+    ...modelReleaseStates.map((item) => roadmap(`model-release-${item.state.toLowerCase().replaceAll(' ', '-')}`, item.state, `${item.meaning} Gate: ${item.gate} The controlled-release workflow is not yet built.`, [item.state.toLowerCase(), 'model approval', 'release state'])),
+    ...machineReleaseChecks.map((check, index) => roadmap(`machine-release-check-${index + 1}`, `Machine release check ${index + 1}`, `${check}. The machine release remains blocked until this check and every other required check are evidenced.`, ['machine release', 'approval gate', check.toLowerCase()])),
     roadmap('common-data-environment', 'Common data environment', 'A shared, governed source of project truth is not yet built.', ['cde', 'documents', 'project data']),
     roadmap('task-management', 'Task management', 'Creating, assigning, tracking, and closing project tasks are not yet built.', ['task', 'assignment']),
     roadmap('rfis-submittals', 'RFIs & submittals', 'RFI and submittal review workflows are not yet built.', ['rfi', 'submittal']),
