@@ -22,7 +22,7 @@ export default function CookieConsent() {
     <aside
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-2xl border border-relume-border bg-white p-5 shadow-xl sm:inset-x-auto sm:right-6 sm:left-auto"
+      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-2xl border border-relume-border bg-white p-5 shadow-xl sm:inset-x-auto sm:right-6 sm:left-auto min-[1600px]:right-[23.5rem]"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm leading-6 text-relume-muted">

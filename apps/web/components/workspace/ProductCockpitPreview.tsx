@@ -39,7 +39,7 @@ export default function ProductCockpitPreview({ product, label, children, contai
   return (
     <div
       className={resolvedLayout === 'product-page'
-        ? 'relative min-h-[70vh] min-w-0 w-full'
+        ? `relative min-w-0 w-full ${product === 'landintel' ? 'min-h-0' : 'min-h-[70vh]'}`
         : resolvedLayout === 'contained'
           ? 'relative min-h-[70vh] min-w-0 max-w-full'
           : 'relative min-h-[70vh] w-full min-w-0'}

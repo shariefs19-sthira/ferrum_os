@@ -60,6 +60,25 @@ export default function HomepageCockpitHero() {
   const activeJourneyRow = journeyRows.find((row) => row.id === activeJourneyRowId) ?? journeyRows[0]
   const isLiveTool = active.tool.kind === 'live-cockpit'
 
+  // The desktop shell gives the working surface to the selected product and
+  // moves its narrative/evidence into SUTRA's governed conversation context.
+  // Persisting the same payload lets SUTRA hydrate even when its effect mounts
+  // after this component, while the event keeps product switches immediate.
+  useEffect(() => {
+    const detail = {
+      id: active.id,
+      label: active.label,
+      lens: active.lens,
+      persona: active.persona,
+      evidenceState: active.evidenceState,
+      provenance: active.provenance,
+      outputs: active.outputCards,
+      controls: active.controls,
+    }
+    window.localStorage.setItem('ferrum-sutra-product-context', JSON.stringify(detail))
+    window.dispatchEvent(new CustomEvent('ferrum:sutra-context', { detail }))
+  }, [active])
+
   // W2-501: below 1366px the ten-product rail is no longer a horizontally
   // scrolling row of tabs — it's a compact trigger ("<Label> ▾") that opens
   // a floating vertical listbox. `isRailMenuOpen` / `focusedId` implement
@@ -163,7 +182,7 @@ export default function HomepageCockpitHero() {
 
   return (
     <section className="overflow-hidden border-b border-relume-border bg-relume-surface" data-home-cockpit-hero>
-      <div className="mx-auto w-full max-w-relume-container px-4 pb-5 pt-6 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-relume-container px-4 pb-5 pt-6 sm:px-6 lg:px-8 min-[1600px]:max-w-none min-[1600px]:px-5 min-[1600px]:pb-2 min-[1600px]:pt-3">
         {/*
           W2-501: the rail, proposition/preview composition and evidence
           line now render inside one bordered shell — "cockpit framing" —
@@ -272,7 +291,7 @@ export default function HomepageCockpitHero() {
             responsive grid (grid-cols-1 below `lg`, 12-column side-by-side
             at `lg`+) rather than duplicating JSX per breakpoint.
           */}
-          <div className="grid grid-cols-1 gap-6 p-4 sm:p-6 lg:grid-cols-12 lg:items-start lg:gap-8 lg:p-8">
+          <div className="grid grid-cols-1 gap-6 p-4 sm:p-6 lg:grid-cols-12 lg:items-start lg:gap-8 lg:p-8 min-[1600px]:gap-5 min-[1600px]:p-4">
             {/* Left column: the project-journey panel. Replaces the former
                 hero narrative (headline/proposition prose + a four-stage
                 pill indicator) with a compact, permanently visible
@@ -286,7 +305,7 @@ export default function HomepageCockpitHero() {
                 lib/homepageJourney.ts's product -> row mapping.
                 lg:col-span-4/8 (roughly one third / two thirds, cockpit
                 dominant) per the required desktop 1366+ proportion. */}
-            <div className="order-1 min-w-0 lg:order-1 lg:col-span-4 lg:flex lg:min-h-full lg:flex-col" data-product-summary-column>
+            <div className="order-1 min-w-0 lg:order-1 lg:col-span-4 lg:flex lg:min-h-full lg:flex-col min-[1600px]:hidden" data-product-summary-column>
               <p className="border-b border-relume-border pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
                 {active.label} · selected product
               </p>
@@ -367,7 +386,7 @@ export default function HomepageCockpitHero() {
               id="homepage-cockpit-stage"
               role="tabpanel"
               aria-label={`${active.label} cockpit`}
-              className={`order-2 min-w-0 border-t-2 lg:order-2 lg:col-span-8 ${accentBorderClass[active.accent]}`}
+              className={`order-2 min-w-0 border-t-2 lg:order-2 lg:col-span-8 min-[1600px]:col-span-12 ${accentBorderClass[active.accent]}`}
               data-home-cockpit-product={active.id}
             >
               {!isLiveTool ? (

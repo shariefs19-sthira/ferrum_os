@@ -14,7 +14,7 @@ describe("Concierge", () => {
 
   it("opens, answers a grounded question with a citation, and records useful feedback", async () => {
     render(<Concierge />)
-    fireEvent.click(screen.getByRole("button", { name: "Open Ferrum OS concierge" }))
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
 
     const input = screen.getByRole("textbox", { name: "Message" })
     fireEvent.change(input, { target: { value: "how often are the adopt hold drop stances reviewed" } })
@@ -33,7 +33,7 @@ describe("Concierge", () => {
 
   it("falls back honestly and shows no citations for an unrecognized query", async () => {
     render(<Concierge />)
-    fireEvent.click(screen.getByRole("button", { name: "Open Ferrum OS concierge" }))
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
 
     const input = screen.getByRole("textbox", { name: "Message" })
     fireEvent.change(input, { target: { value: "zzzz gibberish nonsense 999" } })
@@ -45,7 +45,7 @@ describe("Concierge", () => {
 
   it("captures an optional correction on not-useful feedback", async () => {
     render(<Concierge />)
-    fireEvent.click(screen.getByRole("button", { name: "Open Ferrum OS concierge" }))
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
 
     const input = screen.getByRole("textbox", { name: "Message" })
     fireEvent.change(input, { target: { value: "how often are the adopt hold drop stances reviewed" } })
@@ -61,5 +61,36 @@ describe("Concierge", () => {
     expect(stored.length).toBe(1)
     expect(stored[0].useful).toBe(false)
     expect(stored[0].correction).toBe("I wanted the FAQ update cadence")
+  })
+
+  it("uses the selected Ferrum product as governed SUTRA conversation context", async () => {
+    render(<Concierge />)
+    window.dispatchEvent(new CustomEvent("ferrum:sutra-context", { detail: {
+      id: "landintel", label: "LandIntel", lens: "Decide whether a parcel is viable.",
+      persona: "Land buyer", evidenceState: "INDICATIVE", provenance: "Seeded ULPIN source.",
+      outputs: ["parcel record"], controls: ["ULPIN lookup"],
+    } }))
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    fireEvent.click(await screen.findByRole("button", { name: "Ask SUTRA about this workspace" }))
+    expect(await screen.findByText(/Available outputs: parcel record/)).toBeTruthy()
+    expect(screen.getByText(/Evidence state: INDICATIVE/)).toBeTruthy()
+  })
+
+  it("exposes provider choices without granting unconnected models Ferrum access", async () => {
+    render(<Concierge />)
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    fireEvent.change(screen.getByRole("combobox", { name: "Agent model" }), { target: { value: "anthropic" } })
+    fireEvent.change(screen.getByRole("textbox", { name: "Message" }), { target: { value: "change the project" } })
+    fireEvent.click(screen.getByRole("button", { name: "Send" }))
+    expect(await screen.findByText(/needs an approved provider connection/)).toBeTruthy()
+  })
+
+  it("shows the construction connector catalogue with truthful connection status", () => {
+    render(<Concierge />)
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    fireEvent.click(screen.getByRole("button", { name: "Connections" }))
+    expect(screen.getByText("Governed connector catalogue")).toBeTruthy()
+    expect(screen.getByText(/Autodesk Construction Cloud/)).toBeTruthy()
+    expect(screen.getByText(/not claims of active integration/)).toBeTruthy()
   })
 })
