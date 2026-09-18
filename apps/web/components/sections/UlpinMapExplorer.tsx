@@ -94,7 +94,7 @@ export default function UlpinMapExplorer() {
         {mode === 'location' && <div className="flex flex-wrap items-center justify-between gap-3"><p className="text-xs leading-5 text-relume-muted">Your browser asks permission. Ferrum receives coordinates only in this local session; parcel attributes remain GAP.</p><button type="button" onClick={useMyLocation} className="min-h-11 rounded-full bg-relume-command px-4 text-sm font-semibold text-white">Use my location</button></div>}
         {mode === 'survey' && <p className="text-xs leading-5 text-relume-muted"><strong className="text-relume-command">ROADMAP</strong> — survey, khasra and plot numbering needs a state-specific adapter. No registry lookup is available here.</p>}
       </div>
-      <p id="parcel-finder-status" className="mt-3 text-xs leading-5 text-relume-muted" role="status" aria-live="polite">{message}</p>
+      <p id="parcel-finder-status" className="mt-3 min-h-10 text-xs leading-5 text-relume-muted" role="status" aria-live="polite">{message}</p>
     </div>
     <div className="relative" data-parcel-map-stage>
       <ParcelMap lat={center.lat} lng={center.lng} zoom={record ? 13 : 11} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} className="h-[min(70vh,48rem)] min-h-[32rem] border-0" />
