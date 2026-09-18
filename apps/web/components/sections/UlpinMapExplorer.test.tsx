@@ -26,6 +26,7 @@ describe('UlpinMapExplorer W-85 parcel finder', () => {
     const overlay = document.querySelector('[data-map-overlay]')
     expect(document.querySelector('[data-parcel-map-stage]')?.contains(overlay)).toBe(true)
     expect(overlay?.className).toContain('absolute')
+    expect(document.getElementById('parcel-finder-status')?.className).toContain('min-h-10')
     expect(screen.getByRole('button', { name: 'Map showing sample' })).toBe(map)
   })
 
