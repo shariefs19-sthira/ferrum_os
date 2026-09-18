@@ -31,9 +31,13 @@
 
   html {
     scroll-behavior: smooth;
+    max-inline-size: 100%;
+    overflow-x: clip;
   }
 
 body {
+    max-inline-size: 100%;
+    overflow-x: clip;
     background: var(--fe-canvas);
     color: var(--fe-text);
     font-family: var(--font-dm-sans), system-ui, sans-serif;
@@ -75,14 +79,6 @@ body {
   ::selection {
     background: var(--fe-accent);
     color: var(--fe-on-accent);
-  }
-}
-
-/* Desktop application shell: SUTRA owns a persistent right rail while the
-   site uses the full remaining workspace. Compact devices retain the launcher. */
-@media (min-width: 1600px) {
-  body {
-    padding-right: 22rem;
   }
 }
 
