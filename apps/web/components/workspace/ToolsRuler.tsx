@@ -122,24 +122,7 @@ export default function ToolsRuler({
 
   return (
     <aside aria-label="Workspace tools" className={`border-relume-border bg-relume-surface-secondary ${rail ? "border-b lg:border-b-0 lg:border-l" : "border-b"}`}>
-      {/* DOCUMENTED EXCEPTION (rail=true only, below `lg`): its only call
-          site (project-workspace/cockpit/page.tsx) wraps this in a
-          fixed `w-20` (80px) absolutely-positioned sidebar at every
-          viewport width, not just `lg`+. At `lg`+ it switches to a
-          vertical icon rail (`lg:flex-col lg:overflow-y-auto`) that
-          already fits that 80px width with no scroll. Below `lg` it
-          still needs `overflow-x-auto` here: this is a small,
-          self-contained scroll region clipped inside that fixed 80px
-          box (not a layout that forces `document.documentElement.
-          scrollWidth` past `clientWidth` - confirmed in the live-render
-          checks below), the same category as a deliberately scrollable
-          sidebar list, not the page-level horizontal-scroll defect this
-          task targets. Collapsing it into the trigger+listbox pattern
-          (as the `rail=false` branch below now does) was intentionally
-          not done here, since `rail=true`'s call site and visual design
-          (a persistent narrow icon rail) were out of this task's scope
-          to redesign. */}
-      <div className={`flex items-center gap-2 px-4 py-2 sm:px-6 ${rail ? "overflow-x-auto lg:h-full lg:flex-col lg:overflow-y-auto lg:px-2 lg:py-4" : "mx-auto max-w-relume-container"}`}>
+      <div className={`flex items-center gap-2 px-4 py-2 sm:px-6 ${rail ? "h-full flex-col overflow-x-hidden overflow-y-auto px-1 py-3 sm:px-1" : "mx-auto max-w-relume-container"}`}>
         <span className="mr-1 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted">
           Tools
         </span>
@@ -149,7 +132,7 @@ export default function ToolsRuler({
             return (
               <button
                 aria-pressed={active}
-                className={`min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${
+                className={`min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${rail ? "w-full min-w-0 whitespace-normal px-1 text-[11px] leading-tight" : ""} ${
                   active
                     ? "border-relume-ink bg-relume-ink text-white"
                     : "border-relume-border bg-relume-surface text-relume-ink hover:bg-relume-surface-secondary"

@@ -61,13 +61,11 @@ describe("ToolsRuler rail=false (trigger+listbox, no horizontal scroll)", () => 
   })
 })
 
-// rail=true keeps its original full-row rendering (its live call site's
-// container is a fixed-width vertical sidebar, out of this task's scope
-// to redesign — see the DOCUMENTED EXCEPTION comment in ToolsRuler.tsx).
-describe("ToolsRuler rail=true (unchanged full row)", () => {
-  it("renders all four tools directly, no trigger", () => {
+describe("ToolsRuler rail=true (vertical rail without horizontal scroll)", () => {
+  it("renders all four tools directly without an overflow-x container", () => {
     render(<ToolsRuler {...baseProps} rail />)
     expect(document.querySelector('[aria-haspopup="listbox"]')).toBeNull()
+    expect(document.querySelector(".overflow-x-auto")).toBeNull()
     expect(screen.getAllByRole("button", { name: /Select|Measure|Compare|Data extract/ }).length).toBeGreaterThanOrEqual(4)
   })
 })
