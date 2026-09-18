@@ -3,22 +3,16 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
-const productLinks = [
-  { name: 'LandIntel', href: '/products/landintel' },
-  { name: 'BOQ Pro', href: '/products/boq-pro' },
-  { name: 'DesignStudio', href: '/products/designstudio' },
-  { name: 'Structura', href: '/products/structura' },
-  { name: 'ProMarket', href: '/products/promarket' },
-  { name: 'Ferrum Projects', href: '/products/ferrum-projects' },
-  { name: 'ProcureHub', href: '/products/procurehub' },
-  { name: 'InvestFlow', href: '/products/investflow' },
-  { name: 'CommunityBuild', href: '/products/communitybuild' },
-  { name: 'Transact', href: '/products/transact' }
-];
+const primaryLinks = [
+  { name: 'How it works', href: '/#how-ferrum-works' },
+  { name: 'Building library', href: '/products/designstudio' },
+  { name: 'Platform', href: '/#platform' },
+  { name: 'Products', href: '/products' },
+]
 
-// W2-500: "Pricing" removed, alongside the "Log in" / "Start Free Trial"
-// buttons rendered below — see the matching comment in SiteHeader.tsx for
-// why (docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md).
+// Product-detail routes remain available from the compact Products hub link.
+// Pricing and account promotion stay out of primary navigation until their
+// release gates are evidenced.
 const utilityLinks = [
   { name: 'Resources', href: '/resources/blog' },
   { name: 'Documentation', href: '/documentation' },
@@ -120,9 +114,9 @@ export default function MobileMenu() {
             </Link>
 
             <div className="border-t border-relume-border pt-3">
-              <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-relume-muted">Products</p>
+              <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-relume-muted">Explore Ferrum</p>
               <div className="space-y-1">
-                {productLinks.map((link) => (
+                {primaryLinks.map((link) => (
                   <Link
                     key={link.name}
                     href={link.href}
@@ -149,6 +143,10 @@ export default function MobileMenu() {
                 ))}
               </div>
             </div>
+
+            <Link href="/project-workspace" onClick={closeMenu} className="flex min-h-11 items-center justify-center rounded-full bg-relume-command px-4 py-2 text-sm font-semibold text-white">
+              Start a project
+            </Link>
           </div>
         </div>
       )}

@@ -2,6 +2,7 @@ import SectionShell from '../components/sections/SectionShell'
 import Eyebrow from '../components/sections/Eyebrow'
 import SectionHeading from '../components/sections/SectionHeading'
 import HomepageCockpitHero from '../components/sections/HomepageCockpitHero'
+import ProjectFirstHero from '../components/sections/ProjectFirstHero'
 import GovernedOrchestrationChain from '../components/sections/GovernedOrchestrationChain'
 import HomepageJourney, { type HomepageJourneyStep } from '../components/sections/HomepageJourney'
 import { productFeatureRegistry } from '../lib/productFeatureRegistry'
@@ -90,15 +91,22 @@ const howItWorksSteps: HomepageJourneyStep[] = [
 export default function HomePage() {
   return (
     <main>
-      {/* 1. Product-led cockpit hero (Project Decision Console) */}
-      <HomepageCockpitHero />
+      <ProjectFirstHero />
+
+      {/* Existing product behavior remains intact as a detailed platform
+          preview below the project-first orientation. */}
+      <div id="how-ferrum-works">
+        <HomepageCockpitHero />
+      </div>
 
       {/* A concrete cross-product proof contract. This remains explicitly
           ROADMAP until the state transitions and evidence links execute. */}
-      <GovernedOrchestrationChain />
+      <div id="platform">
+        <GovernedOrchestrationChain />
+      </div>
 
       {/* 3. How It Works */}
-      <SectionShell background="surface-secondary">
+      <SectionShell id="how-it-works" background="surface-secondary">
         <div className="max-w-3xl">
           <Eyebrow>How it works</Eyebrow>
           {/* CODEX-SENTINEL-20260918-1700-cockpit-journey-context: "profit"

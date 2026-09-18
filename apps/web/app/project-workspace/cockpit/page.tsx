@@ -159,7 +159,6 @@ export default function ProjectWorkspaceCockpit() {
         <Link href="/" className="font-heading text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" aria-label="Ferrum home">Ferrum Workspace</Link><span className="mr-auto hidden text-xs text-white/60 sm:inline">{projectId}</span>
         <Link href="/" className="inline-flex min-h-10 items-center rounded-full border border-white/25 px-3 text-xs font-semibold text-white hover:bg-white/10">Home</Link>
         <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs">Territory</button>
-        <button type="button" aria-expanded={extractOpen} onClick={()=>setExtractOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs">Extract</button>
         <button ref={sutraToggleRef} type="button" aria-expanded={sutraOpen} onClick={()=>setSutraOpen(value=>!value)} className="min-h-10 rounded-full bg-relume-accent px-3 text-xs font-semibold text-relume-command">SUTRA</button>
       </header>
       <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />

@@ -154,7 +154,7 @@ export default function Concierge() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open SUTRA"
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-relume-ink text-white shadow-lg transition hover:opacity-90 min-[1600px]:hidden"
+        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-relume-ink text-white shadow-lg transition hover:opacity-90"
       >
         <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8-1.5 0-2.9-.32-4.14-.89L3 20l1.06-3.68A7.94 7.94 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -167,10 +167,10 @@ export default function Concierge() {
       aria-label="SUTRA AI assistant"
       aria-modal="false"
       tabIndex={-1}
-      className={`${open ? "flex" : "hidden"} fixed bottom-6 right-6 z-50 h-[28rem] max-h-dvh-safe-3rem w-[22rem] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-lg border border-relume-border bg-relume-surface shadow-xl min-[1600px]:inset-y-0 min-[1600px]:right-0 min-[1600px]:flex min-[1600px]:h-dvh min-[1600px]:max-h-none min-[1600px]:w-[22rem] min-[1600px]:max-w-none min-[1600px]:rounded-none min-[1600px]:border-y-0 min-[1600px]:border-r-0 min-[1600px]:shadow-none`}
+      className={`${open ? "flex" : "hidden"} fixed bottom-6 right-6 z-50 h-[28rem] max-h-dvh-safe-3rem w-[22rem] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-lg border border-relume-border bg-relume-surface shadow-xl`}
       data-sutra
     >
-      <div className="flex items-center justify-between border-b border-relume-border px-4 py-3 min-[1600px]:min-h-[4.75rem]">
+      <div className="flex items-center justify-between border-b border-relume-border px-4 py-3">
         <div>
           <span className="block text-sm font-semibold tracking-[0.12em] text-relume-ink">SUTRA</span>
           <span className="mt-1 block text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Ferrum OS AI agent</span>
@@ -179,7 +179,7 @@ export default function Concierge() {
           type="button"
           onClick={() => setOpen(false)}
           aria-label="Close SUTRA"
-          className="inline-flex h-11 w-11 items-center justify-center text-relume-ink min-[1600px]:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center text-relume-ink"
         >
           ✕
         </button>
