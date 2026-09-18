@@ -295,6 +295,11 @@ function templateFromShell(shell: BuildingShell): BuildingTemplate {
 
 export const buildingTemplateLibrary: readonly BuildingTemplate[] = Object.freeze(buildingShellCatalog.map(templateFromShell))
 
+export function getBuildingTemplateByShellId(shellId: string): BuildingTemplate {
+  return buildingTemplateLibrary.find((template) => template.templateId === `ferrum:${shellId}`)
+    ?? buildingTemplateLibrary.find((template) => template.templateId === 'ferrum:india-neutral-adaptive')!
+}
+
 const within = (value: number | null, range: { min: number; max: number } | null) => value !== null && range !== null && value >= range.min && value <= range.max
 
 export function evaluateTemplateForProject(template: BuildingTemplate, input: ProjectTemplateInputs, evaluatedAt: string): TemplateEvaluation {
