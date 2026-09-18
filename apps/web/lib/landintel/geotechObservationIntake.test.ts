@@ -5,6 +5,7 @@ import {
   fuseSiteAndRegionalEvidence,
   intakeSiteObservation,
   prohibitedGeotechConclusions,
+  validateClassificationOptions,
   validateGeotechObservationInput,
   validateRegionalContextLayer,
   type ClassificationOptions,
@@ -93,6 +94,21 @@ describe('validateGeotechObservationInput', () => {
     }))
     expect(issues.some((issue) => issue.field === 'coordinate.horizontalCrs')).toBe(true)
   })
+
+  it('rejects future field dates relative to the classification date', () => {
+    const issues = validateGeotechObservationInput(baseInput({ fieldDate: '2026-09-20' }), '2026-09-19')
+    expect(issues).toEqual(expect.arrayContaining([expect.objectContaining({ field: 'fieldDate', message: expect.stringContaining('future') })]))
+  })
+
+  it('rejects non-finite or out-of-range coordinates and non-finite or negative depths and values', () => {
+    const issues = validateGeotechObservationInput(baseInput({
+      coordinate: { latitude: Infinity, longitude: 181, depthMetres: Number.NaN, horizontalCrs: 'EPSG:4326', verticalDatum: 'MSL' },
+      measurements: [{ parameter: 'SPT N', value: -1, unit: 'blows/300 mm', depthMetres: Infinity }],
+    }))
+    expect(issues.map((issue) => issue.field)).toEqual(expect.arrayContaining([
+      'coordinate.latitude', 'coordinate.longitude', 'coordinate.depthMetres', 'measurements.SPT N.value', 'measurements.SPT N.depthMetres',
+    ]))
+  })
 })
 
 describe('classifyObservation', () => {
@@ -119,6 +135,25 @@ describe('classifyObservation', () => {
   it('prioritises STALE over provider verification', () => {
     expect(classifyObservation(baseInput({ fieldDate: '2019-01-01' }), classificationOptions())).toBe('STALE')
   })
+
+  it.each([
+    ['future field date', baseInput({ fieldDate: '2026-09-20' }), classificationOptions()],
+    ['out-of-range latitude', baseInput({ coordinate: { latitude: 90.1, longitude: 77.5, depthMetres: 1, horizontalCrs: 'EPSG:4326', verticalDatum: 'MSL' } }), classificationOptions()],
+    ['negative measurement value', baseInput({ measurements: [{ parameter: 'SPT N', value: -1, unit: 'blows/300 mm', depthMetres: 1 }] }), classificationOptions()],
+    ['negative stale threshold', baseInput(), classificationOptions({ staleAfterDays: -1 })],
+    ['non-finite stale threshold', baseInput(), classificationOptions({ staleAfterDays: Number.POSITIVE_INFINITY })],
+  ])('returns UNKNOWN instead of verified or user-provided for %s', (_case, input, options) => {
+    expect(classifyObservation(input, options)).toBe('UNKNOWN')
+  })
+
+  it('rejects negative and non-finite stale thresholds', () => {
+    expect(validateClassificationOptions(classificationOptions({ staleAfterDays: -1 }))).toEqual(expect.arrayContaining([
+      expect.objectContaining({ field: 'options.staleAfterDays' }),
+    ]))
+    expect(validateClassificationOptions(classificationOptions({ staleAfterDays: Number.NaN }))).toEqual(expect.arrayContaining([
+      expect.objectContaining({ field: 'options.staleAfterDays' }),
+    ]))
+  })
 })
 
 describe('intakeSiteObservation', () => {
@@ -127,6 +162,24 @@ describe('intakeSiteObservation', () => {
     expect(record.scope).toBe('SITE_OBSERVATION')
     expect(record.classification).toBe('SOURCE_VERIFIED')
     expect(record.issues).toEqual([])
+  })
+
+  it('records validation issues and holds every downstream target for unsafe inputs', () => {
+    for (const [input, options] of [
+      [baseInput({ fieldDate: '2026-09-20' }), classificationOptions()],
+      [baseInput({ coordinate: { latitude: Number.NaN, longitude: 77.5, depthMetres: 1, horizontalCrs: 'EPSG:4326', verticalDatum: 'MSL' } }), classificationOptions()],
+      [baseInput({ coordinate: { latitude: 12.9, longitude: 180.1, depthMetres: -1, horizontalCrs: 'EPSG:4326', verticalDatum: 'MSL' } }), classificationOptions()],
+      [baseInput({ measurements: [{ parameter: 'SPT N', value: Number.POSITIVE_INFINITY, unit: 'blows/300 mm', depthMetres: 1 }] }), classificationOptions()],
+      [baseInput({ measurements: [{ parameter: 'SPT N', value: 1, unit: 'blows/300 mm', depthMetres: -1 }] }), classificationOptions()],
+      [baseInput(), classificationOptions({ staleAfterDays: -1 })],
+      [baseInput(), classificationOptions({ staleAfterDays: Number.POSITIVE_INFINITY })],
+    ] as const) {
+      const record = intakeSiteObservation(input, options)
+      expect(record.classification).toBe('UNKNOWN')
+      expect(record.issues.length).toBeGreaterThan(0)
+      expect(computeDownstreamImpacts([record], []).filter((impact) => impact.action === 'HOLD').map((impact) => impact.target).sort())
+        .toEqual(['BOQ', 'DesignStudio', 'Structura'])
+    }
   })
 })
 

@@ -74,6 +74,16 @@ export type IntakeIssue = { field: string; message: string }
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
 const SHA256 = /^[a-f0-9]{64}$/i
 
+function parseIsoDate(value: string): number | null {
+  if (!ISO_DATE.test(value)) return null
+  const [year, month, day] = value.split('-').map(Number)
+  const timestamp = Date.UTC(year, month - 1, day)
+  const date = new Date(timestamp)
+  return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day
+    ? timestamp
+    : null
+}
+
 const FORBIDDEN_NARRATIVE_TERMS: RegExp[] = [
   /bearing capacity/i,
   /foundation suitab/i,
@@ -83,18 +93,36 @@ const FORBIDDEN_NARRATIVE_TERMS: RegExp[] = [
   /\btitle\b/i,
 ]
 
-export function validateGeotechObservationInput(input: GeotechObservationInput): IntakeIssue[] {
+export function validateGeotechObservationInput(input: GeotechObservationInput, nowIso?: string): IntakeIssue[] {
   const issues: IntakeIssue[] = []
   if (!input.id.trim()) issues.push({ field: 'id', message: 'Observation ID is required.' })
   if (!input.referenceId.trim()) issues.push({ field: 'referenceId', message: 'Borehole/log/lab-report reference is required.' })
-  if (!ISO_DATE.test(input.fieldDate)) issues.push({ field: 'fieldDate', message: 'Field date must be an ISO date (YYYY-MM-DD).' })
-  if (!ISO_DATE.test(input.reportedAt)) issues.push({ field: 'reportedAt', message: 'Reported-at date must be an ISO date (YYYY-MM-DD).' })
+  const fieldDateMs = parseIsoDate(input.fieldDate)
+  if (fieldDateMs === null) issues.push({ field: 'fieldDate', message: 'Field date must be a valid ISO date (YYYY-MM-DD).' })
+  const reportedAtMs = parseIsoDate(input.reportedAt)
+  if (reportedAtMs === null) issues.push({ field: 'reportedAt', message: 'Reported-at date must be a valid ISO date (YYYY-MM-DD).' })
+  if (nowIso !== undefined) {
+    const nowMs = parseIsoDate(nowIso)
+    if (nowMs === null) {
+      issues.push({ field: 'options.nowIso', message: 'Classification date must be a valid ISO date (YYYY-MM-DD).' })
+    } else if (fieldDateMs !== null && fieldDateMs > nowMs) {
+      issues.push({ field: 'fieldDate', message: 'Field date cannot be in the future.' })
+    }
+  }
   if (!SHA256.test(input.checksum)) issues.push({ field: 'checksum', message: 'A SHA-256 checksum of the source document is required.' })
   if (!input.provider.name.trim()) issues.push({ field: 'provider.name', message: 'Provider name is required.' })
   if (!input.provider.role.trim()) issues.push({ field: 'provider.role', message: 'Provider role is required.' })
   if (input.coordinate) {
     if (!input.coordinate.horizontalCrs.trim()) issues.push({ field: 'coordinate.horizontalCrs', message: 'Horizontal CRS is required when coordinates are supplied.' })
-    if (input.coordinate.depthMetres !== null && input.coordinate.depthMetres < 0) issues.push({ field: 'coordinate.depthMetres', message: 'Depth cannot be negative.' })
+    if (!Number.isFinite(input.coordinate.latitude) || input.coordinate.latitude < -90 || input.coordinate.latitude > 90) {
+      issues.push({ field: 'coordinate.latitude', message: 'Latitude must be finite and within -90 to 90 degrees.' })
+    }
+    if (!Number.isFinite(input.coordinate.longitude) || input.coordinate.longitude < -180 || input.coordinate.longitude > 180) {
+      issues.push({ field: 'coordinate.longitude', message: 'Longitude must be finite and within -180 to 180 degrees.' })
+    }
+    if (input.coordinate.depthMetres !== null && (!Number.isFinite(input.coordinate.depthMetres) || input.coordinate.depthMetres < 0)) {
+      issues.push({ field: 'coordinate.depthMetres', message: 'Depth must be finite and cannot be negative.' })
+    }
   }
   for (const term of FORBIDDEN_NARRATIVE_TERMS) {
     if (term.test(input.narrative)) {
@@ -102,8 +130,14 @@ export function validateGeotechObservationInput(input: GeotechObservationInput):
     }
   }
   for (const measurement of input.measurements) {
-    if (measurement.value !== null && typeof measurement.value === 'number' && !measurement.unit) {
-      issues.push({ field: `measurements.${measurement.parameter}.unit`, message: 'Numeric measurements require a unit.' })
+    if (typeof measurement.value === 'number') {
+      if (!Number.isFinite(measurement.value) || measurement.value < 0) {
+        issues.push({ field: `measurements.${measurement.parameter}.value`, message: 'Numeric measurements must be finite and cannot be negative.' })
+      }
+      if (!measurement.unit) issues.push({ field: `measurements.${measurement.parameter}.unit`, message: 'Numeric measurements require a unit.' })
+    }
+    if (measurement.depthMetres !== null && (!Number.isFinite(measurement.depthMetres) || measurement.depthMetres < 0)) {
+      issues.push({ field: `measurements.${measurement.parameter}.depthMetres`, message: 'Measurement depth must be finite and cannot be negative.' })
     }
   }
   return issues
@@ -114,6 +148,17 @@ export type ClassificationOptions = {
   staleAfterDays: number
   /** Provider identities the caller has already, independently verified elsewhere. This module performs no lookup itself. */
   verifiedProviderRegistry: string[]
+}
+
+export function validateClassificationOptions(options: ClassificationOptions): IntakeIssue[] {
+  const issues: IntakeIssue[] = []
+  if (parseIsoDate(options.nowIso) === null) {
+    issues.push({ field: 'options.nowIso', message: 'Classification date must be a valid ISO date (YYYY-MM-DD).' })
+  }
+  if (!Number.isFinite(options.staleAfterDays) || options.staleAfterDays < 0) {
+    issues.push({ field: 'options.staleAfterDays', message: 'Staleness threshold must be finite and cannot be negative.' })
+  }
+  return issues
 }
 
 function providerKey(provider: ObservationProvider): string {
@@ -129,11 +174,11 @@ function providerKey(provider: ObservationProvider): string {
  * SOURCE_VERIFIED; anything else well-formed defaults to USER_PROVIDED.
  */
 export function classifyObservation(input: GeotechObservationInput, options: ClassificationOptions): ObservationClassification {
-  if (validateGeotechObservationInput(input).length > 0) return 'UNKNOWN'
+  if (validateGeotechObservationInput(input, options.nowIso).length > 0 || validateClassificationOptions(options).length > 0) return 'UNKNOWN'
 
-  const fieldDateMs = Date.parse(input.fieldDate)
-  const nowMs = Date.parse(options.nowIso)
-  if (Number.isNaN(fieldDateMs) || Number.isNaN(nowMs)) return 'UNKNOWN'
+  const fieldDateMs = parseIsoDate(input.fieldDate)
+  const nowMs = parseIsoDate(options.nowIso)
+  if (fieldDateMs === null || nowMs === null) return 'UNKNOWN'
 
   const ageDays = (nowMs - fieldDateMs) / (1000 * 60 * 60 * 24)
   if (ageDays > options.staleAfterDays) return 'STALE'
@@ -154,10 +199,14 @@ export type SiteObservationRecord = {
 }
 
 export function intakeSiteObservation(input: GeotechObservationInput, options: ClassificationOptions): SiteObservationRecord {
+  const issues = [
+    ...validateGeotechObservationInput(input, options.nowIso),
+    ...validateClassificationOptions(options),
+  ]
   return {
     input,
     classification: classifyObservation(input, options),
-    issues: validateGeotechObservationInput(input),
+    issues,
     scope: 'SITE_OBSERVATION',
   }
 }
@@ -216,10 +265,10 @@ export function computeDownstreamImpacts(
 
   for (const record of siteObservations) {
     const id = record.input.id
-    if (record.classification === 'UNKNOWN') {
-      impacts.push({ target: 'DesignStudio', action: 'HOLD', reason: `Observation ${id} failed intake validation and cannot ground a design input.`, observationId: id })
-      impacts.push({ target: 'Structura', action: 'HOLD', reason: `Observation ${id} failed intake validation; structural parameters relying on it are held.`, observationId: id })
-      impacts.push({ target: 'BOQ', action: 'HOLD', reason: `Observation ${id} failed intake validation; quantities relying on it are held.`, observationId: id })
+    if (record.classification === 'UNKNOWN' || record.issues.length > 0) {
+      impacts.push({ target: 'DesignStudio', action: 'HOLD', reason: `Observation ${id} has invalid intake metadata and cannot ground a design input.`, observationId: id })
+      impacts.push({ target: 'Structura', action: 'HOLD', reason: `Observation ${id} has invalid intake metadata; structural parameters relying on it are held.`, observationId: id })
+      impacts.push({ target: 'BOQ', action: 'HOLD', reason: `Observation ${id} has invalid intake metadata; quantities relying on it are held.`, observationId: id })
       continue
     }
     if (record.classification === 'STALE') {
