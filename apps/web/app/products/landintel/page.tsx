@@ -11,21 +11,14 @@ import ZoningSummary from '../../../components/landintel/ZoningSummary'
 import SoilHazardPanel from '../../../components/landintel/SoilHazardPanel'
 import ClimateYearPanel from '../../../components/landintel/ClimateYearPanel'
 import HistoryCenturyPanel from '../../../components/landintel/HistoryCenturyPanel'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
 // map (real Leaflet/OSM component) are real. Zoning, soil/hazard,
 // feasibility report, and investment forecasts have zero implementation —
 // The lookup returns state/district/area_sqm/land_use only, nothing
 // else. Roadmap-labeled rather than deleted per RULE 13/W2-345's pattern.
-const featureItems = [
-  { title: 'ULPIN lookup (live)', body: 'Look up one of three seeded ULPIN records through the D1-backed lookup, with a city-reference map and provenance.' },
-  { title: 'Scenario forecast (live)', body: 'Move area and land-use controls to model built-up potential against a sample Karnataka FAR ruleset.' },
-  { title: 'Interactive preview map (live)', body: 'See a randomized India map preview, clearly identified as neither a parcel nor a lookup result.' },
-  { title: 'Zoning summary', body: 'Know what you can build before you buy — not yet built.' },
-  { title: 'Soil & hazard data', body: 'Understand ground conditions and flood or seismic risk — not yet built.' },
-  { title: 'Feasibility report', body: 'A shareable report that sizes up the whole deal — not yet built.' },
-  { title: 'Investment forecasts', body: 'Project land value and returns over time — not yet built.' },
-]
+const featureItems = productFeatureRegistry.landintel
 
 const howItWorksSteps = [
   { title: 'Choose a sample ULPIN', body: 'Select a seeded parcel ID or enter it directly; the lookup is the primary tool on this page.' },

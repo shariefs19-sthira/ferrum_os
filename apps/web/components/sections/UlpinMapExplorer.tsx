@@ -6,6 +6,7 @@ import { ProvenanceStrip } from '../ProvenanceStrip'
 import SaveToWorkspaceButton from '../SaveToWorkspaceButton'
 import { writeParcelContext } from '../../lib/workspace/parcelContext'
 import type { PlotIntel } from '../../lib/parcelIntel/types'
+import { productFeatureRegistry } from '../../lib/productFeatureRegistry'
 
 type Mode = 'ulpin' | 'pin' | 'coordinates' | 'place' | 'location' | 'survey'
 type Coordinates = { lat: number; lng: number }
@@ -15,6 +16,7 @@ type ParcelRecord = { ulpin: string | null; state: string; district: string; are
 const BENGALURU: Coordinates = { lat: 12.9716, lng: 77.5946 }
 const SAMPLE_ULPINS = ['KA-BLR-0001-2024', 'MH-PUN-0002-2024', 'TN-CHN-0003-2024']
 const modeLabels: Record<Mode, string> = { ulpin: 'ULPIN', pin: 'Map pin', coordinates: 'Coordinates', place: 'Address', location: 'My location', survey: 'Survey / khasra' }
+const modeFeatures = Object.fromEntries(productFeatureRegistry.landintel.filter((feature) => feature.id.startsWith('location-')).map((feature) => [feature.id.replace('location-', ''), feature])) as Record<Mode, (typeof productFeatureRegistry.landintel)[number]>
 
 const parseCoordinate = (value: string, positive: 'N' | 'E', negative: 'S' | 'W') => {
   const decimal = Number(value)
@@ -85,7 +87,10 @@ export default function UlpinMapExplorer() {
         <div><p className="text-sm font-semibold text-relume-command">Find parcel</p><p className="mt-1 text-xs text-relume-muted">Choose a method, then set or look up the location below.</p></div>
         <span className="rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">{record?.status ?? 'SAMPLE'}</span>
       </div>
-      <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6 min-[1600px]:mt-2" aria-label="Location method">{(Object.keys(modeLabels) as Mode[]).map((item) => <button key={item} type="button" onClick={() => { setMode(item); setMatches([]) }} aria-pressed={mode === item} className={`min-h-11 rounded-full border px-3 text-xs font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${mode === item ? 'border-relume-command bg-relume-command text-white' : 'border-relume-border text-relume-command hover:bg-relume-surface-secondary'}`}>{modeLabels[item]}</button>)}</div>
+      <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6 min-[1600px]:mt-2" aria-label="Location method">{(Object.keys(modeLabels) as Mode[]).map((item) => {
+        const feature = modeFeatures[item]
+        return <div key={item} className="group relative min-w-0"><button type="button" onClick={() => { setMode(item); setMatches([]) }} aria-pressed={mode === item} title={`${feature.title} — ${feature.body}`} data-sutra-product="landintel" data-sutra-feature-id={feature.id} className={`min-h-11 w-full rounded-full border px-3 text-xs font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${mode === item ? 'border-relume-command bg-relume-command text-white' : 'border-relume-border text-relume-command hover:bg-relume-surface-secondary'}`}>{modeLabels[item]}</button><span role="tooltip" className="pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-[700] hidden w-64 -translate-x-1/2 rounded-relume bg-relume-ink p-3 text-left text-[11px] font-normal leading-4 text-white shadow-lg group-hover:block group-focus-within:block"><strong className="block text-xs">{feature.title}</strong><span className="mt-1 block">{feature.body}</span></span></div>
+      })}</div>
       <div className="mt-3 rounded-relume border border-relume-border bg-relume-surface-secondary p-3" data-selected-method>
         {mode === 'ulpin' && <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.7fr)_auto] lg:items-end min-[1600px]:grid-cols-[auto_minmax(14rem,1fr)_auto]"><div className="flex flex-wrap gap-2 min-[1600px]:flex-nowrap">{SAMPLE_ULPINS.map((sample) => <button key={sample} type="button" onClick={() => setUlpin(sample)} aria-pressed={ulpin === sample} className="min-h-11 rounded-full border border-relume-border bg-white px-3 text-xs">{sample}</button>)}</div><label className="block text-xs font-semibold">Seeded ULPIN<input value={ulpin} onChange={(event) => setUlpin(event.target.value)} aria-invalid={ulpinError} aria-describedby="parcel-finder-status" className="mt-1 min-h-11 w-full rounded-relume border border-relume-border bg-white px-3 py-2" /></label><button type="button" onClick={() => void lookupUlpin()} className="min-h-11 rounded-full bg-relume-command px-4 text-sm font-semibold text-white">Lookup seeded record</button></div>}
         {mode === 'pin' && <p className="text-xs leading-5 text-relume-muted">Click any map point to set a location. Ferrum requests a reverse-geocoded address from OpenStreetMap Nominatim; parcel attributes remain GAP.</p>}

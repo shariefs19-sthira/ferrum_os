@@ -53,7 +53,19 @@ export function retrieve(query: string, topK = 3): RetrievalHit[] {
   }
 
   hits.sort((a, b) => b.score - a.score)
-  return hits.slice(0, topK)
+  const selected = hits.slice(0, topK)
+  // Feature-level documents can legitimately outrank their product overview,
+  // but the overview must remain discoverable rather than being crowded out
+  // by several controls from the same product.
+  for (const hit of [...selected]) {
+    if (!hit.doc.id.startsWith('product-feature:')) continue
+    const productId = hit.doc.id.split(':')[1]
+    const parent = hits.find((candidate) => candidate.doc.id === `product:${productId}`)
+    if (parent && !selected.some((candidate) => candidate.doc.id === parent.doc.id)) {
+      selected[selected.length - 1] = parent
+    }
+  }
+  return selected.sort((a, b) => b.score - a.score)
 }
 
 export function retrieveConfident(query: string, topK = 3): RetrievalHit[] {

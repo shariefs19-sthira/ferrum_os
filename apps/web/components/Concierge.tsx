@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation"
 import { answerWithGrounding, type Citation, type ConciergeAnswer } from "../lib/ai/concierge"
 import { recordFeedback } from "../lib/ai/feedback"
 import { AGENT_MODELS, CONSTRUCTION_CONNECTOR_GROUPS, canRunModel, type AgentModelId } from "../lib/ai/agentRegistry"
+import { productFeatureRegistry, productLabels, type ProductFeature } from "../lib/productFeatureRegistry"
+import type { CockpitProduct } from "./workspace/ProductCockpitPreview"
 
 type Message = {
   role: "user" | "assistant"
@@ -54,6 +56,7 @@ export default function Concierge() {
   const [selectedModel, setSelectedModel] = useState<AgentModelId>("sutra")
   const [showConnections, setShowConnections] = useState(false)
   const [workspaceContext, setWorkspaceContext] = useState<SutraContext | null>(null)
+  const [activeFeature, setActiveFeature] = useState<{ productId: CockpitProduct; feature: ProductFeature } | null>(null)
 
   useEffect(() => {
     if (open && panelRef.current) panelRef.current.focus()
@@ -71,6 +74,18 @@ export default function Concierge() {
     return () => window.removeEventListener("ferrum:sutra-context", handleContext)
   }, [])
 
+  useEffect(() => {
+    const handleToolSelection = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-sutra-product][data-sutra-feature-id]") : null
+      if (!target) return
+      const productId = target.dataset.sutraProduct as CockpitProduct
+      const feature = productFeatureRegistry[productId]?.find((item) => item.id === target.dataset.sutraFeatureId)
+      if (feature) setActiveFeature({ productId, feature })
+    }
+    document.addEventListener("click", handleToolSelection)
+    return () => document.removeEventListener("click", handleToolSelection)
+  }, [])
+
   const handleSend = (text: string) => {
     if (!text.trim()) return
     setMessages((prev) => [...prev, { role: "user", text }])
@@ -80,15 +95,8 @@ export default function Concierge() {
       setInput("")
       return
     }
-    const asksAboutContext = workspaceContext && /current|this product|what can|available output|adjustable|evidence|explain/i.test(text)
-    if (workspaceContext && asksAboutContext) {
-      const outputs = workspaceContext.outputs.length ? ` Available outputs: ${workspaceContext.outputs.join("; ")}.` : " No live output is claimed for this product yet."
-      const controls = workspaceContext.controls.length ? ` Adjustable inputs: ${workspaceContext.controls.join("; ")}.` : ""
-      setMessages((prev) => [...prev, { role: "assistant", text: `${workspaceContext.label}: ${workspaceContext.lens} ${workspaceContext.persona}.${outputs}${controls} Evidence state: ${workspaceContext.evidenceState}. ${workspaceContext.provenance}`, source: "deterministic", query: text }])
-      setInput("")
-      return
-    }
-    const answer = answerWithGrounding(text)
+    const contextualText = workspaceContext && /current|this product|what can|available output|adjustable|evidence|explain/i.test(text) && !text.toLowerCase().includes(workspaceContext.label.toLowerCase()) ? `${text} in ${workspaceContext.label}` : text
+    const answer = answerWithGrounding(contextualText)
     setMessages((prev) => [
       ...prev,
       { role: "assistant", text: answer.text, citations: answer.citations, source: answer.source, query: text },
@@ -186,7 +194,8 @@ export default function Concierge() {
         {workspaceContext && <div className="rounded-relume border border-relume-border bg-relume-surface-secondary p-3" data-sutra-context>
           <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Working context</p>
           <p className="mt-1 text-sm font-semibold text-relume-command">{workspaceContext.label}</p>
-          <button type="button" onClick={() => handleSend("Explain this product and what I can do here")} className="mt-2 min-h-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command">Ask SUTRA about this workspace</button>
+          {activeFeature && <div className="mt-2 rounded-relume border border-relume-border bg-white p-2"><p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Selected tool</p><p className="mt-1 text-xs font-semibold text-relume-command">{activeFeature.feature.title}</p></div>}
+          <button type="button" onClick={() => activeFeature ? handleSend(`Explain ${activeFeature.feature.title} in ${productLabels[activeFeature.productId]}`) : handleSend(`Explain all features in ${workspaceContext.label}`)} className="mt-2 min-h-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command">{activeFeature ? `Explain ${activeFeature.feature.title}` : `Explain all ${workspaceContext.label} features`}</button>
         </div>}
         {messages.map((m, i) => (
           <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>

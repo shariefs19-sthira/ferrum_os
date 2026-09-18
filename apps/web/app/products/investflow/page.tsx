@@ -5,20 +5,14 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-345: cash-flow modeling and IRR/NPV are shipped and real
 // (IrrNpvModeler below, lib/finance/irrNpv.ts, indicative labeled). Yield
 // is not computed — only IRR and NPV. Sensitivity analysis, investor
 // dashboards, capital commitment tracking and scenario planning have zero
 // implementation and are roadmap-labeled.
-const featureItems = [
-  { title: 'Cash-flow modeling (live)', body: 'Model cash flow across the life of a project.' },
-  { title: 'IRR/NPV (live)', body: 'Calculate IRR and NPV from your cash-flow model.' },
-  { title: 'Sensitivity analysis', body: 'Stress-test a deal against changing assumptions — not yet built.' },
-  { title: 'Investor dashboards', body: 'Track investor commitments and returns in one view — not yet built.' },
-  { title: 'Capital commitment', body: 'Manage capital commitments through the project — not yet built.' },
-  { title: 'Scenario planning', body: 'Compare scenarios before you commit — not yet built.' },
-]
+const featureItems = productFeatureRegistry.investflow
 
 const howItWorksSteps = [
   { title: 'Model the deal', body: 'Build a cash-flow model for the project.' },

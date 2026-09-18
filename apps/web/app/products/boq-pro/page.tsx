@@ -6,6 +6,7 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-360 BOQ_PAGE_TRUTH: applies the W2-345 claim-truth convention to this
 // page's remaining sections — it never got that pass (unlike the other 8
@@ -33,14 +34,7 @@ import ProductCockpitPreview from '../../../components/workspace/ProductCockpitP
 //   GST/export claims here are still unbacked for what THIS page
 //   offers — worded below to say so precisely rather than claim no GST/
 //   export logic exists on the platform at all, which would be false.
-const featureItems = [
-  { title: 'Cost split scenario (live)', body: 'Adjust built-up area and sample grade to see material, labour and GST components update immediately.' },
-  { title: 'City-wise pricing (live)', body: 'Rates tuned to your city, seeded across Bengaluru, Pune and Chennai today.' },
-  { title: 'Rate band breakdown (live)', body: 'See the P25/P50/P75 band and a role-aware number behind every estimate.' },
-  { title: 'Quantity take-off', body: 'Automatically measure quantities from your design — not yet built.' },
-  { title: 'Brand-wise materials', body: 'Choose UltraTech, Tata, JSW and more — not yet built.' },
-  { title: 'GST-compliant BOQ', body: 'Not from this rate calculator — a separate take-off tool applies GST, but it isn’t connected to this page.' },
-]
+const featureItems = productFeatureRegistry['boq-pro']
 
 // Rewritten to describe the real three-mode-calculator workflow instead
 // of the unbuilt design-import-and-auto-take-off flow it previously

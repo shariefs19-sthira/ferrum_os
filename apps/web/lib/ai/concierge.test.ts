@@ -26,4 +26,19 @@ describe('answerWithGrounding', () => {
     expect(answer.text).toBe(FALLBACK_MESSAGE)
     expect(answer.citations).toEqual([])
   })
+
+  it('explains a selected product tool from the canonical feature library', () => {
+    const answer = answerWithGrounding('Explain Coordinates in LandIntel')
+    expect(answer.source).toBe('retrieval')
+    expect(answer.text).toContain('decimal coordinates')
+    expect(answer.text).toContain('does not infer a parcel boundary')
+    expect(answer.citations[0].href).toBe('/products/landintel')
+  })
+
+  it('lists every documented feature for a product', () => {
+    const answer = answerWithGrounding('Explain all features in Structura')
+    expect(answer.text).toContain('IS code checking')
+    expect(answer.text).toContain('FEA analysis')
+    expect(answer.text).toContain('Sign-off workflow')
+  })
 })

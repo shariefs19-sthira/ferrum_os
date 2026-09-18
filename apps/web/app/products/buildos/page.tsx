@@ -6,6 +6,7 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import ProductHeroPreview from '../../../components/sections/ProductHeroPreview'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-345: BuildOS has zero shipped tool of any kind — no task management,
 // no RFI/submittal tracking, no QA/QC or HSE checklists, no progress
@@ -13,14 +14,7 @@ import ProductCockpitPreview from '../../../components/workspace/ProductCockpitP
 // claim on this page previously described unbuilt capability as present
 // tense. All roadmap-labeled rather than deleted, since they describe the
 // product's real intended direction (docs/RELUME_HANDOFF.md §5).
-const featureItems = [
-  { title: 'Common data environment', body: 'One source of truth for the whole team — not yet built.' },
-  { title: 'Task management', body: 'Assign, track and close out tasks — not yet built.' },
-  { title: 'RFIs & submittals', body: 'Resolve questions and approvals in one place — not yet built.' },
-  { title: 'QA/QC & HSE', body: 'Run checklists and safety logs on site — not yet built.' },
-  { title: 'Progress tracking', body: 'See the build move in real time — not yet built.' },
-  { title: 'Measurement books & RA bills', body: 'Bill accurately from measured work — not yet built.' },
-]
+const featureItems = productFeatureRegistry.buildos
 
 const howItWorksSteps = [
   { title: 'Set up your project', body: 'Create the workspace and invite your team — not yet built.' },

@@ -13,6 +13,7 @@
 
 import { matchIntent, FALLBACK_MESSAGE } from '../concierge/intents'
 import { retrieveConfident, type RetrievalHit } from './retrieval'
+import { answerProductKnowledge } from './productKnowledge'
 
 export type Citation = {
   title: string
@@ -46,6 +47,9 @@ function buildRetrievalAnswer(hits: RetrievalHit[]): ConciergeAnswer {
  * 3. Honest fallback -- never invents an answer with no traceable source.
  */
 export function answerWithGrounding(input: string): ConciergeAnswer {
+  const productKnowledge = answerProductKnowledge(input)
+  if (productKnowledge) return productKnowledge
+
   const deterministic = matchIntent(input)
   if (deterministic) {
     return {
