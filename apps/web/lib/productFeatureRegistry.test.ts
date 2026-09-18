@@ -3,7 +3,7 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { PRODUCT_FEATURE_DOCS } from './ai/corpus'
 import { answerProductKnowledge } from './ai/productKnowledge'
-import { productFeatureList, productFeatureRegistry } from './productFeatureRegistry'
+import { productFeatureList, productFeatureRegistry, productRoutes } from './productFeatureRegistry'
 
 describe('product feature registry', () => {
   it('covers every product with unique, explained features', () => {
@@ -33,7 +33,7 @@ describe('product feature registry', () => {
 
   it('grounds model preview and controlled-release explanations in the shared registry', () => {
     const preview = answerProductKnowledge('Explain model preview on ingestion in DesignStudio')
-    const release = answerProductKnowledge('Explain approved for machine in BuildOS')
+    const release = answerProductKnowledge('Explain approved for machine in Ferrum Projects')
     expect(preview?.text).toContain('Model preview on ingestion')
     expect(preview?.text).toContain('PREVIEWED only')
     expect(release?.text).toContain('APPROVED FOR MACHINE')
@@ -41,10 +41,17 @@ describe('product feature registry', () => {
   })
 
   it('keeps every product page on the shared registry', () => {
-    for (const productId of Object.keys(productFeatureRegistry)) {
-      const source = fs.readFileSync(path.join(process.cwd(), 'app', 'products', productId, 'page.tsx'), 'utf8')
+    // Ferrum Projects migration: `products/buildos/page.tsx` is now a
+    // backward-compatible redirect alias with no registry reference; its
+    // canonical content lives at the route in `productRoutes`.
+    for (const productId of Object.keys(productFeatureRegistry) as (keyof typeof productFeatureRegistry)[]) {
+      const route = productRoutes[productId]
+      const source = fs.readFileSync(path.join(process.cwd(), 'app', 'products', route, 'page.tsx'), 'utf8')
       expect(source).toContain('productFeatureRegistry')
       expect(source).not.toContain('const featureItems = [')
     }
+
+    const redirectSource = fs.readFileSync(path.join(process.cwd(), 'app', 'products', 'buildos', 'page.tsx'), 'utf8')
+    expect(redirectSource).toContain("redirect('/products/ferrum-projects')")
   })
 })

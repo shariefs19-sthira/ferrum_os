@@ -98,7 +98,7 @@ describe('HomepageCockpitHero', () => {
     expect(panel.querySelectorAll('[aria-current="true"]')).toHaveLength(1)
     expect(panel.querySelector('[aria-current="true"]')?.textContent).toContain('Define scope and cost')
 
-    fireEvent.click(screen.getByRole('tab', { name: 'BuildOS' }))
+    fireEvent.click(screen.getByRole('tab', { name: 'Ferrum Projects' }))
     expect(panel.querySelector('[aria-current="true"]')?.textContent).toContain('Coordinate delivery')
 
     fireEvent.click(screen.getByRole('tab', { name: 'InvestFlow' }))
@@ -112,7 +112,7 @@ describe('HomepageCockpitHero', () => {
     render(<HomepageCockpitHero />)
     expect(screen.getAllByText('INDICATIVE').length).toBeGreaterThan(0)
 
-    fireEvent.click(screen.getByRole('tab', { name: 'BuildOS' }))
+    fireEvent.click(screen.getByRole('tab', { name: 'Ferrum Projects' }))
     expect(screen.getAllByText('ROADMAP').length).toBeGreaterThan(0)
   })
 
@@ -385,7 +385,7 @@ describe('HomepageCockpitHero', () => {
       expect(screen.getByTestId('stepped-forecast-module').getAttribute('data-product')).toBe('designstudio')
     })
 
-    it('ROADMAP products (BuildOS, ProcureHub, CommunityBuild) render none of the live-cockpit primary panels -- only the honest roadmap state', () => {
+    it('ROADMAP products (Ferrum Projects, ProcureHub, CommunityBuild) render none of the live-cockpit primary panels -- only the honest roadmap state', () => {
       render(<HomepageCockpitHero />)
       for (const productId of Array.from(ROADMAP_IDS)) {
         const product = productExperienceList.find((item) => item.id === productId)!

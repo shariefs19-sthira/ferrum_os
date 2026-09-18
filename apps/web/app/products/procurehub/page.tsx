@@ -22,7 +22,7 @@ const howItWorksSteps = [
 
 const integrationItems = [
   { title: 'BOQ Pro', body: 'Requests are driven by your bill of quantities.' },
-  { title: 'BuildOS', body: 'Track material status against your project.' },
+  { title: 'Ferrum Projects', body: 'Track material status against your project.' },
   { title: 'ProMarket', body: 'Coordinate procurement with your hired team.' },
 ]
 

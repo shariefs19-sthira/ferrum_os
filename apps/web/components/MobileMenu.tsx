@@ -9,7 +9,7 @@ const productLinks = [
   { name: 'DesignStudio', href: '/products/designstudio' },
   { name: 'Structura', href: '/products/structura' },
   { name: 'ProMarket', href: '/products/promarket' },
-  { name: 'BuildOS', href: '/products/buildos' },
+  { name: 'Ferrum Projects', href: '/products/ferrum-projects' },
   { name: 'ProcureHub', href: '/products/procurehub' },
   { name: 'InvestFlow', href: '/products/investflow' },
   { name: 'CommunityBuild', href: '/products/communitybuild' },

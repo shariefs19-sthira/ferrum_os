@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { productExperienceList, productExperienceRegistry } from './productExperienceRegistry'
 import { stageForProduct } from './homepageStages'
+import { productRoutes } from './productFeatureRegistry'
 
 const ROADMAP_IDS = ['buildos', 'procurehub', 'communitybuild']
 const LIVE_IDS = ['landintel', 'designstudio', 'structura', 'boq-pro', 'promarket', 'investflow', 'transact']
@@ -49,7 +50,7 @@ describe('productExperienceRegistry', () => {
 
   it('every entry has a primaryCta pointing at its own product page', () => {
     for (const product of productExperienceList) {
-      expect(product.primaryCta.href).toBe(`/products/${product.id}`)
+      expect(product.primaryCta.href).toBe(`/products/${productRoutes[product.id]}`)
       expect(product.primaryCta.label.length).toBeGreaterThan(0)
     }
   })

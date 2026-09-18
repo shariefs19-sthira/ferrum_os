@@ -4,7 +4,7 @@ import type { CockpitProduct } from '../components/workspace/ProductCockpitPrevi
 // visible explanatory rows for the homepage's project-journey panel --
 // replaces the old four-stage (Land/Design/Build/Invest) pill indicator
 // with a finer partition so "Build" (which used to lump BOQ Pro, ProMarket,
-// BuildOS, and ProcureHub together) splits into the scope/cost decision and
+// Ferrum Projects, and ProcureHub together) splits into the scope/cost decision and
 // the delivery-coordination decision, matching how those products actually
 // differ in what they help with. Every product maps to exactly one row --
 // this is the ONLY category grouping on the homepage; it does not add a

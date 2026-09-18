@@ -5,7 +5,8 @@
 /designstudio     /products/designstudio     301
 /structura        /products/structura        301
 /promarket        /products/promarket        301
-/buildos          /products/buildos          301
+/buildos          /products/ferrum-projects  301
+/products/buildos /products/ferrum-projects  301
 /procurehub       /products/procurehub       301
 /investflow       /products/investflow       301
 /communitybuild   /products/communitybuild   301

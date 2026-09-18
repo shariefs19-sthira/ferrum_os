@@ -8,7 +8,7 @@ type HeroRoadmapPreviewProps = {
 
 /**
  * W2-500 (productExperienceRegistry). The honest preview state for
- * products with NO real live tool today (BuildOS, ProcureHub,
+ * products with NO real live tool today (Ferrum Projects, ProcureHub,
  * CommunityBuild per productExperienceRegistry.ts's `tool.kind ===
  * 'ROADMAP'`), rendered automatically on selection (CLICK-001) same as
  * every other product's preview — there is just nothing real to open.
@@ -17,7 +17,7 @@ type HeroRoadmapPreviewProps = {
  * adding here: there is nothing real behind it to load — a button would
  * open the same WorkspaceCockpit/Space3D chain every other product uses,
  * which is dishonest for a product whose own marketing page states
- * "nothing on it is buildable or usable today" (BuildOS) or the
+ * "nothing on it is buildable or usable today" (Ferrum Projects) or the
  * equivalent. This component never renders a form, slider or other
  * control that could imply live functionality — plain text and the
  * evidence badge only.

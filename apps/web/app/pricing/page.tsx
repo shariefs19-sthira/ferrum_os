@@ -27,7 +27,7 @@ const products = [
   "Structura",
   "BOQ Pro",
   "ProMarket",
-  "BuildOS",
+  "Ferrum Projects",
   "ProcureHub",
   "InvestFlow",
   "CommunityBuild",
@@ -49,7 +49,7 @@ const faqItems = [
   },
   {
     question: "How is Pro pricing structured?",
-    answer: "Pro is ₹499 per product, and the same tiers apply across all 9 subscription products — LandIntel, DesignStudio, Structura, BOQ Pro, ProMarket, BuildOS, ProcureHub, InvestFlow, and CommunityBuild. Transact is the tenth product on the platform but is not sold on these tiers: it currently offers informational estimators only and carries no subscription charge.",
+    answer: "Pro is ₹499 per product, and the same tiers apply across all 9 subscription products — LandIntel, DesignStudio, Structura, BOQ Pro, ProMarket, Ferrum Projects, ProcureHub, InvestFlow, and CommunityBuild. Transact is the tenth product on the platform but is not sold on these tiers: it currently offers informational estimators only and carries no subscription charge.",
   },
   {
     question: "When should I move to Enterprise?",

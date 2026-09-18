@@ -46,14 +46,14 @@ const howItWorksSteps = [
 ]
 
 // All three cross-product integrations were unbacked: DesignStudio has no
-// real plan-generation to estimate from, and ProcureHub/BuildOS have zero
+// real plan-generation to estimate from, and ProcureHub/Ferrum Projects have zero
 // shipped backend of their own to receive data from this page (confirmed
 // during W2-345). Roadmap-labeled rather than deleted, since they describe
 // the platform's real intended direction (docs/RELUME_HANDOFF.md §5).
 const integrationItems = [
   { title: 'DesignStudio', body: 'Estimate straight from your designs — not yet built.' },
   { title: 'ProcureHub', body: 'Turn your BOQ into purchase orders — not yet built.' },
-  { title: 'BuildOS', body: 'Track costs against the project — not yet built.' },
+  { title: 'Ferrum Projects', body: 'Track costs against the project — not yet built.' },
 ]
 
 const pricingPlans = [
@@ -166,7 +166,7 @@ export default function BoqProMarketingPage() {
           <SectionHeading className="mt-4">The roadmap connects the platform</SectionHeading>
           <p className="mt-6 text-base leading-7 text-relume-ink">
             None of these cross-product integrations are built yet — DesignStudio, ProcureHub and
-            BuildOS don&apos;t yet exchange data with this calculator.
+            Ferrum Projects don&apos;t yet exchange data with this calculator.
           </p>
         </div>
         <div className="mt-12">

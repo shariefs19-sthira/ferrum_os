@@ -1,5 +1,5 @@
 import type { CockpitProduct } from '../../components/workspace/ProductCockpitPreview'
-import { productFeatureRegistry, productLabels, type ProductFeature } from '../productFeatureRegistry'
+import { productFeatureRegistry, productLabels, productRoutes, type ProductFeature } from '../productFeatureRegistry'
 import type { ConciergeAnswer } from './concierge'
 
 const entries = Object.entries(productFeatureRegistry) as [CockpitProduct, ProductFeature[]][]
@@ -34,7 +34,7 @@ export function answerProductKnowledge(input: string): ConciergeAnswer | null {
   if (match && match.score > 0) {
     return {
       text: `${match.feature.title} · ${match.feature.availability.replace('_', ' ')}. ${match.feature.body}`,
-      citations: [{ title: `${productLabels[match.productId]}: ${match.feature.title}`, href: `/products/${match.productId}` }],
+      citations: [{ title: `${productLabels[match.productId]}: ${match.feature.title}`, href: `/products/${productRoutes[match.productId]}` }],
       source: 'retrieval',
     }
   }
@@ -42,7 +42,7 @@ export function answerProductKnowledge(input: string): ConciergeAnswer | null {
   const features = productFeatureRegistry[productId]
   return {
     text: `${productLabels[productId]} includes ${features.length} documented features: ${features.map((feature) => `${feature.title} [${feature.availability.replace('_', ' ')}] — ${feature.body}`).join(' ')}`,
-    citations: [{ title: `${productLabels[productId]} feature library`, href: `/products/${productId}` }],
+    citations: [{ title: `${productLabels[productId]} feature library`, href: `/products/${productRoutes[productId]}` }],
     source: 'retrieval',
   }
 }

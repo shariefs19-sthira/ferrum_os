@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/products/designstudio',
     '/products/structura',
     '/products/promarket',
-    '/products/buildos',
+    '/products/ferrum-projects',
     '/products/procurehub',
     '/products/investflow',
     '/products/communitybuild',

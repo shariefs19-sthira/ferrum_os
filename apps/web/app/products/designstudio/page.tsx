@@ -22,7 +22,7 @@ const howItWorksSteps = [
 const integrationItems = [
   { title: 'Structura', body: 'Analyse your design for safety and IS compliance.' },
   { title: 'BOQ Pro', body: 'Estimate cost straight from your plans.' },
-  { title: 'BuildOS', body: 'Manage construction against your approved design.' },
+  { title: 'Ferrum Projects', body: 'Manage construction against your approved design.' },
 ]
 
 const pricingPlans = [

@@ -25,7 +25,7 @@ const products = [
     category: 'Professional marketplace'
   },
   {
-    name: 'BuildOS',
+    name: 'Ferrum Projects',
     description: 'Project execution and collaboration workflows for construction teams.',
     category: 'Construction project management'
   },
