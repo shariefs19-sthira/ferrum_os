@@ -1,20 +1,62 @@
 import SectionShell from '../components/sections/SectionShell'
 import Eyebrow from '../components/sections/Eyebrow'
 import SectionHeading from '../components/sections/SectionHeading'
-import SliderLeaf from '../components/sections/SliderLeaf'
 import HomepageCockpitHero from '../components/sections/HomepageCockpitHero'
 import GovernedOrchestrationChain from '../components/sections/GovernedOrchestrationChain'
+import HomepageJourney, { type HomepageJourneyStep } from '../components/sections/HomepageJourney'
+import { productFeatureRegistry } from '../lib/productFeatureRegistry'
 
 // W2-347: rewritten to match each linked product page's real vs. roadmap
 // split (LandIntel/DesignStudio/ProcureHub/CommunityBuild steps were
 // overstating unbuilt capability as present-tense, same defect class
 // W2-345 found and fixed on the product pages themselves).
-const howItWorksSteps = [
-  { title: 'Look up your land', body: 'Enter a ULPIN for indicative sample land details — zoning/risk data on the roadmap.' },
-  { title: 'Design it', body: 'Test-fit massing and DXF export today; AI-generated plans on the roadmap.' },
-  { title: 'Engineer it', body: 'Two textbook IS-code checks today (IS 456, IS 800); full FEA on the roadmap.' },
-  { title: 'Build & manage', body: 'BOQ estimation today; procurement and project tracking on the roadmap.' },
-  { title: 'Invest & grow', body: 'Model IRR/NPV today; capital-raising and fractional investment on the roadmap.' },
+const feature = (product: keyof typeof productFeatureRegistry, id: string) => {
+  const match = productFeatureRegistry[product].find((item) => item.id === id)
+  if (!match) throw new Error(`Homepage journey feature not found: ${product}/${id}`)
+  return { title: match.title, body: match.body, availability: match.availability }
+}
+
+const howItWorksSteps: HomepageJourneyStep[] = [
+  {
+    id: 'landintel',
+    title: 'Look up your land',
+    summary: 'Start with a parcel or location and preserve its evidence state.',
+    productLabel: 'LandIntel',
+    productHref: '/products/landintel',
+    features: [feature('landintel', 'ulpin-lookup'), feature('landintel', 'interactive-map')],
+  },
+  {
+    id: 'designstudio',
+    title: 'Develop the scheme',
+    summary: 'Turn bounded site inputs into an indicative massing and plan export.',
+    productLabel: 'DesignStudio',
+    productHref: '/products/designstudio',
+    features: [feature('designstudio', 'test-fit-massing'), feature('designstudio', 'dxf-preview-export')],
+  },
+  {
+    id: 'structura',
+    title: 'Check the structure',
+    summary: 'Run bounded clause checks while preserving engineering limits.',
+    productLabel: 'Structura',
+    productHref: '/products/structura',
+    features: [feature('structura', 'is-code-checking'), feature('structura', 'fea-analysis')],
+  },
+  {
+    id: 'boq-pro',
+    title: 'Define scope and cost',
+    summary: 'Compare transparent cost assumptions and indicative city rates.',
+    productLabel: 'BOQ Pro',
+    productHref: '/products/boq-pro',
+    features: [feature('boq-pro', 'cost-split'), feature('boq-pro', 'city-pricing')],
+  },
+  {
+    id: 'buildos',
+    title: 'Coordinate delivery',
+    summary: 'Carry approved changes through controlled project closure.',
+    productLabel: 'BuildOS',
+    productHref: '/products/buildos',
+    features: [feature('buildos', 'governed-cross-functional-closure'), feature('buildos', 'task-management')],
+  },
 ]
 
 // W2-500 (Project Decision Console): the old "Value Proposition" section
@@ -57,7 +99,7 @@ export default function HomePage() {
 
       {/* 3. How It Works */}
       <SectionShell background="surface-secondary">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="max-w-3xl">
           <Eyebrow>How it works</Eyebrow>
           {/* CODEX-SENTINEL-20260918-1700-cockpit-journey-context: "profit"
               was an unverified outcome claim (Ferrum OS is pre-launch, no
@@ -69,9 +111,7 @@ export default function HomePage() {
             A clear path from your first land lookup through design, cost, and delivery.
           </p>
         </div>
-        <div className="mx-auto mt-12 max-w-xl">
-          <SliderLeaf items={howItWorksSteps} />
-        </div>
+        <HomepageJourney items={howItWorksSteps} />
       </SectionShell>
 
       {/* Testimonials section removed under W2-345 (SITEWIDE_CLAIM_TRUTH):
