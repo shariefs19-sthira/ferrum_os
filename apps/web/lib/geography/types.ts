@@ -44,6 +44,11 @@ export type DatasetCoverage = {
  * (rule text, rate, threshold) this feature relies on. Required whenever
  * the feature carries a `requiresRegulatoryVerification` flag; the engine
  * never treats "dataset present" as a stand-in for "regulator-verified".
+ *
+ * A bare `verified: true` is NOT sufficient evidence on its own — the
+ * engine also requires `verifiedBy` (who), `verifiedAt` (when), and
+ * `citation` (source) before it will accept the claim. An unattributed,
+ * undated, uncited "verified" flag is an assertion, not evidence.
  */
 export type RegulatoryVerification = {
   verified: boolean
@@ -60,7 +65,12 @@ export type LocalizationStatus = {
   completeness: number
 }
 
-/** Whether the backing service/integration this feature depends on is up. */
+/**
+ * Whether the backing service/integration this feature depends on is up.
+ * `operational: true` alone is not accepted as evidence — `checkedAt` must
+ * also parse to a valid, non-future timestamp within the requirement's
+ * freshness bound, or the engine treats the operational claim as unevidenced.
+ */
 export type ServiceAvailability = {
   operational: boolean
   provider?: string
@@ -80,6 +90,8 @@ export type FeatureRequirement = {
   maxDatasetAgeDays?: number
   /** Localization completeness below this is treated as PARTIAL, not AVAILABLE. */
   minLocalizationCompleteness?: number
+  /** A service health check older than this (minutes) is treated as unevidenced. */
+  maxServiceCheckAgeMinutes?: number
 }
 
 /** Everything the engine needs to evaluate one feature for one request. */
@@ -113,6 +125,12 @@ export type FreshnessVerdict = {
   maxAgeDays: number | null
   ageDays: number | null
   stale: boolean
+  /**
+   * True when the evidence timestamp is in the future relative to `asOf`
+   * (or otherwise unparseable) — a clock/data-integrity fault. Never
+   * silently clamped to "fresh"; always surfaces here explicitly.
+   */
+  clockInvalid: boolean
 }
 
 export type CapabilityVerdict = {

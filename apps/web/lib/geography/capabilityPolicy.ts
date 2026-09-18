@@ -12,6 +12,11 @@
  * explicitly by the caller (with its own provenance) or the corresponding
  * dimension is treated as missing, which drives the verdict toward
  * UNAVAILABLE/EXTERNAL_GATE rather than being silently assumed favorable.
+ * A "verified" or "operational" flag is likewise never accepted on its
+ * own — it must carry the attribution/timestamp evidence backing it, or
+ * it is treated as unevidenced rather than trusted at face value. Evidence
+ * timestamps in the future are a clock/data-integrity fault, surfaced
+ * explicitly — never silently clamped to "fresh".
  */
 
 import type {
@@ -23,8 +28,10 @@ import type {
 } from "./types"
 
 const DEFAULT_MAX_DATASET_AGE_DAYS = 90
+const DEFAULT_MAX_SERVICE_CHECK_AGE_MINUTES = 15
 const DEFAULT_MIN_LOCALIZATION_COMPLETENESS = 0.8
 const MS_PER_DAY = 24 * 60 * 60 * 1000
+const MS_PER_MINUTE = 60 * 1000
 
 const STATUS_RANK: Record<FeatureAvailabilityStatus, number> = {
   AVAILABLE: 0,
@@ -46,11 +53,18 @@ const FALLBACK_TEXT: Record<FeatureAvailabilityStatus, (label: string) => string
     `Do not render ${label}; show an explicit "not available in your region" state and, if applicable, a way to request coverage.`,
 }
 
-function daysBetween(fromIso: string, toIso: string): number | null {
+/**
+ * Raw signed difference in the given unit between `fromIso` and `toIso`
+ * (`to - from`). Returns null when either timestamp fails to parse.
+ * Deliberately NOT clamped — a negative result means `fromIso` is in the
+ * future relative to `toIso`, which callers must treat as clock-invalid,
+ * never as "fresh".
+ */
+function rawDelta(fromIso: string, toIso: string, unitMs: number): number | null {
   const from = Date.parse(fromIso)
   const to = Date.parse(toIso)
   if (Number.isNaN(from) || Number.isNaN(to)) return null
-  return Math.max(0, (to - from) / MS_PER_DAY)
+  return (to - from) / unitMs
 }
 
 function isoNow(explicit?: string): string {
@@ -80,6 +94,7 @@ export function evaluateFeatureAvailability(
       maxAgeDays: null,
       ageDays: null,
       stale: false,
+      clockInvalid: false,
     }, "Jurisdiction not declared — the caller must supply one explicitly before this feature can be evaluated.")
   }
   const jurisdictionLabel = input.jurisdiction.region
@@ -104,6 +119,7 @@ export function evaluateFeatureAvailability(
       maxAgeDays: null,
       ageDays: null,
       stale: false,
+      clockInvalid: false,
     }, `No dataset coverage for ${jurisdictionLabel}.`)
   }
   evidence.push({
@@ -113,13 +129,26 @@ export function evaluateFeatureAvailability(
   })
 
   const maxAgeDays = requirement.maxDatasetAgeDays ?? DEFAULT_MAX_DATASET_AGE_DAYS
-  const ageDays = daysBetween(input.datasetCoverage.lastUpdated, evaluatedAt)
-  const stale = ageDays === null ? true : ageDays > maxAgeDays
-  const freshness: FreshnessVerdict = { asOf: evaluatedAt, maxAgeDays, ageDays, stale }
+  const rawAgeDays = rawDelta(input.datasetCoverage.lastUpdated, evaluatedAt, MS_PER_DAY)
+  const datasetClockInvalid = rawAgeDays !== null && rawAgeDays < 0
+  const ageDays = rawAgeDays === null || datasetClockInvalid ? null : rawAgeDays
+  const stale = datasetClockInvalid ? true : ageDays === null ? true : ageDays > maxAgeDays
+  const freshness: FreshnessVerdict = {
+    asOf: evaluatedAt,
+    maxAgeDays,
+    ageDays,
+    stale,
+    clockInvalid: datasetClockInvalid,
+  }
 
   const candidates: { status: FeatureAvailabilityStatus; reason: string }[] = []
 
-  if (stale) {
+  if (datasetClockInvalid) {
+    candidates.push({
+      status: "INDICATIVE",
+      reason: `Dataset "${input.datasetCoverage.datasetId}" lastUpdated (${input.datasetCoverage.lastUpdated}) is in the future relative to evaluation time — clock-invalid, never treated as fresh.`,
+    })
+  } else if (stale) {
     candidates.push({
       status: "INDICATIVE",
       reason:
@@ -150,10 +179,27 @@ export function evaluateFeatureAvailability(
         status: "EXTERNAL_GATE",
         reason: "This feature requires regulatory verification and none is on record as verified.",
       })
+    } else if (!rv.verifiedBy || !rv.verifiedAt || !rv.citation) {
+      const missing = [
+        !rv.verifiedBy && "verifier",
+        !rv.verifiedAt && "verification date",
+        !rv.citation && "citation",
+      ]
+        .filter(Boolean)
+        .join(", ")
+      evidence.push({
+        dimension: "regulatory",
+        summary: `Verification claimed but missing ${missing} — an unattributed "verified" flag is not accepted as evidence.`,
+        asOf: rv.verifiedAt,
+      })
+      candidates.push({
+        status: "EXTERNAL_GATE",
+        reason: `Regulatory verification is missing ${missing}; a bare verified=true is not sufficient evidence.`,
+      })
     } else {
       evidence.push({
         dimension: "regulatory",
-        summary: `Verified by ${rv.verifiedBy ?? "unspecified reviewer"}${rv.citation ? ` (${rv.citation})` : ""}.`,
+        summary: `Verified by ${rv.verifiedBy} on ${rv.verifiedAt} (${rv.citation}).`,
         asOf: rv.verifiedAt,
       })
     }
@@ -174,11 +220,41 @@ export function evaluateFeatureAvailability(
         reason: "This feature depends on a live service that is not currently operational.",
       })
     } else {
-      evidence.push({
-        dimension: "service",
-        summary: `Service "${sa.provider ?? requirement.featureId}" operational.`,
-        asOf: sa.checkedAt,
-      })
+      const maxCheckAgeMinutes = requirement.maxServiceCheckAgeMinutes ?? DEFAULT_MAX_SERVICE_CHECK_AGE_MINUTES
+      const rawAgeMinutes = rawDelta(sa.checkedAt, evaluatedAt, MS_PER_MINUTE)
+      const serviceClockInvalid = rawAgeMinutes !== null && rawAgeMinutes < 0
+      const serviceUnevidenced = rawAgeMinutes === null || serviceClockInvalid
+      const serviceStale = !serviceUnevidenced && rawAgeMinutes! > maxCheckAgeMinutes
+
+      if (serviceUnevidenced) {
+        evidence.push({
+          dimension: "service",
+          summary: serviceClockInvalid
+            ? `Service "${sa.provider ?? requirement.featureId}" checkedAt (${sa.checkedAt}) is in the future relative to evaluation time — clock-invalid, operational claim not evidenced.`
+            : `Service "${sa.provider ?? requirement.featureId}" checkedAt timestamp is missing or unparseable — operational claim not evidenced.`,
+          asOf: sa.checkedAt,
+        })
+        candidates.push({
+          status: "UNAVAILABLE",
+          reason: "An operational=true claim requires a valid, non-future checkedAt timestamp; none was evidenced.",
+        })
+      } else if (serviceStale) {
+        evidence.push({
+          dimension: "service",
+          summary: `Service "${sa.provider ?? requirement.featureId}" last checked ${rawAgeMinutes!.toFixed(1)} minutes ago, exceeding the ${maxCheckAgeMinutes}-minute freshness bound.`,
+          asOf: sa.checkedAt,
+        })
+        candidates.push({
+          status: "UNAVAILABLE",
+          reason: "Operational claim is stale — the last health check exceeds the freshness bound, so it is not treated as current evidence.",
+        })
+      } else {
+        evidence.push({
+          dimension: "service",
+          summary: `Service "${sa.provider ?? requirement.featureId}" operational, checked ${rawAgeMinutes!.toFixed(1)} minutes ago.`,
+          asOf: sa.checkedAt,
+        })
+      }
     }
   }
 
@@ -215,7 +291,7 @@ export function evaluateFeatureAvailability(
       "AVAILABLE",
       evidence,
       freshness,
-      "All required evidence present, fresh, and — where required — regulator-verified.",
+      "All required evidence present, fresh, and — where required — regulator-verified with full attribution.",
     )
   }
 

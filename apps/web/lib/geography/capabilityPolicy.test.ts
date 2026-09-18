@@ -103,6 +103,19 @@ describe("evaluateFeatureAvailability", () => {
     expect(verdict.fallback).toContain("INDICATIVE — NOT A LEGAL OPINION")
   })
 
+  it("rejects a future dataset timestamp as clock-invalid rather than clamping it fresh", () => {
+    const verdict = evaluateFeatureAvailability(
+      buildInput({
+        datasetCoverage: { ...freshDataset, lastUpdated: "2026-09-20T00:00:00.000Z" }, // 1 day after NOW
+      }),
+    )
+    expect(verdict.status).toBe("INDICATIVE")
+    expect(verdict.freshness.clockInvalid).toBe(true)
+    expect(verdict.freshness.stale).toBe(true)
+    expect(verdict.freshness.ageDays).toBeNull()
+    expect(verdict.reason).toContain("clock-invalid")
+  })
+
   it("caps status at INDICATIVE when jurisdiction came only from IP geolocation", () => {
     const verdict = evaluateFeatureAvailability(
       buildInput({ jurisdiction: { ...declaredJurisdiction, source: "ip-geolocation" } }),
@@ -124,12 +137,83 @@ describe("evaluateFeatureAvailability", () => {
     expect(verdict.status).toBe("EXTERNAL_GATE")
   })
 
+  it("is EXTERNAL_GATE when verified=true but verifier/citation/date are missing — a bare flag is not evidence", () => {
+    const verdict = evaluateFeatureAvailability(
+      buildInput({ regulatoryVerification: { verified: true } }),
+    )
+    expect(verdict.status).toBe("EXTERNAL_GATE")
+    expect(verdict.reason).toContain("verifier")
+    expect(verdict.reason).toContain("citation")
+  })
+
+  it("is EXTERNAL_GATE when verified=true but only some attribution fields are present", () => {
+    const verdict = evaluateFeatureAvailability(
+      buildInput({
+        regulatoryVerification: { verified: true, verifiedBy: "counsel-review-2026-09" },
+      }),
+    )
+    expect(verdict.status).toBe("EXTERNAL_GATE")
+    expect(verdict.reason).toContain("verification date")
+    expect(verdict.reason).toContain("citation")
+    expect(verdict.reason).not.toContain("missing verifier")
+  })
+
   it("is UNAVAILABLE when a required live service is down, even with everything else green", () => {
     const verdict = evaluateFeatureAvailability(
       buildInput({ serviceAvailability: { operational: false, checkedAt: NOW } }),
     )
     expect(verdict.status).toBe("UNAVAILABLE")
     expect(verdict.reason).toContain("live service")
+  })
+
+  it("is UNAVAILABLE when operational=true but checkedAt is missing/unparseable", () => {
+    const verdict = evaluateFeatureAvailability(
+      buildInput({ serviceAvailability: { operational: true, provider: "rate-engine", checkedAt: "" } }),
+    )
+    expect(verdict.status).toBe("UNAVAILABLE")
+    expect(verdict.reason).toContain("checkedAt")
+  })
+
+  it("is UNAVAILABLE when the service health check is stale beyond the freshness bound", () => {
+    const verdict = evaluateFeatureAvailability(
+      buildInput({
+        serviceAvailability: {
+          operational: true,
+          provider: "rate-engine",
+          checkedAt: "2026-09-18T23:00:00.000Z", // 60 minutes before NOW, default bound is 15
+        },
+      }),
+    )
+    expect(verdict.status).toBe("UNAVAILABLE")
+    expect(verdict.reason).toContain("stale")
+  })
+
+  it("is UNAVAILABLE when operational=true but checkedAt is in the future — never clamped to operational", () => {
+    const verdict = evaluateFeatureAvailability(
+      buildInput({
+        serviceAvailability: {
+          operational: true,
+          provider: "rate-engine",
+          checkedAt: "2026-09-19T01:00:00.000Z", // 1 hour after NOW
+        },
+      }),
+    )
+    expect(verdict.status).toBe("UNAVAILABLE")
+    expect(verdict.reason).toContain("checkedAt")
+  })
+
+  it("accepts operational=true within the configured freshness bound", () => {
+    const verdict = evaluateFeatureAvailability(
+      buildInput({
+        requirement: { ...baseRequirement, maxServiceCheckAgeMinutes: 120 },
+        serviceAvailability: {
+          operational: true,
+          provider: "rate-engine",
+          checkedAt: "2026-09-18T23:00:00.000Z", // 60 minutes before NOW, within a 120-minute bound
+        },
+      }),
+    )
+    expect(verdict.status).toBe("AVAILABLE")
   })
 
   it("is PARTIAL when localization is incomplete but everything else is green", () => {
@@ -179,5 +263,6 @@ describe("evaluateFeatureAvailability", () => {
     expect(verdict.featureId).toBe("stamp-duty-estimator")
     expect(verdict.freshness.asOf).toBe(NOW)
     expect(verdict.freshness.stale).toBe(false)
+    expect(verdict.freshness.clockInvalid).toBe(false)
   })
 })

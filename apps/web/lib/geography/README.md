@@ -13,7 +13,15 @@ freshness. Every input (`Jurisdiction`, `DatasetCoverage`,
 `RegulatoryVerification`, `LocalizationStatus`, `ServiceAvailability`) is
 either supplied by the caller with its own provenance, or the corresponding
 check is treated as missing — which drives the verdict toward
-`UNAVAILABLE`/`EXTERNAL_GATE`, never toward a silent pass.
+`UNAVAILABLE`/`EXTERNAL_GATE`, never toward a silent pass. This extends to
+flags, not just presence: `regulatoryVerification.verified: true` is only
+accepted with `verifiedBy` + `verifiedAt` + `citation` attached (otherwise
+it's `EXTERNAL_GATE`, same as absent), and `serviceAvailability.operational:
+true` is only accepted with a valid, non-future `checkedAt` inside the
+freshness bound (otherwise it's `UNAVAILABLE`, same as reported-down). A
+dataset (or service check) timestamp that is in the future relative to the
+evaluation time is a clock/data-integrity fault — `freshness.clockInvalid`
+is set explicitly and the timestamp is never clamped to "fresh".
 
 ## Inputs
 
@@ -21,9 +29,9 @@ check is treated as missing — which drives the verdict toward
 |---|---|
 | `jurisdiction` | Country/region, and how it was obtained (`source`) — `ip-geolocation` is accepted but capped at `INDICATIVE`. |
 | `datasetCoverage` | Whether the feature's data actually covers this jurisdiction, and when it was last refreshed. |
-| `regulatoryVerification` | Whether a named human/authority verified the regulatory content, only checked when the feature declares `requiresRegulatoryVerification`. |
+| `regulatoryVerification` | Whether a named human/authority verified the regulatory content — `verified: true` requires `verifiedBy` + `verifiedAt` + `citation` to be accepted — only checked when the feature declares `requiresRegulatoryVerification`. |
 | `localization` | Locale, translated flag, and completeness (0–1), only checked when `requiresLocalization`. |
-| `serviceAvailability` | Whether the live backend this feature calls is operational, only checked when `requiresLiveService`. |
+| `serviceAvailability` | Whether the live backend this feature calls is operational — `operational: true` requires a valid, non-future `checkedAt` within `maxServiceCheckAgeMinutes` (default 15) to be accepted — only checked when `requiresLiveService`. |
 
 ## Outputs
 
@@ -34,11 +42,11 @@ instead of the full feature.
 
 | Status | Meaning | Fallback |
 |---|---|---|
-| `AVAILABLE` | All required evidence present, fresh, verified. | None — render in full. |
-| `INDICATIVE` | Evidenced but stale, or jurisdiction from a low-trust signal (IP only). | Render watermarked `INDICATIVE — NOT A LEGAL OPINION`. |
+| `AVAILABLE` | All required evidence present, fresh, verified with full attribution. | None — render in full. |
+| `INDICATIVE` | Evidenced but stale, dataset timestamp is clock-invalid (future), or jurisdiction from a low-trust signal (IP only). | Render watermarked `INDICATIVE — NOT A LEGAL OPINION`. |
 | `PARTIAL` | Evidenced but localization incomplete. | Render what's covered; label the gap. |
-| `EXTERNAL_GATE` | Regulatory verification required and not on record as verified. | Do not compute/publish; route to the compliance queue. |
-| `UNAVAILABLE` | No jurisdiction declared, no dataset coverage, or a required live service is down. | Do not render; show an explicit not-available state. |
+| `EXTERNAL_GATE` | Regulatory verification required and not on record as verified, or `verified: true` lacks verifier/date/citation attribution. | Do not compute/publish; route to the compliance queue. |
+| `UNAVAILABLE` | No jurisdiction declared, no dataset coverage, a required live service is reported down, or `operational: true` lacks a valid/fresh/non-future `checkedAt`. | Do not render; show an explicit not-available state. |
 
 Severity ordering when several dimensions degrade at once: `UNAVAILABLE` >
 `EXTERNAL_GATE` > `INDICATIVE` > `PARTIAL` > `AVAILABLE` — the worst
