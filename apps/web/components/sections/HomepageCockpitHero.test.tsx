@@ -14,13 +14,13 @@ vi.mock('../workspace/ProductCockpitPreview', () => ({
 const ROADMAP_IDS = new Set(['buildos', 'procurehub', 'communitybuild'])
 
 describe('HomepageCockpitHero', () => {
-  it('opens with LandIntel and switches the active preview before any interaction', () => {
+  it('opens with LandIntel\'s real cockpit rendered automatically, and switches it on tab click with no load gate', () => {
     render(<HomepageCockpitHero />)
     expect(screen.getAllByRole('tab')).toHaveLength(10)
-    expect(screen.getByTestId('hero-preview-placeholder').textContent).toContain('LandIntel')
+    expect(screen.getByTestId('cockpit').textContent).toBe('landintel:LandIntel')
 
     fireEvent.click(screen.getByRole('tab', { name: 'DesignStudio' }))
-    expect(screen.getByTestId('hero-preview-placeholder').textContent).toContain('DesignStudio')
+    expect(screen.getByTestId('cockpit').textContent).toBe('designstudio:DesignStudio')
 
     fireEvent.click(screen.getByRole('tab', { name: 'Structura' }))
     expect(screen.getAllByText(/INDICATIVE|LIVE|SAMPLE|GAP|ROADMAP/).length).toBeGreaterThan(0)
@@ -87,21 +87,23 @@ describe('HomepageCockpitHero', () => {
     expect(screen.getAllByText('ROADMAP').length).toBeGreaterThan(0)
   })
 
-  it('3D-mount gate: does not render the real cockpit (and therefore never mounts Space3D/WorkspaceCockpit) until "Load interactive preview" is clicked', () => {
+  // CLICK-001-always-on-homepage-cockpit: the former 3D-mount gate
+  // ("Load interactive preview" button, HeroPreviewPlaceholder) is
+  // removed outright — the real cockpit chain mounts automatically, with
+  // no second click/load action anywhere in the shell.
+  it('renders the real cockpit automatically on first paint, with no load button anywhere', () => {
     render(<HomepageCockpitHero />)
-    expect(screen.queryByTestId('cockpit')).toBeNull()
-
-    fireEvent.click(screen.getByRole('button', { name: 'Load interactive preview' }))
-
     expect(screen.getByTestId('cockpit').textContent).toBe('landintel:LandIntel')
+    expect(screen.queryByRole('button', { name: /load interactive preview/i })).toBeNull()
     expect(screen.queryByTestId('hero-preview-placeholder')).toBeNull()
+    expect(screen.queryByText(/nothing 3D loads until you ask for it/i)).toBeNull()
   })
 
-  it('keeps the real cockpit mounted for newly selected products once the gate has fired once', () => {
+  it('mounts the newly selected product\'s real cockpit automatically on every tab switch, still with no load button', () => {
     render(<HomepageCockpitHero />)
-    fireEvent.click(screen.getByRole('button', { name: 'Load interactive preview' }))
     fireEvent.click(screen.getByRole('tab', { name: 'DesignStudio' }))
     expect(screen.getByTestId('cockpit').textContent).toBe('designstudio:DesignStudio')
+    expect(screen.queryByRole('button', { name: /load interactive preview/i })).toBeNull()
     expect(screen.queryByTestId('hero-preview-placeholder')).toBeNull()
   })
 
@@ -117,12 +119,12 @@ describe('HomepageCockpitHero', () => {
     expect(tablist.querySelectorAll('[role="tab"]')).toHaveLength(10)
   })
 
-  it('never requests the real cockpit chain (Space3D/WorkspaceCockpit) before any user interaction, for any of the seven real-tool products', () => {
+  it('requests the real cockpit chain (Space3D/WorkspaceCockpit) automatically for every one of the seven real-tool products, on selection alone', () => {
     render(<HomepageCockpitHero />)
     for (const product of productExperienceList) {
       if (product.tool.kind !== 'live-cockpit') continue
       fireEvent.click(screen.getByRole('tab', { name: product.label }))
-      expect(screen.queryByTestId('cockpit')).toBeNull()
+      expect(screen.getByTestId('cockpit').textContent).toBe(`${product.id}:${product.label}`)
     }
   })
 
@@ -166,7 +168,7 @@ describe('HomepageCockpitHero', () => {
 
       expect(screen.queryByRole('listbox')).toBeNull()
       expect(screen.getByRole('button', { name: /DesignStudio/ })).toBeTruthy()
-      expect(screen.getByTestId('hero-preview-placeholder').textContent).toContain('DesignStudio')
+      expect(screen.getByTestId('cockpit').textContent).toBe('designstudio:DesignStudio')
       const tabs = screen.getAllByRole('tab')
       expect(tabs.find((tab) => tab.textContent === 'DesignStudio')?.getAttribute('aria-selected')).toBe('true')
     })
@@ -241,14 +243,13 @@ describe('HomepageCockpitHero', () => {
 
     it(ROADMAP_IDS.has(product.id)
       ? 'renders the honest roadmap state, never the real interactive cockpit — even after clicking the tab again'
-      : 'renders the gated placeholder, then the real cockpit chain once "Load interactive preview" is clicked', () => {
+      : 'renders the real cockpit chain automatically on selection, with no load gate', () => {
       render(<HomepageCockpitHero />)
       fireEvent.click(screen.getByRole('tab', { name: product.label }))
 
       if (ROADMAP_IDS.has(product.id)) {
         expect(screen.getByTestId('hero-roadmap-preview')).toBeTruthy()
-        expect(screen.queryByTestId('hero-preview-placeholder')).toBeNull()
-        expect(screen.queryByRole('button', { name: 'Load interactive preview' })).toBeNull()
+        expect(screen.queryByRole('button', { name: /load interactive preview/i })).toBeNull()
         expect(screen.queryByTestId('cockpit')).toBeNull()
 
         // No unsupported live capability implied: no interactive form
@@ -261,12 +262,9 @@ describe('HomepageCockpitHero', () => {
         fireEvent.click(screen.getByRole('tab', { name: product.label }))
         expect(screen.queryByTestId('cockpit')).toBeNull()
       } else {
-        expect(screen.getByTestId('hero-preview-placeholder')).toBeTruthy()
-        expect(screen.queryByTestId('hero-roadmap-preview')).toBeNull()
-
-        fireEvent.click(screen.getByRole('button', { name: 'Load interactive preview' }))
         expect(screen.getByTestId('cockpit').textContent).toBe(`${product.id}:${product.label}`)
-        expect(screen.queryByTestId('hero-preview-placeholder')).toBeNull()
+        expect(screen.queryByTestId('hero-roadmap-preview')).toBeNull()
+        expect(screen.queryByRole('button', { name: /load interactive preview/i })).toBeNull()
       }
     })
 

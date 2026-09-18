@@ -11,12 +11,25 @@ import BrandMark from './BrandMark'
  * rendered <Footer /> above {children}, happened to paint at the top of every
  * page and had been standing in for a navbar by accident.
  *
- * Nav model, derived from docs/RELUME_HANDOFF.md §1 SITEMAP: Products is the
+ * Nav model, derived from docs/RELUME_HANDOFF.md §1 SITEMAP: Products was the
  * primary destination (10 product pages, too many for a flat bar, so the bar
- * links to the /products hub), then Pricing / Resources / Docs / About, then
+ * linked to the /products hub), then Pricing / Resources / Docs / About, then
  * the auth pair as Relume's secondary (bordered) + primary (flat) buttons.
  */
 
+// CLICK-001-always-on-homepage-cockpit: the desktop "Products" link is
+// removed — the homepage's cockpit tab rail (HomepageCockpitHero.tsx) is
+// now the single product-navigation authority; a second product menu here
+// duplicated it site-wide. /products itself is untouched and still
+// directly reachable (its URL, the footer's Products column, and every
+// individual /products/<id> page still exist and link back to it) — only
+// this header's promotional link to it is removed, so no route is
+// stranded. MobileMenu.tsx's product list is intentionally left alone: it
+// is the only way to reach a product page from a non-home route on a
+// narrow viewport (there is no cockpit rail outside the homepage), so
+// removing it would strand mobile visitors, not just declutter a
+// duplicate.
+//
 // W2-500: "Pricing" nav link removed, alongside the "Log in" / "Start
 // Free Trial" header buttons below. Per
 // docs/design/FERRUM_DOMAIN_AND_ROUTE_MATRIX_2026.md, /pricing is HOLD
@@ -26,7 +39,6 @@ import BrandMark from './BrandMark'
 // that verification. The routes/pages themselves are untouched; only
 // their promotional presence in this header nav is removed.
 const navLinks = [
-  { name: 'Products', href: '/products' },
   { name: 'Resources', href: '/resources' },
   { name: 'Documentation', href: '/documentation' },
   { name: 'About', href: '/about' },
