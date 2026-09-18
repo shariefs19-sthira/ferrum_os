@@ -11,6 +11,8 @@ function displayDate(value: string) {
 
 export default function SuitabilityLayerPanel() {
   const parcel = useParcelContext()
+  const parcelStatus = parcel?.provenance.status.toLowerCase()
+  const parcelStatusPhrase = parcelStatus ? `${parcelStatus === 'indicative' ? 'An' : 'A'} ${parcelStatus}` : ''
 
   return (
     <section className="mx-auto mt-6 w-full max-w-7xl px-4 sm:px-6 lg:px-8" aria-labelledby="suitability-layer-heading" data-suitability-layer-panel>
@@ -27,7 +29,7 @@ export default function SuitabilityLayerPanel() {
           <div className="rounded-relume border border-relume-border bg-relume-surface-secondary p-4" aria-label="Current suitability result">
             <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Current result</p>
             <p className="mt-2 text-lg font-semibold text-relume-command">Suitable development zone: UNKNOWN</p>
-            <p className="mt-2 text-xs leading-5 text-relume-muted">{parcel ? `A ${parcel.provenance.status.toLowerCase()} parcel context is loaded for ${parcel.district}, but the remaining authority and site evidence is incomplete. No zone is ranked.` : 'Resolve a parcel, then connect the authority and site evidence below. No zone is ranked from sample or missing data.'}</p>
+            <p className="mt-2 text-xs leading-5 text-relume-muted">{parcel ? `${parcelStatusPhrase} parcel context is loaded for ${parcel.district}, but the remaining authority and site evidence is incomplete. No zone is ranked.` : 'Resolve a parcel, then connect the authority and site evidence below. No zone is ranked from sample or missing data.'}</p>
           </div>
         </div>
 
