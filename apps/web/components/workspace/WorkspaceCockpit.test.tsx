@@ -129,6 +129,50 @@ describe("WorkspaceCockpit onLiveMetricsChange (battery-fail 2)", () => {
     expect(screen.getByRole('button', { name: 'Data extract' })).toBeTruthy()
   })
 
+  // CODEX-SENTINEL-20260918-1708-sutra-command-cockpit-output: the real
+  // cockpit route (canvasFirst) no longer floats its own Residential/
+  // Commercial/Mixed Use panel over the plan -- SUTRA is the input surface
+  // for land-use there. The cockpit shows the current selection only as a
+  // compact, non-interactive status label.
+  it('hides the floating land-use panel in canvasFirst and shows a compact status label instead', async () => {
+    const onLiveMetricsChange = vi.fn()
+    render(<WorkspaceCockpit canvasFirst onLiveMetricsChange={onLiveMetricsChange} />)
+    await waitFor(() => expect(onLiveMetricsChange).toHaveBeenCalled())
+    expect(document.querySelector('[data-option-chip-flow]')).toBeNull()
+    expect(screen.getByText(/Use: Residential/)).toBeTruthy()
+    expect(screen.queryByRole('button', { name: 'Mixed Use' })).toBeNull()
+  })
+
+  it('still shows the floating land-use panel for non-canvasFirst marketing/preview embeds (no SUTRA panel present there)', async () => {
+    const onLiveMetricsChange = vi.fn()
+    render(<WorkspaceCockpit onLiveMetricsChange={onLiveMetricsChange} />)
+    await waitFor(() => expect(onLiveMetricsChange).toHaveBeenCalled())
+    expect(document.querySelector('[data-option-chip-flow]')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Mixed Use' })).toBeTruthy()
+  })
+
+  it('hides Site Constraints while SUTRA overlays the canvas (sutraOccludesCanvas), so it never renders unreachable behind it', async () => {
+    const onLiveMetricsChange = vi.fn()
+    const { rerender } = render(<WorkspaceCockpit canvasFirst controlProduct="landintel" onLiveMetricsChange={onLiveMetricsChange} />)
+    await waitFor(() => expect(onLiveMetricsChange).toHaveBeenCalled())
+    expect(screen.getByRole('button', { name: 'Site Constraints' })).toBeTruthy()
+    rerender(<WorkspaceCockpit canvasFirst controlProduct="landintel" onLiveMetricsChange={onLiveMetricsChange} sutraOccludesCanvas />)
+    expect(screen.queryByRole('button', { name: 'Site Constraints' })).toBeNull()
+  })
+
+  it('dispatches cockpit selection context (the channel SutraPanel listens on) when an opening is selected', async () => {
+    render(<WorkspaceCockpit canvasFirst />)
+    fireEvent.click(screen.getByRole('tab', { name: 'Plan' }))
+    const listener = vi.fn()
+    window.addEventListener('ferrum:cockpit-selection', listener)
+    fireEvent.click(await waitFor(() => screen.getAllByRole('button', { name: /select door/i })[0]))
+    expect(listener).toHaveBeenCalledTimes(1)
+    const detail = listener.mock.calls[0][0].detail
+    expect(detail.targetType).toBe('opening')
+    expect(detail.label).toMatch(/^Door /)
+    window.removeEventListener('ferrum:cockpit-selection', listener)
+  })
+
   it('reserves a scrollable inspector row below the canvas-first model', async () => {
     render(<WorkspaceCockpit canvasFirst />)
     fireEvent.click(screen.getByRole('tab', { name: 'Plan' }))

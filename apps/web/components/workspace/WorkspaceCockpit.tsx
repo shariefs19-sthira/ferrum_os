@@ -25,6 +25,7 @@ import { evaluateCompliance } from '../../lib/complianceEngine'
 import { decodeWorkspaceView, encodeWorkspaceView, type WorkspaceViewState } from '../../lib/workspace/viewPermalink'
 import { useParcelContext } from '../../lib/workspace/parcelContext'
 import { getSiteConstraintsEvidence } from '../../lib/parcelIntel/siteConstraints'
+import { dispatchCockpitSelection } from '../../lib/sutra/selectionContext'
 
 // Perf (W-27 TASK A): three.js (~591KB raw / ~148KB gz across its two
 // chunks) was landing in the cockpit's first-load bundle even though
@@ -103,11 +104,15 @@ type WorkspaceCockpitProps = {
   // on mount (see the `decodeWorkspaceView` effect below), same as it
   // already overrode the previous hardcoded default.
   initialView?: StudioView
+  /** See CanvasSlot's doc comment: hides Site Constraints while SUTRA's
+   * overlay presentation (below `lg`, while open) would otherwise render
+   * it unreachable underneath. */
+  sutraOccludesCanvas?: boolean
 }
 
 const defaultParameters: StudioParameters = { plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 }
 
-export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, embedMode = 'default', controlProduct, fullscreenControl, activeProduct, initialView }: WorkspaceCockpitProps) {
+export default function WorkspaceCockpit({ initialParameters = defaultParameters, onLiveMetricsChange, onParametersChange, previewLabel, canvasFirst = false, embedMode = 'default', controlProduct, fullscreenControl, activeProduct, initialView, sutraOccludesCanvas = false }: WorkspaceCockpitProps) {
   const [parameters, setParameters] = useState<StudioParameters>(initialParameters)
   const [projectStateReady, setProjectStateReady] = useState(false)
   const [view, setView] = useState<StudioView>(initialView ?? 'space')
@@ -202,6 +207,23 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     if (key === 'floors') setActiveFloor((floor) => Math.min(floor, value))
   }
   const selectedOpening = plan.openings?.find((opening) => opening.id === selectedOpeningId)
+  // "Selecting an output supplies context to SUTRA" -- a direct-manipulation
+  // selection on the cockpit canvas (here, tapping an opening on the plan)
+  // reaches SutraPanel over the ferrum:cockpit-selection event bus.
+  const selectOpening = (openingId: string | undefined) => {
+    setShowExtract(false)
+    setSelectedOpeningId(openingId)
+    if (!openingId) return
+    const opening = plan.openings?.find((candidate) => candidate.id === openingId)
+    if (!opening) return
+    const room = plan.rooms.find((candidate) => candidate.id === opening.roomId)
+    dispatchCockpitSelection({
+      targetType: 'opening',
+      targetId: opening.id,
+      label: `${opening.kind === 'door' ? 'Door' : 'Window'} ${opening.id}`,
+      detail: room ? `Floor ${room.floor} · ${room.name}` : undefined,
+    })
+  }
   const commitOpening = (edit: OpeningEdit) => {
     if (!selectedOpening) return undefined
     const result = applyOpeningEdit(selectedOpening, plan.rooms.find((room) => room.id === selectedOpening.roomId), plan.floorHeightM, edit)
@@ -411,7 +433,18 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
                 </select>
               </label>
             )}
-            {fullscreenControl && <button type="button" aria-pressed={fullscreenControl.active} onClick={fullscreenControl.onClick} className="relative z-30 ml-auto min-h-11 rounded-full border border-relume-border bg-relume-command px-4 text-xs font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" data-fullscreen-toggle>{fullscreenControl.label}</button>}
+            {canvasFirst && (
+              // CODEX-SENTINEL-20260918-1708-sutra-command-cockpit-output:
+              // land-use is now editable only in SUTRA (the floating
+              // Residential/Commercial/Mixed Use panel below is gated off
+              // for the real cockpit route) -- this is the "compact
+              // output/status label" the acceptance criteria call for
+              // instead, reflecting `landUse` state, never setting it.
+              <span className="ml-auto min-h-11 rounded-full border border-relume-border bg-relume-surface-secondary px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-ink" data-landuse-status>
+                Use: {landUse} · INDICATIVE
+              </span>
+            )}
+            {fullscreenControl && <button type="button" aria-pressed={fullscreenControl.active} onClick={fullscreenControl.onClick} className={`relative z-30 min-h-11 rounded-full border border-relume-border bg-relume-command px-4 text-xs font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent ${canvasFirst ? '' : 'ml-auto'}`} data-fullscreen-toggle>{fullscreenControl.label}</button>}
             <button type="button" onClick={() => void createPermalink()} className="min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command" data-view-permalink>Copy view link</button>
           </div>
           {/* W2-503: this floating strip's chip count is bounded, not
@@ -432,19 +465,31 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
               selection matters more than on a static nav rail), and the
               wrap is transient - each tap advances `optionStage` and
               collapses back to the next stage's (smaller) option set. */}
-          <div className="absolute left-3 right-3 top-16 z-20 flex flex-wrap items-center gap-2 rounded-2xl border border-white/40 bg-relume-command/90 p-2 shadow-xl backdrop-blur-sm md:left-1/2 md:right-auto md:max-w-[calc(100%-2rem)] md:-translate-x-1/2" aria-label={`${optionStage} options`} data-option-chip-flow data-option-stage={optionStage}>
+          {/* CODEX-SENTINEL-20260918-1708-sutra-command-cockpit-output:
+              gated off for the real cockpit route (canvasFirst) -- SUTRA
+              (SutraPanel.tsx) already offers this exact same guided
+              use/floors/massing/rooms/compliance flow as chips in its own
+              panel, so this floating strip over the plan was a direct,
+              literal duplicate of a SUTRA input surface, and the specific
+              floating Residential/Commercial/Mixed Use panel the release
+              review flagged. Left in place for the non-canvasFirst
+              marketing/product-preview embeds (HomepageCockpitHero,
+              ProductCockpitPreview, ...), which render standalone with no
+              SUTRA panel alongside them and would otherwise lose their
+              only interactive control. */}
+          {!canvasFirst && <div className="absolute left-3 right-3 top-16 z-20 flex flex-wrap items-center gap-2 rounded-2xl border border-white/40 bg-relume-command/90 p-2 shadow-xl backdrop-blur-sm md:left-1/2 md:right-auto md:max-w-[calc(100%-2rem)] md:-translate-x-1/2" aria-label={`${optionStage} options`} data-option-chip-flow data-option-stage={optionStage}>
             <span className="shrink-0 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-accent">{optionStage} · INDICATIVE</span>
             {optionStage === 'use' && (['Residential', 'Commercial', 'Mixed Use'] as LandUse[]).map((choice) => <button key={choice} type="button" onClick={() => { const rule = ruleset?.land_use_rules[choice]; setLandUse(choice); if (rule) update('setbackM', rule.min_setback_m); setOptionStage('floors'); setCommandResult(`${choice} selected from ${ruleset?.city_label ?? rulesetState} ${ruleset?.version ?? 'GAP'} ruleset.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'floors' && Array.from({ length: maxFloors }, (_, index) => index + 1).map((floors) => <button key={floors} type="button" onClick={() => { update('floors', floors); setOptionStage('massing'); setCommandResult(`${floors} floor${floors === 1 ? '' : 's'} selected; sample FAR and height caps allow up to ${maxFloors}.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{floors} floor{floors === 1 ? '' : 's'}</button>)}
             {optionStage === 'massing' && ['Compact', 'Balanced', 'Slender'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', Math.max(landRule?.min_setback_m ?? 1.5, (landRule?.min_setback_m ?? 1.5) + index * 0.5)); setOptionStage('rooms'); setCommandResult(`${choice} massing applied within the sample setback floor.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'rooms' && ['Social-first', 'Balanced', 'Private-first'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('plotWidthM', Math.max(8, Math.min(80, parameters.plotWidthM + index - 1))); setOptionStage('compliance'); setCommandResult(`${choice} room split applied to the deterministic plan proportions.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage('use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
-          </div>
+          </div>}
           <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[3.75rem]" : fullBleedEmbed ? "h-[calc(70vh-3.75rem)] min-h-[30rem]" : "h-[32rem] min-h-[24rem]"}>
-            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={(openingId) => { setShowExtract(false); setSelectedOpeningId(openingId) }} />}
+            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} />}
           </div>
           {!canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
-          {!selectedOpening && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
+          {!selectedOpening && !sutraOccludesCanvas && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update}/>}
           {fullBleedEmbed && !selectedOpening && <>
             <button type="button" onClick={() => setShowExtract((value) => { const next = !value; if (next) setSelectedOpeningId(undefined); return next })} aria-expanded={showExtract} className="absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-relume-border bg-white px-4 text-xs font-semibold text-relume-command shadow-sm" data-extract-toggle>
               {showExtract ? 'Hide data extract' : 'Data extract'}

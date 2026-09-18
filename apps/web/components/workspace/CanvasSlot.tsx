@@ -18,14 +18,21 @@ export default function CanvasSlot({
   product,
   onLiveMetricsChange,
   fullscreenControl,
+  sutraOccludesCanvas,
 }: {
   product: WorkspaceProduct
   onLiveMetricsChange?: (metrics: LiveMetrics) => void
   fullscreenControl?: { active: boolean; label: string; onClick: () => void }
+  /** SUTRA is presented as a full-height overlay over this canvas (below
+   * the `lg` breakpoint, while open) -- z-40, above every canvas overlay
+   * this component renders. Canvas-side floating controls that would sit
+   * under that overlay (Site Constraints) hide instead of rendering
+   * inert/unreachable behind it. */
+  sutraOccludesCanvas?: boolean
 }) {
   return (
     <div className="h-full" aria-label={`${product} workspace canvas`} data-workspace-canvas>
-      <WorkspaceCockpit canvasFirst activeProduct={product} controlProduct={productControls[product]} onLiveMetricsChange={onLiveMetricsChange} fullscreenControl={fullscreenControl} />
+      <WorkspaceCockpit canvasFirst activeProduct={product} controlProduct={productControls[product]} onLiveMetricsChange={onLiveMetricsChange} fullscreenControl={fullscreenControl} sutraOccludesCanvas={sutraOccludesCanvas} />
     </div>
   )
 }

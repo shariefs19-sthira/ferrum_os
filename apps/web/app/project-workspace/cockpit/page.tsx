@@ -185,7 +185,7 @@ export default function ProjectWorkspaceCockpit() {
             region, so they overlay only the canvas column and never sit
             under/over the SUTRA column at `lg:`+. */}
         <main className="relative h-full min-h-0 min-w-0" data-cockpit-region>
-          <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} />
+          <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} sutraOccludesCanvas={sutraOpen && !isDesktopSutra} />
           <ProductSkin product={activeProduct} />
           {!fullscreen.active && <div className="absolute bottom-2 left-2 top-2 z-30 w-20 shadow-lg"><ToolsRuler
             activeTool={activeTool}
