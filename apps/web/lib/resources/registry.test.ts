@@ -158,6 +158,25 @@ describe('resources registry — claim boundary (standards navigator)', () => {
     expect(STANDARDS.some((s) => s.code === 'CESMM4')).toBe(false)
   })
 
+  it('Standards Navigator metadata (title/description/OG) advertises only the actually-published, sourced standards -- never an excluded one', async () => {
+    const { metadata } = await import('../../app/resources/standards-navigator/layout')
+    const fields = [metadata.title, metadata.description, metadata.openGraph?.title, metadata.openGraph?.description]
+      .map((f) => (typeof f === 'string' ? f : JSON.stringify(f)))
+      .join(' \n ')
+
+    // Every excluded standard (right now just CESMM4, checked generically so
+    // this keeps working if the exclusion list grows) must not be advertised.
+    for (const excluded of ['CESMM4']) {
+      expect(STANDARDS.some((s) => s.code === excluded), `${excluded} should stay out of STANDARDS for this test to be meaningful`).toBe(false)
+      expect(fields, `metadata must not advertise excluded standard ${excluded}`).not.toContain(excluded)
+    }
+
+    // Positively, every standard actually published IS named in the metadata.
+    for (const code of STANDARDS_COVERED) {
+      expect(fields, `metadata should name published standard ${code}`).toContain(code)
+    }
+  })
+
   it('STANDARDS_COVERED has no duplicate codes', () => {
     expect(new Set(STANDARDS_COVERED).size).toBe(STANDARDS_COVERED.length)
   })
