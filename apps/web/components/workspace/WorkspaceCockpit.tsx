@@ -513,7 +513,10 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
                 Use: {landUse} · INDICATIVE
               </span>
             )}
-            {fullscreenControl && <button type="button" aria-pressed={fullscreenControl.active} aria-label={fullscreenControl.label} onClick={fullscreenControl.onClick} className={`relative z-30 min-h-11 min-w-11 rounded-full border border-relume-border bg-relume-command px-3 text-xs font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent md:px-4 ${canvasFirst ? '' : 'ml-auto'}`} data-fullscreen-toggle><span className="md:hidden">Workspace</span><span className="hidden md:inline">{fullscreenControl.label}</span></button>}
+            {fullscreenControl && <button type="button" aria-pressed={fullscreenControl.active} aria-label={fullscreenControl.label} title={fullscreenControl.label} onClick={fullscreenControl.onClick} className={`relative z-30 inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full border border-relume-border bg-relume-command px-3 text-xs font-semibold text-white hover:bg-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent sm:px-4 ${canvasFirst ? '' : 'ml-auto'}`} data-fullscreen-toggle>
+              <svg className="h-4 w-4 sm:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" data-compact-workspace-icon><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" /></svg>
+              <span className="hidden sm:inline" data-workspace-action-label>{fullscreenControl.label}</span>
+            </button>}
             <button type="button" onClick={() => void createPermalink()} aria-label="Copy view link" className="min-h-11 min-w-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command md:px-4" data-view-permalink><span className="md:hidden">Copy</span><span className="hidden md:inline">Copy view link</span></button>
           </div>
           <div className="relative z-40 grid grid-cols-4 border-b border-relume-border bg-white" aria-label="Model task controls" data-mobile-cockpit-toolbar>
