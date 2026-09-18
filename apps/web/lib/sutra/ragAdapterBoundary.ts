@@ -9,8 +9,9 @@
 // classification ceiling, the existing SUTRA sandbox policy
 // (sandboxPolicy.ts's `evaluateSandboxRequest`), the source's own
 // licence/consent gate (`canUseForRetrieval`), and - for any external
-// PROJECT_SENSITIVE disclosure specifically - an explicit, non-default,
-// classification-compatible data-retention choice. A fragment that
+// PROJECT_SENSITIVE disclosure specifically - an explicit human disclosure
+// consent record bound to this exact disclosure. Request-asserted retention
+// is evidence of neither human consent nor an authorization grant. A fragment that
 // fails any one of these gates is denied; nothing here grants the
 // external permission envelope except as the direct result of an
 // `allowed: true` decision.
@@ -19,7 +20,6 @@ import { classificationRank, isVisibleToTenant, type DataClassification, type Kn
 import {
   canUseForRetrieval,
   evaluateSandboxRequest,
-  type DataRetentionChoice,
   type KnowledgeSource,
   type SutraSandboxRequest,
 } from './sandboxPolicy'
@@ -68,14 +68,27 @@ export function isClassificationEligibleForAdapter(classification: DataClassific
   return classificationRank(classification) <= classificationRank(ADAPTER_CLASSIFICATION_CEILING[adapterKind])
 }
 
+export type ExternalDisclosurePurpose = 'SUTRA_READONLY_RETRIEVAL'
+
 /**
- * Retention choices that are both explicit (never `PROVIDER_DEFAULT`)
- * and compatible with disclosing PROJECT_SENSITIVE data to an external
- * adapter. `PROVIDER_DEFAULT` never qualifies - a provider's own
- * default retention behaviour is exactly what "explicit" is required to
- * override.
+ * A human-issued consent artefact for a bounded external disclosure. The
+ * confirmation id is immutable: a record is accepted only when frozen, so a
+ * caller cannot alter its binding after it has been approved. Production code
+ * must obtain this record from the consent store; this module deliberately
+ * provides no request-derived fallback or record creation path.
  */
-const PROJECT_SENSITIVE_EXTERNAL_COMPATIBLE_RETENTION: readonly DataRetentionChoice[] = ['NO_RETENTION', 'FERRUM_MANAGED']
+export type ExternalDisclosureConsentRecord = Readonly<{
+  immutableConfirmationId: string
+  confirmedByHumanId: string
+  projectId: string
+  provider: ExternalModelProvider
+  providerModel: string
+  dataClassifications: readonly DataClassification[]
+  fragmentIds: readonly string[]
+  purpose: ExternalDisclosurePurpose
+  confirmedAt: string
+  expiresAt: string
+}>
 
 export type AdapterDecision = {
   allowed: boolean
@@ -92,6 +105,8 @@ export type AdapterDecisionRequest = {
   sandboxRequest: SutraSandboxRequest
   /** The knowledge source `fragment` was drawn from - its licence/consent is checked via sandboxPolicy.ts's own `canUseForRetrieval`, never re-derived here. */
   knowledgeSource: KnowledgeSource
+  /** Human disclosure consent, supplied by the consent store. Required only for external PROJECT_SENSITIVE disclosure. */
+  externalDisclosureConsent: ExternalDisclosureConsentRecord | null
 }
 
 /**
@@ -109,15 +124,15 @@ export type AdapterDecisionRequest = {
  * 5. The knowledge source `fragment` came from must match it by id and
  *    pass the existing licence/consent gate (`canUseForRetrieval`).
  * 6. Any external-adapter disclosure of a PROJECT_SENSITIVE fragment
- *    additionally requires an explicit, non-default, classification-
- *    compatible data-retention choice on the sandbox request.
+ *    additionally requires an unexpired, immutable human consent record bound
+ *    to this project, provider/model, classification, fragment and purpose.
  *
  * The permission envelope is only ever attached when `allowed` is
  * true - it is the enforced grant, not a label attached regardless of
  * outcome.
  */
 export function resolveAdapterDecision(request: AdapterDecisionRequest): AdapterDecision {
-  const { fragment, identity, tenantId, projectId, sandboxRequest, knowledgeSource } = request
+  const { fragment, identity, tenantId, projectId, sandboxRequest, knowledgeSource, externalDisclosureConsent } = request
   const reasons: string[] = []
 
   if (!isVisibleToTenant(fragment, tenantId, projectId)) {
@@ -146,11 +161,7 @@ export function resolveAdapterDecision(request: AdapterDecisionRequest): Adapter
   }
 
   if (identity.kind === 'EXTERNAL_MODEL' && fragment.classification === 'PROJECT_SENSITIVE') {
-    if (!PROJECT_SENSITIVE_EXTERNAL_COMPATIBLE_RETENTION.includes(sandboxRequest.dataRetention)) {
-      reasons.push(
-        'External PROJECT_SENSITIVE disclosure requires an explicit, non-default data-retention choice (NO_RETENTION or FERRUM_MANAGED), not PROVIDER_DEFAULT.',
-      )
-    }
+    reasons.push(...validateExternalDisclosureConsent(externalDisclosureConsent, { fragment, identity, projectId, sandboxRequest }))
   }
 
   const allowed = reasons.length === 0
@@ -159,4 +170,32 @@ export function resolveAdapterDecision(request: AdapterDecisionRequest): Adapter
     reasons,
     permissionEnvelope: allowed && identity.kind === 'EXTERNAL_MODEL' ? EXTERNAL_ADAPTER_PERMISSION_ENVELOPE : null,
   }
+}
+
+function validateExternalDisclosureConsent(
+  consent: ExternalDisclosureConsentRecord | null,
+  context: Pick<AdapterDecisionRequest, 'fragment' | 'identity' | 'projectId' | 'sandboxRequest'>,
+): string[] {
+  if (!consent) return ['External PROJECT_SENSITIVE disclosure requires a specific human disclosure-consent record.']
+
+  const reasons: string[] = []
+  if (!Object.isFrozen(consent) || !Object.isFrozen(consent.dataClassifications) || !Object.isFrozen(consent.fragmentIds)) {
+    reasons.push('External disclosure-consent record must be immutable.')
+  }
+  if (!consent.immutableConfirmationId || !consent.confirmedByHumanId) reasons.push('External disclosure-consent record requires an immutable confirmation id and human confirmer.')
+  if (consent.projectId !== context.projectId || consent.projectId !== context.sandboxRequest.projectId) reasons.push('External disclosure-consent record is not bound to this project.')
+  if (context.identity.kind !== 'EXTERNAL_MODEL' || consent.provider !== context.identity.provider || consent.providerModel !== context.identity.modelId || consent.providerModel !== context.sandboxRequest.providerModel) {
+    reasons.push('External disclosure-consent record is not bound to this provider and model.')
+  }
+  if (!consent.dataClassifications.includes(context.fragment.classification)) reasons.push('External disclosure-consent record does not cover this data classification.')
+  if (!consent.fragmentIds.includes(context.fragment.fragmentId)) reasons.push('External disclosure-consent record does not cover this fragment.')
+  if (consent.purpose !== 'SUTRA_READONLY_RETRIEVAL') reasons.push('External disclosure-consent record does not authorize the SUTRA read-only retrieval purpose.')
+
+  const confirmedAt = Date.parse(consent.confirmedAt)
+  const expiresAt = Date.parse(consent.expiresAt)
+  const now = Date.now()
+  if (!Number.isFinite(confirmedAt) || !Number.isFinite(expiresAt) || confirmedAt > now || expiresAt <= now || expiresAt <= confirmedAt) {
+    reasons.push('External disclosure-consent record is missing valid, current confirmation and expiry timestamps.')
+  }
+  return reasons
 }

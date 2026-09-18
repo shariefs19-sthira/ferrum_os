@@ -28,7 +28,8 @@ below govern what an agent may *read* to inform that action.
   provider — Claude or Codex). `ADAPTER_CLASSIFICATION_CEILING` caps
   what each adapter kind may ever receive: the local adapter may see
   up to `RESTRICTED`; the external adapter tops out at
-  `PROJECT_SENSITIVE` — `PERSONAL` and `RESTRICTED` fragments never
+  `PROJECT_SENSITIVE` only after a specific human disclosure-consent record;
+  `PERSONAL` and `RESTRICTED` fragments never
   reach an external provider through this path, by construction, not
   by convention.
 
@@ -89,6 +90,10 @@ below govern what an agent may *read* to inform that action.
 ## Explicit non-goals of this slice
 
 - No network calls, no real knowledge-base wiring, no UI.
+- External `PROJECT_SENSITIVE` disclosure needs a frozen human consent record
+  with an immutable confirmation id, bound to the project, provider/model,
+  data classification, fragment, read-only retrieval purpose, and valid
+  confirmation/expiry interval. Request-asserted retention does not qualify.
 - No claim that any model is "trained" on Ferrum data — training
   consent lives entirely in `sandboxPolicy.ts`'s existing
   `TrainingConsent` type, which this slice does not alter.

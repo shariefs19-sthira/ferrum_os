@@ -5,6 +5,7 @@ import {
   resolveAdapterDecision,
   type AdapterDecisionRequest,
   type AdapterIdentity,
+  type ExternalDisclosureConsentRecord,
 } from './ragAdapterBoundary'
 import type { KnowledgeFragment } from './ragClassification'
 import type { KnowledgeSource, SutraSandboxRequest } from './sandboxPolicy'
@@ -57,6 +58,22 @@ function sandboxRequest(overrides: Partial<SutraSandboxRequest> = {}): SutraSand
   }
 }
 
+function disclosureConsent(overrides: Partial<ExternalDisclosureConsentRecord> = {}): ExternalDisclosureConsentRecord {
+  return Object.freeze({
+    immutableConfirmationId: 'consent-9',
+    confirmedByHumanId: 'user-4',
+    projectId: 'project-7',
+    provider: 'CLAUDE' as const,
+    providerModel: 'claude-connected-model',
+    dataClassifications: Object.freeze(['PROJECT_SENSITIVE'] as const),
+    fragmentIds: Object.freeze(['frag-1'] as const),
+    purpose: 'SUTRA_READONLY_RETRIEVAL' as const,
+    confirmedAt: new Date(Date.now() - 60_000).toISOString(),
+    expiresAt: new Date(Date.now() + 60_000).toISOString(),
+    ...overrides,
+  })
+}
+
 const localAdapter: AdapterIdentity = { kind: 'LOCAL_OPEN_MODEL', modelId: 'ferrum-local-open-1' }
 const externalAdapter: AdapterIdentity = { kind: 'EXTERNAL_MODEL', provider: 'CLAUDE', modelId: 'claude-connected-model' }
 
@@ -68,6 +85,7 @@ function decisionRequest(overrides: Partial<AdapterDecisionRequest> = {}): Adapt
     projectId: 'project-7',
     sandboxRequest: sandboxRequest(),
     knowledgeSource: knowledgeSource(),
+    externalDisclosureConsent: null,
     ...overrides,
   }
 }
@@ -123,12 +141,13 @@ describe('resolveAdapterDecision - permitted minimal-context case', () => {
     expect(decision.permissionEnvelope).toBeNull()
   })
 
-  it('allows PROJECT_SENSITIVE data to the external adapter once tenant-visible with explicit non-default retention', () => {
+  it('allows PROJECT_SENSITIVE data to the external adapter only with a specific current human disclosure-consent record', () => {
     const decision = resolveAdapterDecision(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
         sandboxRequest: sandboxRequest({ dataRetention: 'FERRUM_MANAGED' }),
+        externalDisclosureConsent: disclosureConsent(),
       }),
     )
     expect(decision.allowed).toBe(true)
@@ -197,19 +216,58 @@ describe('resolveAdapterDecision - denial paths', () => {
     expect(decision.reasons).toContain('Source licence/consent does not permit retrieval.')
   })
 
-  it('denies external PROJECT_SENSITIVE disclosure on PROVIDER_DEFAULT retention', () => {
+  it('denies external PROJECT_SENSITIVE disclosure when retention is asserted without human disclosure consent', () => {
     const decision = resolveAdapterDecision(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
-        sandboxRequest: sandboxRequest({ dataRetention: 'PROVIDER_DEFAULT' }),
+        sandboxRequest: sandboxRequest({ dataRetention: 'NO_RETENTION' }),
       }),
     )
     expect(decision.allowed).toBe(false)
     expect(decision.reasons).toContain(
-      'External PROJECT_SENSITIVE disclosure requires an explicit, non-default data-retention choice (NO_RETENTION or FERRUM_MANAGED), not PROVIDER_DEFAULT.',
+      'External PROJECT_SENSITIVE disclosure requires a specific human disclosure-consent record.',
     )
     expect(decision.permissionEnvelope).toBeNull()
+  })
+
+  it('denies external PROJECT_SENSITIVE disclosure for a consent record bound to a different provider/model, fragment or project', () => {
+    const decision = resolveAdapterDecision(
+      decisionRequest({
+        fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
+        knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
+        externalDisclosureConsent: disclosureConsent({ projectId: 'project-other', providerModel: 'other-model', fragmentIds: Object.freeze(['frag-other']) }),
+      }),
+    )
+    expect(decision.allowed).toBe(false)
+    expect(decision.reasons).toContain('External disclosure-consent record is not bound to this project.')
+    expect(decision.reasons).toContain('External disclosure-consent record is not bound to this provider and model.')
+    expect(decision.reasons).toContain('External disclosure-consent record does not cover this fragment.')
+    expect(decision.permissionEnvelope).toBeNull()
+  })
+
+  it('denies external PROJECT_SENSITIVE disclosure for expired or mutable human consent', () => {
+    const expired = disclosureConsent({ expiresAt: new Date(Date.now() - 1).toISOString() })
+    const expiredDecision = resolveAdapterDecision(
+      decisionRequest({
+        fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
+        knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
+        externalDisclosureConsent: expired,
+      }),
+    )
+    expect(expiredDecision.allowed).toBe(false)
+    expect(expiredDecision.reasons).toContain('External disclosure-consent record is missing valid, current confirmation and expiry timestamps.')
+
+    const mutable = { ...disclosureConsent() } as ExternalDisclosureConsentRecord
+    const mutableDecision = resolveAdapterDecision(
+      decisionRequest({
+        fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
+        knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
+        externalDisclosureConsent: mutable,
+      }),
+    )
+    expect(mutableDecision.allowed).toBe(false)
+    expect(mutableDecision.reasons).toContain('External disclosure-consent record must be immutable.')
   })
 
   it('reports every applicable denial reason together rather than masking one with another', () => {
