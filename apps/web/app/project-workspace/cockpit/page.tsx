@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import type { WorkspaceProduct, WorkspaceTool, WorkspaceMoreAction, WorkspaceExtract, WorkspaceProvenance } from "../../../lib/types"
-import TabRail from "../../../components/workspace/TabRail"
+import WorkflowRail from "../../../components/workspace/WorkflowRail"
 import ToolsRuler from "../../../components/workspace/ToolsRuler"
 import MoreDrawer from "../../../components/workspace/MoreDrawer"
 import ExtractPanel from "../../../components/workspace/ExtractPanel"
@@ -13,10 +13,11 @@ import SutraPanel from "../../../components/workspace/SutraPanel"
 import FullscreenController from "../../../components/workspace/FullscreenController"
 import ProductSkin from "../../../components/workspace/ProductSkin"
 import type { SutraEvent } from "../../../lib/sutra/events"
+import { withWorkspaceProduct, workspaceProductFromParam } from "../../../lib/workspace/workflowNavigation"
 
 /**
  * W2-401 WORKSPACE_SHELL — the cockpit. Assembly only (CRANE is the sole
- * editor of this file, per the disjoint-files split): TabRail/
+ * editor of this file, per the disjoint-files split): WorkflowRail/
  * ToolsRuler/MoreDrawer/ExtractPanel are RIVET's (w2-401/rivet-
  * workspace-rails, already landed) - not rebuilt here, just wired
  * together. CanvasSlot is a placeholder for MASON's not-yet-landed S4
@@ -46,7 +47,7 @@ export default function ProjectWorkspaceCockpit() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get('project') ?? 'preview'
 
-  const [activeProduct, setActiveProduct] = useState<WorkspaceProduct>("Land")
+  const [activeProduct, setActiveProduct] = useState<WorkspaceProduct>(() => workspaceProductFromParam(searchParams.get('product')))
   const [activeTool, setActiveTool] = useState<WorkspaceTool>("select")
   const [extractOpen, setExtractOpen] = useState(false)
   const [sutraOpen, setSutraOpen] = useState(true)
@@ -54,6 +55,11 @@ export default function ProjectWorkspaceCockpit() {
   const [moreOpen, setMoreOpen] = useState(false)
   const [lastSutraEvent, setLastSutraEvent] = useState<SutraEvent["type"] | "idle">("idle")
   const [intentStatus, setIntentStatus] = useState("Ready for a workspace command.")
+
+  const handleProductChange = useCallback((product: WorkspaceProduct) => {
+    setActiveProduct(product)
+    window.history.replaceState(null, '', withWorkspaceProduct(window.location.href, product))
+  }, [])
 
   // W2-502: SUTRA is a real `lg:`+ grid column (docked panel, not a
   // dialog) but an accessible overlay below that (tablet side sheet /
@@ -138,7 +144,7 @@ export default function ProjectWorkspaceCockpit() {
 
   // Escape closes the overlay and returns focus to the SUTRA toggle in
   // the header - same document-level-listener-while-open shape used by
-  // MobileMenu.tsx / HomepageCockpitHero.tsx / TabRail.tsx. Only wired
+  // MobileMenu.tsx / HomepageCockpitHero.tsx / WorkflowRail.tsx. Only wired
   // while SUTRA is presented as an overlay (below `lg`); at `lg`+ it's a
   // docked grid column, not a dismissible dialog.
   useEffect(() => {
@@ -157,11 +163,10 @@ export default function ProjectWorkspaceCockpit() {
     <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-dvh-safe flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
       <header className="flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-white" aria-label="Workspace app bar">
         <Link href="/" className="font-heading text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" aria-label="Ferrum home">Ferrum Workspace</Link><span className="mr-auto hidden text-xs text-white/60 sm:inline">{projectId}</span>
-        <Link href="/" className="inline-flex min-h-10 items-center rounded-full border border-white/25 px-3 text-xs font-semibold text-white hover:bg-white/10">Home</Link>
-        <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs">Territory</button>
+        <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs"><span className="sm:hidden">Context</span><span className="hidden sm:inline">Project context</span></button>
         <button ref={sutraToggleRef} type="button" aria-expanded={sutraOpen} onClick={()=>setSutraOpen(value=>!value)} className="min-h-10 rounded-full bg-relume-accent px-3 text-xs font-semibold text-relume-command">SUTRA</button>
       </header>
-      <TabRail activeProduct={activeProduct} onProductChange={setActiveProduct} />
+      <WorkflowRail activeProduct={activeProduct} onProductChange={handleProductChange} />
       <p className="sr-only" aria-live="polite">{intentStatus}</p>
       {/* W2-502: a real CSS grid replaces the old `main` (padding-reserve)
           + absolutely-positioned-SUTRA pattern. SUTRA is a genuine grid
