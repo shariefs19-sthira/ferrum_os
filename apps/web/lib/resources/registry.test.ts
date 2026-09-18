@@ -153,6 +153,10 @@ describe('resources registry — claim boundary (standards navigator)', () => {
       expect(standard.publisher.length, standard.code).toBeGreaterThan(0)
       expect(standard.sourceUrl, standard.code).toMatch(/^https:\/\//)
       expect(BIS_HOMEPAGE_PATTERN.test(standard.sourceUrl), `${standard.code} source must be an exact standard-details/preview link, not the bare BIS homepage: ${standard.sourceUrl}`).toBe(false)
+      expect(
+        standard.sourceUrl,
+        `${standard.code} source must resolve to an official BIS standard-details page or BIS preview PDF`,
+      ).toMatch(/^https:\/\/(?:standards\.bis\.gov\.in\/website\/standard-details\?encryptedId=|www\.services\.bis\.gov\.in\/tmp\/SR[^/]+\.pdf$)/i)
       // Exact edition required: code must end in ":<year>" (e.g. "IS 456:2000",
       // "IS 875 (Part 3):2015") -- a bare series label with no edition/part
       // (the old "IS 1200" / "IS 875") is not an exact citation.
