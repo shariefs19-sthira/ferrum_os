@@ -8,7 +8,7 @@ import SteppedForecastModule from '../../../components/sections/SteppedForecastM
 import UlpinMapExplorer from '../../../components/sections/UlpinMapExplorer'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 import ZoningSummary from '../../../components/landintel/ZoningSummary'
-import SoilHazardPanel from '../../../components/landintel/SoilHazardPanel'
+import GeotechnicalIntelligencePanel from '../../../components/landintel/GeotechnicalIntelligencePanel'
 import ClimateYearPanel from '../../../components/landintel/ClimateYearPanel'
 import HistoryCenturyPanel from '../../../components/landintel/HistoryCenturyPanel'
 import SuitabilityLayerPanel from '../../../components/landintel/SuitabilityLayerPanel'
@@ -117,7 +117,7 @@ export default function LandIntelPage() {
                 id: 'land',
                 label: 'Land',
                 description: 'Parcel and statutory suitability constraints, terrain/topography and soil-geotechnical conditions for the resolved site.',
-                content: <div className="space-y-6"><SuitabilityLayerPanel /><TerrainIntelligencePanel /><SoilHazardPanel /></div>,
+                content: <div className="space-y-6"><SuitabilityLayerPanel /><TerrainIntelligencePanel /><GeotechnicalIntelligencePanel /></div>,
               },
               {
                 id: 'access',
