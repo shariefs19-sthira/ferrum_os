@@ -10,8 +10,11 @@
 // isolation + propose-only external agents) and automationStopRules.ts
 // (the UNKNOWN/CONFLICT/... stop conditions). This module owns only the
 // stage graph and the invariants that hold across stages: every run stays
-// tenant-scoped, every factual claim in Evidence carries a citation, and
-// only a human actor can grant an Approval.
+// tenant-scoped, every factual claim in Evidence carries a citation,
+// Approvals requires an explicit evidence record (or a documented reason
+// it needs none), every NEEDS_YOU resolution is persisted with its
+// resolving actor/note/step (not just validated-and-discarded), and only
+// a human actor can grant an Approval.
 
 import { evaluateAutomationStopRules, type StopRuleContext, type StopRuleTrigger } from './automationStopRules'
 import { evaluateSandboxRequest, type SutraSandboxDecision, type SutraSandboxRequest } from './sandboxPolicy'
@@ -51,6 +54,15 @@ export type PlanStep = {
 export type OrchestrationPlan = {
   steps: PlanStep[]
   sandboxDecision: SutraSandboxDecision
+  /**
+   * Non-null ONLY when this plan's steps produce no factual claims that
+   * would need a citation (e.g. every step is read-only/diagnostic with
+   * nothing asserted as fact). When set, `requestApprovals` may proceed
+   * with zero recorded evidence items and this reason is carried into the
+   * approval record's audit trail. When null (the default expectation),
+   * `requestApprovals` requires at least one evidence item.
+   */
+  noEvidenceRequiredReason: string | null
 }
 
 export type OrchestrationProgress = {
@@ -80,13 +92,33 @@ export type ApprovalRecord = {
   note: string
 }
 
+/**
+ * The audit record for a single NEEDS_YOU interruption being cleared:
+ * who cleared it, when, on what note, which triggers it answered, and
+ * which step PROGRESS resumed at. `resolveNeedsYou` appends exactly one
+ * of these per call - this is the only place `resolvedBy`/`note` are
+ * persisted, so the audit trail this module claims to keep is real, not
+ * just validated-and-discarded input.
+ */
+export type NeedsYouResolution = {
+  resolvedBy: ActorRef
+  note: string
+  resolvedAt: string
+  resolvedTriggers: StopRuleTrigger[]
+  resumedStepId: string | null
+}
+
 export type OrchestrationRunState = {
   runId: string
   stage: OrchestrationStage
   intent: OrchestrationIntent
   plan: OrchestrationPlan | null
   progress: OrchestrationProgress
+  /** Full history of every stop-rule trigger ever raised on this run - append-only, never cleared. */
   needsYou: StopRuleTrigger[]
+  /** The subset of `needsYou` still unresolved right now. Non-empty only while `stage === 'NEEDS_YOU'`; `resolveNeedsYou` empties it. */
+  pendingNeedsYou: StopRuleTrigger[]
+  needsYouResolutions: NeedsYouResolution[]
   evidence: EvidenceItem[]
   approvals: ApprovalRecord[]
 }
@@ -122,6 +154,8 @@ export function startRun(intent: OrchestrationIntent): OrchestrationRunState {
     plan: null,
     progress: { currentStepId: null, completedStepIds: [] },
     needsYou: [],
+    pendingNeedsYou: [],
+    needsYouResolutions: [],
     evidence: [],
     approvals: [],
   }
@@ -132,7 +166,12 @@ export function startRun(intent: OrchestrationIntent): OrchestrationRunState {
  * matches this run's own tenant/project (tenant isolation) and that was
  * actually allowed - a denied sandbox request can never seed a plan.
  */
-export function attachPlan(state: OrchestrationRunState, steps: PlanStep[], sandboxRequest: SutraSandboxRequest): TransitionResult {
+export function attachPlan(
+  state: OrchestrationRunState,
+  steps: PlanStep[],
+  sandboxRequest: SutraSandboxRequest,
+  noEvidenceRequiredReason: string | null = null,
+): TransitionResult {
   if (state.stage !== 'INTENT') return fail(state, [`Cannot attach a plan from stage ${state.stage}; expected INTENT.`])
   if (steps.length === 0) return fail(state, ['A plan requires at least one step.'])
   if (sandboxRequest.tenantId !== state.intent.tenantId || sandboxRequest.projectId !== state.intent.projectId) {
@@ -147,26 +186,36 @@ export function attachPlan(state: OrchestrationRunState, steps: PlanStep[], sand
   return ok({
     ...state,
     stage: 'PLAN',
-    plan: { steps, sandboxDecision },
+    plan: { steps, sandboxDecision, noEvidenceRequiredReason },
   })
 }
 
 /**
  * PLAN -> PROGRESS, or PLAN -> NEEDS_YOU if the first step already trips a
- * stop rule. A run never enters PROGRESS carrying an unresolved stop
- * condition.
+ * stop rule. Either way `progress.currentStepId` is set to the first
+ * step before the stage transition - a NEEDS_YOU interruption raised
+ * here still leaves the run pointing at a real step, so `resolveNeedsYou`
+ * returns to a runnable PROGRESS state instead of one with no current
+ * step to advance from.
  */
 export function beginProgress(state: OrchestrationRunState): TransitionResult {
   if (state.stage !== 'PLAN' || !state.plan) return fail(state, [`Cannot begin progress from stage ${state.stage}; expected PLAN.`])
   const firstStep = state.plan.steps[0]
   if (!firstStep) return fail(state, ['Plan has no steps to begin.'])
 
+  const progress: OrchestrationProgress = { ...state.progress, currentStepId: firstStep.stepId }
   const triggers = evaluateAutomationStopRules(firstStep.stopContext)
   if (triggers.length > 0) {
-    return ok({ ...state, stage: 'NEEDS_YOU', needsYou: [...state.needsYou, ...triggers] })
+    return ok({
+      ...state,
+      stage: 'NEEDS_YOU',
+      progress,
+      needsYou: [...state.needsYou, ...triggers],
+      pendingNeedsYou: [...state.pendingNeedsYou, ...triggers],
+    })
   }
 
-  return ok({ ...state, stage: 'PROGRESS', progress: { ...state.progress, currentStepId: firstStep.stepId } })
+  return ok({ ...state, stage: 'PROGRESS', progress })
 }
 
 /**
@@ -196,6 +245,7 @@ export function advanceStep(state: OrchestrationRunState): TransitionResult {
       stage: 'NEEDS_YOU',
       progress: { currentStepId: nextStep.stepId, completedStepIds },
       needsYou: [...state.needsYou, ...triggers],
+      pendingNeedsYou: [...state.pendingNeedsYou, ...triggers],
     })
   }
 
@@ -204,15 +254,33 @@ export function advanceStep(state: OrchestrationRunState): TransitionResult {
 
 /**
  * Only a human actor can clear a NEEDS_YOU interruption. Clearing resumes
- * PROGRESS at the step that raised it; the trigger history is kept for
- * audit, never deleted.
+ * PROGRESS at `progress.currentStepId`, which `beginProgress`/`advanceStep`
+ * /`interrupt` always set before entering NEEDS_YOU - so the resumed state
+ * is runnable, never stuck with no current step. `resolvedBy`/`note` are
+ * persisted into `needsYouResolutions` alongside the specific triggers
+ * being cleared and the step resumed at; `needsYou` (full history) is
+ * kept for audit, never deleted, and `pendingNeedsYou` is emptied since
+ * every outstanding trigger was just resolved.
  */
 export function resolveNeedsYou(state: OrchestrationRunState, resolvedBy: ActorRef, note: string): TransitionResult {
   if (state.stage !== 'NEEDS_YOU') return fail(state, [`Cannot resolve NEEDS_YOU from stage ${state.stage}; expected NEEDS_YOU.`])
   if (resolvedBy.actorKind !== 'HUMAN') return fail(state, ['Only a human actor may resolve a NEEDS_YOU interruption.'])
   if (!note.trim()) return fail(state, ['A resolution note is required for the audit trail.'])
 
-  return ok({ ...state, stage: 'PROGRESS' })
+  const record: NeedsYouResolution = {
+    resolvedBy,
+    note,
+    resolvedAt: new Date().toISOString(),
+    resolvedTriggers: state.pendingNeedsYou,
+    resumedStepId: state.progress.currentStepId,
+  }
+
+  return ok({
+    ...state,
+    stage: 'PROGRESS',
+    pendingNeedsYou: [],
+    needsYouResolutions: [...state.needsYouResolutions, record],
+  })
 }
 
 /**
@@ -232,14 +300,21 @@ export function recordEvidence(state: OrchestrationRunState, item: EvidenceItem)
 }
 
 /**
- * EVIDENCE -> APPROVALS. Blocked while any UNKNOWN or uncited evidence
- * item remains, and blocked for issue/release actions or safety-critical
- * plans unless a human has already resolved every NEEDS_YOU trigger that
- * was raised for them (tracked simply as: no unresolved stage currently
- * sitting in NEEDS_YOU).
+ * EVIDENCE -> APPROVALS. Requires at least one recorded evidence item -
+ * approval/release must be backed by an explicit factual record, not
+ * silently permitted by an empty evidence array - UNLESS the plan itself
+ * documents why zero evidence is safe via `plan.noEvidenceRequiredReason`
+ * (see that field's contract on `OrchestrationPlan`). Also blocked while
+ * any UNKNOWN or uncited evidence item remains.
  */
 export function requestApprovals(state: OrchestrationRunState): TransitionResult {
   if (state.stage !== 'EVIDENCE') return fail(state, [`Cannot request approvals from stage ${state.stage}; expected EVIDENCE.`])
+
+  if (state.evidence.length === 0 && !state.plan?.noEvidenceRequiredReason) {
+    return fail(state, [
+      'Approvals requires at least one recorded evidence item, unless the plan documents a safe no-evidence reason (plan.noEvidenceRequiredReason).',
+    ])
+  }
 
   const unresolved = state.evidence.filter((item) => item.status === 'UNKNOWN' || item.citations.length === 0)
   if (unresolved.length > 0) {
@@ -272,5 +347,10 @@ export function interrupt(state: OrchestrationRunState, triggers: StopRuleTrigge
   if (triggers.length === 0) return fail(state, ['interrupt() requires at least one stop-rule trigger.'])
   if (state.stage === 'RELEASED') return fail(state, ['A RELEASED run is immutable and cannot be interrupted.'])
 
-  return ok({ ...state, stage: 'NEEDS_YOU', needsYou: [...state.needsYou, ...triggers] })
+  return ok({
+    ...state,
+    stage: 'NEEDS_YOU',
+    needsYou: [...state.needsYou, ...triggers],
+    pendingNeedsYou: [...state.pendingNeedsYou, ...triggers],
+  })
 }

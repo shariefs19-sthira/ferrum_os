@@ -21,7 +21,12 @@ INTENT -> PLAN -> PROGRESS -> EVIDENCE -> APPROVALS -> RELEASED
 ```
 
 Any active stage can be force-interrupted into `NEEDS_YOU`; `RELEASED` is
-immutable and cannot be interrupted.
+immutable and cannot be interrupted. `beginProgress`/`advanceStep`/
+`interrupt` always set `progress.currentStepId` to the step that raised
+the interruption *before* the stage flips to `NEEDS_YOU` - including when
+the very first planned step is the one that stops - so `resolveNeedsYou`
+always resumes at a real, runnable step rather than one pointing at
+`null`.
 
 ## Automation stop rules
 
@@ -42,12 +47,27 @@ this on every step transition, not only at plan creation.
 - **Citations** - `recordEvidence` rejects any non-`UNKNOWN` claim with no
   citation; `requestApprovals` is blocked while any evidence item is still
   `UNKNOWN` or uncited.
+- **Explicit evidence before approval** - `requestApprovals` also rejects
+  an empty evidence array outright: approval/release must be backed by at
+  least one recorded evidence item, not silently permitted by a run that
+  recorded nothing. The one documented exception is
+  `plan.noEvidenceRequiredReason` - a non-null string on the
+  `OrchestrationPlan` the plan was attached with, set only when every step
+  is read-only/diagnostic and asserts no fact needing a citation. That
+  reason travels with the plan for audit; there is no other bypass.
 - **Propose-only external agents** - an `EXTERNAL_AGENT_PROPOSAL` stop
   trigger always routes to `NEEDS_YOU`; the state machine has no path that
   lets an agent-originated step reach `APPROVALS` unattended.
 - **Human release authority** - `grantApproval` is the only function that
   can reach `RELEASED`, and it rejects any `ActorRef` whose `actorKind` is
   not `HUMAN`.
+- **NEEDS_YOU resolution audit trail** - `resolveNeedsYou` appends a
+  `NeedsYouResolution` record (`resolvedBy`, `note`, `resolvedAt`,
+  `resolvedTriggers`, `resumedStepId`) to `state.needsYouResolutions` on
+  every successful call; a rejected call (non-human actor, empty note,
+  wrong stage) appends nothing. `state.needsYou` keeps the full,
+  never-cleared history of every trigger ever raised; `state.pendingNeedsYou`
+  holds only the currently-unresolved subset and is emptied on resolution.
 
 ## What this slice does not do
 

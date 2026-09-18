@@ -275,4 +275,102 @@ describe('SUTRA orchestration state machine', () => {
     expect(result.ok).toBe(false)
     expect(result.state.stage).toBe('INTENT')
   })
+
+  it('end-to-end: a first-step stop resumes at that same step and can then advance normally', () => {
+    let run = startedRun()
+    const planned = attachPlan(run, [step('s1', { ...clearStopContext, hasUnknownInputs: true }), step('s2')], baseSandboxRequest())
+    expect(planned.ok).toBe(true)
+    run = planned.state
+
+    const progressed = beginProgress(run)
+    expect(progressed.ok).toBe(true)
+    run = progressed.state
+    expect(run.stage).toBe('NEEDS_YOU')
+    // The blocker fixed here: the run must still point at the step that raised it, not null.
+    expect(run.progress.currentStepId).toBe('s1')
+    expect(run.pendingNeedsYou.map((t) => t.reason)).toEqual(['UNKNOWN'])
+
+    const resolved = resolveNeedsYou(run, human, 'Confirmed the missing input with the operator.')
+    expect(resolved.ok).toBe(true)
+    run = resolved.state
+    expect(run.stage).toBe('PROGRESS')
+    expect(run.progress.currentStepId).toBe('s1')
+    expect(run.pendingNeedsYou).toEqual([])
+
+    const advanced = advanceStep(run)
+    expect(advanced.ok).toBe(true)
+    run = advanced.state
+    expect(run.stage).toBe('PROGRESS')
+    expect(run.progress.currentStepId).toBe('s2')
+    expect(run.progress.completedStepIds).toEqual(['s1'])
+  })
+
+  it('resolveNeedsYou persists an audit record of the resolving actor, note, resolved triggers and resumed step', () => {
+    let run = startedRun()
+    const planned = attachPlan(run, [step('s1', { ...clearStopContext, isSafetyCritical: true })], baseSandboxRequest())
+    run = planned.ok ? planned.state : run
+    const progressed = beginProgress(run)
+    run = progressed.ok ? progressed.state : run
+    expect(run.stage).toBe('NEEDS_YOU')
+    expect(run.needsYouResolutions).toEqual([])
+
+    const resolved = resolveNeedsYou(run, human, 'Reviewed the safety-critical step and confirmed it may proceed.')
+    expect(resolved.ok).toBe(true)
+    run = resolved.state
+
+    expect(run.needsYouResolutions).toHaveLength(1)
+    expect(run.needsYouResolutions[0]).toMatchObject({
+      resolvedBy: human,
+      note: 'Reviewed the safety-critical step and confirmed it may proceed.',
+      resumedStepId: 's1',
+    })
+    expect(run.needsYouResolutions[0].resolvedTriggers.map((t) => t.reason)).toEqual(['SAFETY_CRITICAL'])
+    expect(typeof run.needsYouResolutions[0].resolvedAt).toBe('string')
+    // Full history is never deleted, unlike the now-cleared pending set.
+    expect(run.needsYou.map((t) => t.reason)).toEqual(['SAFETY_CRITICAL'])
+    expect(run.pendingNeedsYou).toEqual([])
+
+    const rejectedAgent = resolveNeedsYou(interrupt(run, [{ reason: 'CONFLICT', detail: 'later conflict' }]).state, agent, 'agent tries')
+    expect(rejectedAgent.ok).toBe(false)
+    // A rejected resolution never appends an audit record.
+    expect(rejectedAgent.state.needsYouResolutions).toHaveLength(1)
+  })
+
+  it('requestApprovals is blocked with zero recorded evidence unless the plan documents a safe no-evidence reason', () => {
+    let run = startedRun()
+    const planned = attachPlan(run, [step('s1')], baseSandboxRequest())
+    run = planned.ok ? planned.state : run
+    const progressed = beginProgress(run)
+    run = progressed.ok ? progressed.state : run
+    const advanced = advanceStep(run)
+    run = advanced.ok ? advanced.state : run
+    expect(run.stage).toBe('EVIDENCE')
+    expect(run.evidence).toEqual([])
+
+    const blocked = requestApprovals(run)
+    expect(blocked.ok).toBe(false)
+    if (!blocked.ok) expect(blocked.reasons.join(' ')).toMatch(/at least one recorded evidence item/i)
+    expect(blocked.state.stage).toBe('EVIDENCE')
+  })
+
+  it('requestApprovals proceeds with zero evidence when the plan documents a safe no-evidence reason', () => {
+    let run = startedRun()
+    const planned = attachPlan(
+      run,
+      [step('s1')],
+      baseSandboxRequest(),
+      'Single read-only diagnostic step; asserts no fact requiring citation.',
+    )
+    run = planned.ok ? planned.state : run
+    const progressed = beginProgress(run)
+    run = progressed.ok ? progressed.state : run
+    const advanced = advanceStep(run)
+    run = advanced.ok ? advanced.state : run
+    expect(run.stage).toBe('EVIDENCE')
+    expect(run.evidence).toEqual([])
+
+    const approvalsRequested = requestApprovals(run)
+    expect(approvalsRequested.ok).toBe(true)
+    expect(approvalsRequested.state.stage).toBe('APPROVALS')
+  })
 })
