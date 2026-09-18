@@ -6,6 +6,7 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-345: only rate comparison is shipped and real (RateCompareCalculator
 // below, D1-backed). The marketplace itself — profiles, verification,
@@ -13,14 +14,7 @@ import ProductCockpitPreview from '../../../components/workspace/ProductCockpitP
 // the codebase: no marketplace tables, no escrow integration, no review
 // system. Roadmap-labeled rather than deleted since this describes the
 // product's real intended direction.
-const featureItems = [
-  { title: 'Rate comparison (live)', body: 'Compare category rates across sample cities to sanity-check a quote.' },
-  { title: 'Verified profiles (roadmap)', body: 'Profiles for architects, engineers and contractors — not yet built.' },
-  { title: 'Job posting (roadmap)', body: 'Post a job and let pros come to you — not yet built.' },
-  { title: 'Proposal system (roadmap)', body: 'Compare bids side by side — not yet built.' },
-  { title: 'Escrow payments (roadmap)', body: 'Funds released only on completion — not yet built. See docs/ESCROW_DESIGN.md for the design.' },
-  { title: 'Reviews & ratings (roadmap)', body: 'Hire on proven track records — not yet built.' },
-]
+const featureItems = productFeatureRegistry.promarket
 
 const howItWorksSteps = [
   { title: 'Pick a category', body: 'Choose a material or labor category.' },

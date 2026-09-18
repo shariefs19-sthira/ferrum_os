@@ -6,15 +6,9 @@ import CardGrid from '../../../components/sections/CardGrid'
 import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
-const featureItems = [
-  { title: 'Parametric openings (INDICATIVE)', body: 'Select generated doors and windows and adjust bounded dimensions and configuration in the preview.' },
-  { title: 'Test-fit massing', body: 'Enter plot dimensions and floor count to get a deterministic massing preview.' },
-  { title: 'AI plan generation (roadmap)', body: 'Floor plans and elevations generated from a brief — not yet built.' },
-  { title: 'General plan editing (roadmap)', body: 'Wall and room dragging, freehand drafting and broader CAD controls are not available.' },
-  { title: 'Issue sets (roadmap)', body: 'PDF issue sets and collaboration are not available.' },
-  { title: 'DXF preview export', body: 'Export the indicative plot, rooms and opening geometry to DXF layers.' },
-]
+const featureItems = productFeatureRegistry.designstudio
 
 // W2-345: rewritten to describe the shipped test-fit tool rather than the
 // unbuilt AI brief-wizard workflow (see featureItems above).

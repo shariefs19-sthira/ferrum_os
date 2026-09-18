@@ -71,9 +71,23 @@ describe("Concierge", () => {
       outputs: ["parcel record"], controls: ["ULPIN lookup"],
     } }))
     fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
-    fireEvent.click(await screen.findByRole("button", { name: "Ask SUTRA about this workspace" }))
-    expect(await screen.findByText(/Available outputs: parcel record/)).toBeTruthy()
-    expect(screen.getByText(/Evidence state: INDICATIVE/)).toBeTruthy()
+    fireEvent.click(await screen.findByRole("button", { name: "Explain all LandIntel features" }))
+    expect(await screen.findByText(/LandIntel includes/)).toBeTruthy()
+    expect(screen.getByText(/Scenario forecast/)).toBeTruthy()
+  })
+
+  it("changes the SUTRA action when a user selects an annotated tool", async () => {
+    render(<><button data-sutra-product="landintel" data-sutra-feature-id="location-coordinates">Coordinates</button><Concierge /></>)
+    window.dispatchEvent(new CustomEvent("ferrum:sutra-context", { detail: {
+      id: "landintel", label: "LandIntel", lens: "Parcel viability", persona: "Land buyer",
+      evidenceState: "INDICATIVE", provenance: "Seeded source", outputs: [], controls: [],
+    } }))
+    fireEvent.click(screen.getByRole("button", { name: "Coordinates" }))
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    const explain = await screen.findByRole("button", { name: "Explain Coordinates" })
+    fireEvent.click(explain)
+    expect(await screen.findByText(/decimal coordinates/)).toBeTruthy()
+    expect(screen.getByText(/does not infer a parcel boundary/)).toBeTruthy()
   })
 
   it("exposes provider choices without granting unconnected models Ferrum access", async () => {

@@ -5,6 +5,7 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import CdeStatusMock from '../../../components/sections/CdeStatusMock'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-345: the "Construction tracking" card below is real code
 // (CdeStatusMock) but not what it's described as here — it returns one
@@ -16,14 +17,7 @@ import ProductCockpitPreview from '../../../components/workspace/ProductCockpitP
 // buyer/seller case flow (W2-330) — it is not wired to CommunityBuild
 // investors, so the KYC/AML claim here was misattributed, not entirely
 // absent from the platform.
-const featureItems = [
-  { title: 'SPV creation', body: 'Set up a special purpose vehicle for the build — not yet built.' },
-  { title: 'Investor commitments', body: 'Track commitments from every investor — not yet built.' },
-  { title: 'KYC/AML verification', body: 'Verify investors before they commit — not yet built for CommunityBuild (KYC exists elsewhere on the platform, for Transact only).' },
-  { title: 'Construction status (demo)', body: 'A fixed sample status, not live per-project tracking — not yet built.' },
-  { title: 'Profit distribution', body: 'Distribute profits to investors as the build progresses — not yet built.' },
-  { title: 'Investor reporting', body: 'Report performance to your investor group — not yet built.' },
-]
+const featureItems = productFeatureRegistry.communitybuild
 
 const howItWorksSteps = [
   { title: 'Create the SPV', body: 'Set up the special purpose vehicle for the build — not yet built.' },

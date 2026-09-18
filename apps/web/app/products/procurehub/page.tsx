@@ -5,20 +5,14 @@ import { PrimaryButton } from '../../../components/sections/Buttons'
 import CardGrid from '../../../components/sections/CardGrid'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-345: ProcureHub has zero shipped tool — no material requests, purchase
 // orders, delivery tracking, supplier directory, bill reconciliation or
 // payment integration exist anywhere in the codebase. All roadmap-labeled
 // rather than deleted, since they describe the product's real intended
 // direction (docs/RELUME_HANDOFF.md §5).
-const featureItems = [
-  { title: 'Material requests', body: 'Raise material requests straight from your BOQ — not yet built.' },
-  { title: 'Purchase orders', body: 'Issue purchase orders to your suppliers — not yet built.' },
-  { title: 'Delivery tracking', body: 'Track deliveries from order to site — not yet built.' },
-  { title: 'Supplier directory', body: 'Find and manage suppliers in one place — not yet built.' },
-  { title: 'Bill reconciliation', body: 'Reconcile bills against orders and deliveries — not yet built.' },
-  { title: 'Payment integration', body: 'Pay suppliers directly from ProcureHub — not yet built.' },
-]
+const featureItems = productFeatureRegistry.procurehub
 
 const howItWorksSteps = [
   { title: 'Request materials', body: 'Raise a request driven by your BOQ — not yet built.' },

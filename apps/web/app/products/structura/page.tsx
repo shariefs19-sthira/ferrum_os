@@ -7,6 +7,7 @@ import AccordionLeaf from '../../../components/sections/AccordionLeaf'
 import SpecTable from '../../../components/SpecTable'
 import SteppedForecastModule from '../../../components/sections/SteppedForecastModule'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-345: only IS-code checking is shipped and real — two clause families
 // (IS 456 RCC beam, IS 800 steel column) via lib/checks/isCode.ts, same
@@ -18,13 +19,7 @@ import ProductCockpitPreview from '../../../components/workspace/ProductCockpitP
 // docs/ENGINE_ARCH.md as research-only, post-launch, with zero code
 // landed. Roadmap-labeled rather than deleted since they describe the
 // product's real intended direction.
-const featureItems = [
-  { title: 'IS code checking (live)', body: 'Run real IS 456 (RCC beam) and IS 800 (steel column) clause checks with pass/fail and citations.' },
-  { title: 'Model importer (roadmap)', body: 'Bring in structural models from your design tools — not yet built.' },
-  { title: 'FEA analysis (roadmap)', body: 'Run finite element analysis in the cloud — not yet built.' },
-  { title: 'Sign-off workflow (roadmap)', body: 'Review, approve and sign off designs professionally — not yet built.' },
-  { title: 'Drawing generation (roadmap)', body: 'Generate structural drawings from your analysis — not yet built.' },
-]
+const featureItems = productFeatureRegistry.structura
 
 const howItWorksSteps = [
   { title: 'Enter section parameters', body: 'Beam dimensions and reinforcement, or column slenderness and load.' },

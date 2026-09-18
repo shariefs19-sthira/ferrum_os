@@ -10,18 +10,14 @@ import OcrSpike from '../../../components/sections/OcrSpike'
 import TransactCaseFlow from '../../../components/sections/TransactCaseFlow'
 import PaymentDemo from '../../../components/sections/PaymentDemo'
 import ProductCockpitPreview from '../../../components/workspace/ProductCockpitPreview'
+import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 export const metadata = {
   title: 'Transact — Ferrum OS',
   description: 'Indicative stamp-duty and ask-band estimation tools for property transactions. Informational only — not legal, tax, or financial advice.',
 }
 
-const featureItems = [
-  { title: 'Stamp-duty estimator', body: 'Indicative stamp duty and registration fee, state-wise, from illustrative sample rates.' },
-  { title: 'Ask-band estimator', body: 'An indicative price range from sample comparable data, adjusted by an urgency slider.' },
-  { title: 'Demand-token waitlist', body: 'Register interest in Transact — a signal, not a commitment or a queue position.' },
-  { title: 'Buyer & seller case flow', body: 'A step-by-step case tracker for both sides — legal cross-check, token payment (test mode), and listing/registration steps.' },
-]
+const featureItems = productFeatureRegistry.transact
 
 const howItWorksSteps = [
   { title: 'Estimate', body: 'Run the stamp-duty and ask-band tools for an indicative starting point.' },

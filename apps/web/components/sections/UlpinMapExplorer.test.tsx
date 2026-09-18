@@ -11,6 +11,14 @@ const seeded = { ulpin: 'KA-BLR-0001-2024', state: 'Karnataka', district: 'Benga
 describe('UlpinMapExplorer W-85 parcel finder', () => {
   beforeEach(() => { vi.clearAllMocks(); vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => seeded })) })
 
+  it('exposes a concise hover and focus explanation for every location tool', () => {
+    render(<UlpinMapExplorer />)
+    const coordinates = screen.getByRole('button', { name: 'Coordinates' })
+    expect(coordinates.getAttribute('title')).toContain('decimal coordinates')
+    expect(coordinates.getAttribute('data-sutra-feature-id')).toBe('location-coordinates')
+    expect(screen.getAllByRole('tooltip', { hidden: true })).toHaveLength(6)
+  })
+
   it('keeps the map mounted and writes a source-qualified seeded ULPIN context', async () => {
     render(<UlpinMapExplorer />); const map = screen.getByRole('button', { name: 'Map showing sample' })
     expect(screen.getAllByRole('button', { name: /ULPIN|Map pin|Coordinates|Address|My location|Survey \/ khasra/ })).toHaveLength(6)
