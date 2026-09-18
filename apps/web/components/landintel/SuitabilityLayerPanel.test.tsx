@@ -35,7 +35,7 @@ describe('LandIntel suitability layer panel', () => {
     expect(screen.getByText('Seeded D1 record')).toBeTruthy()
     expect(screen.getByText('18 Sept 2026')).toBeTruthy()
     expect(screen.getByText('CONTEXT LOADED')).toBeTruthy()
-    expect(screen.getByText(/remaining authority and site evidence is incomplete/)).toBeTruthy()
+    expect(screen.getByText(/An indicative parcel context is loaded.*remaining authority and site evidence is incomplete/)).toBeTruthy()
     expect(screen.getByText('Suitable development zone: UNKNOWN')).toBeTruthy()
   })
 })
