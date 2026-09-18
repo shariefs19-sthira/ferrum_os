@@ -191,11 +191,11 @@ export default function Concierge() {
         </div>
         <ul className="mt-3 space-y-3">{CONSTRUCTION_CONNECTOR_GROUPS.map((connector) => <li key={connector.group} className="border-b border-relume-border pb-3"><p className="text-xs font-semibold text-relume-command">{connector.group}</p><p className="mt-1 text-[11px] leading-5 text-relume-muted">{connector.items}</p></li>)}</ul>
       </div> : <div className="flex-1 space-y-3 overflow-y-auto px-4 py-3" aria-live="polite">
-        {workspaceContext && <div className="rounded-relume border border-relume-border bg-relume-surface-secondary p-3" data-sutra-context>
+        {(workspaceContext || activeFeature) && <div className="rounded-relume border border-relume-border bg-relume-surface-secondary p-3" data-sutra-context>
           <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Working context</p>
-          <p className="mt-1 text-sm font-semibold text-relume-command">{workspaceContext.label}</p>
+          <p className="mt-1 text-sm font-semibold text-relume-command">{activeFeature ? productLabels[activeFeature.productId] : workspaceContext?.label}</p>
           {activeFeature && <div className="mt-2 rounded-relume border border-relume-border bg-white p-2"><p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Selected tool</p><p className="mt-1 text-xs font-semibold text-relume-command">{activeFeature.feature.title}</p></div>}
-          <button type="button" onClick={() => activeFeature ? handleSend(`Explain ${activeFeature.feature.title} in ${productLabels[activeFeature.productId]}`) : handleSend(`Explain all features in ${workspaceContext.label}`)} className="mt-2 min-h-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command">{activeFeature ? `Explain ${activeFeature.feature.title}` : `Explain all ${workspaceContext.label} features`}</button>
+          <button type="button" onClick={() => activeFeature ? handleSend(`Explain ${activeFeature.feature.title} in ${productLabels[activeFeature.productId]}`) : handleSend(`Explain all features in ${workspaceContext?.label}`)} className="mt-2 min-h-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command">{activeFeature ? `Explain ${activeFeature.feature.title}` : `Explain all ${workspaceContext?.label} features`}</button>
         </div>}
         {messages.map((m, i) => (
           <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
