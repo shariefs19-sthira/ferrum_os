@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import ProductCockpitPreview, { type CockpitProduct } from '../workspace/ProductCockpitPreview'
 import EvidenceStateBadge from './EvidenceStateBadge'
-import HeroPreviewPlaceholder from './HeroPreviewPlaceholder'
 import HeroRoadmapPreview from './HeroRoadmapPreview'
 import { productExperienceList, type ProductAccentToken } from '../../lib/productExperienceRegistry'
 import { journeyRows, journeyRowForProduct } from '../../lib/homepageJourney'
@@ -31,15 +30,6 @@ const accentDotClass: Record<ProductAccentToken, string> = {
 
 export default function HomepageCockpitHero() {
   const [activeId, setActiveId] = useState<CockpitProduct>('landintel')
-  // 3D-mount gate (see HeroPreviewPlaceholder.tsx for the full rationale):
-  // stays false until the visitor explicitly clicks "Load interactive
-  // preview" once; from then on the real cockpit chain (and therefore
-  // Space3D) stays mounted for every subsequently selected product too —
-  // but only for products whose registry `tool.kind` is 'live-cockpit'.
-  // BuildOS/ProcureHub/CommunityBuild have no real cockpit to gate: there
-  // is nothing to mount, live or delayed, so this flag is simply never
-  // consulted for them (see `isLiveTool`/`showRoadmap` below).
-  const [hasInteracted, setHasInteracted] = useState(false)
   const active = products.find((product) => product.id === activeId) ?? products[0]
   const activeJourneyRowId = journeyRowForProduct[activeId]
   const isLiveTool = active.tool.kind === 'live-cockpit'
@@ -310,18 +300,21 @@ export default function HomepageCockpitHero() {
               </ul>
             </div>
 
-            {/* Right column: the selected product's preview. Three states:
+            {/* Right column: the selected product's preview. Two states,
+                both rendered automatically -- no click gate:
                   - registry `tool.kind !== 'live-cockpit'` (BuildOS,
-                    ProcureHub, CommunityBuild): always the honest
-                    HeroRoadmapPreview, regardless of `hasInteracted` — there
-                    is nothing real to gate or mount for these three.
-                  - live-cockpit products, before the gate fires: the
-                    existing HeroPreviewPlaceholder ("Load interactive
-                    preview").
-                  - live-cockpit products, after the gate fires: the real
-                    ProductCockpitPreview -> WorkspaceCockpit -> Space3D
-                    chain, opened on this product's registry-specified
-                    `defaultView`.
+                    ProcureHub, CommunityBuild): the honest HeroRoadmapPreview
+                    — there is no real cockpit to mount for these three.
+                  - live-cockpit products: ProductCockpitPreview ->
+                    WorkspaceCockpit -> Space3D mounts immediately, on first
+                    paint and on every product switch, opened on this
+                    product's registry-specified `defaultView`. The "usable
+                    initial preview frame while interactive resources
+                    initialize" requirement is satisfied by
+                    WorkspaceCockpit.tsx's own next/dynamic `loading` state
+                    for Space3D ("Loading 3D view…", already built and
+                    already the fallback shown while that ~148KB gz chunk
+                    fetches) -- not a second, hand-built placeholder.
                 Sits beside the left column at `lg`+ so the preview is
                 visible above the fold at 1366x768; stacks below the
                 proposition on mobile via `order-2`. */}
@@ -338,15 +331,8 @@ export default function HomepageCockpitHero() {
                   reason={active.tool.kind === 'ROADMAP' || active.tool.kind === 'GAP' ? active.tool.reason : ''}
                   evidenceState={active.evidenceState}
                 />
-              ) : hasInteracted ? (
-                <ProductCockpitPreview key={active.id} product={active.id} label={active.label} layout="product-page" defaultView={active.defaultView} />
               ) : (
-                <HeroPreviewPlaceholder
-                  productLabel={active.label}
-                  task={active.outputCards[0] ?? active.provenance}
-                  evidenceState={active.evidenceState}
-                  onLoad={() => setHasInteracted(true)}
-                />
+                <ProductCockpitPreview key={active.id} product={active.id} label={active.label} layout="product-page" defaultView={active.defaultView} />
               )}
             </div>
           </div>

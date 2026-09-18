@@ -7,19 +7,20 @@ type HeroRoadmapPreviewProps = {
 }
 
 /**
- * W2-500 (productExperienceRegistry). A close variant of
- * HeroPreviewPlaceholder.tsx for the products with NO real live tool
- * today (BuildOS, ProcureHub, CommunityBuild per
- * productExperienceRegistry.ts's `tool.kind === 'ROADMAP'`).
+ * W2-500 (productExperienceRegistry). The honest preview state for
+ * products with NO real live tool today (BuildOS, ProcureHub,
+ * CommunityBuild per productExperienceRegistry.ts's `tool.kind ===
+ * 'ROADMAP'`), rendered automatically on selection (CLICK-001) same as
+ * every other product's preview — there is just nothing real to open.
  *
- * Deliberately different from HeroPreviewPlaceholder in exactly one way:
- * there is no "Load interactive preview" button, because there is
- * nothing real behind it to load — clicking it would open the same
- * WorkspaceCockpit/Space3D chain every other product uses, which is
- * dishonest for a product whose own marketing page states "nothing on
- * it is buildable or usable today" (BuildOS) or the equivalent. This
- * component never renders a form, slider or other control that could
- * imply live functionality — plain text and the evidence badge only.
+ * There is no "Load interactive preview" button and never was one worth
+ * adding here: there is nothing real behind it to load — a button would
+ * open the same WorkspaceCockpit/Space3D chain every other product uses,
+ * which is dishonest for a product whose own marketing page states
+ * "nothing on it is buildable or usable today" (BuildOS) or the
+ * equivalent. This component never renders a form, slider or other
+ * control that could imply live functionality — plain text and the
+ * evidence badge only.
  */
 export default function HeroRoadmapPreview({ productLabel, reason, evidenceState }: HeroRoadmapPreviewProps) {
   return (
