@@ -112,7 +112,7 @@ export default function TabRail({ activeProduct, onProductChange }: TabRailProps
   }
 
   return (
-    <nav aria-label="Workspace product rail" className="border-b border-relume-border bg-relume-surface px-4 py-2 sm:px-6">
+    <nav aria-label="Workspace product rail" className="relative z-50 border-b border-relume-border bg-relume-surface px-4 py-2 sm:px-6">
       {/* Wide viewports: the full ten-tab row fits with no scroll and no
           wrap, so it renders plainly - same min-[1366px] cutoff the
           homepage rail uses. */}
