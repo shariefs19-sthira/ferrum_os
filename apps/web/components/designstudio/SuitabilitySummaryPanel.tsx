@@ -104,7 +104,11 @@ export default function SuitabilitySummaryPanel() {
     () => (isSample ? buildSampleTemplateInputs(template) : buildProjectContextTemplateInputs()),
     [isSample, template],
   )
-  const jurisdictionPack = useMemo(() => getJurisdictionPack("india"), [])
+  // The synthetic sample deliberately uses the India pack because the fixture
+  // says it represents Bengaluru. A real Project Context currently carries no
+  // country, governing authority, rule version or effective date, so it must
+  // remain UNKNOWN rather than inheriting an India-specific regulatory pack.
+  const jurisdictionPack = useMemo(() => (isSample ? getJurisdictionPack("india") : undefined), [isSample])
   const environmentalContext = useMemo(
     () =>
       buildEnvironmentalContext({

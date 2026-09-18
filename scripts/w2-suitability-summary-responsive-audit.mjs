@@ -34,6 +34,15 @@ const contentTypes = { '.html': 'text/html', '.js': 'text/javascript', '.css': '
 const server = createServer(async (request, response) => {
   try {
     const urlPath = decodeURIComponent(new URL(request.url ?? '/', 'http://127.0.0.1').pathname)
+    // Static exports do not contain the worker-owned coarse-region endpoint.
+    // Return an explicit no-profile response so Concierge takes its normal
+    // location-unknown path and the rendered audit does not mistake a missing
+    // edge worker for a route or component failure.
+    if (urlPath === '/api/region') {
+      response.writeHead(200, { 'Content-Type': 'application/json' })
+      response.end(JSON.stringify({ profile: null }))
+      return
+    }
     const filePath = path.join(outRoot, urlPath === '/' ? 'index.html' : urlPath)
     const info = await stat(filePath).catch(() => null)
     const resolved = info?.isDirectory() ? path.join(filePath, 'index.html') : filePath
@@ -64,10 +73,12 @@ for (const width of widths) {
   const context = await browser.newContext({ viewport })
   const page = await context.newPage()
   const consoleErrors = []
+  const httpErrors = []
   page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()) })
+  page.on('response', (response) => { if (response.status() >= 400) httpErrors.push({ status: response.status(), url: response.url() }) })
 
-  const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'domcontentloaded', timeout: 30_000 })
-  await page.waitForTimeout(120)
+  const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle', timeout: 30_000 })
+  await page.locator('[data-suitability-summary] h2').waitFor({ state: 'visible', timeout: 10_000 })
 
   const metrics = await page.evaluate((viewportWidth) => {
     const cockpit = document.querySelector('[data-product-cockpit="designstudio"]')
@@ -96,6 +107,7 @@ for (const width of widths) {
       cockpitBox: cockpitRect ? { width: Math.round(cockpitRect.width), height: Math.round(cockpitRect.height), top: Math.round(cockpitRect.top), bottom: Math.round(cockpitRect.bottom) } : null,
       summaryPresent: Boolean(summary),
       summaryBox: summaryRect ? { width: Math.round(summaryRect.width), height: Math.round(summaryRect.height), top: Math.round(summaryRect.top), bottom: Math.round(summaryRect.bottom) } : null,
+      pagePosition: summaryRect ? { summaryTop: Math.round(summaryRect.top + window.scrollY), summaryBottom: Math.round(summaryRect.bottom + window.scrollY), documentHeight: document.documentElement.scrollHeight } : null,
       summaryText: summary?.textContent?.replace(/\s+/g, ' ').trim().slice(0, 160) ?? '',
       dimensionCount: dimensionCards.length,
       overallStateRendered: overallBadge?.getAttribute('data-suitability-overall-state') ?? null,
@@ -108,13 +120,17 @@ for (const width of widths) {
     fullPage: true,
   })
   const summary = page.locator('[data-suitability-summary]')
+  let panelScreenshotBytes = 0
   if (await summary.count()) {
     await summary.scrollIntoViewIfNeeded()
-    await summary.screenshot({ path: path.join(screenshotRoot, `${width}w-suitability-panel.png`) })
+    await page.waitForTimeout(100)
+    const panelScreenshot = await summary.screenshot({ path: path.join(screenshotRoot, `${width}w-suitability-panel.png`) })
+    panelScreenshotBytes = panelScreenshot.byteLength
   }
 
   const violations = []
   if (!response || response.status() >= 400) violations.push(`HTTP status ${response?.status() ?? 'none'}`)
+  if (httpErrors.length) violations.push(`HTTP errors: ${httpErrors.map(({ status, url }) => `${status} ${url}`).join(' | ')}`)
   if (metrics.horizontalOverflow > 1) violations.push(`Horizontal overflow ${metrics.horizontalOverflow}px`)
   if (!metrics.cockpitPresent || !metrics.cockpitBox || metrics.cockpitBox.width <= 0 || metrics.cockpitBox.height <= 0) violations.push('3D cockpit canvas missing or zero-sized')
   if (!metrics.summaryPresent || !metrics.summaryBox || metrics.summaryBox.width <= 0 || metrics.summaryBox.height <= 0 || !metrics.summaryText.includes('Suitability across seven evidence-linked dimensions')) {
@@ -123,11 +139,16 @@ for (const width of widths) {
   if (metrics.dimensionCount !== 7) violations.push(`Expected 7 suitability dimensions, found ${metrics.dimensionCount}`)
   if (!metrics.overallStateRendered) violations.push('Overall suitability state not rendered')
   if (!metrics.headingPresent) violations.push('Suitability summary heading missing')
+  if (panelScreenshotBytes < 50_000) violations.push(`Suitability panel screenshot appears blank or incomplete (${panelScreenshotBytes} bytes)`)
+  if (consoleErrors.length) violations.push(`Console errors: ${consoleErrors.join(' | ')}`)
   if (metrics.cockpitBox && metrics.summaryBox && metrics.summaryBox.top < metrics.cockpitBox.bottom - 1) {
     violations.push(`Suitability summary panel (top ${metrics.summaryBox.top}) overlaps/covers the cockpit canvas (bottom ${metrics.cockpitBox.bottom})`)
   }
+  if (width <= 430 && metrics.pagePosition && metrics.pagePosition.summaryTop > 6_000) {
+    violations.push(`Suitability summary is not discoverable on mobile (top ${metrics.pagePosition.summaryTop}px)`)
+  }
 
-  results.push({ width, height: viewport.height, status: response?.status() ?? null, metrics, consoleErrors, violations })
+  results.push({ width, height: viewport.height, status: response?.status() ?? null, metrics, panelScreenshotBytes, httpErrors, consoleErrors, violations })
   await context.close()
 }
 

@@ -96,14 +96,14 @@ export default function DesignStudioPage() {
         </div>
       </SectionShell>
 
+      <SectionShell>
+        <SuitabilitySummaryPanel />
+      </SectionShell>
+
       <ModelIntakePanel />
 
       <SectionShell>
         <EnvironmentalContextPanel />
-      </SectionShell>
-
-      <SectionShell>
-        <SuitabilitySummaryPanel />
       </SectionShell>
 
       {/* 2. Features */}

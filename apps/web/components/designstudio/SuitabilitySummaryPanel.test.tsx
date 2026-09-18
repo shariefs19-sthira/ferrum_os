@@ -108,6 +108,14 @@ describe("SuitabilitySummaryPanel", () => {
       expect(geotechnical?.querySelector("[data-suitability-state]")?.getAttribute("data-suitability-state")).toBe("UNKNOWN")
     })
 
+    it("keeps planning UNKNOWN until the project explicitly resolves its jurisdiction", () => {
+      render(<SuitabilitySummaryPanel />)
+      const planning = document.querySelector('[data-suitability-dimension="planning"]')
+      expect(planning?.querySelector("[data-suitability-state]")?.getAttribute("data-suitability-state")).toBe("UNKNOWN")
+      expect(planning?.textContent).toMatch(/No jurisdiction pack is resolved/)
+      expect(planning?.textContent).toMatch(/country, state\/province and local authority/)
+    })
+
     it("governs the overall result by the weakest (structural) dimension, never SUPPORTED", () => {
       render(<SuitabilitySummaryPanel />)
       const overall = document.querySelector("[data-suitability-overall-state]")

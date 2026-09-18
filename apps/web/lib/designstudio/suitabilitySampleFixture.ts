@@ -54,14 +54,13 @@ export function buildSampleTemplateInputs(template: BuildingTemplate): ProjectTe
  * dimension, structural or site-hazard data anywhere in this codebase today,
  * so every one of those fields stays null rather than being guessed - the
  * corresponding dimensions resolve UNKNOWN with an explicit missing input
- * instead of a fabricated value. `jurisdictionId` is the one exception: the
- * ParcelContext schema itself (ULPIN, state, district) is India-specific, so
- * naming the India jurisdiction pack here reflects the data model, not an
- * invented per-project fact.
+ * instead of a fabricated value. The location fields do not establish a
+ * country, governing authority, rule version or effective date, so the
+ * jurisdiction stays null until that project input is explicitly resolved.
  */
 export function buildProjectContextTemplateInputs(): ProjectTemplateInputs {
   return {
-    jurisdictionId: 'india',
+    jurisdictionId: null,
     soilBearingKpa: null,
     windSpeedMps: null,
     seismicClass: null,
