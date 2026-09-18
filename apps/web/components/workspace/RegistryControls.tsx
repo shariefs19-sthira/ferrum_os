@@ -12,6 +12,8 @@ type Props = {
   context: { maxFloors: number; minSetbackM: number; maxSetbackM: number }
   onChange: (param: keyof StudioParameters, value: number) => void
   authorityEvidence?: SiteConstraintsEvidence
+  mobileOpen?: boolean
+  onMobileClose?: () => void
 }
 
 function ProductControls({ product, parameters, context, onChange, onModified }: Props & { onModified?: () => void }) {
@@ -40,33 +42,42 @@ export default function RegistryControls(props: Props) {
   // z-index fight. Moved to the right edge of the canvas, which has no
   // other persistent overlay, to remove that collision.
   if (props.product !== 'landintel') {
-    return <aside className="absolute bottom-14 right-3 z-20 w-[min(22rem,calc(100%-1.5rem))] rounded-relume border border-relume-border bg-white p-3" aria-label={`${props.product} controls`} data-control-registry={props.product}>
+    return <aside
+      className={`${props.mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,40rem)] overflow-y-auto lg:inset-y-4 lg:left-auto lg:right-4 lg:bottom-4 lg:w-[22rem]' : 'hidden'} rounded-relume border border-relume-border bg-white p-4 shadow-xl`}
+      aria-label={`${props.product} controls`}
+      aria-modal={props.mobileOpen ? 'true' : undefined}
+      role={props.mobileOpen ? 'dialog' : undefined}
+      data-control-registry={props.product}
+      data-mobile-sheet={props.mobileOpen ? 'controls' : undefined}
+    >
+      {props.mobileOpen && <div className="mb-4 flex items-center justify-between gap-3"><p className="text-sm font-semibold text-relume-command">Design controls</p><button type="button" onClick={props.onMobileClose} className="min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command">Close</button></div>}
       <ProductControls {...props} />
     </aside>
   }
 
   const evidence = props.authorityEvidence
-  const selected = open || modified
+  const selected = open || modified || props.mobileOpen
   // bottom-14, not bottom-3: Space3D's own canvas status bar
   // (data-canvas-status-bar, "INDICATIVE · rendering profile · context ·
   // OSM attribution...") is a full-width `absolute bottom-3 left-3
   // right-3` strip -- sitting at bottom-3 here put the Site Constraints
   // toggle directly on top of it (z-30 over z-10), visually truncating
   // that attribution text. Clears it with room to spare.
-  return <div className="absolute bottom-14 right-3 z-30 max-w-[calc(100%-1.5rem)]" data-control-registry={props.product} data-site-constraints-state={open ? 'open' : modified ? 'modified' : 'closed'}>
-    <button
+  return <div className={`${props.mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,40rem)] overflow-y-auto rounded-relume border border-relume-border bg-white p-3 shadow-xl lg:inset-y-4 lg:left-auto lg:right-4 lg:bottom-4 lg:w-[24rem]' : 'hidden'}`} data-control-registry={props.product} data-site-constraints-state={open ? 'open' : modified ? 'modified' : 'closed'} data-mobile-sheet={props.mobileOpen ? 'controls' : undefined}>
+    {props.mobileOpen && <div className="mb-3 flex items-center justify-between gap-3"><p className="text-sm font-semibold text-relume-command">Site constraints</p><button type="button" onClick={props.onMobileClose} className="min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command">Close</button></div>}
+    {!props.mobileOpen && <button
       type="button"
-      onClick={() => setOpen((value) => !value)}
-      aria-expanded={open}
+      onClick={() => { if (props.mobileOpen) props.onMobileClose?.(); else setOpen((value) => !value) }}
+      aria-expanded={open || props.mobileOpen}
       aria-controls="site-constraints-panel"
       className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${selected ? 'border-relume-ink bg-relume-ink text-white' : 'border-relume-border bg-white text-relume-ink'}`}
       data-site-constraints-toggle
     >
       <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth="1.8"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6" /></svg>
-      Site Constraints{modified && !open ? ' · modified' : ''}
-    </button>
+      {props.mobileOpen ? 'Close constraints' : `Site Constraints${modified && !open ? ' · modified' : ''}`}
+    </button>}
 
-    {open && <aside id="site-constraints-panel" aria-label="Site Constraints" className="mt-2 max-h-[min(70dvh,34rem)] w-[min(24rem,calc(100vw-1.5rem))] overflow-y-auto rounded-relume border border-relume-border bg-white p-4" data-site-constraints-panel>
+    {(open || props.mobileOpen) && <aside id="site-constraints-panel" aria-label="Site Constraints" className="mt-2 max-h-[min(70dvh,34rem)] w-full overflow-y-auto rounded-relume border border-relume-border bg-white p-4" data-site-constraints-panel>
       <div className="flex items-start justify-between gap-3">
         <div><p className="text-sm font-semibold text-relume-command">Site Constraints</p><p className="mt-1 text-xs text-relume-muted">{evidence?.locationLabel ?? 'Location evidence unavailable'}</p></div>
         <span className="rounded-full border border-relume-border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">{evidence?.status ?? 'GAP'}</span>

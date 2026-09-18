@@ -46,12 +46,34 @@ export default function Concierge() {
     { role: "assistant", text: "Hi — I’m SUTRA. I can help you move through Ferrum OS, its products, tools, and project decisions. What are you working on?" },
   ])
   const panelRef = useRef<HTMLElement>(null)
+  const launcherRef = useRef<HTMLButtonElement>(null)
   const [correctionDrafts, setCorrectionDrafts] = useState<Record<number, string>>({})
   const [selectedModel, setSelectedModel] = useState<AgentModelId>("sutra")
   const [showConnections, setShowConnections] = useState(false)
   const [workspaceContext, setWorkspaceContext] = useState<SutraContext | null>(null)
   const [activeFeature, setActiveFeature] = useState<{ productId: CockpitProduct; feature: ProductFeature } | null>(null)
   const [regionProfile, setRegionProfile] = useState<UserRegionProfile | null>(null)
+  const [cockpitPresent, setCockpitPresent] = useState(false)
+
+  useEffect(() => {
+    const syncCockpitPresence = () => {
+      const present = Boolean(document.querySelector('[data-workspace-cockpit]'))
+      setCockpitPresent(present)
+      if (launcherRef.current) launcherRef.current.style.display = present ? 'none' : ''
+    }
+    syncCockpitPresence()
+    const observer = new MutationObserver(syncCockpitPresence)
+    observer.observe(document.body, { childList: true, subtree: true })
+    const openSutra = () => setOpen(true)
+    const closeSutra = () => setOpen(false)
+    window.addEventListener('ferrum:open-sutra', openSutra)
+    window.addEventListener('ferrum:close-sutra', closeSutra)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('ferrum:open-sutra', openSutra)
+      window.removeEventListener('ferrum:close-sutra', closeSutra)
+    }
+  }, [])
 
   useEffect(() => {
     if (open && panelRef.current) panelRef.current.focus()
@@ -149,8 +171,9 @@ export default function Concierge() {
 
   return (
     <>
-      {!open && (
+      {!open && !cockpitPresent && (
       <button
+        ref={launcherRef}
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open SUTRA"
@@ -165,7 +188,7 @@ export default function Concierge() {
       ref={panelRef}
       role={open ? "dialog" : "complementary"}
       aria-label="SUTRA AI assistant"
-      aria-modal="false"
+      aria-modal={open ? "true" : "false"}
       tabIndex={-1}
       className={`${open ? "flex" : "hidden"} fixed bottom-6 right-6 z-50 h-[28rem] max-h-dvh-safe-3rem w-[22rem] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-lg border border-relume-border bg-relume-surface shadow-xl`}
       data-sutra

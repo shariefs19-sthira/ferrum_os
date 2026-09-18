@@ -50,7 +50,7 @@ export default function ProjectWorkspaceCockpit() {
   const [activeProduct, setActiveProduct] = useState<WorkspaceProduct>(() => workspaceProductFromParam(searchParams.get('product')))
   const [activeTool, setActiveTool] = useState<WorkspaceTool>("select")
   const [extractOpen, setExtractOpen] = useState(false)
-  const [sutraOpen, setSutraOpen] = useState(true)
+  const [sutraOpen, setSutraOpen] = useState(false)
   const [territoryOpen, setTerritoryOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const [lastSutraEvent, setLastSutraEvent] = useState<SutraEvent["type"] | "idle">("idle")
@@ -73,6 +73,7 @@ export default function ProjectWorkspaceCockpit() {
   const [isDesktopSutra, setIsDesktopSutra] = useState(false)
   const sutraToggleRef = useRef<HTMLButtonElement | null>(null)
   const sutraRegionRef = useRef<HTMLDivElement | null>(null)
+  const desktopSutraInitialized = useRef(false)
 
   useEffect(() => {
     window.localStorage.setItem('ferrum-preview-session', 'active')
@@ -126,7 +127,13 @@ export default function ProjectWorkspaceCockpit() {
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 1024px)")
-    const sync = () => setIsDesktopSutra(query.matches)
+    const sync = () => {
+      setIsDesktopSutra(query.matches)
+      if (!desktopSutraInitialized.current) {
+        desktopSutraInitialized.current = true
+        if (query.matches) setSutraOpen(true)
+      }
+    }
     sync()
     query.addEventListener("change", sync)
     return () => query.removeEventListener("change", sync)
@@ -163,10 +170,18 @@ export default function ProjectWorkspaceCockpit() {
     <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-dvh-safe flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
       <header className="flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-white" aria-label="Workspace app bar">
         <Link href="/" className="font-heading text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" aria-label="Ferrum home">Ferrum Workspace</Link><span className="mr-auto hidden text-xs text-white/60 sm:inline">{projectId}</span>
-        <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>!value)} className="min-h-10 rounded-full border border-white/25 px-3 text-xs"><span className="sm:hidden">Context</span><span className="hidden sm:inline">Project context</span></button>
-        <button ref={sutraToggleRef} type="button" aria-expanded={sutraOpen} onClick={()=>setSutraOpen(value=>!value)} className="min-h-10 rounded-full bg-relume-accent px-3 text-xs font-semibold text-relume-command">SUTRA</button>
+        <Link href="/" className="inline-flex min-h-11 items-center rounded-full border border-white/25 px-3 text-xs font-semibold text-white hover:bg-white/10">Home</Link>
+        <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>{ const next=!value; if(next){setSutraOpen(false);setExtractOpen(false);setMoreOpen(false)} return next })} className="min-h-11 rounded-full border border-white/25 px-3 text-xs">Territory</button>
+        <button ref={sutraToggleRef} type="button" aria-expanded={sutraOpen} onClick={()=>setSutraOpen(value=>{ const next=!value; if(next){setTerritoryOpen(false);setExtractOpen(false);setMoreOpen(false)} return next })} className="min-h-11 rounded-full bg-relume-accent px-3 text-xs font-semibold text-relume-command">SUTRA</button>
       </header>
       <WorkflowRail activeProduct={activeProduct} onProductChange={handleProductChange} />
+      <div className="lg:hidden" data-mobile-workspace-tools><ToolsRuler
+        activeTool={activeTool}
+        extractOpen={extractOpen}
+        onExtractOpenChange={(open) => { setExtractOpen(open); if (open) { setTerritoryOpen(false); setSutraOpen(false); setMoreOpen(false) } }}
+        onMoreOpenChange={(open) => { setMoreOpen(open); if (open) { setExtractOpen(false); setTerritoryOpen(false); setSutraOpen(false) } }}
+        onToolChange={setActiveTool}
+      /></div>
       <p className="sr-only" aria-live="polite">{intentStatus}</p>
       {/* W2-502: a real CSS grid replaces the old `main` (padding-reserve)
           + absolutely-positioned-SUTRA pattern. SUTRA is a genuine grid
@@ -190,17 +205,17 @@ export default function ProjectWorkspaceCockpit() {
             under/over the SUTRA column at `lg:`+. */}
         <main className="relative h-full min-h-0 min-w-0" data-cockpit-region>
           <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} sutraOccludesCanvas={sutraOpen && !isDesktopSutra} />
-          <ProductSkin product={activeProduct} />
-          {!fullscreen.active && <div className="absolute bottom-2 left-2 top-2 z-30 w-20 shadow-lg"><ToolsRuler
+          <div className="hidden lg:block"><ProductSkin product={activeProduct} /></div>
+          {!fullscreen.active && <div className="absolute bottom-2 left-2 top-2 z-30 hidden w-20 shadow-lg lg:block"><ToolsRuler
             activeTool={activeTool}
             extractOpen={extractOpen}
-            onExtractOpenChange={setExtractOpen}
-            onMoreOpenChange={setMoreOpen}
+            onExtractOpenChange={(open) => { setExtractOpen(open); if (open) { setTerritoryOpen(false); setSutraOpen(false); setMoreOpen(false) } }}
+            onMoreOpenChange={(open) => { setMoreOpen(open); if (open) { setExtractOpen(false); setTerritoryOpen(false); setSutraOpen(false) } }}
             onToolChange={setActiveTool}
             rail
           /></div>}
-          {territoryOpen && <aside className="absolute bottom-2 left-2 top-2 z-40 w-[min(20rem,calc(100%-1rem))] overflow-y-auto border border-relume-border bg-white p-5 shadow-2xl" aria-label="Territorial context"><button type="button" onClick={()=>setTerritoryOpen(false)} className="float-right min-h-11 px-3">Close</button><p className="text-xs font-semibold uppercase tracking-wider text-relume-muted">Territorial context</p><h2 className="mt-3 text-xl font-semibold">No parcel attached</h2><p className="mt-3 text-sm leading-6 text-relume-muted">This preview has no authoritative parcel or jurisdiction record. Attach a verified LandIntel result before applying territorial constraints.</p><span className="mt-4 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold">ROADMAP</span></aside>}
-          {extractOpen && <div className="absolute inset-x-2 bottom-2 z-50 max-h-[65%] overflow-y-auto shadow-2xl"><ExtractPanel areaSquareMetres={liveMetrics?.areaSquareMetres} extracts={liveMetrics?.extracts ?? noExtracts} lengthMetres={liveMetrics?.lengthMetres} onClose={() => setExtractOpen(false)} product={activeProduct} provenance={liveMetrics?.provenance ?? noProvenance} /></div>}
+          {territoryOpen && <aside className="absolute inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-50 max-h-[72%] overflow-y-auto rounded-relume border border-relume-border bg-white p-5 shadow-2xl lg:inset-y-2 lg:left-2 lg:right-auto lg:bottom-2 lg:w-80" aria-label="Territorial context" aria-modal="true" role="dialog"><button type="button" onClick={()=>setTerritoryOpen(false)} className="float-right min-h-11 px-3">Close</button><p className="text-xs font-semibold uppercase tracking-wider text-relume-muted">Territorial context</p><h2 className="mt-3 text-xl font-semibold">No parcel attached</h2><p className="mt-3 text-sm leading-6 text-relume-muted">This preview has no authoritative parcel or jurisdiction record. Attach a verified LandIntel result before applying territorial constraints.</p><span className="mt-4 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold">ROADMAP</span></aside>}
+          {extractOpen && <div className="absolute inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-50 max-h-[72%] overflow-y-auto rounded-relume shadow-2xl lg:left-auto lg:right-2 lg:w-[28rem]" role="dialog" aria-modal="true" aria-label="Workspace data extract"><ExtractPanel areaSquareMetres={liveMetrics?.areaSquareMetres} extracts={liveMetrics?.extracts ?? noExtracts} lengthMetres={liveMetrics?.lengthMetres} onClose={() => setExtractOpen(false)} product={activeProduct} provenance={liveMetrics?.provenance ?? noProvenance} /></div>}
         </main>
         {sutraOpen && (
           <div
@@ -209,7 +224,7 @@ export default function ProjectWorkspaceCockpit() {
             data-sutra-region
             data-last-sutra-event={lastSutraEvent}
             role={isDesktopSutra ? undefined : 'dialog'}
-            aria-modal={isDesktopSutra ? undefined : 'false'}
+            aria-modal={isDesktopSutra ? undefined : 'true'}
             aria-label="SUTRA design assistant"
           >
             <button type="button" onClick={closeSutra} className="absolute right-3 top-2 z-50 min-h-11 px-2 text-xs font-semibold text-white" aria-label="Close SUTRA">Close</button>

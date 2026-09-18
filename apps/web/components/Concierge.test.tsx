@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { describe, expect, it, vi, beforeEach } from "vitest"
 import Concierge from "./Concierge"
 import { clearFeedback, getFeedback } from "../lib/ai/feedback"
@@ -111,5 +111,12 @@ describe("Concierge", () => {
     expect(screen.queryByRole("button", { name: "Pricing" })).toBeNull()
     expect(screen.queryByRole("button", { name: "Try a tool" })).toBeNull()
     expect(screen.queryByRole("button", { name: "Talk to someone" })).toBeNull()
+  })
+
+  it("keeps the cockpit canvas free of the global float and opens from the cockpit event", async () => {
+    render(<><main data-workspace-cockpit /><Concierge /></>)
+    await waitFor(() => expect(screen.queryByRole("button", { name: "Open SUTRA" })).toBeNull())
+    window.dispatchEvent(new CustomEvent("ferrum:open-sutra"))
+    expect(await screen.findByRole("dialog", { name: "SUTRA AI assistant" })).toBeTruthy()
   })
 })

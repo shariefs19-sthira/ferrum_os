@@ -16,11 +16,13 @@ type Props = {
   selectedShell: BuildingShell
   projectInputs: ProjectTemplateInputs
   onSelect: (shell: BuildingShell) => void
+  mobileOpen?: boolean
+  onMobileClose?: () => void
 }
 
 const compactChecksum = (checksum: string) => `${checksum.slice(0, 14)}…${checksum.slice(-6)}`
 
-export default function ShellCatalogPanel({ parcel, selectedShell, projectInputs, onSelect }: Props) {
+export default function ShellCatalogPanel({ parcel, selectedShell, projectInputs, onSelect, mobileOpen = false, onMobileClose }: Props) {
   const [expanded, setExpanded] = useState(false)
   const [open, setOpen] = useState(false)
   const recommendations = useMemo(() => recommendBuildingShells(parcel, 4), [parcel])
@@ -31,20 +33,29 @@ export default function ShellCatalogPanel({ parcel, selectedShell, projectInputs
   const designEngines = useMemo(() => capabilitiesForProduct('DesignStudio').filter((entry) => ['three', 'web-ifc', 'ifcopenshell', 'maplibre', 'blender-cycles'].includes(entry.id)), [])
   const activeEngines = designEngines.filter((engine) => engine.maturity === 'ACTIVE DEPENDENCY').length
 
-  useEffect(() => setOpen(window.matchMedia('(min-width: 768px)').matches), [])
+  useEffect(() => {
+    if (typeof window.matchMedia === 'function') setOpen(window.matchMedia('(min-width: 768px)').matches)
+  }, [])
 
   return (
-    <aside className="absolute left-3 top-40 z-30 w-[min(25rem,calc(100%-1.5rem))] overflow-hidden rounded-relume border border-relume-border bg-white/95 shadow-xl backdrop-blur-sm md:bottom-14 md:top-auto" aria-label="Building shell catalogue" data-shell-catalog>
+    <aside
+      className={`${mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,44rem)] lg:inset-y-4 lg:left-auto lg:right-4 lg:bottom-4 lg:w-[25rem]' : 'hidden'} w-auto overflow-y-auto rounded-relume border border-relume-border bg-white shadow-xl motion-reduce:transition-none`}
+      aria-label="Building shell catalogue"
+      aria-modal={mobileOpen ? 'true' : undefined}
+      role={mobileOpen ? 'dialog' : undefined}
+      data-shell-catalog
+      data-mobile-sheet={mobileOpen ? 'shells' : undefined}
+    >
       <div className={`${open ? 'border-b' : ''} border-relume-border p-3`}>
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">SUTRA · locality fit</p>
             <p className="mt-1 text-sm font-semibold text-relume-command">{parcel ? `${parcel.district}, ${parcel.state}` : 'Parcel context required'}</p>
           </div>
-          <button type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} className="min-h-11 rounded-full border border-relume-border bg-white px-3 text-[10px] font-semibold text-relume-command">{open ? 'Hide library' : 'Change shell'}</button>
+          <button type="button" onClick={() => { if (mobileOpen) onMobileClose?.(); else setOpen((value) => !value) }} aria-expanded={mobileOpen ? true : open} className="min-h-11 rounded-full border border-relume-border bg-white px-3 text-[10px] font-semibold text-relume-command">{mobileOpen ? 'Close library' : open ? 'Hide library' : 'Change shell'}</button>
         </div>
         <span className="mt-1 inline-flex rounded-full border border-relume-border bg-relume-surface-secondary px-2 py-1 text-[9px] font-semibold tracking-[0.12em] text-relume-command">INDICATIVE · {selectedShell.name}</span>
-        {open && <>
+        {(open || mobileOpen) && <>
         <p className="mt-2 text-xs leading-5 text-relume-ink" data-sutra-shell-reason>
           {parcel
             ? `${primary?.shell.name ?? selectedShell.name} ranks highest from the recorded region, ${Math.round(parcel.area_sqm)} m² plot area and ${parcel.land_use} use.`
@@ -71,7 +82,7 @@ export default function ShellCatalogPanel({ parcel, selectedShell, projectInputs
         </>}
       </div>
 
-      {open && <><div className="max-h-56 space-y-2 overflow-y-auto p-2" data-shell-options>
+      {(open || mobileOpen) && <><div className="max-h-56 space-y-2 overflow-y-auto p-2" data-shell-options>
         {items.map((shell) => {
           const recommendation = recommendations.find((item) => item.shell.id === shell.id)
           const selected = shell.id === selectedShell.id
