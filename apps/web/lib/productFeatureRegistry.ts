@@ -1,4 +1,6 @@
 import type { CockpitProduct } from '../components/workspace/ProductCockpitPreview'
+import { landIntelSuitabilityLayers } from './landintel/suitabilityLayers'
+import { mapComposerRequirements } from './landintel/mapComposerRequirements'
 
 export type FeatureAvailability = 'AVAILABLE' | 'ROADMAP' | 'TEST_MODE'
 
@@ -47,6 +49,10 @@ export const productFeatureRegistry: Record<CockpitProduct, ProductFeature[]> = 
     roadmap('soil-hazard', 'Soil & hazard data', 'Ground conditions and flood or seismic risk data are not yet connected.', ['soil', 'flood', 'seismic', 'hazard']),
     roadmap('feasibility-report', 'Feasibility report', 'A consolidated, shareable due-diligence report is not yet built.', ['report', 'feasibility', 'due diligence']),
     roadmap('investment-forecast', 'Investment forecasts', 'Land-value and return forecasting are not yet built in LandIntel.', ['land value', 'return', 'forecast']),
+    roadmap('auditable-suitability-engine', 'Auditable suitability engine', 'Combine parcel and statutory boundaries, setbacks and zoning, topography and slope, drainage and flood exposure, soil and geotechnical conditions, ecology and protected areas, utilities and access, and development cost and constructability. Each layer must retain source, date, confidence and status. The engine must distinguish hard exclusions, weighted preferences, data conflicts, UNKNOWN areas and suitable development zones, then explain every ranking from traceable evidence. This is roadmap work; no suitability zone is currently asserted.', ['suitability', 'overlay method', 'constraint engine', 'hard exclusion', 'weighted preference', 'data conflict', 'suitable development zone']),
+    ...landIntelSuitabilityLayers.map((layer) => roadmap(`suitability-${layer.id}`, layer.title, `${layer.summary} Decision role: ${layer.decisionRole}. Required evidence: ${layer.evidenceNeeded}. This layer is visible in LandIntel but remains ROADMAP until a dated source and confidence status are connected.`, layer.keywords)),
+    roadmap('governed-map-composer', 'Governed Map Composer', 'Prepare reproducible, evidence-linked map layouts through a mandatory quality gate rather than an AI decoration control. Export stays blocked until purpose, boundary, geometry-derived scale, north, CRS, sources, legend, context inset, labels, uncertainty and qualification checks pass. This is visible roadmap work; no decision-grade map export is currently claimed.', ['map composer', 'cartography', 'map layout', 'quality gate', 'map export']),
+    ...mapComposerRequirements.map((item) => roadmap(`map-composer-${item.id}`, item.title, `${item.requirement} This required Map Composer check is visible in LandIntel but its automated validation is not built yet.`, item.keywords)),
   ],
   designstudio: [
     available('parametric-openings', 'Parametric openings (INDICATIVE)', 'Select generated doors and windows and adjust bounded dimensions and configuration in the deterministic preview.', ['door', 'window', 'opening']),

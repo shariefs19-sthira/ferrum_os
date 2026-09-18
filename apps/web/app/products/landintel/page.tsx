@@ -11,6 +11,8 @@ import ZoningSummary from '../../../components/landintel/ZoningSummary'
 import SoilHazardPanel from '../../../components/landintel/SoilHazardPanel'
 import ClimateYearPanel from '../../../components/landintel/ClimateYearPanel'
 import HistoryCenturyPanel from '../../../components/landintel/HistoryCenturyPanel'
+import SuitabilityLayerPanel from '../../../components/landintel/SuitabilityLayerPanel'
+import MapComposerGate from '../../../components/landintel/MapComposerGate'
 import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // W2-347: only ULPIN lookup (indicative sample data) and the interactive
@@ -98,6 +100,8 @@ export default function LandIntelPage() {
             <UlpinMapExplorer />
           </ProductCockpitPreview>
         </div>
+        <SuitabilityLayerPanel />
+        <MapComposerGate />
         {/* Moved directly beside the working lookup tool (previously two
             full sections lower, after the Zoning/Soil/Climate/History
             roadmap panels) so the forecast is visible alongside a lookup's

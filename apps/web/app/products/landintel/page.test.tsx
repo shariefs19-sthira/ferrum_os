@@ -12,4 +12,12 @@ describe('LandIntel hero composition', () => {
     expect(source).not.toContain('max-w-[1728px]')
     expect(source).not.toContain('order-first min-w-0 lg:order-none')
   })
+
+  it('places the auditable suitability layers between parcel finding and forecasting', () => {
+    expect(source).toContain('SuitabilityLayerPanel')
+    expect(source.indexOf('<UlpinMapExplorer />')).toBeLessThan(source.indexOf('<SuitabilityLayerPanel />'))
+    expect(source.indexOf('<SuitabilityLayerPanel />')).toBeLessThan(source.indexOf('data-landintel-forecast-row'))
+    expect(source.indexOf('<SuitabilityLayerPanel />')).toBeLessThan(source.indexOf('<MapComposerGate />'))
+    expect(source.indexOf('<MapComposerGate />')).toBeLessThan(source.indexOf('data-landintel-forecast-row'))
+  })
 })
