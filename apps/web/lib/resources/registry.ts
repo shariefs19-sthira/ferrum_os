@@ -5,6 +5,9 @@
 // page. resourcesRegistry.test.ts cross-checks these counts against the
 // real route tree on disk so the two can't drift apart silently.
 
+import { faqs } from '../../app/resources/faq/data'
+import { groups as glossaryGroups } from '../../app/resources/glossary/data'
+
 export type ResearchCase = {
   slug: string
   title: string
@@ -163,6 +166,7 @@ export const LEGACY_CASE_STUDY_SLUGS = [
 ]
 
 export type StandardRef = {
+  /** Exact code + edition, e.g. "IS 456:2000" or "IS 875 (Part 3):2015" -- never a bare series label like "IS 1200" with no edition. */
   code: string
   use: string
   stance: 'Adopt' | 'Hold' | 'Drop'
@@ -170,91 +174,98 @@ export type StandardRef = {
   stanceIsFerrumJudgment: true
   note: string
   publisher: string
-  /** null when no specific, verified deep link exists for this exact standard in the operator-approved source register -- link to the publisher's home/portal instead of inventing a page. */
-  sourceUrl: string | null
+  /** Must be an exact official BIS publication/detail page for this exact standard+edition -- never the bare BIS homepage or a general portal URL. */
+  sourceUrl: string
   sourceLabel: string
   editionNote: string
 }
 
 // Every standard displayed anywhere on the Standards Navigator page --
 // resourcesRegistry.test.ts asserts the page's displayed standard codes are
-// exactly this list, and that every entry here carries a publisher and
-// either a verified sourceUrl or an explicit editionNote explaining why it
-// doesn't have one.
+// exactly this list, that every sourceUrl is an exact official BIS
+// publication/detail link (not the bare homepage), and that no entry's text
+// mentions seismic/earthquake loading under IS 875 (Part 3 covers wind
+// loads only, explicitly "other than earthquake" per its own title).
+//
+// IS 1200 was removed from this list: BIS's official registry indexes IS
+// 1200 by individual parts (e.g. Part 1, Part 2, ...), and Ferrum OS does
+// not hold a verified official link for the specific part this page would
+// need to cite -- a generic "IS 1200" series label sourced from one part
+// misrepresents the rest of the series as covered. Do not re-add IS 1200
+// here without a verified official link to the specific part being
+// described.
 export const STANDARDS: StandardRef[] = [
   {
-    code: 'IS 1200',
-    use: 'Measurement and billing for civil works',
-    stance: 'Adopt',
-    stanceIsFerrumJudgment: true,
-    note: 'Best fit for Indian BOQ practices, easy to align with site measurement, and familiar to public works teams -- a Ferrum OS workflow-fit judgment, not a claim about IS 1200 itself.',
-    publisher: 'Bureau of Indian Standards (BIS)',
-    sourceUrl: 'https://www.bis.gov.in/',
-    sourceLabel: 'BIS standards portal (general -- no specific verified deep link for IS 1200 in this pass)',
-    editionNote: 'BIS revises and amends standards over time. Confirm the current edition and amendment status directly on the BIS portal before relying on any specific clause.',
-  },
-  {
-    code: 'IS 456',
+    code: 'IS 456:2000',
     use: 'Plain and reinforced concrete design',
     stance: 'Adopt',
     stanceIsFerrumJudgment: true,
-    note: 'Remains the default technical rule for concrete design in Indian execution environments -- a Ferrum OS workflow-fit judgment, not a claim about IS 456 itself.',
+    note: 'Remains the default technical rule for concrete design in Indian execution environments -- a Ferrum OS workflow-fit judgment, not a claim about IS 456:2000 itself.',
     publisher: 'Bureau of Indian Standards (BIS)',
-    sourceUrl: 'https://www.bis.gov.in/',
-    sourceLabel: 'BIS standards portal (general -- no specific verified deep link for IS 456 in this pass)',
-    editionNote: 'BIS revises and amends standards over time. Confirm the current edition and amendment status directly on the BIS portal before relying on any specific clause.',
+    sourceUrl: 'https://standards.bis.gov.in/website/standard-details?encryptedId=eyJpdiI6IklDVkNWRENLWC8rOEVnOTlBMTEyblE9PSIsInZhbHVlIjoiaVR3ZGh2dG05eDg0eXFURHRjMGZkZz09IiwibWFjIjoiZTAzZDE0OTU1MTFiMDlmNTJkMzUyODhhZTg2YTJjN2I5ZTk3ZDk5YzIxZDNlNGYzY2EwMjQ1NmI3MTI0OGJjNiIsInRhZyI6IiJ9',
+    sourceLabel: 'Official BIS standard-details page for IS 456:2000',
+    editionNote: 'This links to BIS\'s own standard-details page for this exact edition. BIS may amend or supersede a standard over time -- confirm current status on this same official page before relying on any specific clause.',
   },
   {
-    code: 'IS 800',
+    code: 'IS 800:2007',
     use: 'General construction in steel',
     stance: 'Adopt',
     stanceIsFerrumJudgment: true,
-    note: 'The default for steel buildings, towers, and industrial structures in India -- a Ferrum OS workflow-fit judgment, not a claim about IS 800 itself.',
+    note: 'The default for steel buildings, towers, and industrial structures in India -- a Ferrum OS workflow-fit judgment, not a claim about IS 800:2007 itself.',
     publisher: 'Bureau of Indian Standards (BIS)',
-    sourceUrl: 'https://www.bis.gov.in/',
-    sourceLabel: 'BIS standards portal (general -- no specific verified deep link for IS 800 in this pass)',
-    editionNote: 'BIS revises and amends standards over time. Confirm the current edition and amendment status directly on the BIS portal before relying on any specific clause.',
+    sourceUrl: 'https://standards.bis.gov.in/website/standard-details?encryptedId=eyJpdiI6Im43M0VEUlEzQzJCV1FONEhidC9pcEE9PSIsInZhbHVlIjoiZ0oyd0FvMVFwVFFuQ0g4WHRlNk11dz09IiwibWFjIjoiOWY2NDkwODc0ZjY0OThkOTQ0YTY5YWRlNzc4NTM5MWQ3ZDI4N2ZlZmU1YWU2YjlhOTAxNDc2M2Q3MTU0ZDlkZiIsInRhZyI6IiJ9',
+    sourceLabel: 'Official BIS standard-details page for IS 800:2007',
+    editionNote: 'This links to BIS\'s own standard-details page for this exact edition. BIS may amend or supersede a standard over time -- confirm current status on this same official page before relying on any specific clause.',
   },
   {
-    code: 'IS 875',
-    use: 'Structural loading (dead, live, wind, seismic, snow, special)',
+    code: 'IS 875 (Part 3):2015',
+    use: 'Wind loads on buildings and structures, other than earthquake. Design loads for earthquake are a separate standard (IS 1893), not covered on this page.',
     stance: 'Adopt',
     stanceIsFerrumJudgment: true,
-    note: 'The default loading code for Indian buildings and structures -- a Ferrum OS workflow-fit judgment, not a claim about IS 875 itself.',
+    note: 'The default wind-load code for Indian buildings and structures -- a Ferrum OS workflow-fit judgment, not a claim about IS 875 (Part 3):2015 itself. Scope is wind loads only, other than earthquake.',
     publisher: 'Bureau of Indian Standards (BIS)',
-    sourceUrl: 'https://www.bis.gov.in/',
-    sourceLabel: 'BIS standards portal (general -- no specific verified deep link for IS 875 in this pass)',
-    editionNote: 'BIS revises and amends standards over time. Confirm the current edition and amendment status directly on the BIS portal before relying on any specific clause.',
+    sourceUrl: 'https://standards.bis.gov.in/website/standard-details?encryptedId=eyJpdiI6Ik9ZZXZxVC9pWkJhZWorZjFBejJmb3c9PSIsInZhbHVlIjoidjZkeXJEeEpHeS9oT1dPQnR3cWVrdz09IiwibWFjIjoiMWZhYzY4MGUxOGRjNmZkNzQ5ZWUyZWNhM2NhMDZmM2IzNDIxMDc2NTdjMzJkYWEzMzc5ZjM5OTM5OGRkN2NlYSIsInRhZyI6IiJ9',
+    sourceLabel: 'Official BIS standard-details page for IS 875 (Part 3):2015',
+    editionNote: 'This links to BIS\'s own standard-details page for this exact part and edition. BIS may amend or supersede a standard over time -- confirm current status on this same official page before relying on any specific clause.',
   },
   {
-    code: 'IS 2062',
+    code: 'IS 2062:2011',
     use: 'Grade-based steel material procurement',
     stance: 'Adopt',
     stanceIsFerrumJudgment: true,
-    note: 'Used as the default material-grade reference in steel procurement -- a Ferrum OS workflow-fit judgment, not a claim about IS 2062 itself.',
+    note: 'Used as the default material-grade reference in steel procurement -- a Ferrum OS workflow-fit judgment, not a claim about IS 2062:2011 itself.',
     publisher: 'Bureau of Indian Standards (BIS)',
-    sourceUrl: 'https://www.bis.gov.in/',
-    sourceLabel: 'BIS standards portal (general -- no specific verified deep link for IS 2062 in this pass)',
-    editionNote: 'BIS revises and amends standards over time. Confirm the current edition and amendment status directly on the BIS portal before relying on any specific clause.',
+    sourceUrl: 'https://www.services.bis.gov.in/tmp/SR2062.pdf',
+    sourceLabel: 'Official BIS preview (SR2062.pdf) for IS 2062:2011',
+    editionNote: 'This links to BIS\'s own official preview document for this exact edition. BIS may amend or supersede a standard over time -- confirm current status via the BIS standards portal before relying on any specific clause.',
   },
   // CESMM4 is intentionally excluded from this list: Ferrum OS has not
   // verified an official ICES publisher source for it, and an unverified
-  // (null) source does not satisfy this page's source-coverage standard. It
-  // is discussed informally, as an article rather than a sourced standard,
-  // on the blog (/resources/blog/is-1200-vs-cesmm4) -- do not add it back
-  // here without a verified official-source URL.
+  // source does not satisfy this page's source-coverage standard. It is
+  // discussed informally, as an article rather than a sourced standard, on
+  // the blog (/resources/blog/is-1200-vs-cesmm4) -- do not add it back here
+  // without a verified official-source URL.
+  //
+  // IS 1200 is intentionally excluded -- see the comment above this array.
 ]
 
 // Kept for callers that only need the count/list of codes.
 export const STANDARDS_COVERED = STANDARDS.map((s) => s.code)
 
-// Term count on the Glossary page -- kept in sync with glossary/page.tsx's
-// `groups` data (BOQ, CESMM4, Curing, IS 1200, IS 456, IS 800, IS 875,
-// LandIQ, Monsoon concreting, RERA, ULPIN).
-export const GLOSSARY_TERM_COUNT = 11
+// A source URL is rejected as "not exact" when it's the bare BIS domain
+// homepage or a general/non-deep-link page -- every published standard must
+// link to its own specific standard-details/preview page, never a landing
+// page a reader would then have to search from. Exported so the test file
+// (and any future page reusing this list) shares one definition.
+export const BIS_HOMEPAGE_PATTERN = /^https:\/\/(www\.)?bis\.gov\.in\/?(\?.*)?$/i
 
-// Question count on the FAQ page -- kept in sync with faq/page.tsx's `faqs`.
-export const FAQ_COUNT = 6
+// Derived directly from glossary/data.ts's `groups` -- never a hand-typed
+// number, so it can't drift from what the Glossary page actually renders.
+export const GLOSSARY_TERM_COUNT = glossaryGroups.reduce((total, group) => total + group.items.length, 0)
+
+// Derived directly from faq/data.ts's `faqs` -- never a hand-typed number,
+// so it can't drift from what the FAQ page actually renders.
+export const FAQ_COUNT = faqs.length
 
 export type ResourceCategory = {
   key: string

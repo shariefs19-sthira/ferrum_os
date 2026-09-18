@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     type: 'article',
     locale: 'en_US',
   },
+  alternates: { canonical: '/resources/standards-navigator' },
 }
 
 export default function StandardsNavigatorLayout({

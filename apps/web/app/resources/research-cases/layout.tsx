@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
   },
+  alternates: { canonical: '/resources/research-cases' },
 }
 
 export default function ResearchCasesLayout({ children }: { children: React.ReactNode }) {

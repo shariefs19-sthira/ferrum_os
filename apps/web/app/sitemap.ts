@@ -96,7 +96,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/resources/research-cases/survey-of-india-geospatial-guidelines',
     '/resources/standards-navigator',
     '/resources/podcasts',
-    '/resources/reports',
     '/resources/templates',
     '/resources/tools',
     '/resources/videos',

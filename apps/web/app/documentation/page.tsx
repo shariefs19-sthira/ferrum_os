@@ -32,8 +32,9 @@ export default function DocumentationPage() {
               <div className="flex-1">
                 <h3 className="text-lg font-semibold tracking-relume-tight text-relume-ink">Skim the Standards Navigator</h3>
                 <p className="mt-1 text-sm text-relume-ink">
-                  Five-minute primers on the standards (IS 456, IS 1200, IS 800, IS 875, IS 2062) that
-                  Ferrum OS applies under the hood, each with its publisher and source stated.
+                  Five-minute primers on the standards (IS 456:2000, IS 800:2007, IS 875 (Part 3):2015,
+                  IS 2062:2011) that Ferrum OS applies under the hood, each with its publisher and
+                  official source page stated.
                 </p>
                 <span className="mt-2 inline-block text-sm font-medium text-relume-ink underline underline-offset-4">Open Standards Navigator &rarr;</span>
               </div>

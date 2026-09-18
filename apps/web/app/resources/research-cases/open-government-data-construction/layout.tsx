@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     type: 'article',
     locale: 'en_US',
   },
+  alternates: { canonical: `/resources/research-cases/${item.slug}` },
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -22,8 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         headline={item.title}
         description={item.summary}
         url={`/resources/research-cases/${item.slug}`}
-        datePublished="2026-09-18"
-        authorSeat="CLAUDE"
+        authorSeat="Ferrum OS Editorial Team"
       />
       {children}
     </>

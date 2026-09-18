@@ -9,9 +9,16 @@ import {
   LEGACY_CASE_STUDY_SLUGS,
   STANDARDS,
   STANDARDS_COVERED,
+  BIS_HOMEPAGE_PATTERN,
   GLOSSARY_TERM_COUNT,
   FAQ_COUNT,
 } from './registry'
+
+// Internal fleet seat/agent codenames that must never appear in
+// public-facing metadata or schema (see AGENTS.md RULE 1/2's roster).
+// Checked generically wherever public copy is scanned below, not just on
+// the one "CLAUDE" instance this release-correction pass was opened for.
+const INTERNAL_SEAT_NAMES = ['CLAUDE', 'SCRIBE', 'CRANE', 'ATLAS', 'MASON', 'RIVET', 'FERRITE', 'PI', 'ASTRA', 'CODEX-SENTINEL', 'Qoder-CN']
 
 // CLAUDE-20260918-RESOURCE-RESEARCH-CASES-LIVE. These tests exist because
 // the packet requires counts/link coverage to be *derived from repository
@@ -141,21 +148,44 @@ describe('resources registry — claim boundary (research cases)', () => {
 })
 
 describe('resources registry — claim boundary (standards navigator)', () => {
-  it('every displayed standard has a publisher and either a verified source URL or an explicit reason it has none', () => {
+  it('every displayed standard has an exact code+edition, a publisher, and an exact official source URL (never the bare BIS homepage)', () => {
     for (const standard of STANDARDS) {
       expect(standard.publisher.length, standard.code).toBeGreaterThan(0)
-      if (standard.sourceUrl === null) {
-        expect(standard.sourceLabel.length, `${standard.code} must explain its missing source`).toBeGreaterThan(0)
-      } else {
-        expect(standard.sourceUrl, standard.code).toMatch(/^https:\/\//)
-      }
+      expect(standard.sourceUrl, standard.code).toMatch(/^https:\/\//)
+      expect(BIS_HOMEPAGE_PATTERN.test(standard.sourceUrl), `${standard.code} source must be an exact standard-details/preview link, not the bare BIS homepage: ${standard.sourceUrl}`).toBe(false)
+      // Exact edition required: code must end in ":<year>" (e.g. "IS 456:2000",
+      // "IS 875 (Part 3):2015") -- a bare series label with no edition/part
+      // (the old "IS 1200" / "IS 875") is not an exact citation.
+      expect(standard.code, `${standard.code} must carry an exact edition year`).toMatch(/:\d{4}$/)
       expect(standard.editionNote.length, standard.code).toBeGreaterThan(0)
       expect(standard.stanceIsFerrumJudgment, standard.code).toBe(true)
     }
   })
 
-  it('CESMM4 is excluded from the published Standards Navigator (no verified official source)', () => {
-    expect(STANDARDS.some((s) => s.code === 'CESMM4')).toBe(false)
+  it('IS 875 is published as an exact Part 3 wind-loads entry, explicitly "other than earthquake", and never claims seismic coverage', () => {
+    const is875 = STANDARDS.find((s) => s.code.startsWith('IS 875'))
+    expect(is875, 'IS 875 should be published as an exact Part 3 (wind loads) entry').toBeTruthy()
+    expect(is875!.code).toBe('IS 875 (Part 3):2015')
+    const haystack = [is875!.code, is875!.use, is875!.note, is875!.editionNote].join(' \n ')
+    // Positive requirement: the entry must explicitly say it's wind loads
+    // other than earthquake -- this is the boundary statement the release
+    // review asked for, so its presence is required, not just tolerated.
+    expect(haystack, 'IS 875 entry must explicitly say "other than earthquake"').toMatch(/other than earthquake/i)
+    // Negative requirement: IS 875 must never be described as covering
+    // "seismic" loading -- that's IS 1893, a separate, unpublished standard.
+    expect(haystack, 'IS 875 entry must never claim seismic coverage').not.toMatch(/seismic/i)
+    // And no OTHER standard's text smuggles seismic scope into IS 875's entry either.
+    for (const standard of STANDARDS) {
+      if (standard.code.startsWith('IS 875')) continue
+      const text = [standard.use, standard.note].join(' ')
+      expect(text, standard.code).not.toMatch(/IS 875.*seismic|seismic.*IS 875/i)
+    }
+  })
+
+  it('CESMM4 and IS 1200 are excluded from the published Standards Navigator (no exact verified official source)', () => {
+    for (const excludedCode of ['CESMM4', 'IS 1200']) {
+      expect(STANDARDS.some((s) => s.code === excludedCode || s.code.startsWith(`${excludedCode}:`)), excludedCode).toBe(false)
+    }
   })
 
   it('Standards Navigator metadata (title/description/OG) advertises only the actually-published, sourced standards -- never an excluded one', async () => {
@@ -164,11 +194,13 @@ describe('resources registry — claim boundary (standards navigator)', () => {
       .map((f) => (typeof f === 'string' ? f : JSON.stringify(f)))
       .join(' \n ')
 
-    // Every excluded standard (right now just CESMM4, checked generically so
-    // this keeps working if the exclusion list grows) must not be advertised.
-    for (const excluded of ['CESMM4']) {
+    // Every excluded standard must not be advertised, checked generically so
+    // this keeps working if the exclusion list grows.
+    for (const excluded of ['CESMM4', 'IS 1200']) {
       expect(STANDARDS.some((s) => s.code === excluded), `${excluded} should stay out of STANDARDS for this test to be meaningful`).toBe(false)
-      expect(fields, `metadata must not advertise excluded standard ${excluded}`).not.toContain(excluded)
+      // Word-boundary match: "IS 1200" must not appear even as a substring of
+      // "IS 12005" etc, and must not false-negative against "IS 1200 vs..."
+      expect(fields, `metadata must not advertise excluded standard ${excluded}`).not.toMatch(new RegExp(`\\b${excluded.replace(/\s+/g, '\\s+')}\\b`))
     }
 
     // Positively, every standard actually published IS named in the metadata.
@@ -179,5 +211,104 @@ describe('resources registry — claim boundary (standards navigator)', () => {
 
   it('STANDARDS_COVERED has no duplicate codes', () => {
     expect(new Set(STANDARDS_COVERED).size).toBe(STANDARDS_COVERED.length)
+  })
+})
+
+describe('resources registry — public schema (no internal seat names, truthful dates)', () => {
+  const RESEARCH_CASES_DIR = path.join(APP_RESOURCES, 'research-cases')
+
+  it('no research-case layout.tsx (public Article schema) names an internal seat/agent instead of a public identity', () => {
+    for (const item of RESEARCH_CASES) {
+      const layoutPath = path.join(RESEARCH_CASES_DIR, item.slug, 'layout.tsx')
+      const text = fs.readFileSync(layoutPath, 'utf8')
+      const authorMatch = text.match(/authorSeat="([^"]*)"/)
+      expect(authorMatch, `${item.slug} layout.tsx should set authorSeat`).toBeTruthy()
+      const authorValue = authorMatch![1]
+      for (const seat of INTERNAL_SEAT_NAMES) {
+        expect(authorValue, `${item.slug} authorSeat must not be an internal seat name`).not.toBe(seat)
+      }
+      expect(authorValue.length).toBeGreaterThan(0)
+    }
+  })
+
+  it('no research-case layout.tsx asserts a datePublished (none of this content is confirmed live yet)', () => {
+    for (const item of RESEARCH_CASES) {
+      const layoutPath = path.join(RESEARCH_CASES_DIR, item.slug, 'layout.tsx')
+      const text = fs.readFileSync(layoutPath, 'utf8')
+      expect(text, `${item.slug} layout.tsx must not hardcode datePublished before this content is actually live`).not.toMatch(/datePublished=/)
+    }
+  })
+})
+
+describe('resources registry — canonicals', () => {
+  function readCanonical(text: string) {
+    const m = text.match(/alternates:\s*\{\s*canonical:\s*['"`]([^'"`]+)['"`]/)
+    return m ? m[1] : null
+  }
+
+  it('the research-cases index sets an explicit self-canonical', () => {
+    const text = fs.readFileSync(path.join(APP_RESOURCES, 'research-cases', 'layout.tsx'), 'utf8')
+    expect(readCanonical(text)).toBe('/resources/research-cases')
+  })
+
+  it('every research-case leaf sets an explicit self-canonical to its own URL', () => {
+    for (const item of RESEARCH_CASES) {
+      const text = fs.readFileSync(path.join(APP_RESOURCES, 'research-cases', item.slug, 'layout.tsx'), 'utf8')
+      const raw = readCanonical(text)
+      expect(raw, `${item.slug}: no alternates.canonical found`).toBeTruthy()
+      // The layout source has canonical as a template literal
+      // (`/resources/research-cases/${item.slug}`), so the raw regex match
+      // still contains the literal "${item.slug}" text -- resolve it against
+      // this item's actual slug before comparing.
+      const resolved = raw!.replace('${item.slug}', item.slug)
+      expect(resolved, item.slug).toBe(`/resources/research-cases/${item.slug}`)
+    }
+  })
+
+  it('standards-navigator sets an explicit self-canonical', () => {
+    const text = fs.readFileSync(path.join(APP_RESOURCES, 'standards-navigator', 'layout.tsx'), 'utf8')
+    expect(readCanonical(text)).toBe('/resources/standards-navigator')
+  })
+
+  it('legacy routes (case-studies, is-code-guides, reports) stay noindex with canonical pointing at their replacement', () => {
+    const legacy = [
+      { file: path.join(APP_RESOURCES, 'case-studies', 'layout.tsx'), canonical: '/resources/research-cases' },
+      { file: path.join(APP_RESOURCES, 'is-code-guides', 'page.tsx'), canonical: '/resources/standards-navigator' },
+      { file: path.join(APP_RESOURCES, 'reports', 'page.tsx'), canonical: '/resources/research-cases' },
+    ]
+    for (const { file, canonical } of legacy) {
+      const text = fs.readFileSync(file, 'utf8')
+      expect(text, file).toMatch(/index:\s*false/)
+      expect(readCanonical(text), file).toBe(canonical)
+    }
+  })
+})
+
+describe('resources registry — reports withdrawal + sitemap discovery', () => {
+  const REPORTS_TEXT = fs.readFileSync(path.join(APP_RESOURCES, 'reports', 'page.tsx'), 'utf8')
+
+  it('reports/page.tsx no longer states any invented survey/benchmark metric', () => {
+    // Regression guard for the withdrawn 48-page/12-city/140+90/38-project
+    // claims: no bare "<number> page(s)/cities/developers/contractors/
+    // projects" style metric anywhere on the withdrawn page.
+    expect(REPORTS_TEXT).not.toMatch(/\d+[\s-]*(page|cities|city|developer|contractor|project)s?\b/i)
+  })
+
+  it('reports/page.tsx is noindex', () => {
+    expect(REPORTS_TEXT).toMatch(/index:\s*false/)
+  })
+
+  it('sitemap excludes withdrawn/legacy routes (reports, case-studies, is-code-guides) and includes the new canonical routes', async () => {
+    const { default: sitemap } = await import('../../app/sitemap')
+    const urls = sitemap().map((entry) => entry.url)
+
+    for (const withdrawn of ['/resources/reports', '/resources/case-studies', '/resources/is-code-guides']) {
+      expect(urls.some((u) => u.includes(withdrawn)), withdrawn).toBe(false)
+    }
+    expect(urls.some((u) => u.endsWith('/resources/research-cases'))).toBe(true)
+    expect(urls.some((u) => u.endsWith('/resources/standards-navigator'))).toBe(true)
+    for (const item of RESEARCH_CASES) {
+      expect(urls.some((u) => u.endsWith(`/resources/research-cases/${item.slug}`)), item.slug).toBe(true)
+    }
   })
 })

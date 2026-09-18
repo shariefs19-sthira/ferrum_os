@@ -55,18 +55,14 @@ export default function StandardsNavigatorPage() {
                     forced a single unbreakable line and overflowed at 375px. */}
                 <div className="mt-1 text-xs text-relume-muted">
                   <span className="font-medium text-relume-ink">Source: </span>
-                  {standard.sourceUrl ? (
-                    <a
-                      href={standard.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="underline underline-offset-4"
-                    >
-                      {standard.sourceLabel}
-                    </a>
-                  ) : (
-                    standard.sourceLabel
-                  )}
+                  <a
+                    href={standard.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="underline underline-offset-4"
+                  >
+                    {standard.sourceLabel}
+                  </a>
                 </div>
                 <p className="mt-1 text-xs text-relume-muted">
                   <span className="font-medium text-relume-ink">Edition / currency: </span>{standard.editionNote}
@@ -78,17 +74,32 @@ export default function StandardsNavigatorPage() {
       </SectionShell>
 
       <SectionShell>
-        <div className="max-w-3xl rounded-lg border border-relume-border bg-relume-surface p-6 text-sm leading-6 text-relume-muted sm:p-8">
-          <strong className="font-semibold text-relume-ink">Note on CESMM4:</strong> earlier
-          versions of this page discussed CESMM4 alongside the standards above. It has been
-          removed from this sourced list because Ferrum OS has not verified an official ICES
-          (Institution of Civil Engineering Surveyors) publication link for it -- an unverified
-          source doesn&rsquo;t meet the bar every other entry here holds to. CESMM4 is still
-          discussed, informally and as an article rather than a sourced standard, in{' '}
-          <a href="/resources/blog/is-1200-vs-cesmm4" className="underline underline-offset-4">
-            IS 1200 vs CESMM4
-          </a>
-          .
+        <div className="max-w-3xl space-y-4">
+          <div className="rounded-lg border border-relume-border bg-relume-surface p-6 text-sm leading-6 text-relume-muted sm:p-8">
+            <strong className="font-semibold text-relume-ink">Note on CESMM4:</strong> earlier
+            versions of this page discussed CESMM4 alongside the standards above. It has been
+            removed from this sourced list because Ferrum OS has not verified an official ICES
+            (Institution of Civil Engineering Surveyors) publication link for it -- an unverified
+            source doesn&rsquo;t meet the bar every other entry here holds to. CESMM4 is still
+            discussed, informally and as an article rather than a sourced standard, in{' '}
+            <a href="/resources/blog/is-1200-vs-cesmm4" className="underline underline-offset-4">
+              IS 1200 vs CESMM4
+            </a>
+            .
+          </div>
+          <div className="rounded-lg border border-relume-border bg-relume-surface p-6 text-sm leading-6 text-relume-muted sm:p-8">
+            <strong className="font-semibold text-relume-ink">Note on IS 1200:</strong> earlier
+            versions of this page also discussed IS 1200 as a single, series-wide entry. BIS
+            publishes IS 1200 as a series of individually numbered parts, and Ferrum OS does not
+            hold a verified official link to the specific part a series-wide entry would need to
+            cite -- so it has been removed rather than sourced to just one part while implying
+            coverage of the whole series. IS 1200 is still discussed, informally and as an
+            article, in{' '}
+            <a href="/resources/blog/is-1200-vs-cesmm4" className="underline underline-offset-4">
+              IS 1200 vs CESMM4
+            </a>
+            .
+          </div>
         </div>
       </SectionShell>
     </main>

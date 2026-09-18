@@ -49,6 +49,14 @@ const CLAIM_PATTERNS = [
   /real-world examples and success stories/i,
   /how .*ferrum os has transformed/i,
   /the developer achieved/i,
+  // Withdrawn /resources/reports metrics (48-page benchmark, 12 cities,
+  // 140 developers + 90 contractors, 38 active projects) -- regression
+  // guard against those specific invented figures reappearing anywhere.
+  /48-page/i,
+  /12 indian cities/i,
+  /140 indian developers/i,
+  /90 contractors/i,
+  /38 active projects/i,
 ]
 
 describe('public resources sweep — taxonomy', () => {
