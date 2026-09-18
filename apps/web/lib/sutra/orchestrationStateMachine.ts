@@ -11,10 +11,13 @@
 // (the UNKNOWN/CONFLICT/... stop conditions). This module owns only the
 // stage graph and the invariants that hold across stages: every run stays
 // tenant-scoped, every factual claim in Evidence carries a citation,
-// Approvals requires an explicit evidence record (or a documented reason
-// it needs none), every NEEDS_YOU resolution is persisted with its
-// resolving actor/note/step (not just validated-and-discarded), and only
-// a human actor can grant an Approval.
+// every plan step that asserts fact (PlanStep.assertsFact, a typed
+// per-step declaration - never free text) must have cited evidence
+// before Approvals, every NEEDS_YOU resolution is persisted with its
+// resolving actor/note/step (not just validated-and-discarded), a run
+// can only be interrupted into NEEDS_YOU from an active PROGRESS stage
+// (so resolving it always lands back on a real, non-null current step),
+// and only a human actor can grant an Approval.
 
 import { evaluateAutomationStopRules, type StopRuleContext, type StopRuleTrigger } from './automationStopRules'
 import { evaluateSandboxRequest, type SutraSandboxDecision, type SutraSandboxRequest } from './sandboxPolicy'
@@ -49,18 +52,30 @@ export type PlanStep = {
   stepId: string
   description: string
   stopContext: StopRuleContext
+  /**
+   * True when this step's output asserts something as fact (a zoning
+   * conclusion, a measured setback, a computed rate) that a human relying
+   * on the released run would need cited evidence for. False ONLY for a
+   * step that is read-only/diagnostic and asserts nothing - e.g. "list
+   * the artifacts already attached to this project." This is a typed,
+   * per-step declaration the plan author makes when building the step,
+   * not a free-text excuse attached after the fact - `requestApprovals`
+   * derives its evidence requirement directly from this field, per step,
+   * so a plan cannot mark itself "no evidence needed" while still
+   * containing a factual step.
+   */
+  assertsFact: boolean
 }
 
 export type OrchestrationPlan = {
   steps: PlanStep[]
   sandboxDecision: SutraSandboxDecision
   /**
-   * Non-null ONLY when this plan's steps produce no factual claims that
-   * would need a citation (e.g. every step is read-only/diagnostic with
-   * nothing asserted as fact). When set, `requestApprovals` may proceed
-   * with zero recorded evidence items and this reason is carried into the
-   * approval record's audit trail. When null (the default expectation),
-   * `requestApprovals` requires at least one evidence item.
+   * Optional operator-facing explanation of why this entirely read-only
+   * plan has no evidence. It is audit context only: it never waives an
+   * evidence requirement. `attachPlan` rejects it when any step asserts
+   * a fact, and the approval gate derives eligibility solely from
+   * `steps[].assertsFact`.
    */
   noEvidenceRequiredReason: string | null
 }
@@ -90,6 +105,18 @@ export type ApprovalRecord = {
   approvedBy: ActorRef
   approvedAt: string
   note: string
+  /**
+   * The structural, derived basis on which `requestApprovals` allowed this
+   * run to reach APPROVALS - never free text, always computed from
+   * `plan.steps[].assertsFact`: `FACTUAL_EVIDENCE_RECORDED` when the plan
+   * had at least one factual step and every one has cited evidence, or
+   * `NO_FACTUAL_STEPS_IN_PLAN` when no step in the plan asserted any fact
+   * at all. This is the rationale `grantApproval` persists into the
+   * audit record.
+   */
+  evidenceBasis: 'FACTUAL_EVIDENCE_RECORDED' | 'NO_FACTUAL_STEPS_IN_PLAN'
+  /** The documented read-only rationale, when the plan supplied one. */
+  noEvidenceRequiredReason: string | null
 }
 
 /**
@@ -133,6 +160,27 @@ function fail(state: OrchestrationRunState, reasons: string[]): TransitionResult
 
 function ok(state: OrchestrationRunState): TransitionResult {
   return { ok: true, state }
+}
+
+/**
+ * The evidence invariant is shared by entry to APPROVALS and the final
+ * release transition. Keeping it in one pure check prevents a serialized
+ * or otherwise externally constructed APPROVALS state from bypassing the
+ * factual-plan gate.
+ */
+function approvalEvidenceFailures(plan: OrchestrationPlan, evidence: EvidenceItem[]): string[] {
+  const factualStepIds = plan.steps.filter((step) => step.assertsFact).map((step) => step.stepId)
+  const citedStepIds = new Set(
+    evidence.filter((item) => item.status !== 'UNKNOWN' && item.citations.length > 0).map((item) => item.stepId),
+  )
+  const missingEvidence = factualStepIds
+    .filter((stepId) => !citedStepIds.has(stepId))
+    .map((stepId) => `Factual step "${stepId}" has no cited evidence recorded.`)
+  const unresolved = evidence
+    .filter((item) => item.status === 'UNKNOWN' || item.citations.length === 0)
+    .map((item) => `Unresolved evidence claim: "${item.claim}".`)
+
+  return [...missingEvidence, ...unresolved]
 }
 
 export function createIntentFromBrief(runId: string, brief: MinimalProjectBrief, submittedAt: string): OrchestrationIntent {
@@ -183,10 +231,15 @@ export function attachPlan(
     return fail(state, [`Sandbox request denied: ${sandboxDecision.reasons.join('; ')}`])
   }
 
+  const documentedReason = noEvidenceRequiredReason?.trim() || null
+  if (documentedReason && steps.some((step) => step.assertsFact)) {
+    return fail(state, ['A no-evidence rationale is valid only for an entirely read-only plan; factual steps require cited evidence.'])
+  }
+
   return ok({
     ...state,
     stage: 'PLAN',
-    plan: { steps, sandboxDecision, noEvidenceRequiredReason },
+    plan: { steps, sandboxDecision, noEvidenceRequiredReason: documentedReason },
   })
 }
 
@@ -300,26 +353,21 @@ export function recordEvidence(state: OrchestrationRunState, item: EvidenceItem)
 }
 
 /**
- * EVIDENCE -> APPROVALS. Requires at least one recorded evidence item -
- * approval/release must be backed by an explicit factual record, not
- * silently permitted by an empty evidence array - UNLESS the plan itself
- * documents why zero evidence is safe via `plan.noEvidenceRequiredReason`
- * (see that field's contract on `OrchestrationPlan`). Also blocked while
- * any UNKNOWN or uncited evidence item remains.
+ * EVIDENCE -> APPROVALS. Every step with `assertsFact: true` in the
+ * attached plan must have at least one recorded evidence item for that
+ * exact `stepId` that is non-UNKNOWN and cited - this is a structural
+ * requirement derived from the plan's own typed step declarations, not a
+ * free-text excuse a plan can write its way around. A plan whose steps
+ * are all `assertsFact: false` requires no evidence at all, because
+ * there is nothing in it asserted as fact to back. Also blocked, on any
+ * plan, while any recorded evidence item is itself UNKNOWN or uncited.
  */
 export function requestApprovals(state: OrchestrationRunState): TransitionResult {
   if (state.stage !== 'EVIDENCE') return fail(state, [`Cannot request approvals from stage ${state.stage}; expected EVIDENCE.`])
+  if (!state.plan) return fail(state, ['No plan is attached to this run.'])
 
-  if (state.evidence.length === 0 && !state.plan?.noEvidenceRequiredReason) {
-    return fail(state, [
-      'Approvals requires at least one recorded evidence item, unless the plan documents a safe no-evidence reason (plan.noEvidenceRequiredReason).',
-    ])
-  }
-
-  const unresolved = state.evidence.filter((item) => item.status === 'UNKNOWN' || item.citations.length === 0)
-  if (unresolved.length > 0) {
-    return fail(state, unresolved.map((item) => `Unresolved evidence claim: "${item.claim}".`))
-  }
+  const failures = approvalEvidenceFailures(state.plan, state.evidence)
+  if (failures.length > 0) return fail(state, failures)
 
   return ok({ ...state, stage: 'APPROVALS' })
 }
@@ -327,25 +375,58 @@ export function requestApprovals(state: OrchestrationRunState): TransitionResult
 /**
  * Human release authority: only a HUMAN actor may grant an approval, and
  * only from APPROVALS. This function alone can move a run to RELEASED -
- * there is no other path in this module that reaches RELEASED.
+ * there is no other path in this module that reaches RELEASED. The
+ * approval record's `evidenceBasis` is recomputed here (not trusted from
+ * an earlier stage) directly from `plan.steps[].assertsFact` and
+ * `state.evidence`, so the persisted rationale always matches the plan
+ * that was actually approved.
  */
 export function grantApproval(state: OrchestrationRunState, approvedBy: ActorRef, note: string): TransitionResult {
   if (state.stage !== 'APPROVALS') return fail(state, [`Cannot grant approval from stage ${state.stage}; expected APPROVALS.`])
   if (approvedBy.actorKind !== 'HUMAN') return fail(state, ['Release authority is human-only; an AGENT actor cannot grant approval.'])
   if (!note.trim()) return fail(state, ['An approval note is required for the audit trail.'])
+  if (!state.plan) return fail(state, ['No plan is attached to this run.'])
 
-  const record: ApprovalRecord = { approvedBy, approvedAt: new Date().toISOString(), note }
+  // Recheck at the release boundary. A persisted or externally constructed
+  // APPROVALS state cannot turn a factual plan into a release without the
+  // same exact-step, cited-evidence guarantee used to enter APPROVALS.
+  const failures = approvalEvidenceFailures(state.plan, state.evidence)
+  if (failures.length > 0) return fail(state, failures)
+
+  const hasFactualSteps = state.plan.steps.some((s) => s.assertsFact)
+  const evidenceBasis: ApprovalRecord['evidenceBasis'] = hasFactualSteps ? 'FACTUAL_EVIDENCE_RECORDED' : 'NO_FACTUAL_STEPS_IN_PLAN'
+
+  const record: ApprovalRecord = {
+    approvedBy,
+    approvedAt: new Date().toISOString(),
+    note,
+    evidenceBasis,
+    noEvidenceRequiredReason: state.plan.noEvidenceRequiredReason,
+  }
   return ok({ ...state, stage: 'RELEASED', approvals: [...state.approvals, record] })
 }
 
 /**
- * Any stage may be force-interrupted into NEEDS_YOU - used when a stop
+ * Interrupts an active PROGRESS run into NEEDS_YOU - used when a stop
  * condition is discovered outside the normal step-advance path (e.g. a
- * mid-step conflict surfaced by an external agent proposal).
+ * mid-step conflict surfaced by an external agent proposal). Restricted
+ * to PROGRESS ONLY: `resolveNeedsYou` always resumes into PROGRESS at
+ * `progress.currentStepId`, and PROGRESS is the only stage where that
+ * field is guaranteed non-null (`beginProgress`/`advanceStep` always set
+ * it before entering PROGRESS). Interrupting from INTENT, PLAN, EVIDENCE,
+ * APPROVALS or RELEASED - where `currentStepId` can be null - would let a
+ * resolution manufacture a PROGRESS state with no current step to
+ * advance from, exactly the bug already fixed for the first-step-stop
+ * case; rejecting the call here closes that same failure mode for every
+ * other stage instead of re-opening it through this path.
  */
 export function interrupt(state: OrchestrationRunState, triggers: StopRuleTrigger[]): TransitionResult {
   if (triggers.length === 0) return fail(state, ['interrupt() requires at least one stop-rule trigger.'])
-  if (state.stage === 'RELEASED') return fail(state, ['A RELEASED run is immutable and cannot be interrupted.'])
+  if (state.stage !== 'PROGRESS') {
+    return fail(state, [
+      `interrupt() can only interrupt an active PROGRESS run (current stage: ${state.stage}); resolving would otherwise resume PROGRESS with no current step.`,
+    ])
+  }
 
   return ok({
     ...state,

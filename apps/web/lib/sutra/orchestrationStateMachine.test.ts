@@ -32,8 +32,8 @@ const clearStopContext: StopRuleContext = {
   involvesExternalAgentProposal: false,
 }
 
-function step(stepId: string, stopContext: StopRuleContext = clearStopContext): PlanStep {
-  return { stepId, description: `Step ${stepId}`, stopContext }
+function step(stepId: string, stopContext: StopRuleContext = clearStopContext, assertsFact = true): PlanStep {
+  return { stepId, description: `Step ${stepId}`, stopContext, assertsFact }
 }
 
 function baseBrief(): MinimalProjectBrief {
@@ -98,6 +98,15 @@ describe('SUTRA orchestration state machine', () => {
     expect(run.stage).toBe('EVIDENCE')
     expect(run.progress.completedStepIds).toEqual(['s1', 's2'])
 
+    const evidenceForS1 = recordEvidence(run, {
+      stepId: 's1',
+      claim: 'Parcel boundary confirmed.',
+      status: 'VERIFIED',
+      citations: [{ sourceId: 'gov-00', title: 'Survey record', sourceUri: 'https://example.test/survey', jurisdiction: 'IN-KA' }],
+    })
+    expect(evidenceForS1.ok).toBe(true)
+    run = evidenceForS1.state
+
     const evidenceResult = recordEvidence(run, {
       stepId: 's2',
       claim: 'Parcel is zoned residential.',
@@ -118,6 +127,8 @@ describe('SUTRA orchestration state machine', () => {
     expect(run.stage).toBe('RELEASED')
     expect(run.approvals).toHaveLength(1)
     expect(run.approvals[0].approvedBy).toEqual(human)
+    expect(run.approvals[0].evidenceBasis).toBe('FACTUAL_EVIDENCE_RECORDED')
+    expect(run.approvals[0].noEvidenceRequiredReason).toBeNull()
   })
 
   it('enforces tenant isolation: a sandbox request for another tenant/project cannot attach a plan', () => {
@@ -172,7 +183,7 @@ describe('SUTRA orchestration state machine', () => {
     expect(humanResolution.state.stage).toBe('PROGRESS')
   })
 
-  it('mid-run interrupt() can force any active stage into NEEDS_YOU, but never a RELEASED run', () => {
+  it('interrupt() can force an active PROGRESS run into NEEDS_YOU, and resolving it resumes a runnable PROGRESS', () => {
     let run = startedRun()
     const planned = attachPlan(run, [step('s1')], baseSandboxRequest())
     run = planned.ok ? planned.state : run
@@ -183,9 +194,14 @@ describe('SUTRA orchestration state machine', () => {
     const interrupted = interrupt(run, [{ reason: 'CONFLICT', detail: 'A newly discovered conflicting source appeared mid-step.' }])
     expect(interrupted.ok).toBe(true)
     expect(interrupted.state.stage).toBe('NEEDS_YOU')
+    expect(interrupted.state.progress.currentStepId).toBe('s1')
 
     const resolved = resolveNeedsYou(interrupted.state, human, 'Reconciled the conflict.')
-    run = resolved.ok ? resolved.state : run
+    expect(resolved.ok).toBe(true)
+    run = resolved.state
+    expect(run.stage).toBe('PROGRESS')
+    expect(run.progress.currentStepId).toBe('s1')
+
     const advanced = advanceStep(run)
     run = advanced.ok ? advanced.state : run
     expect(run.stage).toBe('EVIDENCE')
@@ -207,6 +223,51 @@ describe('SUTRA orchestration state machine', () => {
     expect(postReleaseInterrupt.ok).toBe(false)
     expect(postReleaseInterrupt.state.stage).toBe('RELEASED')
   })
+
+  it.each(['INTENT', 'PLAN', 'EVIDENCE', 'APPROVALS'] as const)(
+    'interrupt() rejects a call from %s - only PROGRESS may be interrupted, so a resolution can never manufacture a null-step PROGRESS',
+    (targetStage) => {
+      let run = startedRun()
+
+      if (targetStage === 'INTENT') {
+        expect(run.stage).toBe('INTENT')
+      } else {
+        const planned = attachPlan(run, [step('s1')], baseSandboxRequest())
+        run = planned.ok ? planned.state : run
+        if (targetStage === 'PLAN') {
+          expect(run.stage).toBe('PLAN')
+        } else {
+          const progressed = beginProgress(run)
+          run = progressed.ok ? progressed.state : run
+          const advanced = advanceStep(run)
+          run = advanced.ok ? advanced.state : run
+          expect(run.stage).toBe('EVIDENCE')
+          // EVIDENCE's own progress.currentStepId is already null (regression fixture for this bug).
+          expect(run.progress.currentStepId).toBeNull()
+
+          if (targetStage === 'APPROVALS') {
+            const evidenced = recordEvidence(run, {
+              stepId: 's1',
+              claim: 'Confirmed.',
+              status: 'VERIFIED',
+              citations: [{ sourceId: 'gov-01', title: 'Register', sourceUri: 'https://example.test', jurisdiction: 'IN-KA' }],
+            })
+            run = evidenced.ok ? evidenced.state : run
+            const approvalsRequested = requestApprovals(run)
+            run = approvalsRequested.ok ? approvalsRequested.state : run
+            expect(run.stage).toBe('APPROVALS')
+          }
+        }
+      }
+
+      const result = interrupt(run, [{ reason: 'CONFLICT', detail: 'discovered mid-flight' }])
+      expect(result.ok).toBe(false)
+      expect(result.state.stage).toBe(targetStage)
+      // Rejected: no NEEDS_YOU was ever entered, so there is nothing a subsequent
+      // resolveNeedsYou could resume into with a null current step.
+      expect(resolveNeedsYou(result.state, human, 'attempt').ok).toBe(false)
+    },
+  )
 
   it('every non-UNKNOWN evidence claim must carry a citation', () => {
     let run = startedRun()
@@ -336,31 +397,39 @@ describe('SUTRA orchestration state machine', () => {
     expect(rejectedAgent.state.needsYouResolutions).toHaveLength(1)
   })
 
-  it('requestApprovals is blocked with zero recorded evidence unless the plan documents a safe no-evidence reason', () => {
+  it('requestApprovals is blocked when a plan step is marked assertsFact but has no cited evidence for its exact stepId', () => {
     let run = startedRun()
-    const planned = attachPlan(run, [step('s1')], baseSandboxRequest())
+    // s1 asserts fact (default); s2 explicitly does not - only s1 needs evidence.
+    const planned = attachPlan(run, [step('s1'), step('s2', clearStopContext, false)], baseSandboxRequest())
     run = planned.ok ? planned.state : run
     const progressed = beginProgress(run)
     run = progressed.ok ? progressed.state : run
-    const advanced = advanceStep(run)
-    run = advanced.ok ? advanced.state : run
+    const advanced1 = advanceStep(run)
+    run = advanced1.ok ? advanced1.state : run
+    const advanced2 = advanceStep(run)
+    run = advanced2.ok ? advanced2.state : run
     expect(run.stage).toBe('EVIDENCE')
     expect(run.evidence).toEqual([])
 
     const blocked = requestApprovals(run)
     expect(blocked.ok).toBe(false)
-    if (!blocked.ok) expect(blocked.reasons.join(' ')).toMatch(/at least one recorded evidence item/i)
+    if (!blocked.ok) expect(blocked.reasons.join(' ')).toMatch(/Factual step "s1" has no cited evidence recorded/)
     expect(blocked.state.stage).toBe('EVIDENCE')
+
+    // Evidence recorded for the wrong step (s2, non-factual) still doesn't satisfy s1's requirement.
+    const wrongStepEvidence = recordEvidence(run, {
+      stepId: 's2',
+      claim: 'Unrelated to s1.',
+      status: 'VERIFIED',
+      citations: [{ sourceId: 'gov-01', title: 'Register', sourceUri: 'https://example.test', jurisdiction: 'IN-KA' }],
+    })
+    const stillBlocked = requestApprovals(wrongStepEvidence.ok ? wrongStepEvidence.state : run)
+    expect(stillBlocked.ok).toBe(false)
   })
 
-  it('requestApprovals proceeds with zero evidence when the plan documents a safe no-evidence reason', () => {
+  it('requestApprovals proceeds with zero evidence only when every plan step is structurally non-factual (assertsFact: false)', () => {
     let run = startedRun()
-    const planned = attachPlan(
-      run,
-      [step('s1')],
-      baseSandboxRequest(),
-      'Single read-only diagnostic step; asserts no fact requiring citation.',
-    )
+    const planned = attachPlan(run, [step('s1', clearStopContext, false)], baseSandboxRequest())
     run = planned.ok ? planned.state : run
     const progressed = beginProgress(run)
     run = progressed.ok ? progressed.state : run
@@ -371,6 +440,89 @@ describe('SUTRA orchestration state machine', () => {
 
     const approvalsRequested = requestApprovals(run)
     expect(approvalsRequested.ok).toBe(true)
-    expect(approvalsRequested.state.stage).toBe('APPROVALS')
+    run = approvalsRequested.state
+    expect(run.stage).toBe('APPROVALS')
+
+    const released = grantApproval(run, human, 'No factual claims in this plan; nothing to cite.')
+    expect(released.ok).toBe(true)
+    if (released.ok) {
+      expect(released.state.approvals[0].evidenceBasis).toBe('NO_FACTUAL_STEPS_IN_PLAN')
+      expect(released.state.approvals[0].noEvidenceRequiredReason).toBeNull()
+    }
+  })
+
+  it('persists a documented read-only rationale in the approval audit without allowing it to waive factual evidence', () => {
+    let run = startedRun()
+    const rationale = 'Read-only inventory of project artifacts; this plan asserts no factual conclusion.'
+    const planned = attachPlan(run, [step('s1', clearStopContext, false)], baseSandboxRequest(), rationale)
+    expect(planned.ok).toBe(true)
+    run = planned.ok ? planned.state : run
+    expect(run.plan?.noEvidenceRequiredReason).toBe(rationale)
+
+    const progressed = beginProgress(run)
+    run = progressed.ok ? progressed.state : run
+    const advanced = advanceStep(run)
+    run = advanced.ok ? advanced.state : run
+    const approvalsRequested = requestApprovals(run)
+    run = approvalsRequested.ok ? approvalsRequested.state : run
+    const released = grantApproval(run, human, 'Reviewed the read-only inventory.')
+    expect(released.ok).toBe(true)
+    if (released.ok) {
+      expect(released.state.approvals[0].evidenceBasis).toBe('NO_FACTUAL_STEPS_IN_PLAN')
+      expect(released.state.approvals[0].noEvidenceRequiredReason).toBe(rationale)
+    }
+
+    const factualRun = startRun(createIntentFromBrief('run-factual-rationale', baseBrief(), '2026-09-18T10:00:00.000Z'))
+    const rejected = attachPlan(factualRun, [step('f1')], baseSandboxRequest(), rationale)
+    expect(rejected.ok).toBe(false)
+    if (!rejected.ok) expect(rejected.reasons.join(' ')).toMatch(/factual steps require cited evidence/i)
+  })
+
+  it('rechecks the factual evidence gate at release even if an external caller supplies an APPROVALS-shaped state', () => {
+    let run = startedRun()
+    const planned = attachPlan(run, [step('s1')], baseSandboxRequest())
+    run = planned.ok ? planned.state : run
+    const progressed = beginProgress(run)
+    run = progressed.ok ? progressed.state : run
+    const advanced = advanceStep(run)
+    run = advanced.ok ? advanced.state : run
+    expect(run.stage).toBe('EVIDENCE')
+
+    const forgedApprovalsState = { ...run, stage: 'APPROVALS' as const }
+    const rejected = grantApproval(forgedApprovalsState, human, 'Attempted bypass.')
+    expect(rejected.ok).toBe(false)
+    expect(rejected.state.stage).toBe('APPROVALS')
+    if (!rejected.ok) expect(rejected.reasons.join(' ')).toMatch(/Factual step "s1" has no cited evidence/i)
+  })
+
+  it('a plan cannot bypass evidence for a factual step by mixing in a non-factual one', () => {
+    let run = startedRun()
+    const planned = attachPlan(run, [step('s1', clearStopContext, true), step('s2', clearStopContext, false)], baseSandboxRequest())
+    run = planned.ok ? planned.state : run
+    const progressed = beginProgress(run)
+    run = progressed.ok ? progressed.state : run
+    const advanced1 = advanceStep(run)
+    run = advanced1.ok ? advanced1.state : run
+    const advanced2 = advanceStep(run)
+    run = advanced2.ok ? advanced2.state : run
+    expect(run.stage).toBe('EVIDENCE')
+
+    // Cite s1 properly - now approvals should succeed and the audit basis reflects real evidence, not the exemption.
+    const evidenced = recordEvidence(run, {
+      stepId: 's1',
+      claim: 'Zoning confirmed for s1.',
+      status: 'VERIFIED',
+      citations: [{ sourceId: 'gov-01', title: 'Register', sourceUri: 'https://example.test', jurisdiction: 'IN-KA' }],
+    })
+    run = evidenced.ok ? evidenced.state : run
+    const approvalsRequested = requestApprovals(run)
+    expect(approvalsRequested.ok).toBe(true)
+    run = approvalsRequested.state
+
+    const released = grantApproval(run, human, 'Factual step cited; approved.')
+    expect(released.ok).toBe(true)
+    if (released.ok) {
+      expect(released.state.approvals[0].evidenceBasis).toBe('FACTUAL_EVIDENCE_RECORDED')
+    }
   })
 })
