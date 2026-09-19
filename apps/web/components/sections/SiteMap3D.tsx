@@ -9,6 +9,7 @@ import {
   RECORDED_HEIGHT_COLOR, TILE_LOAD_TIMEOUT_MS, buildingLayerSpecs, clamp, coverageMessage, detectWebGL2, failureMessage, resolveCoverage, summariseBuildings,
   type BuildingCounts, type Map3dFailureReason, type Map3dStatus, type ViewSnapshot,
 } from './siteMap3dHelpers'
+import { OBLIQUE_PITCH_DEG, TOP_DOWN_PITCH_DEG, frameForParcel, resetNorth, toggleTilt, toMapLibreCamera, type SiteViewFrame } from '../../lib/landintel/siteViewCamera'
 
 export type SiteMap3DProps = {
   /** Selected site point — the single source of truth shared with the 2D map. */
@@ -137,17 +138,30 @@ export default function SiteMap3D({ lat, lng, label = 'Selected location', onPin
     const map = mapRef.current
     if (map) map.easeTo({ ...change(map), duration: prefersReducedMotion() ? 0 : 250 })
   }
+  /** Frame around the selected point (never the current pan) with the map's live bearing/pitch; applied only on an explicit control press. */
+  const selectedFrame = (): SiteViewFrame | null => {
+    const map = mapRef.current
+    if (!map) return null
+    return { ...frameForParcel([lng, lat]), bearingDeg: map.getBearing(), pitchDeg: clamp(map.getPitch(), TOP_DOWN_PITCH_DEG, MAX_PITCH) }
+  }
+  const applyFrame = (step: (frame: SiteViewFrame) => SiteViewFrame) => {
+    const frame = selectedFrame()
+    if (!frame) return
+    const { center, bearing, pitch } = toMapLibreCamera(step(frame))
+    ease(() => ({ center, bearing, pitch }))
+  }
+  const obliqueNow = view.pitch >= OBLIQUE_PITCH_DEG / 2
   const recenter = () => ease(() => ({ center: [lng, lat], zoom: Math.max(mapRef.current?.getZoom() ?? DEFAULT_3D_ZOOM, 16) }))
   const coverage = resolveCoverage(view.zoom, counts, settled)
 
   return (
     <div className="min-w-0" data-site-map-3d data-3d-status={status} data-3d-failure={failure ?? undefined} data-selected-lat={lat} data-selected-lng={lng}
-      data-map-center-lat={view.lat.toFixed(6)} data-map-center-lng={view.lng.toFixed(6)} data-map-zoom={view.zoom.toFixed(2)} data-map-pitch={view.pitch.toFixed(1)} data-map-bearing={view.bearing.toFixed(1)}
+      data-map-center-lat={view.lat.toFixed(6)} data-map-center-lng={view.lng.toFixed(6)} data-map-zoom={view.zoom.toFixed(2)} data-map-pitch={view.pitch.toFixed(1)} data-map-bearing={view.bearing.toFixed(1)} data-camera-mode={obliqueNow ? 'oblique' : 'top-down'}
       data-building-count={counts?.total ?? 0} data-assumed-height-count={counts?.assumedHeight ?? 0} data-recorded-height-count={counts?.recordedHeight ?? 0} data-coverage={failure ? 'failed' : coverage}>
       <div className={`relative overflow-hidden rounded-lg border border-relume-border bg-relume-surface-secondary ${className}`} data-parcel-map-shell>
         <div ref={containerRef} className="h-full w-full" data-map-canvas data-map-lat={lat} data-map-lng={lng} role="region"
           aria-label={`Interactive 3D map of ${label}. Arrow keys pan, Shift plus arrow keys rotate and tilt, plus and minus zoom.`} />
-        {status !== 'failed' && <div className="absolute bottom-8 left-2 z-10 flex flex-col gap-1" role="group" aria-label="3D map controls" data-site-map-3d-controls>
+        {status !== 'failed' && <div className="absolute bottom-16 left-2 z-10 flex flex-col gap-1" role="group" aria-label="3D map controls" data-site-map-3d-controls>
           <button type="button" className={controlClass} aria-label="Zoom in" onClick={() => ease((m) => ({ zoom: m.getZoom() + 1 }))}>+</button>
           <button type="button" className={controlClass} aria-label="Zoom out" onClick={() => ease((m) => ({ zoom: m.getZoom() - 1 }))}>−</button>
           <button type="button" className={controlClass} aria-label="Tilt up" onClick={() => ease((m) => ({ pitch: clamp(m.getPitch() + 10, 0, MAX_PITCH) }))}>⤒</button>
@@ -155,6 +169,13 @@ export default function SiteMap3D({ lat, lng, label = 'Selected location', onPin
           <button type="button" className={controlClass} aria-label="Rotate left" onClick={() => ease((m) => ({ bearing: m.getBearing() - 15 }))}>↺</button>
           <button type="button" className={controlClass} aria-label="Rotate right" onClick={() => ease((m) => ({ bearing: m.getBearing() + 15 }))}>↻</button>
           <button type="button" className={controlClass} aria-label="Recenter on selected location" onClick={recenter}>◎</button>
+        </div>}
+        {status !== 'failed' && <div className="absolute left-2 top-2 z-10 flex gap-1" role="group" aria-label="Site view camera" data-site-view-controls>
+          <button type="button" className="flex h-11 min-w-[5.5rem] items-center justify-center rounded-relume border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command shadow-sm hover:bg-relume-surface-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink"
+            aria-label={obliqueNow ? 'Switch to top-down view centred on the selected point' : 'Switch to oblique view centred on the selected point'} data-site-view-tilt onClick={() => applyFrame(toggleTilt)}>{obliqueNow ? 'Top-down' : 'Oblique'}</button>
+          <button type="button" className={controlClass} aria-label="Reset north" data-site-view-reset-north onClick={() => applyFrame(resetNorth)}>
+            <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" style={{ transform: `rotate(${-view.bearing}deg)` }}><path d="M10 1 14 11H6Z" fill="#b91c1c" /><path d="M10 19 6 11h8Z" fill="currentColor" /></svg>
+          </button>
         </div>}
         {status === 'loading' && <p className="pointer-events-none absolute right-2 top-2 z-10 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold text-relume-command" role="status">Loading 3D map…</p>}
       </div>

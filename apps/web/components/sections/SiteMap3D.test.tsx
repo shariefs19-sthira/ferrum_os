@@ -105,6 +105,24 @@ describe('SiteMap3D', () => {
     expect(screen.getByRole('region', { name: /Interactive 3D map.*Arrow keys pan.*rotate and tilt/ })).toBeTruthy()
   })
 
+  it('toggles top-down/oblique and resets north around the selected point, without auto-animating', async () => {
+    render(<SiteMap3D lat={12.97} lng={77.59} />)
+    const map = await loadMap()
+    const root = document.querySelector('[data-site-map-3d]')!
+    expect(map.easeTo).not.toHaveBeenCalled() // no automatic camera move on load
+    expect(root.getAttribute('data-camera-mode')).toBe('oblique')
+    map.center = { lat: 1, lng: 1 }
+    const tilt = screen.getByRole('button', { name: /Switch to top-down view/ })
+    expect(tilt.className).toContain('h-11'); expect(tilt.className).toContain('min-w-[5.5rem]')
+    fireEvent.click(tilt)
+    expect(map.pitch).toBe(0); expect(map.center).toEqual({ lng: 77.59, lat: 12.97 })
+    expect(root.getAttribute('data-camera-mode')).toBe('top-down')
+    fireEvent.click(screen.getByRole('button', { name: /Switch to oblique view/ })); expect(map.pitch).toBe(55)
+    fireEvent.click(screen.getByRole('button', { name: 'Reset north' }))
+    expect(((map.bearing % 360) + 360) % 360).toBe(0); expect(map.pitch).toBe(55); expect(root.getAttribute('data-map-bearing')).toBe('0.0')
+    expect(screen.getByRole('button', { name: 'Reset north' }).className).toContain('h-11')
+  })
+
   it('forwards map clicks as pin drops (parity with 2D)', async () => {
     const onPinDrop = vi.fn()
     render(<SiteMap3D lat={12.97} lng={77.59} onPinDrop={onPinDrop} />)
