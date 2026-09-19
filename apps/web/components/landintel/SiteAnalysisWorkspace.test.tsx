@@ -127,6 +127,20 @@ describe('SiteAnalysisWorkspace with a resolved site', () => {
     expect($(container, `[data-observation-id="${id}"]`)).toBeNull()
   })
 
+  it('keeps the grouped count and the Map point label on opposite sides when records share the map point', () => {
+    const { container } = render(<SiteAnalysisWorkspace clock={clock} />)
+    addWind(container)
+    addWind(container, { basis: 'INFERRED', note: 'Wind probably stronger at the north edge.' })
+    const count = $(container, '[data-observation-count]') as SVGTextElement
+    const label = $(container, '[data-site-anchor-label]') as SVGTextElement
+    expect(count.textContent).toBe('×2')
+    expect(label.textContent).toBe('Map point')
+    // Count starts right of the marker; label ends left of the crosshair arm (14), so their x-extents cannot meet.
+    expect(Number(count.getAttribute('x'))).toBeGreaterThan(0)
+    expect(label.getAttribute('text-anchor')).toBe('end')
+    expect(Number(label.getAttribute('x'))).toBeLessThan(-14)
+  })
+
   it('reports a record beyond the diagram radius instead of dropping it silently', () => {
     const { container } = render(<SiteAnalysisWorkspace clock={clock} />)
     fill('Topic', 'wind')
