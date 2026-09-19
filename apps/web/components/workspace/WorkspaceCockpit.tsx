@@ -23,10 +23,11 @@ import { hasProductToolSurface, resolveProductSurface } from '../../lib/workspac
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
 import { readProjectState, sameParameters, subscribeProjectState, writeProjectState } from '../../lib/workspace/projectState'
-import { attachOpeningsToWalls, moveWall, partitionPosition, resetWall, wallCoordinateM, type WallOffsets } from '../../lib/workspace/walls'
+import { attachOpeningsToWalls, MIN_ROOM_DIMENSION_M, moveWall, partitionPosition, resetWall, wallCoordinateM, type WallOffsets } from '../../lib/workspace/walls'
 import { canRedo, canUndo, commitEdit, initHistory, redo, replaceHistory, undo, type EditHistory, type PlanEdits } from '../../lib/workspace/planEdits'
 import { anyDownstreamStale, downstreamStatus, readRecordedRevision, recordRevision, writeRecordedRevision, type RecordedRevision } from '../../lib/workspace/downstreamStatus'
 import { planFingerprint } from '../../lib/workspace/boqLineage'
+import { formatDualLength, formatThickness } from '../../lib/workspace/wallUnits'
 import PrecisionControl from '../controls/PrecisionControl'
 import { evaluateCompliance } from '../../lib/complianceEngine'
 import { decodeWorkspaceView, encodeWorkspaceView, type WorkspaceViewState } from '../../lib/workspace/viewPermalink'
@@ -293,7 +294,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
       targetType: 'wall',
       targetId: wall.id,
       label: `${wall.kind === 'exterior' ? 'Exterior' : 'Interior'} wall ${wall.id}`,
-      detail: `Floor ${wall.floor} · ${wall.thicknessM * 1000} mm assumed thickness · INDICATIVE`,
+      detail: `Floor ${wall.floor} · ${formatThickness(wall.thicknessM).mm} (${formatThickness(wall.thicknessM).ft}) assumed thickness · INDICATIVE`,
     })
   }
   const moveSelectedWall = (wallId: string, targetPositionM: number, preview: boolean): WallCommit => {
@@ -303,7 +304,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     if (preview) { setPreviewWallOffsets(result.offsets); return { positionM: result.positionM } }
     setPreviewWallOffsets(undefined)
     if (result.changed) setHistory((current) => commitEdit(current, { ...current.present, wallOffsets: result.offsets }))
-    return { positionM: result.positionM, message: result.clamped ? 'Clamped: every room keeps at least 1.5 m.' : undefined }
+    return { positionM: result.positionM, message: result.clamped ? `Clamped: every room keeps at least ${formatDualLength(MIN_ROOM_DIMENSION_M)}.` : undefined }
   }
   const nudgeWall = (wallId: string, deltaM: number) => {
     const wall = plan.walls?.find((candidate) => candidate.id === wallId)
@@ -655,7 +656,10 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
               minimum leaves at least 120px for the model after the compact
               status/control row, and the enclosing cockpit scrolls as one
               unit before the export bar rather than layering over it. */}
-          {canvasFirst && <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-relume-border bg-white px-3 py-1" data-geometry-revision-strip>
+          {/* Plan/elevation only: the strip carries a >=44px control, so in the 3D view it would take
+              ~50px from the model and push docked Reading below its 180px model-visible floor at
+              375x667 (measured: main 148/148 audit checks -> 133 with the strip in every view). */}
+          {canvasFirst && view !== 'space' && <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-relume-border bg-white px-3 py-1" data-geometry-revision-strip>
             <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Geometry rev <code className="font-mono text-relume-ink" data-geometry-revision>{geometryRevision}</code> · INDICATIVE</p>
             {downstream.length > 0 && <span role="status" title={downstream.map((status) => status.label + ': ' + status.detail + ' (recorded at rev ' + status.recordedRevision + ')').join(' | ')} className={`rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.06em] ${downstreamStale ? 'border-rose-300 bg-rose-50 text-rose-900' : 'border-emerald-300 bg-emerald-50 text-emerald-900'}`} data-downstream-summary={downstreamStale ? 'stale' : 'current'}>{downstream.map((status, index) => <span key={status.id} data-downstream-status={status.id} data-downstream-state={status.state}>{index > 0 ? ' + ' : ''}{status.id === 'BOQ' ? 'BOQ' : 'Structural'}</span>)} · {downstreamStale ? 'STALE UPSTREAM DATA' : 'CURRENT'}</span>}
             <button type="button" onClick={recordOutputs} disabled={Boolean(recordedRevision) && !downstreamStale} className="min-h-11 rounded-full border border-relume-border bg-white px-3 text-[10px] font-semibold text-relume-command disabled:cursor-not-allowed disabled:opacity-50" data-record-outputs>{!recordedRevision ? 'Record BOQ + structural' : downstreamStale ? 'Re-record at this revision' : 'Recorded'}</button>

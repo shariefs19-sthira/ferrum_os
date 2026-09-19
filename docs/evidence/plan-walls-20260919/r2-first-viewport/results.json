@@ -1,0 +1,927 @@
+[
+  {
+    "viewport": "320x640",
+    "rule50": {
+      "canvasFound": true,
+      "revisionBefore": "7298bc3e",
+      "revisionAfter3dGestures": "7298bc3e",
+      "unchanged": true
+    },
+    "firstViewport": {
+      "overflowX": 0,
+      "interactiveInView": 30,
+      "under44": [
+        {
+          "tag": "a",
+          "label": "Ferrum home",
+          "w": 97,
+          "h": 40
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 16.00 ",
+          "w": 254,
+          "h": 4
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 4,
+          "h": 413
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 4,
+          "h": 413
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 14.30 ",
+          "w": 2,
+          "h": 227
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 24,
+          "h": 2
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 24,
+          "h": 2
+        }
+      ]
+    },
+    "keyboard": {
+      "readoutBefore": "9.92 m32.55 ft",
+      "readoutAfter": "10.12 m33.20 ft",
+      "widthBefore": 9.92,
+      "widthAfter": 10.12,
+      "moved": true,
+      "revChanged": true,
+      "staleAfterMove": "stale",
+      "staleText": "BOQ + STRUCTURAL · STALE UPSTREAM DATA"
+    },
+    "undo": {
+      "clicks": 4,
+      "undoButtonBox": {
+        "w": 56,
+        "h": 44
+      },
+      "widthRestored": true,
+      "revRestored": true,
+      "downstreamAfterUndo": "current"
+    },
+    "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face Metres (m) Feet (ft) −0.1 m +0.1 m Reset wall Moving this partition reshapes the rooms on both sides on all 3 floors and re-attaches doors and w",
+    "consoleErrors": []
+  },
+  {
+    "viewport": "375x667",
+    "rule50": {
+      "canvasFound": true,
+      "revisionBefore": "7298bc3e",
+      "revisionAfter3dGestures": "7298bc3e",
+      "unchanged": true
+    },
+    "firstViewport": {
+      "overflowX": 0,
+      "interactiveInView": 33,
+      "under44": [
+        {
+          "tag": "a",
+          "label": "Ferrum home",
+          "w": 125,
+          "h": 20
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 16.00 ",
+          "w": 267,
+          "h": 4
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 4,
+          "h": 434
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 4,
+          "h": 434
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 14.30 ",
+          "w": 2,
+          "h": 238
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 2,
+          "h": 20
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 25,
+          "h": 2
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 2,
+          "h": 20
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 25,
+          "h": 2
+        }
+      ]
+    },
+    "keyboard": {
+      "readoutBefore": "9.92 m32.55 ft",
+      "readoutAfter": "10.12 m33.20 ft",
+      "widthBefore": 9.92,
+      "widthAfter": 10.12,
+      "moved": true,
+      "revChanged": true,
+      "staleAfterMove": "stale",
+      "staleText": "BOQ + STRUCTURAL · STALE UPSTREAM DATA"
+    },
+    "undo": {
+      "clicks": 4,
+      "undoButtonBox": {
+        "w": 56,
+        "h": 44
+      },
+      "widthRestored": true,
+      "revRestored": true,
+      "downstreamAfterUndo": "current"
+    },
+    "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face Metres (m) Feet (ft) −0.1 m +0.1 m Reset wall Moving this partition reshapes the rooms on both sides on all 3 floors and re-attaches doors and w",
+    "consoleErrors": []
+  },
+  {
+    "viewport": "390x844",
+    "rule50": {
+      "canvasFound": true,
+      "revisionBefore": "7298bc3e",
+      "revisionAfter3dGestures": "7298bc3e",
+      "unchanged": true
+    },
+    "firstViewport": {
+      "overflowX": 0,
+      "interactiveInView": 43,
+      "under44": [
+        {
+          "tag": "a",
+          "label": "Ferrum home",
+          "w": 125,
+          "h": 20
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 16.00 ",
+          "w": 310,
+          "h": 4
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 4,
+          "h": 504
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 4,
+          "h": 504
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 16.00 ",
+          "w": 310,
+          "h": 2
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 14.30 ",
+          "w": 2,
+          "h": 277
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 2,
+          "h": 227
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 2,
+          "h": 227
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        }
+      ]
+    },
+    "keyboard": {
+      "readoutBefore": "9.92 m32.55 ft",
+      "readoutAfter": "10.12 m33.20 ft",
+      "widthBefore": 9.92,
+      "widthAfter": 10.12,
+      "moved": true,
+      "revChanged": true,
+      "staleAfterMove": "stale",
+      "staleText": "BOQ + STRUCTURAL · STALE UPSTREAM DATA"
+    },
+    "undo": {
+      "clicks": 4,
+      "undoButtonBox": {
+        "w": 56,
+        "h": 44
+      },
+      "widthRestored": true,
+      "revRestored": true,
+      "downstreamAfterUndo": "current"
+    },
+    "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face Metres (m) Feet (ft) −0.1 m +0.1 m Reset wall Moving this partition reshapes the rooms on both sides on all 3 floors and re-attaches doors and w",
+    "consoleErrors": []
+  },
+  {
+    "viewport": "768x1024",
+    "rule50": {
+      "canvasFound": true,
+      "revisionBefore": "7298bc3e",
+      "revisionAfter3dGestures": "7298bc3e",
+      "unchanged": true
+    },
+    "firstViewport": {
+      "overflowX": 0,
+      "interactiveInView": 43,
+      "under44": [
+        {
+          "tag": "a",
+          "label": "Ferrum home",
+          "w": 125,
+          "h": 20
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 16.00 ",
+          "w": 410,
+          "h": 6
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 6,
+          "h": 666
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 6,
+          "h": 666
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 16.00 ",
+          "w": 410,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 14.30 ",
+          "w": 3,
+          "h": 366
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 3,
+          "h": 300
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 3,
+          "h": 300
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 4,
+          "h": 31
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 38,
+          "h": 4
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 4,
+          "h": 31
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 38,
+          "h": 4
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 4,
+          "h": 31
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 38,
+          "h": 4
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 4,
+          "h": 31
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 38,
+          "h": 4
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 4,
+          "h": 31
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 38,
+          "h": 4
+        }
+      ]
+    },
+    "keyboard": {
+      "readoutBefore": "9.92 m32.55 ft",
+      "readoutAfter": "10.12 m33.20 ft",
+      "widthBefore": 9.92,
+      "widthAfter": 10.12,
+      "moved": true,
+      "revChanged": true,
+      "staleAfterMove": "stale",
+      "staleText": "BOQ + STRUCTURAL · STALE UPSTREAM DATA"
+    },
+    "undo": {
+      "clicks": 4,
+      "undoButtonBox": {
+        "w": 56,
+        "h": 44
+      },
+      "widthRestored": true,
+      "revRestored": true,
+      "downstreamAfterUndo": "current"
+    },
+    "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face Metres (m) Feet (ft) −0.1 m +0.1 m Reset wall Moving this partition reshapes the rooms on both sides on all 3 floors and re-attaches doors and w",
+    "consoleErrors": []
+  },
+  {
+    "viewport": "1024x768",
+    "rule50": {
+      "canvasFound": true,
+      "revisionBefore": "7298bc3e",
+      "revisionAfter3dGestures": "7298bc3e",
+      "unchanged": true
+    },
+    "firstViewport": {
+      "overflowX": 0,
+      "interactiveInView": 61,
+      "under44": [
+        {
+          "tag": "a",
+          "label": "Ferrum home",
+          "w": 125,
+          "h": 20
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 16.00 ",
+          "w": 307,
+          "h": 4
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 4,
+          "h": 499
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 4,
+          "h": 499
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 16.00 ",
+          "w": 307,
+          "h": 2
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 14.30 ",
+          "w": 2,
+          "h": 275
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 2,
+          "h": 225
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 2,
+          "h": 225
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 23
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 29,
+          "h": 3
+        },
+        {
+          "tag": "div",
+          "label": "Resize SUTRA",
+          "w": 12,
+          "h": 659
+        }
+      ]
+    },
+    "keyboard": {
+      "readoutBefore": "9.92 m32.55 ft",
+      "readoutAfter": "10.12 m33.20 ft",
+      "widthBefore": 9.92,
+      "widthAfter": 10.12,
+      "moved": true,
+      "revChanged": true,
+      "staleAfterMove": "stale",
+      "staleText": "BOQ + STRUCTURAL · STALE UPSTREAM DATA"
+    },
+    "undo": {
+      "clicks": 4,
+      "undoButtonBox": {
+        "w": 56,
+        "h": 44
+      },
+      "widthRestored": true,
+      "revRestored": true,
+      "downstreamAfterUndo": "current"
+    },
+    "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face Metres (m) Feet (ft) −0.1 m +0.1 m Reset wall Moving this partition reshapes the rooms on both sides on all 3 floors and re-attaches doors and w",
+    "consoleErrors": []
+  },
+  {
+    "viewport": "1366x768",
+    "rule50": {
+      "canvasFound": true,
+      "revisionBefore": "7298bc3e",
+      "revisionAfter3dGestures": "7298bc3e",
+      "unchanged": true
+    },
+    "firstViewport": {
+      "overflowX": 0,
+      "interactiveInView": 64,
+      "under44": [
+        {
+          "tag": "a",
+          "label": "Ferrum home",
+          "w": 125,
+          "h": 20
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 16.00 ",
+          "w": 205,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 3,
+          "h": 333
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 3,
+          "h": 333
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 16.00 ",
+          "w": 205,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 16.00 ",
+          "w": 205,
+          "h": 1
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 14.30 ",
+          "w": 1,
+          "h": 183
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 1,
+          "h": 150
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 1,
+          "h": 150
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 2,
+          "h": 15
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 19,
+          "h": 2
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 2,
+          "h": 15
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 19,
+          "h": 2
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 2,
+          "h": 15
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 19,
+          "h": 2
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 2,
+          "h": 15
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 19,
+          "h": 2
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 2,
+          "h": 15
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 19,
+          "h": 2
+        },
+        {
+          "tag": "div",
+          "label": "Resize SUTRA",
+          "w": 12,
+          "h": 647
+        }
+      ]
+    },
+    "keyboard": {
+      "readoutBefore": "9.92 m32.55 ft",
+      "readoutAfter": "10.12 m33.20 ft",
+      "widthBefore": 9.92,
+      "widthAfter": 10.12,
+      "moved": true,
+      "revChanged": true,
+      "staleAfterMove": "stale",
+      "staleText": "BOQ + STRUCTURAL · STALE UPSTREAM DATA"
+    },
+    "undo": {
+      "clicks": 4,
+      "undoButtonBox": {
+        "w": 56,
+        "h": 44
+      },
+      "widthRestored": true,
+      "revRestored": true,
+      "downstreamAfterUndo": "current"
+    },
+    "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face Metres (m) Feet (ft) −0.1 m +0.1 m Reset wall Moving this partition reshapes the rooms on both sides on all 3 floors and re-attaches doors and w",
+    "consoleErrors": []
+  },
+  {
+    "viewport": "1920x1080",
+    "rule50": {
+      "canvasFound": true,
+      "revisionBefore": "7298bc3e",
+      "revisionAfter3dGestures": "7298bc3e",
+      "unchanged": true
+    },
+    "firstViewport": {
+      "overflowX": 0,
+      "interactiveInView": 64,
+      "under44": [
+        {
+          "tag": "a",
+          "label": "Ferrum home",
+          "w": 125,
+          "h": 20
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 16.00 ",
+          "w": 371,
+          "h": 5
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 5,
+          "h": 603
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 26.00 ",
+          "w": 5,
+          "h": 603
+        },
+        {
+          "tag": "rect",
+          "label": "Select exterior wall, 16.00 ",
+          "w": 371,
+          "h": 5
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 16.00 ",
+          "w": 371,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 14.30 ",
+          "w": 3,
+          "h": 332
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 3,
+          "h": 271
+        },
+        {
+          "tag": "rect",
+          "label": "Select interior wall, 11.70 ",
+          "w": 3,
+          "h": 271
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 28
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 35,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 28
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 35,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 28
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 35,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 28
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 35,
+          "h": 3
+        },
+        {
+          "tag": "rect",
+          "label": "Select door, 1.20 metre wide",
+          "w": 3,
+          "h": 28
+        },
+        {
+          "tag": "rect",
+          "label": "Select window, 1.50 metre wi",
+          "w": 35,
+          "h": 3
+        },
+        {
+          "tag": "div",
+          "label": "Resize SUTRA",
+          "w": 12,
+          "h": 959
+        }
+      ]
+    },
+    "keyboard": {
+      "readoutBefore": "9.92 m32.55 ft",
+      "readoutAfter": "10.12 m33.20 ft",
+      "widthBefore": 9.92,
+      "widthAfter": 10.12,
+      "moved": true,
+      "revChanged": true,
+      "staleAfterMove": "stale",
+      "staleText": "BOQ + STRUCTURAL · STALE UPSTREAM DATA"
+    },
+    "undo": {
+      "clicks": 4,
+      "undoButtonBox": {
+        "w": 56,
+        "h": 44
+      },
+      "widthRestored": true,
+      "revRestored": true,
+      "downstreamAfterUndo": "current"
+    },
+    "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face Metres (m) Feet (ft) −0.1 m +0.1 m Reset wall Moving this partition reshapes the rooms on both sides on all 3 floors and re-attaches doors and w",
+    "consoleErrors": []
+  }
+]

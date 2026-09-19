@@ -2,6 +2,7 @@ import type { StudioOpening, StudioPlan, StudioRoom, StudioView, StudioWall } fr
 import { useRef, type KeyboardEvent, type PointerEvent as ReactPointerEvent, type RefObject } from 'react'
 import { getFacadeOpenings, openingSegments } from '../../lib/workspace/openings'
 import { getPlanWalls, wallCoordinateM, wallLengthM } from '../../lib/workspace/walls'
+import { metresToFeet, spokenDualLength } from '../../lib/workspace/wallUnits'
 
 type PlanElevationViewProps = {
   plan: StudioPlan
@@ -106,11 +107,11 @@ function WallMarker({ wall, selected, highlighted, positionM, svgRef, setback, h
   }
   const fill = wall.kind === 'exterior' ? '#0B1F3A' : '#52616B'
   const stroke = selected || highlighted ? '#D97706' : 'none'
-  const label = 'Select ' + wall.kind + ' wall, ' + wallLengthM(wall).toFixed(2) + ' metres long' + (movable ? ', at ' + positionM.toFixed(2) + ' metres. Selected walls move with arrow keys' : '')
+  const label = 'Select ' + wall.kind + ' wall, ' + spokenDualLength(wallLengthM(wall)) + ' long' + (movable ? ', at ' + spokenDualLength(positionM) + '. Selected walls move with arrow keys' : '')
   return <g data-wall-id={wall.id} data-wall-kind={wall.kind}>
-    <rect {...rect} role="button" tabIndex={0} data-wall-select={wall.id} aria-pressed={selected} aria-label={label} fill={fill} stroke={stroke} strokeWidth={selected || highlighted ? 0.14 : 0} className="cursor-pointer focus-visible:stroke-[#D97706] focus-visible:stroke-[0.2]" onKeyDown={onKeyDown} onClick={() => handlers.onSelectWall?.(wall.id)} />
+    <rect {...rect} role="button" tabIndex={0} data-wall-select={wall.id} aria-pressed={selected} aria-label={label} fill={fill} stroke={stroke} strokeWidth={selected || highlighted ? 0.14 : 0} className="cursor-pointer focus-visible:outline-none focus-visible:stroke-[#D97706] focus-visible:stroke-[0.2]" onKeyDown={onKeyDown} onClick={() => handlers.onSelectWall?.(wall.id)} />
     <line x1={wall.x1} y1={wall.y1} x2={wall.x2} y2={wall.y2} data-wall-hit-target={movable ? 'movable' : 'fixed'} stroke="transparent" strokeWidth={HIT_TARGET_PX} strokeLinecap="butt" vectorEffect="non-scaling-stroke" pointerEvents="stroke" aria-hidden="true" focusable="false" className={movable ? (horizontal ? 'cursor-row-resize' : 'cursor-col-resize') : 'cursor-pointer'} style={movable ? { touchAction: 'none' } : undefined} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={(event) => finish(event, true)} onPointerCancel={(event) => finish(event, false)} />
-    {selected && movable && <text x={horizontal ? Math.min(wall.x1, wall.x2) + 0.4 : wall.x1 + 0.4} y={horizontal ? wall.y1 - 0.45 : Math.min(wall.y1, wall.y2) + 0.9} textAnchor="start" dominantBaseline="middle" fontSize="0.5" fontWeight="700" fill="#161616" stroke="#FFFFFF" strokeWidth="0.16" paintOrder="stroke" pointerEvents="none" data-wall-readout>{positionM.toFixed(2)} m</text>}
+    {selected && movable && <text x={horizontal ? Math.min(wall.x1, wall.x2) + 0.4 : wall.x1 + 0.4} y={horizontal ? wall.y1 - 1.05 : Math.min(wall.y1, wall.y2) + 0.9} textAnchor="start" dominantBaseline="middle" fontSize="0.5" fontWeight="700" fill="#161616" stroke="#FFFFFF" strokeWidth="0.16" paintOrder="stroke" pointerEvents="none" data-wall-readout><tspan x={horizontal ? Math.min(wall.x1, wall.x2) + 0.4 : wall.x1 + 0.4}>{positionM.toFixed(2)} m</tspan><tspan x={horizontal ? Math.min(wall.x1, wall.x2) + 0.4 : wall.x1 + 0.4} dy="0.6">{metresToFeet(positionM).toFixed(2)} ft</tspan></text>}
   </g>
 }
 

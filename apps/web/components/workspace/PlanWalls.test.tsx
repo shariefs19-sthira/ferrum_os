@@ -52,6 +52,15 @@ describe('PlanElevationView walls', () => {
     expect(onWallNudge).toHaveBeenCalledTimes(2)
   })
 
+  it('the on-plan readout and the wall label show metres and feet together (RULE 30)', () => {
+    const plan = generateStudioPlan(base)
+    const { container } = render(<PlanElevationView plan={plan} view="plan" activeFloor={1} selectedWallId="f1-int-v0" />)
+    const readout = container.querySelector('[data-wall-readout]')!
+    const position = plan.walls!.find((candidate) => candidate.id === 'f1-int-v0')!.x1
+    expect(readout.textContent).toBe(position.toFixed(2) + ' m' + (position / 0.3048).toFixed(2) + ' ft')
+    expect(container.querySelector('[data-wall-select="f1-int-v0"]')!.getAttribute('aria-label')).toMatch(/metres and [\d.]+ feet long, at [\d.]+ metres and [\d.]+ feet/)
+  })
+
   it('does not move exterior walls: no drag target, no nudge', () => {
     const plan = generateStudioPlan(base)
     const onWallNudge = vi.fn()
@@ -126,11 +135,33 @@ describe('WallInspector', () => {
     expect(onMoveTo).toHaveBeenLastCalledWith(expect.closeTo(10.02, 6))
     fireEvent.click(screen.getByRole('button', { name: /move wall back/i }))
     expect(onMoveTo).toHaveBeenLastCalledWith(expect.closeTo(9.82, 6))
-    const input = screen.getByRole('spinbutton') as HTMLInputElement
+    const input = document.querySelector('[data-wall-position-input="m"]') as HTMLInputElement
     fireEvent.change(input, { target: { value: '10' } })
     fireEvent.blur(input)
     expect(onMoveTo).toHaveBeenLastCalledWith(10)
     for (const button of screen.getAllByRole('button')) expect(button.className).toMatch(/min-h-11/)
+  })
+
+  it('shows every wall length in metres AND feet (RULE 30) with the exact 0.3048 relation, and a feet input commits exact metres', () => {
+    const onMoveTo = vi.fn(() => ({ positionM: 10 }))
+    render(<WallInspector wall={interior} positionM={9.92} floors={2} openingCount={0} moved={false} onMoveTo={onMoveTo} onReset={vi.fn()} onClose={vi.fn()} />)
+    const inspector = document.querySelector('[data-wall-inspector]')!
+    const length = Math.hypot(interior.x2 - interior.x1, interior.y2 - interior.y1)
+    expect(inspector.textContent).toContain(length.toFixed(2) + ' m')
+    expect(inspector.textContent).toContain((length / 0.3048).toFixed(2) + ' ft')
+    expect(inspector.textContent).toContain('115 mm')
+    expect(inspector.textContent).toContain((0.115 / 0.3048).toFixed(3) + ' ft')
+    expect(inspector.textContent).toContain((interior.heightM / 0.3048).toFixed(2) + ' ft')
+    const m = document.querySelector('[data-wall-position-input="m"]') as HTMLInputElement
+    const ft = document.querySelector('[data-wall-position-input="ft"]') as HTMLInputElement
+    expect(m.value).toBe('9.92')
+    expect(ft.value).toBe((9.92 / 0.3048).toFixed(2))
+    // blur without editing must not move the wall (ft display is rounded)
+    fireEvent.blur(ft)
+    expect(onMoveTo).not.toHaveBeenCalled()
+    fireEvent.change(ft, { target: { value: '32.81' } })
+    fireEvent.blur(ft)
+    expect(onMoveTo).toHaveBeenLastCalledWith(expect.closeTo(32.81 * 0.3048, 9))
   })
 
   it('surfaces a clamp message and enables reset only after a move', () => {
@@ -186,6 +217,14 @@ describe('Cockpit plan-edit slice', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /redo plan edit/i }))
     await waitFor(() => expect(roomWidth(container)).toBeCloseTo(startWidth + 0.1, 2))
+  })
+
+  it('keeps the geometry-revision strip out of the 3D view so docked Reading keeps its model height, and shows it on the Plan tab', async () => {
+    const { container } = render(<WorkspaceCockpit canvasFirst activeProduct="Design" controlProduct="designstudio" />)
+    await screen.findByRole('tab', { name: 'Plan' })
+    expect(container.querySelector('[data-geometry-revision-strip]')).toBeNull()
+    fireEvent.click(screen.getByRole('tab', { name: 'Plan' }))
+    await waitFor(() => expect(container.querySelector('[data-geometry-revision-strip]')).toBeTruthy())
   })
 
   it('cosmetic-only state changes leave the geometry revision and downstream status untouched', async () => {
