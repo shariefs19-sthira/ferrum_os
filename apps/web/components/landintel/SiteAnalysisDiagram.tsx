@@ -152,7 +152,7 @@ export default function SiteAnalysisDiagram({ anchor, items, sun, radiusM, layer
               <path d={glyphPath(glyph, 12)} className={`stroke-relume-command ${observed ? 'fill-relume-command' : 'fill-relume-surface'}`} strokeWidth="2" strokeDasharray={inferred ? '3 2' : undefined} />
               {state === 'USER_PROVIDED' && <circle r="3" className="fill-relume-command" />}
               {stale && <line x1="-12" y1="12" x2="12" y2="-12" className="stroke-relume-danger" strokeWidth="2" />}
-              {group.length > 1 && <text x="13" y="-9" fontSize="15" fontWeight="700" className="fill-relume-ink">×{group.length}</text>}
+              {group.length > 1 && <text x="13" y="-9" fontSize="15" fontWeight="700" className="fill-relume-ink" data-observation-count>×{group.length}</text>}
               {showLabels && <text x="0" y="28" textAnchor="middle" fontSize="16" className="fill-relume-ink" paintOrder="stroke" stroke="#FFFFFF" strokeWidth="3">{topic?.label ?? record.topic}</text>}
             </g>
           </g>
@@ -162,7 +162,8 @@ export default function SiteAnalysisDiagram({ anchor, items, sun, radiusM, layer
           <title>Map point — context only, not a surveyed boundary</title>
           <circle r="5" className="fill-relume-ink" />
           <path d="M-14 0 H14 M0 -14 V14" className="stroke-relume-ink" strokeWidth="1.5" />
-          {showLabels && <text x="10" y="-10" fontSize="16" className="fill-relume-ink" paintOrder="stroke" stroke="#FFFFFF" strokeWidth="3">Map point</text>}
+          {/* Left of the crosshair (text ends at -18, past its -14 arm): the right-hand upper quadrant belongs to the grouped ×N count of records sharing this point. */}
+          {showLabels && <text x="-18" y="-10" fontSize="16" textAnchor="end" className="fill-relume-ink" paintOrder="stroke" stroke="#FFFFFF" strokeWidth="3" data-site-anchor-label>Map point</text>}
         </g>}
         {!anchor && <text x={CENTER} y={CENTER} textAnchor="middle" fontSize="17" className="fill-relume-muted">UNKNOWN — no map point resolved</text>}
       </svg>

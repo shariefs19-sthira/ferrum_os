@@ -203,6 +203,33 @@ try {
     assert((await page.locator('[data-count="held-back"]').textContent()) === '1', `${label}: inferred record not held back`)
     assert((await page.locator('[data-topic-slot="wind"]').getAttribute('data-topic-state')) === 'OBSERVED', `${label}: slot state changed by inferred record`)
 
+    // Two records now share the map point: the grouped ×N count, the "Map point" label, the topic label and the
+    // anchor crosshair must not overlap in rendered SVG bounding boxes (CRANE 1cbdb579: 12x11px at 320, 24x26px wider).
+    await page.locator('[data-observation-count]').waitFor()
+    const boxes = await page.evaluate(() => {
+      const box = (element) => { const r = element.getBoundingClientRect(); return { left: r.left, top: r.top, right: r.right, bottom: r.bottom } }
+      const group = document.querySelector('[data-observation-count]').closest('g[data-observation-id]')
+      const parts = {
+        count: document.querySelector('[data-observation-count]'),
+        mapPointLabel: document.querySelector('[data-site-anchor-label]'),
+        topicLabel: [...group.querySelectorAll('text')].find((node) => !node.hasAttribute('data-observation-count')),
+        glyph: group.querySelector('path'),
+        crosshair: document.querySelector('[data-site-anchor] path'),
+      }
+      return Object.fromEntries(Object.entries(parts).map(([name, element]) => [name, element ? box(element) : null]))
+    })
+    assert(Object.values(boxes).every(Boolean), `${label}: missing overlap-audit element ${JSON.stringify(boxes)}`)
+    const overlap = (a, b) => Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top))
+    const pairs = [['count', 'mapPointLabel'], ['count', 'topicLabel'], ['mapPointLabel', 'topicLabel'], ['mapPointLabel', 'glyph'], ['mapPointLabel', 'crosshair']]
+    checks.groupedLabelOverlapPx = Object.fromEntries(pairs.map(([a, b]) => [`${a}/${b}`, Math.round(overlap(boxes[a], boxes[b]) * 10) / 10]))
+    assert(Object.values(checks.groupedLabelOverlapPx).every((area) => area <= 1), `${label}: grouped-record label collision ${JSON.stringify(checks.groupedLabelOverlapPx)}`)
+    const countHeight = boxes.count.bottom - boxes.count.top
+    const labelHeight = boxes.mapPointLabel.bottom - boxes.mapPointLabel.top
+    assert(countHeight >= 10.5 && labelHeight >= 10.5, `${label}: count ${countHeight}px / Map point label ${labelHeight}px render too small`)
+    const svgRect = await page.locator('[data-site-diagram-svg]').boundingBox()
+    assert(boxes.mapPointLabel.left >= svgRect.x && boxes.count.right <= svgRect.x + svgRect.width, `${label}: count or Map point label leaves the diagram`)
+    await page.locator('[data-site-diagram-svg]').screenshot({ path: path.join(evidenceRoot, `${viewport.width}-diagram-grouped.png`), animations: 'disabled' })
+
     // Another module, to prove the shared record path works outside Climate.
     await page.locator('[data-site-module="urban"]').click()
     await page.locator('#site-topic').selectOption('statutory-envelope')
