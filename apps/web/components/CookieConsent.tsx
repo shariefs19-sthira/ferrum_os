@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { safeGet, safeSet } from "../lib/safeStorage"
 
 const STORAGE_KEY = "ferrum-cookie-consent"
 /** Published on <html> while the banner is showing so fixed corner chrome
@@ -13,7 +14,9 @@ export default function CookieConsent() {
   const [visible, setVisible] = useState(false)
   const bannerRef = useRef<HTMLElement>(null)
   useEffect(() => {
-    setVisible(window.localStorage.getItem(STORAGE_KEY) !== "accepted")
+    // Blocked/throwing storage reads as "not accepted yet": the bar shows and
+    // "Got it" dismisses it for this page session via safeStorage's in-memory copy.
+    setVisible(safeGet(STORAGE_KEY) !== "accepted")
   }, [])
 
   useEffect(() => {
@@ -33,7 +36,7 @@ export default function CookieConsent() {
   if (!visible) return null
 
   const acceptCookies = () => {
-    window.localStorage.setItem(STORAGE_KEY, "accepted")
+    safeSet(STORAGE_KEY, "accepted")
     setVisible(false)
   }
 

@@ -20,6 +20,7 @@ import { useElementWidth, usePanelLayout } from "../../../lib/workspace/usePanel
 import { useReadingSheetPlan } from "../../../lib/workspace/useReadingSheet"
 import PanelSplitter from "../../../components/workspace/PanelSplitter"
 import SutraDockBar, { type CompactSutraMode } from "../../../components/workspace/SutraDockBar"
+import { safeSet } from "../../../lib/safeStorage"
 
 /**
  * W2-401 WORKSPACE_SHELL — the cockpit. Assembly only (CRANE is the sole
@@ -101,7 +102,7 @@ export default function ProjectWorkspaceCockpit() {
   useBodyScrollLock(sutraOpen && compactFull)
 
   useEffect(() => {
-    window.localStorage.setItem('ferrum-preview-session', 'active')
+    safeSet('ferrum-preview-session', 'active')
   }, [])
 
   const handleMoreAction = (action: WorkspaceMoreAction) => {
