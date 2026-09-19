@@ -81,19 +81,23 @@ below govern what an agent may *read* to inform that action.
    id with its reason).
 3. `buildRetrievalRecords` turns the packaged fragments into
    injection-scanned, citation-carrying, fenced `RetrievalRecord`s.
-4. `resolveAdapterDecision` is checked per fragment before handoff to
-   an `EXTERNAL_MODEL` adapter, attaching the frozen permission
-   envelope.
+4. The server retrieval composition root constructs an
+   `AdapterDecisionService` with its trusted consent-store boundary;
+   `service.resolve` is checked per fragment before handoff to an
+   `EXTERNAL_MODEL` adapter. The request can carry only a consent-record
+   reference, never a verifier or proof constructor, and an allowed external
+   decision attaches the frozen permission envelope.
 5. The audit builders produce the event trail for steps 1–4; the
    caller's own audit sink persists them.
 
 ## Explicit non-goals of this slice
 
 - No network calls, no real knowledge-base wiring, no UI.
-- External `PROJECT_SENSITIVE` disclosure needs a consent-store verifier result,
-  matched against an immutable consent id, record digest/version, project,
-  provider/model, classification, fragment and read-only retrieval purpose. A
-  caller-supplied frozen consent record and request-asserted retention do not qualify.
+- External `PROJECT_SENSITIVE` disclosure needs the composition-root's
+  trusted consent-store result, matched against an immutable consent id, record
+  digest/version, project, provider/model, classification, fragment and
+  read-only retrieval purpose. Caller-supplied verifiers, frozen records and
+  request-asserted retention do not qualify.
 - No claim that any model is "trained" on Ferrum data — training
   consent lives entirely in `sandboxPolicy.ts`'s existing
   `TrainingConsent` type, which this slice does not alter.

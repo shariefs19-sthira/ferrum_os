@@ -3,7 +3,7 @@
 // Two adapter kinds ever pull retrieval context: the local/open-model
 // adapter (runs inside Ferrum's own boundary, no data leaves it) and the
 // external-model adapter (a connected provider such as Claude or Codex).
-// This module is the single deterministic gate `resolveAdapterDecision`
+// This module is the single deterministic gate `AdapterDecisionService.resolve`
 // that every retrieval handoff must pass through - it does not merely
 // describe the boundary, it enforces it in code: tenant visibility,
 // classification ceiling, the existing SUTRA sandbox policy
@@ -38,7 +38,7 @@ export type AdapterIdentity =
  * this one. This envelope governs retrieval only: it grants no write,
  * no website/administration, no deploy and no delete authority,
  * regardless of what the external provider itself is otherwise capable
- * of outside this boundary. `resolveAdapterDecision` below only ever
+ * of outside this boundary. `AdapterDecisionService.resolve` below only ever
  * returns this envelope attached to an `allowed: true` decision - a
  * denied decision carries no envelope, so a caller can never mistake a
  * denial for a scoped grant.
@@ -92,12 +92,12 @@ export type VerifiedExternalDisclosureBinding = Readonly<{
 }>
 
 /**
- * Deterministic verification boundary owned by the consent-store integration.
- * It receives the immutable reference plus the intended disclosure binding,
- * then returns evidence from the store. It must perform no provider/network
- * work; a production adapter may supply a cached store-backed implementation.
+ * Deterministic, server-side consent-store boundary. It receives the immutable
+ * reference plus the intended disclosure binding, then returns evidence from
+ * the store. It must perform no provider/network work; a production adapter
+ * may supply a cached store-backed implementation.
  */
-export type ExternalDisclosureConsentVerifier = Readonly<{
+export type ExternalDisclosureConsentStore = Readonly<{
   verify(reference: ExternalDisclosureConsentReference, expected: VerifiedExternalDisclosureBinding): ConsentStoreVerificationResult
 }>
 
@@ -124,9 +124,8 @@ export type AdapterDecisionRequest = {
   sandboxRequest: SutraSandboxRequest
   /** The knowledge source `fragment` was drawn from - its licence/consent is checked via sandboxPolicy.ts's own `canUseForRetrieval`, never re-derived here. */
   knowledgeSource: KnowledgeSource
-  /** Store reference and deterministic verifier. Both are required for external PROJECT_SENSITIVE disclosure. */
+  /** Store reference. The verifier is held by AdapterDecisionService, never request data. */
   externalDisclosureConsentReference: ExternalDisclosureConsentReference | null
-  externalDisclosureConsentVerifier: ExternalDisclosureConsentVerifier | null
 }
 
 /**
@@ -151,53 +150,70 @@ export type AdapterDecisionRequest = {
  * true - it is the enforced grant, not a label attached regardless of
  * outcome.
  */
-export function resolveAdapterDecision(request: AdapterDecisionRequest): AdapterDecision {
-  const { fragment, identity, tenantId, projectId, sandboxRequest, knowledgeSource, externalDisclosureConsentReference, externalDisclosureConsentVerifier } = request
-  const reasons: string[] = []
+/**
+ * Retrieval composition root. The server selects and injects its trusted
+ * consent-store boundary here. The private field deliberately keeps that
+ * boundary out of caller-controlled AdapterDecisionRequest data.
+ */
+export class AdapterDecisionService {
+  private readonly consentStore: ExternalDisclosureConsentStore
 
-  if (!isVisibleToTenant(fragment, tenantId, projectId)) {
-    reasons.push('Fragment is not visible to this tenant/project.')
+  private constructor(consentStore: ExternalDisclosureConsentStore) {
+    this.consentStore = consentStore
   }
 
-  if (!isClassificationEligibleForAdapter(fragment.classification, identity.kind)) {
-    reasons.push(`Classification ${fragment.classification} exceeds the ${identity.kind} adapter's ceiling.`)
+  static compose(consentStore: ExternalDisclosureConsentStore): AdapterDecisionService {
+    return new AdapterDecisionService(consentStore)
   }
 
-  const sandboxIdentityMatches =
-    identity.kind === 'EXTERNAL_MODEL' ? sandboxRequest.provider === identity.provider : sandboxRequest.provider === 'FERRUM_NATIVE'
-  if (!sandboxIdentityMatches) {
-    reasons.push('Sandbox request provider does not match the adapter identity presented for this retrieval.')
-  }
+  resolve(request: AdapterDecisionRequest): AdapterDecision {
+    const { fragment, identity, tenantId, projectId, sandboxRequest, knowledgeSource, externalDisclosureConsentReference } = request
+    const reasons: string[] = []
 
-  const sandboxDecision = evaluateSandboxRequest(sandboxRequest)
-  if (!sandboxDecision.allowed) {
-    reasons.push(`SUTRA sandbox policy denied this request: ${sandboxDecision.reasons.join('; ')}`)
-  }
+    if (!isVisibleToTenant(fragment, tenantId, projectId)) {
+      reasons.push('Fragment is not visible to this tenant/project.')
+    }
 
-  if (knowledgeSource.sourceId !== fragment.sourceId) {
-    reasons.push('Knowledge source does not match the fragment being retrieved.')
-  } else if (!canUseForRetrieval(knowledgeSource, tenantId)) {
-    reasons.push('Source licence/consent does not permit retrieval.')
-  }
+    if (!isClassificationEligibleForAdapter(fragment.classification, identity.kind)) {
+      reasons.push(`Classification ${fragment.classification} exceeds the ${identity.kind} adapter's ceiling.`)
+    }
 
-  if (identity.kind === 'EXTERNAL_MODEL' && fragment.classification === 'PROJECT_SENSITIVE') {
-    reasons.push(...validateExternalDisclosureConsent(externalDisclosureConsentReference, externalDisclosureConsentVerifier, { fragment, identity, projectId, sandboxRequest }))
-  }
+    const sandboxIdentityMatches =
+      identity.kind === 'EXTERNAL_MODEL' ? sandboxRequest.provider === identity.provider : sandboxRequest.provider === 'FERRUM_NATIVE'
+    if (!sandboxIdentityMatches) {
+      reasons.push('Sandbox request provider does not match the adapter identity presented for this retrieval.')
+    }
 
-  const allowed = reasons.length === 0
-  return {
-    allowed,
-    reasons,
-    permissionEnvelope: allowed && identity.kind === 'EXTERNAL_MODEL' ? EXTERNAL_ADAPTER_PERMISSION_ENVELOPE : null,
+    const sandboxDecision = evaluateSandboxRequest(sandboxRequest)
+    if (!sandboxDecision.allowed) {
+      reasons.push(`SUTRA sandbox policy denied this request: ${sandboxDecision.reasons.join('; ')}`)
+    }
+
+    if (knowledgeSource.sourceId !== fragment.sourceId) {
+      reasons.push('Knowledge source does not match the fragment being retrieved.')
+    } else if (!canUseForRetrieval(knowledgeSource, tenantId)) {
+      reasons.push('Source licence/consent does not permit retrieval.')
+    }
+
+    if (identity.kind === 'EXTERNAL_MODEL' && fragment.classification === 'PROJECT_SENSITIVE') {
+      reasons.push(...validateExternalDisclosureConsent(externalDisclosureConsentReference, this.consentStore, { fragment, identity, projectId, sandboxRequest }))
+    }
+
+    const allowed = reasons.length === 0
+    return {
+      allowed,
+      reasons,
+      permissionEnvelope: allowed && identity.kind === 'EXTERNAL_MODEL' ? EXTERNAL_ADAPTER_PERMISSION_ENVELOPE : null,
+    }
   }
 }
 
 function validateExternalDisclosureConsent(
   reference: ExternalDisclosureConsentReference | null,
-  verifier: ExternalDisclosureConsentVerifier | null,
+  consentStore: ExternalDisclosureConsentStore,
   context: Pick<AdapterDecisionRequest, 'fragment' | 'identity' | 'projectId' | 'sandboxRequest'>,
 ): string[] {
-  if (!reference || !verifier) return ['External PROJECT_SENSITIVE disclosure requires consent-store verification evidence.']
+  if (!reference) return ['External PROJECT_SENSITIVE disclosure requires consent-store verification evidence.']
 
   const reasons: string[] = []
   if (!Object.isFrozen(reference) || !reference.immutableConfirmationId || !reference.recordDigest || !reference.recordVersion) {
@@ -216,7 +232,7 @@ function validateExternalDisclosureConsent(
   })
   let result: ConsentStoreVerificationResult
   try {
-    result = verifier.verify(reference, expected)
+    result = consentStore.verify(reference, expected)
   } catch {
     return ['Consent-store verifier did not produce verification evidence.']
   }

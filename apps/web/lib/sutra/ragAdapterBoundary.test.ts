@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import {
   EXTERNAL_ADAPTER_PERMISSION_ENVELOPE,
+  AdapterDecisionService,
   isClassificationEligibleForAdapter,
-  resolveAdapterDecision,
   type AdapterDecisionRequest,
   type AdapterIdentity,
   type ConsentStoreVerificationResult,
   type ExternalDisclosureConsentReference,
-  type ExternalDisclosureConsentVerifier,
+  type ExternalDisclosureConsentStore,
   type VerifiedExternalDisclosureBinding,
 } from './ragAdapterBoundary'
 import type { KnowledgeFragment } from './ragClassification'
@@ -78,7 +78,7 @@ function verifiedBinding(overrides: Partial<VerifiedExternalDisclosureBinding> =
   })
 }
 
-function storeVerifier(resultOverrides: Partial<ConsentStoreVerificationResult> = {}): ExternalDisclosureConsentVerifier {
+function trustedConsentStore(resultOverrides: Partial<ConsentStoreVerificationResult> = {}): ExternalDisclosureConsentStore {
   return Object.freeze({
     verify: (reference, expected) => Object.freeze({
       verified: true,
@@ -93,6 +93,7 @@ function storeVerifier(resultOverrides: Partial<ConsentStoreVerificationResult> 
 
 const localAdapter: AdapterIdentity = { kind: 'LOCAL_OPEN_MODEL', modelId: 'ferrum-local-open-1' }
 const externalAdapter: AdapterIdentity = { kind: 'EXTERNAL_MODEL', provider: 'CLAUDE', modelId: 'claude-connected-model' }
+const trustedService = AdapterDecisionService.compose(trustedConsentStore())
 
 function decisionRequest(overrides: Partial<AdapterDecisionRequest> = {}): AdapterDecisionRequest {
   return {
@@ -103,7 +104,6 @@ function decisionRequest(overrides: Partial<AdapterDecisionRequest> = {}): Adapt
     sandboxRequest: sandboxRequest(),
     knowledgeSource: knowledgeSource(),
     externalDisclosureConsentReference: null,
-    externalDisclosureConsentVerifier: null,
     ...overrides,
   }
 }
@@ -141,14 +141,14 @@ describe('classification ceilings per adapter', () => {
 
 describe('resolveAdapterDecision - permitted minimal-context case', () => {
   it('allows a PUBLIC fragment through the external adapter once every gate passes, envelope attached', () => {
-    const decision = resolveAdapterDecision(decisionRequest())
+    const decision = trustedService.resolve(decisionRequest())
     expect(decision.allowed).toBe(true)
     expect(decision.reasons).toHaveLength(0)
     expect(decision.permissionEnvelope).toBe(EXTERNAL_ADAPTER_PERMISSION_ENVELOPE)
   })
 
   it('allows a visible, eligible RESTRICTED fragment to reach the local adapter with no permission envelope attached', () => {
-    const decision = resolveAdapterDecision(
+    const decision = trustedService.resolve(
       decisionRequest({
         fragment: fragment({ classification: 'RESTRICTED', tenantId: 'tenant-a' }),
         identity: localAdapter,
@@ -160,13 +160,12 @@ describe('resolveAdapterDecision - permitted minimal-context case', () => {
   })
 
   it('allows PROJECT_SENSITIVE data to the external adapter only with matching consent-store verification evidence', () => {
-    const decision = resolveAdapterDecision(
+    const decision = trustedService.resolve(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
         sandboxRequest: sandboxRequest({ dataRetention: 'FERRUM_MANAGED' }),
         externalDisclosureConsentReference: consentReference(),
-        externalDisclosureConsentVerifier: storeVerifier(),
       }),
     )
     expect(decision.allowed).toBe(true)
@@ -176,7 +175,7 @@ describe('resolveAdapterDecision - permitted minimal-context case', () => {
 
 describe('resolveAdapterDecision - denial paths', () => {
   it('denies and attaches no envelope when tenant-invisible', () => {
-    const decision = resolveAdapterDecision(
+    const decision = trustedService.resolve(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-b' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-b' }),
@@ -188,7 +187,7 @@ describe('resolveAdapterDecision - denial paths', () => {
   })
 
   it('denies PERSONAL data reaching the external adapter on classification ceiling, no envelope attached', () => {
-    const decision = resolveAdapterDecision(
+    const decision = trustedService.resolve(
       decisionRequest({
         fragment: fragment({ classification: 'PERSONAL', tenantId: 'tenant-a' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
@@ -200,13 +199,13 @@ describe('resolveAdapterDecision - denial paths', () => {
   })
 
   it('denies when the sandbox request identity does not match the adapter presented', () => {
-    const decision = resolveAdapterDecision(decisionRequest({ sandboxRequest: sandboxRequest({ provider: 'CODEX' }) }))
+    const decision = trustedService.resolve(decisionRequest({ sandboxRequest: sandboxRequest({ provider: 'CODEX' }) }))
     expect(decision.allowed).toBe(false)
     expect(decision.reasons).toContain('Sandbox request provider does not match the adapter identity presented for this retrieval.')
   })
 
   it('denies when the existing SUTRA sandbox policy itself denies the request (excess context disclosure)', () => {
-    const decision = resolveAdapterDecision(
+    const decision = trustedService.resolve(
       decisionRequest({
         sandboxRequest: sandboxRequest({ disclosedContextIds: ['frag-1', 'tenant-secret:other-project'] }),
       }),
@@ -216,49 +215,52 @@ describe('resolveAdapterDecision - denial paths', () => {
   })
 
   it('denies when the knowledge source does not match the fragment', () => {
-    const decision = resolveAdapterDecision(decisionRequest({ knowledgeSource: knowledgeSource({ sourceId: 'src-mismatch' }) }))
+    const decision = trustedService.resolve(decisionRequest({ knowledgeSource: knowledgeSource({ sourceId: 'src-mismatch' }) }))
     expect(decision.allowed).toBe(false)
     expect(decision.reasons).toContain('Knowledge source does not match the fragment being retrieved.')
   })
 
   it('denies when the source licence/consent does not permit retrieval', () => {
-    const decision = resolveAdapterDecision(decisionRequest({ knowledgeSource: knowledgeSource({ retrievalConsent: false }) }))
+    const decision = trustedService.resolve(decisionRequest({ knowledgeSource: knowledgeSource({ retrievalConsent: false }) }))
     expect(decision.allowed).toBe(false)
     expect(decision.reasons).toContain('Source licence/consent does not permit retrieval.')
   })
 
   it('denies when a CUSTOMER_AUTHORIZED source is scoped to a different tenant than the request', () => {
-    const decision = resolveAdapterDecision(
+    const decision = trustedService.resolve(
       decisionRequest({ knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-b' }) }),
     )
     expect(decision.allowed).toBe(false)
     expect(decision.reasons).toContain('Source licence/consent does not permit retrieval.')
   })
 
-  it('denies a forged frozen consent record when there is no consent-store verifier evidence', () => {
-    const forgedFrozenRecord = Object.freeze({ immutableConfirmationId: 'consent-9', recordDigest: 'sha256:consent-record-9', recordVersion: '7' })
-    const decision = resolveAdapterDecision(
-      decisionRequest({
-        fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
-        knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
-        // Legacy request fields are ignored: a frozen caller object is not store proof.
-        ...({ externalDisclosureConsent: forgedFrozenRecord } as unknown as Partial<AdapterDecisionRequest>),
-      }),
-    )
-    expect(decision.allowed).toBe(false)
-    expect(decision.reasons).toContain(
-      'External PROJECT_SENSITIVE disclosure requires consent-store verification evidence.',
-    )
-    expect(decision.permissionEnvelope).toBeNull()
-  })
-
-  it('denies verification evidence bound to a different provider/model, fragment or project', () => {
-    const decision = resolveAdapterDecision(
+  it('does not accept an always-true verifier injected through caller request data', () => {
+    const callerSuppliedAlwaysTrueVerifier = Object.freeze({
+      verify: () => Object.freeze({ verified: true }),
+    })
+    const decision = AdapterDecisionService.compose(trustedConsentStore({ verified: false })).resolve(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
         externalDisclosureConsentReference: consentReference(),
-        externalDisclosureConsentVerifier: storeVerifier({ binding: verifiedBinding({ projectId: 'project-other', providerModel: 'other-model', fragmentId: 'frag-other' }) }),
+        // An untyped network payload may carry this legacy field, but the
+        // request type excludes it and the service never reads it.
+        ...({ externalDisclosureConsentVerifier: callerSuppliedAlwaysTrueVerifier } as unknown as Partial<AdapterDecisionRequest>),
+      }),
+    )
+    expect(decision.allowed).toBe(false)
+    expect(decision.reasons).toContain('Consent-store verifier did not verify this disclosure consent.')
+    expect(decision.permissionEnvelope).toBeNull()
+  })
+
+  it('denies verification evidence bound to a different provider/model, fragment or project', () => {
+    const decision = AdapterDecisionService.compose(
+      trustedConsentStore({ binding: verifiedBinding({ projectId: 'project-other', providerModel: 'other-model', fragmentId: 'frag-other' }) }),
+    ).resolve(
+      decisionRequest({
+        fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
+        knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
+        externalDisclosureConsentReference: consentReference(),
       }),
     )
     expect(decision.allowed).toBe(false)
@@ -266,42 +268,59 @@ describe('resolveAdapterDecision - denial paths', () => {
     expect(decision.permissionEnvelope).toBeNull()
   })
 
-  it('denies absent, forged or mismatched consent-store verification evidence', () => {
-    const absentDecision = resolveAdapterDecision(
+  it('denies an absent reference, forged record or mismatched consent-store evidence', () => {
+    const absentDecision = trustedService.resolve(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
-        externalDisclosureConsentReference: consentReference(),
+        externalDisclosureConsentReference: null,
       }),
     )
     expect(absentDecision.allowed).toBe(false)
     expect(absentDecision.reasons).toContain('External PROJECT_SENSITIVE disclosure requires consent-store verification evidence.')
 
-    const forgedDecision = resolveAdapterDecision(
+    const forgedDecision = AdapterDecisionService.compose(trustedConsentStore({ verified: false })).resolve(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
         externalDisclosureConsentReference: consentReference(),
-        externalDisclosureConsentVerifier: storeVerifier({ verified: false }),
       }),
     )
     expect(forgedDecision.allowed).toBe(false)
     expect(forgedDecision.reasons).toContain('Consent-store verifier did not verify this disclosure consent.')
 
-    const mismatchedProofDecision = resolveAdapterDecision(
+    const mismatchedProofDecision = AdapterDecisionService.compose(trustedConsentStore({ recordDigest: 'sha256:other-record' })).resolve(
       decisionRequest({
         fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
         knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
         externalDisclosureConsentReference: consentReference(),
-        externalDisclosureConsentVerifier: storeVerifier({ recordDigest: 'sha256:other-record' }),
       }),
     )
     expect(mismatchedProofDecision.allowed).toBe(false)
     expect(mismatchedProofDecision.reasons).toContain('Consent-store verification evidence does not match the immutable consent id, digest and version.')
+
+    const trustedStoreWithOneRecord: ExternalDisclosureConsentStore = Object.freeze({
+      verify: (reference, expected) => Object.freeze({
+        verified: reference.recordDigest === 'sha256:consent-record-9',
+        immutableConfirmationId: reference.immutableConfirmationId,
+        recordDigest: reference.recordDigest,
+        recordVersion: reference.recordVersion,
+        binding: Object.freeze({ ...expected }),
+      }),
+    })
+    const forgedReferenceDecision = AdapterDecisionService.compose(trustedStoreWithOneRecord).resolve(
+      decisionRequest({
+        fragment: fragment({ classification: 'PROJECT_SENSITIVE', tenantId: 'tenant-a', projectId: 'project-7' }),
+        knowledgeSource: knowledgeSource({ licence: 'CUSTOMER_AUTHORIZED', tenantId: 'tenant-a' }),
+        externalDisclosureConsentReference: consentReference({ recordDigest: 'sha256:forged-record' }),
+      }),
+    )
+    expect(forgedReferenceDecision.allowed).toBe(false)
+    expect(forgedReferenceDecision.reasons).toContain('Consent-store verifier did not verify this disclosure consent.')
   })
 
   it('reports every applicable denial reason together rather than masking one with another', () => {
-    const decision = resolveAdapterDecision(
+    const decision = trustedService.resolve(
       decisionRequest({
         fragment: fragment({ classification: 'PERSONAL', tenantId: 'tenant-b' }),
         knowledgeSource: knowledgeSource({ sourceId: 'src-mismatch' }),
