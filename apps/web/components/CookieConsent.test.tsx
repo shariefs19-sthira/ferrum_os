@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs"
+import { join } from "node:path"
 import { fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
@@ -10,18 +12,22 @@ describe("CookieConsent coexistence with the SUTRA launcher", () => {
   beforeEach(() => { window.localStorage.clear(); pathname.value = "/" })
   afterEach(() => { document.documentElement.style.removeProperty(COOKIE_HEIGHT_VAR) })
 
-  it("sits below the SUTRA layer (z-50) on marketing routes and keeps a 44px dismiss target", async () => {
+  it("is a flush bottom bar below the SUTRA layer (z-50) that never floats over content, with a 44px dismiss target", async () => {
     render(<CookieConsent />)
     const banner = await screen.findByRole("dialog", { name: "Cookie consent" })
     expect(banner.className).toContain("z-[45]")
-    expect(banner.className).toContain("sm:left-6")
+    expect(banner.className).toContain("inset-x-0")
+    expect(banner.className).toContain("bottom-0")
+    expect(banner.className).not.toMatch(/(^|\s)(sm:)?(left|bottom)-(3|6)/)
     expect(screen.getByRole("button", { name: "Got it" }).className).toContain("min-h-11")
   })
 
-  it("renders above the workspace shell (z-70) and sheets (z-80) so it stays dismissible there", async () => {
+  it("keeps the same bar (reserved via the published height var) on workspace routes instead of overlaying the shell", async () => {
     pathname.value = "/project-workspace/cockpit"
     render(<CookieConsent />)
-    expect((await screen.findByRole("dialog", { name: "Cookie consent" })).className).toContain("z-[90]")
+    const banner = await screen.findByRole("dialog", { name: "Cookie consent" })
+    expect(banner.className).toContain("z-[45]")
+    expect(banner.className).toContain("bottom-0")
   })
 
   it("publishes its height for the launcher and clears it once dismissed, persisting consent", async () => {
@@ -38,5 +44,11 @@ describe("CookieConsent coexistence with the SUTRA launcher", () => {
     window.localStorage.setItem("ferrum-cookie-consent", "accepted")
     render(<CookieConsent />)
     expect(screen.queryByRole("dialog", { name: "Cookie consent" })).toBeNull()
+  })
+
+  it("reserves the banner strip in the document and the fixed workspace shell so it never covers controls", () => {
+    const css = readFileSync(join(__dirname, "../app/globals.css"), "utf8")
+    expect(css).toMatch(/body\s*\{\s*padding-bottom:\s*var\(--cookie-consent-h, 0px\)/)
+    expect(css).toMatch(/\.h-dvh-safe\[data-workspace-fullscreen\][^}]*calc\(100dvh - var\(--cookie-consent-h, 0px\)\)/)
   })
 })

@@ -277,3 +277,14 @@ main h4[class] {
 [data-sutra-panel][data-guided-open="false"] [aria-labelledby="sutra-question"] {
   display: none;
 }
+
+/* Cookie consent is a bottom bar that owns its strip: content and the
+   fixed workspace shell stop above it (height published by
+   CookieConsent as --cookie-consent-h) instead of being covered. */
+body {
+  padding-bottom: var(--cookie-consent-h, 0px);
+}
+.h-dvh-safe[data-workspace-fullscreen] {
+  height: calc(100vh - var(--cookie-consent-h, 0px));
+  height: calc(100dvh - var(--cookie-consent-h, 0px));
+}
