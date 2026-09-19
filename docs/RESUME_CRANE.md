@@ -5,6 +5,7 @@ CRANE session reads this file FIRST, before anything else, and resumes
 exactly from what it says.
 
 ## Heartbeat (AGENTS.md RULE 38(2))
+- 2026-09-19 — CRANE released product-aware cockpit: landed `8148afd73`, preview Version `8c09c3c7-78f2-4985-9013-36e30d651077`, 36/36 live real-click PASS (docs/TASK_REPORTS.md 2026-09-19).
 - 2026-09-04 (end of W-08 pass) — CRANE active this turn.
 
 ## Done (this session, with SHAs)
