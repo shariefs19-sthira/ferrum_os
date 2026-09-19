@@ -114,22 +114,23 @@ function urlFor(base, route, query) {
   return query ? `${base}${route}${sep}${query}` : `${base}${route}`
 }
 
-// Resolve the scroller: for variant A the document itself is viewport-height
-// and #cookie-band-scroll is the real scroll container; for every other
-// variant it's the window/document element.
+// Resolve the scroller: for variant A the app shell is viewport-height and
+// SiteShell's [data-site-scroll] region (siteShell.module.css) is the real,
+// permanent scroll container; for every other variant it's the
+// window/document element.
 async function scrollInfo(page, variantId) {
   return page.evaluate((vid) => {
-    const el = vid === "A" ? document.getElementById("cookie-band-scroll") : document.scrollingElement
-    if (!el) return { maxScroll: 0, kind: "window" }
+    const el = vid === "A" ? document.querySelector("[data-site-scroll]") : document.scrollingElement
+    if (!el) return { maxScroll: 0, clientHeight: window.innerHeight, kind: "window" }
     const maxScroll = Math.max(0, el.scrollHeight - el.clientHeight)
-    return { maxScroll, kind: vid === "A" ? "container" : "window" }
+    return { maxScroll, clientHeight: el.clientHeight, kind: vid === "A" ? "container" : "window" }
   }, variantId)
 }
 
 async function scrollTo(page, variantId, y) {
   await page.evaluate(({ vid, y }) => {
     if (vid === "A") {
-      const el = document.getElementById("cookie-band-scroll")
+      const el = document.querySelector("[data-site-scroll]")
       if (el) el.scrollTop = y
     } else {
       window.scrollTo(0, y)
@@ -149,7 +150,7 @@ async function midTargetBottom(page, variantId, midSelector) {
     // good enough proxy for "the block the failure was measured on".
     let best = candidates[0]
     let bestTop = 0
-    const scroller = vid === "A" ? document.getElementById("cookie-band-scroll") : document.scrollingElement
+    const scroller = vid === "A" ? document.querySelector("[data-site-scroll]") : document.scrollingElement
     const scrollerScrollTop = scroller ? scroller.scrollTop : 0
     for (const el of candidates) {
       const r = el.getBoundingClientRect()
@@ -182,9 +183,27 @@ async function measureCoverage(page) {
       // at this scroll position) — matches what the operator sees in the shot.
       if (r.bottom <= 0 || r.top >= vh || r.right <= 0 || r.left >= vw) continue
       if (!barBox) continue
-      const ix = Math.max(0, Math.min(r.right, barBox.right) - Math.max(r.left, barBox.left))
-      const iy = Math.max(0, Math.min(r.bottom, barBox.bottom) - Math.max(r.top, barBox.top))
-      const overlapArea = ix * iy
+      // Clip-aware: an element cut off by a scrolling/hidden-overflow
+      // ancestor (e.g. candidate A's scroll region, which ends exactly where
+      // the consent row begins) is not visible below that edge, so it cannot
+      // be "covered" there. getBoundingClientRect ignores that clipping, so
+      // intersect the rect with every clipping ancestor first.
+      let vis = { left: r.left, top: r.top, right: r.right, bottom: r.bottom }
+      for (let a = el.parentElement; a && a !== document.documentElement; a = a.parentElement) {
+        const s = getComputedStyle(a)
+        if (/(auto|scroll|hidden|clip)/.test(s.overflowX + s.overflowY)) {
+          const ar = a.getBoundingClientRect()
+          vis = {
+            left: Math.max(vis.left, ar.left), top: Math.max(vis.top, ar.top),
+            right: Math.min(vis.right, ar.right), bottom: Math.min(vis.bottom, ar.bottom),
+          }
+        }
+      }
+      const visW = Math.max(0, vis.right - vis.left)
+      const visH = Math.max(0, vis.bottom - vis.top)
+      const ix = Math.max(0, Math.min(vis.right, barBox.right) - Math.max(vis.left, barBox.left))
+      const iy = Math.max(0, Math.min(vis.bottom, barBox.bottom) - Math.max(vis.top, barBox.top))
+      const overlapArea = visW > 0 && visH > 0 ? ix * iy : 0
       const elArea = r.width * r.height
       const pct = elArea > 0 ? overlapArea / elArea : 0
       if (pct >= 0.3) covered.push({ tag: el.tagName, text: (el.textContent || "").trim().slice(0, 40), pct: Math.round(pct * 100) })
@@ -192,6 +211,144 @@ async function measureCoverage(page) {
     const overflow = document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
     return { covered, overflow }
   })
+}
+
+const rectOverlap = (a, b) => {
+  if (!a || !b) return 0
+  const ix = Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left))
+  const iy = Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top))
+  return Math.round(ix * iy)
+}
+
+// Per candidate / route / viewport structural checks: bar height, Got it
+// size + hit-testability, SUTRA launcher vs Got it and vs the consent
+// surface, first-viewport height lost, dismissal restore vs a never-shown
+// baseline (within 2px) incl. no residual attribute/inline style, choice
+// persisting across reload, and the page still rendering + dismissing when
+// storage throws (safeStorage).
+async function runChecks(browser, base) {
+  const checks = []
+  const baselineGeom = async (page) =>
+    page.evaluate(() => {
+      const h1 = document.querySelector("h1")
+      const foot = document.querySelector("footer")
+      return {
+        docH: document.documentElement.scrollHeight,
+        h1Top: h1 ? Math.round(h1.getBoundingClientRect().top + window.scrollY) : null,
+        footBottom: foot ? Math.round(foot.getBoundingClientRect().bottom + window.scrollY) : null,
+      }
+    })
+  for (const route of ROUTES) {
+    for (const vp of VIEWPORTS) {
+      // Never-shown baseline: consent already accepted, no variant param.
+      const baseCtx = await browser.newContext({ viewport: { width: vp.w, height: vp.h } })
+      await baseCtx.addInitScript(() => { try { localStorage.setItem("ferrum-cookie-consent", "accepted") } catch {} })
+      await baseCtx.route("**/api/auth/session", (r) => r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ user: null }) }))
+      const basePage = await baseCtx.newPage()
+      await basePage.goto(urlFor(base, route.path, ""), { waitUntil: "networkidle" })
+      await basePage.waitForTimeout(150)
+      const baseline = await baselineGeom(basePage)
+      await baseCtx.close()
+
+      for (const variant of VARIANTS) {
+        const ctx = await browser.newContext({ viewport: { width: vp.w, height: vp.h } })
+        await ctx.route("**/api/auth/session", (r) => r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ user: null }) }))
+        const page = await ctx.newPage()
+        await page.goto(urlFor(base, route.path, variant.query), { waitUntil: "networkidle" })
+        await page.waitForTimeout(200)
+        const shown = await page.evaluate(() => {
+          const surface = document.querySelector("[data-cookie-consent]")
+          const gotIt = Array.from(document.querySelectorAll("button")).find((b) => b.textContent.trim() === "Got it")
+          const r = (el) => { if (!el) return null; const b = el.getBoundingClientRect(); return { left: b.left, top: b.top, right: b.right, bottom: b.bottom, width: b.width, height: b.height } }
+          let launcher = null
+          document.querySelectorAll("button").forEach((b) => { if (b !== gotIt && getComputedStyle(b).position === "fixed" && /z-50/.test(b.className)) launcher = b })
+          // Hit-test the centre of Got it: the topmost element there must be Got it (or its child).
+          let hit = false
+          if (gotIt) { const g = gotIt.getBoundingClientRect(); const t = document.elementFromPoint(g.left + g.width / 2, g.top + g.height / 2); hit = !!t && (t === gotIt || gotIt.contains(t)) }
+          return {
+            surface: r(surface), gotIt: r(gotIt), launcher: r(launcher), gotItHit: hit,
+            cookieVar: getComputedStyle(document.documentElement).getPropertyValue("--cookie-consent-h").trim(),
+            vh: window.innerHeight,
+          }
+        })
+        const barH = shown.surface ? Math.round(shown.surface.height) : 0
+        const entry = {
+          variant: variant.id, route: route.label, viewport: `${vp.w}x${vp.h}`,
+          consentSurfaceHeight: barH, consentSurfaceWidth: shown.surface ? Math.round(shown.surface.width) : 0,
+          gotItWidth: shown.gotIt ? Math.round(shown.gotIt.width) : 0,
+          gotItHeight: shown.gotIt ? Math.round(shown.gotIt.height) : 0,
+          gotItHitTestable: shown.gotItHit,
+          publishedCookieVar: shown.cookieVar,
+          launcherPresent: !!shown.launcher,
+          launcherVsGotItOverlapPx2: rectOverlap(shown.launcher, shown.gotIt),
+          launcherVsConsentSurfaceOverlapPx2: rectOverlap(shown.launcher, shown.surface),
+          launcherGapAboveSurface: shown.launcher && shown.surface && variant.id !== "B" ? Math.round(shown.surface.top - shown.launcher.bottom) : null,
+          // A's first viewport: scroll region height; others: full viewport (bar overlays it).
+          firstViewportContentAreaHeight: variant.id === "A" ? shown.vh - barH : shown.vh,
+          firstViewportHeightCoveredByConsent: variant.id === "A" ? 0 : (variant.id === "B" ? shown.vh : (variant.id === "C" ? 0 : barH)),
+        }
+
+        // Dismiss + residual checks.
+        await page.getByRole("button", { name: "Got it" }).click({ force: true })
+        // Park the pointer: after the consent surface disappears the cursor
+        // rests over whatever page control sat beneath it, and that control's
+        // hover state can change page height (not a layout residual).
+        await page.mouse.move(1, 1)
+        await page.waitForTimeout(300)
+        const after = await page.evaluate(() => {
+          const shell = document.querySelector("[data-app-shell]")
+          const region = document.querySelector("[data-site-scroll]")
+          const cs = (el) => (el ? getComputedStyle(el) : null)
+          return {
+            htmlAttr: document.documentElement.getAttribute("data-cookie-variant"),
+            htmlCookieVar: document.documentElement.style.getPropertyValue("--cookie-consent-h"),
+            bodyInlineStyle: document.body.getAttribute("style"),
+            htmlInertOrHidden: !!document.querySelector("[inert]"),
+            shellHeightAuto: cs(shell) ? cs(shell).display !== "flex" : true,
+            regionOverflow: cs(region) ? cs(region).overflowY : null,
+            scrollLocked: getComputedStyle(document.body).overflow === "hidden" || getComputedStyle(document.documentElement).overflow === "hidden",
+            wrapperLeft: !!document.getElementById("cookie-band-scroll"),
+          }
+        })
+        const geom = await baselineGeom(page)
+        entry.dismissDeltaVsNeverShown = {
+          docH: geom.docH - baseline.docH,
+          h1Top: geom.h1Top != null && baseline.h1Top != null ? geom.h1Top - baseline.h1Top : null,
+          footBottom: geom.footBottom != null && baseline.footBottom != null ? geom.footBottom - baseline.footBottom : null,
+        }
+        const d = entry.dismissDeltaVsNeverShown
+        entry.dismissRestoresWithin2px = [d.docH, d.h1Top, d.footBottom].every((v) => v == null || Math.abs(v) <= 2)
+        entry.residualAfterDismiss = after
+        entry.noResidual = after.htmlAttr === null && after.htmlCookieVar === "" && !after.bodyInlineStyle && !after.htmlInertOrHidden && after.shellHeightAuto && after.regionOverflow !== "auto" && !after.scrollLocked && !after.wrapperLeft
+
+        // Persistence across reload.
+        await page.reload({ waitUntil: "networkidle" })
+        await page.waitForTimeout(150)
+        entry.persistsAcrossReload = await page.evaluate(() => !document.querySelector("[data-cookie-consent]"))
+        await ctx.close()
+
+        // Storage blocked (RULE 44 / safeStorage): page renders, bar shows, Got it dismisses.
+        const blockedCtx = await browser.newContext({ viewport: { width: vp.w, height: vp.h } })
+        await blockedCtx.addInitScript(() => {
+          Object.defineProperty(window, "localStorage", { configurable: true, get() { throw new DOMException("denied", "SecurityError") } })
+        })
+        await blockedCtx.route("**/api/auth/session", (r) => r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ user: null }) }))
+        const errors = []
+        const bp = await blockedCtx.newPage()
+        bp.on("pageerror", (e) => errors.push(String(e).slice(0, 120)))
+        await bp.goto(urlFor(base, route.path, variant.query), { waitUntil: "networkidle" })
+        await bp.waitForTimeout(200)
+        const rendered = await bp.evaluate(() => !!document.querySelector("h1, h2") && !!document.querySelector("[data-cookie-consent]"))
+        let dismissedWhenBlocked = false
+        try { await bp.getByRole("button", { name: "Got it" }).click({ force: true, timeout: 2000 }); await bp.waitForTimeout(200); dismissedWhenBlocked = await bp.evaluate(() => !document.querySelector("[data-cookie-consent]")) } catch {}
+        entry.storageBlocked = { pageRenders: rendered, dismissesForSession: dismissedWhenBlocked, pageErrors: errors }
+        await blockedCtx.close()
+
+        checks.push(entry)
+      }
+    }
+  }
+  return checks
 }
 
 async function run() {
@@ -223,13 +380,17 @@ async function run() {
               const gotIt = page.getByRole("button", { name: "Got it" })
               if (await gotIt.count()) {
                 await gotIt.click({ force: true })
+                await page.mouse.move(1, 1) // park pointer: no stray hover state in the "dismissed" shots
                 await page.waitForTimeout(250)
               }
             }
 
-            const { maxScroll } = await scrollInfo(page, variant.id)
+            const { maxScroll, clientHeight } = await scrollInfo(page, variant.id)
             const midBottom = await midTargetBottom(page, variant.id, route.midSelector)
-            const midY = midBottom != null ? Math.max(0, Math.min(maxScroll, midBottom - vp.h)) : Math.round(maxScroll / 2)
+            // Align the target's bottom edge with the bottom of the actual
+            // scroll region (for A that is viewport minus the consent row;
+            // for B/C/D it is the full viewport) — NOT the raw viewport height.
+            const midY = midBottom != null ? Math.max(0, Math.min(maxScroll, midBottom - clientHeight)) : Math.round(maxScroll / 2)
 
             const positions = [
               { name: "top", y: 0 },
@@ -261,6 +422,9 @@ async function run() {
         }
       }
     }
+    const checks = await runChecks(browser, base)
+    await writeFile(path.join(SHOT_DIR, "cookie-allotment-checks.json"), JSON.stringify(checks, null, 2))
+    console.log(`Wrote ${checks.length} structural check rows to cookie-allotment-checks.json`)
   } finally {
     await browser.close()
     server.close()

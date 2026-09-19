@@ -26,6 +26,23 @@ describe("SiteShell", () => {
     expect(screen.getByText("global sutra")).toBeTruthy()
   })
 
+  it("gives the shell a real scroll region holding header, page, newsletter and footer, with the SUTRA launcher outside it", () => {
+    const { container } = render(<SiteShell><main>public page</main></SiteShell>)
+    const region = container.querySelector("[data-site-scroll]")!
+    expect(region).toBeTruthy()
+    expect(region.contains(screen.getByText("public header"))).toBe(true)
+    expect(region.contains(screen.getByText("public page"))).toBe(true)
+    expect(region.contains(screen.getByText("newsletter"))).toBe(true)
+    expect(region.contains(screen.getByText("public footer"))).toBe(true)
+    expect(region.contains(screen.getByText("global sutra"))).toBe(false)
+  })
+
+  it("keeps project routes in the same scroll region without public furniture", () => {
+    pathname = "/project-workspace/projects"
+    const { container } = render(<SiteShell><main>projects page</main></SiteShell>)
+    expect(container.querySelector("[data-site-scroll]")!.contains(screen.getByText("projects page"))).toBe(true)
+  })
+
   it("removes public furniture and duplicate SUTRA from project routes", () => {
     pathname = "/project-workspace/cockpit"
     render(<SiteShell><main>project cockpit</main></SiteShell>)

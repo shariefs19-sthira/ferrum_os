@@ -4,6 +4,7 @@ import './globals.css'
 import JsonLd from '../components/JsonLd'
 import CookieConsent from '../components/CookieConsent'
 import SiteShell from '../components/SiteShell'
+import shellStyles from '../components/siteShell.module.css'
 import { SITE_BASE_URL, SOCIAL_CARD_ALT, SOCIAL_CARD_PATH } from '../lib/siteConfig'
 
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans', display: 'swap' })
@@ -54,8 +55,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <JsonLd />
-        <SiteShell>{children}</SiteShell>
-        <CookieConsent />
+        {/* .appShell (siteShell.module.css) is an ordinary <div> — no
+            layout effect — unless CookieConsent.tsx marks <html
+            data-cookie-variant="A"> (reserved-band screenshot candidate),
+            in which case it becomes the full-viewport flex column whose
+            two rows are SiteShell's .scrollRegion and the consent row. */}
+        <div className={shellStyles.appShell} data-app-shell>
+          <SiteShell>{children}</SiteShell>
+          <CookieConsent />
+        </div>
       </body>
     </html>
   )

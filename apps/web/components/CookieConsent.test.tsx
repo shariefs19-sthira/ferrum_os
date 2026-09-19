@@ -101,8 +101,7 @@ describe("CookieConsent layout-allotment candidates (screenshot/demo switch, ?co
   beforeEach(() => { window.localStorage.clear(); resetSafeStorageMemory(); pathname.value = "/" })
   afterEach(() => {
     document.documentElement.style.removeProperty(COOKIE_HEIGHT_VAR)
-    document.body.removeAttribute("data-cookie-variant")
-    document.body.removeAttribute("style")
+    document.documentElement.removeAttribute("data-cookie-variant")
     window.history.replaceState(null, "", "/" + originalSearch)
   })
 
@@ -124,6 +123,20 @@ describe("CookieConsent layout-allotment candidates (screenshot/demo switch, ?co
     expect(screen.queryByRole("dialog", { name: "Cookie consent" })).toBeNull()
   })
 
+  it("variant B makes siblings at every level above the modal inert (modal sits inside the app shell) and restores them on dismiss", async () => {
+    window.history.replaceState(null, "", "/?cookieVariant=B")
+    const { container } = render(
+      <div data-app-shell>
+        <div data-testid="page-behind"><button>page control</button></div>
+        <CookieConsent />
+      </div>,
+    )
+    await screen.findByRole("dialog", { name: "Cookie consent" })
+    expect(container.querySelector("[data-testid='page-behind']")!.hasAttribute("inert")).toBe(true)
+    fireEvent.click(screen.getByRole("button", { name: "Got it" }))
+    expect(container.querySelector("[data-testid='page-behind']")!.hasAttribute("inert")).toBe(false)
+  })
+
   it("variant C renders a compact corner card, not a full-width bar", async () => {
     window.history.replaceState(null, "", "/?cookieVariant=C")
     render(<CookieConsent />)
@@ -132,12 +145,12 @@ describe("CookieConsent layout-allotment candidates (screenshot/demo switch, ?co
     expect(banner.className).not.toContain("inset-x-0")
   })
 
-  it("variant A tags <body> for the reserved-band layout while shown and clears it once dismissed", async () => {
+  it("variant A tags <html> for the reserved-band layout while shown and clears it once dismissed", async () => {
     window.history.replaceState(null, "", "/?cookieVariant=A")
     render(<CookieConsent />)
     await screen.findByRole("dialog", { name: "Cookie consent" })
-    expect(document.body.getAttribute("data-cookie-variant")).toBe("A")
+    expect(document.documentElement.getAttribute("data-cookie-variant")).toBe("A")
     fireEvent.click(screen.getByRole("button", { name: "Got it" }))
-    expect(document.body.getAttribute("data-cookie-variant")).toBeNull()
+    expect(document.documentElement.getAttribute("data-cookie-variant")).toBeNull()
   })
 })

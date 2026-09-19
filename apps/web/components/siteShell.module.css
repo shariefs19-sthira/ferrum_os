@@ -1,0 +1,28 @@
+/* Scoped shell structure used only for the cookie-consent "reserved band"
+   layout candidate (A). Imported by layout.tsx (.appShell) and
+   SiteShell.tsx (.scrollRegion).
+   Default (no `data-cookie-variant="A"` on <html>, i.e. every real visitor
+   and candidates B/C/D): both classes are ordinary <div>s with no layout
+   effect — wrapping already-block-level children in a plain div does not
+   change how they render, so this is a no-op for the shipped page.
+   When CookieConsent.tsx sets `<html data-cookie-variant="A">` (screenshot
+   demo only, `?cookieVariant=A`): .appShell becomes the single
+   full-viewport flex column and .scrollRegion becomes its scrollable top
+   row, so the consent row (a sibling of .scrollRegion inside .appShell)
+   gets its own row and page content can never scroll under it. */
+
+[data-cookie-variant="A"] .appShell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+[data-cookie-variant="A"] .scrollRegion {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}

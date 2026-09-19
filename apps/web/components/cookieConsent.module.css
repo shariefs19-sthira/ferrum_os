@@ -5,20 +5,9 @@
    by globals.css or any other component. */
 
 /* ---------- Variant A: reserved band ---------- */
-/* Applied to a wrapper we create at runtime around the existing body
-   children (see CookieConsent.tsx). The wrapper becomes the scroll
-   container that sits strictly above the bar's row. */
-/* body-level flex/height for variant A is set inline from CookieConsent.tsx
-   (a bare `body[...]` rule has no local class, so it isn't a valid CSS
-   Modules selector — see the useEffect that toggles data-cookie-variant). */
-.bandScroll {
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
+/* This is just the bar's own row (flex:0 0 auto) inside layout.tsx's real
+   `.appShell` / SiteShell's `.scrollRegion` structure — see
+   siteShell.module.css for the actual reserved-band layout. */
 .bandBarRow {
   flex: 0 0 auto;
   transition: flex-basis 220ms ease, height 220ms ease;

@@ -59,47 +59,17 @@ export default function CookieConsent() {
     }
   }, [visible, variant])
 
-  // Variant A: reserve a real row for the bar by wrapping the rest of
-  // body's children in a scroll container that sits above it. Runtime-only
-  // DOM restructuring confined to this component (layout.tsx/SiteShell are
-  // out of lease) — gated entirely behind ?cookieVariant=A so it never runs
-  // for a real visitor.
+  // Variant A: the reserved-band structure is a REAL, permanent DOM shape
+  // (layout.tsx's `.appShell` wrapping SiteShell's `.scrollRegion` — see
+  // siteShell.module.css), not something built at runtime. All this effect
+  // does is flip the attribute that CSS keys off, on <html>, for as long as
+  // the bar is showing; there is no node relocation and nothing left
+  // behind on cleanup.
   useEffect(() => {
     if (variant !== "A" || !visible) return
-    const body = document.body
-    const aside = bannerRef.current
-    body.setAttribute("data-cookie-variant", "A")
-    const prevBodyStyle = body.getAttribute("style")
-    body.style.display = "flex"
-    body.style.flexDirection = "column"
-    body.style.height = "100dvh"
-    body.style.overflow = "hidden"
-    body.style.margin = "0"
-    let wrapper = document.getElementById("cookie-band-scroll") as HTMLDivElement | null
-    let created = false
-    if (!wrapper) {
-      wrapper = document.createElement("div")
-      wrapper.id = "cookie-band-scroll"
-      wrapper.className = styles.bandScroll
-      const toMove: ChildNode[] = []
-      body.childNodes.forEach((node) => {
-        if (node === aside) return
-        if (node.nodeType === Node.ELEMENT_NODE && (node as Element).tagName === "SCRIPT") return
-        toMove.push(node)
-      })
-      toMove.forEach((node) => wrapper!.appendChild(node))
-      body.insertBefore(wrapper, body.firstChild)
-      created = true
-    }
-    return () => {
-      body.removeAttribute("data-cookie-variant")
-      if (prevBodyStyle === null) body.removeAttribute("style")
-      else body.setAttribute("style", prevBodyStyle)
-      if (created && wrapper && wrapper.parentNode === body) {
-        while (wrapper.firstChild) body.insertBefore(wrapper.firstChild, wrapper)
-        body.removeChild(wrapper)
-      }
-    }
+    const root = document.documentElement
+    root.setAttribute("data-cookie-variant", "A")
+    return () => root.removeAttribute("data-cookie-variant")
   }, [variant, visible])
 
   // Variant B: make the page behind the modal inert (unfocusable,
@@ -108,14 +78,17 @@ export default function CookieConsent() {
     if (variant !== "B" || !visible) return
     const body = document.body
     const others: Element[] = []
-    body.querySelectorAll(":scope > *").forEach((el) => {
-      // Skip the element itself and anything containing it (in production
-      // it's a direct body child; test renderers add a wrapper div).
-      if (el.hasAttribute("data-cookie-consent")) return
-      if (el.querySelector("[data-cookie-consent]")) return
-      if (el.tagName === "SCRIPT") return
-      others.push(el)
-    })
+    // Inert every sibling at each level between the modal and <body> (the
+    // modal lives inside layout.tsx's .appShell, and test renderers add a
+    // wrapper div), never the modal's own ancestor chain.
+    let node: Element | null = bannerRef.current
+    while (node && node !== body && node.parentElement) {
+      const parent: Element = node.parentElement
+      Array.from(parent.children).forEach((sib) => {
+        if (sib !== node && sib.tagName !== "SCRIPT") others.push(sib)
+      })
+      node = parent
+    }
     others.forEach((el) => {
       el.setAttribute("inert", "")
       el.setAttribute("aria-hidden", "true")
