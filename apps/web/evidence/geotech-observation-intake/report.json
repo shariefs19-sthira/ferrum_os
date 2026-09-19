@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-09-19T02:39:38.003Z",
+  "baseUrl": "http://127.0.0.1:3011",
+  "results": [
+    {
+      "viewport": {
+        "width": 320,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "rendered": true,
+      "state": "UNKNOWN",
+      "documentOverflow": 0,
+      "intakeOverflow": 0,
+      "overflowElements": 0,
+      "consentDismissed": true,
+      "overlayIntersections": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "httpErrors": [],
+      "screenshot": "320.png"
+    },
+    {
+      "viewport": {
+        "width": 375,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "rendered": true,
+      "state": "UNKNOWN",
+      "documentOverflow": 0,
+      "intakeOverflow": 0,
+      "overflowElements": 0,
+      "consentDismissed": true,
+      "overlayIntersections": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "httpErrors": [],
+      "screenshot": "375.png"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "rendered": true,
+      "state": "UNKNOWN",
+      "documentOverflow": 0,
+      "intakeOverflow": 0,
+      "overflowElements": 0,
+      "consentDismissed": true,
+      "overlayIntersections": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "httpErrors": [],
+      "screenshot": "390.png"
+    },
+    {
+      "viewport": {
+        "width": 430,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "rendered": true,
+      "state": "UNKNOWN",
+      "documentOverflow": 0,
+      "intakeOverflow": 0,
+      "overflowElements": 0,
+      "consentDismissed": true,
+      "overlayIntersections": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "httpErrors": [],
+      "screenshot": "430.png"
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1080
+      },
+      "httpStatus": 200,
+      "rendered": true,
+      "state": "UNKNOWN",
+      "documentOverflow": 0,
+      "intakeOverflow": 0,
+      "overflowElements": 0,
+      "consentDismissed": true,
+      "overlayIntersections": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "httpErrors": [],
+      "screenshot": "768.png"
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 1080
+      },
+      "httpStatus": 200,
+      "rendered": true,
+      "state": "UNKNOWN",
+      "documentOverflow": 0,
+      "intakeOverflow": 0,
+      "overflowElements": 0,
+      "consentDismissed": true,
+      "overlayIntersections": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "httpErrors": [],
+      "screenshot": "1024.png"
+    },
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 1080
+      },
+      "httpStatus": 200,
+      "rendered": true,
+      "state": "UNKNOWN",
+      "documentOverflow": 0,
+      "intakeOverflow": 0,
+      "overflowElements": 0,
+      "consentDismissed": true,
+      "overlayIntersections": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "httpErrors": [],
+      "screenshot": "1366.png"
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "httpStatus": 200,
+      "rendered": true,
+      "state": "UNKNOWN",
+      "documentOverflow": 0,
+      "intakeOverflow": 0,
+      "overflowElements": 0,
+      "consentDismissed": true,
+      "overlayIntersections": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "httpErrors": [],
+      "screenshot": "1440.png"
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "httpStatus": 200,
+      "rendered": true,
+      "state": "UNKNOWN",
+      "documentOverflow": 0,
+      "intakeOverflow": 0,
+      "overflowElements": 0,
+      "consentDismissed": true,
+      "overlayIntersections": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "httpErrors": [],
+      "screenshot": "1920.png"
+    }
+  ]
+}
