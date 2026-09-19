@@ -69,6 +69,75 @@ describe("panel layout geometry", () => {
   })
 })
 
+describe("SUTRA maximum keeps a usable MODEL canvas (tool column reserved from xl)", () => {
+  // Model canvas width as the cockpit lays it out: canvas column minus, from xl, the tool column (416px + 2px border).
+  const modelCanvasWidth = (container: number, sutra: number, rail = PANEL_LIMITS.rail.min) =>
+    container - rail - sutra - PANEL_LIMITS.splitter - (container >= PANEL_LIMITS.toolColumn.xlContainerMin ? PANEL_LIMITS.toolColumn.reserve : 0)
+
+  it.each([
+    [1280, 720, 378],
+    [1366, 768, 464],
+    [1440, 900, 538],
+    [1600, 900, 698],
+    [1600, 1080, 698],
+    [1920, 1080, 720],
+  ])("%ix%i: End/drag maximum is %ipx and the model canvas is still >= 360px wide", (width, _height, expectedMax) => {
+    const max = maxSutraWidth(width, PANEL_LIMITS.rail.min)
+    expect(max).toBe(expectedMax)
+    expect(clampSutraWidth(10_000, width, PANEL_LIMITS.rail.min)).toBe(expectedMax)
+    expect(resolvePanelLayout({ ...DEFAULT_PANEL_LAYOUT, sutraWidth: 720 }, width).sutraMax).toBe(expectedMax)
+    expect(modelCanvasWidth(width, max)).toBeGreaterThanOrEqual(PANEL_LIMITS.canvasMin)
+  })
+
+  it("1366 was 720 (model canvas 104px) before the tool column was reserved and must now be lower", () => {
+    expect(maxSutraWidth(1366, 112)).toBeLessThan(720)
+    expect(modelCanvasWidth(1366, 720)).toBe(104)
+    expect(modelCanvasWidth(1280, 720)).toBe(18)
+  })
+
+  it("is tight: one pixel more SUTRA would take the model below 360px, unless the absolute 720px cap binds", () => {
+    for (const width of [1280, 1366, 1440, 1600]) {
+      const max = maxSutraWidth(width, PANEL_LIMITS.rail.min)
+      expect(modelCanvasWidth(width, max + 1)).toBeLessThan(PANEL_LIMITS.canvasMin)
+    }
+    expect(maxSutraWidth(1920, PANEL_LIMITS.rail.min)).toBe(PANEL_LIMITS.sutra.max)
+  })
+
+  it("below xl the tools stack under the canvas, so nothing is reserved and the previous maximum is unchanged", () => {
+    expect(maxSutraWidth(1024, 112)).toBe(540)
+    expect(maxSutraWidth(1200, 112)).toBe(716)
+    expect(maxSutraWidth(1262, 112)).toBe(PANEL_LIMITS.sutra.max)
+    expect(maxSutraWidth(768, 112)).toBe(PANEL_LIMITS.sutra.min)
+  })
+
+  it("switches on at the xl breakpoint allowing for a classic scrollbar (1280 - 17px = 1263 measured)", () => {
+    expect(PANEL_LIMITS.toolColumn.xlContainerMin).toBe(1263)
+    expect(maxSutraWidth(1263, 112)).toBe(361)
+    expect(maxSutraWidth(1262, 112)).toBe(PANEL_LIMITS.sutra.max)
+  })
+
+  it("a wider rail still shrinks the maximum, floored at the SUTRA minimum", () => {
+    expect(maxSutraWidth(1366, 200)).toBe(376)
+    expect(maxSutraWidth(1280, 200)).toBe(PANEL_LIMITS.sutra.min)
+  })
+
+  it("clamps a persisted 720px width on load without rewriting the stored preference", () => {
+    const stored: PanelLayout = { ...DEFAULT_PANEL_LAYOUT, sutraWidth: 720 }
+    expect(resolvePanelLayout(stored, 1366).sutraWidth).toBe(464)
+    expect(resolvePanelLayout(stored, 1280).sutraWidth).toBe(378)
+    expect(stored.sutraWidth).toBe(720)
+    expect(resolvePanelLayout(stored, 1920).sutraWidth).toBe(720) // honoured again on a wide monitor
+  })
+
+  it("the automatic default never exceeds the new maximum at the xl edge", () => {
+    for (const width of [1263, 1280, 1366]) {
+      const resolved = resolvePanelLayout(DEFAULT_PANEL_LAYOUT, width)
+      expect(resolved.sutraWidth).toBeLessThanOrEqual(resolved.sutraMax)
+      expect(modelCanvasWidth(width, resolved.sutraWidth)).toBeGreaterThanOrEqual(PANEL_LIMITS.canvasMin)
+    }
+  })
+})
+
 describe("panel layout persistence schema", () => {
   it("round-trips a valid layout", () => {
     const layout: PanelLayout = { version: 1, sutraWidth: 520, sutraSide: "left", sutraCollapsed: true, railWidth: 160 }

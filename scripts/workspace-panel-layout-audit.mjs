@@ -1,8 +1,10 @@
 // MASON: workspace panel layout evidence (first workspace-shell slice).
 // Serves apps/web/out (static export) and drives /project-workspace/cockpit in
 // Chromium at 320/390/768/1024/1366/1440, recording geometry + keyboard/pointer
-// assertions and screenshots.
+// assertions and screenshots. The final section ("SUTRA max keeps a usable model")
+// covers 1280x720 / 1366x768 / 1440x900 / 1920x1080 for Land and Structure.
 //   pnpm --filter ./apps/web build && node scripts/workspace-panel-layout-audit.mjs
+// Set PANEL_AUDIT_EVIDENCE_DIR to write screenshots + results.json elsewhere.
 import { createServer } from 'node:http'
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
@@ -13,7 +15,7 @@ const require = createRequire(pathToFileURL(path.resolve('apps', 'web', 'package
 const { chromium } = require('playwright')
 
 const outRoot = path.resolve('apps', 'web', 'out')
-const evidenceDir = path.resolve('apps', 'web', 'evidence', 'workspace-panel-layout-20260919')
+const evidenceDir = process.env.PANEL_AUDIT_EVIDENCE_DIR ? path.resolve(process.env.PANEL_AUDIT_EVIDENCE_DIR) : path.resolve('apps', 'web', 'evidence', 'workspace-panel-layout-20260919')
 await mkdir(evidenceDir, { recursive: true })
 
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.wasm': 'application/wasm', '.txt': 'text/plain' }
@@ -289,9 +291,87 @@ for (const tag of ['Land@320x568', 'Land@667x375']) {
 }
 console.log(JSON.stringify(matrix.map(({ tag, offeredInFull, settled, visible }) => ({ tag, offeredInFull, settled, visible }))))
 
+// ---- SUTRA max keeps a usable model (edge audit defect, 2026-09-19).
+// At >= xl (1280) the cockpit's inner tool grid reserves a 352-416px tool column regardless of the docked canvas column,
+// so a SUTRA dragged (or End-keyed) to its maximum used to leave a ~100px model. The maximum SUTRA width must now leave
+// the real MODEL canvas (`[data-cockpit-canvas]`, not just its column) >= 360px wide and >= 180px visibly tall, through
+// the End key, a pointer drag and a persisted (oversized) layout, and aria-valuemax must be the width SUTRA really reaches.
+const MIN_MODEL_W = 360
+const modelBox = page => page.evaluate(() => { const r = document.querySelector('[data-cockpit-canvas]').getBoundingClientRect(); const s = document.querySelector('[data-sutra-region]').getBoundingClientRect(); return { canvasW: Math.round(r.width), sutraW: Math.round(s.width) } })
+const sutraProducts = [{ label: 'Land', query: '' }, { label: 'Structure', query: '?product=Structure' }]
+const sutraViewports = [
+  { name: '1280x720', width: 1280, height: 720 },
+  { name: '1366x768', width: 1366, height: 768 },
+  { name: '1440x900', width: 1440, height: 900 },
+  { name: '1920x1080', width: 1920, height: 1080 },
+]
+const sutraMaxRecords = []
+for (const product of sutraProducts) {
+  for (const vp of sutraViewports) {
+    const tag = `${product.label}@${vp.name} SUTRA-max`
+    const key = `ferrum:workspace-panel-layout:v1:${product.label}`
+    const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, deviceScaleFactor: 1, reducedMotion: 'reduce' })
+    const page = await context.newPage()
+    await page.goto(`${base}/project-workspace/cockpit/${product.query}`, { waitUntil: 'networkidle' })
+    await page.waitForSelector('[data-sutra-region]')
+    await page.evaluate(k => localStorage.removeItem(k), key)
+    await page.reload({ waitUntil: 'networkidle' })
+    await page.waitForSelector('[data-sutra-region]')
+    await page.waitForSelector('[data-cockpit-canvas]')
+    await page.waitForTimeout(500)
+    const sep = page.getByRole('separator', { name: 'Resize SUTRA' })
+    const measure = async () => {
+      await page.waitForTimeout(350)
+      const valueNow = Number(await sep.getAttribute('aria-valuenow'))
+      const valueMax = Number(await sep.getAttribute('aria-valuemax'))
+      return { valueNow, valueMax, ...(await modelBox(page)), rows: (await visibleModel(page)).rows }
+    }
+    const assertMax = (via, m) => {
+      const t = `${tag} via ${via}`
+      check(t, 'SUTRA reaches aria-valuemax and its rendered width equals it', m.valueNow === m.valueMax && Math.abs(m.sutraW - m.valueMax) <= 1, JSON.stringify(m))
+      check(t, `model canvas >= ${MIN_MODEL_W}px wide`, m.canvasW >= MIN_MODEL_W, `canvas ${m.canvasW}px, sutra ${m.valueNow}`)
+      check(t, `visible model >= ${MIN_MODEL_PX}px tall`, m.rows >= MIN_MODEL_PX, `visible ${m.rows}px, sutra ${m.valueNow}`)
+      // Tight, not needlessly small: when the absolute 720 cap is not what binds, the model sits within 8px of its floor.
+      if (m.valueMax < 720) check(t, `aria-valuemax is the achievable maximum (model within 8px of ${MIN_MODEL_W}px, not over-reserved)`, m.canvasW - MIN_MODEL_W <= 8, `canvas ${m.canvasW}px, valuemax ${m.valueMax}`)
+    }
+    // End key
+    await sep.focus()
+    await page.keyboard.press('End')
+    const viaEnd = await measure()
+    assertMax('End key', viaEnd)
+    await shot(page, `sutra-max-${product.label}-${vp.name}-end-key`)
+    // pointer drag far past the edge
+    await page.keyboard.press('Home')
+    await page.waitForTimeout(350)
+    const box = await sep.boundingBox()
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+    await page.mouse.down()
+    await page.mouse.move(box.x - 150, box.y + box.height / 2, { steps: 6 })
+    await page.mouse.move(box.x - 5000, box.y + box.height / 2, { steps: 4 })
+    await page.mouse.up()
+    const viaDrag = await measure()
+    assertMax('pointer drag', viaDrag)
+    await shot(page, `sutra-max-${product.label}-${vp.name}-drag`)
+    // A layout saved earlier at the old 720 maximum must be clamped on load, and the saved preference must survive.
+    await page.evaluate(k => localStorage.setItem(k, JSON.stringify({ version: 1, sutraWidth: 720, sutraSide: 'right', sutraCollapsed: false, railWidth: 112 })), key)
+    await page.reload({ waitUntil: 'networkidle' })
+    await page.waitForSelector('[data-sutra-region]')
+    await page.waitForTimeout(500)
+    const persisted = await measure()
+    const pt = `${tag} via persisted 720px layout`
+    check(pt, 'clamped on load to aria-valuemax', persisted.valueNow === persisted.valueMax, JSON.stringify(persisted))
+    check(pt, `model >= ${MIN_MODEL_W}px wide and >= ${MIN_MODEL_PX}px tall after load`, persisted.canvasW >= MIN_MODEL_W && persisted.rows >= MIN_MODEL_PX, JSON.stringify(persisted))
+    const stored = await page.evaluate(k => JSON.parse(localStorage.getItem(k) ?? 'null')?.sutraWidth, key)
+    check(pt, 'stored preference is not rewritten by clamping (still 720)', stored === 720, `stored ${stored}`)
+    sutraMaxRecords.push({ tag, valueMax: viaEnd.valueMax, viaEnd, viaDrag, persisted })
+    await context.close()
+  }
+}
+console.log(JSON.stringify(sutraMaxRecords.map(r => ({ tag: r.tag, valueMax: r.valueMax, endCanvasW: r.viaEnd.canvasW, endRows: r.viaEnd.rows, dragCanvasW: r.viaDrag.canvasW, dragRows: r.viaDrag.rows }))))
+
 await browser.close()
 server.close()
 const failed = results.filter(r => !r.pass)
-await writeFile(path.join(evidenceDir, 'results.json'), JSON.stringify({ base: 'static export, local', total: results.length, failed: failed.length, matrix, results }, null, 2))
+await writeFile(path.join(evidenceDir, 'results.json'), JSON.stringify({ base: 'static export, local', total: results.length, failed: failed.length, matrix, sutraMaxRecords, results }, null, 2))
 console.log(`${results.length - failed.length}/${results.length} checks passed`)
 process.exit(failed.length ? 1 : 0)

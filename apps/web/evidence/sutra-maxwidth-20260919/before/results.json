@@ -1,0 +1,1700 @@
+{
+  "base": "static export, local",
+  "total": 220,
+  "failed": 24,
+  "matrix": [
+    {
+      "tag": "Land@375x667",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Land@390x844",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 180,
+      "sheet": {
+        "top": 505,
+        "height": 339,
+        "bottom": 844,
+        "vh": 844
+      },
+      "composer": {
+        "top": 800,
+        "bottom": 844,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Land@320x568",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Land@667x375",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Structure@375x667",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 180,
+      "sheet": {
+        "top": 457,
+        "height": 210,
+        "bottom": 667,
+        "vh": 667
+      },
+      "composer": {
+        "top": 623,
+        "bottom": 667,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Structure@390x844",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 186,
+      "sheet": {
+        "top": 464,
+        "height": 380,
+        "bottom": 844,
+        "vh": 844
+      },
+      "composer": {
+        "top": 787,
+        "bottom": 831,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Structure@320x568",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Structure@667x375",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Cost@375x667",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 180,
+      "sheet": {
+        "top": 457,
+        "height": 210,
+        "bottom": 667,
+        "vh": 667
+      },
+      "composer": {
+        "top": 623,
+        "bottom": 667,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Cost@390x844",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 186,
+      "sheet": {
+        "top": 464,
+        "height": 380,
+        "bottom": 844,
+        "vh": 844
+      },
+      "composer": {
+        "top": 787,
+        "bottom": 831,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Cost@320x568",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Cost@667x375",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Market@375x667",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 180,
+      "sheet": {
+        "top": 457,
+        "height": 210,
+        "bottom": 667,
+        "vh": 667
+      },
+      "composer": {
+        "top": 623,
+        "bottom": 667,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Market@390x844",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 186,
+      "sheet": {
+        "top": 464,
+        "height": 380,
+        "bottom": 844,
+        "vh": 844
+      },
+      "composer": {
+        "top": 787,
+        "bottom": 831,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Market@320x568",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Market@667x375",
+      "offeredInFull": false
+    }
+  ],
+  "sutraMaxRecords": [
+    {
+      "tag": "Land@1280x720 SUTRA-max",
+      "valueMax": 720,
+      "viaEnd": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 18,
+        "sutraW": 720,
+        "rows": 48
+      },
+      "viaDrag": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 18,
+        "sutraW": 720,
+        "rows": 48
+      },
+      "persisted": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 18,
+        "sutraW": 720,
+        "rows": 48
+      }
+    },
+    {
+      "tag": "Land@1366x768 SUTRA-max",
+      "valueMax": 720,
+      "viaEnd": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 104,
+        "sutraW": 720,
+        "rows": 102
+      },
+      "viaDrag": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 104,
+        "sutraW": 720,
+        "rows": 102
+      },
+      "persisted": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 104,
+        "sutraW": 720,
+        "rows": 102
+      }
+    },
+    {
+      "tag": "Land@1440x900 SUTRA-max",
+      "valueMax": 720,
+      "viaEnd": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 178,
+        "sutraW": 720,
+        "rows": 312
+      },
+      "viaDrag": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 178,
+        "sutraW": 720,
+        "rows": 312
+      },
+      "persisted": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 178,
+        "sutraW": 720,
+        "rows": 312
+      }
+    },
+    {
+      "tag": "Land@1920x1080 SUTRA-max",
+      "valueMax": 720,
+      "viaEnd": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 658,
+        "sutraW": 720,
+        "rows": 640
+      },
+      "viaDrag": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 658,
+        "sutraW": 720,
+        "rows": 640
+      },
+      "persisted": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 658,
+        "sutraW": 720,
+        "rows": 640
+      }
+    },
+    {
+      "tag": "Structure@1280x720 SUTRA-max",
+      "valueMax": 720,
+      "viaEnd": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 18,
+        "sutraW": 720,
+        "rows": 158
+      },
+      "viaDrag": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 18,
+        "sutraW": 720,
+        "rows": 158
+      },
+      "persisted": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 18,
+        "sutraW": 720,
+        "rows": 158
+      }
+    },
+    {
+      "tag": "Structure@1366x768 SUTRA-max",
+      "valueMax": 720,
+      "viaEnd": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 104,
+        "sutraW": 720,
+        "rows": 212
+      },
+      "viaDrag": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 104,
+        "sutraW": 720,
+        "rows": 212
+      },
+      "persisted": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 104,
+        "sutraW": 720,
+        "rows": 212
+      }
+    },
+    {
+      "tag": "Structure@1440x900 SUTRA-max",
+      "valueMax": 720,
+      "viaEnd": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 178,
+        "sutraW": 720,
+        "rows": 408
+      },
+      "viaDrag": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 178,
+        "sutraW": 720,
+        "rows": 408
+      },
+      "persisted": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 178,
+        "sutraW": 720,
+        "rows": 408
+      }
+    },
+    {
+      "tag": "Structure@1920x1080 SUTRA-max",
+      "valueMax": 720,
+      "viaEnd": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 658,
+        "sutraW": 720,
+        "rows": 732
+      },
+      "viaDrag": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 658,
+        "sutraW": 720,
+        "rows": 732
+      },
+      "persisted": {
+        "valueNow": 720,
+        "valueMax": 720,
+        "canvasW": 658,
+        "sutraW": 720,
+        "rows": 732
+      }
+    }
+  ],
+  "results": [
+    {
+      "viewport": "320x568",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":320,\"h\":568,\"vw\":320,\"vh\":568}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "320x568",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "320x568",
+      "name": "cookie bar is shown during the audit",
+      "pass": true,
+      "detail": "{\"top\":503,\"h\":65}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "Reading is disabled (expected)",
+      "pass": true,
+      "detail": "aria-disabled=true"
+    },
+    {
+      "viewport": "320x568",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "clicking disabled Reading keeps SUTRA full-screen and modal (model never covered)",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"top\":0,\"h\":568,\"vh\":568,\"bottom\":568,\"modal\":\"true\",\"canvasTop\":188,\"focusInside\":true}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "a 45% sheet would leave < 180px of model (Reading correctly withheld)",
+      "pass": true,
+      "detail": "would leave -31px"
+    },
+    {
+      "viewport": "320x568",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":320,\"h\":640,\"vw\":320,\"vh\":640}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "320x640",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "320x640",
+      "name": "cookie bar is shown during the audit",
+      "pass": true,
+      "detail": "{\"top\":575,\"h\":65}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "Reading is disabled (expected)",
+      "pass": true,
+      "detail": "aria-disabled=true"
+    },
+    {
+      "viewport": "320x640",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "clicking disabled Reading keeps SUTRA full-screen and modal (model never covered)",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"top\":0,\"h\":640,\"vh\":640,\"bottom\":640,\"modal\":\"true\",\"canvasTop\":188,\"focusInside\":true}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "a 45% sheet would leave < 180px of model (Reading correctly withheld)",
+      "pass": true,
+      "detail": "would leave 9px"
+    },
+    {
+      "viewport": "320x640",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+    },
+    {
+      "viewport": "390x844",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":390,\"innerWidth\":390,\"bodyScroll\":390}"
+    },
+    {
+      "viewport": "390x844",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":390,\"h\":844,\"vw\":390,\"vh\":844}"
+    },
+    {
+      "viewport": "390x844",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "390x844",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "390x844",
+      "name": "cookie bar is shown during the audit",
+      "pass": true,
+      "detail": "{\"top\":783,\"h\":61}"
+    },
+    {
+      "viewport": "390x844",
+      "name": "Reading is offered (expected)",
+      "pass": true,
+      "detail": "aria-disabled=false"
+    },
+    {
+      "viewport": "390x844",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "390x844",
+      "name": "Reading is a non-modal bottom sheet, <= 45% high, focus stays inside",
+      "pass": true,
+      "detail": "{\"mode\":\"reading\",\"top\":505,\"h\":339,\"vh\":844,\"bottom\":844,\"modal\":null,\"canvasTop\":170,\"focusInside\":true}"
+    },
+    {
+      "viewport": "390x844",
+      "name": ">= 180px of model canvas actually visible above the Reading sheet (cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px of canvas 325-689, sheet top 505"
+    },
+    {
+      "viewport": "390x844",
+      "name": "model area above the sheet is hit-testable (non-modal)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "390x844",
+      "name": "no horizontal overflow (reading)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":390,\"innerWidth\":390,\"bodyScroll\":390}"
+    },
+    {
+      "viewport": "390x844",
+      "name": "shrinking the viewport drops Reading back to Full",
+      "pass": true,
+      "detail": "full"
+    },
+    {
+      "viewport": "390x844",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "390x844",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":390,\"innerWidth\":390,\"bodyScroll\":390}"
+    },
+    {
+      "viewport": "667x375",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":667,\"innerWidth\":667,\"bodyScroll\":667}"
+    },
+    {
+      "viewport": "667x375",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":667,\"h\":375,\"vw\":667,\"vh\":375}"
+    },
+    {
+      "viewport": "667x375",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "667x375",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "667x375",
+      "name": "cookie bar is shown during the audit",
+      "pass": true,
+      "detail": "{\"top\":314,\"h\":61}"
+    },
+    {
+      "viewport": "667x375",
+      "name": "Reading is disabled (expected)",
+      "pass": true,
+      "detail": "aria-disabled=true"
+    },
+    {
+      "viewport": "667x375",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "667x375",
+      "name": "clicking disabled Reading keeps SUTRA full-screen and modal (model never covered)",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"top\":0,\"h\":375,\"vh\":375,\"bottom\":375,\"modal\":\"true\",\"canvasTop\":170,\"focusInside\":true}"
+    },
+    {
+      "viewport": "667x375",
+      "name": "a 45% sheet would leave < 180px of model (Reading correctly withheld)",
+      "pass": true,
+      "detail": "would leave -71px"
+    },
+    {
+      "viewport": "667x375",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "667x375",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":667,\"innerWidth\":667,\"bodyScroll\":667}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":768,\"h\":1024,\"vw\":768,\"vh\":1024}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "cookie bar is shown during the audit",
+      "pass": true,
+      "detail": "{\"top\":963,\"h\":61}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "Reading is offered (expected)",
+      "pass": true,
+      "detail": "aria-disabled=false"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "Reading is a non-modal bottom sheet, <= 45% high, focus stays inside",
+      "pass": true,
+      "detail": "{\"mode\":\"reading\",\"top\":563,\"h\":461,\"vh\":1024,\"bottom\":1024,\"modal\":null,\"canvasTop\":170,\"focusInside\":true}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": ">= 180px of model canvas actually visible above the Reading sheet (cookie bar shown)",
+      "pass": true,
+      "detail": "visible 286px of canvas 277-776, sheet top 563"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "model area above the sheet is hit-testable (non-modal)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "768x1024",
+      "name": "no horizontal overflow (reading)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+    },
+    {
+      "viewport": "1024",
+      "name": "no horizontal overflow (default)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1024,\"innerWidth\":1024,\"bodyScroll\":1024}"
+    },
+    {
+      "viewport": "1024",
+      "name": "keyboard grows SUTRA (ArrowLeft, Shift+ArrowLeft)",
+      "pass": true,
+      "detail": "352 -> 432"
+    },
+    {
+      "viewport": "1024",
+      "name": "End clamps so model column stays >= 360",
+      "pass": true,
+      "detail": "sutra 540, model column 472"
+    },
+    {
+      "viewport": "1024",
+      "name": "Home clamps to 320",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1024",
+      "name": "Enter resets to automatic width",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1024",
+      "name": "pointer drag to far edge clamps at max, model stays visible",
+      "pass": true,
+      "detail": "dragged 540, model 472"
+    },
+    {
+      "viewport": "1024",
+      "name": "SUTRA moves to the left",
+      "pass": true,
+      "detail": "left=0"
+    },
+    {
+      "viewport": "1024",
+      "name": "collapse moves focus to Restore",
+      "pass": true,
+      "detail": "Restore SUTRA"
+    },
+    {
+      "viewport": "1024",
+      "name": "collapsed strip is 44px",
+      "pass": true,
+      "detail": "44"
+    },
+    {
+      "viewport": "1024",
+      "name": "side + collapsed state persist across reload",
+      "pass": true,
+      "detail": "{\"side\":\"left\",\"mode\":\"collapsed\"}"
+    },
+    {
+      "viewport": "1024",
+      "name": "restore returns focus to Collapse",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1024",
+      "name": "tool rail widens by keyboard",
+      "pass": true,
+      "detail": "176"
+    },
+    {
+      "viewport": "1024",
+      "name": "rail column matches value",
+      "pass": true,
+      "detail": "176 vs 176"
+    },
+    {
+      "viewport": "1024",
+      "name": "no horizontal overflow (customised)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1024,\"innerWidth\":1024,\"bodyScroll\":1024}"
+    },
+    {
+      "viewport": "1024",
+      "name": "dock controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "1024",
+      "name": "reduced motion removes the grid transition",
+      "pass": true,
+      "detail": "1e-05s"
+    },
+    {
+      "viewport": "1024",
+      "name": "reset returns to right/default",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1366",
+      "name": "no horizontal overflow (default)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1366,\"innerWidth\":1366,\"bodyScroll\":1366}"
+    },
+    {
+      "viewport": "1366",
+      "name": "keyboard grows SUTRA (ArrowLeft, Shift+ArrowLeft)",
+      "pass": true,
+      "detail": "355 -> 435"
+    },
+    {
+      "viewport": "1366",
+      "name": "End clamps so model column stays >= 360",
+      "pass": true,
+      "detail": "sutra 720, model column 634"
+    },
+    {
+      "viewport": "1366",
+      "name": "Home clamps to 320",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1366",
+      "name": "Enter resets to automatic width",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1366",
+      "name": "pointer drag to far edge clamps at max, model stays visible",
+      "pass": true,
+      "detail": "dragged 720, model 634"
+    },
+    {
+      "viewport": "1366",
+      "name": "SUTRA moves to the left",
+      "pass": true,
+      "detail": "left=0"
+    },
+    {
+      "viewport": "1366",
+      "name": "collapse moves focus to Restore",
+      "pass": true,
+      "detail": "Restore SUTRA"
+    },
+    {
+      "viewport": "1366",
+      "name": "collapsed strip is 44px",
+      "pass": true,
+      "detail": "44"
+    },
+    {
+      "viewport": "1366",
+      "name": "side + collapsed state persist across reload",
+      "pass": true,
+      "detail": "{\"side\":\"left\",\"mode\":\"collapsed\"}"
+    },
+    {
+      "viewport": "1366",
+      "name": "restore returns focus to Collapse",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1366",
+      "name": "tool rail widens by keyboard",
+      "pass": true,
+      "detail": "176"
+    },
+    {
+      "viewport": "1366",
+      "name": "rail column matches value",
+      "pass": true,
+      "detail": "176 vs 176"
+    },
+    {
+      "viewport": "1366",
+      "name": "no horizontal overflow (customised)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1366,\"innerWidth\":1366,\"bodyScroll\":1366}"
+    },
+    {
+      "viewport": "1366",
+      "name": "dock controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "1366",
+      "name": "reduced motion removes the grid transition",
+      "pass": true,
+      "detail": "1e-05s"
+    },
+    {
+      "viewport": "1366",
+      "name": "reset returns to right/default",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1440",
+      "name": "no horizontal overflow (default)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1440,\"innerWidth\":1440,\"bodyScroll\":1440}"
+    },
+    {
+      "viewport": "1440",
+      "name": "keyboard grows SUTRA (ArrowLeft, Shift+ArrowLeft)",
+      "pass": true,
+      "detail": "374 -> 454"
+    },
+    {
+      "viewport": "1440",
+      "name": "End clamps so model column stays >= 360",
+      "pass": true,
+      "detail": "sutra 720, model column 708"
+    },
+    {
+      "viewport": "1440",
+      "name": "Home clamps to 320",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1440",
+      "name": "Enter resets to automatic width",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1440",
+      "name": "pointer drag to far edge clamps at max, model stays visible",
+      "pass": true,
+      "detail": "dragged 720, model 708"
+    },
+    {
+      "viewport": "1440",
+      "name": "SUTRA moves to the left",
+      "pass": true,
+      "detail": "left=0"
+    },
+    {
+      "viewport": "1440",
+      "name": "collapse moves focus to Restore",
+      "pass": true,
+      "detail": "Restore SUTRA"
+    },
+    {
+      "viewport": "1440",
+      "name": "collapsed strip is 44px",
+      "pass": true,
+      "detail": "44"
+    },
+    {
+      "viewport": "1440",
+      "name": "side + collapsed state persist across reload",
+      "pass": true,
+      "detail": "{\"side\":\"left\",\"mode\":\"collapsed\"}"
+    },
+    {
+      "viewport": "1440",
+      "name": "restore returns focus to Collapse",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1440",
+      "name": "tool rail widens by keyboard",
+      "pass": true,
+      "detail": "176"
+    },
+    {
+      "viewport": "1440",
+      "name": "rail column matches value",
+      "pass": true,
+      "detail": "176 vs 176"
+    },
+    {
+      "viewport": "1440",
+      "name": "no horizontal overflow (customised)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1440,\"innerWidth\":1440,\"bodyScroll\":1440}"
+    },
+    {
+      "viewport": "1440",
+      "name": "dock controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "1440",
+      "name": "reduced motion removes the grid transition",
+      "pass": true,
+      "detail": "1e-05s"
+    },
+    {
+      "viewport": "1440",
+      "name": "reset returns to right/default",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px canvas 325-689 sheet {\"top\":505,\"height\":339,\"bottom\":844,\"vh\":844}"
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 180 vs sampled 180"
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":800,\"bottom\":844,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px canvas 277-634 sheet {\"top\":457,\"height\":210,\"bottom\":667,\"vh\":667}"
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 180 vs sampled 180"
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":623,\"bottom\":667,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 186px canvas 277-641 sheet {\"top\":464,\"height\":380,\"bottom\":844,\"vh\":844}"
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 187 vs sampled 186"
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":787,\"bottom\":831,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px canvas 277-634 sheet {\"top\":457,\"height\":210,\"bottom\":667,\"vh\":667}"
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 180 vs sampled 180"
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":623,\"bottom\":667,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 186px canvas 277-641 sheet {\"top\":464,\"height\":380,\"bottom\":844,\"vh\":844}"
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 187 vs sampled 186"
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":787,\"bottom\":831,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px canvas 277-634 sheet {\"top\":457,\"height\":210,\"bottom\":667,\"vh\":667}"
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 180 vs sampled 180"
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":623,\"bottom\":667,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 186px canvas 277-641 sheet {\"top\":464,\"height\":380,\"bottom\":844,\"vh\":844}"
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 187 vs sampled 186"
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":787,\"bottom\":831,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Land@320x568",
+      "name": "320 / landscape Reading withheld or safely fallen back",
+      "pass": true,
+      "detail": "{\"tag\":\"Land@320x568\",\"offeredInFull\":false}"
+    },
+    {
+      "viewport": "Land@667x375",
+      "name": "320 / landscape Reading withheld or safely fallen back",
+      "pass": true,
+      "detail": "{\"tag\":\"Land@667x375\",\"offeredInFull\":false}"
+    },
+    {
+      "viewport": "Land@1280x720 SUTRA-max via End key",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":18,\"sutraW\":720,\"rows\":48}"
+    },
+    {
+      "viewport": "Land@1280x720 SUTRA-max via End key",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 18px, sutra 720"
+    },
+    {
+      "viewport": "Land@1280x720 SUTRA-max via End key",
+      "name": "visible model >= 180px tall",
+      "pass": false,
+      "detail": "visible 48px, sutra 720"
+    },
+    {
+      "viewport": "Land@1280x720 SUTRA-max via pointer drag",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":18,\"sutraW\":720,\"rows\":48}"
+    },
+    {
+      "viewport": "Land@1280x720 SUTRA-max via pointer drag",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 18px, sutra 720"
+    },
+    {
+      "viewport": "Land@1280x720 SUTRA-max via pointer drag",
+      "name": "visible model >= 180px tall",
+      "pass": false,
+      "detail": "visible 48px, sutra 720"
+    },
+    {
+      "viewport": "Land@1280x720 SUTRA-max via persisted 720px layout",
+      "name": "clamped on load to aria-valuemax",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":18,\"sutraW\":720,\"rows\":48}"
+    },
+    {
+      "viewport": "Land@1280x720 SUTRA-max via persisted 720px layout",
+      "name": "model >= 360px wide and >= 180px tall after load",
+      "pass": false,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":18,\"sutraW\":720,\"rows\":48}"
+    },
+    {
+      "viewport": "Land@1280x720 SUTRA-max via persisted 720px layout",
+      "name": "stored preference is not rewritten by clamping (still 720)",
+      "pass": true,
+      "detail": "stored 720"
+    },
+    {
+      "viewport": "Land@1366x768 SUTRA-max via End key",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":104,\"sutraW\":720,\"rows\":102}"
+    },
+    {
+      "viewport": "Land@1366x768 SUTRA-max via End key",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 104px, sutra 720"
+    },
+    {
+      "viewport": "Land@1366x768 SUTRA-max via End key",
+      "name": "visible model >= 180px tall",
+      "pass": false,
+      "detail": "visible 102px, sutra 720"
+    },
+    {
+      "viewport": "Land@1366x768 SUTRA-max via pointer drag",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":104,\"sutraW\":720,\"rows\":102}"
+    },
+    {
+      "viewport": "Land@1366x768 SUTRA-max via pointer drag",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 104px, sutra 720"
+    },
+    {
+      "viewport": "Land@1366x768 SUTRA-max via pointer drag",
+      "name": "visible model >= 180px tall",
+      "pass": false,
+      "detail": "visible 102px, sutra 720"
+    },
+    {
+      "viewport": "Land@1366x768 SUTRA-max via persisted 720px layout",
+      "name": "clamped on load to aria-valuemax",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":104,\"sutraW\":720,\"rows\":102}"
+    },
+    {
+      "viewport": "Land@1366x768 SUTRA-max via persisted 720px layout",
+      "name": "model >= 360px wide and >= 180px tall after load",
+      "pass": false,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":104,\"sutraW\":720,\"rows\":102}"
+    },
+    {
+      "viewport": "Land@1366x768 SUTRA-max via persisted 720px layout",
+      "name": "stored preference is not rewritten by clamping (still 720)",
+      "pass": true,
+      "detail": "stored 720"
+    },
+    {
+      "viewport": "Land@1440x900 SUTRA-max via End key",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":178,\"sutraW\":720,\"rows\":312}"
+    },
+    {
+      "viewport": "Land@1440x900 SUTRA-max via End key",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 178px, sutra 720"
+    },
+    {
+      "viewport": "Land@1440x900 SUTRA-max via End key",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 312px, sutra 720"
+    },
+    {
+      "viewport": "Land@1440x900 SUTRA-max via pointer drag",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":178,\"sutraW\":720,\"rows\":312}"
+    },
+    {
+      "viewport": "Land@1440x900 SUTRA-max via pointer drag",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 178px, sutra 720"
+    },
+    {
+      "viewport": "Land@1440x900 SUTRA-max via pointer drag",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 312px, sutra 720"
+    },
+    {
+      "viewport": "Land@1440x900 SUTRA-max via persisted 720px layout",
+      "name": "clamped on load to aria-valuemax",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":178,\"sutraW\":720,\"rows\":312}"
+    },
+    {
+      "viewport": "Land@1440x900 SUTRA-max via persisted 720px layout",
+      "name": "model >= 360px wide and >= 180px tall after load",
+      "pass": false,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":178,\"sutraW\":720,\"rows\":312}"
+    },
+    {
+      "viewport": "Land@1440x900 SUTRA-max via persisted 720px layout",
+      "name": "stored preference is not rewritten by clamping (still 720)",
+      "pass": true,
+      "detail": "stored 720"
+    },
+    {
+      "viewport": "Land@1920x1080 SUTRA-max via End key",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":658,\"sutraW\":720,\"rows\":640}"
+    },
+    {
+      "viewport": "Land@1920x1080 SUTRA-max via End key",
+      "name": "model canvas >= 360px wide",
+      "pass": true,
+      "detail": "canvas 658px, sutra 720"
+    },
+    {
+      "viewport": "Land@1920x1080 SUTRA-max via End key",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 640px, sutra 720"
+    },
+    {
+      "viewport": "Land@1920x1080 SUTRA-max via pointer drag",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":658,\"sutraW\":720,\"rows\":640}"
+    },
+    {
+      "viewport": "Land@1920x1080 SUTRA-max via pointer drag",
+      "name": "model canvas >= 360px wide",
+      "pass": true,
+      "detail": "canvas 658px, sutra 720"
+    },
+    {
+      "viewport": "Land@1920x1080 SUTRA-max via pointer drag",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 640px, sutra 720"
+    },
+    {
+      "viewport": "Land@1920x1080 SUTRA-max via persisted 720px layout",
+      "name": "clamped on load to aria-valuemax",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":658,\"sutraW\":720,\"rows\":640}"
+    },
+    {
+      "viewport": "Land@1920x1080 SUTRA-max via persisted 720px layout",
+      "name": "model >= 360px wide and >= 180px tall after load",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":658,\"sutraW\":720,\"rows\":640}"
+    },
+    {
+      "viewport": "Land@1920x1080 SUTRA-max via persisted 720px layout",
+      "name": "stored preference is not rewritten by clamping (still 720)",
+      "pass": true,
+      "detail": "stored 720"
+    },
+    {
+      "viewport": "Structure@1280x720 SUTRA-max via End key",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":18,\"sutraW\":720,\"rows\":158}"
+    },
+    {
+      "viewport": "Structure@1280x720 SUTRA-max via End key",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 18px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1280x720 SUTRA-max via End key",
+      "name": "visible model >= 180px tall",
+      "pass": false,
+      "detail": "visible 158px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1280x720 SUTRA-max via pointer drag",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":18,\"sutraW\":720,\"rows\":158}"
+    },
+    {
+      "viewport": "Structure@1280x720 SUTRA-max via pointer drag",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 18px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1280x720 SUTRA-max via pointer drag",
+      "name": "visible model >= 180px tall",
+      "pass": false,
+      "detail": "visible 158px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1280x720 SUTRA-max via persisted 720px layout",
+      "name": "clamped on load to aria-valuemax",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":18,\"sutraW\":720,\"rows\":158}"
+    },
+    {
+      "viewport": "Structure@1280x720 SUTRA-max via persisted 720px layout",
+      "name": "model >= 360px wide and >= 180px tall after load",
+      "pass": false,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":18,\"sutraW\":720,\"rows\":158}"
+    },
+    {
+      "viewport": "Structure@1280x720 SUTRA-max via persisted 720px layout",
+      "name": "stored preference is not rewritten by clamping (still 720)",
+      "pass": true,
+      "detail": "stored 720"
+    },
+    {
+      "viewport": "Structure@1366x768 SUTRA-max via End key",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":104,\"sutraW\":720,\"rows\":212}"
+    },
+    {
+      "viewport": "Structure@1366x768 SUTRA-max via End key",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 104px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1366x768 SUTRA-max via End key",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 212px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1366x768 SUTRA-max via pointer drag",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":104,\"sutraW\":720,\"rows\":212}"
+    },
+    {
+      "viewport": "Structure@1366x768 SUTRA-max via pointer drag",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 104px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1366x768 SUTRA-max via pointer drag",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 212px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1366x768 SUTRA-max via persisted 720px layout",
+      "name": "clamped on load to aria-valuemax",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":104,\"sutraW\":720,\"rows\":212}"
+    },
+    {
+      "viewport": "Structure@1366x768 SUTRA-max via persisted 720px layout",
+      "name": "model >= 360px wide and >= 180px tall after load",
+      "pass": false,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":104,\"sutraW\":720,\"rows\":212}"
+    },
+    {
+      "viewport": "Structure@1366x768 SUTRA-max via persisted 720px layout",
+      "name": "stored preference is not rewritten by clamping (still 720)",
+      "pass": true,
+      "detail": "stored 720"
+    },
+    {
+      "viewport": "Structure@1440x900 SUTRA-max via End key",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":178,\"sutraW\":720,\"rows\":408}"
+    },
+    {
+      "viewport": "Structure@1440x900 SUTRA-max via End key",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 178px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1440x900 SUTRA-max via End key",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 408px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1440x900 SUTRA-max via pointer drag",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":178,\"sutraW\":720,\"rows\":408}"
+    },
+    {
+      "viewport": "Structure@1440x900 SUTRA-max via pointer drag",
+      "name": "model canvas >= 360px wide",
+      "pass": false,
+      "detail": "canvas 178px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1440x900 SUTRA-max via pointer drag",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 408px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1440x900 SUTRA-max via persisted 720px layout",
+      "name": "clamped on load to aria-valuemax",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":178,\"sutraW\":720,\"rows\":408}"
+    },
+    {
+      "viewport": "Structure@1440x900 SUTRA-max via persisted 720px layout",
+      "name": "model >= 360px wide and >= 180px tall after load",
+      "pass": false,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":178,\"sutraW\":720,\"rows\":408}"
+    },
+    {
+      "viewport": "Structure@1440x900 SUTRA-max via persisted 720px layout",
+      "name": "stored preference is not rewritten by clamping (still 720)",
+      "pass": true,
+      "detail": "stored 720"
+    },
+    {
+      "viewport": "Structure@1920x1080 SUTRA-max via End key",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":658,\"sutraW\":720,\"rows\":732}"
+    },
+    {
+      "viewport": "Structure@1920x1080 SUTRA-max via End key",
+      "name": "model canvas >= 360px wide",
+      "pass": true,
+      "detail": "canvas 658px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1920x1080 SUTRA-max via End key",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 732px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1920x1080 SUTRA-max via pointer drag",
+      "name": "SUTRA reaches aria-valuemax and its rendered width equals it",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":658,\"sutraW\":720,\"rows\":732}"
+    },
+    {
+      "viewport": "Structure@1920x1080 SUTRA-max via pointer drag",
+      "name": "model canvas >= 360px wide",
+      "pass": true,
+      "detail": "canvas 658px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1920x1080 SUTRA-max via pointer drag",
+      "name": "visible model >= 180px tall",
+      "pass": true,
+      "detail": "visible 732px, sutra 720"
+    },
+    {
+      "viewport": "Structure@1920x1080 SUTRA-max via persisted 720px layout",
+      "name": "clamped on load to aria-valuemax",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":658,\"sutraW\":720,\"rows\":732}"
+    },
+    {
+      "viewport": "Structure@1920x1080 SUTRA-max via persisted 720px layout",
+      "name": "model >= 360px wide and >= 180px tall after load",
+      "pass": true,
+      "detail": "{\"valueNow\":720,\"valueMax\":720,\"canvasW\":658,\"sutraW\":720,\"rows\":732}"
+    },
+    {
+      "viewport": "Structure@1920x1080 SUTRA-max via persisted 720px layout",
+      "name": "stored preference is not rewritten by clamping (still 720)",
+      "pass": true,
+      "detail": "stored 720"
+    }
+  ]
+}

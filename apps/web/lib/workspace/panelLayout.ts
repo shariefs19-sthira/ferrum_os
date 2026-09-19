@@ -30,8 +30,18 @@ export const PANEL_LIMITS = {
   sutra: { min: 320, max: 720, autoMin: 352, autoMax: 480, autoRatio: 0.26 },
   /** 112px is the width the rail buttons were designed for; only widening is safe. */
   rail: { min: 112, max: 200 },
-  /** The model/canvas column never shrinks below this, whatever the user drags. */
+  /** The model canvas never shrinks below this, whatever the user drags. */
   canvasMin: 360,
+  /**
+   * Cockpit tool column. From Tailwind `xl` (1280px viewport) the inner tool grid is
+   * `minmax(0,1fr) minmax(22rem,26rem)`: the tool column holds 26rem (416px) plus a 2px
+   * border however narrow the docked canvas column gets, and the model gets only what is
+   * left. Measured in Chromium at 1280-1920: canvas column - model canvas = 418px at every
+   * SUTRA width. Below `xl` the tools stack under the canvas and nothing is reserved.
+   * `xlContainerMin` is 1280 minus a 17px classic scrollbar: the container is measured
+   * without the scrollbar but the `xl` media query is not.
+   */
+  toolColumn: { reserve: 418, xlContainerMin: 1263 },
   /** Width of the collapsed SUTRA strip (also the restore button hit target). */
   collapsedStrip: 44,
   splitter: 12,
@@ -58,9 +68,16 @@ export function clampRailWidth(width: number): number {
   return Math.round(clamp(width, PANEL_LIMITS.rail.min, PANEL_LIMITS.rail.max))
 }
 
-/** Widest SUTRA may be while the canvas keeps its minimum. Never below the SUTRA minimum. */
+/**
+ * Widest SUTRA may be while the MODEL canvas (not just its column) keeps its
+ * minimum. At `xl` and wider the tool column's reservation comes off first, so
+ * End / drag / aria-valuemax can never leave a sliver of model. Never below the
+ * SUTRA minimum. Applied to every product: only Design has no tool column, and
+ * it simply keeps a wider model than strictly required.
+ */
 export function maxSutraWidth(containerWidth: number, railWidth: number): number {
-  const available = containerWidth - railWidth - PANEL_LIMITS.canvasMin - PANEL_LIMITS.splitter
+  const toolReserve = containerWidth >= PANEL_LIMITS.toolColumn.xlContainerMin ? PANEL_LIMITS.toolColumn.reserve : 0
+  const available = containerWidth - railWidth - PANEL_LIMITS.canvasMin - PANEL_LIMITS.splitter - toolReserve
   return Math.max(PANEL_LIMITS.sutra.min, Math.min(PANEL_LIMITS.sutra.max, Math.floor(available)))
 }
 
