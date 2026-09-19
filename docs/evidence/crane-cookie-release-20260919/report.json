@@ -1,0 +1,858 @@
+[
+  {
+    "name": "cockpit",
+    "w": 320,
+    "h": 640,
+    "status": 200,
+    "errors": [],
+    "pass": true,
+    "banner": {
+      "t": 575,
+      "b": 640,
+      "l": 0,
+      "r": 320
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 586,
+      "b": 630,
+      "l": 230,
+      "r": 308,
+      "h": 44
+    },
+    "cssVar": "65px",
+    "innerH": 640,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "65px",
+    "shell": {
+      "t": 0,
+      "b": 575,
+      "l": 0,
+      "r": 320,
+      "aboveBanner": true
+    },
+    "canvas": {
+      "t": 373,
+      "b": 532,
+      "l": 1,
+      "r": 319,
+      "overlapsBanner": false
+    },
+    "exportButtons": [
+      {
+        "label": "Export walkthrough manifest as",
+        "t": 628,
+        "b": 672,
+        "l": 198,
+        "r": 301,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export DXF",
+        "t": 782,
+        "b": 826,
+        "l": 195,
+        "r": 303,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export IFC",
+        "t": 834,
+        "b": 878,
+        "l": 17,
+        "r": 121,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "SUTRA",
+        "t": 2,
+        "b": 46,
+        "l": 255,
+        "r": 308,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [],
+    "overlappingControls": []
+  },
+  {
+    "name": "cockpit",
+    "w": 390,
+    "h": 844,
+    "status": 200,
+    "errors": [],
+    "pass": true,
+    "banner": {
+      "t": 783,
+      "b": 844,
+      "l": 0,
+      "r": 390
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 792,
+      "b": 836,
+      "l": 300,
+      "r": 378,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 844,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": {
+      "t": 0,
+      "b": 783,
+      "l": 0,
+      "r": 390,
+      "aboveBanner": true
+    },
+    "canvas": {
+      "t": 325,
+      "b": 519,
+      "l": 1,
+      "r": 389,
+      "overlapsBanner": false
+    },
+    "exportButtons": [
+      {
+        "label": "Export walkthrough manifest as",
+        "t": 581,
+        "b": 625,
+        "l": 198,
+        "r": 301,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export DXF",
+        "t": 735,
+        "b": 779,
+        "l": 265,
+        "r": 373,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export IFC",
+        "t": 787,
+        "b": 831,
+        "l": 17,
+        "r": 121,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "SUTRA",
+        "t": 2,
+        "b": 46,
+        "l": 294,
+        "r": 357,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [],
+    "overlappingControls": []
+  },
+  {
+    "name": "cockpit",
+    "w": 768,
+    "h": 1024,
+    "status": 200,
+    "errors": [],
+    "pass": true,
+    "banner": {
+      "t": 963,
+      "b": 1024,
+      "l": 0,
+      "r": 768
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 972,
+      "b": 1016,
+      "l": 666,
+      "r": 744,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 1024,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": {
+      "t": 0,
+      "b": 963,
+      "l": 0,
+      "r": 768,
+      "aboveBanner": true
+    },
+    "canvas": {
+      "t": 277,
+      "b": 660,
+      "l": 1,
+      "r": 767,
+      "overlapsBanner": false
+    },
+    "exportButtons": [
+      {
+        "label": "Export walkthrough manifest as",
+        "t": 720,
+        "b": 764,
+        "l": 198,
+        "r": 301,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export DXF",
+        "t": 822,
+        "b": 866,
+        "l": 531,
+        "r": 639,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export IFC",
+        "t": 822,
+        "b": 866,
+        "l": 647,
+        "r": 751,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "SUTRA",
+        "t": 2,
+        "b": 46,
+        "l": 694,
+        "r": 756,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [],
+    "overlappingControls": []
+  },
+  {
+    "name": "cockpit",
+    "w": 1024,
+    "h": 768,
+    "status": 200,
+    "errors": [],
+    "pass": true,
+    "banner": {
+      "t": 707,
+      "b": 768,
+      "l": 0,
+      "r": 1024
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 716,
+      "b": 760,
+      "l": 922,
+      "r": 1000,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 768,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": {
+      "t": 0,
+      "b": 707,
+      "l": 0,
+      "r": 1024,
+      "aboveBanner": true
+    },
+    "canvas": {
+      "t": 264,
+      "b": 543,
+      "l": 113,
+      "r": 671,
+      "overlapsBanner": false
+    },
+    "exportButtons": [
+      {
+        "label": "Export walkthrough manifest as",
+        "t": 603,
+        "b": 647,
+        "l": 310,
+        "r": 413,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export DXF",
+        "t": 728,
+        "b": 772,
+        "l": 435,
+        "r": 543,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export IFC",
+        "t": 728,
+        "b": 772,
+        "l": 551,
+        "r": 655,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "SUTRA",
+        "t": 2,
+        "b": 46,
+        "l": 950,
+        "r": 1012,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Close SUTRA",
+        "t": 117,
+        "b": 161,
+        "l": 964,
+        "r": 1012,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [],
+    "overlappingControls": []
+  },
+  {
+    "name": "cockpit",
+    "w": 1366,
+    "h": 768,
+    "status": 200,
+    "errors": [],
+    "pass": true,
+    "banner": {
+      "t": 707,
+      "b": 768,
+      "l": 0,
+      "r": 1366
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 716,
+      "b": 760,
+      "l": 1117,
+      "r": 1195,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 768,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": {
+      "t": 0,
+      "b": 707,
+      "l": 0,
+      "r": 1366,
+      "aboveBanner": true
+    },
+    "canvas": {
+      "t": 276,
+      "b": 465,
+      "l": 113,
+      "r": 594,
+      "overlapsBanner": false
+    },
+    "exportButtons": [
+      {
+        "label": "Export walkthrough manifest as",
+        "t": 525,
+        "b": 569,
+        "l": 310,
+        "r": 413,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export DXF",
+        "t": 650,
+        "b": 694,
+        "l": 774,
+        "r": 882,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export IFC",
+        "t": 650,
+        "b": 694,
+        "l": 890,
+        "r": 994,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "SUTRA",
+        "t": 2,
+        "b": 46,
+        "l": 1292,
+        "r": 1354,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Close SUTRA",
+        "t": 129,
+        "b": 173,
+        "l": 1306,
+        "r": 1354,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [],
+    "overlappingControls": []
+  },
+  {
+    "name": "cockpit",
+    "w": 1440,
+    "h": 900,
+    "status": 200,
+    "errors": [],
+    "pass": true,
+    "banner": {
+      "t": 839,
+      "b": 900,
+      "l": 0,
+      "r": 1440
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 848,
+      "b": 892,
+      "l": 1154,
+      "r": 1232,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 900,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": {
+      "t": 0,
+      "b": 839,
+      "l": 0,
+      "r": 1440,
+      "aboveBanner": true
+    },
+    "canvas": {
+      "t": 276,
+      "b": 597,
+      "l": 113,
+      "r": 649,
+      "overlapsBanner": false
+    },
+    "exportButtons": [
+      {
+        "label": "Export walkthrough manifest as",
+        "t": 657,
+        "b": 701,
+        "l": 310,
+        "r": 413,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export DXF",
+        "t": 782,
+        "b": 826,
+        "l": 829,
+        "r": 937,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Export IFC",
+        "t": 782,
+        "b": 826,
+        "l": 945,
+        "r": 1049,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "SUTRA",
+        "t": 2,
+        "b": 46,
+        "l": 1366,
+        "r": 1428,
+        "overlapsBanner": false
+      },
+      {
+        "label": "Close SUTRA",
+        "t": 129,
+        "b": 173,
+        "l": 1380,
+        "r": 1428,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [],
+    "overlappingControls": []
+  },
+  {
+    "name": "home",
+    "w": 320,
+    "h": 640,
+    "status": 200,
+    "errors": [],
+    "pass": false,
+    "banner": {
+      "t": 575,
+      "b": 640,
+      "l": 0,
+      "r": 320
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 586,
+      "b": 630,
+      "l": 230,
+      "r": 308,
+      "h": 44
+    },
+    "cssVar": "65px",
+    "innerH": 640,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "65px",
+    "shell": null,
+    "canvas": null,
+    "exportButtons": [
+      {
+        "label": "02DesignStudioDevelop the sche",
+        "t": 9447,
+        "b": 9589,
+        "l": 24,
+        "r": 296,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "Open SUTRA",
+        "t": 503,
+        "b": 551,
+        "l": 194,
+        "r": 304,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [
+      {
+        "label": "Review model intake: I have dr",
+        "t": 1605,
+        "b": 1649,
+        "l": 62,
+        "r": 200,
+        "overlapsBanner": false
+      }
+    ],
+    "overlappingControls": [
+      "Start a project",
+      "Explore the building library"
+    ]
+  },
+  {
+    "name": "home",
+    "w": 390,
+    "h": 844,
+    "status": 200,
+    "errors": [],
+    "pass": true,
+    "banner": {
+      "t": 783,
+      "b": 844,
+      "l": 0,
+      "r": 390
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 792,
+      "b": 836,
+      "l": 300,
+      "r": 378,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 844,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": null,
+    "canvas": null,
+    "exportButtons": [
+      {
+        "label": "02DesignStudioDevelop the sche",
+        "t": 8623,
+        "b": 8745,
+        "l": 24,
+        "r": 366,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "Open SUTRA",
+        "t": 711,
+        "b": 759,
+        "l": 264,
+        "r": 374,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [
+      {
+        "label": "Review model intake: I have dr",
+        "t": 1442,
+        "b": 1486,
+        "l": 62,
+        "r": 200,
+        "overlapsBanner": false
+      }
+    ],
+    "overlappingControls": []
+  },
+  {
+    "name": "home",
+    "w": 768,
+    "h": 1024,
+    "status": 200,
+    "errors": [],
+    "pass": true,
+    "banner": {
+      "t": 963,
+      "b": 1024,
+      "l": 0,
+      "r": 768
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 972,
+      "b": 1016,
+      "l": 666,
+      "r": 744,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 1024,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": null,
+    "canvas": null,
+    "exportButtons": [
+      {
+        "label": "02DesignStudioDevelop the sche",
+        "t": 6734,
+        "b": 6836,
+        "l": 64,
+        "r": 704,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "Open SUTRA",
+        "t": 952,
+        "b": 1000,
+        "l": 634,
+        "r": 744,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [
+      {
+        "label": "Review model intake: I have dr",
+        "t": 1280,
+        "b": 1324,
+        "l": 74,
+        "r": 212,
+        "overlapsBanner": false
+      }
+    ],
+    "overlappingControls": []
+  },
+  {
+    "name": "home",
+    "w": 1024,
+    "h": 768,
+    "status": 200,
+    "errors": [],
+    "pass": false,
+    "banner": {
+      "t": 707,
+      "b": 768,
+      "l": 0,
+      "r": 1024
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 716,
+      "b": 760,
+      "l": 922,
+      "r": 1000,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 768,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": null,
+    "canvas": null,
+    "exportButtons": [
+      {
+        "label": "02DesignStudioDevelop the sche",
+        "t": 5107,
+        "b": 5229,
+        "l": 64,
+        "r": 418,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "Open SUTRA",
+        "t": 696,
+        "b": 744,
+        "l": 890,
+        "r": 1000,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [
+      {
+        "label": "Review model intake: I have dr",
+        "t": 937,
+        "b": 981,
+        "l": 600,
+        "r": 738,
+        "overlapsBanner": false
+      }
+    ],
+    "overlappingControls": [
+      "Start from a brief: I have a brief"
+    ]
+  },
+  {
+    "name": "home",
+    "w": 1366,
+    "h": 768,
+    "status": 200,
+    "errors": [],
+    "pass": false,
+    "banner": {
+      "t": 707,
+      "b": 768,
+      "l": 0,
+      "r": 1366
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 716,
+      "b": 760,
+      "l": 1117,
+      "r": 1195,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 768,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": null,
+    "canvas": null,
+    "exportButtons": [
+      {
+        "label": "02DesignStudioDevelop the sche",
+        "t": 4420,
+        "b": 4542,
+        "l": 75,
+        "r": 560,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "Open SUTRA",
+        "t": 696,
+        "b": 744,
+        "l": 1232,
+        "r": 1342,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [
+      {
+        "label": "Review model intake: I have dr",
+        "t": 852,
+        "b": 896,
+        "l": 776,
+        "r": 914,
+        "overlapsBanner": false
+      }
+    ],
+    "overlappingControls": [
+      "Start a project",
+      "Explore the building library"
+    ]
+  },
+  {
+    "name": "home",
+    "w": 1440,
+    "h": 900,
+    "status": 200,
+    "errors": [],
+    "pass": false,
+    "banner": {
+      "t": 839,
+      "b": 900,
+      "l": 0,
+      "r": 1440
+    },
+    "bannerText": "We use essential cookies to keep Ferrum OS secure and improve your experience.Got it",
+    "gotItBtn": {
+      "t": 848,
+      "b": 892,
+      "l": 1154,
+      "r": 1232,
+      "h": 44
+    },
+    "cssVar": "61px",
+    "innerH": 900,
+    "scrollOverflowX": 0,
+    "bodyPadBottom": "61px",
+    "shell": null,
+    "canvas": null,
+    "exportButtons": [
+      {
+        "label": "02DesignStudioDevelop the sche",
+        "t": 4512,
+        "b": 4634,
+        "l": 112,
+        "r": 597,
+        "overlapsBanner": false
+      }
+    ],
+    "sutra": [
+      {
+        "label": "Open SUTRA",
+        "t": 828,
+        "b": 876,
+        "l": 1306,
+        "r": 1416,
+        "overlapsBanner": false
+      }
+    ],
+    "model": [
+      {
+        "label": "Review model intake: I have dr",
+        "t": 852,
+        "b": 896,
+        "l": 813,
+        "r": 951,
+        "overlapsBanner": true
+      }
+    ],
+    "overlappingControls": [
+      "Review model intake: I have drawings or "
+    ]
+  }
+]
