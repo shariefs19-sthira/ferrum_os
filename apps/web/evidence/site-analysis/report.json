@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T08:27:24.340Z",
+  "generatedAt": "2026-09-19T09:25:26.558Z",
   "baseUrl": "http://127.0.0.1:3117",
   "widths": [
     320,
@@ -79,6 +79,13 @@
       ],
       "diagramLabelPx": 13,
       "rejectedConclusion": "Correct 1 issueThe note states a conclusion this workspace does not record (bearing capacity, foundation suitability, boundary, title, compl",
+      "groupedLabelOverlapPx": {
+        "count/mapPointLabel": 0,
+        "count/topicLabel": 0,
+        "mapPointLabel/topicLabel": 0,
+        "mapPointLabel/glyph": 0,
+        "mapPointLabel/crosshair": 0
+      },
       "documentTopicAsObserved": "Correct 1 issueA document-evidenced topic cannot be OBSERVED on site; record it as USER_PROVIDED from the document or INFERRED.",
       "promotion": {
         "verifiedWord": false,
@@ -106,13 +113,9 @@
       },
       "staleAfterChange": "STALE — Site-analysis evidence changed after this context was reviewed and sent.",
       "designStudioStale": "STALE — Site-analysis evidence changed after this context was reviewed and sent.The 2 records sent on 2026-09-19 for Coordinate-only location, GAP are withheld ",
-      "consoleErrors": [
-        "Failed to load resource: the server responded with a status of 404 (Not Found)"
-      ],
+      "consoleErrors": [],
       "pageErrors": [],
-      "httpErrors": [
-        "404 http://127.0.0.1:3117/api/region"
-      ]
+      "httpErrors": []
     },
     {
       "viewport": {
@@ -184,6 +187,13 @@
       ],
       "diagramLabelPx": 16.999969482421875,
       "rejectedConclusion": "Correct 1 issueThe note states a conclusion this workspace does not record (bearing capacity, foundation suitability, boundary, title, compl",
+      "groupedLabelOverlapPx": {
+        "count/mapPointLabel": 0,
+        "count/topicLabel": 0,
+        "mapPointLabel/topicLabel": 0,
+        "mapPointLabel/glyph": 0,
+        "mapPointLabel/crosshair": 0
+      },
       "documentTopicAsObserved": "Correct 1 issueA document-evidenced topic cannot be OBSERVED on site; record it as USER_PROVIDED from the document or INFERRED.",
       "promotion": {
         "verifiedWord": false,
@@ -285,6 +295,13 @@
       ],
       "diagramLabelPx": 28.999969482421875,
       "rejectedConclusion": "Correct 1 issueThe note states a conclusion this workspace does not record (bearing capacity, foundation suitability, boundary, title, compl",
+      "groupedLabelOverlapPx": {
+        "count/mapPointLabel": 0,
+        "count/topicLabel": 0,
+        "mapPointLabel/topicLabel": 0,
+        "mapPointLabel/glyph": 0,
+        "mapPointLabel/crosshair": 0
+      },
       "documentTopicAsObserved": "Correct 1 issueA document-evidenced topic cannot be OBSERVED on site; record it as USER_PROVIDED from the document or INFERRED.",
       "promotion": {
         "verifiedWord": false,
@@ -386,6 +403,13 @@
       ],
       "diagramLabelPx": 22,
       "rejectedConclusion": "Correct 1 issueThe note states a conclusion this workspace does not record (bearing capacity, foundation suitability, boundary, title, compl",
+      "groupedLabelOverlapPx": {
+        "count/mapPointLabel": 0,
+        "count/topicLabel": 0,
+        "mapPointLabel/topicLabel": 0,
+        "mapPointLabel/glyph": 0,
+        "mapPointLabel/crosshair": 0
+      },
       "documentTopicAsObserved": "Correct 1 issueA document-evidenced topic cannot be OBSERVED on site; record it as USER_PROVIDED from the document or INFERRED.",
       "promotion": {
         "verifiedWord": false,
@@ -487,6 +511,13 @@
       ],
       "diagramLabelPx": 28.99993896484375,
       "rejectedConclusion": "Correct 1 issueThe note states a conclusion this workspace does not record (bearing capacity, foundation suitability, boundary, title, compl",
+      "groupedLabelOverlapPx": {
+        "count/mapPointLabel": 0,
+        "count/topicLabel": 0,
+        "mapPointLabel/topicLabel": 0,
+        "mapPointLabel/glyph": 0,
+        "mapPointLabel/crosshair": 0
+      },
       "documentTopicAsObserved": "Correct 1 issueA document-evidenced topic cannot be OBSERVED on site; record it as USER_PROVIDED from the document or INFERRED.",
       "promotion": {
         "verifiedWord": false,
