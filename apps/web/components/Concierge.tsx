@@ -55,23 +55,16 @@ export default function Concierge() {
   const [activeFeature, setActiveFeature] = useState<{ productId: CockpitProduct; feature: ProductFeature } | null>(null)
   const [regionProfile, setRegionProfile] = useState<UserRegionProfile | null>(null)
   const [cockpitPresent, setCockpitPresent] = useState(false)
-  // Phones get a full-screen sheet with collapsible secondary chrome; sm+
-  // keeps the floating panel. `chromeTouched` stops a viewport change from
-  // overriding a section the user already opened or collapsed themselves.
+  // Phones get a full-screen sheet; sm+ gets a tall right-side panel bounded
+  // between the site header and the bottom/cookie safe area. On every size the
+  // conversation is the growing region and secondary chrome starts collapsed.
   const isPhone = useMaxWidthQuery()
   const viewportBox = useVisualViewportBox(open && isPhone)
-  const [chromeOpen, setChromeOpen] = useState(true)
-  const [contextOpen, setContextOpen] = useState(true)
-  const chromeTouched = useRef(false)
+  const [chromeOpen, setChromeOpen] = useState(false)
+  const [contextOpen, setContextOpen] = useState(false)
   const restoreLauncherFocus = useRef(false)
   const messagesRef = useRef<HTMLDivElement>(null)
   useBodyScrollLock(open && isPhone)
-
-  useEffect(() => {
-    if (chromeTouched.current) return
-    setChromeOpen(!isPhone)
-    setContextOpen(!isPhone)
-  }, [isPhone])
 
   const minimize = () => {
     restoreLauncherFocus.current = true
@@ -102,12 +95,10 @@ export default function Concierge() {
   }, [open, messages.length, showConnections])
 
   const toggleChrome = () => {
-    chromeTouched.current = true
     if (chromeOpen) setShowConnections(false)
     setChromeOpen((current) => !current)
   }
   const toggleContext = () => {
-    chromeTouched.current = true
     setContextOpen((current) => !current)
   }
   const selectedModelLabel = AGENT_MODELS.find((model) => model.id === selectedModel)?.label ?? "SUTRA"
@@ -253,7 +244,7 @@ export default function Concierge() {
       tabIndex={-1}
       onKeyDown={(event) => { if (open) trapTabKey(event, panelRef.current) }}
       style={open && isPhone && viewportBox ? { top: viewportBox.top, height: viewportBox.height, bottom: "auto" } : undefined}
-      className={`${open ? "flex" : "hidden"} fixed inset-0 z-50 flex-col overflow-hidden overscroll-contain bg-relume-surface outline-none sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[28rem] sm:max-h-[calc(100dvh-3rem)] sm:w-[22rem] sm:max-w-[calc(100vw-3rem)] sm:rounded-lg sm:border sm:border-relume-border sm:shadow-xl`}
+      className={`${open ? "flex" : "hidden"} fixed inset-0 z-50 flex-col overflow-hidden overscroll-contain bg-relume-surface outline-none sm:inset-auto sm:bottom-[calc(max(1.5rem,env(safe-area-inset-bottom))+var(--cookie-consent-h,0px))] sm:right-[max(1.5rem,env(safe-area-inset-right))] sm:top-[5rem] sm:w-[clamp(24rem,36vw,36rem)] sm:max-w-[calc(100vw-3rem)] sm:rounded-lg [@media(max-height:32rem)]:sm:top-2 sm:border sm:border-relume-border sm:shadow-xl`}
       data-sutra
       data-sutra-fullscreen={open && isPhone ? "true" : "false"}
     >
@@ -284,7 +275,7 @@ export default function Concierge() {
         </div>
       </div>
 
-      <div className="border-b border-relume-border pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] max-sm:max-h-[30%] max-sm:overflow-y-auto max-sm:overscroll-contain" data-sutra-chrome data-chrome-open={chromeOpen}>
+      <div className="border-b border-relume-border pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] max-h-[35%] overflow-y-auto overscroll-contain" data-sutra-chrome data-chrome-open={chromeOpen}>
         <button
           type="button"
           onClick={toggleChrome}
@@ -295,7 +286,7 @@ export default function Concierge() {
           <span className="min-w-0 truncate">Model &amp; connections <span className="font-normal text-relume-muted">· {selectedModelLabel}</span></span>
           <span aria-hidden="true" className="shrink-0 text-relume-muted">{chromeOpen ? "▴" : "▾"}</span>
         </button>
-        <div id="sutra-chrome-panel" hidden={!chromeOpen} className="max-h-[40dvh] overflow-y-auto pb-3">
+        <div id="sutra-chrome-panel" hidden={!chromeOpen} className="pb-3">
           <label className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">
             Agent model
             <select value={selectedModel} onChange={(event) => setSelectedModel(event.target.value as AgentModelId)} className="mt-1 min-h-11 w-full rounded-relume border border-relume-border bg-white px-3 py-2 text-base font-semibold normal-case tracking-normal text-relume-command sm:text-sm" aria-label="Agent model">
@@ -334,7 +325,7 @@ export default function Concierge() {
         {messages.map((m, i) => (
           <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
             <span
-              className={`inline-block max-w-[85%] whitespace-pre-wrap break-words rounded-lg px-3 py-2 text-left text-sm ${
+              className={`inline-block max-w-[88%] whitespace-pre-wrap break-words rounded-lg px-3 py-2 text-left text-sm ${
                 m.role === "user" ? "bg-relume-ink text-white" : "border border-relume-border text-relume-ink"
               }`}
             >

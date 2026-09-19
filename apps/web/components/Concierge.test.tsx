@@ -71,6 +71,7 @@ describe("Concierge", () => {
       outputs: ["parcel record"], controls: ["ULPIN lookup"],
     } }))
     fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    fireEvent.click(await screen.findByRole("button", { name: /Working context/ }))
     fireEvent.click(await screen.findByRole("button", { name: "Explain all LandIntel features" }))
     expect(await screen.findByText(/LandIntel includes/)).toBeTruthy()
     expect(screen.getByText(/Scenario forecast/)).toBeTruthy()
@@ -80,6 +81,7 @@ describe("Concierge", () => {
     render(<><button data-sutra-product="landintel" data-sutra-feature-id="location-coordinates">Coordinates</button><Concierge /></>)
     fireEvent.click(screen.getByRole("button", { name: "Coordinates" }))
     fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    fireEvent.click(await screen.findByRole("button", { name: /Working context/ }))
     const explain = await screen.findByRole("button", { name: "Explain Coordinates" })
     fireEvent.click(explain)
     expect(await screen.findByText(/decimal coordinates/)).toBeTruthy()
@@ -89,6 +91,7 @@ describe("Concierge", () => {
   it("exposes provider choices without granting unconnected models Ferrum access", async () => {
     render(<Concierge />)
     fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    fireEvent.click(screen.getByRole("button", { name: /Model & connections/ }))
     fireEvent.change(screen.getByRole("combobox", { name: "Agent model" }), { target: { value: "anthropic" } })
     fireEvent.change(screen.getByRole("textbox", { name: "Message" }), { target: { value: "change the project" } })
     fireEvent.click(screen.getByRole("button", { name: "Send" }))
@@ -98,6 +101,7 @@ describe("Concierge", () => {
   it("shows the construction connector catalogue with truthful connection status", () => {
     render(<Concierge />)
     fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    fireEvent.click(screen.getByRole("button", { name: /Model & connections/ }))
     fireEvent.click(screen.getByRole("button", { name: "Connections" }))
     expect(screen.getByText("Governed connector catalogue")).toBeTruthy()
     expect(screen.getByText(/Autodesk Construction Cloud/)).toBeTruthy()
@@ -138,17 +142,32 @@ describe("Concierge", () => {
     expect(document.activeElement).toBe(screen.getByRole("button", { name: "Open SUTRA" }))
   })
 
-  it("collapses and re-expands the model and connections chrome with accessible state", () => {
+  it("starts with model and connections chrome collapsed, then expands and collapses with accessible state", () => {
     render(<Concierge />)
     fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
     const toggle = screen.getByRole("button", { name: /Model & connections/ })
-    expect(toggle.getAttribute("aria-expanded")).toBe("true")
-    fireEvent.click(toggle)
     expect(toggle.getAttribute("aria-expanded")).toBe("false")
     expect(screen.queryByRole("combobox", { name: "Agent model" })).toBeNull()
-    expect(document.getElementById("sutra-chrome-panel")?.hasAttribute("hidden")).toBe(true)
     fireEvent.click(toggle)
+    expect(toggle.getAttribute("aria-expanded")).toBe("true")
     expect(screen.getByRole("combobox", { name: "Agent model" })).toBeTruthy()
+    fireEvent.click(toggle)
+    expect(toggle.getAttribute("aria-expanded")).toBe("false")
+    expect(document.getElementById("sutra-chrome-panel")?.hasAttribute("hidden")).toBe(true)
+  })
+
+  it("opens as a tall header-to-bottom side panel that respects the cookie safe area and keeps the conversation as the growing region", () => {
+    render(<Concierge />)
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    const dialog = screen.getByRole("dialog", { name: "SUTRA AI assistant" })
+    expect(dialog.className).toContain("sm:top-[5rem]")
+    expect(dialog.className).toContain("var(--cookie-consent-h,0px)")
+    expect(dialog.className).not.toMatch(/sm:h-\[/)
+    expect(dialog.className).toContain("sm:w-[clamp(24rem,36vw,36rem)]")
+    const log = screen.getByRole("log", { name: "Conversation" })
+    expect(log.className).toContain("flex-1")
+    expect(log.className).toContain("min-h-0")
+    expect(log.className).toContain("overflow-y-auto")
   })
 
   describe("on a phone viewport", () => {
