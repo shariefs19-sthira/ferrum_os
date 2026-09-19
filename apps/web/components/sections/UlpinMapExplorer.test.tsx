@@ -106,7 +106,7 @@ describe('UlpinMapExplorer W-85 parcel finder', () => {
   describe('W-16 pre-lookup PREVIEW record card (RULE 29 feature conservation)', () => {
     const unitValue = (container: ParentNode, unit: string) => Number((container.querySelector(`[data-area-unit="${unit}"] dd`)?.textContent ?? '').replace(/,/g, ''))
     const constants: Record<string, number> = { sqm: 1, sqft: 1 / SQM_TO_SQFT, cent: SQM_PER_CENT, guntha: SQM_PER_GUNTHA, ground: SQM_PER_GROUND, acre: SQM_PER_ACRE }
-    const tolerance: Record<string, number> = { sqm: 0.5, sqft: 0.5 / SQM_TO_SQFT, cent: 0.005 * SQM_PER_CENT, guntha: 0.005 * SQM_PER_GUNTHA, ground: 0.005 * SQM_PER_GROUND, acre: 0.00005 * SQM_PER_ACRE }
+    const tolerance: Record<string, number> = { sqm: 0.005, sqft: 0.5 / SQM_TO_SQFT, cent: 0.005 * SQM_PER_CENT, guntha: 0.005 * SQM_PER_GUNTHA, ground: 0.005 * SQM_PER_GROUND, acre: 0.00005 * SQM_PER_ACRE }
 
     it('renders the record card before any lookup with a labelled sample, both units, provenance, and no shared-context write', () => {
       const { container } = render(<UlpinMapExplorer />)
@@ -136,6 +136,15 @@ describe('UlpinMapExplorer W-85 parcel finder', () => {
       expect(within(previewCard as HTMLElement).getByText('Save to workspace')).toBeTruthy()
       expect(writeParcelContext).toHaveBeenCalledTimes(1)
       expect(writeParcelContext).toHaveBeenCalledWith(expect.objectContaining({ area_sqm: 1500, land_use: 'Commercial' }))
+    })
+
+    it('states a fractional live area exactly and keeps every unit equal to that base (RULE 29/30)', async () => {
+      vi.mocked(fetch).mockResolvedValueOnce({ ok: true, json: async () => ({ ...seeded, area_sqm: 1200.5 }) } as Response)
+      const { container } = render(<UlpinMapExplorer />); const card = container.querySelector('[data-ulpin-record-card]') as HTMLElement
+      fireEvent.click(screen.getByRole('button', { name: seeded.ulpin })); fireEvent.click(screen.getByRole('button', { name: 'Lookup seeded record' }))
+      await waitFor(() => expect(card.querySelector('[data-record-status]')?.textContent).toBe('INDICATIVE LOOKUP'))
+      expect(card.querySelector('[data-area-unit="sqm"]')?.textContent).toContain('1,200.5'); expect(card.textContent).toContain('one base of 1,200.5 m²')
+      for (const unit of Object.keys(constants)) expect(Math.abs(unitValue(card, unit) * constants[unit] - 1200.5)).toBeLessThanOrEqual(tolerance[unit])
     })
 
     it('shows GAP instead of a fabricated area for a coordinate-only record, still in the same card', () => {

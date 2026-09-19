@@ -1,0 +1,78 @@
+{
+  "1366x768": {
+    "parcelContextBeforeLookup": null,
+    "parcelContextAfterLookup": "KA-BLR-0001-2024",
+    "pre": {
+      "cardPresent": true,
+      "chip": "PREVIEW · SAMPLE",
+      "text": "PARCEL RECORD · SAMPLE Bengaluru Urban PREVIEW · SAMPLE ULPIN KA-BLR-0001-2024 State Karnataka Recorded land use Residential Zoning verification status REQUIRES AUTHORITY VERIFICATION PLOT AREA · ALL UNITS FROM ONE BASE OF 1,200 M² M² 1,200 SQ FT 12,917 CENTS 29.65 GUNTHA 11.86 GROUND 5.38 ACRE 0.2965 Converted with exact constants and rounded for display (m² to 2 decimals, sq ft to 0, cents, guntha, ground to 2 and acre to 4). ULPIN identifies the parcel. Building use is derived only after the competent planning authority's current zoning record is verified; Ferrum does not offer unrestricted use choices. Building-type guidance appears after a seeded lookup; none is shown for the sample. Source: Preview sample — replaced in place by a seeded lookup; not a registry result · Freshness: PREVIEW · sample, not a live record · INDICATIVE",
+      "units": {
+        "sqm": "1,200",
+        "sqft": "12,917",
+        "cent": "29.65",
+        "guntha": "11.86",
+        "ground": "5.38",
+        "acre": "0.2965"
+      },
+      "findTop": 520,
+      "forecastTop": 8844,
+      "forecastPresent": true,
+      "overflowX": false,
+      "workingRowTop": 519,
+      "cardTop": 915
+    },
+    "post": {
+      "same": true,
+      "chip": "INDICATIVE LOOKUP",
+      "text": "SELECTED LOCATION Bengaluru Urban Save to workspace INDICATIVE LOOKUP ULPIN KA-BLR-0001-2024 State Karnataka Recorded land use Residential Zoning verification status REQUIRES AUTHORITY VERIFICATION PLOT AREA · ALL UNITS FROM ONE BASE OF 1,200.5 M² M² 1,200.5 SQ FT 12,922 CENTS 29.67 GUNTHA 11.87 GROUND 5.38 ACRE 0.2967 Converted with exact constants and rounded for display (m² to 2 decimals, sq ft to 0, cents, guntha, ground to 2 and acre to 4). ULPIN identifies the parcel. Building use is derived only after the competent planning authority's current zoning record is verified; Ferrum does not offer unrestricted use choices. INDICATIVE BUILDING TYPES · SAMPLE RULESET Low-rise apartment / multi-unit residential Plot area 1200.5 m² and sample FAR 2 together support multi-unit massing within the 65% coverage cap. Automatically derived from the seeded land-use value and an indicative sample ruleset. These are recommendations, not authority-permitted uses. Source: Ferrum seeded D1 ULPIN record — not an official registry result · Freshness: 2026-09-19 · INDICATIVE",
+      "units": {
+        "sqm": "1,200.5",
+        "sqft": "12,922",
+        "cent": "29.67",
+        "guntha": "11.87",
+        "ground": "5.38",
+        "acre": "0.2967"
+      }
+    },
+    "minToolbarButtonHeight": 44,
+    "consoleErrors": []
+  },
+  "375x812": {
+    "parcelContextBeforeLookup": null,
+    "parcelContextAfterLookup": "KA-BLR-0001-2024",
+    "pre": {
+      "cardPresent": true,
+      "chip": "PREVIEW · SAMPLE",
+      "text": "PARCEL RECORD · SAMPLE Bengaluru Urban PREVIEW · SAMPLE ULPIN KA-BLR-0001-2024 State Karnataka Recorded land use Residential Zoning verification status REQUIRES AUTHORITY VERIFICATION PLOT AREA · ALL UNITS FROM ONE BASE OF 1,200 M² M² 1,200 SQ FT 12,917 CENTS 29.65 GUNTHA 11.86 GROUND 5.38 ACRE 0.2965 Converted with exact constants and rounded for display (m² to 2 decimals, sq ft to 0, cents, guntha, ground to 2 and acre to 4). ULPIN identifies the parcel. Building use is derived only after the competent planning authority's current zoning record is verified; Ferrum does not offer unrestricted use choices. Building-type guidance appears after a seeded lookup; none is shown for the sample. Source: Preview sample — replaced in place by a seeded lookup; not a registry result · Freshness: PREVIEW · sample, not a live record · INDICATIVE",
+      "units": {
+        "sqm": "1,200",
+        "sqft": "12,917",
+        "cent": "29.65",
+        "guntha": "11.86",
+        "ground": "5.38",
+        "acre": "0.2965"
+      },
+      "findTop": 882,
+      "forecastTop": 20417,
+      "forecastPresent": true,
+      "overflowX": false,
+      "workingRowTop": 881,
+      "cardTop": 2121
+    },
+    "post": {
+      "same": true,
+      "chip": "INDICATIVE LOOKUP",
+      "text": "SELECTED LOCATION Bengaluru Urban Save to workspace INDICATIVE LOOKUP ULPIN KA-BLR-0001-2024 State Karnataka Recorded land use Residential Zoning verification status REQUIRES AUTHORITY VERIFICATION PLOT AREA · ALL UNITS FROM ONE BASE OF 1,200.5 M² M² 1,200.5 SQ FT 12,922 CENTS 29.67 GUNTHA 11.87 GROUND 5.38 ACRE 0.2967 Converted with exact constants and rounded for display (m² to 2 decimals, sq ft to 0, cents, guntha, ground to 2 and acre to 4). ULPIN identifies the parcel. Building use is derived only after the competent planning authority's current zoning record is verified; Ferrum does not offer unrestricted use choices. INDICATIVE BUILDING TYPES · SAMPLE RULESET Low-rise apartment / multi-unit residential Plot area 1200.5 m² and sample FAR 2 together support multi-unit massing within the 65% coverage cap. Automatically derived from the seeded land-use value and an indicative sample ruleset. These are recommendations, not authority-permitted uses. Source: Ferrum seeded D1 ULPIN record — not an official registry result · Freshness: 2026-09-19 · INDICATIVE",
+      "units": {
+        "sqm": "1,200.5",
+        "sqft": "12,922",
+        "cent": "29.67",
+        "guntha": "11.87",
+        "ground": "5.38",
+        "acre": "0.2967"
+      }
+    },
+    "minToolbarButtonHeight": 44,
+    "consoleErrors": []
+  }
+}

@@ -25,8 +25,8 @@ const SAMPLE_ULPINS = ['KA-BLR-0001-2024', 'MH-PUN-0002-2024', 'TN-CHN-0003-2024
 // W-16 / RULE 29 feature conservation: the record card renders BEFORE any lookup, filled with this labelled sample.
 // It is display-only: it is never committed and never written to the shared parcel context (only commit() does that).
 const PREVIEW_RECORD: ParcelRecord = { ulpin: 'KA-BLR-0001-2024', state: 'Karnataka', district: 'Bengaluru Urban', area_sqm: 1200, land_use: 'Residential', coordinates: BENGALURU, source: 'Preview sample — replaced in place by a seeded lookup; not a registry result', status: 'INDICATIVE' }
-const AREA_UNITS = [['sqm', 'm²', 0], ['sqft', 'sq ft', 0], ['cent', 'cents', 2], ['guntha', 'guntha', 2], ['ground', 'ground', 2], ['acre', 'acre', 4]] as const
-const formatUnit = (value: number, digits: number) => value.toLocaleString('en-IN', { minimumFractionDigits: digits, maximumFractionDigits: digits })
+const AREA_UNITS = [['sqm', 'm²', 2], ['sqft', 'sq ft', 0], ['cent', 'cents', 2], ['guntha', 'guntha', 2], ['ground', 'ground', 2], ['acre', 'acre', 4]] as const
+const formatUnit = (value: number, digits: number, minimum = digits) => value.toLocaleString('en-IN', { minimumFractionDigits: minimum, maximumFractionDigits: digits })
 const modeLabels: Record<Mode, string> = { ulpin: 'ULPIN', pin: 'Map pin', coordinates: 'Coordinates', place: 'Address', location: 'My location', survey: 'Survey / khasra' }
 const modeFeatures = Object.fromEntries(productFeatureRegistry.landintel.filter((feature) => feature.id.startsWith('location-')).map((feature) => [feature.id.replace('location-', ''), feature])) as Record<Mode, (typeof productFeatureRegistry.landintel)[number]>
 
@@ -184,11 +184,11 @@ export default function UlpinMapExplorer() {
             <div><dt className="text-relume-muted">Zoning verification status</dt><dd className="mt-1 font-semibold text-relume-command">{shown.status === 'INDICATIVE' ? 'REQUIRES AUTHORITY VERIFICATION' : 'UNKNOWN'}</dd></div>
           </dl>
           <div className="mt-3" data-area-units>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Plot area · all units from one base of {formatUnit(shown.area_sqm, 0)} m²</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Plot area · all units from one base of {formatUnit(shown.area_sqm, 2, 0)} m²</p>
             {shown.area_sqm > 0
-              ? <dl className="mt-2 grid grid-cols-3 gap-x-3 gap-y-2 font-mono text-xs tabular-nums">{AREA_UNITS.map(([unit, label, digits]) => <div key={unit} data-area-unit={unit}><dt className="text-[10px] uppercase tracking-[0.1em] text-relume-muted">{label}</dt><dd className="mt-0.5 font-semibold text-relume-command">{formatUnit(area[unit], digits)}</dd></div>)}</dl>
+              ? <dl className="mt-2 grid grid-cols-3 gap-x-3 gap-y-2 font-mono text-xs tabular-nums">{AREA_UNITS.map(([unit, label, digits]) => <div key={unit} data-area-unit={unit}><dt className="text-[10px] uppercase tracking-[0.1em] text-relume-muted">{label}</dt><dd className="mt-0.5 font-semibold text-relume-command">{formatUnit(area[unit], digits, unit === 'sqm' ? 0 : digits)}</dd></div>)}</dl>
               : <p className="mt-2 text-xs font-semibold text-relume-muted">GAP — a location-only record carries no plot area.</p>}
-            <p className="mt-1 text-[10px] leading-4 text-relume-muted">Converted with exact constants and rounded for display (sq ft to 0, cents, guntha, ground to 2 and acre to 4 decimals).</p>
+            <p className="mt-1 text-[10px] leading-4 text-relume-muted">Converted with exact constants and rounded for display (m² to 2 decimals, sq ft to 0, cents, guntha, ground to 2 and acre to 4).</p>
           </div>
           <p className="mt-2 text-[10px] leading-4 text-relume-muted">ULPIN identifies the parcel. Building use is derived only after the competent planning authority&apos;s current zoning record is verified; Ferrum does not offer unrestricted use choices.</p>
           {shown.plot_intel?.advisable_types?.length ? <div className="mt-3 rounded-relume border border-white/70 bg-white/65 p-3" data-indicative-building-types>
@@ -196,7 +196,7 @@ export default function UlpinMapExplorer() {
             <ul className="mt-2 space-y-2 text-xs">{shown.plot_intel.advisable_types.map((item) => <li key={item.building_type}><strong className="text-relume-command">{item.building_type}</strong><span className="block text-relume-muted">{item.reason}</span></li>)}</ul>
             <p className="mt-2 text-[10px] text-relume-muted">Automatically derived from the seeded land-use value and an indicative sample ruleset. These are recommendations, not authority-permitted uses.</p>
           </div> : <p className="mt-3 text-xs font-semibold text-relume-muted" data-building-types-gap>{record ? 'Building-type guidance: GAP until compatible zoning evidence is available.' : 'Building-type guidance appears after a seeded lookup; none is shown for the sample.'}</p>}
-          <ProvenanceStrip source={shown.source} freshness={record ? new Date().toISOString().slice(0, 10) : 'PREVIEW · sample, not a live record'} />
+          <div className="mt-3"><ProvenanceStrip source={shown.source} freshness={record ? new Date().toISOString().slice(0, 10) : 'PREVIEW · sample, not a live record'} /></div>
         </div>
       </div>
     </div>
