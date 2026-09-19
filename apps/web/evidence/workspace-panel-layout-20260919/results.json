@@ -1,0 +1,457 @@
+{
+  "base": "static export, local",
+  "total": 75,
+  "failed": 0,
+  "results": [
+    {
+      "viewport": "320",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+    },
+    {
+      "viewport": "320",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":320,\"h\":640,\"vw\":320,\"vh\":640}"
+    },
+    {
+      "viewport": "320",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "320",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "320",
+      "name": "reading size is a bottom sheet leaving the model area above it",
+      "pass": true,
+      "detail": "{\"top\":352,\"h\":288,\"vh\":640,\"bottom\":640,\"modal\":null,\"canvasTop\":188}"
+    },
+    {
+      "viewport": "320",
+      "name": "no horizontal overflow (reading)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+    },
+    {
+      "viewport": "320",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "320",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+    },
+    {
+      "viewport": "390",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":390,\"innerWidth\":390,\"bodyScroll\":390}"
+    },
+    {
+      "viewport": "390",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":390,\"h\":844,\"vw\":390,\"vh\":844}"
+    },
+    {
+      "viewport": "390",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "390",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "390",
+      "name": "reading size is a bottom sheet leaving the model area above it",
+      "pass": true,
+      "detail": "{\"top\":464,\"h\":380,\"vh\":844,\"bottom\":844,\"modal\":null,\"canvasTop\":170}"
+    },
+    {
+      "viewport": "390",
+      "name": "no horizontal overflow (reading)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":390,\"innerWidth\":390,\"bodyScroll\":390}"
+    },
+    {
+      "viewport": "390",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "390",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":390,\"innerWidth\":390,\"bodyScroll\":390}"
+    },
+    {
+      "viewport": "768",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+    },
+    {
+      "viewport": "768",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":768,\"h\":1024,\"vw\":768,\"vh\":1024}"
+    },
+    {
+      "viewport": "768",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "768",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "768",
+      "name": "reading size is a bottom sheet leaving the model area above it",
+      "pass": true,
+      "detail": "{\"top\":563,\"h\":461,\"vh\":1024,\"bottom\":1024,\"modal\":null,\"canvasTop\":170}"
+    },
+    {
+      "viewport": "768",
+      "name": "no horizontal overflow (reading)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+    },
+    {
+      "viewport": "768",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "768",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+    },
+    {
+      "viewport": "1024",
+      "name": "no horizontal overflow (default)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1024,\"innerWidth\":1024,\"bodyScroll\":1024}"
+    },
+    {
+      "viewport": "1024",
+      "name": "keyboard grows SUTRA (ArrowLeft, Shift+ArrowLeft)",
+      "pass": true,
+      "detail": "352 -> 432"
+    },
+    {
+      "viewport": "1024",
+      "name": "End clamps so model column stays >= 360",
+      "pass": true,
+      "detail": "sutra 540, model column 472"
+    },
+    {
+      "viewport": "1024",
+      "name": "Home clamps to 320",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1024",
+      "name": "Enter resets to automatic width",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1024",
+      "name": "pointer drag to far edge clamps at max, model stays visible",
+      "pass": true,
+      "detail": "dragged 540, model 472"
+    },
+    {
+      "viewport": "1024",
+      "name": "SUTRA moves to the left",
+      "pass": true,
+      "detail": "left=0"
+    },
+    {
+      "viewport": "1024",
+      "name": "collapse moves focus to Restore",
+      "pass": true,
+      "detail": "Restore SUTRA"
+    },
+    {
+      "viewport": "1024",
+      "name": "collapsed strip is 44px",
+      "pass": true,
+      "detail": "44"
+    },
+    {
+      "viewport": "1024",
+      "name": "side + collapsed state persist across reload",
+      "pass": true,
+      "detail": "{\"side\":\"left\",\"mode\":\"collapsed\"}"
+    },
+    {
+      "viewport": "1024",
+      "name": "restore returns focus to Collapse",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1024",
+      "name": "tool rail widens by keyboard",
+      "pass": true,
+      "detail": "176"
+    },
+    {
+      "viewport": "1024",
+      "name": "rail column matches value",
+      "pass": true,
+      "detail": "176 vs 176"
+    },
+    {
+      "viewport": "1024",
+      "name": "no horizontal overflow (customised)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1024,\"innerWidth\":1024,\"bodyScroll\":1024}"
+    },
+    {
+      "viewport": "1024",
+      "name": "dock controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "1024",
+      "name": "reduced motion removes the grid transition",
+      "pass": true,
+      "detail": "1e-05s"
+    },
+    {
+      "viewport": "1024",
+      "name": "reset returns to right/default",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1366",
+      "name": "no horizontal overflow (default)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1366,\"innerWidth\":1366,\"bodyScroll\":1366}"
+    },
+    {
+      "viewport": "1366",
+      "name": "keyboard grows SUTRA (ArrowLeft, Shift+ArrowLeft)",
+      "pass": true,
+      "detail": "355 -> 435"
+    },
+    {
+      "viewport": "1366",
+      "name": "End clamps so model column stays >= 360",
+      "pass": true,
+      "detail": "sutra 720, model column 634"
+    },
+    {
+      "viewport": "1366",
+      "name": "Home clamps to 320",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1366",
+      "name": "Enter resets to automatic width",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1366",
+      "name": "pointer drag to far edge clamps at max, model stays visible",
+      "pass": true,
+      "detail": "dragged 720, model 634"
+    },
+    {
+      "viewport": "1366",
+      "name": "SUTRA moves to the left",
+      "pass": true,
+      "detail": "left=0"
+    },
+    {
+      "viewport": "1366",
+      "name": "collapse moves focus to Restore",
+      "pass": true,
+      "detail": "Restore SUTRA"
+    },
+    {
+      "viewport": "1366",
+      "name": "collapsed strip is 44px",
+      "pass": true,
+      "detail": "44"
+    },
+    {
+      "viewport": "1366",
+      "name": "side + collapsed state persist across reload",
+      "pass": true,
+      "detail": "{\"side\":\"left\",\"mode\":\"collapsed\"}"
+    },
+    {
+      "viewport": "1366",
+      "name": "restore returns focus to Collapse",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1366",
+      "name": "tool rail widens by keyboard",
+      "pass": true,
+      "detail": "176"
+    },
+    {
+      "viewport": "1366",
+      "name": "rail column matches value",
+      "pass": true,
+      "detail": "176 vs 176"
+    },
+    {
+      "viewport": "1366",
+      "name": "no horizontal overflow (customised)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1366,\"innerWidth\":1366,\"bodyScroll\":1366}"
+    },
+    {
+      "viewport": "1366",
+      "name": "dock controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "1366",
+      "name": "reduced motion removes the grid transition",
+      "pass": true,
+      "detail": "1e-05s"
+    },
+    {
+      "viewport": "1366",
+      "name": "reset returns to right/default",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1440",
+      "name": "no horizontal overflow (default)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1440,\"innerWidth\":1440,\"bodyScroll\":1440}"
+    },
+    {
+      "viewport": "1440",
+      "name": "keyboard grows SUTRA (ArrowLeft, Shift+ArrowLeft)",
+      "pass": true,
+      "detail": "374 -> 454"
+    },
+    {
+      "viewport": "1440",
+      "name": "End clamps so model column stays >= 360",
+      "pass": true,
+      "detail": "sutra 720, model column 708"
+    },
+    {
+      "viewport": "1440",
+      "name": "Home clamps to 320",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1440",
+      "name": "Enter resets to automatic width",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1440",
+      "name": "pointer drag to far edge clamps at max, model stays visible",
+      "pass": true,
+      "detail": "dragged 720, model 708"
+    },
+    {
+      "viewport": "1440",
+      "name": "SUTRA moves to the left",
+      "pass": true,
+      "detail": "left=0"
+    },
+    {
+      "viewport": "1440",
+      "name": "collapse moves focus to Restore",
+      "pass": true,
+      "detail": "Restore SUTRA"
+    },
+    {
+      "viewport": "1440",
+      "name": "collapsed strip is 44px",
+      "pass": true,
+      "detail": "44"
+    },
+    {
+      "viewport": "1440",
+      "name": "side + collapsed state persist across reload",
+      "pass": true,
+      "detail": "{\"side\":\"left\",\"mode\":\"collapsed\"}"
+    },
+    {
+      "viewport": "1440",
+      "name": "restore returns focus to Collapse",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "1440",
+      "name": "tool rail widens by keyboard",
+      "pass": true,
+      "detail": "176"
+    },
+    {
+      "viewport": "1440",
+      "name": "rail column matches value",
+      "pass": true,
+      "detail": "176 vs 176"
+    },
+    {
+      "viewport": "1440",
+      "name": "no horizontal overflow (customised)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":1440,\"innerWidth\":1440,\"bodyScroll\":1440}"
+    },
+    {
+      "viewport": "1440",
+      "name": "dock controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "1440",
+      "name": "reduced motion removes the grid transition",
+      "pass": true,
+      "detail": "1e-05s"
+    },
+    {
+      "viewport": "1440",
+      "name": "reset returns to right/default",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}
