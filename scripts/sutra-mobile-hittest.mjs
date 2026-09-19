@@ -41,6 +41,66 @@ async function hit(page, locator) {
   })
 }
 
+// Bounding-box occlusion: the Minimize control's rect must not intersect the
+// visible rect of ANY readable text (Range client rects of every text node in
+// the SUTRA surface, clipped by clipping ancestors) at ANY scroll position.
+// The scrollers are swept in 24px steps (outer scroller x inner log top/bottom)
+// so the check cannot pass just because the text happened to be scrolled away.
+// A hit test at the button centre cannot catch text running under its edge.
+async function checkOcclusion(page, vp, surface, mode, rootSelector, scrollers) {
+  const o = await page.evaluate(([sel, scrollerSels]) => {
+    const root = document.querySelector(sel)
+    const btn = root?.querySelector('[data-sutra-minimize]')
+    if (!root || !btn) return { ok: false, error: 'root or Minimize missing', positions: 0, overlaps: [] }
+    const els = scrollerSels.map((q) => document.querySelector(q)).filter(Boolean)
+    const measure = () => {
+      const b = btn.getBoundingClientRect()
+      const hits = []
+      let texts = 0
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (!node.textContent.trim() || btn.contains(node)) continue
+        const el = node.parentElement
+        const cs = getComputedStyle(el)
+        if (cs.visibility === 'hidden' || cs.display === 'none' || el.closest('.sr-only,[hidden]')) continue
+        const range = document.createRange(); range.selectNodeContents(node)
+        for (const q of range.getClientRects()) {
+          if (q.width < 1 || q.height < 1) continue
+          let l = q.left, t = q.top, r = q.right, bt = q.bottom
+          for (let n = el; n && n !== document.body; n = n.parentElement) {
+            const s2 = getComputedStyle(n)
+            if (s2.overflowX !== 'visible' || s2.overflowY !== 'visible') { const c = n.getBoundingClientRect(); l = Math.max(l, c.left); t = Math.max(t, c.top); r = Math.min(r, c.right); bt = Math.min(bt, c.bottom) }
+            // A fixed box escapes every ancestor's overflow clip (it is clipped only by the viewport), so stop here.
+            if (s2.position === 'fixed') break
+          }
+          if (r <= l || bt <= t) continue
+          texts++
+          const ix = Math.min(r, b.right) - Math.max(l, b.left), iy = Math.min(bt, b.bottom) - Math.max(t, b.top)
+          if (ix > 0.5 && iy > 0.5) hits.push({ text: node.textContent.trim().slice(0, 40), rect: [l, t, r, bt].map(Math.round) })
+        }
+      }
+      return { hits, texts, minimize: [b.left, b.top, b.right, b.bottom].map(Math.round) }
+    }
+    const max = (el) => Math.max(0, el.scrollHeight - el.clientHeight)
+    const overlaps = []
+    let positions = 0, minTexts = Infinity, minimize = null
+    const outer = els[0], inner = els[1]
+    const outerSteps = outer ? [...new Set([0, ...Array.from({ length: Math.floor(max(outer) / 24) }, (_, i) => (i + 1) * 24), max(outer)])] : [0]
+    for (const y of outerSteps) {
+      if (outer) outer.scrollTop = y
+      for (const innerTop of inner ? [true, false] : [true]) {
+        if (inner) inner.scrollTop = innerTop ? 0 : max(inner)
+        const m = measure()
+        positions++; minTexts = Math.min(minTexts, m.texts); minimize = m.minimize
+        for (const h of m.hits) overlaps.push({ outerScroll: y, innerTop, ...h })
+      }
+    }
+    for (const el of els) el.scrollTop = 0
+    return { ok: overlaps.length === 0 && minTexts > 0, positions, minTexts, minimize, overlaps: overlaps.slice(0, 5) }
+  }, [rootSelector, scrollers])
+  check(vp, surface, `Minimize bbox never intersects readable text across scroll positions (${mode})`, o.ok, JSON.stringify(o))
+}
+
 const browser = await chromium.launch({ headless: true })
 for (const vp of viewports) {
   const name = `phone-${vp.width}`
@@ -76,6 +136,10 @@ for (const vp of viewports) {
       const r = await hit(page, locator)
       check(name, W, `${label} hit-testable (${mode})`, r.ok, JSON.stringify(r))
     }
+    await checkOcclusion(page, name, W, mode, '[data-sutra-region]', ['[data-sutra-panel]', '[data-sutra-messages]'])
+    // Evidence frame: the state a user is in when deciding - confirmation scrolled into view.
+    await page.locator('[data-sutra-pending-confirm]').evaluate((el) => el.scrollIntoView({ block: 'nearest' }))
+    await page.waitForTimeout(100)
     await page.screenshot({ path: path.join(outDir, `${name}-workspace-guided-pending${mode === 'keyboard open' ? '-keyboard' : ''}.png`) })
   }
   await page.setViewportSize(vp)
@@ -107,6 +171,7 @@ for (const vp of viewports) {
     }
     const msgH = await page.evaluate(() => document.querySelector('[data-sutra-messages]')?.getBoundingClientRect().height ?? 0)
     check(name, H, `conversation log keeps usable height (${mode})`, msgH >= 48, String(Math.round(msgH)))
+    await checkOcclusion(page, name, H, mode, '[data-sutra]', ['[data-sutra-chrome]', '[data-sutra-messages]'])
     await page.screenshot({ path: path.join(outDir, `${name}-home-chrome-${mode === 'keyboard open' ? 'keyboard' : 'full'}.png`) })
   }
   await context.close()

@@ -228,7 +228,7 @@ export default function ProjectWorkspaceCockpit() {
         {sutraOpen && (
           <div
             ref={sutraRegionRef}
-            className="fixed inset-0 z-[110] overflow-hidden overscroll-contain bg-relume-command shadow-2xl max-md:pb-[env(safe-area-inset-bottom)] max-md:pl-[env(safe-area-inset-left)] max-md:pr-[env(safe-area-inset-right)] max-md:pt-[env(safe-area-inset-top)] md:absolute md:inset-x-auto md:inset-y-0 md:bottom-0 md:left-auto md:right-0 md:top-0 md:z-40 md:h-full md:w-[var(--sutra-w)] lg:static lg:h-full lg:w-auto"
+            className="fixed inset-0 z-[110] overflow-hidden overscroll-contain bg-relume-command shadow-2xl max-md:flex max-md:flex-col max-md:pb-[env(safe-area-inset-bottom)] max-md:pl-[env(safe-area-inset-left)] max-md:pr-[env(safe-area-inset-right)] max-md:pt-[env(safe-area-inset-top)] md:absolute md:inset-x-auto md:inset-y-0 md:bottom-0 md:left-auto md:right-0 md:top-0 md:z-40 md:h-full md:w-[var(--sutra-w)] lg:static lg:h-full lg:w-auto"
             style={isPhoneSutra && sutraViewportBox ? { top: sutraViewportBox.top, height: sutraViewportBox.height, bottom: 'auto' } : undefined}
             onKeyDown={(event) => { if (!isDesktopSutra) trapTabKey(event, sutraRegionRef.current) }}
             data-sutra-region
@@ -239,11 +239,16 @@ export default function ProjectWorkspaceCockpit() {
             aria-label="SUTRA design assistant"
           >
             <button type="button" onClick={closeSutra} className="absolute right-3 top-2 z-50 hidden min-h-11 px-2 text-xs font-semibold text-white md:block" aria-label="Close SUTRA">Close</button>
-            <button type="button" onClick={closeSutra} className="absolute right-3 top-[calc(env(safe-area-inset-top)+0.5rem)] z-50 inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/30 px-3 text-xs font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent md:hidden" aria-label="Minimize SUTRA" data-sutra-minimize>
-              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeWidth={2.5} d="M5 19h14" /></svg>
-              Minimize
-            </button>
-            <SutraPanel onEvent={handleSutraEvent} activeProduct={productControls[activeProduct]} defaultGuidedOpen={!isPhoneSutra} />
+            {/* Phone: Minimize sits in its own in-flow bar above the panel, so it can never overlay message or confirmation text. */}
+            <div className="flex shrink-0 justify-end px-3 py-1 md:hidden" data-sutra-minimize-bar>
+              <button type="button" onClick={closeSutra} className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/30 px-3 text-xs font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent" aria-label="Minimize SUTRA" data-sutra-minimize>
+                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeWidth={2.5} d="M5 19h14" /></svg>
+                Minimize
+              </button>
+            </div>
+            <div className="h-full min-h-0 max-md:flex-1">
+              <SutraPanel onEvent={handleSutraEvent} activeProduct={productControls[activeProduct]} defaultGuidedOpen={!isPhoneSutra} />
+            </div>
           </div>
         )}
       </div>
