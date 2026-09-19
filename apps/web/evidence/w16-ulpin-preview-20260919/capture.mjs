@@ -54,6 +54,22 @@ for (const [name, width, height, touch] of [['1366x768', 1366, 768, false], ['37
   report[name] = { parcelContextBeforeLookup: ctxBefore, parcelContextAfterLookup: ctxAfter && JSON.parse(ctxAfter).ulpin, pre, post, minToolbarButtonHeight: Math.min(...targets), consoleErrors: errors }
   await context.close()
 }
+// RULE 41(1) touch-target sweep: every method mode, every visible control in the toolbar, map-view toolbar and record card.
+report.touchSweep = {}
+for (const [name, width, height] of [['375x667', 375, 667], ['414x896', 414, 896]]) {
+  const context = await browser.newContext({ viewport: { width, height }, hasTouch: true, isMobile: true, deviceScaleFactor: 1 })
+  const page = await context.newPage(); const errors = []
+  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()) }); page.on('pageerror', (e) => errors.push(String(e)))
+  await page.goto(`${base}/products/landintel`, { waitUntil: 'networkidle' })
+  const modes = {}
+  for (const label of ['ULPIN', 'Map pin', 'Coordinates', 'Address', 'My location', 'Survey / khasra']) {
+    await page.locator('[data-find-parcel-toolbar] [aria-label="Location method"] button', { hasText: label }).first().tap(); await page.waitForTimeout(150)
+    modes[label] = await page.evaluate(() => [...document.querySelectorAll('[data-find-parcel-toolbar] button, [data-find-parcel-toolbar] input, [data-map-view-toolbar] button, [data-ulpin-record-card] button, [data-ulpin-record-card] input')].filter((e) => e.offsetParent).map((e) => { const r = e.getBoundingClientRect(); return { tag: e.tagName, label: e.labels?.[0]?.firstChild?.textContent ?? e.getAttribute('aria-label') ?? e.textContent.trim().slice(0, 24), w: Math.round(r.width), h: Math.round(r.height) } }))
+  }
+  const all = Object.values(modes).flat()
+  report.touchSweep[name] = { controlsMeasured: all.length, inputs: all.filter((c) => c.tag === 'INPUT').map((c) => `${c.label}: ${c.w}x${c.h}`), under44: all.filter((c) => c.h < 44), overflowX: await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), consoleErrors: errors }
+  await context.close()
+}
 await browser.close(); server.close()
 fs.writeFileSync(path.join(outDir, 'report.json'), JSON.stringify(report, null, 2))
 console.log(JSON.stringify(report, null, 2))

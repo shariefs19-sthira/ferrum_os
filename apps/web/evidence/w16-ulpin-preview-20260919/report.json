@@ -74,5 +74,31 @@
     },
     "minToolbarButtonHeight": 44,
     "consoleErrors": []
+  },
+  "touchSweep": {
+    "375x667": {
+      "controlsMeasured": 59,
+      "inputs": [
+        "Seeded ULPIN: 323x44",
+        "Latitude: 323x44",
+        "Longitude: 323x44",
+        "Address or place: 323x44"
+      ],
+      "under44": [],
+      "overflowX": false,
+      "consoleErrors": []
+    },
+    "414x896": {
+      "controlsMeasured": 59,
+      "inputs": [
+        "Seeded ULPIN: 362x44",
+        "Latitude: 362x44",
+        "Longitude: 362x44",
+        "Address or place: 362x44"
+      ],
+      "under44": [],
+      "overflowX": false,
+      "consoleErrors": []
+    }
   }
 }
