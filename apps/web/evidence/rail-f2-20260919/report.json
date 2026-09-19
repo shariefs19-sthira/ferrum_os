@@ -1,0 +1,674 @@
+[
+  {
+    "width": 320,
+    "sutra": "closed",
+    "rail": {
+      "x": 0,
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "canvas": {
+      "x": 0,
+      "y": 170,
+      "w": 320,
+      "h": 598,
+      "right": 320,
+      "bottom": 768
+    },
+    "bar": null,
+    "controls": [
+      {
+        "text": "Select",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "Measure",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "Compare",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "DataOpen extract",
+        "aria": "Open extract",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "More",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      }
+    ],
+    "overflow": false,
+    "sutraOpen": false,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "sutra": "closed",
+    "rail": {
+      "x": 0,
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "canvas": {
+      "x": 0,
+      "y": 170,
+      "w": 390,
+      "h": 598,
+      "right": 390,
+      "bottom": 768
+    },
+    "bar": null,
+    "controls": [
+      {
+        "text": "Select",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "Measure",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "Compare",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "DataOpen extract",
+        "aria": "Open extract",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "More",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      }
+    ],
+    "overflow": false,
+    "sutraOpen": false,
+    "errors": []
+  },
+  {
+    "width": 768,
+    "sutra": "closed",
+    "rail": {
+      "x": 0,
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "canvas": {
+      "x": 0,
+      "y": 170,
+      "w": 768,
+      "h": 598,
+      "right": 768,
+      "bottom": 768
+    },
+    "bar": null,
+    "controls": [
+      {
+        "text": "Select",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "Measure",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "Compare",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "DataOpen extract",
+        "aria": "Open extract",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      },
+      {
+        "text": "More",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "hit": false,
+        "hitBy": "<header class=\"flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-whit"
+      }
+    ],
+    "overflow": false,
+    "sutraOpen": false,
+    "errors": []
+  },
+  {
+    "width": 1024,
+    "sutra": "open",
+    "rail": {
+      "x": 0,
+      "y": 109,
+      "w": 112,
+      "h": 659,
+      "right": 112,
+      "bottom": 768
+    },
+    "canvas": {
+      "x": 112,
+      "y": 109,
+      "w": 560,
+      "h": 659,
+      "right": 672,
+      "bottom": 768
+    },
+    "bar": null,
+    "controls": [
+      {
+        "text": "Select",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 145,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 189
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"true\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visibl"
+      },
+      {
+        "text": "Measure",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 197,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 241
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"false\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visib"
+      },
+      {
+        "text": "Compare",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 249,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 293
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"false\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visib"
+      },
+      {
+        "text": "DataOpen extract",
+        "aria": "Open extract",
+        "rect": {
+          "x": 15.75,
+          "y": 660,
+          "w": 81.5,
+          "h": 44,
+          "right": 97.25,
+          "bottom": 704
+        },
+        "hit": true,
+        "hitBy": "<button aria-label=\"Open extract\" aria-expanded=\"false\" class=\"lg:mt-auto min-h-11 shrink-0 rounded-full borde"
+      },
+      {
+        "text": "More",
+        "aria": null,
+        "rect": {
+          "x": 22.703125,
+          "y": 712,
+          "w": 67.59375,
+          "h": 44,
+          "right": 90.296875,
+          "bottom": 756
+        },
+        "hit": true,
+        "hitBy": "<button aria-haspopup=\"dialog\" class=\"min-h-11 shrink-0 rounded-full border border-relume-border bg-relume-sur"
+      }
+    ],
+    "overflow": false,
+    "sutraOpen": true,
+    "errors": []
+  },
+  {
+    "width": 1024,
+    "sutra": "closed",
+    "rail": {
+      "x": 0,
+      "y": 109,
+      "w": 112,
+      "h": 659,
+      "right": 112,
+      "bottom": 768
+    },
+    "canvas": {
+      "x": 112,
+      "y": 109,
+      "w": 912,
+      "h": 659,
+      "right": 1024,
+      "bottom": 768
+    },
+    "bar": null,
+    "controls": [
+      {
+        "text": "Select",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 145,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 189
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"true\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visibl"
+      },
+      {
+        "text": "Measure",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 197,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 241
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"false\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visib"
+      },
+      {
+        "text": "Compare",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 249,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 293
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"false\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visib"
+      },
+      {
+        "text": "DataOpen extract",
+        "aria": "Open extract",
+        "rect": {
+          "x": 15.75,
+          "y": 660,
+          "w": 81.5,
+          "h": 44,
+          "right": 97.25,
+          "bottom": 704
+        },
+        "hit": true,
+        "hitBy": "<button aria-label=\"Open extract\" aria-expanded=\"false\" class=\"lg:mt-auto min-h-11 shrink-0 rounded-full borde"
+      },
+      {
+        "text": "More",
+        "aria": null,
+        "rect": {
+          "x": 22.703125,
+          "y": 712,
+          "w": 67.59375,
+          "h": 44,
+          "right": 90.296875,
+          "bottom": 756
+        },
+        "hit": true,
+        "hitBy": "<button aria-haspopup=\"dialog\" class=\"min-h-11 shrink-0 rounded-full border border-relume-border bg-relume-sur"
+      }
+    ],
+    "overflow": false,
+    "sutraOpen": false,
+    "errors": []
+  },
+  {
+    "width": 1366,
+    "sutra": "open",
+    "rail": {
+      "x": 0,
+      "y": 121,
+      "w": 112,
+      "h": 647,
+      "right": 112,
+      "bottom": 768
+    },
+    "canvas": {
+      "x": 112,
+      "y": 121,
+      "w": 898.84375,
+      "h": 647,
+      "right": 1010.84375,
+      "bottom": 768
+    },
+    "bar": null,
+    "controls": [
+      {
+        "text": "Select",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 157,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 201
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"true\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visibl"
+      },
+      {
+        "text": "Measure",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 209,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 253
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"false\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visib"
+      },
+      {
+        "text": "Compare",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 261,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 305
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"false\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visib"
+      },
+      {
+        "text": "DataOpen extract",
+        "aria": "Open extract",
+        "rect": {
+          "x": 15.75,
+          "y": 660,
+          "w": 81.5,
+          "h": 44,
+          "right": 97.25,
+          "bottom": 704
+        },
+        "hit": true,
+        "hitBy": "<button aria-label=\"Open extract\" aria-expanded=\"false\" class=\"lg:mt-auto min-h-11 shrink-0 rounded-full borde"
+      },
+      {
+        "text": "More",
+        "aria": null,
+        "rect": {
+          "x": 22.703125,
+          "y": 712,
+          "w": 67.59375,
+          "h": 44,
+          "right": 90.296875,
+          "bottom": 756
+        },
+        "hit": true,
+        "hitBy": "<button aria-haspopup=\"dialog\" class=\"min-h-11 shrink-0 rounded-full border border-relume-border bg-relume-sur"
+      }
+    ],
+    "overflow": false,
+    "sutraOpen": true,
+    "errors": []
+  },
+  {
+    "width": 1366,
+    "sutra": "closed",
+    "rail": {
+      "x": 0,
+      "y": 121,
+      "w": 112,
+      "h": 647,
+      "right": 112,
+      "bottom": 768
+    },
+    "canvas": {
+      "x": 112,
+      "y": 121,
+      "w": 1254,
+      "h": 647,
+      "right": 1366,
+      "bottom": 768
+    },
+    "bar": null,
+    "controls": [
+      {
+        "text": "Select",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 157,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 201
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"true\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visibl"
+      },
+      {
+        "text": "Measure",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 209,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 253
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"false\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visib"
+      },
+      {
+        "text": "Compare",
+        "aria": null,
+        "rect": {
+          "x": 25,
+          "y": 261,
+          "w": 63,
+          "h": 44,
+          "right": 88,
+          "bottom": 305
+        },
+        "hit": true,
+        "hitBy": "<button aria-pressed=\"false\" class=\"min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium focus-visib"
+      },
+      {
+        "text": "DataOpen extract",
+        "aria": "Open extract",
+        "rect": {
+          "x": 15.75,
+          "y": 660,
+          "w": 81.5,
+          "h": 44,
+          "right": 97.25,
+          "bottom": 704
+        },
+        "hit": true,
+        "hitBy": "<button aria-label=\"Open extract\" aria-expanded=\"false\" class=\"lg:mt-auto min-h-11 shrink-0 rounded-full borde"
+      },
+      {
+        "text": "More",
+        "aria": null,
+        "rect": {
+          "x": 22.703125,
+          "y": 712,
+          "w": 67.59375,
+          "h": 44,
+          "right": 90.296875,
+          "bottom": 756
+        },
+        "hit": true,
+        "hitBy": "<button aria-haspopup=\"dialog\" class=\"min-h-11 shrink-0 rounded-full border border-relume-border bg-relume-sur"
+      }
+    ],
+    "overflow": false,
+    "sutraOpen": false,
+    "errors": []
+  }
+]
