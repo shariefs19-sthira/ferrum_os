@@ -1,11 +1,13 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import UlpinMapExplorer from './UlpinMapExplorer'
 import { writeParcelContext } from '../../lib/workspace/parcelContext'
+import { SQM_PER_CENT, SQM_PER_GROUND, SQM_PER_GUNTHA, SQM_PER_ACRE, SQM_TO_SQFT } from '../../lib/units'
 
 vi.mock('./ParcelMap', () => ({ default: ({ onPinDrop }: { onPinDrop?: (point: { lat: number; lng: number }) => void }) => <button type="button" aria-label="Map showing sample" onClick={() => onPinDrop?.({ lat: 12.9, lng: 77.5 })}>Map</button> }))
 vi.mock('./SiteMap3D', () => ({ default: ({ lat, lng, onPinDrop, onUnavailable }: { lat: number; lng: number; onPinDrop?: (point: { lat: number; lng: number }) => void; onUnavailable?: (reason: string) => void }) => <div data-testid="site-map-3d" data-lat={lat} data-lng={lng}><button type="button" onClick={() => onPinDrop?.({ lat: 12.5, lng: 77.1 })}>3D pin</button><button type="button" onClick={() => onUnavailable?.('style-failed')}>3D fail</button></div> }))
-vi.mock('../ProvenanceStrip', () => ({ ProvenanceStrip: ({ source }: { source: string }) => <span>Source: {source}</span> }))
+vi.mock('../SaveToWorkspaceButton', () => ({ default: () => <button type="button">Save to workspace</button> }))
+vi.mock('../ProvenanceStrip', () => ({ ProvenanceStrip: ({ source, freshness }: { source: string; freshness: string }) => <span>Source: {source} · Freshness: {freshness}</span> }))
 vi.mock('../../lib/workspace/parcelContext', () => ({ writeParcelContext: vi.fn() }))
 
 // jsdom has no PointerEvent, so pointerType would be dropped and a touch tap would be indistinguishable from a mouse click.
@@ -99,6 +101,49 @@ describe('UlpinMapExplorer W-85 parcel finder', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Map showing sample' })); await waitFor(() => expect(writeParcelContext).toHaveBeenCalled())
     fireEvent.click(screen.getByRole('button', { name: 'My location' })); fireEvent.click(screen.getByRole('button', { name: 'Use my location' })); expect(screen.getByRole('status').textContent).toContain('Location permission was denied')
     fireEvent.click(screen.getByRole('button', { name: 'Survey / khasra' })); expect(screen.getByText('ROADMAP')).toBeTruthy()
+  })
+
+  describe('W-16 pre-lookup PREVIEW record card (RULE 29 feature conservation)', () => {
+    const unitValue = (container: ParentNode, unit: string) => Number((container.querySelector(`[data-area-unit="${unit}"] dd`)?.textContent ?? '').replace(/,/g, ''))
+    const constants: Record<string, number> = { sqm: 1, sqft: 1 / SQM_TO_SQFT, cent: SQM_PER_CENT, guntha: SQM_PER_GUNTHA, ground: SQM_PER_GROUND, acre: SQM_PER_ACRE }
+    const tolerance: Record<string, number> = { sqm: 0.5, sqft: 0.5 / SQM_TO_SQFT, cent: 0.005 * SQM_PER_CENT, guntha: 0.005 * SQM_PER_GUNTHA, ground: 0.005 * SQM_PER_GROUND, acre: 0.00005 * SQM_PER_ACRE }
+
+    it('renders the record card before any lookup with a labelled sample, both units, provenance, and no shared-context write', () => {
+      const { container } = render(<UlpinMapExplorer />)
+      const card = container.querySelector('[data-ulpin-record-card]') as HTMLElement
+      expect(card).not.toBeNull()
+      expect(card.querySelector('[data-record-status]')?.textContent).toBe('PREVIEW · SAMPLE')
+      expect(card.textContent).toContain('Residential'); expect(card.textContent).toContain('REQUIRES AUTHORITY VERIFICATION')
+      expect(card.textContent).toMatch(/Source:.*Preview sample/); expect(card.textContent).toMatch(/PREVIEW · sample, not a live record/)
+      expect(within(card).queryByText('Save to workspace')).toBeNull()
+      expect(writeParcelContext).not.toHaveBeenCalled()
+      // RULE 30: every unit visible together; RULE 29: every unit is the same base area within its stated display precision
+      expect(card.querySelectorAll('[data-area-unit]')).toHaveLength(6)
+      expect(card.querySelector('[data-area-unit="sqm"]')?.textContent).toContain('1,200'); expect(card.querySelector('[data-area-unit="sqft"]')?.textContent).toContain('12,917')
+      for (const unit of Object.keys(constants)) expect(Math.abs(unitValue(card, unit) * constants[unit] - 1200)).toBeLessThanOrEqual(tolerance[unit])
+    })
+
+    it('swaps values in the SAME card node after a seeded lookup, keeps sample values out of the parcel context, then writes only on the real commit', async () => {
+      const { container } = render(<UlpinMapExplorer />)
+      const previewCard = container.querySelector('[data-ulpin-record-card]'); const before = vi.mocked(writeParcelContext).mock.calls.length
+      expect(previewCard).not.toBeNull(); expect(before).toBe(0)
+      fireEvent.click(screen.getByRole('button', { name: seeded.ulpin })); fireEvent.click(screen.getByRole('button', { name: 'Lookup seeded record' }))
+      await waitFor(() => expect(container.querySelector('[data-record-status]')?.textContent).toBe('INDICATIVE LOOKUP'))
+      expect(container.querySelector('[data-ulpin-record-card]')).toBe(previewCard)
+      expect(previewCard?.textContent).toContain('Commercial'); expect(previewCard?.textContent).not.toContain('Residential')
+      expect(previewCard?.querySelector('[data-area-unit="sqft"]')?.textContent).toContain('16,146')
+      for (const unit of Object.keys(constants)) expect(Math.abs(unitValue(previewCard as HTMLElement, unit) * constants[unit] - 1500)).toBeLessThanOrEqual(tolerance[unit])
+      expect(within(previewCard as HTMLElement).getByText('Save to workspace')).toBeTruthy()
+      expect(writeParcelContext).toHaveBeenCalledTimes(1)
+      expect(writeParcelContext).toHaveBeenCalledWith(expect.objectContaining({ area_sqm: 1500, land_use: 'Commercial' }))
+    })
+
+    it('shows GAP instead of a fabricated area for a coordinate-only record, still in the same card', () => {
+      const { container } = render(<UlpinMapExplorer />); const card = container.querySelector('[data-ulpin-record-card]')
+      fireEvent.click(screen.getByRole('button', { name: 'Coordinates' })); fireEvent.change(screen.getByLabelText('Latitude'), { target: { value: '13.0827' } }); fireEvent.change(screen.getByLabelText('Longitude'), { target: { value: '80.2707' } }); fireEvent.click(screen.getByRole('button', { name: 'Set coordinates' }))
+      expect(container.querySelector('[data-ulpin-record-card]')).toBe(card)
+      expect(card?.querySelector('[data-record-status]')?.textContent).toBe('LOCATION ONLY · GAP'); expect(card?.querySelectorAll('[data-area-unit]')).toHaveLength(0); expect(card?.textContent).toContain('GAP — a location-only record carries no plot area.')
+    })
   })
 
   describe('2D/3D site map toggle', () => {

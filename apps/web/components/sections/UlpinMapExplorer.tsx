@@ -8,6 +8,7 @@ import SaveToWorkspaceButton from '../SaveToWorkspaceButton'
 import { writeParcelContext } from '../../lib/workspace/parcelContext'
 import type { PlotIntel } from '../../lib/parcelIntel/types'
 import { productFeatureRegistry } from '../../lib/productFeatureRegistry'
+import { convertArea } from '../../lib/units'
 
 // MapLibre (WebGL2) is code-split so the default 2D view never pays for it.
 const SiteMap3D = lazy(() => import('./SiteMap3D'))
@@ -21,6 +22,11 @@ type ParcelRecord = { ulpin: string | null; state: string; district: string; are
 
 const BENGALURU: Coordinates = { lat: 12.9716, lng: 77.5946 }
 const SAMPLE_ULPINS = ['KA-BLR-0001-2024', 'MH-PUN-0002-2024', 'TN-CHN-0003-2024']
+// W-16 / RULE 29 feature conservation: the record card renders BEFORE any lookup, filled with this labelled sample.
+// It is display-only: it is never committed and never written to the shared parcel context (only commit() does that).
+const PREVIEW_RECORD: ParcelRecord = { ulpin: 'KA-BLR-0001-2024', state: 'Karnataka', district: 'Bengaluru Urban', area_sqm: 1200, land_use: 'Residential', coordinates: BENGALURU, source: 'Preview sample — replaced in place by a seeded lookup; not a registry result', status: 'INDICATIVE' }
+const AREA_UNITS = [['sqm', 'm²', 0], ['sqft', 'sq ft', 0], ['cent', 'cents', 2], ['guntha', 'guntha', 2], ['ground', 'ground', 2], ['acre', 'acre', 4]] as const
+const formatUnit = (value: number, digits: number) => value.toLocaleString('en-IN', { minimumFractionDigits: digits, maximumFractionDigits: digits })
 const modeLabels: Record<Mode, string> = { ulpin: 'ULPIN', pin: 'Map pin', coordinates: 'Coordinates', place: 'Address', location: 'My location', survey: 'Survey / khasra' }
 const modeFeatures = Object.fromEntries(productFeatureRegistry.landintel.filter((feature) => feature.id.startsWith('location-')).map((feature) => [feature.id.replace('location-', ''), feature])) as Record<Mode, (typeof productFeatureRegistry.landintel)[number]>
 
@@ -117,6 +123,8 @@ export default function UlpinMapExplorer() {
     navigator.geolocation.getCurrentPosition((position) => commit(locationRecord({ lat: position.coords.latitude, lng: position.coords.longitude }, 'Browser geolocation — parcel attributes are GAP'), 'Browser geolocation · permission granted · attributes GAP'), (error) => showError(error.code === 1 ? 'Location permission was denied. No location was set.' : 'Location could not be resolved. Use coordinates or address search.'), { enableHighAccuracy: false, timeout: 10000 })
   }
 
+  const shown = record ?? PREVIEW_RECORD
+  const area = convertArea(shown.area_sqm)
   const coordinateError = message.startsWith('Enter valid decimal or DMS coordinates')
   const ulpinError = message.startsWith('Enter a seeded') || message.startsWith('No seeded')
   const placeError = message.startsWith('Enter an address') || message.startsWith('No address')
@@ -162,25 +170,35 @@ export default function UlpinMapExplorer() {
           <SiteMap3D lat={center.lat} lng={center.lng} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} onUnavailable={fallBackTo2d} className={MAP_CLASS} />
         </Suspense>
         : <ParcelMap lat={center.lat} lng={center.lng} zoom={record ? 13 : 11} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} className={MAP_CLASS} />}
-      {record && <div className="border-t border-relume-border bg-white p-3 min-[1200px]:absolute min-[1200px]:right-3 min-[1200px]:top-28 min-[1200px]:z-[500] min-[1200px]:max-h-[calc(100%-8rem)] min-[1200px]:w-[min(26rem,40%)] min-[1200px]:overflow-y-auto min-[1200px]:rounded-relume min-[1200px]:border min-[1200px]:border-white/70 min-[1200px]:bg-white/80 min-[1200px]:backdrop-blur-md" data-ulpin-record-card data-map-overlay>
+      <div className="border-t border-relume-border bg-white p-3 min-[1200px]:absolute min-[1200px]:right-3 min-[1200px]:top-28 min-[1200px]:z-[500] min-[1200px]:max-h-[calc(100%-8rem)] min-[1200px]:w-[min(26rem,40%)] min-[1200px]:overflow-y-auto min-[1200px]:rounded-relume min-[1200px]:border min-[1200px]:border-white/70 min-[1200px]:bg-white/80 min-[1200px]:backdrop-blur-md" data-ulpin-record-card data-map-overlay>
         <div className="min-w-0">
           <div className="flex flex-wrap items-start justify-between gap-3">
-            <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Selected location</p><p className="mt-1 text-xs font-medium">{record.district}</p></div>
-            <SaveToWorkspaceButton type="parcel" title={record.ulpin ?? record.district} data={record} />
+            <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">{record ? 'Selected location' : 'Parcel record · sample'}</p><p className="mt-1 text-xs font-medium">{shown.district}</p></div>
+            {record ? <SaveToWorkspaceButton type="parcel" title={record.ulpin ?? record.district} data={record} /> : null}
+            <span className="rounded-full border border-relume-accent bg-orange-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-ink" data-record-status>{!record ? 'PREVIEW · SAMPLE' : record.status === 'GAP' ? 'LOCATION ONLY · GAP' : 'INDICATIVE LOOKUP'}</span>
           </div>
           <dl className="mt-3 grid gap-2 text-xs sm:grid-cols-2">
-            <div><dt className="text-relume-muted">Recorded land use</dt><dd className="mt-1 font-semibold text-relume-command">{record.land_use}</dd></div>
-            <div><dt className="text-relume-muted">Zoning verification status</dt><dd className="mt-1 font-semibold text-relume-command">{record.status === 'INDICATIVE' ? 'REQUIRES AUTHORITY VERIFICATION' : 'UNKNOWN'}</dd></div>
+            <div><dt className="text-relume-muted">ULPIN</dt><dd className="mt-1 break-all font-semibold text-relume-command">{shown.ulpin ?? 'GAP'}</dd></div>
+            <div><dt className="text-relume-muted">State</dt><dd className="mt-1 font-semibold text-relume-command">{shown.state}</dd></div>
+            <div><dt className="text-relume-muted">Recorded land use</dt><dd className="mt-1 font-semibold text-relume-command">{shown.land_use}</dd></div>
+            <div><dt className="text-relume-muted">Zoning verification status</dt><dd className="mt-1 font-semibold text-relume-command">{shown.status === 'INDICATIVE' ? 'REQUIRES AUTHORITY VERIFICATION' : 'UNKNOWN'}</dd></div>
           </dl>
+          <div className="mt-3" data-area-units>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Plot area · all units from one base of {formatUnit(shown.area_sqm, 0)} m²</p>
+            {shown.area_sqm > 0
+              ? <dl className="mt-2 grid grid-cols-3 gap-x-3 gap-y-2 font-mono text-xs tabular-nums">{AREA_UNITS.map(([unit, label, digits]) => <div key={unit} data-area-unit={unit}><dt className="text-[10px] uppercase tracking-[0.1em] text-relume-muted">{label}</dt><dd className="mt-0.5 font-semibold text-relume-command">{formatUnit(area[unit], digits)}</dd></div>)}</dl>
+              : <p className="mt-2 text-xs font-semibold text-relume-muted">GAP — a location-only record carries no plot area.</p>}
+            <p className="mt-1 text-[10px] leading-4 text-relume-muted">Converted with exact constants and rounded for display (sq ft to 0, cents, guntha, ground to 2 and acre to 4 decimals).</p>
+          </div>
           <p className="mt-2 text-[10px] leading-4 text-relume-muted">ULPIN identifies the parcel. Building use is derived only after the competent planning authority&apos;s current zoning record is verified; Ferrum does not offer unrestricted use choices.</p>
-          {record.plot_intel?.advisable_types?.length ? <div className="mt-3 rounded-relume border border-white/70 bg-white/65 p-3" data-indicative-building-types>
+          {shown.plot_intel?.advisable_types?.length ? <div className="mt-3 rounded-relume border border-white/70 bg-white/65 p-3" data-indicative-building-types>
             <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Indicative building types · sample ruleset</p>
-            <ul className="mt-2 space-y-2 text-xs">{record.plot_intel.advisable_types.map((item) => <li key={item.building_type}><strong className="text-relume-command">{item.building_type}</strong><span className="block text-relume-muted">{item.reason}</span></li>)}</ul>
+            <ul className="mt-2 space-y-2 text-xs">{shown.plot_intel.advisable_types.map((item) => <li key={item.building_type}><strong className="text-relume-command">{item.building_type}</strong><span className="block text-relume-muted">{item.reason}</span></li>)}</ul>
             <p className="mt-2 text-[10px] text-relume-muted">Automatically derived from the seeded land-use value and an indicative sample ruleset. These are recommendations, not authority-permitted uses.</p>
-          </div> : <p className="mt-3 text-xs font-semibold text-relume-muted" data-building-types-gap>Building-type guidance: GAP until compatible zoning evidence is available.</p>}
-          <ProvenanceStrip source={record.source} freshness={new Date().toISOString().slice(0, 10)} />
+          </div> : <p className="mt-3 text-xs font-semibold text-relume-muted" data-building-types-gap>{record ? 'Building-type guidance: GAP until compatible zoning evidence is available.' : 'Building-type guidance appears after a seeded lookup; none is shown for the sample.'}</p>}
+          <ProvenanceStrip source={shown.source} freshness={record ? new Date().toISOString().slice(0, 10) : 'PREVIEW · sample, not a live record'} />
         </div>
-      </div>}
+      </div>
     </div>
   </section>
 }
