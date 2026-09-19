@@ -25,17 +25,17 @@ const liveTools: Record<ProductToolKey, () => ReactNode> = {
 /**
  * The selected product's real cockpit tool, or -- when it has none -- a
  * truthful ROADMAP statement with no action. Docked beside the canvas at `lg`
- * (never over it); below `lg` it is a dismissible task sheet opened from the
- * toolbar, so the central preview stays unobscured until the user asks.
+ * (never over it); below `lg` it is a bounded split pane in its own grid row
+ * beneath the model (independent scroll, opened from the toolbar). It is never
+ * fixed/overlaid, so the rendered building stays visible while a tool is open.
  */
 export default function ProductToolSurface({ product, mobileOpen = false, onMobileClose }: { product: ProductControlId; mobileOpen?: boolean; onMobileClose?: () => void }) {
   const surface = resolveProductSurface(product)
   const live = surface.state === 'LIVE' && surface.tool !== null
   return <aside
-    className={`${mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,40rem)] overflow-y-auto rounded-relume shadow-xl lg:static lg:z-auto lg:max-h-none lg:rounded-none lg:shadow-none' : 'hidden'} border border-relume-border bg-white lg:relative lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:block lg:min-h-0 lg:border-y-0 lg:border-r-0`}
+    className={`${mobileOpen ? 'order-2 block min-h-0 overflow-y-auto overscroll-contain border-t' : 'hidden'} border-relume-border bg-white lg:order-none lg:relative lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:block lg:min-h-0 lg:overflow-visible lg:border-y-0 lg:border-l lg:border-r-0 lg:border-t-0`}
     aria-label={`${surface.label} tool`}
-    role={mobileOpen ? 'dialog' : undefined}
-    aria-modal={mobileOpen ? 'true' : undefined}
+    role="region"
     data-product-tool-surface={product}
     data-tool-state={surface.state}
     data-mobile-sheet={mobileOpen ? 'tool' : undefined}
@@ -52,7 +52,7 @@ export default function ProductToolSurface({ product, mobileOpen = false, onMobi
         {mobileOpen && <button type="button" onClick={onMobileClose} className="mt-3 min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command lg:hidden">Close</button>}
         <p className="mt-2 text-xs leading-5 text-relume-muted">{surface.lens}</p>
 
-        {live && surface.tool ? <div className="mt-4 [&_[data-forecast-grid]]:!grid-cols-1" data-live-tool={surface.tool.key}>{liveTools[surface.tool.key]()}</div> : <div className="mt-4 rounded-relume border border-dashed border-relume-border p-3" data-roadmap-state>
+        {live && surface.tool ? <div className="mt-4 [&_[data-forecast-grid]]:!grid-cols-1 lg:[&_[data-find-parcel-toolbar]_.grid:not([aria-label])]:!grid-cols-1 lg:[&_[data-find-parcel-toolbar]_[aria-label='Location_method']]:!grid-cols-2" data-live-tool={surface.tool.key}>{liveTools[surface.tool.key]()}</div> : <div className="mt-4 rounded-relume border border-dashed border-relume-border p-3" data-roadmap-state>
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-relume-command">ROADMAP</p>
           <p className="mt-2 text-xs leading-5 text-relume-ink">No live tool exists for this product yet. Nothing here is computed, and there is no action to run.</p>
         </div>}

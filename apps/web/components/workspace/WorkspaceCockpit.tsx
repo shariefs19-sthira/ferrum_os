@@ -142,6 +142,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   // knobs are Design-only. Land keeps its Site Constraints authority sheet.
   const toolProduct = canvasFirst && controlProduct && hasProductToolSurface(controlProduct) ? controlProduct : undefined
   const toolSurface = toolProduct ? resolveProductSurface(toolProduct) : undefined
+  const toolOpenBelowLg = Boolean(toolProduct) && !sutraOccludesCanvas && mobilePanel === 'tool'
   const showRegistryControls = Boolean(controlProduct) && (!toolProduct || toolProduct === 'landintel')
   const shellRecommendations = useMemo(() => recommendBuildingShells(parcelContext, 4), [parcelContext])
   const [selectedShellId, setSelectedShellId] = useState('india-neutral-adaptive')
@@ -482,7 +483,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           defect; `fullBleedEmbed` doesn't need it (its section isn't
           `flex-col`, so this grid already gets its height from the normal
           document flow / `min-h-[70vh]` on the section). */}
-      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${toolProduct ? 'lg:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)]' : ''} ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto'}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${toolProduct ? 'lg:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)]' : ''} ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : ''} ${toolOpenBelowLg ? (selectedOpening && view !== 'space' ? 'grid-rows-[minmax(15rem,1fr)_minmax(0,20dvh)_minmax(0,20dvh)] lg:grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : 'grid-rows-[minmax(16rem,1fr)_minmax(6rem,36%)] lg:grid-rows-[minmax(0,1fr)_auto]') : ''} ${toolProduct && !toolOpenBelowLg && !(selectedOpening && view !== 'space') ? 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto lg:grid-rows-[minmax(0,1fr)_auto] lg:overflow-visible' : ''} ${!toolProduct && !(selectedOpening && view !== 'space') ? 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto' : ''}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
@@ -595,7 +596,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
               <p className="mt-3 text-[10px] leading-4 text-relume-muted">INDICATIVE — deterministic geometry; authority and site verification remain required.</p>
             </aside>
           </>}
-          {mobilePanel && <button type="button" aria-label="Close open panel" onClick={closeMobilePanel} className="fixed inset-0 z-[70] bg-black/25" data-mobile-sheet-scrim />}
+          {mobilePanel && mobilePanel !== 'tool' && <button type="button" aria-label="Close open panel" onClick={closeMobilePanel} className="fixed inset-0 z-[70] bg-black/25" data-mobile-sheet-scrim />}
         </div>
 
         {toolProduct && !sutraOccludesCanvas && <ProductToolSurface product={toolProduct} mobileOpen={mobilePanel === 'tool'} onMobileClose={closeMobilePanel} />}
@@ -631,7 +632,9 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         </aside>}
       </div>
       <p className="border-t border-relume-border bg-relume-surface-secondary px-4 py-2 text-xs text-relume-muted" aria-live="polite" data-canvas-flow-result>{permalinkStatus || commandResult}</p>
-      <div className={canvasFirst ? 'relative z-10 shrink-0' : undefined}><ExportBar plan={plan} /></div>
+      {/* Below lg an open product tool shares the (short) viewport with the model, so the
+          wrapped export bar steps aside rather than crowd the canvas; closing the tool restores it. */}
+      <div className={`${canvasFirst ? 'relative z-10 shrink-0' : ''} ${toolOpenBelowLg ? 'hidden lg:block' : ''}`} data-export-bar-region><ExportBar plan={plan} /></div>
     </section>
   )
 }

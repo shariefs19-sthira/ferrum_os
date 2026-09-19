@@ -94,6 +94,31 @@ describe('CanvasSlot product-aware cockpit', () => {
     expect(document.querySelector('[data-mobile-sheet="tool"]')).toBeNull()
   })
 
+  it('opens the tool as an in-flow split pane below the model, never a fixed overlay or scrim', () => {
+    render(<CanvasSlot product="Cost" />)
+    fireEvent.click(screen.getByRole('button', { name: 'Cost tool' }))
+    const sheet = document.querySelector('[data-mobile-sheet="tool"]') as HTMLElement
+    expect(sheet.className).not.toMatch(/fixed|z-\[80\]|inset-x-2/)
+    expect(sheet.className).toContain('overflow-y-auto')
+    expect(sheet.getAttribute('aria-modal')).toBeNull()
+    expect(document.querySelector('[data-mobile-sheet-scrim]')).toBeNull()
+    // Canvas stays mounted and precedes the tool pane in document order (model above, tool below).
+    const canvas = document.querySelector('[data-cockpit-canvas-section]') as HTMLElement
+    expect(canvas).toBeTruthy()
+    expect(canvas.compareDocumentPosition(sheet) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(canvas.className).toContain('order-1')
+    expect(sheet.className).toContain('order-2')
+  })
+
+  it('closes the open tool pane when the product switches', () => {
+    const { rerender } = render(<CanvasSlot product="Land" />)
+    fireEvent.click(screen.getByRole('button', { name: 'Land tool' }))
+    expect(document.querySelector('[data-mobile-sheet="tool"]')).toBeTruthy()
+    rerender(<CanvasSlot product="Structure" />)
+    expect(document.querySelector('[data-mobile-sheet="tool"]')).toBeNull()
+    expect(tool()?.getAttribute('data-product-tool-surface')).toBe('structura')
+  })
+
   it('resolves every workspace product to a surface consistent with the product registries', () => {
     for (const product of workspaceProducts) {
       const surface = resolveProductSurface(productControls[product])
