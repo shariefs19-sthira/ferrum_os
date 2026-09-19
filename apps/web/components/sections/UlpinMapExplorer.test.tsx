@@ -103,6 +103,15 @@ describe('UlpinMapExplorer W-85 parcel finder', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Survey / khasra' })); expect(screen.getByText('ROADMAP')).toBeTruthy()
   })
 
+  it('RULE 41(1): every interactive control in the toolbar and record card is at least 44px tall (min-h-11 / bracket equivalent)', () => {
+    const { container } = render(<UlpinMapExplorer />)
+    fireEvent.click(screen.getByRole('button', { name: 'Coordinates' })) // reveal the latitude/longitude inputs too
+    const controls = [...container.querySelectorAll('[data-find-parcel-toolbar] button, [data-find-parcel-toolbar] input, [data-ulpin-record-card] button, [data-map-view-toolbar] button')]
+    expect(controls.length).toBeGreaterThan(0)
+    const short = controls.filter((el) => !/(^|\s)min-h-(11|\[2\.75rem\])(\s|$)/.test(el.className))
+    expect(short.map((el) => ({ tag: el.tagName, cls: el.className, label: el.getAttribute('aria-label') ?? el.textContent?.trim().slice(0, 20) }))).toEqual([])
+  })
+
   describe('W-16 pre-lookup PREVIEW record card (RULE 29 feature conservation)', () => {
     const unitValue = (container: ParentNode, unit: string) => Number((container.querySelector(`[data-area-unit="${unit}"] dd`)?.textContent ?? '').replace(/,/g, ''))
     const constants: Record<string, number> = { sqm: 1, sqft: 1 / SQM_TO_SQFT, cent: SQM_PER_CENT, guntha: SQM_PER_GUNTHA, ground: SQM_PER_GROUND, acre: SQM_PER_ACRE }
