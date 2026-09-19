@@ -1,0 +1,1073 @@
+{
+ "baseUrl": "http://127.0.0.1:4472",
+ "at": "2026-09-19T13:00:36.025Z",
+ "ms": 23185,
+ "reducedMotion": false,
+ "totals": {
+  "cases": 13,
+  "passed": 13,
+  "failed": 0,
+  "defectSurfaceControlsChecked": 6
+ },
+ "results": [
+  {
+   "case": "designstudio-options",
+   "viewport": "320x568",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "visible",
+      "transform": "none",
+      "opacity": "1"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      21,
+      399,
+      79,
+      443
+     ],
+     "vw": 320,
+     "vh": 568,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": [],
+     "revealState": "visible"
+    },
+    "settledAt1500ms": {
+     "rect": [
+      21,
+      399,
+      79,
+      443
+     ],
+     "vw": 320,
+     "vh": 568,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      21,
+      399,
+      79,
+      443
+     ],
+     "vw": 320,
+     "vh": 568,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "designstudio-options",
+   "viewport": "375x667",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "visible",
+      "transform": "none",
+      "opacity": "1"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      21,
+      550,
+      79,
+      594
+     ],
+     "vw": 375,
+     "vh": 667,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": [],
+     "revealState": "visible"
+    },
+    "settledAt1500ms": {
+     "rect": [
+      21,
+      550,
+      79,
+      594
+     ],
+     "vw": 375,
+     "vh": 667,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      21,
+      550,
+      79,
+      594
+     ],
+     "vw": 375,
+     "vh": 667,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "designstudio-options",
+   "viewport": "667x375",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      21,
+      2281,
+      79,
+      2325
+     ],
+     "vw": 667,
+     "vh": 375,
+     "inViewport": false,
+     "bottomWithinViewport": false,
+     "hit": false,
+     "hitTag": "button.fixed inset-0 z-[70] bg-black/25",
+     "transformedAncestors": [
+      "div.mx-auto max-w-relume-container px-6 md:p=matrix(1, 0, 0, 1, 0, 12)"
+     ],
+     "revealState": "visible"
+    },
+    "settledAt1500ms": {
+     "rect": [
+      21,
+      310,
+      79,
+      354
+     ],
+     "vw": 667,
+     "vh": 375,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      21,
+      310,
+      79,
+      354
+     ],
+     "vw": 667,
+     "vh": 375,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "designstudio-options",
+   "viewport": "768x1024",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "visible",
+      "transform": "none",
+      "opacity": "1"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      21,
+      959,
+      79,
+      1003
+     ],
+     "vw": 768,
+     "vh": 1024,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": [],
+     "revealState": "visible"
+    },
+    "settledAt1500ms": {
+     "rect": [
+      21,
+      959,
+      79,
+      1003
+     ],
+     "vw": 768,
+     "vh": 1024,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      21,
+      959,
+      79,
+      1003
+     ],
+     "vw": 768,
+     "vh": 1024,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "designstudio-options",
+   "viewport": "1024x768",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "visible",
+      "transform": "none",
+      "opacity": "1"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      541,
+      143,
+      599,
+      187
+     ],
+     "vw": 1024,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": [],
+     "revealState": "visible"
+    },
+    "settledAt1500ms": {
+     "rect": [
+      541,
+      143,
+      599,
+      187
+     ],
+     "vw": 1024,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      541,
+      143,
+      599,
+      187
+     ],
+     "vw": 1024,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "designstudio-options",
+   "viewport": "1366x768",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "visible",
+      "transform": "none",
+      "opacity": "1"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      883,
+      143,
+      941,
+      187
+     ],
+     "vw": 1366,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": [],
+     "revealState": "visible"
+    },
+    "settledAt1500ms": {
+     "rect": [
+      883,
+      143,
+      941,
+      187
+     ],
+     "vw": 1366,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      883,
+      143,
+      941,
+      187
+     ],
+     "vw": 1366,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-whit",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "homepage-designstudio-evidence",
+   "viewport": "320x568",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      173,
+      368,
+      295,
+      412
+     ],
+     "vw": 320,
+     "vh": 568,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": [],
+     "revealState": null
+    },
+    "settledAt1500ms": {
+     "rect": [
+      173,
+      368,
+      295,
+      412
+     ],
+     "vw": 320,
+     "vh": 568,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      173,
+      368,
+      295,
+      412
+     ],
+     "vw": 320,
+     "vh": 568,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "homepage-designstudio-evidence",
+   "viewport": "375x667",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      228,
+      467,
+      350,
+      511
+     ],
+     "vw": 375,
+     "vh": 667,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": [],
+     "revealState": null
+    },
+    "settledAt1500ms": {
+     "rect": [
+      228,
+      467,
+      350,
+      511
+     ],
+     "vw": 375,
+     "vh": 667,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      228,
+      467,
+      350,
+      511
+     ],
+     "vw": 375,
+     "vh": 667,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "homepage-designstudio-evidence",
+   "viewport": "667x375",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      520,
+      191,
+      642,
+      235
+     ],
+     "vw": 667,
+     "vh": 375,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": [],
+     "revealState": null
+    },
+    "settledAt1500ms": {
+     "rect": [
+      520,
+      191,
+      642,
+      235
+     ],
+     "vw": 667,
+     "vh": 375,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      520,
+      191,
+      642,
+      235
+     ],
+     "vw": 667,
+     "vh": 375,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "homepage-designstudio-evidence",
+   "viewport": "768x1024",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      621,
+      840,
+      743,
+      884
+     ],
+     "vw": 768,
+     "vh": 1024,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": [],
+     "revealState": null
+    },
+    "settledAt1500ms": {
+     "rect": [
+      621,
+      840,
+      743,
+      884
+     ],
+     "vw": 768,
+     "vh": 1024,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      621,
+      840,
+      743,
+      884
+     ],
+     "vw": 768,
+     "vh": 1024,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "homepage-designstudio-evidence",
+   "viewport": "1024x768",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      869,
+      33,
+      991,
+      77
+     ],
+     "vw": 1024,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": [],
+     "revealState": null
+    },
+    "settledAt1500ms": {
+     "rect": [
+      869,
+      33,
+      991,
+      77
+     ],
+     "vw": 1024,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      869,
+      33,
+      991,
+      77
+     ],
+     "vw": 1024,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "case": "homepage-designstudio-evidence",
+   "viewport": "1366x768",
+   "ok": true,
+   "notApplicable": false,
+   "failures": [],
+   "samples": {
+    "t0Reveals": [
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     },
+     {
+      "state": "pending",
+      "transform": "matrix(1, 0, 0, 1, 0, 12)",
+      "opacity": "0"
+     }
+    ],
+    "earlySample": {
+     "rect": [
+      1211,
+      33,
+      1333,
+      77
+     ],
+     "vw": 1366,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": [],
+     "revealState": null
+    },
+    "settledAt1500ms": {
+     "rect": [
+      1211,
+      33,
+      1333,
+      77
+     ],
+     "vw": 1366,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    },
+    "finalSettled": {
+     "rect": [
+      1211,
+      33,
+      1333,
+      77
+     ],
+     "vw": 1366,
+     "vh": 768,
+     "inViewport": true,
+     "bottomWithinViewport": true,
+     "hit": true,
+     "hitTag": "button.min-h-11 rounded-full border border-relu",
+     "transformedAncestors": []
+    }
+   }
+  },
+  {
+   "id": "enter-animation-runs",
+   "ok": true,
+   "failures": [],
+   "frames": [
+    {
+     "t": 1068.5,
+     "state": "pending",
+     "opacity": "0",
+     "transform": "matrix(1, 0, 0, 1, 0, 12)"
+    },
+    {
+     "t": 1071,
+     "state": "pending",
+     "opacity": "0",
+     "transform": "matrix(1, 0, 0, 1, 0, 12)"
+    },
+    {
+     "t": 1086.7999999970198,
+     "state": "visible",
+     "opacity": "0",
+     "transform": "matrix(1, 0, 0, 1, 0, 12)"
+    },
+    {
+     "t": 1102.9000000059605,
+     "state": "visible",
+     "opacity": "0",
+     "transform": "matrix(1, 0, 0, 1, 0, 12)"
+    },
+    {
+     "t": 1120.6000000089407,
+     "state": "visible",
+     "opacity": "0",
+     "transform": "matrix(1, 0, 0, 1, 0, 12)"
+    },
+    {
+     "t": 1138,
+     "state": "visible",
+     "opacity": "0",
+     "transform": "matrix(1, 0, 0, 1, 0, 12)"
+    }
+   ]
+  }
+ ]
+}
