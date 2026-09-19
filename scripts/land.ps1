@@ -18,6 +18,15 @@ auto-merge could regress security headers, corrupt a migration sequence,
 or violate a protected-path approval, so this script never resolves a
 conflict on them itself, only flags.
 
+Failure-path safety (2026-09-19): this script NEVER runs `git clean`. A failed
+squash is undone with `git reset --hard HEAD` only (index + tracked files),
+after a start-of-run guard that refuses a dirty tracked tree. Branches whose
+added paths collide with untracked files in the checkout are REPORTed
+(phase=untracked-collision) without merging or deleting anything. Every failed
+`git merge --squash` / `git commit` REPORT carries git's exit code and full
+stdout+stderr (GIT-OUTPUT-BEGIN/END). Untracked files are snapshotted at start
+and re-checked at end; any that vanish are listed as WARNING.
+
 docs/LAND_HOLD.txt are skipped by this catch-all loop entirely (a targeted
 `git merge --squash origin/<branch>` still works on a held branch — the hold
 only applies to the automatic sweep).
@@ -93,9 +102,71 @@ function Test-OnHold($shortName, $holdGlobs) {
     return $false
 }
 
-function Write-LandingReport($shortName, $phase, $files) {
+function Write-LandingReport($shortName, $phase, $files, $gitResult = $null) {
     $fileList = if ($files.Count -gt 0) { $files -join ', ' } else { 'none reported by git' }
-    Write-Host "REPORT (landing requires review): branch=$shortName phase=$phase files=$fileList"
+    $exitText = if ($null -ne $gitResult) { " git_exit=$($gitResult.ExitCode)" } else { '' }
+    Write-Host "REPORT (landing requires review): branch=$shortName phase=$phase files=$fileList$exitText"
+    # 2026-09-19: "files=none reported by git" used to be the whole story when a
+    # squash failed for a reason other than an unmerged path, which hid the real
+    # cause. When a captured git result is supplied, its exit code and full
+    # stdout+stderr are printed verbatim so the cause is never swallowed.
+    if ($null -ne $gitResult) {
+        Write-Host "GIT-OUTPUT-BEGIN branch=$shortName phase=$phase git_exit=$($gitResult.ExitCode)"
+        foreach ($line in $gitResult.Output) { Write-Host $line }
+        Write-Host "GIT-OUTPUT-END branch=$shortName"
+    }
+}
+
+# Runs git with stdout+stderr merged and captured, returning the exit code and
+# every output line. $ErrorActionPreference is relaxed for the call only: in
+# Windows PowerShell 5.1, redirecting a native command's stderr under
+# "Stop" turns each stderr line into a terminating NativeCommandError, which
+# would kill the run before $LASTEXITCODE could be read.
+function Invoke-GitCapture([string[]]$GitArgs) {
+    $previousPreference = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        $lines = @(& git @GitArgs 2>&1 | ForEach-Object { "$_" })
+        $exit = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $previousPreference
+    }
+    return @{ ExitCode = $exit; Output = $lines }
+}
+
+# Undo a failed/aborted `git merge --squash` (which never sets MERGE_HEAD, so
+# `git merge --abort` always fails: "There is no merge to abort"). Only
+# `git reset --hard HEAD` is used: it reverts the index and TRACKED files the
+# merge staged, and it never touches untracked files. There is deliberately NO
+# `git clean` here or anywhere in this script - on 2026-09-19 the previous
+# `git clean -fd` on this path deleted untracked evidence/log files from the
+# shared checkout, unrecoverable from git. The tracked tree is verified clean
+# at start of run (see the dirty-tracked-tree guard below), so reset --hard can
+# only discard what this merge itself staged.
+function Undo-FailedSquash($shortName) {
+    $staged = @(git diff --cached --name-only)
+    git reset --hard HEAD
+    if ($LASTEXITCODE -ne 0) { throw "git reset --hard HEAD failed while undoing squash of $shortName" }
+    Write-Host "UNDO: reset --hard HEAD for $shortName (index + tracked files only, $($staged.Count) merge-staged path(s) reverted; no git clean; untracked files untouched)"
+}
+
+# Paths the branch would add that already exist on disk as UNTRACKED,
+# non-ignored files. `git merge`/`git checkout` refuse to overwrite those
+# ("untracked working tree files would be overwritten") and exit nonzero with
+# no unmerged paths. Reporting them up front - and never deleting them - keeps
+# the operator's untracked files intact and names the exact collision.
+function Get-UntrackedCollisions($paths) {
+    $tracked = New-Object 'System.Collections.Generic.HashSet[string]'
+    foreach ($t in @(git -c core.quotepath=off ls-files)) { [void]$tracked.Add($t) }
+    $collisions = @()
+    foreach ($p in $paths) {
+        if ($tracked.Contains($p)) { continue }
+        if (-not (Test-Path -LiteralPath $p -PathType Leaf)) { continue }
+        git check-ignore -q -- $p
+        if ($LASTEXITCODE -eq 0) { continue }
+        $collisions += $p
+    }
+    return $collisions
 }
 
 # Self-landing envelope pre-flight (W2-357 addendum). Any path matching one
@@ -179,6 +250,21 @@ Ensure-GitIdentity
 git fetch origin --prune
 if ($LASTEXITCODE -ne 0) { throw "git fetch origin failed" }
 
+# Dirty-tracked-tree guard. Undo-FailedSquash relies on `git reset --hard HEAD`,
+# which would also discard pre-existing uncommitted edits to TRACKED files, so a
+# dirty tracked tree is refused up front (nothing is modified or deleted).
+# Untracked files are ignored here on purpose - they are never touched.
+$dirtyTracked = @(git status --porcelain --untracked-files=no)
+if ($dirtyTracked.Count -gt 0) {
+    throw "Refusing to run: tracked files are modified/staged in this checkout (reset --hard would discard them). Nothing was changed. Entries: $($dirtyTracked -join ' | ')"
+}
+
+# Untracked-file tripwire: snapshot the untracked (non-ignored) file list now and
+# compare at the end of the run. This script never deletes untracked files; if
+# any disappear during the run, that is reported loudly (RULE 21 self-verify).
+$untrackedBefore = @(git -c core.quotepath=off ls-files --others --exclude-standard)
+Write-Host "Untracked-file snapshot: $($untrackedBefore.Count) file(s) at start of run"
+
 $currentBranch = git rev-parse --abbrev-ref HEAD
 if ($currentBranch -ne "main") {
     git checkout main
@@ -242,6 +328,14 @@ $reported = @()
         continue
     }
 
+    $collisions = @(Get-UntrackedCollisions $uniquePaths)
+    if ($collisions.Count -gt 0) {
+        Write-LandingReport $shortName 'untracked-collision' $collisions
+        Write-Host "NOTE: the paths above exist as UNTRACKED files in this checkout and the branch adds them; git would refuse to overwrite them. Nothing was merged and nothing was deleted - move or commit them, then re-run."
+        $reported += $shortName
+        continue
+    }
+
     $docsOnly = @($uniquePaths | Where-Object { $_ -notmatch '^docs/' }).Count -eq 0
     if ($docsOnly) {
         # Rebase a detached copy, so the remote branch is never rewritten.
@@ -283,11 +377,14 @@ $reported = @()
         $rebasedHead = (git rev-parse HEAD).Trim()
         git checkout main
         if ($LASTEXITCODE -ne 0) { throw "git checkout main failed after rebase for $shortName" }
-        git merge --squash $rebasedHead
-        if ($LASTEXITCODE -ne 0) {
+        $mergeResult = Invoke-GitCapture @('merge', '--squash', $rebasedHead)
+        foreach ($line in $mergeResult.Output) { Write-Host $line }
+        if ($mergeResult.ExitCode -ne 0) {
             $conflicts = @(git diff --name-only --diff-filter=U)
-            Write-LandingReport $shortName 'docs-squash-conflict-after-rebase' $conflicts
-            git reset --hard HEAD
+            $mergeResult.Output += '--- git status --short (tracked files) ---'
+            $mergeResult.Output += @(git status --short --untracked-files=no)
+            Write-LandingReport $shortName 'docs-squash-conflict-after-rebase' $conflicts $mergeResult
+            Undo-FailedSquash $shortName
             $reported += $shortName
             continue
         }
@@ -295,15 +392,16 @@ $reported = @()
         $hasChanges = git diff --cached --name-only
         if (-not $hasChanges) {
             Write-Host "SKIPPED (no changes to land after docs rebase): $shortName"
-            git reset --hard HEAD
+            Undo-FailedSquash $shortName
             $skipped += $shortName
             continue
         }
 
-        git commit -m "feat: $tag [AI: SCRIPT]"
-        if ($LASTEXITCODE -ne 0) {
-            Write-LandingReport $shortName 'docs-commit-failed' @()
-            git reset --hard HEAD
+        $commitResult = Invoke-GitCapture @('commit', '-m', "feat: $tag [AI: SCRIPT]")
+        foreach ($line in $commitResult.Output) { Write-Host $line }
+        if ($commitResult.ExitCode -ne 0) {
+            Write-LandingReport $shortName 'docs-commit-failed' @() $commitResult
+            Undo-FailedSquash $shortName
             $reported += $shortName
             continue
         }
@@ -313,16 +411,19 @@ $reported = @()
         continue
     }
 
-    git merge --squash $branch
-    if ($LASTEXITCODE -ne 0) {
+    $mergeResult = Invoke-GitCapture @('merge', '--squash', $branch)
+    foreach ($line in $mergeResult.Output) { Write-Host $line }
+    if ($mergeResult.ExitCode -ne 0) {
         $conflicts = @(git diff --name-only --diff-filter=U)
-        Write-LandingReport $shortName 'squash-conflict' $conflicts
+        $mergeResult.Output += '--- git status --short (tracked files) ---'
+        $mergeResult.Output += @(git status --short --untracked-files=no)
+        Write-LandingReport $shortName 'squash-conflict' $conflicts $mergeResult
         # `git merge --squash` never sets MERGE_HEAD, so `git merge --abort`
         # always fails here ("There is no merge to abort") and leaves the
         # index/working tree dirty, corrupting every subsequent branch in
-        # this loop. Clean up with reset + clean instead.
-        git reset --hard HEAD
-        git clean -fd
+        # this loop. Undo with reset --hard only (no git clean - see
+        # Undo-FailedSquash for why a clean here destroyed untracked files).
+        Undo-FailedSquash $shortName
         $skipped += $shortName
         $reported += $shortName
         continue
@@ -331,15 +432,16 @@ $reported = @()
     $hasChanges = git diff --cached --name-only
     if (-not $hasChanges) {
         Write-Host "SKIPPED (no changes to land): $shortName"
-        git reset --hard HEAD
+        Undo-FailedSquash $shortName
         $skipped += $shortName
         continue
     }
 
-    git commit -m "feat: $tag [AI: SCRIPT]"
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "SKIPPED (commit failed): $shortName"
-        git reset --hard HEAD
+    $commitResult = Invoke-GitCapture @('commit', '-m', "feat: $tag [AI: SCRIPT]")
+    foreach ($line in $commitResult.Output) { Write-Host $line }
+    if ($commitResult.ExitCode -ne 0) {
+        Write-Host "SKIPPED (commit failed, git exit $($commitResult.ExitCode), output above): $shortName"
+        Undo-FailedSquash $shortName
         $skipped += $shortName
         continue
     }
@@ -361,6 +463,16 @@ if ($held.Count -gt 0) {
 }
 if ($reported.Count -gt 0) {
     $reported | ForEach-Object { Write-Host "  REPORT: $_" }
+}
+
+$untrackedAfter = @(git -c core.quotepath=off ls-files --others --exclude-standard)
+$afterSet = New-Object 'System.Collections.Generic.HashSet[string]'
+foreach ($u in $untrackedAfter) { [void]$afterSet.Add($u) }
+$untrackedGone = @($untrackedBefore | Where-Object { -not $afterSet.Contains($_) })
+Write-Host "Untracked-file check: before=$($untrackedBefore.Count) after=$($untrackedAfter.Count) disappeared=$($untrackedGone.Count)"
+if ($untrackedGone.Count -gt 0) {
+    Write-Host "WARNING: untracked file(s) disappeared during this run (this script never deletes untracked files - investigate):"
+    $untrackedGone | Select-Object -First 50 | ForEach-Object { Write-Host "  GONE: $_" }
 }
 
 if ($landed.Count -gt 0) {
@@ -390,4 +502,12 @@ if ($landed.Count -gt 0) {
     Write-Host "Push succeeded."
 } else {
     Write-Host "Nothing landed; skipping type-check and push."
+}
+
+# RULE 21(1): "success" with zero landed against a reported (unlanded) branch is a
+# failure, never a pass - return nonzero so callers (scripts/fleet/runner.py records
+# the landing exit code) can see that work remains.
+if ($landed.Count -eq 0 -and $reported.Count -gt 0) {
+    Write-Host "EXIT 2: nothing landed and $($reported.Count) branch(es) reported (work remains)."
+    exit 2
 }
