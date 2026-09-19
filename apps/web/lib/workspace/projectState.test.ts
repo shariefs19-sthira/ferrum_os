@@ -28,4 +28,15 @@ describe('shared project state', () => {
     window.localStorage.setItem(PROJECT_STATE_KEY, '{"version":1,"parameters":{"floors":"many"}}')
     expect(readProjectState(fallback).parameters).toEqual(fallback)
   })
+
+  it('does not throw when storage refuses writes or its getter throws, and keeps the latest state in memory', () => {
+    const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { throw new DOMException('full', 'QuotaExceededError') })
+    expect(() => writeProjectState({ ...fallback, floors: 4 }, 'test:quota')).not.toThrow()
+    expect(readProjectState(fallback).parameters.floors).toBe(4)
+    setItem.mockRestore()
+    const getter = vi.spyOn(window, 'localStorage', 'get').mockImplementation(() => { throw new DOMException('blocked', 'SecurityError') })
+    expect(() => writeProjectState({ ...fallback, floors: 6 }, 'test:blocked')).not.toThrow()
+    expect(readProjectState(fallback).parameters.floors).toBe(6)
+    getter.mockRestore()
+  })
 })
