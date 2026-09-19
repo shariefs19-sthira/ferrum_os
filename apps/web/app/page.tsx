@@ -5,6 +5,7 @@ import HomepageCockpitHero from '../components/sections/HomepageCockpitHero'
 import ProjectFirstHero from '../components/sections/ProjectFirstHero'
 import GovernedOrchestrationChain from '../components/sections/GovernedOrchestrationChain'
 import HomepageJourney, { type HomepageJourneyStep } from '../components/sections/HomepageJourney'
+import RegionalAvailability from '../components/sections/RegionalAvailability'
 import { productFeatureRegistry } from '../lib/productFeatureRegistry'
 
 // W2-347: rewritten to match each linked product page's real vs. roadmap
@@ -92,6 +93,8 @@ export default function HomePage() {
   return (
     <main>
       <ProjectFirstHero />
+
+      <RegionalAvailability />
 
       {/* Existing product behavior remains intact as a detailed platform
           preview below the project-first orientation. */}
