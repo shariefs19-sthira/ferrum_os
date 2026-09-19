@@ -36,10 +36,44 @@ export default function SutraPanel({ onEvent, activeProduct, defaultGuidedOpen =
   const [pending,setPending] = useState<{command:string;source:SutraInputSource}|null>(null)
   const [selectionContext,setSelectionContext] = useState<CockpitSelectionContext|null>(null)
   const nextId = useRef(1)
+  const scrollRef = useRef<HTMLElement | null>(null)
   const messagesRef = useRef<HTMLDivElement>(null)
   const pendingRef = useRef<HTMLDivElement>(null)
-  useEffect(()=>{const region=messagesRef.current;if(region)region.scrollTop=region.scrollHeight},[messages])
-  // On phones the panel scrolls as a whole; bring a new confirmation into view so Confirm/Cancel are never below the fold.
+  const headerRef = useRef<HTMLElement | null>(null)
+  const composerRef = useRef<HTMLFormElement | null>(null)
+  const [headerH,setHeaderH] = useState(0)
+  const [composerH,setComposerH] = useState(0)
+  const [atTop,setAtTop] = useState(true)
+  const [atBottom,setAtBottom] = useState(true)
+  // The header and composer are `sticky` inside this single scrolling
+  // panel (see the <aside> below) -- everything else (guided chips,
+  // message log) scrolls underneath both of them. `scroll-padding-{top,
+  // bottom}` on the scroll container, set to each sticky element's own
+  // measured height, is what keeps `scrollIntoView`/`scrollTop` targets
+  // (the pending-confirm alert, the newest message) from landing
+  // partially hidden behind either sticky bar -- the same "reserve real
+  // space for the fixed element" principle as the operator's standing
+  // overlay-allotment rule, applied inside this one panel.
+  useEffect(()=>{
+    if(typeof ResizeObserver==="undefined")return
+    const header=headerRef.current, composer=composerRef.current
+    const observer=new ResizeObserver(entries=>{for(const entry of entries){const h=Math.ceil(entry.contentRect.height);if(entry.target===header)setHeaderH(h);if(entry.target===composer)setComposerH(h)}})
+    if(header)observer.observe(header)
+    if(composer)observer.observe(composer)
+    return ()=>observer.disconnect()
+  },[])
+  const updateScrollShadows=useCallback(()=>{
+    const el=scrollRef.current
+    if(!el)return
+    setAtTop(el.scrollTop<=2)
+    setAtBottom(el.scrollHeight-el.scrollTop-el.clientHeight<=2)
+  },[])
+  useEffect(()=>{updateScrollShadows()},[updateScrollShadows,messages,pending,guidedOpen])
+  // Bring the newest message (or, once there is one, the pending
+  // confirmation) into view within the panel's own scroll -- never the
+  // page -- honoring `scroll-padding` above so it never lands hidden
+  // behind the sticky composer.
+  useEffect(()=>{if(!pending)messagesRef.current?.lastElementChild?.scrollIntoView?.({block:"nearest"})},[messages,pending])
   useEffect(()=>{if(pending)pendingRef.current?.scrollIntoView?.({block:"nearest"})},[pending])
   const recognition = useRef<Recognition|null>(null)
   const parcel = useParcelContext()
@@ -125,22 +159,33 @@ export default function SutraPanel({ onEvent, activeProduct, defaultGuidedOpen =
   const skip = () => {const index=stages.indexOf(stage);if(index<stages.length-1){setHistory(current=>[...current,stage]);setStage(stages[index+1])}}
   useEffect(()=>{const media=matchMedia("(prefers-reduced-motion: reduce)");let timer:ReturnType<typeof setInterval>|undefined;let index=0;const configure=()=>{if(timer)clearInterval(timer);setDemoPaused(media.matches);if(!media.matches)timer=setInterval(()=>run(demoIntents[index++%demoIntents.length],"text",true),7000)};configure();media.addEventListener?.("change",configure);return()=>{if(timer)clearInterval(timer);media.removeEventListener?.("change",configure);recognition.current?.stop()}},[run])
   const toggleVoice=()=>{if(listening){recognition.current?.stop();setListening(false);return}const scope=window as Window&{SpeechRecognition?:RecognitionConstructor;webkitSpeechRecognition?:RecognitionConstructor};const Constructor=scope.SpeechRecognition??scope.webkitSpeechRecognition;if(!Constructor){setMessages(current=>[...current,{id:nextId.current++,role:"sutra",text:"Voice is unavailable. Chips and text remain active."}]);return}const item=new Constructor();item.continuous=false;item.interimResults=false;item.lang="en-IN";item.onresult=e=>run(e.results[0]?.[0]?.transcript??"","voice");item.onend=()=>setListening(false);item.onerror=()=>setListening(false);recognition.current=item;item.start();setListening(true)}
-  // The aside itself is the scroll container at EVERY width, not just below
-  // `md`. Desktop-docked SUTRA has no `min-h` floor forcing it below its
-  // allocated region height (that only produced overflow at short desktop
-  // viewports, e.g. 1024x700 with the cookie bar showing): header + the
-  // guided section + the min-height message log + the composer add up to
-  // more vertical space than a short viewport's docked region has, and
-  // without `overflow-y-auto` here that excess was silently clipped by the
-  // ancestor `overflow-hidden` on `[data-sutra-region]` -- pushing
-  // `#sutra-command` below the visible, unreachable-by-scroll area instead
-  // of leaving it reachable via a scroll inside the panel.
-  return <aside className="flex h-full min-h-0 flex-col overflow-y-auto overscroll-contain border border-relume-border bg-relume-command text-white max-md:border-0" aria-label="SUTRA design assistant" data-sutra-panel data-guided-stage={stage} data-demo-paused={demoPaused} data-guided-open={guidedOpen}>
-    <header className="shrink-0 border-b border-white/15 px-4 py-3 md:pr-16"><div className="flex flex-wrap items-center gap-x-3 gap-y-1"><h1 className="font-heading text-lg font-semibold text-white">SUTRA — your digital Sthapati</h1><span className="rounded-full border border-relume-accent px-2 py-1 text-[10px] font-bold tracking-wider text-relume-accent">INDICATIVE</span></div><p className="mt-1 text-xs text-white/65">Constrained choices over the deterministic workspace.</p></header>
+  // ALLOTMENT (operator standing rule, 2026-09-19): the composer is a
+  // dedicated, always-visible allotment at the bottom of this panel, not a
+  // floating overlay a user must discover by scrolling -- `sticky bottom-0`
+  // inside the panel's own scroll container, with the header pinned the
+  // same way at `sticky top-0`. Everything between them (the guided-chip
+  // section, the message log, a pending confirmation) scrolls underneath
+  // both bars. `scroll-padding-{top,bottom}` below, set from each sticky
+  // bar's own measured height, is the allotment math that keeps a
+  // scrolled-to message from landing partially hidden behind either bar --
+  // the panel reserves real space for both fixed bars instead of letting
+  // them cover content. This replaces the whole-panel-scrolls-as-one-blob
+  // shape from the short-viewport reachability fix below: `#sutra-command`
+  // is now reachable with ZERO scrolling at every viewport this row's
+  // acceptance covers, because it never leaves its pinned allotment.
+  return <aside ref={scrollRef} onScroll={updateScrollShadows} className="flex h-full min-h-0 flex-col overflow-y-auto overscroll-contain border border-relume-border bg-relume-command text-white max-md:border-0" style={{scrollPaddingTop:headerH,scrollPaddingBottom:composerH}} aria-label="SUTRA design assistant" data-sutra-panel data-guided-stage={stage} data-demo-paused={demoPaused} data-guided-open={guidedOpen}>
+    <header ref={headerRef} className={`sticky top-0 z-20 shrink-0 border-b border-white/15 bg-relume-command px-4 py-3 transition-shadow motion-reduce:transition-none md:pr-16 ${atTop?"":"shadow-[0_6px_10px_-6px_rgba(0,0,0,0.45)]"}`} data-sutra-header data-sutra-scroll-shadow={atTop?undefined:"true"}><div className="flex flex-wrap items-center gap-x-3 gap-y-1"><h1 className="font-heading text-lg font-semibold text-white">SUTRA — your digital Sthapati</h1><span className="rounded-full border border-relume-accent px-2 py-1 text-[10px] font-bold tracking-wider text-relume-accent">INDICATIVE</span></div><p className="mt-1 text-xs text-white/65">Constrained choices over the deterministic workspace.</p></header>
     <button type="button" aria-expanded={guidedOpen} aria-controls="sutra-guided" onClick={()=>setGuidedOpen(value=>!value)} className="mx-4 mt-3 min-h-11 shrink-0 rounded-full border border-white/25 px-4 text-left text-xs font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent">{guidedOpen?"Describe it instead":"Can't describe it? Choose instead"}</button>
     <section id="sutra-guided" className="shrink-0 border-b border-white/15 p-4" aria-labelledby="sutra-question"><div className="flex justify-between text-[10px] font-semibold uppercase tracking-[.14em] text-white/60"><span>Step {stages.indexOf(stage)+1} / {stages.length}</span><span>{Object.keys(selected).length} chosen</span></div><div className="mt-2 h-1 overflow-hidden rounded-full bg-white/15"><div className="h-full bg-relume-accent transition-[width] motion-reduce:transition-none" style={{width:`${((stages.indexOf(stage)+1)/stages.length)*100}%`}} /></div><h2 id="sutra-question" className="mt-4 font-heading text-base font-semibold text-white">{labels[stage]}</h2><p className="mt-1 text-xs text-white/65">{stage==="use"&&parcel?(parcelUse?`Recorded use: ${parcelUse}. Competent-authority zoning verification remains required.`:"Use UNKNOWN. Competent-authority zoning verification is required before design choices."):stage==="floors"?`For ${use}, the sample envelope permits up to ${maxFloors}.`:`Choose one; the next question adapts to this state.`}</p><div className="mt-3 flex flex-wrap gap-2" data-sutra-chip-tree>{options[stage].map(option=><button key={option.label} type="button" title={option.citation} onClick={()=>choose(option.label,option.command)} className="min-h-11 rounded-full border border-white/25 bg-white/10 px-4 text-xs font-semibold hover:border-relume-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent">{option.label}</button>)}</div><div className="mt-3 flex justify-between"><button type="button" onClick={back} disabled={!history.length} className="min-h-11 px-2 text-xs font-semibold disabled:opacity-35">← Back</button><button type="button" onClick={skip} disabled={stage==="output"} className="min-h-11 px-2 text-xs font-semibold disabled:opacity-35">Skip →</button></div></section>
-    <div ref={messagesRef} className="min-h-24 flex-1 space-y-3 overflow-y-auto overscroll-contain p-4 max-md:min-h-[8rem]" role="log" aria-live="polite" aria-label="Conversation" tabIndex={0} data-sutra-messages data-sutra-selection-context={selectionContext?.targetId}>{messages.map(message=><article key={message.id} className={`rounded-2xl p-3 text-xs ${message.role==="operator"?"ml-5 bg-white text-relume-ink":"mr-5 border border-white/15 bg-white/5"}`}><p>{message.text}</p>{message.citations&&<ol aria-label="Citations" className="mt-2 border-t border-current/15 pt-2 text-[10px] opacity-75">{message.citations.map(citation=><li key={citation}><cite className="not-italic">[{citation}]</cite></li>)}</ol>}</article>)}</div>
+    {/* `shrink-0`: this <aside> is a flex column, so without it flexbox
+        would shrink the message log down to its `min-h-24` floor whenever
+        content (header+guided+composer, both now `shrink-0` too) doesn't
+        fit -- the messages themselves would then overflow OUT of this
+        now-too-small box and visually collide with the sticky composer
+        below, instead of the panel's own `overflow-y-auto` picking up the
+        extra height the way it's meant to. */}
+    <div ref={messagesRef} className="min-h-24 shrink-0 space-y-3 p-4" role="log" aria-live="polite" aria-label="Conversation" tabIndex={0} data-sutra-messages data-sutra-selection-context={selectionContext?.targetId}>{messages.map(message=><article key={message.id} className={`rounded-2xl p-3 text-xs ${message.role==="operator"?"ml-5 bg-white text-relume-ink":"mr-5 border border-white/15 bg-white/5"}`}><p>{message.text}</p>{message.citations&&<ol aria-label="Citations" className="mt-2 border-t border-current/15 pt-2 text-[10px] opacity-75">{message.citations.map(citation=><li key={citation}><cite className="not-italic">[{citation}]</cite></li>)}</ol>}</article>)}</div>
     {pending && <div ref={pendingRef} className="shrink-0 border-t border-relume-accent bg-white/10 p-3" data-sutra-pending-confirm role="alert"><p className="text-xs font-semibold">Confirm project-state change?</p><p className="mt-1 text-xs text-white/75">&ldquo;{pending.command}&rdquo; will change the model until confirmed.</p><div className="mt-2 flex gap-2"><button type="button" onClick={confirmPending} className="min-h-11 rounded-full bg-relume-accent px-4 text-xs font-semibold text-relume-command">Confirm</button><button type="button" onClick={cancelPending} className="min-h-11 rounded-full border border-white/30 px-4 text-xs font-semibold">Cancel</button></div></div>}
-    <form onSubmit={event=>{event.preventDefault();run(value,"text")}} className="shrink-0 border-t border-white/15 p-3"><label htmlFor="sutra-command" className="sr-only">Ask SUTRA</label><div className="flex gap-2"><input id="sutra-command" value={value} onChange={event=>setValue(event.target.value)} placeholder="Ask with a clause citation…" enterKeyHint="send" autoComplete="off" className="min-h-11 min-w-0 flex-1 rounded-full border border-white/25 bg-white px-4 text-base text-relume-ink md:text-sm"/><button type="button" onClick={toggleVoice} aria-pressed={listening} aria-label={listening?"Stop voice input":"Start voice input"} className="min-h-11 min-w-11 rounded-full border border-white/30">◉</button><button type="submit" className="min-h-11 rounded-full bg-relume-accent px-4 text-sm font-semibold text-relume-command">Send</button></div><p className="mt-2 text-[10px] text-white/55">Idle demo cycles floor · use · setback · BOQ{demoPaused?" · paused for reduced motion":""}.</p></form>
+    <form ref={composerRef} onSubmit={event=>{event.preventDefault();run(value,"text")}} className={`sticky bottom-0 z-20 shrink-0 border-t border-white/15 bg-relume-command p-3 transition-shadow motion-reduce:transition-none ${atBottom?"":"shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.45)]"}`} data-sutra-composer data-sutra-scroll-shadow={atBottom?undefined:"true"}><label htmlFor="sutra-command" className="sr-only">Ask SUTRA</label><div className="flex gap-2"><input id="sutra-command" value={value} onChange={event=>setValue(event.target.value)} placeholder="Ask with a clause citation…" enterKeyHint="send" autoComplete="off" className="min-h-11 min-w-0 flex-1 rounded-full border border-white/25 bg-white px-4 text-base text-relume-ink md:text-sm"/><button type="button" onClick={toggleVoice} aria-pressed={listening} aria-label={listening?"Stop voice input":"Start voice input"} className="min-h-11 min-w-11 rounded-full border border-white/30">◉</button><button type="submit" className="min-h-11 rounded-full bg-relume-accent px-4 text-sm font-semibold text-relume-command">Send</button></div><p className="mt-2 text-[10px] text-white/55">Idle demo cycles floor · use · setback · BOQ{demoPaused?" · paused for reduced motion":""}.</p></form>
   </aside>
 }

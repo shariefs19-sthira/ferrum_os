@@ -1,6 +1,8 @@
 // MASON W2 sutra-input-short-viewport-20260919: proves the DEFECT (#sutra-command
 // pushed outside the reachable viewport at short desktop heights, e.g. 1024x700
-// with the cookie bar shown) and its fix.
+// with the cookie bar shown) and its fix, per the operator's standing overlay-
+// allotment rule ("layout allotment for overlays or tabs shall never affect
+// existing features").
 //
 // Cause (measured, see apps/web/evidence/sutra-input-short-viewport-20260919/):
 // SutraPanel's stacked sections (header + guided-question section + the
@@ -10,10 +12,20 @@
 // `max-md:` widths -- at `md`+ (desktop-docked SUTRA) it had no scroll
 // container of its own, so the overflow was silently clipped by the ancestor
 // `overflow-hidden` on `[data-sutra-region]`, pushing `#sutra-command` below
-// the visible, unreachable-by-scroll area. The fix (apps/web/components/
-// workspace/SutraPanel.tsx) makes the aside a scroll container at every
-// width, so the composer/input stays reachable by an internal scroll and the
-// 3D model region never has to move or be resized to reveal it.
+// the visible, unreachable-by-scroll area, with no real scroll path (a mouse
+// wheel over the panel did nothing).
+//
+// ACCEPTANCE BAR (raised 2026-09-19 per the conductor + operator's standing
+// overlay-allotment rule): reachable with ZERO scrolling, not merely
+// reachable after a scroll a user would have to discover. The fix
+// (apps/web/components/workspace/SutraPanel.tsx) makes the composer (and the
+// header) a dedicated, always-visible, `sticky` allotment inside the panel's
+// own scroll container -- it is a reserved allotment, not a floating overlay
+// a user must scroll to find. This script therefore checks geometry on load,
+// with NO scroll/wheel gesture at all: the pre-fix build and an
+// interim scroll-only build (composer reachable only after scrolling) both
+// FAIL this check; only the sticky-composer build passes it with zero
+// scrolling.
 //
 //   pnpm --filter ./apps/web build && node scripts/sutra-input-short-viewport-audit.mjs [outDir]
 //
@@ -113,32 +125,18 @@ for (const product of PRODUCTS) {
         }
       })
 
-      let geometry = await readGeometry()
+      const geometry = await readGeometry()
       const insideViewport = g => !!g.inputBox && g.inputBox.top >= -0.5 && g.inputBox.bottom <= g.innerH + 0.5 && g.inputBox.left >= -0.5 && g.inputBox.right <= g.innerW + 0.5
 
-      let reachable = insideViewport(geometry) && geometry.inputHit
-      let viaScroll = false
-      if (!reachable) {
-        // Give the panel a chance to reveal the input via a REAL user
-        // gesture -- a mouse wheel scroll over the panel -- not
-        // `Locator.scrollIntoViewIfNeeded()`/`Element.scrollIntoView()`,
-        // which can force `scrollTop` on an `overflow: hidden` ancestor
-        // that a real user's wheel/touch/scrollbar can never move (that's
-        // exactly the pre-fix defect: no scrollbar, wheel does nothing,
-        // input unreachable). Acceptance explicitly allows "reachable via
-        // an internal panel scroll", so this simulates that path honestly.
-        const before = geometry.inputBox
-        const panelBox = await page.locator('[data-sutra-panel]').boundingBox()
-        if (panelBox) {
-          await page.mouse.move(panelBox.x + panelBox.width / 2, panelBox.y + panelBox.height / 2)
-          for (let i = 0; i < 8; i++) await page.mouse.wheel(0, 200)
-          await page.waitForTimeout(150)
-        }
-        geometry = await readGeometry()
-        reachable = insideViewport(geometry) && geometry.inputHit
-        viaScroll = reachable && JSON.stringify(before) !== JSON.stringify(geometry.inputBox)
-      }
-      check(`${label}: #sutra-command reachable inside viewport${viaScroll ? ' (via internal scroll)' : ''}`, reachable, JSON.stringify(geometry.inputBox))
+      // ZERO-SCROLL acceptance: no wheel/scrollIntoView gesture of any kind
+      // is attempted before this check. A user who opens SUTRA must see and
+      // be able to use the composer immediately -- "reachable after
+      // scrolling" is exactly the weaker bar this row's acceptance was
+      // raised past, per the operator's overlay-allotment rule (an overlay
+      // that only reveals a control after an undiscoverable gesture is a
+      // defect, not a legal allotment).
+      const reachable = insideViewport(geometry) && geometry.inputHit
+      check(`${label}: #sutra-command reachable with ZERO scrolling`, reachable, JSON.stringify(geometry.inputBox))
       check(`${label}: #sutra-command >= 44px tall`, !!geometry.inputBox && geometry.inputBox.height >= MIN_TARGET_PX, `h=${geometry.inputBox?.height}`)
       check(`${label}: Send control >= 44px tall`, !!geometry.sendBox && geometry.sendBox.height >= MIN_TARGET_PX, `h=${geometry.sendBox?.height}`)
       check(`${label}: no page horizontal scroll`, geometry.scrollW <= geometry.innerW + 1, `scrollW=${geometry.scrollW} innerW=${geometry.innerW}`)
@@ -156,6 +154,28 @@ for (const product of PRODUCTS) {
       const pendingVisible = await page.locator('[data-sutra-pending-confirm]').isVisible().catch(() => false)
       check(`${label}: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)`, pendingVisible)
       if (pendingVisible) await page.getByRole('button', { name: 'Cancel' }).click().catch(() => {})
+
+      // NEIGHBOUR-EFFECT / allotment math: scroll the panel content
+      // underneath the sticky composer (a real wheel gesture) and confirm
+      // the newest message is not left partially hidden behind it --
+      // `scroll-padding-bottom` on the panel's scroll container is what's
+      // supposed to guarantee this (same "reserve real space" principle as
+      // the standing overlay-allotment rule, applied inside the panel).
+      const panelBox = await page.locator('[data-sutra-panel]').boundingBox()
+      if (panelBox) {
+        await page.mouse.move(panelBox.x + panelBox.width / 2, panelBox.y + panelBox.height / 2)
+        for (let i = 0; i < 10; i++) await page.mouse.wheel(0, 300)
+        await page.waitForTimeout(150)
+      }
+      const clearance = await page.evaluate(() => {
+        const messages = document.querySelector('[data-sutra-messages]')
+        const composer = document.querySelector('[data-sutra-composer]')
+        const last = messages?.lastElementChild
+        if (!last || !composer) return null
+        const lb = last.getBoundingClientRect(), cb = composer.getBoundingClientRect()
+        return { lastBottom: lb.bottom, composerTop: cb.top }
+      })
+      check(`${label}: newest message not hidden behind the sticky composer after scrolling`, !!clearance && clearance.lastBottom <= clearance.composerTop + 1, JSON.stringify(clearance))
 
       const rows = await visibleModelRows(page)
       check(`${label}: model region still >= ${MIN_MODEL_PX}px visible`, rows >= MIN_MODEL_PX, `visible=${rows}px`)
