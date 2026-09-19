@@ -1,0 +1,914 @@
+{
+  "generatedAt": "2026-09-19T08:53:23.840Z",
+  "route": "/project-workspace/cockpit?product=Design",
+  "results": [
+    {
+      "viewport": "320x720",
+      "checks": {
+        "before3d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": null,
+          "redoDisabled": null,
+          "planModel": "on",
+          "wallCount": "24",
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "before2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 512,
+              "w": 318,
+              "h": 477
+            },
+            "inspector": null,
+            "canvasInspectorOverlapPx2": 0
+          }
+        },
+        "hitTarget": {
+          "tag": "line",
+          "isWallHit": true,
+          "wallId": "f1-int-v0"
+        },
+        "hitTargetReachesPlus20px": true,
+        "midDrag": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": 13.52,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true
+        },
+        "after2d": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": 13.52,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 541,
+              "w": 318,
+              "h": 477
+            },
+            "inspector": {
+              "x": 1,
+              "y": 1018,
+              "w": 318,
+              "h": 288
+            },
+            "canvasInspectorOverlapPx2": 0
+          },
+          "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m Thickness 115 mm Height 3.00 m Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face (m) −0.1 m"
+        },
+        "inspectorControls": [
+          {
+            "label": "Undo last plan edit",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Redo plan edit",
+            "w": 55,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Re-record at this revision",
+            "w": 149,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Close wall inspector",
+            "w": 58,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "true",
+            "w": 286,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall back 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall forward 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Reset wall",
+            "w": 84,
+            "h": 44,
+            "insideX": true
+          }
+        ],
+        "minControlPx": 44,
+        "allControlsInsideViewportX": true,
+        "after3d": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "planModel": "on",
+          "geometryRevision3d": "29dcb5e5",
+          "digest": "a7986e2e"
+        },
+        "canvasDiffBeforeAfter": {
+          "width": 318,
+          "height": 159,
+          "changedPixels": 314,
+          "changedPct": 0.62
+        },
+        "undo2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false
+        },
+        "undo3d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false,
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "canvasDiffBeforeUndo": {
+          "width": 318,
+          "height": 159,
+          "changedPixels": 0,
+          "changedPct": 0
+        },
+        "verdict": {
+          "wallMovedInPlan": true,
+          "revisionChanged": true,
+          "downstreamBecameStale": true,
+          "downstreamWasCurrentBefore": true,
+          "threeDMatchesRevision": true,
+          "threeDWallModelOn": true,
+          "threeDDigestChanged": true,
+          "threeDDigestRestoredAfterUndo": true,
+          "threeDCanvasPixelsChanged": true,
+          "threeDCanvasRestoredAfterUndo": true,
+          "undoRestoredWidth": true,
+          "undoRestoredRevision": true,
+          "downstreamCurrentAfterUndo": true,
+          "hitTargetIsWallHit": true,
+          "controlsAtLeast44px": true,
+          "controlsInsideViewport": true,
+          "canvasNotCoveredByInspector": true,
+          "planCanvasAtLeast200pxTall": true,
+          "noHorizontalOverflow": true,
+          "noConsoleErrors": true
+        }
+      },
+      "shots": {
+        "before3d": "1f22cc3394e6caf2",
+        "before2d": "bb3c13b38f47d77d",
+        "after2d": "8c1e7c7f4cecad5a",
+        "after2dInspector": "81db4c52146732c4",
+        "after3d": "5889f0077717dfee",
+        "undo2d": "aa93970927a31464",
+        "undo3d": "715fc0cbc2d62d37"
+      },
+      "errors": [],
+      "pass": true
+    },
+    {
+      "viewport": "390x844",
+      "checks": {
+        "before3d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": null,
+          "redoDisabled": null,
+          "planModel": "on",
+          "wallCount": "24",
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "before2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 398,
+              "w": 388,
+              "h": 582
+            },
+            "inspector": null,
+            "canvasInspectorOverlapPx2": 0
+          }
+        },
+        "hitTarget": {
+          "tag": "line",
+          "isWallHit": true,
+          "wallId": "f1-int-v0"
+        },
+        "hitTargetReachesPlus20px": true,
+        "midDrag": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": 13.52,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true
+        },
+        "after2d": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": 13.52,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 427,
+              "w": 388,
+              "h": 582
+            },
+            "inspector": {
+              "x": 1,
+              "y": 1009,
+              "w": 388,
+              "h": 338
+            },
+            "canvasInspectorOverlapPx2": 0
+          },
+          "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m Thickness 115 mm Height 3.00 m Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face (m) −0.1 m"
+        },
+        "inspectorControls": [
+          {
+            "label": "Undo last plan edit",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Redo plan edit",
+            "w": 55,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Re-record at this revision",
+            "w": 149,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Close wall inspector",
+            "w": 58,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "true",
+            "w": 356,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall back 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall forward 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Reset wall",
+            "w": 84,
+            "h": 44,
+            "insideX": true
+          }
+        ],
+        "minControlPx": 44,
+        "allControlsInsideViewportX": true,
+        "after3d": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "planModel": "on",
+          "geometryRevision3d": "29dcb5e5",
+          "digest": "a7986e2e"
+        },
+        "canvasDiffBeforeAfter": {
+          "width": 388,
+          "height": 194,
+          "changedPixels": 467,
+          "changedPct": 0.62
+        },
+        "undo2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false
+        },
+        "undo3d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false,
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "canvasDiffBeforeUndo": {
+          "width": 388,
+          "height": 194,
+          "changedPixels": 0,
+          "changedPct": 0
+        },
+        "verdict": {
+          "wallMovedInPlan": true,
+          "revisionChanged": true,
+          "downstreamBecameStale": true,
+          "downstreamWasCurrentBefore": true,
+          "threeDMatchesRevision": true,
+          "threeDWallModelOn": true,
+          "threeDDigestChanged": true,
+          "threeDDigestRestoredAfterUndo": true,
+          "threeDCanvasPixelsChanged": true,
+          "threeDCanvasRestoredAfterUndo": true,
+          "undoRestoredWidth": true,
+          "undoRestoredRevision": true,
+          "downstreamCurrentAfterUndo": true,
+          "hitTargetIsWallHit": true,
+          "controlsAtLeast44px": true,
+          "controlsInsideViewport": true,
+          "canvasNotCoveredByInspector": true,
+          "planCanvasAtLeast200pxTall": true,
+          "noHorizontalOverflow": true,
+          "noConsoleErrors": true
+        }
+      },
+      "shots": {
+        "before3d": "3b22f8da96247c5c",
+        "before2d": "0c3b27214dcfa84b",
+        "after2d": "be4f140d7b8ed3d2",
+        "after2dInspector": "c1e3fc37832e125d",
+        "after3d": "0725d4dbdea0b9e3",
+        "undo2d": "1253b414045324a8",
+        "undo3d": "c60ab412f560ad20"
+      },
+      "errors": [],
+      "pass": true
+    },
+    {
+      "viewport": "768x1024",
+      "checks": {
+        "before3d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": null,
+          "redoDisabled": null,
+          "planModel": "on",
+          "wallCount": "24",
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "before2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 378,
+              "w": 766,
+              "h": 768
+            },
+            "inspector": null,
+            "canvasInspectorOverlapPx2": 0
+          }
+        },
+        "hitTarget": {
+          "tag": "line",
+          "isWallHit": true,
+          "wallId": "f1-int-v0"
+        },
+        "hitTargetReachesPlus20px": true,
+        "midDrag": {
+          "revision": "3aa6b25d",
+          "firstRoomWidthM": 13.02,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true
+        },
+        "after2d": {
+          "revision": "3aa6b25d",
+          "firstRoomWidthM": 13.02,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 378,
+              "w": 766,
+              "h": 768
+            },
+            "inspector": {
+              "x": 1,
+              "y": 1146,
+              "w": 766,
+              "h": 410
+            },
+            "canvasInspectorOverlapPx2": 0
+          },
+          "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m Thickness 115 mm Height 3.00 m Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face (m) −0.1 m"
+        },
+        "inspectorControls": [
+          {
+            "label": "Undo last plan edit",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Redo plan edit",
+            "w": 55,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Re-record at this revision",
+            "w": 149,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Close wall inspector",
+            "w": 58,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "true",
+            "w": 734,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall back 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall forward 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Reset wall",
+            "w": 84,
+            "h": 44,
+            "insideX": true
+          }
+        ],
+        "minControlPx": 44,
+        "allControlsInsideViewportX": true,
+        "after3d": {
+          "revision": "3aa6b25d",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "planModel": "on",
+          "geometryRevision3d": "3aa6b25d",
+          "digest": "f07eac7b"
+        },
+        "canvasDiffBeforeAfter": {
+          "width": 766,
+          "height": 383,
+          "changedPixels": 1898,
+          "changedPct": 0.65
+        },
+        "undo2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false
+        },
+        "undo3d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false,
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "canvasDiffBeforeUndo": {
+          "width": 766,
+          "height": 383,
+          "changedPixels": 0,
+          "changedPct": 0
+        },
+        "verdict": {
+          "wallMovedInPlan": true,
+          "revisionChanged": true,
+          "downstreamBecameStale": true,
+          "downstreamWasCurrentBefore": true,
+          "threeDMatchesRevision": true,
+          "threeDWallModelOn": true,
+          "threeDDigestChanged": true,
+          "threeDDigestRestoredAfterUndo": true,
+          "threeDCanvasPixelsChanged": true,
+          "threeDCanvasRestoredAfterUndo": true,
+          "undoRestoredWidth": true,
+          "undoRestoredRevision": true,
+          "downstreamCurrentAfterUndo": true,
+          "hitTargetIsWallHit": true,
+          "controlsAtLeast44px": true,
+          "controlsInsideViewport": true,
+          "canvasNotCoveredByInspector": true,
+          "planCanvasAtLeast200pxTall": true,
+          "noHorizontalOverflow": true,
+          "noConsoleErrors": true
+        }
+      },
+      "shots": {
+        "before3d": "db6561642b7e9735",
+        "before2d": "037847715437db28",
+        "after2d": "1b2547299b64df2f",
+        "after2dInspector": "1081c97438806240",
+        "after3d": "d6e077af81470c29",
+        "undo2d": "0a71a92dcd5967b9",
+        "undo3d": "1d701de04fd7ce8c"
+      },
+      "errors": [],
+      "pass": true
+    },
+    {
+      "viewport": "1366x800",
+      "checks": {
+        "before3d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": null,
+          "redoDisabled": null,
+          "planModel": "on",
+          "wallCount": "24",
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "before2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 113,
+              "y": 281,
+              "w": 897,
+              "h": 416
+            },
+            "inspector": null,
+            "canvasInspectorOverlapPx2": 0
+          }
+        },
+        "hitTarget": {
+          "tag": "line",
+          "isWallHit": true,
+          "wallId": "f1-int-v0"
+        },
+        "hitTargetReachesPlus20px": true,
+        "midDrag": {
+          "revision": "e9633dea",
+          "firstRoomWidthM": 14.5,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true
+        },
+        "after2d": {
+          "revision": "e9633dea",
+          "firstRoomWidthM": 14.5,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 113,
+              "y": 358,
+              "w": 545,
+              "h": 339
+            },
+            "inspector": {
+              "x": 658,
+              "y": 122,
+              "w": 352,
+              "h": 575
+            },
+            "canvasInspectorOverlapPx2": 0
+          },
+          "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m Thickness 115 mm Height 3.00 m Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position from the west face (m) −0.1 m"
+        },
+        "inspectorControls": [
+          {
+            "label": "Undo last plan edit",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Redo plan edit",
+            "w": 55,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Re-record at this revision",
+            "w": 149,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Close wall inspector",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "true",
+            "w": 319,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall back 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall forward 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Reset wall",
+            "w": 84,
+            "h": 44,
+            "insideX": true
+          }
+        ],
+        "minControlPx": 44,
+        "allControlsInsideViewportX": true,
+        "after3d": {
+          "revision": "e9633dea",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "planModel": "on",
+          "geometryRevision3d": "e9633dea",
+          "digest": "8a7e3586"
+        },
+        "canvasDiffBeforeAfter": {
+          "width": 897,
+          "height": 300,
+          "changedPixels": 1169,
+          "changedPct": 0.43
+        },
+        "undo2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false
+        },
+        "undo3d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": null,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false,
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "canvasDiffBeforeUndo": {
+          "width": 897,
+          "height": 300,
+          "changedPixels": 0,
+          "changedPct": 0
+        },
+        "verdict": {
+          "wallMovedInPlan": true,
+          "revisionChanged": true,
+          "downstreamBecameStale": true,
+          "downstreamWasCurrentBefore": true,
+          "threeDMatchesRevision": true,
+          "threeDWallModelOn": true,
+          "threeDDigestChanged": true,
+          "threeDDigestRestoredAfterUndo": true,
+          "threeDCanvasPixelsChanged": true,
+          "threeDCanvasRestoredAfterUndo": true,
+          "undoRestoredWidth": true,
+          "undoRestoredRevision": true,
+          "downstreamCurrentAfterUndo": true,
+          "hitTargetIsWallHit": true,
+          "controlsAtLeast44px": true,
+          "controlsInsideViewport": true,
+          "canvasNotCoveredByInspector": true,
+          "planCanvasAtLeast200pxTall": true,
+          "noHorizontalOverflow": true,
+          "noConsoleErrors": true
+        }
+      },
+      "shots": {
+        "before3d": "b72d3e0dabac15e9",
+        "before2d": "13ec19434b28c1f3",
+        "after2d": "65f5ae155de0fcde",
+        "after2dInspector": "65f5ae155de0fcde",
+        "after3d": "97762d9dc7eee75b",
+        "undo2d": "9ba41fa54a311b73",
+        "undo3d": "a01ee04e91cc1d8f"
+      },
+      "errors": [],
+      "pass": true
+    }
+  ]
+}
