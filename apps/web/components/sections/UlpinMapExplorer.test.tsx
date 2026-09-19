@@ -12,13 +12,23 @@ const seeded = { ulpin: 'KA-BLR-0001-2024', state: 'Karnataka', district: 'Benga
 describe('UlpinMapExplorer W-85 parcel finder', () => {
   beforeEach(() => { vi.clearAllMocks(); vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => seeded })) })
 
-  it('exposes a concise hover and focus explanation for every location tool', () => {
+  it('shows one light contextual tip at a time: hover/keyboard reveal, click/leave/blur/Escape/mode change dismiss', () => {
     render(<UlpinMapExplorer />)
-    const coordinates = screen.getByRole('button', { name: 'Coordinates' })
+    const coordinates = screen.getByRole('button', { name: 'Coordinates' }), address = screen.getByRole('button', { name: 'Address' })
     expect(coordinates.hasAttribute('title')).toBe(false)
-    expect(coordinates.getAttribute('aria-describedby')).toBe('landintel-location-coordinates-tip')
     expect(coordinates.getAttribute('data-sutra-feature-id')).toBe('location-coordinates')
-    expect(screen.getAllByRole('tooltip', { hidden: true })).toHaveLength(6)
+    expect(screen.queryAllByRole('tooltip')).toHaveLength(0); expect(coordinates.hasAttribute('aria-describedby')).toBe(false)
+    fireEvent.pointerEnter(coordinates, { pointerType: 'mouse' })
+    expect(screen.getAllByRole('tooltip')).toHaveLength(1); expect(coordinates.getAttribute('aria-describedby')).toBe('landintel-location-coordinates-tip')
+    fireEvent.click(coordinates)
+    expect(screen.queryAllByRole('tooltip')).toHaveLength(0); expect(coordinates.hasAttribute('aria-describedby')).toBe(false)
+    fireEvent.pointerLeave(coordinates); fireEvent.pointerEnter(address, { pointerType: 'mouse' })
+    const tips = screen.getAllByRole('tooltip'); expect(tips).toHaveLength(1); expect(tips[0].textContent).toContain('Search a place name')
+    expect(tips[0].className).not.toMatch(/bg-relume-ink|text-white/)
+    fireEvent.click(address); expect(screen.queryAllByRole('tooltip')).toHaveLength(0)
+    fireEvent.pointerEnter(coordinates, { pointerType: 'mouse' }); fireEvent.pointerLeave(coordinates); expect(screen.queryAllByRole('tooltip')).toHaveLength(0)
+    fireEvent.pointerEnter(coordinates, { pointerType: 'mouse' }); fireEvent.pointerEnter(address, { pointerType: 'mouse' }); expect(screen.getAllByRole('tooltip')).toHaveLength(1)
+    fireEvent.keyDown(address, { key: 'Escape' }); expect(screen.queryAllByRole('tooltip')).toHaveLength(0)
   })
 
   it('keeps the map mounted and writes a source-qualified seeded ULPIN context', async () => {
