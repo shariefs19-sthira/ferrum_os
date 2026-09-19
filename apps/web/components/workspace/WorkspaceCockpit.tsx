@@ -424,7 +424,10 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   useEffect(() => {
     if (!mobilePanel) return
     const sheet = document.querySelector<HTMLElement>(`[data-mobile-sheet="${mobilePanel}"]`)
-    sheet?.querySelector<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')?.focus()
+    // The in-flow tool retains focus on its trigger: moving focus into the
+    // stacked pane would scroll the canvas-first cockpit beneath the fixed
+    // workspace app bar and make the adjacent task controls untappable.
+    if (mobilePanel !== 'tool') sheet?.querySelector<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')?.focus({ preventScroll: true })
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') { event.preventDefault(); closeMobilePanel() }
     }
@@ -438,7 +441,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   useEffect(() => { setMobilePanel(null) }, [controlProduct])
 
   return (
-    <section className={`border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col overflow-y-auto' : 'overflow-hidden rounded-relume'} ${fullBleedEmbed ? 'min-h-[70vh]' : ''}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined} data-embed-mode={embedMode}>
+    <section className={`border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col overflow-y-auto scroll-pt-12' : 'overflow-hidden rounded-relume'} ${fullBleedEmbed ? 'min-h-[70vh]' : ''}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined} data-embed-mode={embedMode}>
       {!canvasFirst && <header className="flex flex-wrap items-center gap-3 border-b border-relume-border px-4 py-3">
         <Link href="/" className="font-heading text-sm font-bold text-relume-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" aria-label="Ferrum home">Ferrum</Link>
         <div className="mr-auto">
