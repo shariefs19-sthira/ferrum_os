@@ -7,6 +7,8 @@ import { normalizeProfessionalTerms, termsIn } from "../../lib/workspace/vocabul
 import { commandEvents, isProjectStateCommand, type SutraEvent, type SutraInputSource } from "../../lib/sutra/events"
 import { subscribeCockpitSelection, type CockpitSelectionContext } from "../../lib/sutra/selectionContext"
 import { useParcelContext } from "../../lib/workspace/parcelContext"
+import { useSiteHandoff } from "../../lib/landintel/siteAnalysisStore"
+import { answerSiteAnalysis } from "../../lib/landintel/siteAnalysisAnswer"
 import { answerProductKnowledge } from "../../lib/ai/productKnowledge"
 import { productLabels } from "../../lib/productFeatureRegistry"
 import type { CockpitProduct } from "./ProductCockpitPreview"
@@ -41,6 +43,7 @@ export default function SutraPanel({ onEvent, activeProduct, defaultGuidedOpen =
   useEffect(()=>{if(pending)pendingRef.current?.scrollIntoView?.({block:"nearest"})},[pending])
   const recognition = useRef<Recognition|null>(null)
   const parcel = useParcelContext()
+  const { handoff: siteHandoff, status: siteHandoffStatus } = useSiteHandoff()
   const ruleset = getRulesetForState(parcel?.state ?? "Karnataka")
   const parcelUse = parcel && ruleset?.land_use_rules[parcel.land_use as LandUse] ? parcel.land_use as LandUse : null
   const use = (parcelUse ?? selected.use ?? "Residential") as LandUse
@@ -57,12 +60,15 @@ export default function SutraPanel({ onEvent, activeProduct, defaultGuidedOpen =
     output: [{label:"Measured extract",command:"show BOQ extract",citation:outputCitation},{label:"Export DXF",command:"export DXF",citation:outputCitation},{label:"Share brief",command:"share workspace brief",citation:outputCitation},{label:"Reset model",command:"reset model"}],
   }
   const answer = useCallback((command:string) => {
+    // Read-only: the LandIntel site-analysis handoff informs this answer but never dispatches a command or mutates the model.
+    const siteAnswer = answerSiteAnalysis(command, siteHandoff, siteHandoffStatus)
+    if (siteAnswer) return siteAnswer
     const productKnowledge = answerProductKnowledge(activeProduct ? `${command} in ${productLabels[activeProduct]}` : command)
     if (productKnowledge) return { text: productKnowledge.text, citations: productKnowledge.citations?.map((citation) => citation.title) }
     const normalized=normalizeProfessionalTerms(command)
     const terms=termsIn(command)
     return /boq|extract|export/.test(normalized) ? {text:"Opening the measured workspace output. Rates remain blank until verified.",citations:[outputCitation]} : /setback|far|coverage|use|approval|noc/.test(normalized) ? {text:`I read ${terms.join(', ') || 'land-use'} terminology and constrained the next choice to the sample authority envelope.`,citations:[ruleCitation]} : /structure|mep|irr|ticket/.test(normalized) ? {text:`I read ${terms.join(', ')} terminology and routed it to the matching workspace lens; figures remain INDICATIVE.`} : {text:"Sent through the deterministic workspace command path."}
-  }, [activeProduct])
+  }, [activeProduct, siteHandoff, siteHandoffStatus])
   // CODEX-SENTINEL-20260918-1708-sutra-command-cockpit-output: "Reversible
   // view-only changes may apply immediately; any project-state change must
   // be proposed and explicitly confirmed through SUTRA." A view-only

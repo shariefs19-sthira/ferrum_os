@@ -18,6 +18,7 @@ import AccessConnectivityPanel from '../../../components/landintel/AccessConnect
 import MarketContextPanel from '../../../components/landintel/MarketContextPanel'
 import ProximityCatchmentPanel from '../../../components/landintel/ProximityCatchmentPanel'
 import EvidenceThemeTabs from '../../../components/landintel/EvidenceThemeTabs'
+import SiteAnalysisWorkspace from '../../../components/landintel/SiteAnalysisWorkspace'
 import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 
 // The ULPIN lookup (seeded sample data) and the interactive map (real
@@ -101,6 +102,7 @@ export default function LandIntelPage() {
               <li className="border-l-2 border-relume-command pl-3">ULPIN/Bhu-Aadhaar lookup <span className="text-relume-muted">— seeded, indicative</span></li>
               <li className="border-l-2 border-relume-command pl-3">Sample FAR and coverage forecast <span className="text-relume-muted">— secondary, indicative</span></li>
               <li className="border-l-2 border-relume-command pl-3">Zoning, soil, climate &amp; history panels <span className="text-relume-muted">— live surfaces, data per-parcel UNKNOWN/GAP until verified</span></li>
+              <li className="border-l-2 border-relume-command pl-3">Site analysis workspace <span className="text-relume-muted">— manual field evidence and a computed sun path; no survey, legal or design conclusion</span></li>
               <li className="border-l-2 border-relume-border pl-3">Access, market &amp; proximity catchment evidence <span className="text-relume-muted">— roadmap, no fabricated places or prices</span></li>
             </ul>
           </div>
@@ -142,6 +144,12 @@ export default function LandIntelPage() {
                 label: 'Market',
                 description: 'Comparable-transaction, guidance-value, price-trend and demand evidence needs — never an appraisal, forecast or investment recommendation.',
                 content: <MarketContextPanel />,
+              },
+              {
+                id: 'site-analysis',
+                label: 'Site analysis',
+                description: 'Pre-design evidence for climate, physical ground, urban context, infrastructure and heritage: structured field observations, an evidence-linked diagram, a missing-evidence list and a reviewed handoff — never a design recommendation.',
+                content: <SiteAnalysisWorkspace />,
               },
             ]}
           />
