@@ -95,3 +95,49 @@ describe("CookieConsent coexistence with the SUTRA launcher", () => {
     expect(css).toMatch(/\.h-dvh-safe\[data-workspace-fullscreen\][^}]*calc\(100dvh - var\(--cookie-consent-h, 0px\)\)/)
   })
 })
+
+describe("CookieConsent layout-allotment candidates (screenshot/demo switch, ?cookieVariant=A|B|C)", () => {
+  const originalSearch = window.location.search
+  beforeEach(() => { window.localStorage.clear(); resetSafeStorageMemory(); pathname.value = "/" })
+  afterEach(() => {
+    document.documentElement.style.removeProperty(COOKIE_HEIGHT_VAR)
+    document.body.removeAttribute("data-cookie-variant")
+    document.body.removeAttribute("style")
+    window.history.replaceState(null, "", "/" + originalSearch)
+  })
+
+  it("defaults to variant D (current behaviour) when no query param is present", async () => {
+    render(<CookieConsent />)
+    const banner = await screen.findByRole("dialog", { name: "Cookie consent" })
+    expect(banner.getAttribute("data-variant")).toBe("D")
+    expect(banner.className).toContain("fixed")
+  })
+
+  it("variant B renders a true modal: aria-modal, scrim, and Escape does not silently accept", async () => {
+    window.history.replaceState(null, "", "/?cookieVariant=B")
+    render(<CookieConsent />)
+    const banner = await screen.findByRole("dialog", { name: "Cookie consent" })
+    expect(banner.getAttribute("aria-modal")).toBe("true")
+    fireEvent.keyDown(banner, { key: "Escape" })
+    expect(screen.getByRole("dialog", { name: "Cookie consent" })).toBeTruthy()
+    fireEvent.click(screen.getByRole("button", { name: "Got it" }))
+    expect(screen.queryByRole("dialog", { name: "Cookie consent" })).toBeNull()
+  })
+
+  it("variant C renders a compact corner card, not a full-width bar", async () => {
+    window.history.replaceState(null, "", "/?cookieVariant=C")
+    render(<CookieConsent />)
+    const banner = await screen.findByRole("dialog", { name: "Cookie consent" })
+    expect(banner.getAttribute("data-variant")).toBe("C")
+    expect(banner.className).not.toContain("inset-x-0")
+  })
+
+  it("variant A tags <body> for the reserved-band layout while shown and clears it once dismissed", async () => {
+    window.history.replaceState(null, "", "/?cookieVariant=A")
+    render(<CookieConsent />)
+    await screen.findByRole("dialog", { name: "Cookie consent" })
+    expect(document.body.getAttribute("data-cookie-variant")).toBe("A")
+    fireEvent.click(screen.getByRole("button", { name: "Got it" }))
+    expect(document.body.getAttribute("data-cookie-variant")).toBeNull()
+  })
+})

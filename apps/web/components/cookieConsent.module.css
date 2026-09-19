@@ -1,0 +1,72 @@
+/* Scoped styles for the cookie-consent layout candidates (A/B/C/D).
+   Loaded only by CookieConsent.tsx. Variant is selected at runtime via
+   `?cookieVariant=A|B|C` (screenshot/demo only — default is unset, which
+   renders the unchanged current behaviour, "D"). Nothing here is imported
+   by globals.css or any other component. */
+
+/* ---------- Variant A: reserved band ---------- */
+/* Applied to a wrapper we create at runtime around the existing body
+   children (see CookieConsent.tsx). The wrapper becomes the scroll
+   container that sits strictly above the bar's row. */
+/* body-level flex/height for variant A is set inline from CookieConsent.tsx
+   (a bare `body[...]` rule has no local class, so it isn't a valid CSS
+   Modules selector — see the useEffect that toggles data-cookie-variant). */
+.bandScroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.bandBarRow {
+  flex: 0 0 auto;
+  transition: flex-basis 220ms ease, height 220ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bandBarRow {
+    transition: none;
+  }
+}
+
+/* ---------- Variant B: true modal on first visit ---------- */
+.modalScrim {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(15, 17, 21, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .modalScrim {
+    align-items: center;
+  }
+}
+
+.modalCard {
+  width: 100%;
+  max-width: 26rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  padding: 1.25rem;
+}
+
+/* ---------- Variant C: compact corner card ---------- */
+.cornerCard {
+  position: fixed;
+  left: max(0.75rem, env(safe-area-inset-left));
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+  z-index: 45;
+  width: min(20rem, calc(100vw - 1.5rem));
+  background: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(15, 17, 21, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 0.875rem;
+}
