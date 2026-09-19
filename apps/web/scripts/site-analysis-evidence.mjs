@@ -7,8 +7,19 @@ import { chromium } from 'playwright'
 // Playwright click/keyboard/typing event against the running app; nothing
 // mutates state through evaluate() except read-only measurements.
 
-const baseUrl = (process.argv[2] || process.env.SITE_ANALYSIS_URL || 'http://127.0.0.1:3117').replace(/\/$/, '')
-const evidenceRoot = path.resolve('evidence', 'site-analysis')
+// Flags (all optional, after the base URL):
+//   --labels-only          run only the label-collision matrix (36 viewport x radius cells); this is the
+//                          quick re-check CRANE runs against the deployed edge.
+//   --report-only          record every measurement and screenshot but do not throw on a violation, so a
+//                          BEFORE build can be measured in full. The exit code is 1 if any violation exists.
+//   --evidence-dir=<path>  write screenshots/JSON there instead of evidence/site-analysis.
+const args = process.argv.slice(2)
+const flag = (name) => args.includes(`--${name}`)
+const flagValue = (name) => args.find((arg) => arg.startsWith(`--${name}=`))?.slice(name.length + 3)
+const baseUrl = (args.find((arg) => !arg.startsWith('--')) || process.env.SITE_ANALYSIS_URL || 'http://127.0.0.1:3117').replace(/\/$/, '')
+const labelsOnly = flag('labels-only')
+const reportOnly = flag('report-only')
+const evidenceRoot = path.resolve(flagValue('evidence-dir') || path.join('evidence', 'site-analysis'))
 const widths = [320, 390, 768, 1024, 1440]
 const viewports = widths.map((width) => ({ width, height: width < 768 ? 900 : 1000 }))
 
@@ -29,7 +40,15 @@ async function dismissConsent(page) {
   const consent = page.getByRole('dialog', { name: 'Cookie consent' })
   const visible = await consent.waitFor({ state: 'visible', timeout: 2_000 }).then(() => true).catch(() => false)
   if (visible) {
-    await consent.getByRole('button', { name: 'Got it' }).click()
+    const gotIt = consent.getByRole('button', { name: 'Got it' })
+    // A pointer click can be intercepted where the SUTRA launcher sits over the cookie bar (an older
+    // stacking defect present in earlier builds); fall back to a real keyboard activation so the
+    // measurement still reaches the diagram. Still a genuine user input event.
+    const clicked = await gotIt.click({ timeout: 5_000 }).then(() => true).catch(() => false)
+    if (!clicked) {
+      await gotIt.focus()
+      await page.keyboard.press('Enter')
+    }
     await consent.waitFor({ state: 'hidden' })
   }
 }
@@ -49,7 +68,6 @@ function measureLayout(selector) {
     return rect.right > innerWidth + 1 || rect.left < -1
   }).map((element) => `${element.tagName}.${String(element.className).slice(0, 40)}`) : ['root missing']
   const small = root ? [...root.querySelectorAll('button, input:not([type=hidden]), select, textarea, summary')].filter(visible).filter((element) => {
-    if (element.tagName === 'SUMMARY') return false
     return element.getBoundingClientRect().height < 43.5
   }).map((element) => `${element.tagName}:${element.id || element.textContent.trim().slice(0, 24)}`) : []
   return {
@@ -65,7 +83,7 @@ await mkdir(evidenceRoot, { recursive: true })
 const browser = await launchBrowser()
 
 try {
-  for (const viewport of viewports) {
+  for (const viewport of labelsOnly ? [] : viewports) {
     const context = await browser.newContext({ viewport })
     const page = await context.newPage()
     const consoleErrors = []
@@ -208,11 +226,16 @@ try {
     await page.locator('[data-observation-count]').waitFor()
     const boxes = await page.evaluate(() => {
       const box = (element) => { const r = element.getBoundingClientRect(); return { left: r.left, top: r.top, right: r.right, bottom: r.bottom } }
-      const group = document.querySelector('[data-observation-count]').closest('g[data-observation-id]')
+      // The ×N badge is a diagram-level sibling of the marker <g> (placed by the label-collision solver),
+      // so it carries the record id directly instead of being found via .closest().
+      const recordId = document.querySelector('[data-observation-count]').getAttribute('data-observation-count-for')
+      const group = document.querySelector(`g[data-observation-id="${recordId}"]`)
       const parts = {
         count: document.querySelector('[data-observation-count]'),
         mapPointLabel: document.querySelector('[data-site-anchor-label]'),
-        topicLabel: [...group.querySelectorAll('text')].find((node) => !node.hasAttribute('data-observation-count')),
+        // The topic label is rendered by the general label-collision solver as a diagram-level sibling
+        // (not nested inside the marker's own <g>), so it's found by its data-diagram-label id.
+        topicLabel: document.querySelector(`[data-diagram-label="module-${recordId}"]`),
         glyph: group.querySelector('path'),
         crosshair: document.querySelector('[data-site-anchor] path'),
       }
@@ -356,6 +379,148 @@ try {
 } finally {
   await browser.close()
 }
+
+// --- Label-collision acceptance matrix --------------------------------------
+// Reproduces the exact scenario from the site-label defect report — a wind record and a second (site
+// climate) record both at the map point (they stack into one grouped x2 marker), plus a shadow record about
+// 26 m away (12.97640, 77.58990) — and asserts ZERO overlap between any two text labels, between a label and
+// any marker glyph or the crosshair, at every required viewport and every radius. Every pair's overlap is
+// measured (px, from getBoundingClientRect) and written to label-overlap-report.json. Read-only measurement;
+// evaluate() never mutates state.
+const matrixViewports = [
+  { width: 320, height: 568 }, { width: 375, height: 667 }, { width: 390, height: 844 },
+  { width: 414, height: 896 }, { width: 768, height: 1024 }, { width: 1024, height: 768 },
+  { width: 1366, height: 768 }, { width: 1440, height: 900 }, { width: 1920, height: 1080 },
+]
+const matrixRadii = [50, 100, 250, 500]
+const MIN_LABEL_PX = 9.5
+
+function measureDiagramOverlaps() {
+  const svg = document.querySelector('[data-site-diagram-svg]')
+  const svgRect = svg.getBoundingClientRect()
+  const box = (r) => ({ left: r.left, top: r.top, right: r.right, bottom: r.bottom })
+  const texts = [...svg.querySelectorAll('text')]
+    .map((node) => ({ kind: 'text', name: node.textContent, rect: box(node.getBoundingClientRect()), fontPx: Number.parseFloat(node.getAttribute('font-size') || getComputedStyle(node).fontSize) * (svgRect.width / 400) }))
+    .filter((entry) => entry.rect.right > entry.rect.left)
+  // Glyph paths: every marker glyph plus the crosshair. (The N compass arrow and legend icons are not in scope.)
+  const glyphs = [...svg.querySelectorAll('g[data-observation-id] path, [data-site-anchor] path')]
+    .map((node, index) => ({ kind: 'glyph', name: node.closest('[data-site-anchor]') ? 'crosshair' : `marker-${index}`, rect: box(node.getBoundingClientRect()) }))
+  const items = [...texts, ...glyphs]
+  const overlapPx = (a, b) => ({
+    width: Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)),
+    height: Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top)),
+  })
+  const pairs = []
+  // Two markers may legitimately coincide (a record plotted exactly at the map point sits on the crosshair):
+  // glyph-vs-glyph is out of scope. Every pair involving at least one text label is measured.
+  for (let i = 0; i < items.length; i += 1) {
+    for (let j = i + 1; j < items.length; j += 1) {
+      if (items[i].kind === 'glyph' && items[j].kind === 'glyph') continue
+      const { width, height } = overlapPx(items[i].rect, items[j].rect)
+      pairs.push({ a: `${items[i].kind}:${items[i].name}`, b: `${items[j].kind}:${items[j].name}`, overlapWidthPx: Math.round(width * 10) / 10, overlapHeightPx: Math.round(height * 10) / 10, overlapAreaPx2: Math.round(width * height * 10) / 10 })
+    }
+  }
+  const compassN = texts.find((entry) => entry.name === 'N')
+  const compassCropped = !compassN || compassN.rect.left < svgRect.left - 0.5 || compassN.rect.right > svgRect.right + 0.5 || compassN.rect.top < svgRect.top - 0.5
+  const clipped = texts.filter((entry) => entry.rect.left < svgRect.left - 0.5 || entry.rect.right > svgRect.right + 0.5 || entry.rect.top < svgRect.top - 0.5 || entry.rect.bottom > svgRect.bottom + 0.5).map((entry) => entry.name)
+  return {
+    pairs,
+    overlapping: pairs.filter((pair) => pair.overlapAreaPx2 > 1),
+    worstOverlapAreaPx2: pairs.reduce((worst, pair) => Math.max(worst, pair.overlapAreaPx2), 0),
+    compassCropped,
+    clipped,
+    minRenderedLabelHeightPx: Math.round(Math.min(...texts.map((entry) => entry.rect.bottom - entry.rect.top).filter((h) => h > 0)) * 10) / 10,
+    minFontSizePx: Math.round(Math.min(...texts.map((entry) => entry.fontPx)) * 10) / 10,
+    labelCount: texts.length,
+    svgWidthPx: Math.round(svgRect.width * 10) / 10,
+  }
+}
+
+const overlapReport = []
+const violations = []
+const check = (condition, message) => {
+  if (condition) return
+  violations.push(message)
+  if (!reportOnly) throw new Error(message)
+}
+const matrixBrowser = await launchBrowser()
+try {
+  for (const viewport of matrixViewports) {
+    const context = await matrixBrowser.newContext({ viewport })
+    const page = await context.newPage()
+    const consoleErrors = []
+    page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()) })
+    const label = `matrix ${viewport.width}x${viewport.height}`
+
+    const response = await page.goto(`${baseUrl}/products/landintel`, { waitUntil: 'domcontentloaded' })
+    assert(response && response.status() < 400, `${label}: HTTP ${response?.status() ?? 'none'}`)
+    await dismissConsent(page)
+    await page.waitForSelector('[data-parcel-map-stage]', { state: 'visible' })
+    consoleErrors.length = 0
+
+    await page.locator('[data-find-parcel-toolbar]').getByRole('button', { name: 'Coordinates', exact: true }).click()
+    await page.getByLabel('Latitude', { exact: true }).first().fill('12.9762')
+    await page.getByLabel('Longitude', { exact: true }).first().fill('77.5896')
+    await page.getByRole('button', { name: 'Set coordinates' }).click()
+    await page.locator('[data-selected-point]').filter({ hasText: '12.97620' }).waitFor()
+    await page.getByRole('tab', { name: 'Site analysis' }).click()
+    await page.locator('[data-site-diagram-svg]').waitFor({ state: 'visible' })
+
+    const addRecord = async (topic, source) => {
+      await page.locator('#site-topic').selectOption(topic)
+      await page.locator('#site-basis').selectOption('OBSERVED')
+      await page.locator('#site-observed-on').fill('2026-09-18')
+      await page.locator('#site-observer').fill('Evidence observer')
+      await page.locator('#site-source-ref').fill('Field sheet FS-12')
+      if (source === 'map-point') {
+        await page.locator('[data-site-use-map-point]').click()
+      } else {
+        await page.locator('#site-lat').fill(String(source.lat))
+        await page.locator('#site-lng').fill(String(source.lng))
+      }
+      await page.locator('#site-note').fill(`Evidence record — ${topic}.`)
+      await page.locator('[data-site-add-observation]').click()
+    }
+    await addRecord('wind', 'map-point')
+    await page.locator('[data-observation-row]').first().waitFor()
+    await addRecord('site-climate', 'map-point')
+    await page.waitForFunction(() => document.querySelectorAll('[data-observation-row]').length === 2)
+    await addRecord('shadow', { lat: 12.9764, lng: 77.5899 })
+    await page.waitForFunction(() => document.querySelectorAll('[data-observation-row]').length === 3)
+
+    for (const radiusM of matrixRadii) {
+      await page.locator('#site-diagram-radius').selectOption(String(radiusM))
+      await page.locator('[data-site-diagram-svg] [data-observation-id]').first().waitFor()
+      const measurement = await page.evaluate(measureDiagramOverlaps)
+      const cell = `${label} r${radiusM}m`
+      check(measurement.overlapping.length === 0, `${cell}: label overlaps ${JSON.stringify(measurement.overlapping)}`)
+      check(!measurement.compassCropped, `${cell}: compass N cropped`)
+      check(measurement.clipped.length === 0, `${cell}: labels clipped at SVG edge ${measurement.clipped.join(', ')}`)
+      check(measurement.minRenderedLabelHeightPx >= MIN_LABEL_PX, `${cell}: smallest label renders ${measurement.minRenderedLabelHeightPx}px tall, below ${MIN_LABEL_PX}px`)
+      overlapReport.push({ viewport, radiusM, ...measurement })
+      await page.locator('[data-site-diagram-svg]').screenshot({ path: path.join(evidenceRoot, `overlap-${viewport.width}x${viewport.height}-r${radiusM}.png`), animations: 'disabled' })
+    }
+    check(consoleErrors.length === 0, `${label}: console errors ${consoleErrors.join(' | ')}`)
+    await context.close()
+  }
+} finally {
+  await matrixBrowser.close()
+}
+await writeFile(path.join(evidenceRoot, 'label-overlap-report.json'), `${JSON.stringify({ generatedAt: new Date().toISOString(), baseUrl, matrixViewports, matrixRadii, violations, overlapReport }, null, 2)}\n`)
+const matrixSummary = {
+  labelOverlapMatrix: overlapReport.length,
+  cellsWithOverlap: overlapReport.filter((entry) => entry.overlapping.length > 0).length,
+  pairsOverlapping: overlapReport.reduce((sum, entry) => sum + entry.overlapping.length, 0),
+  worstOverlapAreaPx2: overlapReport.reduce((worst, entry) => Math.max(worst, entry.worstOverlapAreaPx2), 0),
+  minRenderedLabelHeightPx: Math.min(...overlapReport.map((entry) => entry.minRenderedLabelHeightPx)),
+  minFontSizePx: Math.min(...overlapReport.map((entry) => entry.minFontSizePx)),
+  compassCroppedCells: overlapReport.filter((entry) => entry.compassCropped).length,
+  clippedCells: overlapReport.filter((entry) => entry.clipped.length > 0).length,
+  violations: violations.length,
+}
+console.log(JSON.stringify(matrixSummary, null, 2))
+if (labelsOnly) process.exit(violations.length > 0 ? 1 : 0)
+if (violations.length > 0) process.exitCode = 1
 
 const report = { generatedAt: new Date().toISOString(), baseUrl, widths, results }
 await writeFile(path.join(evidenceRoot, 'report.json'), `${JSON.stringify(report, null, 2)}\n`)

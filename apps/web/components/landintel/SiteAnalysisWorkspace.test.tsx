@@ -5,6 +5,7 @@ import SiteAnalysisContextPanel from '../designstudio/SiteAnalysisContextPanel'
 import { PARCEL_CONTEXT_KEY, writeParcelContext, type ParcelContext } from '../../lib/workspace/parcelContext'
 import { SITE_ANALYSIS_KEY } from '../../lib/landintel/siteAnalysisStore'
 import { answerSiteAnalysis } from '../../lib/landintel/siteAnalysisAnswer'
+import { resolveLabelCollisions } from './SiteAnalysisDiagram'
 
 const clock = () => new Date('2026-09-19T10:00:00Z')
 
@@ -127,18 +128,78 @@ describe('SiteAnalysisWorkspace with a resolved site', () => {
     expect($(container, `[data-observation-id="${id}"]`)).toBeNull()
   })
 
-  it('keeps the grouped count and the Map point label on opposite sides when records share the map point', () => {
+  // Layout tests below measure diagram labels with the same width model the solver uses (jsdom has no text
+  // metrics), in diagram-absolute coordinates (walking ancestors' translate(), so they also read the older
+  // markup where labels sat inside translated groups).
+  const labelBoxes = (container: HTMLElement) => $$(container, '[data-site-diagram-svg] text').map((el) => {
+    let x = Number(el.getAttribute('x') ?? 0)
+    let y = Number(el.getAttribute('y') ?? 0)
+    for (let node = el.parentElement; node && node.tagName.toLowerCase() !== 'svg'; node = node.parentElement) {
+      const match = /translate\(\s*(-?[\d.]+)[ ,]+(-?[\d.]+)\s*\)/.exec(node.getAttribute('transform') ?? '')
+      if (match) { x += Number(match[1]); y += Number(match[2]) }
+    }
+    const fontSize = Number(el.getAttribute('font-size'))
+    const width = (el.textContent ?? '').length * fontSize * 0.56
+    const anchor = el.getAttribute('text-anchor')
+    const left = anchor === 'end' ? x - width : anchor === 'middle' ? x - width / 2 : x
+    return { text: el.textContent ?? '', left, right: left + width, top: y - fontSize * 0.82 * 1.15, bottom: y + fontSize * 1.15 * 0.18 }
+  }).filter((box) => box.text !== 'N')
+  const overlapping = (container: HTMLElement) => {
+    const boxes = labelBoxes(container)
+    const hits: string[] = []
+    for (let i = 0; i < boxes.length; i += 1) for (let j = i + 1; j < boxes.length; j += 1) {
+      const a = boxes[i]
+      const b = boxes[j]
+      if (a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top) hits.push(`${a.text} / ${b.text}`)
+    }
+    return hits
+  }
+  function addRecord(container: HTMLElement, topic: string, where: 'map-point' | { lat: string; lng: string }) {
+    fill('Topic', topic)
+    fill('Observation date', '2026-09-18')
+    fill('Observer / supplier', 'A. Surveyor')
+    fill('Source / document reference', 'FS-9')
+    if (where === 'map-point') fireEvent.click($(container, '[data-site-use-map-point]') as HTMLElement)
+    else { fill('Latitude', where.lat); fill('Longitude', where.lng) }
+    fill('What was seen or read', `Recorded ${topic}.`)
+    fireEvent.click($(container, '[data-site-add-observation]') as HTMLElement)
+  }
+
+  it('keeps the grouped count and the Map point label clear of each other when records share the map point', () => {
     const { container } = render(<SiteAnalysisWorkspace clock={clock} />)
     addWind(container)
     addWind(container, { basis: 'INFERRED', note: 'Wind probably stronger at the north edge.' })
-    const count = $(container, '[data-observation-count]') as SVGTextElement
-    const label = $(container, '[data-site-anchor-label]') as SVGTextElement
-    expect(count.textContent).toBe('×2')
-    expect(label.textContent).toBe('Map point')
-    // Count starts right of the marker; label ends left of the crosshair arm (14), so their x-extents cannot meet.
-    expect(Number(count.getAttribute('x'))).toBeGreaterThan(0)
-    expect(label.getAttribute('text-anchor')).toBe('end')
-    expect(Number(label.getAttribute('x'))).toBeLessThan(-14)
+    expect($(container, '[data-observation-count]')?.textContent).toBe('×2')
+    expect($(container, '[data-site-anchor-label]')?.textContent).toBe('Map point')
+    expect(overlapping(container)).toEqual([])
+  })
+
+  it('separates the Shadow label from the Map point label when a record sits ~26m from the centre', () => {
+    const { container } = render(<SiteAnalysisWorkspace clock={clock} />)
+    addRecord(container, 'shadow', { lat: '12.97640', lng: '77.58990' })
+    expect($$(container, '[data-site-diagram-svg] text').map((el) => el.textContent)).toContain('Shadow')
+    expect(overlapping(container)).toEqual([])
+  })
+
+  it('keeps every diagram label clear of every other at all four radii for wind + site climate at the map point and a shadow ~26m away', () => {
+    const { container } = render(<SiteAnalysisWorkspace clock={clock} />)
+    addRecord(container, 'wind', 'map-point')
+    addRecord(container, 'site-climate', 'map-point')
+    addRecord(container, 'shadow', { lat: '12.97640', lng: '77.58990' })
+    for (const radius of ['50', '100', '250', '500']) {
+      fill('Diagram radius (view only)', radius)
+      expect({ radius, hits: overlapping(container) }).toEqual({ radius, hits: [] })
+    }
+  })
+
+  it('resolveLabelCollisions pushes two labels sharing the same point apart until their boxes no longer overlap', () => {
+    const labels = [
+      { id: 'a', x: 200, y: 200, text: 'Wind', fontSize: 16, anchor: 'middle' as const, originX: 200, originY: 200 },
+      { id: 'b', x: 200, y: 200, text: 'Shadow', fontSize: 16, anchor: 'middle' as const, originX: 200, originY: 200 },
+    ]
+    const placed = resolveLabelCollisions(labels, [])
+    const distance = Math.hypot(placed[0].x - placed[1].x, placed[0].y - placed[1].y)
+    expect(distance).toBeGreaterThan(10)
   })
 
   it('reports a record beyond the diagram radius instead of dropping it silently', () => {

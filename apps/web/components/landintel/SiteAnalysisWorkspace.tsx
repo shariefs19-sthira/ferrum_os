@@ -146,7 +146,7 @@ export default function SiteAnalysisWorkspace({ clock = () => new Date() }: { cl
                     {slot.qualifiedCount > 0 && <span className="text-[11px] text-relume-muted">{slot.qualifiedCount} qualified</span>}
                   </div>
                   {slot.topic.delegatedTo && <p className="mt-1 text-[11px] leading-4 text-relume-ink">Record through {slot.topic.delegatedTo} (Land tab). It is not yet connected to this synthesis.</p>}
-                  <details className="mt-1"><summary className="min-h-8 cursor-pointer text-[11px] font-semibold text-relume-command">Connector status</summary><p className="mt-1 text-[11px] leading-4 text-relume-muted">{slot.topic.pendingConnector}</p></details>
+                  <details className="mt-1"><summary className="flex min-h-11 cursor-pointer items-center text-[11px] font-semibold text-relume-command">Connector status</summary><p className="mt-1 text-[11px] leading-4 text-relume-muted">{slot.topic.pendingConnector}</p></details>
                 </li>
               ))}
             </ul>
