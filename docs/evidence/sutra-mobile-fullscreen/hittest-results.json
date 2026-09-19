@@ -1,0 +1,646 @@
+[
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Minimize hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[211,4,308,48],\"hiddenScrolled\":false,\"vv\":[0,640],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Confirm hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,584,90,628],\"hiddenScrolled\":false,\"vv\":[0,640],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Cancel hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[98,584,173,628],\"hiddenScrolled\":false,\"vv\":[0,640],\"top\":\"BUTTON.min-h-11 rounded-full border border-whit\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "composer input hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,596,182,640],\"hiddenScrolled\":false,\"vv\":[0,640],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-full bor\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Send hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[242,596,308,640],\"hiddenScrolled\":false,\"vv\":[0,640],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Minimize bbox never intersects readable text across scroll positions (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":22,\"minTexts\":21,\"minimize\":[211,4,308,48],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Minimize hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[211,4,308,48],\"hiddenScrolled\":false,\"vv\":[0,288],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Confirm hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,244,90,288],\"hiddenScrolled\":false,\"vv\":[0,288],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Cancel hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[98,244,173,288],\"hiddenScrolled\":false,\"vv\":[0,288],\"top\":\"BUTTON.min-h-11 rounded-full border border-whit\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "composer input hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,244,182,288],\"hiddenScrolled\":false,\"vv\":[0,288],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-full bor\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Send hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[242,244,308,288],\"hiddenScrolled\":false,\"vv\":[0,288],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Minimize bbox never intersects readable text across scroll positions (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":50,\"minTexts\":6,\"minimize\":[211,4,308,48],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace guided+pending",
+    "name": "Confirm click resolves pending",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "Minimize hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[159,12,256,56],\"hiddenScrolled\":false,\"vv\":[0,640],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "composer input hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[16,584,231,628],\"hiddenScrolled\":false,\"vv\":[0,640],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-lg borde\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "Send hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[239,584,304,628],\"hiddenScrolled\":false,\"vv\":[0,640],\"top\":\"BUTTON.min-h-11 rounded-lg bg-relume-ink px-4 p\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "conversation log keeps usable height (full height)",
+    "pass": true,
+    "detail": "310"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "Minimize bbox never intersects readable text across scroll positions (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":10,\"minTexts\":23,\"minimize\":[159,12,256,56],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "Minimize hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[159,12,256,56],\"hiddenScrolled\":false,\"vv\":[0,288],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "composer input hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[16,232,231,276],\"hiddenScrolled\":false,\"vv\":[0,288],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-lg borde\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "Send hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[239,232,304,276],\"hiddenScrolled\":false,\"vv\":[0,288],\"top\":\"BUTTON.min-h-11 rounded-lg bg-relume-ink px-4 p\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "conversation log keeps usable height (keyboard open)",
+    "pass": true,
+    "detail": "64"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home chrome expanded",
+    "name": "Minimize bbox never intersects readable text across scroll positions (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":10,\"minTexts\":10,\"minimize\":[159,12,256,56],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Minimize hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[266,4,363,48],\"hiddenScrolled\":false,\"vv\":[0,667],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Confirm hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,611,90,655],\"hiddenScrolled\":false,\"vv\":[0,667],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Cancel hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[98,611,173,655],\"hiddenScrolled\":false,\"vv\":[0,667],\"top\":\"BUTTON.min-h-11 rounded-full border border-whit\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "composer input hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,623,237,667],\"hiddenScrolled\":false,\"vv\":[0,667],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-full bor\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Send hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[297,623,363,667],\"hiddenScrolled\":false,\"vv\":[0,667],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Minimize bbox never intersects readable text across scroll positions (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":12,\"minTexts\":26,\"minimize\":[266,4,363,48],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Minimize hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[266,4,363,48],\"hiddenScrolled\":false,\"vv\":[0,300],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Confirm hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,256,90,300],\"hiddenScrolled\":false,\"vv\":[0,300],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Cancel hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[98,256,173,300],\"hiddenScrolled\":false,\"vv\":[0,300],\"top\":\"BUTTON.min-h-11 rounded-full border border-whit\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "composer input hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,256,237,300],\"hiddenScrolled\":false,\"vv\":[0,300],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-full bor\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Send hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[297,256,363,300],\"hiddenScrolled\":false,\"vv\":[0,300],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Minimize bbox never intersects readable text across scroll positions (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":42,\"minTexts\":8,\"minimize\":[266,4,363,48],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace guided+pending",
+    "name": "Confirm click resolves pending",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "Minimize hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[214,12,311,56],\"hiddenScrolled\":false,\"vv\":[0,667],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "composer input hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[16,611,286,655],\"hiddenScrolled\":false,\"vv\":[0,667],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-lg borde\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "Send hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[294,611,359,655],\"hiddenScrolled\":false,\"vv\":[0,667],\"top\":\"BUTTON.min-h-11 rounded-lg bg-relume-ink px-4 p\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "conversation log keeps usable height (full height)",
+    "pass": true,
+    "detail": "329"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "Minimize bbox never intersects readable text across scroll positions (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":8,\"minTexts\":21,\"minimize\":[214,12,311,56],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "Minimize hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[214,12,311,56],\"hiddenScrolled\":false,\"vv\":[0,300],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "composer input hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[16,244,286,288],\"hiddenScrolled\":false,\"vv\":[0,300],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-lg borde\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "Send hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[294,244,359,288],\"hiddenScrolled\":false,\"vv\":[0,300],\"top\":\"BUTTON.min-h-11 rounded-lg bg-relume-ink px-4 p\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "conversation log keeps usable height (keyboard open)",
+    "pass": true,
+    "detail": "72"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home chrome expanded",
+    "name": "Minimize bbox never intersects readable text across scroll positions (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":10,\"minTexts\":10,\"minimize\":[214,12,311,56],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Minimize hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[281,4,378,48],\"hiddenScrolled\":false,\"vv\":[0,844],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Confirm hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,696,90,740],\"hiddenScrolled\":false,\"vv\":[0,844],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Cancel hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[98,696,173,740],\"hiddenScrolled\":false,\"vv\":[0,844],\"top\":\"BUTTON.min-h-11 rounded-full border border-whit\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "composer input hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,765,252,809],\"hiddenScrolled\":false,\"vv\":[0,844],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-full bor\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Send hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[312,765,378,809],\"hiddenScrolled\":false,\"vv\":[0,844],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Minimize bbox never intersects readable text across scroll positions (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":2,\"minTexts\":32,\"minimize\":[281,4,378,48],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Minimize hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[281,4,378,48],\"hiddenScrolled\":false,\"vv\":[0,380],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Confirm hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,336,90,380],\"hiddenScrolled\":false,\"vv\":[0,380],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Cancel hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[98,336,173,380],\"hiddenScrolled\":false,\"vv\":[0,380],\"top\":\"BUTTON.min-h-11 rounded-full border border-whit\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "composer input hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,336,252,380],\"hiddenScrolled\":false,\"vv\":[0,380],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-full bor\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Send hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[312,336,378,380],\"hiddenScrolled\":false,\"vv\":[0,380],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Minimize bbox never intersects readable text across scroll positions (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":34,\"minTexts\":10,\"minimize\":[281,4,378,48],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace guided+pending",
+    "name": "Confirm click resolves pending",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "Minimize hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[229,12,326,56],\"hiddenScrolled\":false,\"vv\":[0,844],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "composer input hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[16,788,301,832],\"hiddenScrolled\":false,\"vv\":[0,844],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-lg borde\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "Send hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[309,788,374,832],\"hiddenScrolled\":false,\"vv\":[0,844],\"top\":\"BUTTON.min-h-11 rounded-lg bg-relume-ink px-4 p\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "conversation log keeps usable height (full height)",
+    "pass": true,
+    "detail": "453"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "Minimize bbox never intersects readable text across scroll positions (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":4,\"minTexts\":26,\"minimize\":[229,12,326,56],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "Minimize hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[229,12,326,56],\"hiddenScrolled\":false,\"vv\":[0,380],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "composer input hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[16,324,301,368],\"hiddenScrolled\":false,\"vv\":[0,380],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-lg borde\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "Send hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[309,324,374,368],\"hiddenScrolled\":false,\"vv\":[0,380],\"top\":\"BUTTON.min-h-11 rounded-lg bg-relume-ink px-4 p\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "conversation log keeps usable height (keyboard open)",
+    "pass": true,
+    "detail": "128"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home chrome expanded",
+    "name": "Minimize bbox never intersects readable text across scroll positions (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":10,\"minTexts\":15,\"minimize\":[229,12,326,56],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Minimize hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[321,4,418,48],\"hiddenScrolled\":false,\"vv\":[0,932],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Confirm hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,784,90,828],\"hiddenScrolled\":false,\"vv\":[0,932],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Cancel hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[98,784,173,828],\"hiddenScrolled\":false,\"vv\":[0,932],\"top\":\"BUTTON.min-h-11 rounded-full border border-whit\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "composer input hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,853,292,897],\"hiddenScrolled\":false,\"vv\":[0,932],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-full bor\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Send hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[352,853,418,897],\"hiddenScrolled\":false,\"vv\":[0,932],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Minimize bbox never intersects readable text across scroll positions (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":2,\"minTexts\":32,\"minimize\":[321,4,418,48],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Minimize hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[321,4,418,48],\"hiddenScrolled\":false,\"vv\":[0,419],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Confirm hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,375,90,419],\"hiddenScrolled\":false,\"vv\":[0,419],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Cancel hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[98,375,173,419],\"hiddenScrolled\":false,\"vv\":[0,419],\"top\":\"BUTTON.min-h-11 rounded-full border border-whit\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "composer input hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[12,375,292,419],\"hiddenScrolled\":false,\"vv\":[0,419],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-full bor\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Send hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[352,375,418,419],\"hiddenScrolled\":false,\"vv\":[0,419],\"top\":\"BUTTON.min-h-11 rounded-full bg-relume-accent p\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Minimize bbox never intersects readable text across scroll positions (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":30,\"minTexts\":13,\"minimize\":[321,4,418,48],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace guided+pending",
+    "name": "Confirm click resolves pending",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "Minimize hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[269,12,366,56],\"hiddenScrolled\":false,\"vv\":[0,932],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "composer input hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[16,876,341,920],\"hiddenScrolled\":false,\"vv\":[0,932],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-lg borde\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "Send hit-testable (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[349,876,414,920],\"hiddenScrolled\":false,\"vv\":[0,932],\"top\":\"BUTTON.min-h-11 rounded-lg bg-relume-ink px-4 p\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "conversation log keeps usable height (full height)",
+    "pass": true,
+    "detail": "525"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "Minimize bbox never intersects readable text across scroll positions (full height)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":2,\"minTexts\":23,\"minimize\":[269,12,366,56],\"overlaps\":[]}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "Minimize hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[269,12,366,56],\"hiddenScrolled\":false,\"vv\":[0,419],\"top\":\"BUTTON.inline-flex min-h-11 items-center gap-1.\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "composer input hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[16,363,341,407],\"hiddenScrolled\":false,\"vv\":[0,419],\"top\":\"INPUT.min-h-11 min-w-0 flex-1 rounded-lg borde\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "Send hit-testable (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"rect\":[349,363,414,407],\"hiddenScrolled\":false,\"vv\":[0,419],\"top\":\"BUTTON.min-h-11 rounded-lg bg-relume-ink px-4 p\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "conversation log keeps usable height (keyboard open)",
+    "pass": true,
+    "detail": "155"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home chrome expanded",
+    "name": "Minimize bbox never intersects readable text across scroll positions (keyboard open)",
+    "pass": true,
+    "detail": "{\"ok\":true,\"positions\":10,\"minTexts\":15,\"minimize\":[269,12,366,56],\"overlaps\":[]}"
+  }
+]

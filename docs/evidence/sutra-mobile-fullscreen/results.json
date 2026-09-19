@@ -1,0 +1,968 @@
+[
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "panel fills viewport",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":320,\"bottom\":640,\"width\":320,\"height\":640}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "body scroll locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "input font >=16px (no iOS zoom)",
+    "pass": true,
+    "detail": "16"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "message region gets >=45% of viewport",
+    "pass": true,
+    "detail": "457 of 640"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "composer inside viewport",
+    "pass": true,
+    "detail": "{\"top\":584,\"left\":16,\"right\":230.515625,\"bottom\":628,\"width\":214.515625,\"height\":44}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "long token wraps (no horizontal scroll in log)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "background page does not scroll while open",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "chrome toggle flips aria-expanded",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "minimize returns to labelled launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "launcher within viewport, >=44px tall",
+    "pass": true,
+    "detail": "{\"x\":193.9375,\"y\":568,\"width\":110.0625,\"height\":48}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "conversation preserved after reopen",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "home-concierge",
+    "name": "Escape minimizes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace",
+    "name": "sheet fills viewport",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"width\":320,\"height\":640,\"h\":640,\"w\":320,\"lock\":\"hidden\"}"
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace",
+    "name": "body scroll locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace",
+    "name": "guided questionnaire collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace",
+    "name": "Tab focus trapped inside sheet",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace",
+    "name": "minimize returns focus to header SUTRA launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace",
+    "name": "launcher still visible after minimize",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-320",
+    "surface": "workspace",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "panel fills viewport",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":375,\"bottom\":667,\"width\":375,\"height\":667}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "body scroll locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "input font >=16px (no iOS zoom)",
+    "pass": true,
+    "detail": "16"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "message region gets >=45% of viewport",
+    "pass": true,
+    "detail": "484 of 667"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "composer inside viewport",
+    "pass": true,
+    "detail": "{\"top\":611,\"left\":16,\"right\":285.515625,\"bottom\":655,\"width\":269.515625,\"height\":44}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "long token wraps (no horizontal scroll in log)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "background page does not scroll while open",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "chrome toggle flips aria-expanded",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "minimize returns to labelled launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "launcher within viewport, >=44px tall",
+    "pass": true,
+    "detail": "{\"x\":248.9375,\"y\":595,\"width\":110.0625,\"height\":48}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "conversation preserved after reopen",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "home-concierge",
+    "name": "Escape minimizes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace",
+    "name": "sheet fills viewport",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"width\":375,\"height\":667,\"h\":667,\"w\":375,\"lock\":\"hidden\"}"
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace",
+    "name": "body scroll locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace",
+    "name": "guided questionnaire collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace",
+    "name": "Tab focus trapped inside sheet",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace",
+    "name": "minimize returns focus to header SUTRA launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace",
+    "name": "launcher still visible after minimize",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-375",
+    "surface": "workspace",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "panel fills viewport",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":390,\"bottom\":844,\"width\":390,\"height\":844}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "body scroll locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "input font >=16px (no iOS zoom)",
+    "pass": true,
+    "detail": "16"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "message region gets >=45% of viewport",
+    "pass": true,
+    "detail": "661 of 844"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "composer inside viewport",
+    "pass": true,
+    "detail": "{\"top\":788,\"left\":16,\"right\":300.515625,\"bottom\":832,\"width\":284.515625,\"height\":44}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "long token wraps (no horizontal scroll in log)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "background page does not scroll while open",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "chrome toggle flips aria-expanded",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "minimize returns to labelled launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "launcher within viewport, >=44px tall",
+    "pass": true,
+    "detail": "{\"x\":263.9375,\"y\":772,\"width\":110.0625,\"height\":48}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "conversation preserved after reopen",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "home-concierge",
+    "name": "Escape minimizes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace",
+    "name": "sheet fills viewport",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"width\":390,\"height\":844,\"h\":844,\"w\":390,\"lock\":\"hidden\"}"
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace",
+    "name": "body scroll locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace",
+    "name": "guided questionnaire collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace",
+    "name": "Tab focus trapped inside sheet",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace",
+    "name": "minimize returns focus to header SUTRA launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace",
+    "name": "launcher still visible after minimize",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-390",
+    "surface": "workspace",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "panel fills viewport",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":430,\"bottom\":932,\"width\":430,\"height\":932}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "body scroll locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "input font >=16px (no iOS zoom)",
+    "pass": true,
+    "detail": "16"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "message region gets >=45% of viewport",
+    "pass": true,
+    "detail": "749 of 932"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "composer inside viewport",
+    "pass": true,
+    "detail": "{\"top\":876,\"left\":16,\"right\":340.515625,\"bottom\":920,\"width\":324.515625,\"height\":44}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "long token wraps (no horizontal scroll in log)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "background page does not scroll while open",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "chrome toggle flips aria-expanded",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "minimize returns to labelled launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "launcher within viewport, >=44px tall",
+    "pass": true,
+    "detail": "{\"x\":303.9375,\"y\":860,\"width\":110.0625,\"height\":48}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "conversation preserved after reopen",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "home-concierge",
+    "name": "Escape minimizes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace",
+    "name": "sheet fills viewport",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"width\":430,\"height\":932,\"h\":932,\"w\":430,\"lock\":\"hidden\"}"
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace",
+    "name": "body scroll locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace",
+    "name": "guided questionnaire collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace",
+    "name": "Tab focus trapped inside sheet",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace",
+    "name": "minimize returns focus to header SUTRA launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace",
+    "name": "launcher still visible after minimize",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "phone-430",
+    "surface": "workspace",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "floating panel (not fullscreen)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "body scroll not locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "composer inside viewport",
+    "pass": true,
+    "detail": "{\"top\":943,\"left\":409,\"right\":653.515625,\"bottom\":987,\"width\":244.515625,\"height\":44}"
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "long token wraps (no horizontal scroll in log)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "background page does not scroll while open",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "chrome toggle flips aria-expanded",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "minimize returns to labelled launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "launcher within viewport, >=44px tall",
+    "pass": true,
+    "detail": "{\"x\":633.9375,\"y\":952,\"width\":110.0625,\"height\":48}"
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "conversation preserved after reopen",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "home-concierge",
+    "name": "Escape minimizes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "tablet-768",
+    "surface": "workspace",
+    "name": "tablet keeps side sheet",
+    "pass": true,
+    "detail": "{\"top\":170,\"left\":416,\"width\":352,\"height\":854,\"h\":1024,\"w\":768,\"lock\":\"\"}"
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "floating panel (not fullscreen)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "body scroll not locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "composer inside viewport",
+    "pass": true,
+    "detail": "{\"top\":687,\"left\":1007,\"right\":1251.515625,\"bottom\":731,\"width\":244.515625,\"height\":44}"
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "long token wraps (no horizontal scroll in log)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "background page does not scroll while open",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "chrome toggle flips aria-expanded",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "minimize returns to labelled launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "body scroll restored",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "launcher within viewport, >=44px tall",
+    "pass": true,
+    "detail": "{\"x\":1231.9375,\"y\":696,\"width\":110.0625,\"height\":48}"
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "conversation preserved after reopen",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "home-concierge",
+    "name": "Escape minimizes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "desktop-1366",
+    "surface": "workspace",
+    "name": "desktop stays docked (static column)",
+    "pass": true,
+    "detail": "static"
+  }
+]

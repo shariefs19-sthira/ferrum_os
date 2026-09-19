@@ -8,6 +8,7 @@ import { AGENT_MODELS, CONSTRUCTION_CONNECTOR_GROUPS, canRunModel, type AgentMod
 import { productFeatureRegistry, productLabels, type ProductFeature } from "../lib/productFeatureRegistry"
 import type { CockpitProduct } from "./workspace/ProductCockpitPreview"
 import type { UserRegionProfile } from "../lib/regions/regionPolicy"
+import { trapTabKey, useBodyScrollLock, useMaxWidthQuery, useVisualViewportBox } from "../lib/sutra/mobileSheet"
 
 type Message = {
   role: "user" | "assistant"
@@ -54,6 +55,62 @@ export default function Concierge() {
   const [activeFeature, setActiveFeature] = useState<{ productId: CockpitProduct; feature: ProductFeature } | null>(null)
   const [regionProfile, setRegionProfile] = useState<UserRegionProfile | null>(null)
   const [cockpitPresent, setCockpitPresent] = useState(false)
+  // Phones get a full-screen sheet with collapsible secondary chrome; sm+
+  // keeps the floating panel. `chromeTouched` stops a viewport change from
+  // overriding a section the user already opened or collapsed themselves.
+  const isPhone = useMaxWidthQuery()
+  const viewportBox = useVisualViewportBox(open && isPhone)
+  const [chromeOpen, setChromeOpen] = useState(true)
+  const [contextOpen, setContextOpen] = useState(true)
+  const chromeTouched = useRef(false)
+  const restoreLauncherFocus = useRef(false)
+  const messagesRef = useRef<HTMLDivElement>(null)
+  useBodyScrollLock(open && isPhone)
+
+  useEffect(() => {
+    if (chromeTouched.current) return
+    setChromeOpen(!isPhone)
+    setContextOpen(!isPhone)
+  }, [isPhone])
+
+  const minimize = () => {
+    restoreLauncherFocus.current = true
+    setOpen(false)
+  }
+
+  useEffect(() => {
+    if (open || !restoreLauncherFocus.current) return
+    restoreLauncherFocus.current = false
+    launcherRef.current?.focus()
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault()
+        minimize()
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [open])
+
+  useEffect(() => {
+    const region = messagesRef.current
+    if (open && region) region.scrollTop = region.scrollHeight
+  }, [open, messages.length, showConnections])
+
+  const toggleChrome = () => {
+    chromeTouched.current = true
+    if (chromeOpen) setShowConnections(false)
+    setChromeOpen((current) => !current)
+  }
+  const toggleContext = () => {
+    chromeTouched.current = true
+    setContextOpen((current) => !current)
+  }
+  const selectedModelLabel = AGENT_MODELS.find((model) => model.id === selectedModel)?.label ?? "SUTRA"
 
   useEffect(() => {
     const syncCockpitPresence = () => {
@@ -177,11 +234,15 @@ export default function Concierge() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open SUTRA"
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-relume-ink text-white shadow-lg transition hover:opacity-90"
+        aria-haspopup="dialog"
+        aria-expanded={false}
+        className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-50 flex h-12 items-center gap-2 rounded-full bg-relume-ink px-4 text-sm font-semibold tracking-[0.08em] text-white shadow-lg transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent sm:bottom-6 sm:right-6"
+        data-sutra-launcher
       >
-        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8-1.5 0-2.9-.32-4.14-.89L3 20l1.06-3.68A7.94 7.94 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
+        SUTRA
       </button>
       )}
     <aside
@@ -190,59 +251,90 @@ export default function Concierge() {
       aria-label="SUTRA AI assistant"
       aria-modal={open ? "true" : "false"}
       tabIndex={-1}
-      className={`${open ? "flex" : "hidden"} fixed bottom-6 right-6 z-50 h-[28rem] max-h-dvh-safe-3rem w-[22rem] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-lg border border-relume-border bg-relume-surface shadow-xl`}
+      onKeyDown={(event) => { if (open) trapTabKey(event, panelRef.current) }}
+      style={open && isPhone && viewportBox ? { top: viewportBox.top, height: viewportBox.height, bottom: "auto" } : undefined}
+      className={`${open ? "flex" : "hidden"} fixed inset-0 z-50 flex-col overflow-hidden overscroll-contain bg-relume-surface outline-none sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[28rem] sm:max-h-[calc(100dvh-3rem)] sm:w-[22rem] sm:max-w-[calc(100vw-3rem)] sm:rounded-lg sm:border sm:border-relume-border sm:shadow-xl`}
       data-sutra
+      data-sutra-fullscreen={open && isPhone ? "true" : "false"}
     >
-      <div className="flex items-center justify-between border-b border-relume-border px-4 py-3">
-        <div>
+      <div className="flex items-center justify-between gap-2 border-b border-relume-border pb-3 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))]">
+        <div className="min-w-0">
           <span className="block text-sm font-semibold tracking-[0.12em] text-relume-ink">SUTRA</span>
           <span className="mt-1 block text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Ferrum OS AI agent</span>
         </div>
+        <div className="flex shrink-0 items-center gap-1">
+          <button
+            type="button"
+            onClick={minimize}
+            aria-label="Minimize SUTRA"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-relume-border px-3 text-xs font-semibold text-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent"
+            data-sutra-minimize
+          >
+            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeWidth={2.5} d="M5 19h14" /></svg>
+            Minimize
+          </button>
+          <button
+            type="button"
+            onClick={minimize}
+            aria-label="Close SUTRA"
+            className="inline-flex h-11 w-11 items-center justify-center text-relume-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <div className="border-b border-relume-border pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] max-sm:max-h-[30%] max-sm:overflow-y-auto max-sm:overscroll-contain" data-sutra-chrome data-chrome-open={chromeOpen}>
         <button
           type="button"
-          onClick={() => setOpen(false)}
-          aria-label="Close SUTRA"
-          className="inline-flex h-11 w-11 items-center justify-center text-relume-ink"
+          onClick={toggleChrome}
+          aria-expanded={chromeOpen}
+          aria-controls="sutra-chrome-panel"
+          className="flex min-h-11 w-full items-center justify-between gap-2 text-left text-xs font-semibold text-relume-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent"
         >
-          ✕
+          <span className="min-w-0 truncate">Model &amp; connections <span className="font-normal text-relume-muted">· {selectedModelLabel}</span></span>
+          <span aria-hidden="true" className="shrink-0 text-relume-muted">{chromeOpen ? "▴" : "▾"}</span>
         </button>
+        <div id="sutra-chrome-panel" hidden={!chromeOpen} className="max-h-[40dvh] overflow-y-auto pb-3">
+          <label className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">
+            Agent model
+            <select value={selectedModel} onChange={(event) => setSelectedModel(event.target.value as AgentModelId)} className="mt-1 min-h-11 w-full rounded-relume border border-relume-border bg-white px-3 py-2 text-base font-semibold normal-case tracking-normal text-relume-command sm:text-sm" aria-label="Agent model">
+              {AGENT_MODELS.map((model) => <option key={model.id} value={model.id}>{model.label} · {model.stateLabel}</option>)}
+            </select>
+          </label>
+          <div className="mt-2 flex items-center justify-between gap-2">
+            <p className="text-[10px] leading-4 text-relume-muted">Ferrum permissions govern every model and tool action.</p>
+            <button type="button" onClick={() => setShowConnections((current) => !current)} className="min-h-11 shrink-0 rounded-full border border-relume-border px-3 text-xs font-semibold text-relume-command" aria-expanded={showConnections}>Connections</button>
+          </div>
+          <div className="mt-2 rounded-relume border border-relume-border bg-relume-surface-secondary px-3 py-2" data-region-profile>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-relume-muted">Experience region</p>
+            <p className="mt-1 text-xs font-semibold text-relume-command">{regionProfile ? `${regionProfile.label} · ${regionProfile.readiness}` : "Detecting coarse region…"}</p>
+            <p className="mt-1 text-[10px] leading-4 text-relume-muted">User location personalizes discovery. Project location governs design and compliance.</p>
+          </div>
+        </div>
       </div>
 
-      <div className="border-b border-relume-border px-4 py-3">
-        <label className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">
-          Agent model
-          <select value={selectedModel} onChange={(event) => setSelectedModel(event.target.value as AgentModelId)} className="mt-1 w-full rounded-relume border border-relume-border bg-white px-3 py-2 text-sm font-semibold normal-case tracking-normal text-relume-command" aria-label="Agent model">
-            {AGENT_MODELS.map((model) => <option key={model.id} value={model.id}>{model.label} · {model.stateLabel}</option>)}
-          </select>
-        </label>
-        <div className="mt-2 flex items-center justify-between gap-2">
-          <p className="text-[10px] leading-4 text-relume-muted">Ferrum permissions govern every model and tool action.</p>
-          <button type="button" onClick={() => setShowConnections((current) => !current)} className="min-h-11 shrink-0 rounded-full border border-relume-border px-3 text-xs font-semibold text-relume-command" aria-expanded={showConnections}>Connections</button>
-        </div>
-        <div className="mt-2 rounded-relume border border-relume-border bg-relume-surface-secondary px-3 py-2" data-region-profile>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-relume-muted">Experience region</p>
-          <p className="mt-1 text-xs font-semibold text-relume-command">{regionProfile ? `${regionProfile.label} · ${regionProfile.readiness}` : "Detecting coarse region…"}</p>
-          <p className="mt-1 text-[10px] leading-4 text-relume-muted">User location personalizes discovery. Project location governs design and compliance.</p>
-        </div>
-      </div>
-
-      {showConnections ? <div className="flex-1 overflow-y-auto px-4 py-3" data-sutra-connections>
+      {showConnections ? <div ref={messagesRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-3" data-sutra-connections>
         <div className="rounded-relume border border-relume-border bg-relume-surface-secondary p-3">
           <p className="text-xs font-semibold text-relume-command">Governed connector catalogue</p>
           <p className="mt-1 text-[10px] leading-4 text-relume-muted">Catalogue entries are connection targets, not claims of active integration. Each requires an official API, user authorization, and a Ferrum permission profile.</p>
         </div>
         <ul className="mt-3 space-y-3">{CONSTRUCTION_CONNECTOR_GROUPS.map((connector) => <li key={connector.group} className="border-b border-relume-border pb-3"><p className="text-xs font-semibold text-relume-command">{connector.group}</p><p className="mt-1 text-[11px] leading-5 text-relume-muted">{connector.items}</p></li>)}</ul>
-      </div> : <div className="flex-1 space-y-3 overflow-y-auto px-4 py-3" aria-live="polite">
-        {(workspaceContext || activeFeature) && <div className="rounded-relume border border-relume-border bg-relume-surface-secondary p-3" data-sutra-context>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Working context</p>
-          <p className="mt-1 text-sm font-semibold text-relume-command">{activeFeature ? productLabels[activeFeature.productId] : workspaceContext?.label}</p>
-          {activeFeature && <div className="mt-2 rounded-relume border border-relume-border bg-white p-2"><p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Selected tool</p><p className="mt-1 text-xs font-semibold text-relume-command">{activeFeature.feature.title}</p></div>}
-          <button type="button" onClick={() => activeFeature ? handleSend(`Explain ${activeFeature.feature.title} in ${productLabels[activeFeature.productId]}`) : handleSend(`Explain all features in ${workspaceContext?.label}`)} className="mt-2 min-h-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command">{activeFeature ? `Explain ${activeFeature.feature.title}` : `Explain all ${workspaceContext?.label} features`}</button>
+      </div> : <div ref={messagesRef} className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain px-4 py-3" role="log" aria-live="polite" aria-label="Conversation" tabIndex={0} data-sutra-messages>
+        {(workspaceContext || activeFeature) && <div className="rounded-relume border border-relume-border bg-relume-surface-secondary px-3" data-sutra-context data-context-open={contextOpen}>
+          <button type="button" onClick={toggleContext} aria-expanded={contextOpen} aria-controls="sutra-context-body" className="flex min-h-11 w-full items-center justify-between gap-2 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent">
+            <span className="min-w-0"><span className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Working context</span><span className="block truncate text-sm font-semibold text-relume-command">{activeFeature ? productLabels[activeFeature.productId] : workspaceContext?.label}</span></span>
+            <span aria-hidden="true" className="shrink-0 text-relume-muted">{contextOpen ? "▴" : "▾"}</span>
+          </button>
+          <div id="sutra-context-body" hidden={!contextOpen} className="pb-3">
+            {activeFeature && <div className="rounded-relume border border-relume-border bg-white p-2"><p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Selected tool</p><p className="mt-1 text-xs font-semibold text-relume-command">{activeFeature.feature.title}</p></div>}
+            <button type="button" onClick={() => activeFeature ? handleSend(`Explain ${activeFeature.feature.title} in ${productLabels[activeFeature.productId]}`) : handleSend(`Explain all features in ${workspaceContext?.label}`)} className="mt-2 min-h-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command">{activeFeature ? `Explain ${activeFeature.feature.title}` : `Explain all ${workspaceContext?.label} features`}</button>
+          </div>
         </div>}
         {messages.map((m, i) => (
           <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
             <span
-              className={`inline-block max-w-[85%] rounded-lg px-3 py-2 text-sm ${
+              className={`inline-block max-w-[85%] whitespace-pre-wrap break-words rounded-lg px-3 py-2 text-left text-sm ${
                 m.role === "user" ? "bg-relume-ink text-white" : "border border-relume-border text-relume-ink"
               }`}
             >
@@ -310,18 +402,20 @@ export default function Concierge() {
         ))}
       </div>}
 
-      <div className="border-t border-relume-border px-4 py-3">
+      <div className="border-t border-relume-border bg-relume-surface pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pt-3">
         <form onSubmit={handleSubmit} className="flex gap-2">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about a product or tool..."
             aria-label="Message"
-            className="min-w-0 flex-1 rounded-lg border border-relume-border px-3 py-2 text-sm"
+            enterKeyHint="send"
+            autoComplete="off"
+            className="min-h-11 min-w-0 flex-1 rounded-lg border border-relume-border px-3 py-2 text-base sm:text-sm"
           />
           <button
             type="submit"
-            className="rounded-lg bg-relume-ink px-4 py-2 text-sm font-medium text-white"
+            className="min-h-11 rounded-lg bg-relume-ink px-4 py-2 text-sm font-medium text-white"
           >
             Send
           </button>

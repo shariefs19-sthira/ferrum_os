@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
-import { describe, expect, it, vi, beforeEach } from "vitest"
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest"
 import Concierge from "./Concierge"
 import { clearFeedback, getFeedback } from "../lib/ai/feedback"
 
@@ -111,6 +111,83 @@ describe("Concierge", () => {
     expect(screen.queryByRole("button", { name: "Pricing" })).toBeNull()
     expect(screen.queryByRole("button", { name: "Try a tool" })).toBeNull()
     expect(screen.queryByRole("button", { name: "Talk to someone" })).toBeNull()
+  })
+
+  it("minimizes to the persistent launcher, keeps the conversation, and restores focus", async () => {
+    render(<Concierge />)
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    fireEvent.change(screen.getByRole("textbox", { name: "Message" }), { target: { value: "how often are the adopt hold drop stances reviewed" } })
+    fireEvent.click(screen.getByRole("button", { name: "Send" }))
+    await screen.findByText(/Sources?:/)
+
+    fireEvent.click(screen.getByRole("button", { name: "Minimize SUTRA" }))
+    expect(screen.queryByRole("dialog", { name: "SUTRA AI assistant" })).toBeNull()
+    const launcher = screen.getByRole("button", { name: "Open SUTRA" })
+    expect(launcher.textContent).toContain("SUTRA")
+    await waitFor(() => expect(document.activeElement).toBe(launcher))
+
+    fireEvent.click(launcher)
+    expect(await screen.findByText(/Sources?:/)).toBeTruthy()
+  })
+
+  it("minimizes on Escape", () => {
+    render(<Concierge />)
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    fireEvent.keyDown(document, { key: "Escape" })
+    expect(screen.queryByRole("dialog", { name: "SUTRA AI assistant" })).toBeNull()
+    expect(document.activeElement).toBe(screen.getByRole("button", { name: "Open SUTRA" }))
+  })
+
+  it("collapses and re-expands the model and connections chrome with accessible state", () => {
+    render(<Concierge />)
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    const toggle = screen.getByRole("button", { name: /Model & connections/ })
+    expect(toggle.getAttribute("aria-expanded")).toBe("true")
+    fireEvent.click(toggle)
+    expect(toggle.getAttribute("aria-expanded")).toBe("false")
+    expect(screen.queryByRole("combobox", { name: "Agent model" })).toBeNull()
+    expect(document.getElementById("sutra-chrome-panel")?.hasAttribute("hidden")).toBe(true)
+    fireEvent.click(toggle)
+    expect(screen.getByRole("combobox", { name: "Agent model" })).toBeTruthy()
+  })
+
+  describe("on a phone viewport", () => {
+    beforeEach(() => {
+      vi.stubGlobal("matchMedia", () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
+    })
+    afterEach(() => {
+      vi.unstubAllGlobals()
+      document.body.style.overflow = ""
+    })
+
+    it("opens full-screen, collapses secondary chrome by default, and locks then restores background scroll", async () => {
+      render(<Concierge />)
+      fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+      const dialog = await screen.findByRole("dialog", { name: "SUTRA AI assistant" })
+      expect(dialog.getAttribute("data-sutra-fullscreen")).toBe("true")
+      expect(dialog.className).toContain("fixed inset-0")
+      await waitFor(() => expect(screen.getByRole("button", { name: /Model & connections/ }).getAttribute("aria-expanded")).toBe("false"))
+      expect(screen.getByRole("textbox", { name: "Message" })).toBeTruthy()
+      expect(document.body.style.overflow).toBe("hidden")
+
+      fireEvent.click(screen.getByRole("button", { name: "Minimize SUTRA" }))
+      expect(document.body.style.overflow).toBe("")
+    })
+
+    it("collapses the working-context card by default and expands it on demand", async () => {
+      render(<Concierge />)
+      window.dispatchEvent(new CustomEvent("ferrum:sutra-context", { detail: {
+        id: "landintel", label: "LandIntel", lens: "Decide whether a parcel is viable.",
+        persona: "Land buyer", evidenceState: "INDICATIVE", provenance: "Seeded ULPIN source.",
+        outputs: ["parcel record"], controls: ["ULPIN lookup"],
+      } }))
+      fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+      const toggle = await screen.findByRole("button", { name: /Working context/ })
+      await waitFor(() => expect(toggle.getAttribute("aria-expanded")).toBe("false"))
+      expect(screen.queryByRole("button", { name: "Explain all LandIntel features" })).toBeNull()
+      fireEvent.click(toggle)
+      expect(screen.getByRole("button", { name: "Explain all LandIntel features" })).toBeTruthy()
+    })
   })
 
   it("keeps the cockpit canvas free of the global float and opens from the cockpit event", async () => {
