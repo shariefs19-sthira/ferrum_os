@@ -1,7 +1,7 @@
 {
  "baseUrl": "http://127.0.0.1:4178",
- "at": "2026-09-19T12:05:52.497Z",
- "ms": 468759,
+ "at": "2026-09-19T12:25:33.924Z",
+ "ms": 397637,
  "matrix": {
   "products": [
    "Land",
@@ -29,7 +29,6 @@
   "cases": 84,
   "passed": 84,
   "failed": 0,
-  "knownOpenFailures": 60,
   "controlsChecked": 488
  },
  "cases": [
@@ -39,11 +38,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "controls",
     "tool",
@@ -65,11 +59,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "shells",
     "controls",
@@ -92,11 +81,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -118,11 +102,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -144,11 +123,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -170,11 +144,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -196,10 +165,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Evidence status: INDICATIVE]; (242,89) -> span[Evidence status: INDICATIVE]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "controls",
     "tool",
@@ -221,10 +186,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Capability availability: LIMITED PREVIEW]; (242,89) -> span[Capability availability: LIMITED PREVIEW]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "shells",
     "controls",
@@ -247,10 +208,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Evidence status: INDICATIVE]; (242,89) -> span[Evidence status: INDICATIVE]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -272,10 +229,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Evidence status: INDICATIVE]; (242,89) -> span[Evidence status: INDICATIVE]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -297,10 +250,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Capability availability: LIMITED PREVIEW]; (242,89) -> span[Capability availability: LIMITED PREVIEW]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -322,10 +271,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Capability availability: ROADMAP]; (242,89) -> span[Capability availability: ROADMAP]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -347,7 +292,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "tool",
@@ -369,7 +313,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -392,7 +335,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -414,7 +356,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -436,7 +377,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -458,7 +398,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -480,7 +419,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "tool",
@@ -502,7 +440,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -525,7 +462,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -547,7 +483,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -569,7 +504,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -591,7 +525,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -613,7 +546,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "tool",
@@ -635,7 +567,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -658,7 +589,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -680,7 +610,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -702,7 +631,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -724,7 +652,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -746,7 +673,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "tool",
@@ -768,7 +694,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -791,7 +716,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -813,7 +737,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -835,7 +758,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -857,7 +779,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -879,7 +800,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "territory",
@@ -901,7 +821,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -924,7 +843,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "territory",
     "sutra",
@@ -946,7 +864,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "territory",
     "sutra",
@@ -968,7 +885,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "territory",
     "sutra",
@@ -990,7 +906,6 @@
    "cookie": "accepted",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "territory",
     "sutra",
@@ -1012,11 +927,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "controls",
     "tool",
@@ -1038,11 +948,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "shells",
     "controls",
@@ -1065,11 +970,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -1091,11 +991,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -1117,11 +1012,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -1143,11 +1033,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
-    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -1169,10 +1054,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Evidence status: INDICATIVE]; (242,89) -> span[Evidence status: INDICATIVE]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "controls",
     "tool",
@@ -1194,10 +1075,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Capability availability: LIMITED PREVIEW]; (242,89) -> span[Capability availability: LIMITED PREVIEW]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "shells",
     "controls",
@@ -1220,10 +1097,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Evidence status: INDICATIVE]; (242,89) -> span[Evidence status: INDICATIVE]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -1245,10 +1118,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Evidence status: INDICATIVE]; (242,89) -> span[Evidence status: INDICATIVE]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -1270,10 +1139,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Capability availability: LIMITED PREVIEW]; (242,89) -> span[Capability availability: LIMITED PREVIEW]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -1295,10 +1160,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [
-    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Capability availability: ROADMAP]; (242,89) -> span[Capability availability: ROADMAP]",
-    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
-   ],
    "checked": [
     "tool",
     "territory",
@@ -1320,7 +1181,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "tool",
@@ -1342,7 +1202,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -1365,7 +1224,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1387,7 +1245,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1409,7 +1266,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1431,7 +1287,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1453,7 +1308,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "tool",
@@ -1475,7 +1329,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -1498,7 +1351,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1520,7 +1372,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1542,7 +1393,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1564,7 +1414,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1586,7 +1435,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "tool",
@@ -1608,7 +1456,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -1631,7 +1478,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1653,7 +1499,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1675,7 +1520,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1697,7 +1541,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1719,7 +1562,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "tool",
@@ -1741,7 +1583,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -1764,7 +1605,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1786,7 +1626,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1808,7 +1647,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1830,7 +1668,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "tool",
     "territory",
@@ -1852,7 +1689,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "controls",
     "territory",
@@ -1874,7 +1710,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "shells",
     "controls",
@@ -1897,7 +1732,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "territory",
     "sutra",
@@ -1919,7 +1753,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "territory",
     "sutra",
@@ -1941,7 +1774,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "territory",
     "sutra",
@@ -1963,7 +1795,6 @@
    "cookie": "shown",
    "ok": true,
    "failures": [],
-   "knownOpen": [],
    "checked": [
     "territory",
     "sutra",
