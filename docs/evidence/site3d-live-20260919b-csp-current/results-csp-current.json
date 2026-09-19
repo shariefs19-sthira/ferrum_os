@@ -1,0 +1,445 @@
+{
+  "generatedAt": "2026-09-19T04:20:53.849Z",
+  "cspMode": "current",
+  "base": "http://127.0.0.1:4391/products/landintel",
+  "results": [
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 320,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 320,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 390,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 390,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 768,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 768,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 1024,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 1024,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 1440,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 1440,
+      "fellBackTo2d": true,
+      "notice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "unavailable (OpenFreeMap tiles blocked)",
+      "viewport": 390,
+      "after": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 126.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 422
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 717.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "unavailable (WebGL2 missing)",
+      "viewport": 390,
+      "after": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 126.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 422
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 717.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "3D context needs WebGL2, which this browser does not provide. The 2D plan stays available.",
+        "view3dDisabled": true
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "unavailable (OpenFreeMap tiles blocked)",
+      "viewport": 1440,
+      "after": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 139,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Connecting to 'https://tiles.openfreemap.org/styles/bright' violates the following Content Security Policy directive: \"connect-src 'self' https://ferrum-os.shariefsatyala.workers.dev https://cdn.jsdelivr.net https://api.razorpay.com https://checkout.razorpay.com https://cdn.razorpay.com https://lumb",
+        "Fetch API cannot load https://tiles.openfreemap.org/styles/bright. Refused to connect because it violates the document's Content Security Policy."
+      ]
+    },
+    {
+      "scenario": "unavailable (WebGL2 missing)",
+      "viewport": 1440,
+      "after": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 139,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "3D context needs WebGL2, which this browser does not provide. The 2D plan stays available.",
+        "view3dDisabled": true
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    }
+  ]
+}

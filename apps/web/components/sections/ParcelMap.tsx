@@ -72,7 +72,7 @@ export default function ParcelMap({ lat = 12.9716, lng = 77.5946, label = "Sampl
   }, [lat, lng, label])
 
   return (
-    <div className={`overflow-hidden rounded-lg border border-relume-border ${className}`} data-parcel-map-shell>
+    <div className={`overflow-hidden rounded-lg border border-relume-border ${className}`} data-parcel-map-shell data-map-view="2d">
       <div
         ref={containerRef}
         className="h-full w-full"

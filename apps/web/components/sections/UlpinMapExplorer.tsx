@@ -1,13 +1,19 @@
 "use client"
 
-import { useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import ParcelMap from './ParcelMap'
+import { detectWebGL2, failureMessage, type Map3dFailureReason } from './siteMap3dHelpers'
 import { ProvenanceStrip } from '../ProvenanceStrip'
 import SaveToWorkspaceButton from '../SaveToWorkspaceButton'
 import { writeParcelContext } from '../../lib/workspace/parcelContext'
 import type { PlotIntel } from '../../lib/parcelIntel/types'
 import { productFeatureRegistry } from '../../lib/productFeatureRegistry'
 
+// MapLibre (WebGL2) is code-split so the default 2D view never pays for it.
+const SiteMap3D = lazy(() => import('./SiteMap3D'))
+const MAP_CLASS = 'h-[min(70vh,48rem)] min-h-[32rem] border-0 min-[1600px]:h-[clamp(22rem,calc(100svh-27.5rem),32rem)] min-[1600px]:min-h-0'
+
+type MapView = '2d' | '3d'
 type Mode = 'ulpin' | 'pin' | 'coordinates' | 'place' | 'location' | 'survey'
 type Coordinates = { lat: number; lng: number }
 type Geocode = { display_name: string; lat: string; lon: string }
@@ -39,6 +45,12 @@ export default function UlpinMapExplorer() {
   const [matches, setMatches] = useState<Geocode[]>([])
   const [record, setRecord] = useState<ParcelRecord | null>(null)
   const [message, setMessage] = useState('SAMPLE LOCATION · Bengaluru reference centre — not a parcel.')
+  const [mapView, setMapView] = useState<MapView>('2d')
+  const [webgl2, setWebgl2] = useState<boolean | null>(null)
+  const [viewNotice, setViewNotice] = useState('')
+  useEffect(() => { setWebgl2(detectWebGL2()) }, [])
+  const chooseView = (next: MapView) => { setMapView(next); setViewNotice(next === '3d' ? '3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.' : '2D plan view · same selected point and marker.') }
+  const fallBackTo2d = (reason: Map3dFailureReason) => { setMapView('2d'); setViewNotice(failureMessage(reason)) }
   const commit = (next: ParcelRecord, nextMessage: string) => {
     setCenter(next.coordinates); setRecord(next); setMessage(nextMessage)
     writeParcelContext({ version: 1, method: next.ulpin ? 'ulpin' : mode, ulpin: next.ulpin, state: next.state, district: next.district, area_sqm: next.area_sqm, land_use: next.land_use, coordinates: next.coordinates, provenance: { source: next.source, vintage: new Date().toISOString().slice(0, 10), status: next.status } })
@@ -102,8 +114,20 @@ export default function UlpinMapExplorer() {
       <p id="parcel-finder-status" className="mt-3 min-h-10 text-xs leading-5 text-relume-muted" role="status" aria-live="polite">{message}</p>
     </div>
     <div className="relative" data-parcel-map-stage>
-      <ParcelMap lat={center.lat} lng={center.lng} zoom={record ? 13 : 11} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} className="h-[min(70vh,48rem)] min-h-[32rem] border-0 min-[1600px]:h-[clamp(22rem,calc(100svh-27.5rem),32rem)] min-[1600px]:min-h-0" />
-      {record && <div className="absolute inset-x-3 top-3 z-[500] max-h-[calc(100%-1.5rem)] overflow-y-auto rounded-relume border border-white/70 bg-white/75 p-3 backdrop-blur-md sm:left-auto sm:w-[min(30rem,calc(100%-1.5rem))]" data-ulpin-record-card data-map-overlay>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-relume-border bg-white px-3 py-2" data-map-view-toolbar>
+        <div role="group" aria-label="Map view" className="inline-flex rounded-full border border-relume-border p-0.5">
+          {(['2d', '3d'] as MapView[]).map((item) => <button key={item} type="button" onClick={() => chooseView(item)} aria-pressed={mapView === item} disabled={item === '3d' && webgl2 === false} data-map-view-option={item}
+            className={`min-h-11 min-w-[5.5rem] rounded-full px-4 text-xs font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink disabled:cursor-not-allowed disabled:opacity-50 ${mapView === item ? 'bg-relume-command text-white' : 'text-relume-command hover:bg-relume-surface-secondary'}`}>{item === '2d' ? '2D plan' : '3D context'}</button>)}
+        </div>
+        <p className="min-w-0 text-[11px] leading-4 text-relume-muted" data-selected-point>Selected point <strong className="font-semibold text-relume-command">{center.lat.toFixed(5)}, {center.lng.toFixed(5)}</strong>{record ? '' : ' · sample reference'}</p>
+      </div>
+      <p className="border-b border-relume-border bg-relume-surface-secondary px-3 py-1 text-[11px] leading-4 text-relume-muted empty:hidden" aria-live="polite" data-map-view-notice>{webgl2 === false && !viewNotice ? '3D context needs WebGL2, which this browser does not provide. The 2D plan stays available.' : viewNotice}</p>
+      {mapView === '3d'
+        ? <Suspense fallback={<p className={`flex items-center justify-center text-xs text-relume-muted ${MAP_CLASS}`} role="status">Loading 3D map…</p>}>
+          <SiteMap3D lat={center.lat} lng={center.lng} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} onUnavailable={fallBackTo2d} className={MAP_CLASS} />
+        </Suspense>
+        : <ParcelMap lat={center.lat} lng={center.lng} zoom={record ? 13 : 11} label={record ? message : 'SAMPLE LOCATION · Bengaluru reference centre, not a parcel'} onPinDrop={resolvePin} className={MAP_CLASS} />}
+      {record && <div className="border-t border-relume-border bg-white p-3 min-[1200px]:absolute min-[1200px]:right-3 min-[1200px]:top-28 min-[1200px]:z-[500] min-[1200px]:max-h-[calc(100%-8rem)] min-[1200px]:w-[min(26rem,40%)] min-[1200px]:overflow-y-auto min-[1200px]:rounded-relume min-[1200px]:border min-[1200px]:border-white/70 min-[1200px]:bg-white/80 min-[1200px]:backdrop-blur-md" data-ulpin-record-card data-map-overlay>
         <div className="min-w-0">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-muted">Selected location</p><p className="mt-1 text-xs font-medium">{record.district}</p></div>
