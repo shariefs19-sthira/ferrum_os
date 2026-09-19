@@ -1,0 +1,1153 @@
+{
+  "generatedAt": "2026-09-19T02:56:22.150Z",
+  "route": "/",
+  "countryInput": "IN",
+  "widths": [
+    320,
+    375,
+    390,
+    430,
+    768,
+    1024,
+    1366,
+    1440,
+    1920
+  ],
+  "failingWidths": 0,
+  "results": [
+    {
+      "width": 320,
+      "targets": [
+        {
+          "index": 0,
+          "x": 41,
+          "y": 569.3,
+          "width": 238,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 1,
+          "x": 41,
+          "y": 400.09,
+          "width": 238,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 2,
+          "x": 41,
+          "y": 704.89,
+          "width": 238,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 3,
+          "x": 41,
+          "y": 399.69,
+          "width": 238,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 4,
+          "x": 41,
+          "y": 704.48,
+          "width": 238,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        }
+      ],
+      "page": {
+        "docOverflowPx": 0,
+        "panelOverflowingElements": 0,
+        "panelSize": {
+          "width": 320,
+          "height": 2292
+        },
+        "nonblankCards": 5,
+        "statuses": [
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "cockpitPresent": true,
+        "userDeclaredCopy": true
+      },
+      "screenshotBytes": 131407,
+      "errors": [],
+      "violations": []
+    },
+    {
+      "width": 375,
+      "targets": [
+        {
+          "index": 0,
+          "x": 41,
+          "y": 504.13,
+          "width": 293,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 1,
+          "x": 41,
+          "y": 764.13,
+          "width": 293,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 2,
+          "x": 41,
+          "y": 400.13,
+          "width": 293,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 3,
+          "x": 41,
+          "y": 660.13,
+          "width": 293,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 4,
+          "x": 41,
+          "y": 400.13,
+          "width": 293,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        }
+      ],
+      "page": {
+        "docOverflowPx": 0,
+        "panelOverflowingElements": 0,
+        "panelSize": {
+          "width": 375,
+          "height": 1988
+        },
+        "nonblankCards": 5,
+        "statuses": [
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "cockpitPresent": true,
+        "userDeclaredCopy": true
+      },
+      "screenshotBytes": 129423,
+      "errors": [],
+      "violations": []
+    },
+    {
+      "width": 390,
+      "targets": [
+        {
+          "index": 0,
+          "x": 41,
+          "y": 504.13,
+          "width": 308,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 1,
+          "x": 41,
+          "y": 764.13,
+          "width": 308,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 2,
+          "x": 41,
+          "y": 400.13,
+          "width": 308,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 3,
+          "x": 41,
+          "y": 660.13,
+          "width": 308,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 4,
+          "x": 41,
+          "y": 400.13,
+          "width": 308,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        }
+      ],
+      "page": {
+        "docOverflowPx": 0,
+        "panelOverflowingElements": 0,
+        "panelSize": {
+          "width": 390,
+          "height": 1988
+        },
+        "nonblankCards": 5,
+        "statuses": [
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "cockpitPresent": true,
+        "userDeclaredCopy": true
+      },
+      "screenshotBytes": 130121,
+      "errors": [],
+      "violations": []
+    },
+    {
+      "width": 430,
+      "targets": [
+        {
+          "index": 0,
+          "x": 41,
+          "y": 484.13,
+          "width": 348,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 1,
+          "x": 41,
+          "y": 724.13,
+          "width": 348,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 2,
+          "x": 41,
+          "y": 400.13,
+          "width": 348,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 3,
+          "x": 41,
+          "y": 640.13,
+          "width": 348,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 4,
+          "x": 41,
+          "y": 400.13,
+          "width": 348,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        }
+      ],
+      "page": {
+        "docOverflowPx": 0,
+        "panelOverflowingElements": 0,
+        "panelSize": {
+          "width": 430,
+          "height": 1888
+        },
+        "nonblankCards": 5,
+        "statuses": [
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "cockpitPresent": true,
+        "userDeclaredCopy": true
+      },
+      "screenshotBytes": 128929,
+      "errors": [],
+      "violations": []
+    },
+    {
+      "width": 768,
+      "targets": [
+        {
+          "index": 0,
+          "x": 49,
+          "y": 515.53,
+          "width": 312,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 1,
+          "x": 407,
+          "y": 515.53,
+          "width": 312,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 2,
+          "x": 49,
+          "y": 775.53,
+          "width": 312,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 3,
+          "x": 407,
+          "y": 775.53,
+          "width": 312,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 4,
+          "x": 49,
+          "y": 427.53,
+          "width": 312,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        }
+      ],
+      "page": {
+        "docOverflowPx": 0,
+        "panelOverflowingElements": 0,
+        "panelSize": {
+          "width": 768,
+          "height": 1286
+        },
+        "nonblankCards": 5,
+        "statuses": [
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "cockpitPresent": true,
+        "userDeclaredCopy": true
+      },
+      "screenshotBytes": 119471,
+      "errors": [],
+      "violations": []
+    },
+    {
+      "width": 1024,
+      "targets": [
+        {
+          "index": 0,
+          "x": 452.19,
+          "y": 290.36,
+          "width": 238.41,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 1,
+          "x": 736.59,
+          "y": 288.36,
+          "width": 238.41,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 2,
+          "x": 452.19,
+          "y": 593.16,
+          "width": 238.41,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 3,
+          "x": 736.59,
+          "y": 593.16,
+          "width": 238.41,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 4,
+          "x": 452.19,
+          "y": 855.95,
+          "width": 238.41,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        }
+      ],
+      "page": {
+        "docOverflowPx": 0,
+        "panelOverflowingElements": 0,
+        "panelSize": {
+          "width": 1024,
+          "height": 1016
+        },
+        "nonblankCards": 5,
+        "statuses": [
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "cockpitPresent": true,
+        "userDeclaredCopy": true
+      },
+      "screenshotBytes": 155128,
+      "errors": [],
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "targets": [
+        {
+          "index": 0,
+          "x": 597.59,
+          "y": 312.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 1,
+          "x": 958.8,
+          "y": 243.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 2,
+          "x": 597.59,
+          "y": 503.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 3,
+          "x": 958.8,
+          "y": 503.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 4,
+          "x": 597.59,
+          "y": 763.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        }
+      ],
+      "page": {
+        "docOverflowPx": 0,
+        "panelOverflowingElements": 0,
+        "panelSize": {
+          "width": 1366,
+          "height": 882
+        },
+        "nonblankCards": 5,
+        "statuses": [
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "cockpitPresent": true,
+        "userDeclaredCopy": true
+      },
+      "screenshotBytes": 152269,
+      "errors": [],
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "targets": [
+        {
+          "index": 0,
+          "x": 634.59,
+          "y": 312.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 1,
+          "x": 995.8,
+          "y": 243.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 2,
+          "x": 634.59,
+          "y": 503.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 3,
+          "x": 995.8,
+          "y": 503.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 4,
+          "x": 634.59,
+          "y": 763.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        }
+      ],
+      "page": {
+        "docOverflowPx": 0,
+        "panelOverflowingElements": 0,
+        "panelSize": {
+          "width": 1440,
+          "height": 882
+        },
+        "nonblankCards": 5,
+        "statuses": [
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "cockpitPresent": true,
+        "userDeclaredCopy": true
+      },
+      "screenshotBytes": 152964,
+      "errors": [],
+      "violations": []
+    },
+    {
+      "width": 1920,
+      "targets": [
+        {
+          "index": 0,
+          "x": 874.59,
+          "y": 312.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 1,
+          "x": 1235.8,
+          "y": 243.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 2,
+          "x": 874.59,
+          "y": 503.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 3,
+          "x": 1235.8,
+          "y": 503.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        },
+        {
+          "index": 4,
+          "x": 874.59,
+          "y": 763.56,
+          "width": 315.2,
+          "height": 44,
+          "focus": {
+            "focused": true,
+            "outlineStyle": "solid",
+            "outlineWidth": 2,
+            "outlineColor": "rgb(11, 31, 58)"
+          },
+          "keyboard": {
+            "initial": false,
+            "afterEnter": true,
+            "afterEnterClose": false,
+            "afterSpace": true,
+            "afterSpaceClose": false
+          }
+        }
+      ],
+      "page": {
+        "docOverflowPx": 0,
+        "panelOverflowingElements": 0,
+        "panelSize": {
+          "width": 1920,
+          "height": 882
+        },
+        "nonblankCards": 5,
+        "statuses": [
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "cockpitPresent": true,
+        "userDeclaredCopy": true
+      },
+      "screenshotBytes": 156122,
+      "errors": [],
+      "violations": []
+    }
+  ]
+}
