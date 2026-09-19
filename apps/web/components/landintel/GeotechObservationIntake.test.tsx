@@ -22,6 +22,15 @@ describe('GeotechObservationIntake', () => {
     expect(screen.getByText(/BOQ: HOLD/)).toBeTruthy()
   })
 
+  it('reserves scroll clearance for focused intake controls and the error summary', () => {
+    const { container } = render(<GeotechObservationIntake />)
+    for (const control of Array.from(container.querySelectorAll('input, select, button[type="submit"]'))) {
+      expect(control.className).toContain('scroll-mt-24')
+    }
+    fireEvent.click(screen.getByRole('button', { name: 'Validate metadata' }))
+    expect(container.querySelector('[data-geotech-error-summary]')?.className).toContain('scroll-mt-24')
+  })
+
   it('classifies complete unverified metadata as USER_PROVIDED without claiming release', () => {
     const { container } = render(<GeotechObservationIntake />)
     fireEvent.change(screen.getByLabelText('Provider'), { target: { value: 'Field lab' } })
