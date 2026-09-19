@@ -170,4 +170,25 @@ describe('SiteMap3D', () => {
     const map = await loadMap(); unmount()
     expect(map.removed).toBe(true)
   })
+
+  it('discloses the OpenFreeMap tile request boundary visibly, keeps attribution and non-survey label, and puts no identifiers in provider requests', async () => {
+    render(<SiteMap3D lat={12.97161} lng={77.59462} label="ULPIN KA-123 parcel" />)
+    const map = await loadMap()
+    const notice = document.querySelector('[data-site-map-3d-privacy]') as HTMLElement
+    expect(notice.textContent).toMatch(/OpenFreeMap.*can see the area you view/)
+    expect(notice.textContent).toMatch(/No ULPIN, parcel ID, project data or login details/)
+    expect(notice.textContent).not.toMatch(/nothing is sent/i)
+    expect(notice.closest('[data-parcel-map-shell]')).toBeNull() // beside the map, never over it or the marker
+    expect(document.querySelector('[data-site-map-3d-attribution]')?.textContent).toContain('OpenStreetMap contributors')
+    expect(document.querySelector('[data-not-survey-grade]')).not.toBeNull()
+    // request construction: the only provider URLs handed to MapLibre are fixed, query-free constants
+    const urls = [map.options.style, ...map.addSource.mock.calls.map((c: any[]) => c[1].url)]
+    expect(urls.length).toBe(2)
+    for (const url of urls) {
+      expect(new URL(url).origin).toBe('https://tiles.openfreemap.org')
+      expect(url).not.toMatch(/[?#]/)
+      expect(url).not.toMatch(/ulpin|parcel|project|token|auth|12\.97|77\.59/i)
+    }
+    expect(map.options.transformRequest).toBeUndefined()
+  })
 })

@@ -43,6 +43,13 @@ export const MAP_3D_ATTRIBUTION = [
 
 export const NOT_SURVEY_GRADE_NOTICE = 'Context only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.'
 
+/**
+ * Disclosure: the provider necessarily sees the viewed area (tile z/x/y), the requester's IP address and browser headers
+ * (incl. the site origin as Referer under strict-origin-when-cross-origin). Every request URL is built from the constants above
+ * with no query string; ULPIN, parcel ids, project metadata and auth data are never placed in them.
+ */
+export const EXTERNAL_TILE_DISCLOSURE = 'Privacy: 3D loads map tiles from OpenFreeMap, which can see the area you view (plus your IP address). No ULPIN, parcel ID, project data or login details are in tile requests.'
+
 export type Building3dCoverage = 'loading' | 'zoomed-out' | 'covered' | 'none'
 export type Map3dStatus = 'loading' | 'ready' | 'failed'
 export type Map3dFailureReason = 'webgl2-unavailable' | 'style-failed' | 'timeout' | 'tiles-failed' | 'init-failed'

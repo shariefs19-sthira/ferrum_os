@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Map as MapLibreMap, Marker as MapLibreMarker } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import {
-  ASSUMED_HEIGHT_COLOR, BUILDINGS_LAYER_ID, BUILDINGS_MIN_ZOOM, BUILDINGS_SOURCE_ID, DEFAULT_3D_BEARING, DEFAULT_3D_PITCH, DEFAULT_3D_ZOOM,
+  ASSUMED_HEIGHT_COLOR, BUILDINGS_LAYER_ID, BUILDINGS_MIN_ZOOM, BUILDINGS_SOURCE_ID, DEFAULT_3D_BEARING, DEFAULT_3D_PITCH, DEFAULT_3D_ZOOM, EXTERNAL_TILE_DISCLOSURE,
   FOOTPRINT_OUTLINE_COLOR, FOOTPRINT_OUTLINE_LAYER_ID, MAP_3D_ATTRIBUTION, MAPLIBRE_WORKER_URL, MAX_PITCH, NOT_SURVEY_GRADE_NOTICE, OPENFREEMAP_STYLE_URL,
   RECORDED_HEIGHT_COLOR, TILE_LOAD_TIMEOUT_MS, buildingLayerSpecs, clamp, coverageMessage, detectWebGL2, failureMessage, resolveCoverage, summariseBuildings,
   type BuildingCounts, type Map3dFailureReason, type Map3dStatus, type ViewSnapshot,
@@ -182,6 +182,7 @@ export default function SiteMap3D({ lat, lng, label = 'Selected location', onPin
       <div className="mt-2 space-y-1 text-[11px] leading-4 text-relume-muted" data-site-map-3d-notes>
         {failure ? <p role="alert" className="font-semibold text-relume-command">{failureMessage(failure)}</p>
           : <p role="status" aria-live="polite" data-building-coverage><strong className="text-relume-command">3D context · </strong>{coverageMessage(coverage, counts)}</p>}
+        <p data-site-map-3d-privacy>{EXTERNAL_TILE_DISCLOSURE}</p>
         <ul className="flex flex-wrap gap-x-4 gap-y-1" aria-label="3D map legend" data-site-map-3d-legend>
           <li className="flex items-center gap-1"><span className="inline-block h-3 w-3 border-2 bg-white" style={{ borderColor: FOOTPRINT_OUTLINE_COLOR }} aria-hidden="true" />OSM building footprint (observed where mapped)</li>
           <li className="flex items-center gap-1"><span className="inline-block h-3 w-3" style={{ backgroundColor: RECORDED_HEIGHT_COLOR }} aria-hidden="true" />Height derived from OSM tags</li>
