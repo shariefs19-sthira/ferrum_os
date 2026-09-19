@@ -1,6 +1,7 @@
 import type { CatalogItem } from '../rateEngine/catalogTypes'
 import type { StudioOpening, StudioPlan, StudioRoom } from '../types'
 import { workspaceBoqCatalog } from './measuredBoq'
+import { defaultWallThicknessM } from './walls'
 
 // Model-linked take-off lineage: decomposes the same formulas
 // `measuredBoq.ts` already uses down to a per-floor (or, for substructure
@@ -42,6 +43,15 @@ function canonicalOpening(opening: StudioOpening): string {
  * excluded on purpose — a repaint must never mark BOQ lines stale.
  */
 export function planFingerprint(plan: StudioPlan): string {
+  // Walls are derived from the rooms, so their coordinates are already covered
+  // above. Only a wall whose thickness/height departs from the assumed default
+  // adds a term — which keeps every default plan's fingerprint (and any stored
+  // BOQ revision) identical to what it was before the wall model existed.
+  const customisedWalls = (plan.walls ?? [])
+    .filter((wall) => Math.abs(wall.thicknessM - defaultWallThicknessM(wall.kind)) > 1e-6 || Math.abs(wall.heightM - plan.floorHeightM) > 1e-6)
+    .map((wall) => [wall.id, roundGeo(wall.thicknessM), roundGeo(wall.heightM)].join(':'))
+    .sort()
+    .join('|')
   const canonical = [
     plan.schema,
     roundGeo(plan.plotWidthM), roundGeo(plan.plotDepthM), roundGeo(plan.setbackM),
@@ -49,6 +59,7 @@ export function planFingerprint(plan: StudioPlan): string {
     plan.floors, roundGeo(plan.floorHeightM),
     plan.rooms.map(canonicalRoom).sort().join('|'),
     (plan.openings ?? []).map(canonicalOpening).sort().join('|'),
+    ...(customisedWalls ? [customisedWalls] : []),
   ].join('#')
   return fnv1a(canonical)
 }

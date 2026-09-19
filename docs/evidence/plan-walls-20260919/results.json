@@ -1,0 +1,902 @@
+{
+  "generatedAt": "2026-09-19T11:50:16.350Z",
+  "route": "/project-workspace/cockpit?product=Design",
+  "results": [
+    {
+      "viewport": "320x720",
+      "checks": {
+        "before3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (mobile default) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": null,
+          "redoDisabled": null,
+          "planModel": "on",
+          "wallCount": "24",
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "before2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 512,
+              "w": 318,
+              "h": 477
+            },
+            "inspector": null,
+            "canvasInspectorOverlapPx2": 0
+          }
+        },
+        "hitTarget": {
+          "tag": "line",
+          "isWallHit": true,
+          "wallId": "f1-int-v0"
+        },
+        "hitTargetReachesPlus20px": true,
+        "midDrag": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": 13.52,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true
+        },
+        "after2d": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": 13.52,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 541,
+              "w": 318,
+              "h": 477
+            },
+            "inspector": {
+              "x": 1,
+              "y": 1018,
+              "w": 318,
+              "h": 288
+            },
+            "canvasInspectorOverlapPx2": 0
+          },
+          "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position fro"
+        },
+        "inspectorControls": [
+          {
+            "label": "Undo last plan edit",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Redo plan edit",
+            "w": 55,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Re-record at this revision",
+            "w": 149,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Close wall inspector",
+            "w": 58,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "m",
+            "w": 139,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "ft",
+            "w": 139,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall back 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall forward 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Reset wall",
+            "w": 84,
+            "h": 44,
+            "insideX": true
+          }
+        ],
+        "minControlPx": 44,
+        "allControlsInsideViewportX": true,
+        "after3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (mobile default) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "planModel": "on",
+          "geometryRevision3d": "29dcb5e5",
+          "digest": "a7986e2e"
+        },
+        "canvasDiffBeforeAfter": {
+          "width": 318,
+          "height": 159,
+          "changedPixels": 314,
+          "changedPct": 0.62
+        },
+        "undo2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false
+        },
+        "undo3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (mobile default) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": true,
+          "redoDisabled": false,
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "canvasDiffBeforeUndo": {
+          "width": 318,
+          "height": 159,
+          "changedPixels": 0,
+          "changedPct": 0
+        },
+        "verdict": {
+          "wallMovedInPlan": true,
+          "revisionChanged": true,
+          "downstreamBecameStale": true,
+          "downstreamWasCurrentBefore": true,
+          "threeDMatchesRevision": true,
+          "threeDWallModelOn": true,
+          "threeDDigestChanged": true,
+          "threeDDigestRestoredAfterUndo": true,
+          "threeDCanvasPixelsChanged": true,
+          "threeDCanvasRestoredAfterUndo": true,
+          "undoRestoredWidth": true,
+          "undoRestoredRevision": true,
+          "downstreamCurrentAfterUndo": true,
+          "hitTargetIsWallHit": true,
+          "controlsAtLeast44px": true,
+          "controlsInsideViewport": true,
+          "canvasNotCoveredByInspector": true,
+          "planCanvasAtLeast200pxTall": true,
+          "noHorizontalOverflow": true,
+          "noConsoleErrors": true
+        }
+      },
+      "shots": {
+        "before3d": "6a9ae37955f602cf",
+        "before2d": "bb3c13b38f47d77d",
+        "after2d": "a7ee3692332f0b33",
+        "after2dInspector": "b0dd76289edd035d",
+        "after3d": "e74a21ee166fdcae",
+        "undo2d": "aa93970927a31464",
+        "undo3d": "6e6ebafe9aae3de8"
+      },
+      "errors": [],
+      "pass": true
+    },
+    {
+      "viewport": "390x844",
+      "checks": {
+        "before3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (mobile default) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": null,
+          "redoDisabled": null,
+          "planModel": "on",
+          "wallCount": "24",
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "before2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 398,
+              "w": 388,
+              "h": 582
+            },
+            "inspector": null,
+            "canvasInspectorOverlapPx2": 0
+          }
+        },
+        "hitTarget": {
+          "tag": "line",
+          "isWallHit": true,
+          "wallId": "f1-int-v0"
+        },
+        "hitTargetReachesPlus20px": true,
+        "midDrag": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": 13.52,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true
+        },
+        "after2d": {
+          "revision": "29dcb5e5",
+          "firstRoomWidthM": 13.52,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 427,
+              "w": 388,
+              "h": 582
+            },
+            "inspector": {
+              "x": 1,
+              "y": 1009,
+              "w": 388,
+              "h": 338
+            },
+            "canvasInspectorOverlapPx2": 0
+          },
+          "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position fro"
+        },
+        "inspectorControls": [
+          {
+            "label": "Undo last plan edit",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Redo plan edit",
+            "w": 55,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Re-record at this revision",
+            "w": 149,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Close wall inspector",
+            "w": 58,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "m",
+            "w": 174,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "ft",
+            "w": 174,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall back 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall forward 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Reset wall",
+            "w": 84,
+            "h": 44,
+            "insideX": true
+          }
+        ],
+        "minControlPx": 44,
+        "allControlsInsideViewportX": true,
+        "after3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (mobile default) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "planModel": "on",
+          "geometryRevision3d": "29dcb5e5",
+          "digest": "a7986e2e"
+        },
+        "canvasDiffBeforeAfter": {
+          "width": 388,
+          "height": 194,
+          "changedPixels": 467,
+          "changedPct": 0.62
+        },
+        "undo2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false
+        },
+        "undo3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (mobile default) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": true,
+          "redoDisabled": false,
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "canvasDiffBeforeUndo": {
+          "width": 388,
+          "height": 194,
+          "changedPixels": 0,
+          "changedPct": 0
+        },
+        "verdict": {
+          "wallMovedInPlan": true,
+          "revisionChanged": true,
+          "downstreamBecameStale": true,
+          "downstreamWasCurrentBefore": true,
+          "threeDMatchesRevision": true,
+          "threeDWallModelOn": true,
+          "threeDDigestChanged": true,
+          "threeDDigestRestoredAfterUndo": true,
+          "threeDCanvasPixelsChanged": true,
+          "threeDCanvasRestoredAfterUndo": true,
+          "undoRestoredWidth": true,
+          "undoRestoredRevision": true,
+          "downstreamCurrentAfterUndo": true,
+          "hitTargetIsWallHit": true,
+          "controlsAtLeast44px": true,
+          "controlsInsideViewport": true,
+          "canvasNotCoveredByInspector": true,
+          "planCanvasAtLeast200pxTall": true,
+          "noHorizontalOverflow": true,
+          "noConsoleErrors": true
+        }
+      },
+      "shots": {
+        "before3d": "28af57f9e2b8dff0",
+        "before2d": "0c3b27214dcfa84b",
+        "after2d": "ca3d43650466ffe5",
+        "after2dInspector": "f42361125288db5c",
+        "after3d": "74fffd8101aa0b99",
+        "undo2d": "1253b414045324a8",
+        "undo3d": "ffa8bbffa2f11c1c"
+      },
+      "errors": [],
+      "pass": true
+    },
+    {
+      "viewport": "768x1024",
+      "checks": {
+        "before3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (software GL) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": null,
+          "redoDisabled": null,
+          "planModel": "on",
+          "wallCount": "24",
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "before2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 378,
+              "w": 766,
+              "h": 768
+            },
+            "inspector": null,
+            "canvasInspectorOverlapPx2": 0
+          }
+        },
+        "hitTarget": {
+          "tag": "line",
+          "isWallHit": true,
+          "wallId": "f1-int-v0"
+        },
+        "hitTargetReachesPlus20px": true,
+        "midDrag": {
+          "revision": "3aa6b25d",
+          "firstRoomWidthM": 13.02,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true
+        },
+        "after2d": {
+          "revision": "3aa6b25d",
+          "firstRoomWidthM": 13.02,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 1,
+              "y": 378,
+              "w": 766,
+              "h": 768
+            },
+            "inspector": {
+              "x": 1,
+              "y": 1146,
+              "w": 766,
+              "h": 410
+            },
+            "canvasInspectorOverlapPx2": 0
+          },
+          "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position fro"
+        },
+        "inspectorControls": [
+          {
+            "label": "Undo last plan edit",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Redo plan edit",
+            "w": 55,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Re-record at this revision",
+            "w": 149,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Close wall inspector",
+            "w": 58,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "m",
+            "w": 363,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "ft",
+            "w": 363,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall back 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall forward 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Reset wall",
+            "w": 84,
+            "h": 44,
+            "insideX": true
+          }
+        ],
+        "minControlPx": 44,
+        "allControlsInsideViewportX": true,
+        "after3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (software GL) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "planModel": "on",
+          "geometryRevision3d": "3aa6b25d",
+          "digest": "f07eac7b"
+        },
+        "canvasDiffBeforeAfter": {
+          "width": 766,
+          "height": 383,
+          "changedPixels": 1898,
+          "changedPct": 0.65
+        },
+        "undo2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false
+        },
+        "undo3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (software GL) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": true,
+          "redoDisabled": false,
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "canvasDiffBeforeUndo": {
+          "width": 766,
+          "height": 383,
+          "changedPixels": 0,
+          "changedPct": 0
+        },
+        "verdict": {
+          "wallMovedInPlan": true,
+          "revisionChanged": true,
+          "downstreamBecameStale": true,
+          "downstreamWasCurrentBefore": true,
+          "threeDMatchesRevision": true,
+          "threeDWallModelOn": true,
+          "threeDDigestChanged": true,
+          "threeDDigestRestoredAfterUndo": true,
+          "threeDCanvasPixelsChanged": true,
+          "threeDCanvasRestoredAfterUndo": true,
+          "undoRestoredWidth": true,
+          "undoRestoredRevision": true,
+          "downstreamCurrentAfterUndo": true,
+          "hitTargetIsWallHit": true,
+          "controlsAtLeast44px": true,
+          "controlsInsideViewport": true,
+          "canvasNotCoveredByInspector": true,
+          "planCanvasAtLeast200pxTall": true,
+          "noHorizontalOverflow": true,
+          "noConsoleErrors": true
+        }
+      },
+      "shots": {
+        "before3d": "38e0c338f0ef6b1d",
+        "before2d": "037847715437db28",
+        "after2d": "e6f87a6e098436ac",
+        "after2dInspector": "4f9c8cd1e6fc128c",
+        "after3d": "42bef424580bcadc",
+        "undo2d": "0a71a92dcd5967b9",
+        "undo3d": "7ae0e7e33982a7f0"
+      },
+      "errors": [],
+      "pass": true
+    },
+    {
+      "viewport": "1366x800",
+      "checks": {
+        "before3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (software GL) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": null,
+          "redoDisabled": null,
+          "planModel": "on",
+          "wallCount": "24",
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "before2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 113,
+              "y": 280,
+              "w": 885,
+              "h": 416
+            },
+            "inspector": null,
+            "canvasInspectorOverlapPx2": 0
+          }
+        },
+        "hitTarget": {
+          "tag": "line",
+          "isWallHit": true,
+          "wallId": "f1-int-v0"
+        },
+        "hitTargetReachesPlus20px": true,
+        "midDrag": {
+          "revision": "e9633dea",
+          "firstRoomWidthM": 14.5,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": true
+        },
+        "after2d": {
+          "revision": "e9633dea",
+          "firstRoomWidthM": 14.5,
+          "downstream": {
+            "BOQ": "STALE UPSTREAM DATA",
+            "STRUCTURAL": "STALE UPSTREAM DATA"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "layout": {
+            "canvas": {
+              "x": 113,
+              "y": 357,
+              "w": 533,
+              "h": 339
+            },
+            "inspector": {
+              "x": 646,
+              "y": 121,
+              "w": 352,
+              "h": 575
+            },
+            "canvasInspectorOverlapPx2": 0
+          },
+          "inspectorText": "SELECTED WALL Close Interior wall · floor 1 Length 14.30 m 46.92 ft Thickness 115 mm 0.377 ft Height 3.00 m 9.84 ft Thickness and height are assumed defaults, not surveyed or structurally designed. 1 opening attached. All values remain INDICATIVE. Position fro"
+        },
+        "inspectorControls": [
+          {
+            "label": "Undo last plan edit",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Redo plan edit",
+            "w": 55,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Re-record at this revision",
+            "w": 149,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Close wall inspector",
+            "w": 56,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "m",
+            "w": 156,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "ft",
+            "w": 156,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall back 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Move wall forward 0.1 metre",
+            "w": 61,
+            "h": 44,
+            "insideX": true
+          },
+          {
+            "label": "Reset wall",
+            "w": 84,
+            "h": 44,
+            "insideX": true
+          }
+        ],
+        "minControlPx": 44,
+        "allControlsInsideViewportX": true,
+        "after3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (software GL) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": false,
+          "redoDisabled": true,
+          "planModel": "on",
+          "geometryRevision3d": "e9633dea",
+          "digest": "8a7e3586"
+        },
+        "canvasDiffBeforeAfter": {
+          "width": 885,
+          "height": 353,
+          "changedPixels": 1612,
+          "changedPct": 0.52
+        },
+        "undo2d": {
+          "revision": "7298bc3e",
+          "firstRoomWidthM": 9.92,
+          "downstream": {
+            "BOQ": "CURRENT",
+            "STRUCTURAL": "CURRENT"
+          },
+          "overflowX": 0,
+          "stripPresent": true,
+          "undoDisabled": true,
+          "redoDisabled": false
+        },
+        "undo3d": {
+          "revision": "INDICATIVE · Climate-adaptive neutral shell · Reduced rendering (software GL) · SAMPLE LOCATION Bengaluru, Karnataka · OSM context 2026-09-05 · © OpenStreetMap contributors · not a surveySelected: PodiumClick or [ ] select · Drag orbit · Shift-drag pan · Scroll zoom · 0 fitTop planAxonometric",
+          "firstRoomWidthM": null,
+          "downstream": {},
+          "overflowX": 0,
+          "stripPresent": false,
+          "undoDisabled": true,
+          "redoDisabled": false,
+          "geometryRevision3d": "7298bc3e",
+          "digest": "dbf1f95e"
+        },
+        "canvasDiffBeforeUndo": {
+          "width": 885,
+          "height": 353,
+          "changedPixels": 0,
+          "changedPct": 0
+        },
+        "verdict": {
+          "wallMovedInPlan": true,
+          "revisionChanged": true,
+          "downstreamBecameStale": true,
+          "downstreamWasCurrentBefore": true,
+          "threeDMatchesRevision": true,
+          "threeDWallModelOn": true,
+          "threeDDigestChanged": true,
+          "threeDDigestRestoredAfterUndo": true,
+          "threeDCanvasPixelsChanged": true,
+          "threeDCanvasRestoredAfterUndo": true,
+          "undoRestoredWidth": true,
+          "undoRestoredRevision": true,
+          "downstreamCurrentAfterUndo": true,
+          "hitTargetIsWallHit": true,
+          "controlsAtLeast44px": true,
+          "controlsInsideViewport": true,
+          "canvasNotCoveredByInspector": true,
+          "planCanvasAtLeast200pxTall": true,
+          "noHorizontalOverflow": true,
+          "noConsoleErrors": true
+        }
+      },
+      "shots": {
+        "before3d": "d7b0443132d855a4",
+        "before2d": "095e0ea31b310fc0",
+        "after2d": "2e33ff996f77a4e6",
+        "after2dInspector": "ae965f9aa209b2b6",
+        "after3d": "08f3cb35e457ac72",
+        "undo2d": "2b3560a4d5357a12",
+        "undo3d": "27b0ecc869b69e51"
+      },
+      "errors": [],
+      "pass": true
+    }
+  ]
+}

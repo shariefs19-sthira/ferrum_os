@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { generateStudioPlan } from '../../lib/plan-gen'
+import { safeGet, safeSet } from '../../lib/safeStorage'
 import { checkStructuralLive } from '../../lib/studio/structuralLive'
 import type { StudioParameters, StudioView, WorkspaceExtract, WorkspaceProduct, WorkspaceProvenance } from '../../lib/types'
 import { getRulesetForState } from '../../lib/parcelIntel/sampleRulesets'
@@ -14,6 +15,7 @@ import { renderFlowDiagramSvg } from '../../lib/diagramGen/svgFlowDiagram'
 import ExportBar from './ExportBar'
 import PlanElevationView from './PlanElevationView'
 import OpeningInspector from './OpeningInspector'
+import WallInspector, { type WallCommit } from './WallInspector'
 import { measureBoq } from '../../lib/workspace/measuredBoq'
 import { applyOpeningEdit, type OpeningEdit, withOpeningEdits } from '../../lib/workspace/openings'
 import RegistryControls from './RegistryControls'
@@ -22,6 +24,11 @@ import { hasProductToolSurface, resolveProductSurface } from '../../lib/workspac
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
 import { readProjectState, sameParameters, subscribeProjectState, writeProjectState } from '../../lib/workspace/projectState'
+import { attachOpeningsToWalls, MIN_ROOM_DIMENSION_M, moveWall, partitionPosition, resetWall, wallCoordinateM, type WallOffsets } from '../../lib/workspace/walls'
+import { canRedo, canUndo, commitEdit, initHistory, redo, replaceHistory, undo, type EditHistory, type PlanEdits } from '../../lib/workspace/planEdits'
+import { anyDownstreamStale, downstreamStatus, readRecordedRevision, recordRevision, writeRecordedRevision, type RecordedRevision } from '../../lib/workspace/downstreamStatus'
+import { planFingerprint } from '../../lib/workspace/boqLineage'
+import { formatDualLength, formatThickness } from '../../lib/workspace/wallUnits'
 import PrecisionControl from '../controls/PrecisionControl'
 import { evaluateCompliance } from '../../lib/complianceEngine'
 import { decodeWorkspaceView, encodeWorkspaceView, type WorkspaceViewState } from '../../lib/workspace/viewPermalink'
@@ -132,8 +139,17 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const mobilePanelTriggerRef = useRef<HTMLButtonElement | null>(null)
   const [landUse, setLandUse] = useState<LandUse>('Residential')
   const [permalinkStatus, setPermalinkStatus] = useState('')
-  const [openingEdits, setOpeningEdits] = useState<Record<string, OpeningEdit>>({})
+  // Plan edits (opening measurements + interior wall moves) live in one undoable
+  // history; the plan itself is always re-derived from parameters + these edits.
+  const [history, setHistory] = useState<EditHistory>(() => initHistory())
+  const openingEdits = history.present.openingEdits
+  const committedWallOffsets = history.present.wallOffsets
+  const [previewWallOffsets, setPreviewWallOffsets] = useState<WallOffsets>()
+  const [recordedRevision, setRecordedRevision] = useState<RecordedRevision>()
+  const setOpeningEdits = (update: (current: Record<string, OpeningEdit>) => Record<string, OpeningEdit>) => setHistory((current) => commitEdit(current, { ...current.present, openingEdits: update(current.present.openingEdits) }))
+  const restoreEdits = (edits: Partial<PlanEdits>) => setHistory(replaceHistory({ openingEdits: edits.openingEdits ?? {}, wallOffsets: edits.wallOffsets ?? {} }))
   const [selectedOpeningId, setSelectedOpeningId] = useState<string>()
+  const [selectedWallId, setSelectedWallId] = useState<string>()
   const parcelContext = useParcelContext()
   const isDesignExperience = controlProduct === 'designstudio' || activeProduct === 'Design'
   // Product-aware cockpit: in the real workspace canvas every product except
@@ -155,7 +171,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const siteContextLabel = parcelContext ? `${parcelContext.district}, ${parcelContext.state}` : 'SAMPLE LOCATION Bengaluru, Karnataka'
   const authorityEvidence = useMemo(() => getSiteConstraintsEvidence(parcelContext), [parcelContext])
   const landRule = ruleset?.land_use_rules[landUse]
-  const plan = useMemo(() => withOpeningEdits(generateStudioPlan({ ...parameters, maxHeightM: landRule?.max_height_m }), openingEdits), [parameters, landRule?.max_height_m, openingEdits])
+  const plan = useMemo(() => withOpeningEdits(generateStudioPlan({ ...parameters, maxHeightM: landRule?.max_height_m, wallOffsets: previewWallOffsets ?? committedWallOffsets }), openingEdits), [parameters, landRule?.max_height_m, openingEdits, previewWallOffsets, committedWallOffsets])
   const activeRooms = plan.rooms.filter((room) => room.floor === activeFloor)
   const grossArea = plan.buildingWidthM * plan.buildingDepthM * plan.floors
   const measuredBoq = useMemo(() => measureBoq(plan), [plan])
@@ -174,10 +190,10 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     deadLoadKpa: null,
     liveLoadKpa: null,
     userChanges: [
-      ...(!sameParameters(parameters, initialParameters) ? ['GEOMETRY' as const] : []),
+      ...(!sameParameters(parameters, initialParameters) || Object.keys(committedWallOffsets).length ? ['GEOMETRY' as const] : []),
       ...(Object.keys(openingEdits).length ? ['OPENING' as const] : []),
     ],
-  }), [grossArea, initialParameters, openingEdits, parameters, parcelContext, plan])
+  }), [committedWallOffsets, grossArea, initialParameters, openingEdits, parameters, parcelContext, plan])
   const governingSpanM = Math.max(...activeRooms.map((room) => room.widthM), 0)
   const structural = checkStructuralLive([{ id: 'active-floor-beam', kind: 'beam', span_m: governingSpanM, depth_mm: 300, width_mm: 300, udl_kn_per_m: 8, support: 'simple' }])
   const structuralPass = structural.results.every((result) => result.checks.every((check) => check.pass))
@@ -258,11 +274,50 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     if (key === 'floors') setActiveFloor((floor) => Math.min(floor, value))
   }
   const selectedOpening = plan.openings?.find((opening) => opening.id === selectedOpeningId)
+  const selectedWall = plan.walls?.find((wall) => wall.id === selectedWallId)
+  const hasInspector = Boolean(selectedOpening || selectedWall)
+  const geometryRevision = useMemo(() => planFingerprint(plan), [plan])
+  const downstream = useMemo(() => downstreamStatus(plan, recordedRevision), [plan, recordedRevision])
+  const downstreamStale = anyDownstreamStale(downstream)
+  const hostedOpeningCount = useMemo(() => selectedWall ? Object.values(attachOpeningsToWalls(plan)).filter((wallId) => wallId === selectedWall.id).length : 0, [plan, selectedWall])
+  const recordOutputs = () => {
+    const record = recordRevision(plan, { governingSpanM, structuralPass })
+    setRecordedRevision(record)
+    writeRecordedRevision(record)
+  }
+  const selectWall = (wallId: string | undefined) => {
+    setShowExtract(false)
+    setSelectedOpeningId(undefined)
+    setSelectedWallId(wallId)
+    const wall = wallId ? plan.walls?.find((candidate) => candidate.id === wallId) : undefined
+    if (!wall) return
+    dispatchCockpitSelection({
+      targetType: 'wall',
+      targetId: wall.id,
+      label: `${wall.kind === 'exterior' ? 'Exterior' : 'Interior'} wall ${wall.id}`,
+      detail: `Floor ${wall.floor} · ${formatThickness(wall.thicknessM).mm} (${formatThickness(wall.thicknessM).ft}) assumed thickness · INDICATIVE`,
+    })
+  }
+  const moveSelectedWall = (wallId: string, targetPositionM: number, preview: boolean): WallCommit => {
+    const wall = plan.walls?.find((candidate) => candidate.id === wallId)
+    if (!wall?.partitionKey) return undefined
+    const result = moveWall(committedWallOffsets, wall.partitionKey, targetPositionM, plan.buildingWidthM, plan.buildingDepthM)
+    if (preview) { setPreviewWallOffsets(result.offsets); return { positionM: result.positionM } }
+    setPreviewWallOffsets(undefined)
+    if (result.changed) setHistory((current) => commitEdit(current, { ...current.present, wallOffsets: result.offsets }))
+    return { positionM: result.positionM, message: result.clamped ? `Clamped: every room keeps at least ${formatDualLength(MIN_ROOM_DIMENSION_M)}.` : undefined }
+  }
+  const nudgeWall = (wallId: string, deltaM: number) => {
+    const wall = plan.walls?.find((candidate) => candidate.id === wallId)
+    if (wall) moveSelectedWall(wallId, wallCoordinateM(wall) + deltaM, false)
+  }
+  const selectedWallMoved = Boolean(selectedWall?.partitionKey && selectedWall.partitionKey in committedWallOffsets)
   // "Selecting an output supplies context to SUTRA" -- a direct-manipulation
   // selection on the cockpit canvas (here, tapping an opening on the plan)
   // reaches SutraPanel over the ferrum:cockpit-selection event bus.
   const selectOpening = (openingId: string | undefined) => {
     setShowExtract(false)
+    setSelectedWallId(undefined)
     setSelectedOpeningId(openingId)
     if (!openingId) return
     const opening = plan.openings?.find((candidate) => candidate.id === openingId)
@@ -283,13 +338,15 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     return { opening: result.opening, message: result.error }
   }
   useEffect(() => {
-    const stored = window.localStorage.getItem('ferrum-area-unit')
+    const stored = safeGet('ferrum-area-unit')
     if (areaUnits.some((unit) => unit === stored)) setPrimaryAreaUnit(stored as typeof areaUnits[number])
     const projectState = readProjectState(initialParameters)
     let nextParameters = projectState.parameters
-    if (Object.keys(projectState.openingEdits ?? {}).length) setOpeningEdits(projectState.openingEdits ?? {})
+    if (Object.keys(projectState.openingEdits ?? {}).length || Object.keys(projectState.wallOffsets ?? {}).length) restoreEdits({ openingEdits: projectState.openingEdits, wallOffsets: projectState.wallOffsets })
+    const recorded = readRecordedRevision()
+    if (recorded) setRecordedRevision(recorded)
     if (!previewLabel) {
-      const handoff = window.localStorage.getItem('ferrum-cockpit-handoff')
+      const handoff = safeGet('ferrum-cockpit-handoff')
       if (handoff) {
         try {
           const parsed = JSON.parse(handoff) as { parameters?: Partial<StudioParameters> }
@@ -307,17 +364,27 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     setParameters(nextParameters)
     setProjectStateReady(true)
   }, [initialParameters, previewLabel])
+  // First open of a workspace canvas records the starting geometry as the
+  // baseline the downstream outputs were computed from, so a later wall move
+  // is visibly STALE UPSTREAM DATA. Never overwrites an existing record.
+  const baselineRecorded = useRef(false)
+  useEffect(() => {
+    if (!projectStateReady || !canvasFirst || baselineRecorded.current) return
+    baselineRecorded.current = true
+    if (recordedRevision || readRecordedRevision()) return
+    recordOutputs()
+  }, [projectStateReady]) // eslint-disable-line react-hooks/exhaustive-deps -- one-shot baseline after saved state has been restored
   const projectStateSource = previewLabel ? `preview:${controlProduct ?? 'product'}` : 'workspace:cockpit'
   useEffect(() => {
     if (!projectStateReady) return
-    writeProjectState(parameters, projectStateSource, openingEdits)
+    writeProjectState(parameters, projectStateSource, openingEdits, committedWallOffsets)
     onParametersChange?.(parameters)
-  }, [parameters, openingEdits, onParametersChange, projectStateReady, projectStateSource])
+  }, [parameters, openingEdits, committedWallOffsets, onParametersChange, projectStateReady, projectStateSource])
   useEffect(() => subscribeProjectState((state) => {
     if (state.source === projectStateSource) return
     setParameters((current) => sameParameters(current, state.parameters) ? current : state.parameters)
-    setOpeningEdits(state.openingEdits ?? {})
-  }), [projectStateSource])
+    restoreEdits({ openingEdits: state.openingEdits, wallOffsets: state.wallOffsets })
+  }), [projectStateSource]) // eslint-disable-line react-hooks/exhaustive-deps -- restoreEdits only calls a stable state setter
   useEffect(() => {
     const openAdvanced = () => setShowFineControls(true)
     window.addEventListener('ferrum:workspace-advanced', openAdvanced)
@@ -397,7 +464,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   }, [initialParameters, maxFloors, parcelContext, parcelLandUse, rulesetState])
   const updateAreaUnit = (unit: typeof areaUnits[number]) => {
     setPrimaryAreaUnit(unit)
-    window.localStorage.setItem('ferrum-area-unit', unit)
+    safeSet('ferrum-area-unit', unit)
   }
   const createPermalink = async () => {
     const host=document.querySelector<HTMLElement>('[data-space-3d]');let camera:WorkspaceViewState['camera']
@@ -410,7 +477,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const fullBleedEmbed = embedMode === 'full-bleed'
   const chooseView = (nextView: StudioView) => {
     setView(nextView)
-    if (nextView === 'space') setSelectedOpeningId(undefined)
+    if (nextView === 'space') { setSelectedOpeningId(undefined); setSelectedWallId(undefined) }
   }
 
   const toggleMobilePanel = (panel: NonNullable<typeof mobilePanel>, trigger: HTMLButtonElement) => {
@@ -486,7 +553,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           defect; `fullBleedEmbed` doesn't need it (its section isn't
           `flex-col`, so this grid already gets its height from the normal
           document flow / `min-h-[70vh]` on the section). */}
-      <div className={`grid min-w-0 ${canvasFirst ? 'flex-none xl:flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${toolProduct ? 'xl:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)]' : ''} ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : ''} ${toolOpenStacked ? (selectedOpening && view !== 'space' ? 'grid-rows-[max-content_max-content_max-content] overflow-y-auto xl:grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)] xl:overflow-visible' : 'grid-rows-[max-content_max-content] overflow-y-auto xl:grid-rows-[minmax(0,1fr)_auto] xl:overflow-visible') : ''} ${toolProduct && !toolOpenStacked && !(selectedOpening && view !== 'space') ? 'grid-rows-[minmax(14rem,1fr)] xl:grid-rows-[minmax(0,1fr)_auto] xl:overflow-visible' : ''} ${!toolProduct && !(selectedOpening && view !== 'space') ? 'grid-rows-[minmax(14rem,1fr)]' : ''}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      <div className={`grid min-w-0 ${canvasFirst ? 'flex-none xl:flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${toolProduct ? 'xl:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)]' : ''} ${hasInspector && view !== 'space' ? (toolProduct ? 'grid-rows-[minmax(26rem,1fr)_auto]' : 'grid-rows-[minmax(24rem,auto)_auto] xl:grid-cols-[minmax(0,1fr)_minmax(18rem,22rem)] xl:grid-rows-[minmax(26rem,1fr)]') : ''} ${toolOpenStacked ? (hasInspector && view !== 'space' ? 'grid-rows-[max-content_max-content_max-content] overflow-y-auto xl:grid-rows-[minmax(26rem,1fr)_auto] xl:overflow-visible' : 'grid-rows-[max-content_max-content] overflow-y-auto xl:grid-rows-[minmax(0,1fr)_auto] xl:overflow-visible') : ''} ${toolProduct && !toolOpenStacked && !(hasInspector && view !== 'space') ? 'grid-rows-[minmax(14rem,1fr)] xl:grid-rows-[minmax(0,1fr)_auto] xl:overflow-visible' : ''} ${!toolProduct && !(hasInspector && view !== 'space') ? 'grid-rows-[minmax(14rem,1fr)]' : ''}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
@@ -505,7 +572,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
 
         <div data-cockpit-canvas-section className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst ? 'flex min-h-0 flex-col' : fullBleedEmbed ? 'min-h-0' : ''}`}>
           <div className="relative z-40 flex flex-wrap items-center gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
-            {(isDesignExperience ? views.filter((candidate) => candidate.id === 'space') : views).map((candidate) => (
+            {(isDesignExperience ? views.filter((candidate) => candidate.id === 'space' || candidate.id === 'plan') : views).map((candidate) => (
               <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => chooseView(candidate.id)} className={`min-h-11 rounded-full px-3 text-xs font-semibold sm:px-4 ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
                 {candidate.label}
               </button>
@@ -517,6 +584,10 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
                 </select>
               </label>
             )}
+            {(view === 'plan' || canUndo(history) || canRedo(history)) && <div className={`flex items-center gap-1 ${view === 'plan' ? '' : 'ml-auto'}`} role="group" aria-label="Plan edit history" data-plan-history>
+              <button type="button" disabled={!canUndo(history)} onClick={() => { setPreviewWallOffsets(undefined); setHistory(undo) }} aria-label="Undo last plan edit" className="min-h-11 min-w-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command disabled:cursor-not-allowed disabled:opacity-40" data-plan-undo>Undo</button>
+              <button type="button" disabled={!canRedo(history)} onClick={() => { setPreviewWallOffsets(undefined); setHistory(redo) }} aria-label="Redo plan edit" className="min-h-11 min-w-11 rounded-full border border-relume-border bg-white px-3 text-xs font-semibold text-relume-command disabled:cursor-not-allowed disabled:opacity-40" data-plan-redo>Redo</button>
+            </div>}
             {canvasFirst && (!toolProduct || toolProduct === 'landintel') && (
               // CODEX-SENTINEL-20260918-1708-sutra-command-cockpit-output:
               // land-use is now editable only in SUTRA (the floating
@@ -540,7 +611,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {showRegistryControls && !sutraOccludesCanvas && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'controls'} onClick={(event) => toggleMobilePanel('controls', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Controls</button>}
             {!canvasFirst && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'options'} onClick={(event) => toggleMobilePanel('options', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Options</button>}
             {!canvasFirst && previewLabel && <button type="button" aria-haspopup="dialog" onClick={() => { closeMobilePanel(); window.dispatchEvent(new CustomEvent('ferrum:open-sutra')) }} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">SUTRA</button>}
-            {fullBleedEmbed && !selectedOpening && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'extract'} onClick={(event) => toggleMobilePanel('extract', event.currentTarget)} className="min-h-11 px-2 text-[11px] font-semibold text-relume-command">Evidence</button>}
+            {fullBleedEmbed && !hasInspector && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'extract'} onClick={(event) => toggleMobilePanel('extract', event.currentTarget)} className="min-h-11 px-2 text-[11px] font-semibold text-relume-command">Evidence</button>}
           </div>
           {/* W2-503: this floating strip's chip count is bounded, not
               unbounded, across every optionStage branch - 'use'/
@@ -586,13 +657,22 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
               minimum leaves at least 120px for the model after the compact
               status/control row, and the enclosing cockpit scrolls as one
               unit before the export bar rather than layering over it. */}
+          {/* Plan/elevation only: the strip carries a >=44px control, so in the 3D view it would take
+              ~50px from the model and push docked Reading below its 180px model-visible floor at
+              375x667 (measured: main 148/148 audit checks -> 133 with the strip in every view). */}
+          {canvasFirst && view !== 'space' && <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-relume-border bg-white px-3 py-1" data-geometry-revision-strip>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Geometry rev <code className="font-mono text-relume-ink" data-geometry-revision>{geometryRevision}</code> · INDICATIVE</p>
+            {downstream.length > 0 && <span role="status" title={downstream.map((status) => status.label + ': ' + status.detail + ' (recorded at rev ' + status.recordedRevision + ')').join(' | ')} className={`rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.06em] ${downstreamStale ? 'border-rose-300 bg-rose-50 text-rose-900' : 'border-emerald-300 bg-emerald-50 text-emerald-900'}`} data-downstream-summary={downstreamStale ? 'stale' : 'current'}>{downstream.map((status, index) => <span key={status.id} data-downstream-status={status.id} data-downstream-state={status.state}>{index > 0 ? ' + ' : ''}{status.id === 'BOQ' ? 'BOQ' : 'Structural'}</span>)} · {downstreamStale ? 'STALE UPSTREAM DATA' : 'CURRENT'}</span>}
+            <button type="button" onClick={recordOutputs} disabled={Boolean(recordedRevision) && !downstreamStale} className="min-h-11 rounded-full border border-relume-border bg-white px-3 text-[10px] font-semibold text-relume-command disabled:cursor-not-allowed disabled:opacity-50" data-record-outputs>{!recordedRevision ? 'Record BOQ + structural' : downstreamStale ? 'Re-record at this revision' : 'Recorded'}</button>
+          </div>}
           <div data-cockpit-canvas className={canvasFirst ? "relative min-h-[14rem] flex-1 overflow-hidden" : fullBleedEmbed ? "h-[min(68svh,44rem)] min-h-[28rem] lg:h-[calc(76vh-7.25rem)] lg:min-h-[34rem]" : "h-[32rem] min-h-[24rem]"}>
-            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} shell={isDesignExperience ? selectedShell : undefined} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} />}
+            {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} shell={isDesignExperience ? selectedShell : undefined} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} selectedWallId={selectedWallId} onSelectWall={selectWall} onWallDrag={(wallId, positionM) => { moveSelectedWall(wallId, positionM, true) }} onWallDragEnd={(wallId, positionM) => { if (Number.isFinite(positionM)) moveSelectedWall(wallId, positionM, false); else setPreviewWallOffsets(undefined) }} onWallNudge={nudgeWall} />}
           </div>
           {isDesignExperience && <ShellCatalogPanel parcel={parcelContext} selectedShell={selectedShell} projectInputs={templateProjectInputs} onSelect={(shell) => setSelectedShellId(shell.id)} mobileOpen={mobilePanel === 'shells'} onMobileClose={closeMobilePanel} />}
+          {!canvasFirst && view !== 'space' && <WallInspector wall={selectedWall} positionM={selectedWall ? wallCoordinateM(selectedWall) : 0} floors={plan.floors} openingCount={hostedOpeningCount} moved={selectedWallMoved} onMoveTo={(positionM) => selectedWall ? moveSelectedWall(selectedWall.id, positionM, false) : undefined} onReset={() => { if (selectedWall?.partitionKey) setHistory((current) => commitEdit(current, { ...current.present, wallOffsets: resetWall(current.present.wallOffsets, selectedWall.partitionKey as string) })) }} onClose={() => setSelectedWallId(undefined)} />}
           {!canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
-          {!selectedOpening && !sutraOccludesCanvas && controlProduct && showRegistryControls && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update} mobileOpen={mobilePanel === 'controls'} onMobileClose={closeMobilePanel}/>}
-          {fullBleedEmbed && !selectedOpening && <>
+          {!hasInspector && !sutraOccludesCanvas && controlProduct && showRegistryControls && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update} mobileOpen={mobilePanel === 'controls'} onMobileClose={closeMobilePanel}/>}
+          {fullBleedEmbed && !hasInspector && <>
             <button type="button" onClick={() => setShowExtract((value) => { const next = !value; if (next) setSelectedOpeningId(undefined); return next })} aria-expanded={showExtract} className="hidden" data-extract-toggle>
               {showExtract ? 'Hide data extract' : 'Data extract'}
             </button>
@@ -608,7 +688,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
 
         {toolProduct && !sutraOccludesCanvas && <ProductToolSurface product={toolProduct} mobileOpen={mobilePanel === 'tool'} onMobileClose={closeMobilePanel} />}
 
-        {canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} className="max-h-[40dvh] overflow-y-auto" />}
+        {canvasFirst && view !== 'space' && <WallInspector wall={selectedWall} positionM={selectedWall ? wallCoordinateM(selectedWall) : 0} floors={plan.floors} openingCount={hostedOpeningCount} moved={selectedWallMoved} onMoveTo={(positionM) => selectedWall ? moveSelectedWall(selectedWall.id, positionM, false) : undefined} onReset={() => { if (selectedWall?.partitionKey) setHistory((current) => commitEdit(current, { ...current.present, wallOffsets: resetWall(current.present.wallOffsets, selectedWall.partitionKey as string) })) }} onClose={() => setSelectedWallId(undefined)} className="max-h-[40dvh] overflow-y-auto xl:max-h-none xl:min-h-0" />}
+        {canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} className="max-h-[40dvh] overflow-y-auto xl:max-h-none xl:min-h-0" />}
 
         {!canvasFirst && !fullBleedEmbed && <aside className="order-3 border-t border-relume-border p-4 xl:order-none xl:border-l xl:border-t-0" aria-label="Plan data extract">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Data extract</p>
