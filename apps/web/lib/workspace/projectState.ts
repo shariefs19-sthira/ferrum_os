@@ -1,6 +1,6 @@
 import type { StudioParameters } from '../types'
-import type { OpeningEdit } from './openings'
 import { safeGet, safeSet } from '../safeStorage'
+import type { OpeningEdit } from './openings'
 
 export const PROJECT_STATE_KEY = 'ferrum-project-state-v1'
 export const PROJECT_STATE_EVENT = 'ferrum:project-state'
