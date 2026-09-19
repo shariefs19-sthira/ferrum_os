@@ -97,8 +97,19 @@ export default function ToolsRuler({
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) setIsMenuOpen(false)
     }
 
+    // touchstart: iOS Safari does not synthesize mousedown for taps on
+    // non-interactive areas (e.g. the canvas), so mousedown alone left the
+    // menu open over the render.
+    const handleTouchOutside = (event: TouchEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) setIsMenuOpen(false)
+    }
+
     document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
+    document.addEventListener("touchstart", handleTouchOutside, { passive: true })
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("touchstart", handleTouchOutside)
+    }
   }, [rail, isMenuOpen])
 
   useEffect(() => {
@@ -119,7 +130,7 @@ export default function ToolsRuler({
   const activeToolMeta = tools.find((tool) => tool.id === activeTool) ?? tools[0]
 
   return (
-    <aside aria-label="Workspace tools" className={`border-relume-border bg-relume-surface-secondary ${rail ? "border-b lg:border-b-0 lg:border-l" : "border-b"}`}>
+    <aside aria-label="Workspace tools" className={`border-relume-border bg-relume-surface-secondary ${rail ? "border-b lg:border-b-0 lg:border-l" : "relative z-[60] border-b"}`}>
       <div className={`flex items-center gap-2 px-4 py-2 sm:px-6 ${rail ? "h-full flex-col overflow-x-hidden overflow-y-auto px-1 py-3 sm:px-1" : "mx-auto max-w-relume-container"}`}>
         <span className={`mr-1 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-relume-muted ${rail ? '' : 'hidden sm:inline'}`}>
           Tools
@@ -164,7 +175,7 @@ export default function ToolsRuler({
                 id="tools-ruler-listbox"
                 role="listbox"
                 aria-label="Workspace tools"
-                className="absolute left-0 top-full z-30 mt-2 max-h-80 w-56 overflow-y-auto rounded-2xl border border-relume-border bg-relume-surface p-2 shadow-xl"
+                className="absolute left-0 top-full z-[60] mt-2 max-h-80 w-56 max-w-[calc(100vw-2rem)] overflow-y-auto rounded-2xl border border-relume-border bg-relume-surface p-2 shadow-xl"
               >
                 {tools.map((tool) => (
                   <div
