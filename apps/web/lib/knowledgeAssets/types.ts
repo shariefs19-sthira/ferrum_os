@@ -8,6 +8,10 @@ export type RightsAttestation = {
   attestedBy: string
   attestedAt: string // ISO date
   statement: string
+  /** ISO date; the attestation lapses after this date. */
+  expiresAt?: string | null
+  /** ISO date; set when the attestation was withdrawn. Any value = revoked. */
+  revokedAt?: string | null
 }
 
 export type SourceRecord = {

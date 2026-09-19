@@ -13,6 +13,15 @@ export function newerEdition(source: SourceRecord, sources: SourceRecord[]): Sou
 export const isSuperseded = (source: SourceRecord, sources: SourceRecord[]): boolean =>
   newerEdition(source, sources) !== null
 
+/** Why the source's rights attestation is unusable on `today` (ISO date), or null when in force. */
+export function rightsProblem(source: SourceRecord, today: string): string | null {
+  if (source.rights.revokedAt) return 'rights revoked'
+  if (source.rights.expiresAt && today > source.rights.expiresAt) return 'rights expired'
+  return null
+}
+
+export const todayIso = (): string => new Date().toISOString().slice(0, 10)
+
 export function makeCitation(source: SourceRecord, chunk: KnowledgeChunk): Citation {
   return {
     tenantId: source.tenantId,
@@ -35,10 +44,13 @@ export function resolveCitation(
   tenantId: string,
   sources: SourceRecord[],
   chunks: KnowledgeChunk[],
+  today: string = todayIso(),
 ): ResolvedCitation | Unknown {
   if (citation.tenantId !== tenantId) return { status: 'UNKNOWN', reasons: ['citation belongs to a different tenant'] }
   const source = sources.find((s) => s.tenantId === tenantId && s.id === citation.sourceId)
   if (!source) return { status: 'UNKNOWN', reasons: ['source not found'] }
+  const rp = rightsProblem(source, today)
+  if (rp) return { status: 'UNKNOWN', reasons: [rp] }
   if (source.edition !== citation.edition) return { status: 'UNKNOWN', reasons: ['edition mismatch'] }
   if (source.contentHash !== citation.contentHash) return { status: 'UNKNOWN', reasons: ['content hash mismatch'] }
   const chunk = chunks.find(
