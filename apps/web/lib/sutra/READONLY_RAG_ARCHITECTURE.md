@@ -1,108 +1,68 @@
-# SUTRA read-only knowledge access & retrieval policy
+# SUTRA read-only retrieval boundary
 
-Scope: five deterministic TypeScript policy modules under this
-directory (`apps/web/lib/sutra/`) that govern how SUTRA's retrieval
-path selects, packages, and hands knowledge-base/project context to a
-model adapter. No network calls, no external SDKs, no secrets. Every
-exported function is a pure function of its arguments — no hidden
-clock or I/O — so behaviour is fully testable and auditable from the
-call site.
+This domain-only slice contains deterministic classification, sandbox, source,
+redaction, injection-scanning and audit policies. It has no network calls,
+provider SDK, route, worker or UI integration. It is NOT LIVE.
 
-This complements, and does not modify, the existing
-`sandboxPolicy.ts` (SUTRA's project-mutation sandbox contract). That
-module governs whether an agent may *act* on a project; the modules
-below govern what an agent may *read* to inform that action.
+## Server-owned handoff
 
-## Modules
+`ragRetrievalHandoff.server.ts` is the only content-producing retrieval entry
+point: `handoffRetrieval(request, catalogue, sources)`. It imports Next's existing
+server-only marker, which prevents use from client components. The server must
+supply ingestion-owned catalogue/source metadata and authenticated tenant/project
+identity when a future route is integrated. This slice does not implement those
+repositories or authentication and must not be treated as a ready HTTP endpoint.
 
-- **`ragClassification.ts`** — `DataClassification` = `PUBLIC` |
-  `PROJECT_SENSITIVE` | `PERSONAL` | `RESTRICTED`, ranked in that
-  order. Classification is declared metadata on each
-  `KnowledgeFragment`, set at ingestion — never inferred from content
-  here. `isVisibleToTenant` enforces that anything above `PUBLIC` only
-  resolves inside its own tenant/project.
+Public callers supply request and consent-reference data only. There is no
+exported composition factory, injectable consent store, verifier, proof minting
+function, or record registration API. The consent authority is module-private
+and frozen. **No authoritative consent repository is connected, so all external
+PROJECT_SENSITIVE disclosure is disabled**, including frozen caller references,
+proofs and purported successful decisions. Retention choice never grants consent.
+A future server implementation must verify human consent against immutable record
+id/digest/version, tenant/project, provider/model, classification, exact fragment,
+read-only retrieval purpose, expiry and revocation. This requires a separately
+reviewed integration; this slice intentionally provides no request-configurable
+way to enable disclosure and no fabricated successful consent fixture.
 
-- **`ragAdapterBoundary.ts`** — the local/open-model vs external-model
-  boundary. `AdapterIdentity` distinguishes `LOCAL_OPEN_MODEL` (runs
-  inside Ferrum's own boundary) from `EXTERNAL_MODEL` (a connected
-  provider — Claude or Codex). `ADAPTER_CLASSIFICATION_CEILING` caps
-  what each adapter kind may ever receive: the local adapter may see
-  up to `RESTRICTED`; the external adapter tops out at
-  `PROJECT_SENSITIVE` only after a specific human disclosure-consent record;
-  `PERSONAL` and `RESTRICTED` fragments never
-  reach an external provider through this path, by construction, not
-  by convention.
+The handoff checks each explicitly requested fragment before packaging:
 
-  `EXTERNAL_ADAPTER_PERMISSION_ENVELOPE` is a `Object.freeze`d
-  constant every external-adapter call carries: `canWriteProjectData`,
-  `canWriteRepository`, `canModifyWebsite`, `canDeploy`,
-  `canDeleteData`, `canAdministerAccounts` and
-  `canTrainOnDisclosedData` are all `false`; `allowedOperations` is
-  `['READ', 'RETRIEVE', 'SUMMARIZE', 'CITE']`. This is the no-write /
-  no-website-change guarantee for external Claude/Codex providers —
-  frozen so no call site can widen it at runtime; a genuinely broader
-  grant would require a new, separately-reviewed type, never a
-  mutation of this one.
+1. Tenant/project visibility and adapter classification ceiling.
+2. Exact sandbox tenant/project, provider/model and request identity.
+3. Fragment membership in requested and disclosed sandbox context.
+4. Read-only access and the existing `evaluateSandboxRequest` policy, including
+   external training denial and excess-context rejection.
+5. Explicit no-retention or Ferrum-managed retention for external adapters.
+6. Matching source and the existing `canUseForRetrieval` licence/consent policy.
+7. Authoritative consent for external PROJECT_SENSITIVE content (closed).
+8. Pattern redaction and citation-preserving packaging of passing fragments only.
 
-- **`ragContextPackaging.ts`** — `packageMinimumNecessaryContext` only
-  ever includes fragments a request explicitly named by id (never a
-  broader matching set), drops anything tenant-invisible or above the
-  target adapter's ceiling — reporting each exclusion with its
-  specific reason — and applies deterministic pattern-based redaction
-  (`redactPersonalData`: email, phone, national-ID-shaped sequences)
-  before packaging. Every packaged fragment still carries its source
-  `RetrievalCitation`; nothing is packaged without provenance attached.
+Packaging occurs inside the same synchronous boundary as the decision. There is
+no public `packageMinimumNecessaryContext` bypass. The exported diagnostic
+`resolveAdapterDecision` returns reasons and an envelope, but that value is never
+accepted as packaging authorization and cannot be replayed for different content.
+The frozen external envelope grants READ/RETRIEVE/SUMMARIZE/CITE only; no write,
+website, administration, deletion, deployment or training authority is granted.
 
-- **`ragRetrievalRecord.ts`** — prompt-injection resistance. Retrieved
-  content is treated as data, never as instructions:
-  `scanForInjectionPatterns` flags instruction-shaped text
-  (`"ignore ... instructions"`, role-override attempts, secret
-  exfiltration requests, privilege-escalation requests) without ever
-  stripping, rewriting, or executing it. `buildRetrievalRecords` tags
-  every record `contentFence: 'DATA_NOT_INSTRUCTION'` so a downstream
-  prompt-builder has a fixed marker to fence retrieved text by,
-  independent of what the text itself says.
+## Supporting modules
 
-- **`ragAuditEvents.ts`** — pure event builders
-  (`auditRetrievalRequested`, `auditContextPackaged`,
-  `auditsForRetrievalRecord`, `auditAdapterDecision`) covering request,
-  packaging, redaction, injection-flag, and adapter-grant/deny events.
-  Callers supply `timestamp` explicitly and own persisting the
-  returned events to whatever audit sink the deployment uses — this
-  module only shapes the event, it never writes anywhere.
+- `ragClassification.ts`: ingestion-declared classification and tenant visibility.
+- `ragAdapterBoundary.ts`: request/value types, frozen permission envelope and
+  classification ceiling; no service constructor or consent verifier export.
+- `ragContextPackaging.ts`: packaging value types and deterministic email/phone/
+  national-ID pattern redaction only. Redaction is a secondary control, never
+  authorization or a complete personal-data detector.
+- `ragRetrievalRecord.ts`: citation-preserving injection scanning and
+  `DATA_NOT_INSTRUCTION` fencing; it neither retrieves nor authorizes content.
+- `ragAuditEvents.ts`: pure event builders with caller-supplied timestamps;
+  persistent audit integration remains outside this slice.
 
-## Retrieval flow (as composed by a caller; no orchestrator is added here)
+## Verification boundary
 
-1. Caller builds a `ContextRequest` naming exactly the fragment ids it
-   needs, the requesting tenant/project, and the target
-   `AdapterIdentity`.
-2. `packageMinimumNecessaryContext` resolves it against a fragment
-   catalogue → `PackagedContext` (included + excluded, each excluded
-   id with its reason).
-3. `buildRetrievalRecords` turns the packaged fragments into
-   injection-scanned, citation-carrying, fenced `RetrievalRecord`s.
-4. The server retrieval composition root constructs an
-   `AdapterDecisionService` with its trusted consent-store boundary;
-   `service.resolve` is checked per fragment before handoff to an
-   `EXTERNAL_MODEL` adapter. The request can carry only a consent-record
-   reference, never a verifier or proof constructor, and an allowed external
-   decision attaches the frozen permission envelope.
-5. The audit builders produce the event trail for steps 1–4; the
-   caller's own audit sink persists them.
-
-## Explicit non-goals of this slice
-
-- No network calls, no real knowledge-base wiring, no UI.
-- External `PROJECT_SENSITIVE` disclosure needs the composition-root's
-  trusted consent-store result, matched against an immutable consent id, record
-  digest/version, project, provider/model, classification, fragment and
-  read-only retrieval purpose. Caller-supplied verifiers, frozen records and
-  request-asserted retention do not qualify.
-- No claim that any model is "trained" on Ferrum data — training
-  consent lives entirely in `sandboxPolicy.ts`'s existing
-  `TrainingConsent` type, which this slice does not alter.
-- No governance-ledger edits (`docs/WAVE_QUEUE.md`, `AGENTS.md`, etc.)
-  — those remain SCRIBE's domain.
-- Not wired into any route, worker, or UI surface — this is the
-  policy layer only, isolated under this directory, ready for a
-  separate wiring pass.
+Adversarial tests exercise absent/forged consent, injected always-true stores and
+verifiers, frozen proofs/approvals, replayed diagnostic decisions, source denial,
+retention, training, context and identity mismatch. PUBLIC external retrieval and
+visible local retrieval still pass when all gates hold. Tests mock only Next's
+server-only environment marker; consent and policy code are never mocked.
+No rendered evidence applies because this change introduces no UI. Passing domain
+tests and builds are not deployment or provider-integration evidence.
