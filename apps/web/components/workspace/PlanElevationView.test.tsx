@@ -44,4 +44,14 @@ describe('PlanElevationView openings', () => {
     const { container } = render(<PlanElevationView plan={plan} view="plan" activeFloor={1} fitAllocatedHeight />)
     expect(container.querySelector('svg')?.getAttribute('class')).toContain('min-h-0')
   })
+
+  it('adds an expanded non-scaling pointer target for every visually thin opening', () => {
+    const plan = generateStudioPlan({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 1 })
+    const { container } = render(<PlanElevationView plan={plan} view="plan" activeFloor={1} />)
+    const target = container.querySelector('[data-opening-hit-target]') as SVGRectElement
+    expect(target).toBeTruthy()
+    expect(target.getAttribute('stroke-width')).toBe('44')
+    expect(target.getAttribute('vector-effect')).toBe('non-scaling-stroke')
+    expect(target.getAttribute('pointer-events')).toBe('all')
+  })
 })
