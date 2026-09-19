@@ -8,6 +8,12 @@ vi.mock('./SiteMap3D', () => ({ default: ({ lat, lng, onPinDrop, onUnavailable }
 vi.mock('../ProvenanceStrip', () => ({ ProvenanceStrip: ({ source }: { source: string }) => <span>Source: {source}</span> }))
 vi.mock('../../lib/workspace/parcelContext', () => ({ writeParcelContext: vi.fn() }))
 
+// jsdom has no PointerEvent, so pointerType would be dropped and a touch tap would be indistinguishable from a mouse click.
+if (typeof window.PointerEvent === 'undefined') {
+  class TestPointerEvent extends MouseEvent { pointerType: string; constructor(type: string, init: MouseEventInit & { pointerType?: string } = {}) { super(type, init); this.pointerType = init.pointerType ?? '' } }
+  vi.stubGlobal('PointerEvent', TestPointerEvent)
+}
+
 const seeded = { ulpin: 'KA-BLR-0001-2024', state: 'Karnataka', district: 'Bengaluru Urban', area_sqm: 1500, land_use: 'Commercial', plot_intel: { advisable_types: [{ building_type: 'Retail complex', reason: 'Sample commercial rule fit' }] } }
 describe('UlpinMapExplorer W-85 parcel finder', () => {
   beforeEach(() => { vi.clearAllMocks(); vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => seeded })) })
@@ -29,6 +35,32 @@ describe('UlpinMapExplorer W-85 parcel finder', () => {
     fireEvent.pointerEnter(coordinates, { pointerType: 'mouse' }); fireEvent.pointerLeave(coordinates); expect(screen.queryAllByRole('tooltip')).toHaveLength(0)
     fireEvent.pointerEnter(coordinates, { pointerType: 'mouse' }); fireEvent.pointerEnter(address, { pointerType: 'mouse' }); expect(screen.getAllByRole('tooltip')).toHaveLength(1)
     fireEvent.keyDown(address, { key: 'Escape' }); expect(screen.queryAllByRole('tooltip')).toHaveLength(0)
+  })
+
+  it('closes a hover-only tip on a document-level Escape (no keyboard focus anywhere) and removes the listener with the tip', () => {
+    render(<UlpinMapExplorer />)
+    const coordinates = screen.getByRole('button', { name: 'Coordinates' })
+    expect(document.activeElement).toBe(document.body)
+    fireEvent.pointerEnter(coordinates, { pointerType: 'mouse' }); expect(screen.getAllByRole('tooltip')).toHaveLength(1)
+    expect(document.activeElement).not.toBe(coordinates)
+    fireEvent.keyDown(document, { key: 'Escape' }); expect(screen.queryAllByRole('tooltip')).toHaveLength(0); expect(coordinates.hasAttribute('aria-describedby')).toBe(false)
+    const remove = vi.spyOn(document, 'removeEventListener')
+    fireEvent.pointerEnter(coordinates, { pointerType: 'mouse' }); fireEvent.pointerLeave(coordinates, { pointerType: 'mouse' })
+    expect(remove.mock.calls.some(([type]) => type === 'keydown')).toBe(true); remove.mockRestore()
+  })
+
+  it('opens the help on a touch tap, keeps it through the touch pointerleave, and clears on tap-away, Escape or the next method tap', () => {
+    render(<UlpinMapExplorer />)
+    const coordinates = screen.getByRole('button', { name: 'Coordinates' }), address = screen.getByRole('button', { name: 'Address' })
+    const tap = (button: HTMLElement) => { fireEvent.pointerEnter(button, { pointerType: 'touch' }); fireEvent.pointerDown(button, { pointerType: 'touch' }); fireEvent.pointerUp(button, { pointerType: 'touch' }); fireEvent.click(button); fireEvent.pointerLeave(button, { pointerType: 'touch' }) }
+    tap(coordinates)
+    expect(coordinates.getAttribute('aria-pressed')).toBe('true'); expect(screen.getAllByRole('tooltip')).toHaveLength(1); expect(coordinates.getAttribute('aria-describedby')).toBe('landintel-location-coordinates-tip')
+    fireEvent.pointerDown(address, { pointerType: 'touch' }); fireEvent.click(address)
+    const tips = screen.getAllByRole('tooltip'); expect(tips).toHaveLength(1); expect(tips[0].textContent).toContain('Search a place name'); expect(coordinates.hasAttribute('aria-describedby')).toBe(false)
+    fireEvent.pointerDown(document.body, { pointerType: 'touch' }); expect(screen.queryAllByRole('tooltip')).toHaveLength(0)
+    tap(coordinates); expect(screen.getAllByRole('tooltip')).toHaveLength(1); fireEvent.keyDown(document, { key: 'Escape' }); expect(screen.queryAllByRole('tooltip')).toHaveLength(0)
+    // a mouse click (no touch pointerdown) still dismisses instead of opening
+    fireEvent.pointerEnter(address, { pointerType: 'mouse' }); fireEvent.pointerDown(address, { pointerType: 'mouse' }); fireEvent.click(address); expect(screen.queryAllByRole('tooltip')).toHaveLength(0)
   })
 
   it('keeps the map mounted and writes a source-qualified seeded ULPIN context', async () => {
