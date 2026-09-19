@@ -2,15 +2,13 @@
 //
 //   node scripts/landscape-sheet-audit.mjs <baseUrl> [--products=Land,Design] [--viewports=667x375,320x568]
 //        [--cookie=accepted|shown|both] [--report=file.json] [--shots-dir=dir] [--shots=all|fail|none]
-//        [--known-open=more-drawer@667x375t,more-drawer@320x568t] [--no-webgl]
+//        [--no-webgl]
 //
 // --no-webgl launches Chromium with the 3D APIs disabled (the cockpit's own reduced-mode
 // profile) and waits for the task toolbar instead of the canvas: same chrome and sheets, far
 // less CPU on a shared machine. Default is the WebGL-capable profile.
 //
-// --known-open lists sheetId@viewport pairs (viewport may be *) whose failures are recorded as
-// KNOWN-OPEN and do not fail the run - for defects tracked outside this audit's fix lease. The
-// default is strict: with no --known-open every failure fails the run.
+// Strict by design: every failure fails the run (no allow-list).
 //
 // Principle: a sheet/dialog's own close (or primary) control must never be hit-occluded by
 // fixed chrome (workflow rail, app bar, cookie bar, SUTRA launcher, another sheet) at any
@@ -50,8 +48,6 @@ if (products.some((product) => !knownProducts.includes(product)) || !['accepted'
   console.error(`Invalid --products/--cookie. Products: ${knownProducts.join(',')}; cookie: accepted|shown|both.`)
   process.exit(2)
 }
-const knownOpen = (flag('known-open') ? flag('known-open').split(',') : []).map((entry) => { const [sheet, viewport = '*'] = entry.trim().split('@'); return { sheet, viewport } })
-const isKnownOpen = (failure, viewportLabel) => { const sheetId = failure.split(':')[0]; return knownOpen.some((entry) => entry.sheet === sheetId && (entry.viewport === '*' || entry.viewport === viewportLabel)) }
 const noWebgl = args.includes('--no-webgl')
 const reportPath = flag('report')
 const shotsDir = flag('shots-dir') ? resolve(flag('shots-dir')) : null
@@ -102,7 +98,7 @@ const sheets = [
 ]
 
 async function runCase(browser, product, viewport, cookie) {
-  const record = { product, viewport: viewport.label, cookie, ok: true, failures: [], knownOpen: [], checked: [], notApplicable: [] }
+  const record = { product, viewport: viewport.label, cookie, ok: true, failures: [], checked: [], notApplicable: [] }
   const fail = (check, detail) => { record.ok = false; record.failures.push(`${check}: ${detail}`) }
   const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, isMobile: viewport.touch, hasTouch: viewport.touch })
   if (cookie === 'accepted') await context.addInitScript(() => { try { localStorage.setItem('ferrum-cookie-consent', 'accepted') } catch { /* storage blocked */ } })
@@ -220,11 +216,6 @@ async function runCase(browser, product, viewport, cookie) {
   if (browserErrors.length > 0) fail('browser-errors', browserErrors.slice(0, 2).join(' | ').slice(0, 200))
   if (shotsMode === 'all') await shot('final').catch(() => undefined)
   await context.close()
-  // Split tracked out-of-lease failures from real ones (only when --known-open names them).
-  const tracked = record.failures.filter((failure) => isKnownOpen(failure, viewport.label))
-  record.knownOpen = tracked
-  record.failures = record.failures.filter((failure) => !tracked.includes(failure))
-  record.ok = record.failures.length === 0
   return record
 }
 
@@ -237,7 +228,7 @@ try {
       for (const product of products) {
         const record = await runCase(browser, product, viewport, cookie)
         cases.push(record)
-        console.log(`${record.ok ? 'PASS' : 'FAIL'} ${product}@${viewport.label} cookie=${cookie} checked=[${record.checked.join(',')}] n/a=[${record.notApplicable.join(',')}]${record.ok ? '' : ` :: ${record.failures.join(' ; ')}`}${record.knownOpen.length ? ` || KNOWN-OPEN: ${record.knownOpen.join(' ; ')}` : ''}`)
+        console.log(`${record.ok ? 'PASS' : 'FAIL'} ${product}@${viewport.label} cookie=${cookie} checked=[${record.checked.join(',')}] n/a=[${record.notApplicable.join(',')}]${record.ok ? '' : ` :: ${record.failures.join(' ; ')}`}`)
       }
     }
   }
@@ -252,12 +243,12 @@ const report = {
   at: new Date(started).toISOString(),
   ms: Date.now() - started,
   matrix: { products, viewports: viewports.map((entry) => entry.label), cookie: cookieVariants },
-  totals: { cases: cases.length, passed: cases.length - failed.length, failed: failed.length, knownOpenFailures: cases.reduce((sum, entry) => sum + entry.knownOpen.length, 0), controlsChecked },
+  totals: { cases: cases.length, passed: cases.length - failed.length, failed: failed.length, controlsChecked },
   cases,
 }
 if (reportPath) {
   await mkdir(dirname(resolve(reportPath)), { recursive: true })
   await writeFile(resolve(reportPath), `${JSON.stringify(report, null, 1)}\n`)
 }
-console.log(`SUMMARY cases=${report.totals.cases} passed=${report.totals.passed} failed=${report.totals.failed} knownOpenFailures=${report.totals.knownOpenFailures} controlsChecked=${controlsChecked}`)
+console.log(`SUMMARY cases=${report.totals.cases} passed=${report.totals.passed} failed=${report.totals.failed} controlsChecked=${controlsChecked}`)
 process.exit(failed.length === 0 && controlsChecked > 0 ? 0 : 1)
