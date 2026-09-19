@@ -213,3 +213,58 @@ nothing about the actual code path that was previously 500ing;
 cleanup left zero residue in production.
 **Duration:** ~20 minutes (PRAGMA check, signup/login, write, DB
 verification, cleanup, migrations reconciliation, report).
+
+### 2026-09-19 — CRANE release: product-aware cockpit (MASON branch `worktree-claude-product-context-20260919`)
+**Seat:** CRANE. **Row:** OPERATOR VERBATIM TASK (no board row cited, RULE 43(2)).
+**Reviewed:** origin branch tip `9b63a77274fb9f2aeb4151a1e6dda4fcf704753c`
+(5 MASON commits: `18e92ab87`, `2590c9ec3`, `fc3a1a3c1`, `00189a6f8`, `9b63a7727`),
+one commit behind `origin/main` `e461bc16015595177056b10b8851417f68edbdc3`
+(merge-base `193211f04`). Diff vs main: 89 files, of which source =
+`CanvasSlot.tsx`, `WorkspaceCockpit.tsx`, new `ProductToolSurface.tsx`,
+`productSurface.ts`, `controlRegistry.ts`, `SteppedForecastModule.tsx` (one
+data attribute), 3 audit scripts, 2 test files; remainder is MASON's own
+`apps/web/evidence/toolbar-f4-20260919/**` screenshots. No RULE 6 / worker.ts /
+migrations / `_headers` path touched. `docs/DEPLOY_STOP` absent;
+branch not on `docs/LAND_HOLD.txt` (only `w2-234/*`). `docs/FLEET_WATCH_STOP`
+present = legacy dispatch hold only, not a deploy/land stop.
+**Reconcile:** `git merge origin/<branch>` onto fresh `origin/main` in an isolated
+worktree: clean, no conflicts.
+**Gates on the merged tree:** `tsc --noEmit` exit 0; `vitest run` 132 files /
+910 passed / 1 skipped / 0 failed; `scripts/verify-static.ps1` passed;
+`next build` exit 0. (One false pass caught: `pnpm --filter ./apps/web exec tsc`
+from inside `apps/web` matched no project and exited 0; re-ran tsc directly.)
+**Landed:** `scripts/land.ps1 -Branch worktree-claude-product-context-20260919`:
+Landed 1 / Skipped 0 / Held 0 / Reported 0, type-check green, push succeeded.
+Landing marker on main: `8148afd73d4ccb49d0feb4e682cbfd9a443f6158`
+(`[land:worktree-claude-product-context-20260919]`); MASON tip `9b63a7727` is
+authorship provenance only (squash rewrote SHAs, RULE 22).
+**Deployed:** `wrangler deploy` -> `ferrumos-preview`, Version ID
+`8c09c3c7-78f2-4985-9013-36e30d651077`, tree identical to `8148afd73`.
+Live URL: https://ferrumos-preview.shariefsatyala.workers.dev/project-workspace/cockpit?product=Land
+**HTTP:** `/` 200, `/project-workspace/cockpit` 200, `?product=Land` 200; CSP
+header present on the cockpit response.
+**Rendered real-click verification (headless, isolated Chromium, RULE 28):**
+6 widths (320/390/768/1024/1366/1440) x 6 products (Land, Design, Structure,
+Cost, Market, Procure) = 36/36 PASS. Per combination: Model-views toolbar top
+>= `header[aria-label="Workspace app bar"]` bottom (48px) at every width (Land
+toolbar top 171 @320-768, 110 @1024, 122 @1366/1440); canvas visible >= 250px
+and its centre hit-tests to the canvas (no obstruction); no horizontal
+overflow; zero page errors; real click on `Export DXF` downloaded
+`ferrum-plan.dxf`; real click on the app-bar `SUTRA` button opened
+`[aria-label="SUTRA design assistant"]` with `#sutra-command` visible (docked
+open by default at >=1024, closed by default below; click toggled and reopened).
+Product tools: Design has no tool panel; Land = ULPIN parcel lookup;
+Structure = IS 456/IS 800 checks; Cost = BOQ cost-split; Market = sample-city
+rate comparison; Procure = "No live tool yet - ROADMAP" (truthful, no action).
+Below 1280 the tool opens via its real trigger and overlaps the model by 0px.
+**Evidence:** `docs/evidence/crane-product-context-release-20260919/`
+(`report.json`, `*-sutra-open.png` x36, `*-tool-open.png`, `verify-live.cjs`).
+**Method note (own probe errors, fixed before claiming):** first run failed
+36/36 on SUTRA because it targeted the Concierge launcher, which this route
+does not render (SUTRA opens from the app-bar button), and the header detector
+matched no element (bottom = 0), making the below-header check vacuous. Both
+corrected and re-run; the 36/36 above is the corrected run.
+**Not done / caveats:** RULE 41 perf-budget (bundle/fps) delta not measured in
+this pass; MASON's 89-file evidence set (~PNG bulk) now lives in the repo.
+Land-toolbar wraps to two rows at 320-1024 by design (F4); 1440 still one row.
+**Duration:** ~1 session.

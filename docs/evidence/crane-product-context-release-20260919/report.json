@@ -1,0 +1,944 @@
+{
+  "base": "https://ferrumos-preview.shariefsatyala.workers.dev",
+  "results": [
+    {
+      "tag": "Land@320",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 328,
+        "canvasVisibleH": 250,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Land tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "LandIntelULPIN parcel lookupINDICATIVEIs this parcel viable — what does the record say, and what does it allow?Find parcelChoose a method, then set or look up t"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Design@320",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 189,
+        "toolbarBottom": 298,
+        "canvasVisibleH": 250,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 0,
+        "triggerText": null,
+        "triggerState": null,
+        "surfaceCount": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Structure@320",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 280,
+        "canvasVisibleH": 250,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Structure tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "StructuraIS 456 / IS 800 clause checksINDICATIVEDoes this section pass the relevant IS 456/IS 800 clause?Structure typeRC Beam (IS 456)Steel Column (IS 800)b (m"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Cost@320",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 280,
+        "canvasVisibleH": 250,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Cost tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "BOQ ProBOQ cost-split scenarioINDICATIVERoughly what will this build cost, split by material, labour and GST?BOQ scenario forecastLiveINDICATIVEBuilt-up scenari"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Market@320",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 189,
+        "toolbarBottom": 298,
+        "canvasVisibleH": 250,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Market tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "ProMarketSample-city rate comparisonINDICATIVEIs this quoted rate reasonable compared to other cities?Verified-pro rate scenarioLiveINDICATIVECement quantity−Ce"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Procure@320",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 280,
+        "canvasVisibleH": 250,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Procure · ROADMAP",
+        "triggerState": "ROADMAP",
+        "surfaceCount": 1,
+        "surfaceText": "ProcureHubNo live tool yetROADMAPNot applicable yet — no live workflow exists to make a decision with.ROADMAPNo live tool exists for this product yet. Nothing h"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Land@390",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 280,
+        "canvasVisibleH": 251,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Land tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "LandIntelULPIN parcel lookupINDICATIVEIs this parcel viable — what does the record say, and what does it allow?Find parcelChoose a method, then set or look up t"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Design@390",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 280,
+        "canvasVisibleH": 251,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 0,
+        "triggerText": null,
+        "triggerState": null,
+        "surfaceCount": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Structure@390",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 251,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Structure tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "StructuraIS 456 / IS 800 clause checksINDICATIVEDoes this section pass the relevant IS 456/IS 800 clause?Structure typeRC Beam (IS 456)Steel Column (IS 800)b (m"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Cost@390",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 251,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Cost tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "BOQ ProBOQ cost-split scenarioINDICATIVERoughly what will this build cost, split by material, labour and GST?BOQ scenario forecastLiveINDICATIVEBuilt-up scenari"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Market@390",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 251,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Market tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "ProMarketSample-city rate comparisonINDICATIVEIs this quoted rate reasonable compared to other cities?Verified-pro rate scenarioLiveINDICATIVECement quantity−Ce"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Procure@390",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 251,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Procure · ROADMAP",
+        "triggerState": "ROADMAP",
+        "surfaceCount": 1,
+        "surfaceText": "ProcureHubNo live tool yetROADMAPNot applicable yet — no live workflow exists to make a decision with.ROADMAPNo live tool exists for this product yet. Nothing h"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Land@768",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 439,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Land tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "LandIntelULPIN parcel lookupINDICATIVEIs this parcel viable — what does the record say, and what does it allow?Find parcelChoose a method, then set or look up t"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Design@768",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 439,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 0,
+        "triggerText": null,
+        "triggerState": null,
+        "surfaceCount": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Structure@768",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 439,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Structure tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "StructuraIS 456 / IS 800 clause checksINDICATIVEDoes this section pass the relevant IS 456/IS 800 clause?Structure typeRC Beam (IS 456)Steel Column (IS 800)b (m"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Cost@768",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 439,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Cost tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "BOQ ProBOQ cost-split scenarioINDICATIVERoughly what will this build cost, split by material, labour and GST?BOQ scenario forecastLiveINDICATIVEBuilt-up scenari"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Market@768",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 439,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Market tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "ProMarketSample-city rate comparisonINDICATIVEIs this quoted rate reasonable compared to other cities?Verified-pro rate scenarioLiveINDICATIVECement quantity−Ce"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Procure@768",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 171,
+        "toolbarBottom": 232,
+        "canvasVisibleH": 439,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Procure · ROADMAP",
+        "triggerState": "ROADMAP",
+        "surfaceCount": 1,
+        "surfaceText": "ProcureHubNo live tool yetROADMAPNot applicable yet — no live workflow exists to make a decision with.ROADMAPNo live tool exists for this product yet. Nothing h"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": false,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Land@1024",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 110,
+        "toolbarBottom": 219,
+        "canvasVisibleH": 335,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Land tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "LandIntelULPIN parcel lookupINDICATIVEIs this parcel viable — what does the record say, and what does it allow?Find parcelChoose a method, then set or look up t"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Design@1024",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 110,
+        "toolbarBottom": 171,
+        "canvasVisibleH": 335,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 0,
+        "triggerText": null,
+        "triggerState": null,
+        "surfaceCount": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Structure@1024",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 110,
+        "toolbarBottom": 171,
+        "canvasVisibleH": 335,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Structure tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "StructuraIS 456 / IS 800 clause checksINDICATIVEDoes this section pass the relevant IS 456/IS 800 clause?Structure typeRC Beam (IS 456)Steel Column (IS 800)b (m"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Cost@1024",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 110,
+        "toolbarBottom": 171,
+        "canvasVisibleH": 335,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Cost tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "BOQ ProBOQ cost-split scenarioINDICATIVERoughly what will this build cost, split by material, labour and GST?BOQ scenario forecastLiveINDICATIVEBuilt-up scenari"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Market@1024",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 110,
+        "toolbarBottom": 171,
+        "canvasVisibleH": 335,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Market tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "ProMarketSample-city rate comparisonINDICATIVEIs this quoted rate reasonable compared to other cities?Verified-pro rate scenarioLiveINDICATIVECement quantity−Ce"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Procure@1024",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 110,
+        "toolbarBottom": 171,
+        "canvasVisibleH": 335,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Procure · ROADMAP",
+        "triggerState": "ROADMAP",
+        "surfaceCount": 1,
+        "surfaceText": "ProcureHubNo live tool yetROADMAPNot applicable yet — no live workflow exists to make a decision with.ROADMAPNo live tool exists for this product yet. Nothing h"
+      },
+      "toolOpen": {
+        "shown": true,
+        "overlap": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Land@1366",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 231,
+        "canvasVisibleH": 389,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Land tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "LANDINTEL ULPIN parcel lookup INDICATIVE Is this parcel viable — what does the record say, and what does it allow? Find parcel Choose a method, then set or look"
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Design@1366",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 183,
+        "canvasVisibleH": 437,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 0,
+        "triggerText": null,
+        "triggerState": null,
+        "surfaceCount": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Structure@1366",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 231,
+        "canvasVisibleH": 433,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Structure tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "STRUCTURA IS 456 / IS 800 clause checks INDICATIVE Does this section pass the relevant IS 456/IS 800 clause? Structure type RC Beam (IS 456) Steel Column (IS 80"
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Cost@1366",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 231,
+        "canvasVisibleH": 433,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Cost tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "BOQ PRO BOQ cost-split scenario INDICATIVE Roughly what will this build cost, split by material, labour and GST? BOQ SCENARIO FORECAST LIVE INDICATIVE Built-up "
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Market@1366",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 231,
+        "canvasVisibleH": 433,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Market tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "PROMARKET Sample-city rate comparison INDICATIVE Is this quoted rate reasonable compared to other cities? VERIFIED-PRO RATE SCENARIO LIVE INDICATIVE Cement quan"
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Procure@1366",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 231,
+        "canvasVisibleH": 433,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Procure · ROADMAP",
+        "triggerState": "ROADMAP",
+        "surfaceCount": 1,
+        "surfaceText": "PROCUREHUB No live tool yet ROADMAP Not applicable yet — no live workflow exists to make a decision with. ROADMAP No live tool exists for this product yet. Noth"
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Land@1440",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 231,
+        "canvasVisibleH": 389,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Land tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "LANDINTEL ULPIN parcel lookup INDICATIVE Is this parcel viable — what does the record say, and what does it allow? Find parcel Choose a method, then set or look"
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Design@1440",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 183,
+        "canvasVisibleH": 437,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 0,
+        "triggerText": null,
+        "triggerState": null,
+        "surfaceCount": 0
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Structure@1440",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 183,
+        "canvasVisibleH": 481,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Structure tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "STRUCTURA IS 456 / IS 800 clause checks INDICATIVE Does this section pass the relevant IS 456/IS 800 clause? Structure type RC Beam (IS 456) Steel Column (IS 80"
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Cost@1440",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 183,
+        "canvasVisibleH": 481,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Cost tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "BOQ PRO BOQ cost-split scenario INDICATIVE Roughly what will this build cost, split by material, labour and GST? BOQ SCENARIO FORECAST LIVE INDICATIVE Built-up "
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Market@1440",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 183,
+        "canvasVisibleH": 481,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Market tool",
+        "triggerState": "LIVE",
+        "surfaceCount": 1,
+        "surfaceText": "PROMARKET Sample-city rate comparison INDICATIVE Is this quoted rate reasonable compared to other cities? VERIFIED-PRO RATE SCENARIO LIVE INDICATIVE Cement quan"
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    },
+    {
+      "tag": "Procure@1440",
+      "geo": {
+        "fixedHeaderBottom": 48,
+        "toolbarTop": 122,
+        "toolbarBottom": 183,
+        "canvasVisibleH": 481,
+        "canvasCenterHitInsideCanvas": true,
+        "hitTag": "CANVAS",
+        "overflow": false
+      },
+      "tool": {
+        "triggerCount": 1,
+        "triggerText": "Procure · ROADMAP",
+        "triggerState": "ROADMAP",
+        "surfaceCount": 1,
+        "surfaceText": "PROCUREHUB No live tool yet ROADMAP Not applicable yet — no live workflow exists to make a decision with. ROADMAP No live tool exists for this product yet. Noth"
+      },
+      "exportDxf": "ferrum-plan.dxf",
+      "sutraInitiallyOpen": true,
+      "sutra": "opened",
+      "sutraInput": true,
+      "errors": 0
+    }
+  ],
+  "fails": []
+}
