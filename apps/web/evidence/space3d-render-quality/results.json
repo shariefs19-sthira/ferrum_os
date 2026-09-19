@@ -1,0 +1,413 @@
+[
+  {
+    "name": "mobile-auto",
+    "dataset": {
+      "space-3d": "true",
+      "selected": "Podium",
+      "profileLabel": "reduced",
+      "buildingMinY": "0.000",
+      "groundY": "0.000",
+      "buildingOpacity": "1",
+      "meshesAboveRoof": "0",
+      "sceneObjects": "ground-plane-y0|plot-boundary-outline-y001|osm-drape-below-52057926|osm-building-seated-52057926|osm-drape-below-52057927|osm-building-seated-52057927|osm-drape-below-1257700350|osm-building-seated-1257700350",
+      "shellId": "india-neutral-adaptive",
+      "shellStatus": "INDICATIVE",
+      "renderEngine": "three-webgl-reduced",
+      "renderer": "software",
+      "renderProfile": "reduced",
+      "renderQuality": "auto",
+      "renderQualityReason": "mobile-default",
+      "renderPixelRatio": "1",
+      "renderViewport": "mobile",
+      "cameraState": "{\"position\":[36.811855670103085,28.809278350515456,43.21391752577319],\"target\":[0,3.78,0]}",
+      "fps": "60",
+      "drawCalls": "15"
+    },
+    "buttons": [
+      {
+        "label": "Auto",
+        "checked": "true",
+        "w": 47,
+        "h": 44
+      },
+      {
+        "label": "Reduced",
+        "checked": "false",
+        "w": 67,
+        "h": 44
+      },
+      {
+        "label": "High",
+        "checked": "false",
+        "w": 46,
+        "h": 44
+      }
+    ],
+    "evidence": "INDICATIVE · Climate-adaptive neutral shell · Three.js reduced (mobile default) · NOT A SURVEY",
+    "canvas": {
+      "w": 388,
+      "h": 345,
+      "bottom": 632
+    },
+    "barTop": 632,
+    "barH": 57,
+    "overflowX": false,
+    "errors": []
+  },
+  {
+    "name": "mobile-high",
+    "dataset": {
+      "space-3d": "true",
+      "selected": "Podium",
+      "profileLabel": "full",
+      "buildingMinY": "0.000",
+      "groundY": "0.000",
+      "buildingOpacity": "1",
+      "meshesAboveRoof": "0",
+      "sceneObjects": "ground-plane-y0|plot-boundary-outline-y001|osm-drape-below-52057926|osm-building-seated-52057926|osm-drape-below-52057927|osm-building-seated-52057927|osm-drape-below-1257700350|osm-building-seated-1257700350",
+      "shellId": "india-neutral-adaptive",
+      "shellStatus": "INDICATIVE",
+      "renderEngine": "three-webgl-pbr",
+      "renderer": "software",
+      "renderProfile": "full",
+      "renderQuality": "high",
+      "renderQualityReason": "user-high",
+      "renderPixelRatio": "1.5",
+      "renderViewport": "mobile",
+      "cameraState": "{\"position\":[36.811855670103085,28.809278350515456,43.21391752577319],\"target\":[0,3.78,0]}",
+      "fps": "3",
+      "drawCalls": "34"
+    },
+    "buttons": [
+      {
+        "label": "Auto",
+        "checked": "false",
+        "w": 47,
+        "h": 44
+      },
+      {
+        "label": "Reduced",
+        "checked": "false",
+        "w": 67,
+        "h": 44
+      },
+      {
+        "label": "High",
+        "checked": "true",
+        "w": 46,
+        "h": 44
+      }
+    ],
+    "evidence": "INDICATIVE · Climate-adaptive neutral shell · Three.js PBR (your choice) · NOT A SURVEY",
+    "canvas": {
+      "w": 388,
+      "h": 345,
+      "bottom": 632
+    },
+    "barTop": 632,
+    "barH": 57,
+    "overflowX": false,
+    "errors": []
+  },
+  {
+    "name": "mobile-reduced",
+    "dataset": {
+      "space-3d": "true",
+      "selected": "Podium",
+      "profileLabel": "reduced",
+      "buildingMinY": "0.000",
+      "groundY": "0.000",
+      "buildingOpacity": "1",
+      "meshesAboveRoof": "0",
+      "sceneObjects": "ground-plane-y0|plot-boundary-outline-y001|osm-drape-below-52057926|osm-building-seated-52057926|osm-drape-below-52057927|osm-building-seated-52057927|osm-drape-below-1257700350|osm-building-seated-1257700350",
+      "shellId": "india-neutral-adaptive",
+      "shellStatus": "INDICATIVE",
+      "renderEngine": "three-webgl-reduced",
+      "renderer": "software",
+      "renderProfile": "reduced",
+      "renderQuality": "reduced",
+      "renderQualityReason": "user-reduced",
+      "renderPixelRatio": "1",
+      "renderViewport": "mobile",
+      "cameraState": "{\"position\":[36.811855670103085,28.809278350515456,43.21391752577319],\"target\":[0,3.78,0]}",
+      "fps": "60",
+      "drawCalls": "15"
+    },
+    "buttons": [
+      {
+        "label": "Auto",
+        "checked": "false",
+        "w": 47,
+        "h": 44
+      },
+      {
+        "label": "Reduced",
+        "checked": "true",
+        "w": 67,
+        "h": 44
+      },
+      {
+        "label": "High",
+        "checked": "false",
+        "w": 46,
+        "h": 44
+      }
+    ],
+    "evidence": "INDICATIVE · Climate-adaptive neutral shell · Three.js reduced (your choice) · NOT A SURVEY",
+    "canvas": {
+      "w": 388,
+      "h": 345,
+      "bottom": 632
+    },
+    "barTop": 632,
+    "barH": 57,
+    "overflowX": false,
+    "errors": []
+  },
+  {
+    "name": "desktop-auto",
+    "dataset": {
+      "space-3d": "true",
+      "selected": "Podium",
+      "profileLabel": "reduced",
+      "buildingMinY": "0.000",
+      "groundY": "0.000",
+      "buildingOpacity": "1",
+      "meshesAboveRoof": "0",
+      "sceneObjects": "ground-plane-y0|plot-boundary-outline-y001|osm-drape-below-52057926|osm-building-seated-52057926|osm-drape-below-52057927|osm-building-seated-52057927|osm-drape-below-1257700350|osm-building-seated-1257700350",
+      "shellId": "india-neutral-adaptive",
+      "shellStatus": "INDICATIVE",
+      "renderEngine": "three-webgl-reduced",
+      "renderer": "software",
+      "renderProfile": "reduced",
+      "renderQuality": "auto",
+      "renderQualityReason": "software-renderer",
+      "renderPixelRatio": "1",
+      "renderViewport": "desktop",
+      "cameraState": "{\"position\":[27.599999999999998,21.6,32.4],\"target\":[0,3.78,0]}",
+      "fps": "60",
+      "drawCalls": "15"
+    },
+    "buttons": [
+      {
+        "label": "Auto",
+        "checked": "true",
+        "w": 47,
+        "h": 44
+      },
+      {
+        "label": "Reduced",
+        "checked": "false",
+        "w": 67,
+        "h": 44
+      },
+      {
+        "label": "High",
+        "checked": "false",
+        "w": 46,
+        "h": 44
+      }
+    ],
+    "evidence": "INDICATIVE · Climate-adaptive neutral shell · Three.js reduced (software GL) · NOT A SURVEY",
+    "canvas": {
+      "w": 1064,
+      "h": 503,
+      "bottom": 741
+    },
+    "barTop": 741,
+    "barH": 56,
+    "overflowX": false,
+    "errors": []
+  },
+  {
+    "name": "desktop-high",
+    "dataset": {
+      "space-3d": "true",
+      "selected": "Podium",
+      "profileLabel": "full",
+      "buildingMinY": "0.000",
+      "groundY": "0.000",
+      "buildingOpacity": "1",
+      "meshesAboveRoof": "0",
+      "sceneObjects": "ground-plane-y0|plot-boundary-outline-y001|osm-drape-below-52057926|osm-building-seated-52057926|osm-drape-below-52057927|osm-building-seated-52057927|osm-drape-below-1257700350|osm-building-seated-1257700350",
+      "shellId": "india-neutral-adaptive",
+      "shellStatus": "INDICATIVE",
+      "renderEngine": "three-webgl-pbr",
+      "renderer": "software",
+      "renderProfile": "full",
+      "renderQuality": "high",
+      "renderQualityReason": "user-high",
+      "renderPixelRatio": "1",
+      "renderViewport": "desktop",
+      "cameraState": "{\"position\":[27.599999999999998,21.6,32.4],\"target\":[0,3.78,0]}",
+      "fps": "27",
+      "drawCalls": "34"
+    },
+    "buttons": [
+      {
+        "label": "Auto",
+        "checked": "false",
+        "w": 47,
+        "h": 44
+      },
+      {
+        "label": "Reduced",
+        "checked": "false",
+        "w": 67,
+        "h": 44
+      },
+      {
+        "label": "High",
+        "checked": "true",
+        "w": 46,
+        "h": 44
+      }
+    ],
+    "evidence": "INDICATIVE · Climate-adaptive neutral shell · Three.js PBR (your choice) · NOT A SURVEY",
+    "canvas": {
+      "w": 1064,
+      "h": 503,
+      "bottom": 741
+    },
+    "barTop": 741,
+    "barH": 56,
+    "overflowX": false,
+    "errors": []
+  },
+  {
+    "name": "desktop-reduced",
+    "dataset": {
+      "space-3d": "true",
+      "selected": "Podium",
+      "profileLabel": "reduced",
+      "buildingMinY": "0.000",
+      "groundY": "0.000",
+      "buildingOpacity": "1",
+      "meshesAboveRoof": "0",
+      "sceneObjects": "ground-plane-y0|plot-boundary-outline-y001|osm-drape-below-52057926|osm-building-seated-52057926|osm-drape-below-52057927|osm-building-seated-52057927|osm-drape-below-1257700350|osm-building-seated-1257700350",
+      "shellId": "india-neutral-adaptive",
+      "shellStatus": "INDICATIVE",
+      "renderEngine": "three-webgl-reduced",
+      "renderer": "software",
+      "renderProfile": "reduced",
+      "renderQuality": "reduced",
+      "renderQualityReason": "user-reduced",
+      "renderPixelRatio": "1",
+      "renderViewport": "desktop",
+      "cameraState": "{\"position\":[27.599999999999998,21.6,32.4],\"target\":[0,3.78,0]}",
+      "fps": "60",
+      "drawCalls": "15"
+    },
+    "buttons": [
+      {
+        "label": "Auto",
+        "checked": "false",
+        "w": 47,
+        "h": 44
+      },
+      {
+        "label": "Reduced",
+        "checked": "true",
+        "w": 67,
+        "h": 44
+      },
+      {
+        "label": "High",
+        "checked": "false",
+        "w": 46,
+        "h": 44
+      }
+    ],
+    "evidence": "INDICATIVE · Climate-adaptive neutral shell · Three.js reduced (your choice) · NOT A SURVEY",
+    "canvas": {
+      "w": 1064,
+      "h": 503,
+      "bottom": 741
+    },
+    "barTop": 741,
+    "barH": 56,
+    "overflowX": false,
+    "errors": []
+  },
+  {
+    "name": "mobile-320-high",
+    "dataset": {
+      "space-3d": "true",
+      "selected": "Podium",
+      "profileLabel": "full",
+      "buildingMinY": "0.000",
+      "groundY": "0.000",
+      "buildingOpacity": "1",
+      "meshesAboveRoof": "0",
+      "sceneObjects": "ground-plane-y0|plot-boundary-outline-y001|osm-drape-below-52057926|osm-building-seated-52057926|osm-drape-below-52057927|osm-building-seated-52057927|osm-drape-below-1257700350|osm-building-seated-1257700350",
+      "shellId": "india-neutral-adaptive",
+      "shellStatus": "INDICATIVE",
+      "renderEngine": "three-webgl-pbr",
+      "renderer": "software",
+      "renderProfile": "full",
+      "renderQuality": "high",
+      "renderQualityReason": "user-high",
+      "renderPixelRatio": "1.5",
+      "renderViewport": "mobile",
+      "cameraState": "{\"position\":[38.14528301886792,29.85283018867925,44.77924528301887],\"target\":[0,3.78,0]}",
+      "fps": "15",
+      "drawCalls": "34"
+    },
+    "buttons": [
+      {
+        "label": "Auto",
+        "checked": "false",
+        "w": 47,
+        "h": 44
+      },
+      {
+        "label": "Reduced",
+        "checked": "false",
+        "w": 67,
+        "h": 44
+      },
+      {
+        "label": "High",
+        "checked": "true",
+        "w": 46,
+        "h": 44
+      }
+    ],
+    "evidence": "INDICATIVE · Climate-adaptive neutral shell · Three.js PBR (your choice) · NOT A SURVEY",
+    "canvas": {
+      "w": 318,
+      "h": 293,
+      "bottom": 548
+    },
+    "barTop": 548,
+    "barH": 91,
+    "overflowX": false,
+    "errors": []
+  },
+  {
+    "name": "desktop-high-fallback",
+    "fallback": {
+      "space-3d": "true",
+      "selected": "Podium",
+      "profileLabel": "reduced",
+      "buildingMinY": "0.000",
+      "groundY": "0.000",
+      "buildingOpacity": "1",
+      "meshesAboveRoof": "0",
+      "sceneObjects": "ground-plane-y0|plot-boundary-outline-y001|osm-drape-below-52057926|osm-building-seated-52057926|osm-drape-below-52057927|osm-building-seated-52057927|osm-drape-below-1257700350|osm-building-seated-1257700350",
+      "shellId": "india-neutral-adaptive",
+      "shellStatus": "INDICATIVE",
+      "renderEngine": "three-webgl-reduced",
+      "renderer": "software",
+      "renderProfile": "reduced",
+      "renderQuality": "high",
+      "renderQualityReason": "auto-fallback",
+      "renderPixelRatio": "1",
+      "renderViewport": "desktop",
+      "cameraState": "{\"position\":[27.599999999999998,21.6,32.4],\"target\":[0,3.78,0]}",
+      "fps": "4",
+      "drawCalls": "34",
+      "evidence": "INDICATIVE · Climate-adaptive neutral shell · Three.js reduced (auto-fallback, low fps) · NOT A SURVEY"
+    }
+  }
+]
