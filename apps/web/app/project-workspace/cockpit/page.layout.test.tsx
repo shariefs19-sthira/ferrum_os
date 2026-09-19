@@ -90,7 +90,7 @@ describe("cockpit SUTRA dock (desktop)", () => {
     expect(splitter.getAttribute("aria-orientation")).toBe("vertical")
     expect(splitter.getAttribute("aria-valuenow")).toBe("374")
     expect(splitter.getAttribute("aria-valuemin")).toBe("320")
-    expect(splitter.getAttribute("aria-valuemax")).toBe("720")
+    expect(splitter.getAttribute("aria-valuemax")).toBe("538")
     expect(splitter.getAttribute("tabindex")).toBe("0")
     expect(splitter.getAttribute("aria-controls")).toBe("sutra-region")
   })
@@ -108,8 +108,8 @@ describe("cockpit SUTRA dock (desktop)", () => {
     fireEvent.keyDown(splitter, { key: "ArrowRight" })
     expect(splitter.getAttribute("aria-valuenow")).toBe("320")
     fireEvent.keyDown(splitter, { key: "End" })
-    // 1440 - 112 rail - 360 canvas floor - 12 splitter = 956, capped at 720
-    expect(splitter.getAttribute("aria-valuenow")).toBe("720")
+    // 1440 - 112 rail - 360 model floor - 12 splitter - 418 tool column (xl) = 538
+    expect(splitter.getAttribute("aria-valuenow")).toBe("538")
     fireEvent.keyDown(splitter, { key: "Enter" })
     expect(splitter.getAttribute("aria-valuenow")).toBe("374")
   })
@@ -122,7 +122,7 @@ describe("cockpit SUTRA dock (desktop)", () => {
     fireEvent.pointerMove(splitter, { clientX: 900, pointerId: 1 })
     expect(splitter.getAttribute("aria-valuenow")).toBe("474")
     fireEvent.pointerMove(splitter, { clientX: -4000, pointerId: 1 })
-    expect(splitter.getAttribute("aria-valuenow")).toBe("720")
+    expect(splitter.getAttribute("aria-valuenow")).toBe("538")
     fireEvent.pointerMove(splitter, { clientX: 9000, pointerId: 1 })
     expect(splitter.getAttribute("aria-valuenow")).toBe("320")
     fireEvent.pointerUp(splitter, { pointerId: 1 })
@@ -153,7 +153,7 @@ describe("cockpit SUTRA dock (desktop)", () => {
     fireEvent.click(screen.getByRole("button", { name: "Make SUTRA wider" }))
     expect(sutraSplitter().getAttribute("aria-valuenow")).toBe("438")
     for (let i = 0; i < 6; i++) fireEvent.click(screen.getByRole("button", { name: "Make SUTRA wider" }))
-    expect(sutraSplitter().getAttribute("aria-valuenow")).toBe("720")
+    expect(sutraSplitter().getAttribute("aria-valuenow")).toBe("538")
     expect((screen.getByRole("button", { name: "Make SUTRA wider" }) as HTMLButtonElement).disabled).toBe(true)
     for (let i = 0; i < 8; i++) fireEvent.click(screen.getByRole("button", { name: "Make SUTRA narrower" }))
     expect(sutraSplitter().getAttribute("aria-valuenow")).toBe("320")
@@ -197,10 +197,10 @@ describe("cockpit SUTRA dock (desktop)", () => {
   })
 
   it("restores a saved layout on load", async () => {
-    window.localStorage.setItem(KEY, JSON.stringify({ version: 1, sutraWidth: 560, sutraSide: "left", sutraCollapsed: false, railWidth: 150 }))
+    window.localStorage.setItem(KEY, JSON.stringify({ version: 1, sutraWidth: 480, sutraSide: "left", sutraCollapsed: false, railWidth: 150 }))
     await openDesktop()
     expect(region().dataset.sutraSide).toBe("left")
-    expect(grid().style.gridTemplateColumns).toBe("560px 12px minmax(0,1fr)")
+    expect(grid().style.gridTemplateColumns).toBe("480px 12px minmax(0,1fr)")
     expect(document.querySelector<HTMLElement>("[data-cockpit-region]")!.style.getPropertyValue("--rail-w")).toBe("150px")
   })
 
