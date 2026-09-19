@@ -1,6 +1,6 @@
 # ArchiDiagram workflow benchmark — brief (ATLAS, 2026-09-19)
 
-Read-only research. INDICATIVE. No app code, shared docs, or competitor media/models touched or copied.
+Read-only research. INDICATIVE. "Implemented in source" means present in repository code at the base commit; no deployment or runtime (LIVE) evidence was checked. No app code, shared docs, or competitor media/models touched or copied.
 Base: origin/main `5d6ec4db5`. The operator's screenshot was not visible to ATLAS; scope taken from the two URLs named in the task.
 
 ## 1. What ArchiDiagram actually shows (evidence class per item)
@@ -16,18 +16,18 @@ Base: origin/main `5d6ec4db5`. The operator's screenshot was not visible to ATLA
 
 Not found and **not inferred**: structural analysis, BOQ, code compliance, CFD/wind simulation, measured-data ingestion. The sample page states no data-source standard.
 
-Takeaway: ArchiDiagram is a presentation-diagram workflow (precise sun geometry + hand-composed diagrammatic annotation), not an evidence engine. Provenance-labelled honesty is the gap Ferrum can own.
+Takeaway: ArchiDiagram is a presentation-diagram workflow (vendor-described sun geometry, not independently validated here, + hand-composed diagrammatic annotation), not an evidence engine. Provenance-labelled honesty is the gap Ferrum can own.
 
 ## 2. Ferrum current state (apps/web at base 5d6ec4db5)
 
 | Capability | State | Line evidence |
 |---|---|---|
-| Parcel-anchored local origin, indicative extent | **LIVE (indicative)** | `lib/designstudio/environmentalContext.ts:118-149`; layer `:159` |
+| Parcel-anchored local origin, indicative extent | **Implemented in source (indicative); deployment not verified** | `lib/designstudio/environmentalContext.ts:118-149`; layer `:159` |
 | Terrain | **Registry-only / UNAVAILABLE** — flat plane, no DTM/DSM | `environmentalContext.ts:183`; terrain capabilities ROADMAP `lib/productFeatureRegistry.ts:79` |
 | OSM context buildings | **Seeded fixture** unless live fetch; confidence `SAMPLE-FIXTURE` | `environmentalContext.ts:203,218`; Space3D draws `sampleSiteContext` `components/workspace/Space3D.tsx:83,185` |
 | Photoreal context | **Registry-only** ("Provider not integrated") | `environmentalContext.ts:225` |
-| Proposed design | LIVE, AUTHOR-CONTROLLED | `environmentalContext.ts:245` |
-| Confidence vocabulary | LIVE | `environmentalContext.ts:21` |
+| Proposed design | Implemented in source, AUTHOR-CONTROLLED; deployment not verified | `environmentalContext.ts:245` |
+| Confidence vocabulary | Implemented in source; deployment not verified | `environmentalContext.ts:21` |
 | Space3D sun/shadow | **Static** hard-coded directional light at (28,44,22); no date/time/lat input; no north indicator; shadow maps off in low-power/mobile | `Space3D.tsx:68-72`, `:48-51` |
 | Space3D views | Perspective + top + axon insets, orbit controls | `Space3D.tsx:215-218` |
 | Sun path / time-shadow controls | **Missing** | no sun/solar module found under `components/workspace`, `lib/designstudio` |
@@ -57,7 +57,7 @@ One bounded slice. Not wind/CFD/BOQ.
 | Sun position/path | Astronomical formula from lat/lon/date/time + declared TZ | **Simulated (deterministic geometry)** | Show lat/lon, date, TZ, method; no lux/energy/daylight-factor claims |
 | Shadows | Sun position × extruded building heights | **Simulated** | Confidence = weakest input: OSM heights per-building or missing, terrain flat; caption "flat ground, OSM/fixture heights"; fixture shows `SAMPLE-FIXTURE` |
 | North | Map bearing / project CRS | Derived | Label true vs magnetic; no declination claim unless sourced |
-| Context buildings | OSM live or fixture | Third-party measured / SAMPLE-FIXTURE | ODbL attribution + date (`OsmLayerSourceInfo`, `environmentalContext.ts:153`) |
+| Context buildings | OSM live or fixture | Third-party community-mapped or derived (not inherently surveyed/measured) / SAMPLE-FIXTURE | ODbL attribution + date (`OsmLayerSourceInfo`, `environmentalContext.ts:153`) |
 | Wind | None connected | **Diagrammatic** | Arrow = author intent, never prevailing-wind data; upgrade requires a dated station/reanalysis source |
 | Access | None connected (`AccessConnectivityPanel.tsx:31`) | **Diagrammatic** | Reuse "adjacent ≠ legal access" copy |
 | Terrain | None (`environmentalContext.ts:183`) | UNAVAILABLE | Shadow caption states flat-ground assumption |
