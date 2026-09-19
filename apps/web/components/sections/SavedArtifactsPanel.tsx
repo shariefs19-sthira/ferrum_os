@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { ARTIFACT_SAVED_EVENT } from "../../lib/workspace/events"
 
@@ -20,9 +21,17 @@ export default function SavedArtifactsPanel() {
   const [attachStatus, setAttachStatus] = useState<Record<string, "idle" | "attached" | "error">>({})
 
   const load = async () => {
-    const sessionRes = await fetch("/api/auth/session")
-    const sessionData = await sessionRes.json()
-    if (!sessionData.user) {
+    let sessionData: { user?: unknown } | null
+    try {
+      const sessionRes = await fetch("/api/auth/session")
+      sessionData = await sessionRes.json()
+    } catch {
+      // Session lookup failed (offline, or no Worker behind a static host):
+      // show the signed-out empty state rather than a permanent skeleton.
+      setAuthed(false)
+      return
+    }
+    if (!sessionData?.user) {
       setAuthed(false)
       return
     }
@@ -83,12 +92,75 @@ export default function SavedArtifactsPanel() {
     }
   }
 
-  if (authed === null) return null
+  if (authed === null) {
+    // Session request pending: keep the region rendered (never blank).
+    return (
+      <div
+        role="status"
+        aria-busy="true"
+        data-testid="saved-artifacts-pending"
+        className="rounded-lg border border-relume-border bg-relume-surface p-6"
+      >
+        <span className="sr-only">Checking your session and loading saved artifacts...</span>
+        <div aria-hidden="true" className="animate-pulse motion-reduce:animate-none">
+          <div className="h-3 w-40 rounded-full bg-relume-border" />
+          <div className="mt-4 rounded-lg border border-relume-border p-3">
+            <div className="h-4 w-2/3 rounded-full bg-relume-border" />
+            <div className="mt-2 h-3 w-1/3 rounded-full bg-relume-border" />
+          </div>
+          <div className="mt-4 h-11 w-48 rounded-full bg-relume-border" />
+        </div>
+      </div>
+    )
+  }
 
   if (!authed) {
+    const disabledControl =
+      "inline-flex min-h-11 cursor-not-allowed items-center justify-center rounded-full border border-relume-border px-4 text-xs opacity-50"
     return (
-      <div className="rounded-lg border border-relume-border bg-relume-surface p-6 text-center text-sm text-relume-ink">
-        <a href="/login" className="underline underline-offset-4">Sign in</a> to see your real saved artifacts here.
+      <div data-testid="saved-artifacts-signed-out" className="rounded-lg border border-relume-border bg-relume-surface p-6">
+        <p className="text-xs font-semibold uppercase tracking-wide text-relume-ink opacity-60">Your saved artifacts</p>
+        <p className="mt-2 text-sm text-relume-ink opacity-70">
+          Sign in to see your real saved artifacts here. The row below only shows how one will look.
+        </p>
+        <ul className="mt-4 space-y-3" aria-label="Sample saved artifact (preview)">
+          <li
+            data-testid="saved-artifacts-preview-row"
+            className="flex flex-col gap-2 rounded-lg border border-dashed border-relume-border p-3 text-sm sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div className="text-left">
+              <p className="flex flex-wrap items-center gap-2 font-medium text-relume-ink">
+                <span className="rounded-full border border-relume-command px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-relume-command">
+                  Preview
+                </span>
+                Sample rate estimate
+              </p>
+              <p className="text-xs text-relume-ink opacity-60">rate-estimate · 19 Sep 2026 · example only, not a saved artifact</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button type="button" disabled title="Available once you save a real artifact" className={disabledControl}>
+                Export
+              </button>
+              <button type="button" disabled title="Available once you save a real artifact" className={disabledControl}>
+                Share
+              </button>
+            </div>
+          </li>
+        </ul>
+        <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
+          <Link
+            href="/project-workspace/cockpit"
+            className="inline-flex min-h-11 items-center justify-center rounded-full bg-relume-command px-6 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-command"
+          >
+            Open a sample project
+          </Link>
+          <a
+            href="/login"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-relume-border px-6 text-sm font-medium text-relume-ink underline underline-offset-4 transition hover:bg-relume-surface-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent"
+          >
+            Sign in
+          </a>
+        </div>
       </div>
     )
   }
