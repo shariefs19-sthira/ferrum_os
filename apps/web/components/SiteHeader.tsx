@@ -20,7 +20,9 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-relume-border bg-relume-surface/95 backdrop-blur">
       <div className="mx-auto flex max-w-relume-container items-center justify-between gap-6 px-6 py-4 md:px-8">
-        <Link href="/" className="flex shrink-0 items-center gap-3 whitespace-nowrap">
+        {/* RULE 41(1): the brand link is 44px tall (the 36px mark centred in it). The header row is
+            already 44px tall because of the menu button / CTA, so this adds no header height. */}
+        <Link href="/" className="flex min-h-11 shrink-0 items-center gap-3 whitespace-nowrap">
           <BrandMark size={36} className="rounded-relume" />
           <span className="text-lg font-semibold tracking-relume-tight text-relume-ink">Ferrum OS</span>
         </Link>
@@ -30,9 +32,11 @@ export default function SiteHeader() {
             <ul className="flex items-center gap-5 whitespace-nowrap lg:gap-8">
               {navLinks.map((link) => (
                 <li key={link.name}>
+                  {/* Shown from 1024px up, which includes touch tablets in landscape: a 44px hit
+                      row that matches the 44px CTA beside it, so the header height is unchanged. */}
                   <Link
                     href={link.href}
-                    className="text-sm text-relume-muted transition hover:text-relume-ink"
+                    className="inline-flex min-h-11 min-w-11 items-center text-sm text-relume-muted transition hover:text-relume-ink"
                   >
                     {link.name}
                   </Link>

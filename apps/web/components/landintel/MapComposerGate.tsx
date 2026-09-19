@@ -1,12 +1,29 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { useParcelContext } from '../../lib/workspace/parcelContext'
 import { buildActiveLayers, evaluateMapComposerReadiness, summarizeReadiness } from '../../lib/landintel/mapComposerReadiness'
 import { emptyMapComposerMetadata, generateLayerId, readMapComposerMetadata, writeMapComposerMetadata, type MapComposerLayer, type MapComposerMetadata } from '../../lib/landintel/mapComposerState'
 
 const inputClass = 'mt-1 min-h-11 w-full rounded-relume border border-relume-border bg-white px-3 py-2 text-sm'
 const labelClass = 'block text-xs font-semibold text-relume-command'
+
+// RULE 41(1) touch target for the two acknowledgement checkboxes. The visible box stays 16px, but the
+// real <input> is stretched invisibly over the whole label row (`absolute inset-0`, min 44px tall), so
+// the box AND the label text are one tap target and the input's own rect clears 44px. A sibling span
+// draws the box and its checked/focus/disabled states through the `peer` selectors. The row is
+// `min-h-11`, exactly as before, so the surrounding form spacing does not move.
+function TouchCheckbox({ checked, disabled, onChange, children }: { checked: boolean; disabled: boolean; onChange: (checked: boolean) => void; children: ReactNode }) {
+  return (
+    <label className="relative isolate flex min-h-11 items-start gap-3 text-sm text-relume-ink">
+      <input type="checkbox" checked={checked} onChange={(event) => onChange(event.target.checked)} disabled={disabled} className="peer absolute inset-0 z-10 m-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed" />
+      <span aria-hidden="true" className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-[4px] border border-relume-steel bg-white text-white transition peer-checked:border-relume-command peer-checked:bg-relume-command peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-relume-command peer-disabled:border-relume-border peer-disabled:bg-relume-surface-muted [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100 peer-disabled:[&>svg]:opacity-60">
+        <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2.5 6.5l2.3 2.3 4.7-5" /></svg>
+      </span>
+      <span>{children}</span>
+    </label>
+  )
+}
 
 export default function MapComposerGate() {
   const parcel = useParcelContext()
@@ -123,14 +140,12 @@ export default function MapComposerGate() {
         </div>
 
         <div className="mt-6 grid gap-4 border-t border-relume-border pt-5 sm:grid-cols-2">
-          <label className="flex min-h-11 items-start gap-3 text-sm text-relume-ink">
-            <input type="checkbox" checked={metadata.locatorInsetAdded} onChange={(event) => update({ locatorInsetAdded: event.target.checked })} disabled={!locatorRequired} className="mt-1 h-4 w-4" />
-            <span>Locator inset added{locatorRequired ? ' (required — the loaded location has no resolved state/district)' : ' (not required for the loaded location)'}</span>
-          </label>
-          <label className="flex min-h-11 items-start gap-3 text-sm text-relume-ink">
-            <input type="checkbox" checked={metadata.indicativeAcknowledged} onChange={(event) => update({ indicativeAcknowledged: event.target.checked })} disabled={!indicativeApplies} className="mt-1 h-4 w-4" />
-            <span>I acknowledge this map will be watermarked INDICATIVE — NOT A LEGAL OPINION{indicativeApplies ? ' (required — loaded data is seeded/INDICATIVE)' : ' (not required — no INDICATIVE data is loaded)'}</span>
-          </label>
+          <TouchCheckbox checked={metadata.locatorInsetAdded} onChange={(checked) => update({ locatorInsetAdded: checked })} disabled={!locatorRequired}>
+            Locator inset added{locatorRequired ? ' (required — the loaded location has no resolved state/district)' : ' (not required for the loaded location)'}
+          </TouchCheckbox>
+          <TouchCheckbox checked={metadata.indicativeAcknowledged} onChange={(checked) => update({ indicativeAcknowledged: checked })} disabled={!indicativeApplies}>
+            I acknowledge this map will be watermarked INDICATIVE — NOT A LEGAL OPINION{indicativeApplies ? ' (required — loaded data is seeded/INDICATIVE)' : ' (not required — no INDICATIVE data is loaded)'}
+          </TouchCheckbox>
         </div>
 
         <ol className="mt-6 grid gap-3 border-t border-relume-border pt-5 sm:grid-cols-2 xl:grid-cols-3" aria-label="Map Composer quality checks">
