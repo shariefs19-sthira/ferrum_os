@@ -35,7 +35,15 @@ function ActiveStatus({ product, stale }: { product: WorkspaceProduct; stale: bo
     : <EvidenceStatusBadge value={stage.status.value} />
 }
 
+/** Published on <html> with the rail's measured viewport bottom (px). The rail sits at
+ * z-[90], above the fixed mobile sheets (z-[80]) so its own menus open over them; the
+ * sheets therefore cap their height to `100dvh - this - bottom inset` so their top edge
+ * (and their close control) starts below the rail instead of underneath it in short
+ * landscape viewports. Absent (embeds with no rail) it falls back to 0px. */
+export const WORKFLOW_RAIL_BOTTOM_VAR = '--ferrum-workflow-rail-bottom'
+
 export default function WorkflowRail({ activeProduct, onProductChange, staleProducts = [] }: WorkflowRailProps) {
+  const navRef = useRef<HTMLElement | null>(null)
   const mobileDetailsRef = useRef<HTMLDetailsElement | null>(null)
   const advancedDetailsRef = useRef<HTMLDetailsElement | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -71,8 +79,26 @@ export default function WorkflowRail({ activeProduct, onProductChange, staleProd
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [advancedOpen, mobileOpen]) // eslint-disable-line react-hooks/exhaustive-deps -- closeDisclosures intentionally uses the current disclosure state
 
+  useEffect(() => {
+    const nav = navRef.current
+    if (!nav) return
+    const root = document.documentElement
+    const publish = () => root.style.setProperty(WORKFLOW_RAIL_BOTTOM_VAR, `${Math.ceil(nav.getBoundingClientRect().bottom)}px`)
+    publish()
+    // The rail moves when the app bar above it or the viewport changes size, not only
+    // when the rail itself does, so observe its neighbours and the window too.
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(publish)
+    for (const node of [nav, nav.parentElement, nav.previousElementSibling]) if (node) observer?.observe(node)
+    window.addEventListener('resize', publish)
+    return () => {
+      observer?.disconnect()
+      window.removeEventListener('resize', publish)
+      root.style.removeProperty(WORKFLOW_RAIL_BOTTOM_VAR)
+    }
+  }, [])
+
   return (
-    <nav aria-label="Project workflow" className="relative z-[90] overflow-visible border-b border-relume-border bg-relume-surface px-3 py-2 sm:px-4" data-workflow-rail>
+    <nav ref={navRef} aria-label="Project workflow" className="relative z-[90] overflow-visible border-b border-relume-border bg-relume-surface px-3 py-2 sm:px-4" data-workflow-rail>
       {(mobileOpen || advancedOpen) && <button type="button" aria-label="Close workflow menu" onClick={closeDisclosures} className="fixed inset-0 z-[80] cursor-default bg-black/20" data-workflow-backdrop />}
       <div className="mx-auto max-w-relume-container">
         <div className="hidden min-[1280px]:flex min-[1280px]:items-center min-[1280px]:gap-1">

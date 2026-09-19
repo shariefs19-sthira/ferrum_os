@@ -1,6 +1,9 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import WorkflowRail from './WorkflowRail'
+import ShellCatalogPanel from '../designstudio/ShellCatalogPanel'
+import { getBuildingShell } from '../../lib/designstudio/shellCatalog'
+import RegistryControls from './RegistryControls'
+import WorkflowRail, { WORKFLOW_RAIL_BOTTOM_VAR } from './WorkflowRail'
 
 describe('WorkflowRail', () => {
   it('presents seven outcome stages and keeps secondary products behind disclosure', () => {
@@ -47,5 +50,39 @@ describe('WorkflowRail', () => {
     fireEvent.keyDown(document, { key: 'Escape' })
     expect(screen.queryByRole('button', { name: 'Close workflow menu' })).toBeNull()
     await waitFor(() => expect(document.activeElement).toBe(summary))
+  })
+})
+
+describe('WorkflowRail vs fixed mobile sheets (landscape close-control occlusion)', () => {
+  it('publishes its measured bottom edge on <html> and removes it on unmount', () => {
+    const rect = vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({ bottom: 108.2, top: 48, left: 0, right: 667, width: 667, height: 60.2, x: 0, y: 48, toJSON: () => ({}) } as DOMRect)
+    try {
+      const { unmount } = render(<WorkflowRail activeProduct="Design" onProductChange={vi.fn()} />)
+      expect(document.documentElement.style.getPropertyValue(WORKFLOW_RAIL_BOTTOM_VAR)).toBe('109px')
+      unmount()
+      expect(document.documentElement.style.getPropertyValue(WORKFLOW_RAIL_BOTTOM_VAR)).toBe('')
+    } finally {
+      rect.mockRestore()
+    }
+  })
+
+  it('caps every fixed mobile sheet at the space below the rail while the rail stays above the sheets', () => {
+    Object.defineProperty(window, 'matchMedia', { configurable: true, value: vi.fn().mockReturnValue({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }) })
+    const shellInputs = { jurisdictionId: null, soilBearingKpa: null, windSpeedMps: null, seismicClass: null, snowLoadKpa: null, floorCount: 3, grossFloorAreaSqm: 1248, buildingWidthM: 16, buildingDepthM: 26, storeyHeightM: 3, materials: [], deadLoadKpa: null, liveLoadKpa: null, userChanges: [] }
+    const controls = { plotWidthM: 24, plotDepthM: 40, setbackM: 3, floors: 4 }
+    const context = { maxFloors: 6, minSetbackM: 1.5, maxSetbackM: 10 }
+    render(<>
+      <ShellCatalogPanel parcel={null} selectedShell={getBuildingShell('india-neutral-adaptive')} projectInputs={shellInputs} onSelect={vi.fn()} mobileOpen />
+      <RegistryControls product="designstudio" parameters={controls} context={context} onChange={vi.fn()} mobileOpen />
+      <RegistryControls product="landintel" parameters={controls} context={context} onChange={vi.fn()} mobileOpen />
+    </>)
+    const sheets = Array.from(document.querySelectorAll<HTMLElement>('[data-mobile-sheet]'))
+    expect(sheets).toHaveLength(3)
+    for (const sheet of sheets) {
+      expect(sheet.className).toContain(`var(${WORKFLOW_RAIL_BOTTOM_VAR},0px)`)
+      expect(sheet.className).toContain('z-[80]')
+    }
+    render(<WorkflowRail activeProduct="Design" onProductChange={vi.fn()} />)
+    expect(screen.getByRole('navigation', { name: 'Project workflow' }).className).toContain('z-[90]')
   })
 })

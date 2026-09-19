@@ -1,0 +1,74 @@
+[
+ {
+  "build": "before",
+  "vp": "667x375",
+  "closeRect": [
+   563,
+   -90,
+   71,
+   44
+  ],
+  "inViewport": false,
+  "centreHit": "button"
+ },
+ {
+  "build": "before",
+  "vp": "320x568",
+  "closeRect": [
+   228,
+   67,
+   71,
+   44
+  ],
+  "inViewport": true,
+  "centreHit": "span"
+ },
+ {
+  "build": "before",
+  "vp": "375x667",
+  "closeRect": [
+   283,
+   214,
+   71,
+   44
+  ],
+  "inViewport": true,
+  "centreHit": "CLOSE BUTTON"
+ },
+ {
+  "build": "after",
+  "vp": "667x375",
+  "closeRect": [
+   563,
+   33,
+   71,
+   44
+  ],
+  "inViewport": true,
+  "centreHit": "CLOSE BUTTON"
+ },
+ {
+  "build": "after",
+  "vp": "320x568",
+  "closeRect": [
+   228,
+   67,
+   71,
+   44
+  ],
+  "inViewport": true,
+  "centreHit": "CLOSE BUTTON"
+ },
+ {
+  "build": "after",
+  "vp": "375x667",
+  "closeRect": [
+   283,
+   214,
+   71,
+   44
+  ],
+  "inViewport": true,
+  "centreHit": "CLOSE BUTTON"
+ }
+]

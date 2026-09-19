@@ -2,18 +2,25 @@
 //
 //   node scripts/post-deploy-cockpit-acceptance.mjs [baseUrl] [--report=file.json]
 //        [--evidence] [--evidence-dir=dir] [--products=Land,Design] [--widths=320,1440]
+//        [--height=900] [--viewports=667x375t,390x844t]
 //
-// One page load per product x width (Land/Design/Structure/Cost/Market/Procure x
-// 320/390/768/1024/1366/1440). Per case: no overflow/page errors at every stage,
+// One page load per product x viewport (Land/Design/Structure/Cost/Market/Procure x
+// 320/390/768/1024/1366/1440, plus a 667x375 landscape TOUCH column: isMobile + hasTouch,
+// every open/close is a real tap). Viewport height is configurable: --height=N applies to
+// every --widths case (default: 800 from 1024 wide, else 900, as before); --viewports takes
+// an explicit WxH list ("t" suffix = touch) and replaces the default matrix. Per case: no overflow/page errors at every stage,
 // toolbar below the app bar, model centre unobstructed, product tool (or truthful
 // ROADMAP) opened by a real click, SUTRA opened with its input visible, and a real
-// DXF download. The original Design 320/768 acceptance (camera-state route: evidence
+// DXF download. The product tool sheet is closed with its own Close control (a real
+// tap/click on the sheet's button, which Playwright refuses if fixed chrome covers it), not by
+// re-toggling the trigger. The original Design 320/768 acceptance (camera-state route: evidence
 // qualification, 44px workspace target, one SUTRA + one Extract action, no default
 // overlay) runs inside the matching Design case, not in a second loop.
 //
 // Output: PASS/FAIL line per case, then one `REPORT {json}` line. Screenshots are
 // written only for failing cases (max 12), or, with --evidence, a bounded set of
-// one per product at the narrowest and widest widths (max 12). Exit 1 on any failure.
+// one per product at the narrowest and widest widths and at the landscape column (max 18).
+// Exit 1 on any failure.
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -26,14 +33,30 @@ const list = (value, fallback) => (value ? value.split(',').map((item) => item.t
 const products = list(flag('products'), ['Land', 'Design', 'Structure', 'Cost', 'Market', 'Procure'])
 const widths = list(flag('widths'), ['320', '390', '768', '1024', '1366', '1440']).map(Number)
 const knownProducts = ['Land', 'Design', 'Structure', 'Cost', 'Market', 'Procure']
-if (products.some((product) => !knownProducts.includes(product)) || widths.some((width) => !Number.isInteger(width) || width < 200 || width > 4000)) {
-  console.error(`Invalid --products/--widths. Products: ${knownProducts.join(',')}; widths: integers 200-4000.`)
+const heightFlag = flag('height') === undefined ? undefined : Number(flag('height'))
+if (products.some((product) => !knownProducts.includes(product)) || widths.some((width) => !Number.isInteger(width) || width < 200 || width > 4000)
+  || (heightFlag !== undefined && (!Number.isInteger(heightFlag) || heightFlag < 200 || heightFlag > 4000))) {
+  console.error(`Invalid --products/--widths/--height. Products: ${knownProducts.join(',')}; widths and height: integers 200-4000.`)
   process.exit(2)
 }
+// Viewport cases. Default matrix = every width at its default (or --height) height, plus the
+// 667x375 landscape touch column; an explicit --widths list keeps only those widths, and an
+// explicit --viewports list replaces everything.
+const standardHeight = (width) => heightFlag ?? (width >= 1024 ? 800 : 900)
+const viewportCases = flag('viewports')
+  ? list(flag('viewports'), []).map((spec) => {
+    const match = /^(\d+)x(\d+)(t?)$/.exec(spec)
+    if (!match || Number(match[1]) < 200 || Number(match[2]) < 200) { console.error(`Invalid --viewports entry "${spec}" (use WxH or WxHt, both >= 200).`); process.exit(2) }
+    return { width: Number(match[1]), height: Number(match[2]), touch: match[3] === 't', label: spec, standard: false }
+  })
+  : [
+    ...widths.map((width) => ({ width, height: standardHeight(width), touch: false, label: String(width), standard: true })),
+    ...(flag('widths') ? [] : [{ width: 667, height: 375, touch: true, label: '667x375t', standard: false }]),
+  ]
 const reportPath = flag('report') || process.env.FERRUM_ACCEPTANCE_REPORT
 const evidenceAlways = args.includes('--evidence')
 const evidenceDir = resolve(flag('evidence-dir') || fileURLToPath(new URL('../test-results/cockpit-acceptance/', import.meta.url)))
-const MAX_SHOTS = 12
+const MAX_SHOTS = 18
 const legacyRoute = '/project-workspace/cockpit?project=preview&product=Design&workspaceView=camera-state&revision=7'
 const legacyWidths = [320, 768]
 
@@ -49,17 +72,22 @@ async function launchBrowser() {
 const rectOf = (locator) => locator.evaluate((element) => { const b = element.getBoundingClientRect(); return { top: b.top, bottom: b.bottom, left: b.left, right: b.right, width: b.width, height: b.height } })
 const short = (error) => String(error?.message ?? error).split('\n')[0].slice(0, 160)
 
-async function runCase(browser, product, width) {
-  const legacy = product === 'Design' && legacyWidths.includes(width)
-  const record = { product, width, ok: true, failures: [], tool: null, sutra: null, dxf: null }
+async function runCase(browser, product, viewport) {
+  const { width, height, touch } = viewport
+  // The camera-state legacy route is the original 320/768 acceptance at the standard heights only.
+  const legacy = product === 'Design' && viewport.standard && legacyWidths.includes(width)
+  const record = { product, width, height, touch, label: viewport.label, ok: true, failures: [], tool: null, sutra: null, dxf: null }
   const fail = (check, detail) => { record.ok = false; record.failures.push(`${check}: ${detail}`) }
   const check = (check_, condition, detail) => { if (!condition) fail(check_, detail) }
-  const context = await browser.newContext({ viewport: { width, height: width >= 1024 ? 800 : 900 }, acceptDownloads: true })
+  const context = await browser.newContext({ viewport: { width, height }, acceptDownloads: true, ...(touch ? { isMobile: true, hasTouch: true } : {}) })
   await context.addInitScript(() => { try { localStorage.setItem('ferrum-cookie-consent', 'accepted') } catch { /* storage blocked */ } })
   const page = await context.newPage()
   const browserErrors = []
   page.on('pageerror', (error) => browserErrors.push(`pageerror ${error.message}`))
   page.on('console', (message) => { if (message.type() === 'error') browserErrors.push(`console ${message.text()}`) })
+  // Real pointer input: a tap on touch viewports, a click otherwise. Playwright refuses either
+  // when fixed chrome covers the target, so an occluded control fails the step.
+  const press = (locator, options = { timeout: 5000 }) => (touch ? locator.tap(options) : locator.click(options))
   const overflow = async (stage) => {
     const wide = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)
     check(`overflow@${stage}`, !wide, 'horizontal page overflow')
@@ -157,18 +185,18 @@ async function runCase(browser, product, width) {
       if (product === 'Design') {
         check('design-no-tool-surface', (await surface.count()) === 0, 'Design must not mount a product tool surface')
         const shells = page.getByRole('button', { name: 'Shells', exact: true })
-        await shells.click({ timeout: 5000 })
+        await press(shells)
         check('design-active-tool', (await shells.getAttribute('aria-expanded')) === 'true', 'Shells control did not open')
         await page.locator('[data-mobile-sheet="shells"]').first().waitFor({ state: 'visible', timeout: 5000 })
         record.tool = { state: 'SHELLS' }
         // Modal sheet: the scrim covers the trigger, so close via the sheet's own control.
-        await page.locator('[data-mobile-sheet="shells"]').getByRole('button', { name: 'Close library' }).click({ timeout: 5000 })
+        await press(page.locator('[data-mobile-sheet="shells"]').getByRole('button', { name: 'Close library' }))
         await page.locator('[data-mobile-sheet="shells"]').waitFor({ state: 'hidden', timeout: 5000 })
         return
       }
       const trigger = page.locator('[data-product-tool-trigger]')
       if (await trigger.isVisible()) {
-        await trigger.click({ timeout: 5000 })
+        await press(trigger)
         check('tool-trigger-expanded', (await trigger.getAttribute('aria-expanded')) === 'true', 'toolbar trigger did not open the tool pane')
       }
       await surface.waitFor({ state: 'visible', timeout: 10000 })
@@ -193,15 +221,17 @@ async function runCase(browser, product, width) {
       check('tool-not-over-model', !info.overlapsModel, 'tool pane overlaps the model')
       await overflow('tool-open')
       if (await trigger.isVisible()) {
-        await trigger.click({ timeout: 5000 })
+        // Close with the tool sheet's own control (real tap/click), then confirm the trigger followed.
+        await press(surface.getByRole('button', { name: 'Close', exact: true }))
         await surface.waitFor({ state: 'hidden', timeout: 5000 })
+        check('tool-trigger-collapsed', (await trigger.getAttribute('aria-expanded')) === 'false', 'closing the tool sheet left the trigger expanded')
       }
     })
 
     // SUTRA: docked and already open from lg; a sheet opened by the app-bar button below.
     await step('sutra', async () => {
       const input = page.locator('#sutra-command')
-      if (!(await input.isVisible())) await page.locator('header[aria-label="Workspace app bar"]').getByRole('button', { name: 'SUTRA', exact: true }).click({ timeout: 5000 })
+      if (!(await input.isVisible())) await press(page.locator('header[aria-label="Workspace app bar"]').getByRole('button', { name: 'SUTRA', exact: true }))
       await input.waitFor({ state: 'visible', timeout: 10000 })
       const box = await input.evaluate((element) => {
         const b = element.getBoundingClientRect()
@@ -213,7 +243,7 @@ async function runCase(browser, product, width) {
       await overflow('sutra-open')
       if (width < 1024) {
         const closer = page.locator('[data-sutra-region] [aria-label="Close SUTRA"]:visible, [data-sutra-region] [aria-label="Minimize SUTRA"]:visible').first()
-        await closer.click({ timeout: 5000 })
+        await press(closer)
         await page.locator('[data-sutra-region]').waitFor({ state: 'hidden', timeout: 5000 })
       }
     })
@@ -221,7 +251,7 @@ async function runCase(browser, product, width) {
     await step('dxf', async () => {
       const button = page.locator('[data-export-dxf]')
       await button.scrollIntoViewIfNeeded()
-      const [download] = await Promise.all([page.waitForEvent('download', { timeout: 15000 }), button.click({ timeout: 5000 })])
+      const [download] = await Promise.all([page.waitForEvent('download', { timeout: 15000 }), press(button)])
       const path = await download.path()
       const raw = path ? await readFile(path) : Buffer.alloc(0)
       const body = raw.toString('utf8')
@@ -243,14 +273,16 @@ const browser = await launchBrowser()
 const cases = []
 const shots = { failure: 0, evidence: 0 }
 try {
+  const standardWidths = viewportCases.filter((entry) => entry.standard).map((entry) => entry.width)
+  const evidenceWidths = standardWidths.length > 0 ? [Math.min(...standardWidths), Math.max(...standardWidths)] : []
   for (const product of products) {
-    for (const width of widths) {
-      const { record, page, context } = await runCase(browser, product, width)
-      const bounded = record.ok && evidenceAlways && (width === Math.min(...widths) || width === Math.max(...widths))
+    for (const viewport of viewportCases) {
+      const { record, page, context } = await runCase(browser, product, viewport)
+      const bounded = record.ok && evidenceAlways && (!viewport.standard || evidenceWidths.includes(viewport.width))
       // Separate caps: failures never starve the bounded evidence set (and vice versa).
       const counter = record.ok ? 'evidence' : 'failure'
       if ((!record.ok || bounded) && shots[counter] < MAX_SHOTS) {
-        const file = `${product}-${width}${record.ok ? '' : '-FAIL'}.png`
+        const file = `${product}-${viewport.label}${record.ok ? '' : '-FAIL'}.png`
         try {
           await mkdir(evidenceDir, { recursive: true })
           await page.screenshot({ path: resolve(evidenceDir, file) })
@@ -260,7 +292,7 @@ try {
       }
       await context.close()
       cases.push(record)
-      console.log(`${record.ok ? 'PASS' : 'FAIL'} ${product}@${width} tool=${record.tool?.state ?? '-'} sutraInput=${record.sutra?.input ?? '-'} dxf=${record.dxf?.bytes ?? '-'}${record.ok ? '' : ` :: ${record.failures.join(' ; ')}`}`)
+      console.log(`${record.ok ? 'PASS' : 'FAIL'} ${product}@${viewport.label} tool=${record.tool?.state ?? '-'} sutraInput=${record.sutra?.input ?? '-'} dxf=${record.dxf?.bytes ?? '-'}${record.ok ? '' : ` :: ${record.failures.join(' ; ')}`}`)
     }
   }
 } finally {
@@ -272,9 +304,9 @@ const report = {
   baseUrl,
   at: new Date(started).toISOString(),
   ms: Date.now() - started,
-  matrix: { products, widths },
+  matrix: { products, viewports: viewportCases.map(({ width, height, touch, label }) => ({ label, width, height, touch })) },
   totals: { cases: cases.length, passed: cases.length - failed.length, failed: failed.length },
-  cases: cases.map(({ product, width, ok, tool, sutra, dxf, failures, shot }) => ({ product, width, ok, tool: tool?.state ?? null, toolTitle: tool?.title ?? null, sutraInput: sutra?.input ?? null, dxfBytes: dxf?.bytes ?? null, ...(failures.length ? { failures } : {}), ...(shot ? { shot } : {}) })),
+  cases: cases.map(({ product, width, height, touch, ok, tool, sutra, dxf, failures, shot }) => ({ product, width, height, touch, ok, tool: tool?.state ?? null, toolTitle: tool?.title ?? null, sutraInput: sutra?.input ?? null, dxfBytes: dxf?.bytes ?? null, ...(failures.length ? { failures } : {}), ...(shot ? { shot } : {}) })),
 }
 if (reportPath) {
   await mkdir(dirname(resolve(reportPath)), { recursive: true })

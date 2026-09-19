@@ -1,0 +1,1814 @@
+{
+ "baseUrl": "http://127.0.0.1:4178",
+ "at": "2026-09-19T12:25:33.924Z",
+ "ms": 397637,
+ "matrix": {
+  "products": [
+   "Land",
+   "Design",
+   "Structure",
+   "Cost",
+   "Market",
+   "Procure"
+  ],
+  "viewports": [
+   "667x375t",
+   "320x568t",
+   "375x667t",
+   "414x896t",
+   "768x1024t",
+   "1024x768",
+   "1366x768"
+  ],
+  "cookie": [
+   "accepted",
+   "shown"
+  ]
+ },
+ "totals": {
+  "cases": 84,
+  "passed": 84,
+  "failed": 0,
+  "controlsChecked": 488
+ },
+ "cases": [
+  {
+   "product": "Land",
+   "viewport": "667x375t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "667x375t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "667x375t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "667x375t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "667x375t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "667x375t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "320x568t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "320x568t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "320x568t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "320x568t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "320x568t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "320x568t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "375x667t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "375x667t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "375x667t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "375x667t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "375x667t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "375x667t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "414x896t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "414x896t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "414x896t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "414x896t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "414x896t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "414x896t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "768x1024t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "768x1024t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "768x1024t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "768x1024t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "768x1024t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "768x1024t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "1024x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "1024x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "1024x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "1024x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "1024x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "1024x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "1366x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "1366x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "1366x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "1366x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "1366x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "1366x768",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "667x375t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "667x375t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "667x375t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "667x375t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "667x375t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "667x375t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "320x568t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "320x568t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "320x568t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "320x568t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "320x568t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "320x568t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "375x667t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "375x667t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "375x667t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "375x667t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "375x667t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "375x667t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "414x896t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "414x896t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "414x896t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "414x896t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "414x896t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "414x896t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "768x1024t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "768x1024t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "768x1024t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "768x1024t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "768x1024t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "768x1024t",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "1024x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "1024x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "1024x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "1024x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "1024x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "1024x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "tool",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "1366x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "controls",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "1366x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Structure",
+   "viewport": "1366x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Cost",
+   "viewport": "1366x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Market",
+   "viewport": "1366x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Procure",
+   "viewport": "1366x768",
+   "cookie": "shown",
+   "ok": true,
+   "failures": [],
+   "checked": [
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "controls",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  }
+ ]
+}

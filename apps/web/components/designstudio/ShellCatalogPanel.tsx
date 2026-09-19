@@ -39,7 +39,7 @@ export default function ShellCatalogPanel({ parcel, selectedShell, projectInputs
 
   return (
     <aside
-      className={`${mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,44rem)] lg:inset-y-4 lg:left-auto lg:right-4 lg:bottom-4 lg:w-[25rem]' : 'hidden'} w-auto overflow-y-auto rounded-relume border border-relume-border bg-white shadow-xl motion-reduce:transition-none`}
+      className={`${mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,44rem,calc(100dvh_-_var(--ferrum-workflow-rail-bottom,0px)_-_max(0.5rem,env(safe-area-inset-bottom))))] lg:top-[max(1rem,calc(var(--ferrum-workflow-rail-bottom,0px)_+_0.5rem))] lg:left-auto lg:right-4 lg:bottom-4 lg:w-[25rem]' : 'hidden'} w-auto overflow-y-auto rounded-relume border border-relume-border bg-white shadow-xl motion-reduce:transition-none`}
       aria-label="Building shell catalogue"
       aria-modal={mobileOpen ? 'true' : undefined}
       role={mobileOpen ? 'dialog' : undefined}
