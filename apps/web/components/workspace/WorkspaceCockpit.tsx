@@ -142,7 +142,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   // knobs are Design-only. Land keeps its Site Constraints authority sheet.
   const toolProduct = canvasFirst && controlProduct && hasProductToolSurface(controlProduct) ? controlProduct : undefined
   const toolSurface = toolProduct ? resolveProductSurface(toolProduct) : undefined
-  const toolOpenBelowLg = Boolean(toolProduct) && !sutraOccludesCanvas && mobilePanel === 'tool'
+  const toolOpenStacked = Boolean(toolProduct) && !sutraOccludesCanvas && mobilePanel === 'tool'
   const showRegistryControls = Boolean(controlProduct) && (!toolProduct || toolProduct === 'landintel')
   const shellRecommendations = useMemo(() => recommendBuildingShells(parcelContext, 4), [parcelContext])
   const [selectedShellId, setSelectedShellId] = useState('india-neutral-adaptive')
@@ -483,7 +483,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           defect; `fullBleedEmbed` doesn't need it (its section isn't
           `flex-col`, so this grid already gets its height from the normal
           document flow / `min-h-[70vh]` on the section). */}
-      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${toolProduct ? 'lg:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)]' : ''} ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : ''} ${toolOpenBelowLg ? (selectedOpening && view !== 'space' ? 'grid-rows-[minmax(15rem,1fr)_minmax(0,20dvh)_minmax(0,20dvh)] lg:grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : 'grid-rows-[minmax(16rem,1fr)_minmax(6rem,36%)] lg:grid-rows-[minmax(0,1fr)_auto]') : ''} ${toolProduct && !toolOpenBelowLg && !(selectedOpening && view !== 'space') ? 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto lg:grid-rows-[minmax(0,1fr)_auto] lg:overflow-visible' : ''} ${!toolProduct && !(selectedOpening && view !== 'space') ? 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto' : ''}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${toolProduct ? 'xl:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)]' : ''} ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : ''} ${toolOpenStacked ? (selectedOpening && view !== 'space' ? 'grid-rows-[max-content_max-content_max-content] overflow-y-auto xl:grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)] xl:overflow-visible' : 'grid-rows-[max-content_max-content] overflow-y-auto xl:grid-rows-[minmax(0,1fr)_auto] xl:overflow-visible') : ''} ${toolProduct && !toolOpenStacked && !(selectedOpening && view !== 'space') ? 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto xl:grid-rows-[minmax(0,1fr)_auto] xl:overflow-visible' : ''} ${!toolProduct && !(selectedOpening && view !== 'space') ? 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto' : ''}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
@@ -501,9 +501,9 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         </aside>}
 
         <div data-cockpit-canvas-section className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst ? 'flex min-h-0 flex-col' : fullBleedEmbed ? 'min-h-0' : ''}`}>
-          <div className="relative z-40 flex flex-nowrap gap-1 border-b border-relume-border bg-white p-2 md:flex-wrap" role="tablist" aria-label="Model views">
+          <div className="relative z-40 flex flex-wrap items-center gap-1 border-b border-relume-border bg-white p-2" role="tablist" aria-label="Model views">
             {(isDesignExperience ? views.filter((candidate) => candidate.id === 'space') : views).map((candidate) => (
-              <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => chooseView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
+              <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => chooseView(candidate.id)} className={`min-h-11 rounded-full px-3 text-xs font-semibold sm:px-4 ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
                 {candidate.label}
               </button>
             ))}
@@ -533,7 +533,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           </div>
           <div className="relative z-40 grid grid-cols-4 border-b border-relume-border bg-white" aria-label="Model task controls" data-mobile-cockpit-toolbar>
             {isDesignExperience && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'shells'} onClick={(event) => toggleMobilePanel('shells', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Shells</button>}
-            {toolSurface && !sutraOccludesCanvas && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'tool'} onClick={(event) => toggleMobilePanel('tool', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command lg:hidden" data-product-tool-trigger={toolSurface.state}>{toolSurface.state === 'LIVE' ? `${activeProduct ?? toolSurface.label} tool` : `${activeProduct ?? toolSurface.label} · ROADMAP`}</button>}
+            {toolSurface && !sutraOccludesCanvas && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'tool'} onClick={(event) => toggleMobilePanel('tool', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command xl:hidden" data-product-tool-trigger={toolSurface.state}>{toolSurface.state === 'LIVE' ? `${activeProduct ?? toolSurface.label} tool` : `${activeProduct ?? toolSurface.label} · ROADMAP`}</button>}
             {showRegistryControls && !sutraOccludesCanvas && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'controls'} onClick={(event) => toggleMobilePanel('controls', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Controls</button>}
             {!canvasFirst && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'options'} onClick={(event) => toggleMobilePanel('options', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Options</button>}
             {!canvasFirst && previewLabel && <button type="button" aria-haspopup="dialog" onClick={() => { closeMobilePanel(); window.dispatchEvent(new CustomEvent('ferrum:open-sutra')) }} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">SUTRA</button>}
@@ -634,7 +634,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
       <p className="border-t border-relume-border bg-relume-surface-secondary px-4 py-2 text-xs text-relume-muted" aria-live="polite" data-canvas-flow-result>{permalinkStatus || commandResult}</p>
       {/* Below lg an open product tool shares the (short) viewport with the model, so the
           wrapped export bar steps aside rather than crowd the canvas; closing the tool restores it. */}
-      <div className={`${canvasFirst ? 'relative z-10 shrink-0' : ''} ${toolOpenBelowLg ? 'hidden lg:block' : ''}`} data-export-bar-region><ExportBar plan={plan} /></div>
+      <div className={`${canvasFirst ? 'relative z-10 shrink-0' : ''} ${toolOpenStacked ? 'hidden xl:block' : ''}`} data-export-bar-region><ExportBar plan={plan} /></div>
     </section>
   )
 }

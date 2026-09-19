@@ -33,14 +33,14 @@ export default function ProductToolSurface({ product, mobileOpen = false, onMobi
   const surface = resolveProductSurface(product)
   const live = surface.state === 'LIVE' && surface.tool !== null
   return <aside
-    className={`${mobileOpen ? 'order-2 block min-h-0 overflow-y-auto overscroll-contain border-t' : 'hidden'} border-relume-border bg-white lg:order-none lg:relative lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:block lg:min-h-0 lg:overflow-visible lg:border-y-0 lg:border-l lg:border-r-0 lg:border-t-0`}
+    className={`${mobileOpen ? 'order-2 block min-h-0 max-h-[60dvh] overflow-y-auto overscroll-contain border-t' : 'hidden'} border-relume-border bg-white xl:order-none xl:relative xl:col-start-2 xl:row-start-1 xl:row-span-2 xl:block xl:min-h-0 xl:max-h-none xl:overflow-visible xl:border-y-0 xl:border-l xl:border-r-0 xl:border-t-0`}
     aria-label={`${surface.label} tool`}
     role="region"
     data-product-tool-surface={product}
     data-tool-state={surface.state}
     data-mobile-sheet={mobileOpen ? 'tool' : undefined}
   >
-    <div className="lg:absolute lg:inset-0 lg:overflow-y-auto">
+    <div className="xl:absolute xl:inset-0 xl:overflow-y-auto">
       <div className="p-4">
         <div className="flex items-start justify-between gap-3">
           <div>
@@ -49,7 +49,7 @@ export default function ProductToolSurface({ product, mobileOpen = false, onMobi
           </div>
           <span className="shrink-0 rounded-full border border-relume-accent bg-orange-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-relume-ink" data-evidence-state={surface.evidenceState}>{surface.evidenceState}</span>
         </div>
-        {mobileOpen && <button type="button" onClick={onMobileClose} className="mt-3 min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command lg:hidden">Close</button>}
+        {mobileOpen && <button type="button" onClick={onMobileClose} className="mt-3 min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command xl:hidden">Close</button>}
         <p className="mt-2 text-xs leading-5 text-relume-muted">{surface.lens}</p>
 
         {live && surface.tool ? <div className="mt-4 [&_[data-forecast-grid]]:!grid-cols-1 lg:[&_[data-find-parcel-toolbar]_.grid:not([aria-label])]:!grid-cols-1 lg:[&_[data-find-parcel-toolbar]_[aria-label='Location_method']]:!grid-cols-2" data-live-tool={surface.tool.key}>{liveTools[surface.tool.key]()}</div> : <div className="mt-4 rounded-relume border border-dashed border-relume-border p-3" data-roadmap-state>

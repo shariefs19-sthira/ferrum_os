@@ -1,0 +1,425 @@
+{
+  "baseUrl": "http://127.0.0.1:3111",
+  "results": [
+    {
+      "tag": "Design@320",
+      "toolbarH": 109,
+      "items": 3,
+      "canvasVisibleH": 302,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Land@320",
+      "toolbarH": 157,
+      "items": 6,
+      "canvasVisibleH": 272,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Structure@320",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 320,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Cost@320",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 320,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Market@320",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 302,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Procure@320",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 320,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Design@375",
+      "toolbarH": 109,
+      "items": 3,
+      "canvasVisibleH": 320,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Land@375",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 320,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Structure@375",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 368,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Cost@375",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 368,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Market@375",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 368,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Procure@375",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 368,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Design@390",
+      "toolbarH": 109,
+      "items": 3,
+      "canvasVisibleH": 320,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Land@390",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 320,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Structure@390",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 368,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Cost@390",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 368,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Market@390",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 368,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Procure@390",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 368,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Design@430",
+      "toolbarH": 61,
+      "items": 3,
+      "canvasVisibleH": 420,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Land@430",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 372,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Structure@430",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 420,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Cost@430",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 420,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Market@430",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 420,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Procure@430",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 420,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Design@768",
+      "toolbarH": 61,
+      "items": 3,
+      "canvasVisibleH": 644,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Land@768",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 644,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Structure@768",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 644,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Cost@768",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 644,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Market@768",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 644,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Procure@768",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 644,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Design@1024",
+      "toolbarH": 61,
+      "items": 3,
+      "canvasVisibleH": 449,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Land@1024",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 401,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Structure@1024",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 449,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Cost@1024",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 449,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Market@1024",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 449,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Procure@1024",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 449,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Design@1366",
+      "toolbarH": 61,
+      "items": 3,
+      "canvasVisibleH": 437,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Land@1366",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 389,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Structure@1366",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 433,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Cost@1366",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 433,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Market@1366",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 433,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Procure@1366",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 433,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Design@1440",
+      "toolbarH": 61,
+      "items": 3,
+      "canvasVisibleH": 437,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Land@1440",
+      "toolbarH": 109,
+      "items": 6,
+      "canvasVisibleH": 389,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Structure@1440",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 481,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Cost@1440",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 481,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Market@1440",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 481,
+      "toolOverlapPx": 0
+    },
+    {
+      "tag": "Procure@1440",
+      "toolbarH": 61,
+      "items": 6,
+      "canvasVisibleH": 481,
+      "toolOverlapPx": 0
+    },
+    {
+      "rail": 1024,
+      "sutra": "closed",
+      "controls": [
+        {
+          "label": "Select",
+          "found": true,
+          "top": true
+        },
+        {
+          "label": "Measure",
+          "found": true,
+          "top": true
+        },
+        {
+          "label": "Compare",
+          "found": true,
+          "top": true
+        }
+      ]
+    },
+    {
+      "rail": 1024,
+      "sutra": "open",
+      "controls": [
+        {
+          "label": "Select",
+          "found": true,
+          "top": true
+        },
+        {
+          "label": "Measure",
+          "found": true,
+          "top": true
+        },
+        {
+          "label": "Compare",
+          "found": true,
+          "top": true
+        }
+      ]
+    },
+    {
+      "rail": 1366,
+      "sutra": "closed",
+      "controls": [
+        {
+          "label": "Select",
+          "found": true,
+          "top": true
+        },
+        {
+          "label": "Measure",
+          "found": true,
+          "top": true
+        },
+        {
+          "label": "Compare",
+          "found": true,
+          "top": true
+        }
+      ]
+    },
+    {
+      "rail": 1366,
+      "sutra": "open",
+      "controls": [
+        {
+          "label": "Select",
+          "found": true,
+          "top": true
+        },
+        {
+          "label": "Measure",
+          "found": true,
+          "top": true
+        },
+        {
+          "label": "Compare",
+          "found": true,
+          "top": true
+        }
+      ]
+    }
+  ]
+}

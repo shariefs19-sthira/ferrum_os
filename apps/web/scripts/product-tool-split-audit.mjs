@@ -68,7 +68,7 @@ const browser = await launch()
 const report = []
 try {
   for (const vp of viewports) {
-    const desktop = vp.width >= 1024
+    const desktop = vp.width >= 1280
     for (const product of products) {
       const page = await browser.newPage({ viewport: vp })
       const errors = []
