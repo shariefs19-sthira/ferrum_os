@@ -96,7 +96,9 @@ describe('SutraPanel idle demo', () => {
     Element.prototype.scrollIntoView = scrollIntoView
     const { container } = render(<SutraPanel onEvent={vi.fn()} defaultGuidedOpen />)
     const panel = container.querySelector('[data-sutra-panel]') as HTMLElement
-    expect(panel.className).toContain('max-md:overflow-y-auto')
+    // The panel scrolls at every width now (short desktop viewports need it
+    // too, see SutraPanel.tsx), not only below `md`.
+    expect(panel.className).toContain('overflow-y-auto')
     fireEvent.change(screen.getByLabelText('Ask SUTRA'), { target: { value: 'add one floor' } })
     fireEvent.click(screen.getByRole('button', { name: 'Send' }))
     const pending = container.querySelector('[data-sutra-pending-confirm]') as HTMLElement
