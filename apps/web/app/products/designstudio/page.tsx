@@ -10,6 +10,7 @@ import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 import ModelIntakePanel from '../../../components/model-intake/ModelIntakePanel'
 import EnvironmentalContextPanel from '../../../components/designstudio/EnvironmentalContextPanel'
 import SuitabilitySummaryPanel from '../../../components/designstudio/SuitabilitySummaryPanel'
+import LibraryVariantLineagePanel from '../../../components/designstudio/LibraryVariantLineagePanel'
 
 const featureItems = productFeatureRegistry.designstudio
 
@@ -98,6 +99,10 @@ export default function DesignStudioPage() {
 
       <SectionShell>
         <SuitabilitySummaryPanel />
+      </SectionShell>
+
+      <SectionShell>
+        <LibraryVariantLineagePanel />
       </SectionShell>
 
       <ModelIntakePanel />
