@@ -1,3 +1,4 @@
+import { safeGet, safeSet } from '../safeStorage'
 import type { StudioParameters } from '../types'
 import type { OpeningEdit } from './openings'
 import type { WallOffsets } from './walls'
