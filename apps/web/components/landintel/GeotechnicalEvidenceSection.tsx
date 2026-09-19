@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import GeotechnicalIntelligencePanel from './GeotechnicalIntelligencePanel'
 import GeotechnicalMapLayerLegend from './GeotechnicalMapLayerLegend'
+import GeotechObservationIntake from './GeotechObservationIntake'
 import { readParcelContext, type ParcelContext } from '../../lib/workspace/parcelContext'
 
 /**
@@ -25,6 +26,7 @@ export default function GeotechnicalEvidenceSection() {
 
   return (
     <div className="space-y-6" data-geotechnical-evidence-section>
+      <GeotechObservationIntake />
       <GeotechnicalIntelligencePanel />
       <GeotechnicalMapLayerLegend generatedFor={generatedFor} />
     </div>
