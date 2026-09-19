@@ -236,7 +236,7 @@ export default function Concierge() {
         aria-label="Open SUTRA"
         aria-haspopup="dialog"
         aria-expanded={false}
-        className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-50 flex h-12 items-center gap-2 rounded-full bg-relume-ink px-4 text-sm font-semibold tracking-[0.08em] text-white shadow-lg transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent sm:bottom-6 sm:right-6"
+        className="fixed bottom-[calc(max(1.5rem,env(safe-area-inset-bottom))+var(--cookie-consent-h,0px))] right-[max(1rem,env(safe-area-inset-right))] z-50 flex h-12 items-center gap-2 rounded-full bg-relume-ink px-4 text-sm font-semibold tracking-[0.08em] text-white shadow-lg transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent sm:bottom-6 sm:right-6"
         data-sutra-launcher
       >
         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
