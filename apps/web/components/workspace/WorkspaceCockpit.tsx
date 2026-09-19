@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { generateStudioPlan } from '../../lib/plan-gen'
+import { safeGet, safeSet } from '../../lib/safeStorage'
 import { checkStructuralLive } from '../../lib/studio/structuralLive'
 import type { StudioParameters, StudioView, WorkspaceExtract, WorkspaceProduct, WorkspaceProvenance } from '../../lib/types'
 import { getRulesetForState } from '../../lib/parcelIntel/sampleRulesets'
@@ -283,13 +284,13 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
     return { opening: result.opening, message: result.error }
   }
   useEffect(() => {
-    const stored = window.localStorage.getItem('ferrum-area-unit')
+    const stored = safeGet('ferrum-area-unit')
     if (areaUnits.some((unit) => unit === stored)) setPrimaryAreaUnit(stored as typeof areaUnits[number])
     const projectState = readProjectState(initialParameters)
     let nextParameters = projectState.parameters
     if (Object.keys(projectState.openingEdits ?? {}).length) setOpeningEdits(projectState.openingEdits ?? {})
     if (!previewLabel) {
-      const handoff = window.localStorage.getItem('ferrum-cockpit-handoff')
+      const handoff = safeGet('ferrum-cockpit-handoff')
       if (handoff) {
         try {
           const parsed = JSON.parse(handoff) as { parameters?: Partial<StudioParameters> }
@@ -397,7 +398,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   }, [initialParameters, maxFloors, parcelContext, parcelLandUse, rulesetState])
   const updateAreaUnit = (unit: typeof areaUnits[number]) => {
     setPrimaryAreaUnit(unit)
-    window.localStorage.setItem('ferrum-area-unit', unit)
+    safeSet('ferrum-area-unit', unit)
   }
   const createPermalink = async () => {
     const host=document.querySelector<HTMLElement>('[data-space-3d]');let camera:WorkspaceViewState['camera']
