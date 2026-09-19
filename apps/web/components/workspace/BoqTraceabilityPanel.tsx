@@ -10,8 +10,8 @@ import {
   type BoqLineageEntry,
   type BoqScope,
 } from '../../lib/workspace/boqLineage'
-import { appendBoqRevision, readOrInitializeBoqRevisionHistory, setLatestCheckerStatus } from '../../lib/workspace/boqRevisionHistory'
-import { computeRevisionDelta, effectiveCheckerStatus, isRevisionStale, type BoqRevision, type CheckerStatus } from '../../lib/workspace/boqRevision'
+import { appendBoqRevision, readOrInitializeBoqRevisionHistory, transitionLatestCheckerStatus } from '../../lib/workspace/boqRevisionHistory'
+import { computeRevisionDelta, effectiveCheckerStatus, isRevisionStale, type BoqRevision, type CheckerStatus, type CheckerTransition } from '../../lib/workspace/boqRevision'
 
 // Drawing/model element -> highlighted measurement -> formula -> BOQ line
 // -> revision impact, built entirely on the existing StudioPlan model and
@@ -29,6 +29,9 @@ const statusStyle: Record<CheckerStatus, string> = {
   'STALE UPSTREAM DATA': 'bg-rose-100 text-rose-900 border-rose-300',
   INDICATIVE: 'bg-orange-50 text-relume-command border-relume-accent',
 }
+
+const checkerOptions = ['DRAFT', 'CHECK REQUIRED', 'CHECKED'] as const
+type CheckerControlStatus = typeof checkerOptions[number]
 
 export type BoqTraceabilitySelection = { lineId: string; sourceElementIds: string[]; scope: BoqScope } | undefined
 
@@ -62,7 +65,15 @@ export default function BoqTraceabilityPanel({ plan, onSelectLine }: BoqTraceabi
     onSelectLine?.(next ? { lineId: entry.lineId, sourceElementIds: entry.sourceElementIds, scope: entry.scope } : undefined)
   }
 
-  const markChecked = (nextStatus: CheckerStatus) => setHistory(setLatestCheckerStatus(nextStatus))
+  const transitionByStatus: Record<CheckerControlStatus, CheckerTransition> = {
+    DRAFT: 'RESET_DRAFT',
+    'CHECK REQUIRED': 'REQUEST_CHECK',
+    CHECKED: 'MARK_CHECKED',
+  }
+
+  const markChecked = (nextStatus: CheckerControlStatus) => {
+    setHistory(transitionLatestCheckerStatus(plan, transitionByStatus[nextStatus]))
+  }
 
   const recalculate = () => {
     const { history: nextHistory } = appendBoqRevision(plan)
@@ -166,7 +177,7 @@ export default function BoqTraceabilityPanel({ plan, onSelectLine }: BoqTraceabi
 
       <div className="mt-4 flex flex-wrap gap-2" data-checker-controls>
         <p className="w-full text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">Checker status</p>
-        {(['DRAFT', 'CHECK REQUIRED', 'CHECKED'] as CheckerStatus[]).map((option) => (
+        {checkerOptions.map((option) => (
           <button key={option} type="button" disabled={stale} onClick={() => markChecked(option)} aria-pressed={status === option} className={`min-h-9 rounded-full border px-3 text-[10px] font-semibold disabled:cursor-not-allowed disabled:opacity-50 ${status === option ? 'border-relume-command bg-relume-command text-white' : 'border-relume-border text-relume-command hover:bg-relume-surface-secondary'}`}>{option}</button>
         ))}
       </div>

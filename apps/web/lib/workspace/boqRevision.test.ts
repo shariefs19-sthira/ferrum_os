@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { generateStudioPlan } from '../plan-gen'
-import { computeRevisionDelta, createBoqRevision, effectiveCheckerStatus, isRevisionStale } from './boqRevision'
+import { computeRevisionDelta, createBoqRevision, effectiveCheckerStatus, isRevisionStale, transitionCheckerStatus } from './boqRevision'
 
 const plan3Floors = generateStudioPlan({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 3 })
 const plan4Floors = generateStudioPlan({ plotWidthM: 20, plotDepthM: 30, setbackM: 2, floors: 4 })
@@ -42,6 +42,17 @@ describe('stale-upstream-data detection', () => {
     const revision = { ...createBoqRevision(plan3Floors, null), checkerStatus: 'CHECKED' as const }
     expect(effectiveCheckerStatus(revision, plan3Floors)).toBe('CHECKED')
     expect(effectiveCheckerStatus(revision, plan4Floors)).toBe('STALE UPSTREAM DATA')
+  })
+
+  it('reconciles against the current plan before checker advancement and persists the explicit stale hold', () => {
+    const checked = { ...createBoqRevision(plan3Floors, null), checkerStatus: 'CHECKED' as const }
+    const held = transitionCheckerStatus(checked, plan4Floors, 'REQUEST_CHECK')
+    expect(held.checkerStatus).toBe('STALE UPSTREAM DATA')
+  })
+
+  it('does not permit a direct checked transition from draft geometry', () => {
+    const draft = createBoqRevision(plan3Floors, null)
+    expect(() => transitionCheckerStatus(draft, plan3Floors, 'MARK_CHECKED')).toThrow(/must be CHECK REQUIRED/)
   })
 })
 

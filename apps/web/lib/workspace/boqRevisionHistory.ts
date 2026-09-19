@@ -1,5 +1,5 @@
 import type { StudioPlan } from '../types'
-import { createBoqRevision, type BoqRevision } from './boqRevision'
+import { createBoqRevision, transitionCheckerStatus, type BoqRevision, type CheckerTransition } from './boqRevision'
 
 // Browser-local revision history, same SSR-safe/try-catch pattern as
 // projectState.ts. This is what makes "preserve the previous revision"
@@ -55,12 +55,17 @@ export function readOrInitializeBoqRevisionHistory(plan: StudioPlan): BoqRevisio
   return history.length > 0 ? history : appendBoqRevision(plan).history
 }
 
-/** Records a checker-status change (DRAFT → CHECK REQUIRED → CHECKED,
- * etc.) on the latest stored revision, without touching plan geometry. */
-export function setLatestCheckerStatus(status: BoqRevision['checkerStatus']): BoqRevision[] {
+/**
+ * Reconciles the latest revision against the current plan before recording a
+ * lifecycle transition. This replaces the former arbitrary status setter so a
+ * visible checker control cannot bypass an upstream-geometry change.
+ */
+export function transitionLatestCheckerStatus(plan: StudioPlan, transition: CheckerTransition): BoqRevision[] {
   const history = readBoqRevisionHistory()
   if (history.length === 0) return history
-  const next = history.map((revision, index) => index === history.length - 1 ? { ...revision, checkerStatus: status } : revision)
+  const next = history.map((revision, index) => index === history.length - 1
+    ? transitionCheckerStatus(revision, plan, transition)
+    : revision)
   writeBoqRevisionHistory(next)
   return next
 }

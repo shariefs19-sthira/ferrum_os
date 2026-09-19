@@ -51,6 +51,33 @@ export function effectiveCheckerStatus(revision: BoqRevision, plan: StudioPlan):
   return isRevisionStale(revision, plan) ? 'STALE UPSTREAM DATA' : revision.checkerStatus
 }
 
+export type CheckerTransition = 'RESET_DRAFT' | 'REQUEST_CHECK' | 'MARK_CHECKED'
+
+/**
+ * Advance the workspace checker only after reconciling the held revision with
+ * the current plan fingerprint. The plan is the authoritative source for this
+ * browser-local generator; a stale held revision is persisted as an explicit
+ * hold and cannot be advanced until the user recalculates from current geometry.
+ */
+export function transitionCheckerStatus(
+  revision: BoqRevision,
+  currentPlan: StudioPlan,
+  transition: CheckerTransition,
+): BoqRevision {
+  if (isRevisionStale(revision, currentPlan)) {
+    return revision.checkerStatus === 'STALE UPSTREAM DATA'
+      ? revision
+      : { ...revision, checkerStatus: 'STALE UPSTREAM DATA' }
+  }
+
+  if (transition === 'RESET_DRAFT') return { ...revision, checkerStatus: 'DRAFT' }
+  if (transition === 'REQUEST_CHECK') return { ...revision, checkerStatus: 'CHECK REQUIRED' }
+  if (revision.checkerStatus !== 'CHECK REQUIRED') {
+    throw new Error(`revision ${revision.revisionId} must be CHECK REQUIRED before it can be marked CHECKED`)
+  }
+  return { ...revision, checkerStatus: 'CHECKED' }
+}
+
 export type RevisionDeltaLine = {
   catalogId: string
   scope: BoqLineageEntry['scope']
