@@ -7,9 +7,52 @@ const pathname = vi.hoisted(() => ({ value: "/" }))
 vi.mock("next/navigation", () => ({ usePathname: () => pathname.value }))
 
 import CookieConsent, { COOKIE_HEIGHT_VAR } from "./CookieConsent"
+import { resetSafeStorageMemory } from "../lib/safeStorage"
+
+describe("CookieConsent with blocked or throwing browser storage (RULE 44)", () => {
+  beforeEach(() => { window.localStorage.clear(); resetSafeStorageMemory(); pathname.value = "/" })
+  afterEach(() => { vi.restoreAllMocks(); resetSafeStorageMemory(); document.documentElement.style.removeProperty(COOKIE_HEIGHT_VAR) })
+
+  it("renders the bar and dismisses it for the session when window.localStorage throws SecurityError", async () => {
+    const original = Object.getOwnPropertyDescriptor(window, "localStorage")!
+    Object.defineProperty(window, "localStorage", { configurable: true, get() { throw new DOMException("denied", "SecurityError") } })
+    try {
+      const view = render(<CookieConsent />)
+      await screen.findByRole("dialog", { name: "Cookie consent" })
+      expect(() => fireEvent.click(screen.getByRole("button", { name: "Got it" }))).not.toThrow()
+      expect(screen.queryByRole("dialog", { name: "Cookie consent" })).toBeNull()
+      // Still dismissed for this page session when the component remounts (in-memory consent).
+      view.unmount()
+      render(<CookieConsent />)
+      expect(screen.queryByRole("dialog", { name: "Cookie consent" })).toBeNull()
+    } finally { Object.defineProperty(window, "localStorage", original) }
+  })
+
+  it("dismisses without throwing when setItem throws QuotaExceededError", async () => {
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new DOMException("quota", "QuotaExceededError") })
+    vi.spyOn(Storage.prototype, "getItem").mockReturnValue(null)
+    render(<CookieConsent />)
+    await screen.findByRole("dialog", { name: "Cookie consent" })
+    expect(() => fireEvent.click(screen.getByRole("button", { name: "Got it" }))).not.toThrow()
+    expect(screen.queryByRole("dialog", { name: "Cookie consent" })).toBeNull()
+    expect(document.documentElement.style.getPropertyValue(COOKIE_HEIGHT_VAR)).toBe("")
+  })
+
+  it("survives storage that refuses only the consent key", async () => {
+    const original = Storage.prototype.setItem
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(function (this: Storage, key: string, value: string) {
+      if (key === "ferrum-cookie-consent") throw new DOMException("quota", "QuotaExceededError")
+      return original.call(this, key, value)
+    })
+    render(<CookieConsent />)
+    await screen.findByRole("dialog", { name: "Cookie consent" })
+    fireEvent.click(screen.getByRole("button", { name: "Got it" }))
+    expect(screen.queryByRole("dialog", { name: "Cookie consent" })).toBeNull()
+  })
+})
 
 describe("CookieConsent coexistence with the SUTRA launcher", () => {
-  beforeEach(() => { window.localStorage.clear(); pathname.value = "/" })
+  beforeEach(() => { window.localStorage.clear(); resetSafeStorageMemory(); pathname.value = "/" })
   afterEach(() => { document.documentElement.style.removeProperty(COOKIE_HEIGHT_VAR) })
 
   it("is a flush bottom bar below the SUTRA layer (z-50) that never floats over content, with a 44px dismiss target", async () => {

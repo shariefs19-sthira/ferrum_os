@@ -7,6 +7,8 @@
 // (localStorage) and can be cleared by clearing site data, same as any
 // other client-side preference.
 
+import { safeGet, safeSet } from '../safeStorage'
+
 const STORAGE_KEY = 'ferrum-concierge-feedback-v1'
 const MAX_ENTRIES = 200
 
@@ -24,7 +26,7 @@ export type FeedbackEntry = {
 function readAll(): FeedbackEntry[] {
   if (typeof window === 'undefined') return []
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY)
+    const raw = safeGet(STORAGE_KEY)
     if (!raw) return []
     const parsed = JSON.parse(raw)
     return Array.isArray(parsed) ? parsed : []
@@ -36,7 +38,7 @@ function readAll(): FeedbackEntry[] {
 function writeAll(entries: FeedbackEntry[]): void {
   if (typeof window === 'undefined') return
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(entries.slice(-MAX_ENTRIES)))
+    safeSet(STORAGE_KEY, JSON.stringify(entries.slice(-MAX_ENTRIES)))
   } catch {
     // Storage unavailable (private browsing, quota) -- feedback capture is
     // best-effort and never blocks the Concierge UI on failure.

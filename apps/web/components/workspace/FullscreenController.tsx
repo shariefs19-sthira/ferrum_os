@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react"
+import { safeGet, safeRemove, safeSet } from "../../lib/safeStorage"
 
 type FullscreenState = { active: boolean; profile: "default" | "high"; toggle: () => void }
 const FullscreenContext = createContext<FullscreenState>({ active: false, profile: "default", toggle: () => undefined })
@@ -18,7 +19,7 @@ export default function FullscreenController({ children, previewSource }: { chil
   }, [])
   const toggle = useCallback(() => {
     if (previewSource) {
-      window.localStorage.setItem("ferrum-workspace-fullscreen-pending", "true")
+      safeSet("ferrum-workspace-fullscreen-pending", "true")
       window.location.assign(`/project-workspace?source=${encodeURIComponent(previewSource)}`)
       return
     }
@@ -30,8 +31,8 @@ export default function FullscreenController({ children, previewSource }: { chil
   useEffect(() => {
     const sync = () => setActive(Boolean(document.fullscreenElement))
     document.addEventListener("fullscreenchange", sync)
-    if (!previewSource && window.localStorage.getItem("ferrum-workspace-fullscreen-pending") === "true") {
-      window.localStorage.removeItem("ferrum-workspace-fullscreen-pending")
+    if (!previewSource && safeGet("ferrum-workspace-fullscreen-pending") === "true") {
+      safeRemove("ferrum-workspace-fullscreen-pending")
       void enter()
     }
     return () => document.removeEventListener("fullscreenchange", sync)

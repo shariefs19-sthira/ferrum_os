@@ -1,5 +1,6 @@
 import type { StudioPlan } from '../types'
 import { createBoqRevision, transitionCheckerStatus, type BoqRevision, type CheckerTransition } from './boqRevision'
+import { safeGet, safeSet } from '../safeStorage'
 
 // Browser-local revision history, same SSR-safe/try-catch pattern as
 // projectState.ts. This is what makes "preserve the previous revision"
@@ -13,7 +14,7 @@ export const BOQ_REVISION_HISTORY_KEY = 'ferrum-boq-revision-history-v1'
 export function readBoqRevisionHistory(): BoqRevision[] {
   if (typeof window === 'undefined') return []
   try {
-    const raw = window.localStorage.getItem(BOQ_REVISION_HISTORY_KEY)
+    const raw = safeGet(BOQ_REVISION_HISTORY_KEY)
     const parsed = raw ? (JSON.parse(raw) as BoqRevision[]) : []
     return Array.isArray(parsed) ? parsed : []
   } catch {
@@ -24,9 +25,10 @@ export function readBoqRevisionHistory(): BoqRevision[] {
 function writeBoqRevisionHistory(history: BoqRevision[]) {
   if (typeof window === 'undefined') return
   try {
-    window.localStorage.setItem(BOQ_REVISION_HISTORY_KEY, JSON.stringify(history))
+    // Storage unavailable (private mode, quota): safeSet keeps the history in memory for this page session.
+    safeSet(BOQ_REVISION_HISTORY_KEY, JSON.stringify(history))
   } catch {
-    // Storage unavailable (private mode, quota) — history stays in-memory for this call only.
+    // JSON.stringify failure only; storage errors never reach here.
   }
 }
 

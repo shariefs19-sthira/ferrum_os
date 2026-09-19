@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import { safeGet, safeSet } from "../../lib/safeStorage"
 import { computeNpv, estimateIrr } from "../../lib/finance/irrNpv"
 import { NORMALIZED_LAND_INDEX, projectLandValue } from "../../lib/analysis/investForecast"
 import { SAMPLE_BRAND_MULTIPLIERS } from "../../lib/analysis/sampleData"
@@ -111,12 +112,12 @@ function ForecastShell({
 function usePreferredAreaUnit() {
   const [unit, setUnit] = useState<AreaUnit>("sqm")
   useEffect(() => {
-    const stored = window.localStorage.getItem("ferrum-area-unit") as AreaUnit | null
+    const stored = safeGet("ferrum-area-unit") as AreaUnit | null
     if (stored && stored in areaUnitLabels) setUnit(stored)
   }, [])
   const update = (next: AreaUnit) => {
     setUnit(next)
-    window.localStorage.setItem("ferrum-area-unit", next)
+    safeSet("ferrum-area-unit", next)
   }
   return [unit, update] as const
 }
