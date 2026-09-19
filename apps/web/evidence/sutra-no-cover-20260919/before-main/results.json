@@ -1,0 +1,3586 @@
+[
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 375 innerWidth 375"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 11787 after 11787"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 375 innerWidth 375"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 11726 after 11726"
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 768 innerWidth 768"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 9062 after 9062"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 768 innerWidth 768"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 9001 after 9001"
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1024 innerWidth 1024"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 6699 after 6699"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1024 innerWidth 1024"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 6638 after 6638"
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"p\",\"text\":\"One governed project record\",\"frac\":75},{\"tag\":\"h2\",\"text\":\"Choose where your project starts\",\"frac\":75},{\"tag\":\"h3\",\"text\":\"I have land\",\"frac\":87},{\"tag\":\"p\",\"text\":\"Attach a parcel or location, inspect ava\",\"frac\":87},{\"tag\":\"a\",\"text\":\"Open LandIntel: I have land\",\"frac\":40},{\"tag\":\"h3\",\"text\":\"I have a brief\",\"frac\":87},{\"tag\":\"p\",\"text\":\"Describe the intended use and project pr\",\"frac\":87}]"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1280,\"panelLeft\":795.203125,\"viewport\":1280}"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 5744 after 5744"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"p\",\"text\":\"One governed project record\",\"frac\":75},{\"tag\":\"h2\",\"text\":\"Choose where your project starts\",\"frac\":75},{\"tag\":\"h3\",\"text\":\"I have land\",\"frac\":87},{\"tag\":\"p\",\"text\":\"Attach a parcel or location, inspect ava\",\"frac\":87},{\"tag\":\"a\",\"text\":\"Open LandIntel: I have land\",\"frac\":40},{\"tag\":\"h3\",\"text\":\"I have a brief\",\"frac\":87},{\"tag\":\"p\",\"text\":\"Describe the intended use and project pr\",\"frac\":87},{\"tag\":\"a\",\"text\":\"Start from a brief: I have a brief\",\"frac\":46}]"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1280,\"panelLeft\":795.203125,\"viewport\":1280}"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 5683 after 5683"
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"p\",\"text\":\"One governed project record\",\"frac\":71},{\"tag\":\"h2\",\"text\":\"Choose where your project starts\",\"frac\":71},{\"tag\":\"h3\",\"text\":\"I have land\",\"frac\":84},{\"tag\":\"p\",\"text\":\"Attach a parcel or location, inspect ava\",\"frac\":84},{\"tag\":\"h3\",\"text\":\"I have a brief\",\"frac\":84},{\"tag\":\"p\",\"text\":\"Describe the intended use and project pr\",\"frac\":84},{\"tag\":\"a\",\"text\":\"Start from a brief: I have a brief\",\"frac\":36}]"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1366,\"panelLeft\":850.25,\"viewport\":1366}"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 5704 after 5704"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"p\",\"text\":\"One governed project record\",\"frac\":71},{\"tag\":\"h2\",\"text\":\"Choose where your project starts\",\"frac\":71},{\"tag\":\"h3\",\"text\":\"I have land\",\"frac\":84},{\"tag\":\"p\",\"text\":\"Attach a parcel or location, inspect ava\",\"frac\":84},{\"tag\":\"h3\",\"text\":\"I have a brief\",\"frac\":84},{\"tag\":\"p\",\"text\":\"Describe the intended use and project pr\",\"frac\":84},{\"tag\":\"a\",\"text\":\"Start from a brief: I have a brief\",\"frac\":36}]"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1366,\"panelLeft\":850.25,\"viewport\":1366}"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 5643 after 5643"
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"h3\",\"text\":\"I have land\",\"frac\":54},{\"tag\":\"p\",\"text\":\"Attach a parcel or location, inspect ava\",\"frac\":54},{\"tag\":\"h3\",\"text\":\"I have a brief\",\"frac\":54},{\"tag\":\"p\",\"text\":\"Describe the intended use and project pr\",\"frac\":54},{\"tag\":\"h3\",\"text\":\"I have drawings or a model\",\"frac\":54},{\"tag\":\"p\",\"text\":\"Review the governed intake requirements \",\"frac\":45}]"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1824,\"panelLeft\":1224,\"viewport\":1824}"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 5491 after 5491"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"h3\",\"text\":\"I have land\",\"frac\":54},{\"tag\":\"p\",\"text\":\"Attach a parcel or location, inspect ava\",\"frac\":54},{\"tag\":\"h3\",\"text\":\"I have a brief\",\"frac\":54},{\"tag\":\"p\",\"text\":\"Describe the intended use and project pr\",\"frac\":54},{\"tag\":\"h3\",\"text\":\"I have drawings or a model\",\"frac\":54},{\"tag\":\"p\",\"text\":\"Review the governed intake requirements \",\"frac\":54}]"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1824,\"panelLeft\":1224,\"viewport\":1824}"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 5430 after 5430"
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"h3\",\"text\":\"I have land\",\"frac\":44},{\"tag\":\"p\",\"text\":\"Attach a parcel or location, inspect ava\",\"frac\":44},{\"tag\":\"h3\",\"text\":\"I have a brief\",\"frac\":44},{\"tag\":\"p\",\"text\":\"Describe the intended use and project pr\",\"frac\":44},{\"tag\":\"h3\",\"text\":\"I have drawings or a model\",\"frac\":44},{\"tag\":\"p\",\"text\":\"Review the governed intake requirements \",\"frac\":44},{\"tag\":\"p\",\"text\":\"Preview capabilities remain INDICATIVE. \",\"frac\":44}]"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1920,\"panelLeft\":1320,\"viewport\":1920}"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 5526 after 5526"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"h3\",\"text\":\"I have land\",\"frac\":44},{\"tag\":\"p\",\"text\":\"Attach a parcel or location, inspect ava\",\"frac\":44},{\"tag\":\"h3\",\"text\":\"I have a brief\",\"frac\":44},{\"tag\":\"p\",\"text\":\"Describe the intended use and project pr\",\"frac\":44},{\"tag\":\"h3\",\"text\":\"I have drawings or a model\",\"frac\":44},{\"tag\":\"p\",\"text\":\"Review the governed intake requirements \",\"frac\":44},{\"tag\":\"p\",\"text\":\"Preview capabilities remain INDICATIVE. \",\"frac\":44}]"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1920,\"panelLeft\":1320,\"viewport\":1920}"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 5465 after 5465"
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 375 innerWidth 375"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 39136 after 39136"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 375 innerWidth 375"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 39075 after 39075"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 768 innerWidth 768"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 25941 after 25941"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 768 innerWidth 768"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 25880 after 25880"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1024 innerWidth 1024"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 21462 after 21462"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1024 innerWidth 1024"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 21401 after 21401"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"button\",\"text\":\"My location\",\"frac\":100},{\"tag\":\"button\",\"text\":\"Survey / khasra\",\"frac\":97}]"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1280,\"panelLeft\":795.203125,\"viewport\":1280}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 17360 after 17360"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"button\",\"text\":\"My location\",\"frac\":100},{\"tag\":\"button\",\"text\":\"Survey / khasra\",\"frac\":97},{\"tag\":\"button\",\"text\":\"Lookup seeded record\",\"frac\":43}]"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1280,\"panelLeft\":795.203125,\"viewport\":1280}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 17299 after 17299"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"button\",\"text\":\"My location\",\"frac\":100},{\"tag\":\"button\",\"text\":\"Survey / khasra\",\"frac\":97}]"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1366,\"panelLeft\":850.25,\"viewport\":1366}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 17218 after 17218"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"button\",\"text\":\"My location\",\"frac\":100},{\"tag\":\"button\",\"text\":\"Survey / khasra\",\"frac\":97},{\"tag\":\"input\",\"text\":\"\",\"frac\":64},{\"tag\":\"button\",\"text\":\"Lookup seeded record\",\"frac\":100}]"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1366,\"panelLeft\":850.25,\"viewport\":1366}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 17157 after 17157"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"button\",\"text\":\"My location\",\"frac\":98},{\"tag\":\"button\",\"text\":\"Survey / khasra\",\"frac\":96},{\"tag\":\"input\",\"text\":\"\",\"frac\":34},{\"tag\":\"button\",\"text\":\"Lookup seeded record\",\"frac\":100},{\"tag\":\"p\",\"text\":\"Selected point 12.97160, 77.59460 · samp\",\"frac\":96}]"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1824,\"panelLeft\":1224,\"viewport\":1824}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 17145 after 17145"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"button\",\"text\":\"My location\",\"frac\":98},{\"tag\":\"button\",\"text\":\"Survey / khasra\",\"frac\":96},{\"tag\":\"input\",\"text\":\"\",\"frac\":34},{\"tag\":\"button\",\"text\":\"Lookup seeded record\",\"frac\":100},{\"tag\":\"p\",\"text\":\"Selected point 12.97160, 77.59460 · samp\",\"frac\":96},{\"tag\":\"img\",\"text\":\"\",\"frac\":38},{\"tag\":\"img\",\"text\":\"\",\"frac\":34}]"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1824,\"panelLeft\":1224,\"viewport\":1824}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 17084 after 17084"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"button\",\"text\":\"My location\",\"frac\":87},{\"tag\":\"button\",\"text\":\"Survey / khasra\",\"frac\":96},{\"tag\":\"input\",\"text\":\"\",\"frac\":31},{\"tag\":\"button\",\"text\":\"Lookup seeded record\",\"frac\":100},{\"tag\":\"p\",\"text\":\"Selected point 12.97160, 77.59460 · samp\",\"frac\":96},{\"tag\":\"img\",\"text\":\"\",\"frac\":100},{\"tag\":\"img\",\"text\":\"\",\"frac\":100},{\"tag\":\"img\",\"text\":\"\",\"frac\":48}]"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1920,\"panelLeft\":1320,\"viewport\":1920}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 17180 after 17180"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"button\",\"text\":\"My location\",\"frac\":87},{\"tag\":\"button\",\"text\":\"Survey / khasra\",\"frac\":96},{\"tag\":\"input\",\"text\":\"\",\"frac\":31},{\"tag\":\"button\",\"text\":\"Lookup seeded record\",\"frac\":100},{\"tag\":\"p\",\"text\":\"Selected point 12.97160, 77.59460 · samp\",\"frac\":96},{\"tag\":\"img\",\"text\":\"\",\"frac\":34},{\"tag\":\"img\",\"text\":\"\",\"frac\":100},{\"tag\":\"img\",\"text\":\"\",\"frac\":34},{\"tag\":\"img\",\"text\":\"\",\"frac\":100},{\"tag\":\"img\",\"text\":\"\",\"frac\":48}]"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1920,\"panelLeft\":1320,\"viewport\":1920}"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 17119 after 17119"
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/products/landintel",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 375 innerWidth 375"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 6043 after 6043"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 375 innerWidth 375"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 5982 after 5982"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 768 innerWidth 768"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 4725 after 4725"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 768 innerWidth 768"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 4664 after 4664"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1024 innerWidth 1024"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 4104 after 4104"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1024 innerWidth 1024"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is modal at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "role=dialog aria-modal=true (modal)",
+    "pass": true,
+    "detail": "{\"role\":\"dialog\",\"ariaModal\":\"true\",\"scrimPresent\":false,\"nonInertSiblingTag\":\"HEADER\"}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "scrim present (modal)",
+    "pass": false,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "page behind made inert (modal)",
+    "pass": false,
+    "detail": "non-inert sibling: HEADER"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "focus trapped inside modal",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 4043 after 4043"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": true,
+    "detail": "[]"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1280,\"panelLeft\":795.203125,\"viewport\":1280}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 3796 after 3796"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": true,
+    "detail": "[]"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1280,\"panelLeft\":795.203125,\"viewport\":1280}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 3735 after 3735"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": true,
+    "detail": "[]"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1366,\"panelLeft\":850.25,\"viewport\":1366}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 3796 after 3796"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"h3\",\"text\":\"Enterprise\",\"frac\":82}]"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1366,\"panelLeft\":850.25,\"viewport\":1366}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 3735 after 3735"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"h3\",\"text\":\"Enterprise\",\"frac\":81},{\"tag\":\"p\",\"text\":\"₹9,999\",\"frac\":81}]"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1824,\"panelLeft\":1224,\"viewport\":1824}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 3796 after 3796"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"h3\",\"text\":\"Enterprise\",\"frac\":81},{\"tag\":\"p\",\"text\":\"₹9,999\",\"frac\":81},{\"tag\":\"button\",\"text\":\"Subscribe to Enterprise (test mode)\",\"frac\":79}]"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1824,\"panelLeft\":1224,\"viewport\":1824}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 3735 after 3735"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"h3\",\"text\":\"Enterprise\",\"frac\":66},{\"tag\":\"p\",\"text\":\"₹9,999\",\"frac\":66},{\"tag\":\"button\",\"text\":\"Subscribe to Enterprise (test mode)\",\"frac\":62}]"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1920,\"panelLeft\":1320,\"viewport\":1920}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 3796 after 3796"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "SUTRA opens on click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "mode is docked at this width",
+    "pass": false,
+    "detail": "data-sutra-mode=null"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "zero in-page elements >=30% covered (docked)",
+    "pass": false,
+    "detail": "[{\"tag\":\"h3\",\"text\":\"Enterprise\",\"frac\":66},{\"tag\":\"p\",\"text\":\"₹9,999\",\"frac\":66},{\"tag\":\"button\",\"text\":\"Subscribe to Enterprise (test mode)\",\"frac\":62}]"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (open, docked)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "page reflow allotment reserved (STANDING RULE)",
+    "pass": false,
+    "detail": "reflow=null paddingRight=0px"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "site header not covered by the panel and stays within the viewport",
+    "pass": false,
+    "detail": "{\"left\":0,\"right\":1920,\"panelLeft\":1320,\"viewport\":1920}"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "closing restores layout exactly (scrollHeight within 2px)",
+    "pass": true,
+    "detail": "before 3735 after 3735"
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "closing removes the reflow padding",
+    "pass": true,
+    "detail": "before \"0px\" after \"0px\""
+  },
+  {
+    "route": "/pricing",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "zero console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 375 innerWidth 375"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "375x667",
+    "cookieState": "cookie-visible",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 375 innerWidth 375"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "375x667",
+    "cookieState": "cookie-dismissed",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 768 innerWidth 768"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "768x1024",
+    "cookieState": "cookie-visible",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 768 innerWidth 768"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "768x1024",
+    "cookieState": "cookie-dismissed",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1024 innerWidth 1024"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1024x768",
+    "cookieState": "cookie-visible",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1024 innerWidth 1024"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1024x768",
+    "cookieState": "cookie-dismissed",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1280x720",
+    "cookieState": "cookie-visible",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1280 innerWidth 1280"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1280x720",
+    "cookieState": "cookie-dismissed",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1366x768",
+    "cookieState": "cookie-visible",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1366 innerWidth 1366"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1366x768",
+    "cookieState": "cookie-dismissed",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1824x917",
+    "cookieState": "cookie-visible",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1824 innerWidth 1824"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1824x917",
+    "cookieState": "cookie-dismissed",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-visible",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "no horizontal overflow (closed)",
+    "pass": true,
+    "detail": "scrollWidth 1920 innerWidth 1920"
+  },
+  {
+    "route": "/products/designstudio",
+    "viewport": "1920x1080",
+    "cookieState": "cookie-dismissed",
+    "name": "SKIP: launcher hidden by embedded [data-workspace-cockpit] marker (pre-existing, out of this fix's scope)",
+    "pass": true,
+    "detail": ""
+  }
+]

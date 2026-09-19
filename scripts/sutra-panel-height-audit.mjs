@@ -2,8 +2,11 @@
 // Drives the real homepage in Chromium at phone/tablet/desktop sizes, with the
 // cookie bar visible and dismissed, and asserts panel + composer bounds, message
 // reading area, no horizontal overflow and no covered controls. Screenshots go
-// to docs/evidence/sutra-panel-height.
-//   FERRUM_AUDIT_BASE_URL=http://127.0.0.1:4189 node scripts/sutra-panel-height-audit.mjs
+// to docs/evidence/sutra-panel-height by default.
+//   FERRUM_AUDIT_BASE_URL=http://127.0.0.1:4189 node scripts/sutra-panel-height-audit.mjs [outDir]
+// 2026-09-19: accepts an optional outDir arg (was hard-coded) so a writer
+// under a different lease can run it against a scratch/evidence dir instead
+// of overwriting the committed docs/evidence/sutra-panel-height images.
 import { mkdir, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import path from 'node:path'
@@ -13,7 +16,7 @@ const require = createRequire(pathToFileURL(path.resolve('apps', 'web', 'package
 const { chromium } = require('playwright')
 
 const baseUrl = process.env.FERRUM_AUDIT_BASE_URL ?? 'http://127.0.0.1:4189'
-const outDir = path.resolve('docs', 'evidence', 'sutra-panel-height')
+const outDir = path.resolve(process.argv[2] ?? path.join('docs', 'evidence', 'sutra-panel-height'))
 await mkdir(outDir, { recursive: true })
 
 const viewports = [
@@ -88,7 +91,14 @@ for (const vp of viewports) {
   const S = cookieVisible ? 'open+cookie' : 'open'
   let g = await measure(page)
   const cookieTop = g.vh - g.cookieH
-  if (!vp.phone) {
+  // 2026-09-19 (no-cover fix): SUTRA docks (reserved page width, header/cookie
+  // bar stay visible) only at >=1280 now — below that it is a deliberate
+  // full-viewport MODAL (operator direction: page behind dimmed + inert), so
+  // 768x1024 and 1024x768 move from the old "docked" assertions below to the
+  // same full-screen assertion phones already used. `compact` replaces the
+  // narrower `vp.phone` (device-emulation) flag for this branch only.
+  const compact = vp.width < 1280
+  if (!compact) {
     check(vp.name, S, 'panel bottom above cookie/bottom edge', g.panel.bottom <= cookieTop + 0.5, `bottom ${g.panel.bottom} cookieTop ${cookieTop}`)
     check(vp.name, S, 'panel starts below site header (nav stays visible)', vp.height < 520 || g.panel.top >= g.header.bottom - 0.5, `panel.top ${g.panel.top} header.bottom ${g.header.bottom}`)
     check(vp.name, S, 'panel inside viewport horizontally', g.panel.right <= g.vw && g.panel.left >= 0)
@@ -97,13 +107,13 @@ for (const vp of viewports) {
     check(vp.name, S, 'panel fills available height', g.panel.height >= usable - 40, `${Math.round(g.panel.height)} of ${Math.round(usable)}`)
     if (vp.height >= 700) check(vp.name, S, 'panel >= 60% of viewport height', g.panel.height >= vp.height * 0.6 - g.cookieH, `${Math.round(g.panel.height)} of ${vp.height}`)
   } else {
-    check(vp.name, S, 'phone panel is full-screen', Math.abs(g.panel.width - g.vw) < 1 && Math.abs(g.panel.height - g.vh) < 1 && g.panel.top === 0, JSON.stringify(g.panel))
+    check(vp.name, S, 'sub-1280 panel is full-screen modal', Math.abs(g.panel.width - g.vw) < 1 && Math.abs(g.panel.height - g.vh) < 1 && g.panel.top === 0, JSON.stringify(g.panel))
   }
   check(vp.name, S, 'secondary chrome collapsed by default', g.chromeExpanded === 'false')
   check(vp.name, S, 'message area >= 40% of viewport', g.log.height >= vp.height * 0.4 - (vp.height < 520 ? 60 : 0) - g.cookieH, `${Math.round(g.log.height)} of ${vp.height}`)
   check(vp.name, S, 'composer + send inside viewport, unclipped', g.input.bottom <= g.vh + 0.5 && g.send.bottom <= g.vh + 0.5 && g.input.top >= 0 && g.send.right <= g.vw, JSON.stringify({ i: g.input, s: g.send }))
   check(vp.name, S, 'composer + send not covered', g.inputReachable && g.sendReachable)
-  if (!vp.phone) check(vp.name, S, 'site header not covered', g.headerReachable)
+  if (!compact) check(vp.name, S, 'site header not covered', g.headerReachable)
   check(vp.name, S, 'no horizontal page overflow', !g.hScroll)
   await page.screenshot({ path: path.join(outDir, `${vp.name}-2-open.png`) })
 
@@ -127,7 +137,7 @@ for (const vp of viewports) {
   check(vp.name, 'conversation', 'latest message in view', g.logAtBottom)
   check(vp.name, 'conversation', 'long token wraps (no log x-overflow)', !g.logOverflowX)
   check(vp.name, 'conversation', 'composer inside viewport, no page overflow', g.input.bottom <= g.vh + 0.5 && !g.hScroll)
-  if (!vp.phone) check(vp.name, 'conversation', 'panel bottom margin = 1.5rem + cookie bar height (if still shown)', Math.abs(g.vh - g.panel.bottom - 24 - g.cookieH) <= 2, `${g.vh - g.panel.bottom}`)
+  if (!compact) check(vp.name, 'conversation', 'panel bottom margin = 1.5rem + cookie bar height (if still shown)', Math.abs(g.vh - g.panel.bottom - 24 - g.cookieH) <= 2, `${g.vh - g.panel.bottom}`)
   await page.screenshot({ path: path.join(outDir, `${vp.name}-3-conversation.png`) })
 
   // Secondary chrome expanded must still leave the composer visible and some reading room.

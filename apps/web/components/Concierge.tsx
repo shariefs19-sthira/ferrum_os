@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { answerWithGrounding, type Citation, type ConciergeAnswer } from "../lib/ai/concierge"
 import { recordFeedback } from "../lib/ai/feedback"
 import { AGENT_MODELS, CONSTRUCTION_CONNECTOR_GROUPS, canRunModel, type AgentModelId } from "../lib/ai/agentRegistry"
@@ -31,6 +31,14 @@ type SutraContext = {
   controls: string[]
 }
 
+// STANDING RULE (operator, 2026-09-19): an overlay/panel/tab never takes space
+// from, covers, or reflows existing page content without an allotment the
+// layout accounts for. Below DOCK_MIN_WIDTH_PX it must be a true modal (inert
+// page, scrim, focus trap); at/above it, it gets a reserved column the page
+// reflows around (body padding-right here). Encoded/checked by
+// scripts/sutra-no-cover-audit.mjs.
+const DOCK_MIN_WIDTH_PX = 1280
+
 /**
  * SUTRA — W2-307, grounded per AI-02 (CLAUDE-20260917-AI-FOUNDATION-LIVE).
  * Still no LLM, no external network call: answerWithGrounding tries the
@@ -41,6 +49,7 @@ type SutraContext = {
  */
 export default function Concierge() {
   const router = useRouter()
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState<Message[]>([
@@ -55,16 +64,20 @@ export default function Concierge() {
   const [activeFeature, setActiveFeature] = useState<{ productId: CockpitProduct; feature: ProductFeature } | null>(null)
   const [regionProfile, setRegionProfile] = useState<UserRegionProfile | null>(null)
   const [cockpitPresent, setCockpitPresent] = useState(false)
-  // Phones get a full-screen sheet; sm+ gets a tall right-side panel bounded
-  // between the site header and the bottom/cookie safe area. On every size the
-  // conversation is the growing region and secondary chrome starts collapsed.
-  const isPhone = useMaxWidthQuery()
-  const viewportBox = useVisualViewportBox(open && isPhone)
+  // Below DOCK_MIN_WIDTH_PX (1280) SUTRA is an explicit full-viewport MODAL
+  // (inert page, scrim, focus trap) — phones and tablets alike. At/above it,
+  // SUTRA is a docked panel and the page reflows to leave it a reserved
+  // column (body padding-right), never covering existing content. Docked
+  // width is fluid clamp(24rem, 28vw, 32rem) (operator pick, 2026-09-19);
+  // the panel height (header to above the cookie bar) is unchanged from
+  // SUTRA r2 at every width.
+  const isModal = useMaxWidthQuery(DOCK_MIN_WIDTH_PX - 1)
+  const viewportBox = useVisualViewportBox(open && isModal)
   const [chromeOpen, setChromeOpen] = useState(false)
   const [contextOpen, setContextOpen] = useState(false)
   const restoreLauncherFocus = useRef(false)
   const messagesRef = useRef<HTMLDivElement>(null)
-  useBodyScrollLock(open && isPhone)
+  useBodyScrollLock(open && isModal)
 
   const minimize = () => {
     restoreLauncherFocus.current = true
@@ -93,6 +106,81 @@ export default function Concierge() {
     const region = messagesRef.current
     if (open && region) region.scrollTop = region.scrollHeight
   }, [open, messages.length, showConnections])
+
+  // >=1280: reserve the panel's width on the page (padding-right on body) so
+  // SUTRA docks beside content instead of covering it. Animated, removed on
+  // close/unmount/mode-change and on every route change (via the pathname
+  // effect below), and skipped entirely under prefers-reduced-motion.
+  useEffect(() => {
+    if (!open || isModal) return
+    const panel = panelRef.current
+    if (!panel) return
+    const body = document.body
+    const prefersReducedMotion = typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const previousPadding = body.style.paddingRight
+    const previousTransition = body.style.transition
+    // Reserve everything from the panel's own left edge to the viewport's
+    // right edge — not just the panel's own width — so the panel's right
+    // offset margin (xl:right-[1.5rem]) is also inside the reserved column.
+    // Using only rect.width left a sliver (the margin) where reflowed
+    // content and the panel still overlapped.
+    const reserve = () => { body.style.paddingRight = `${window.innerWidth - panel.getBoundingClientRect().left}px` }
+    body.style.transition = prefersReducedMotion ? "none" : "padding-right 200ms ease"
+    reserve()
+    body.setAttribute("data-sutra-reflow", "true")
+    // The fluid width tracks the viewport, so keep the reserved column in step on resize.
+    window.addEventListener("resize", reserve)
+    return () => {
+      window.removeEventListener("resize", reserve)
+      body.style.paddingRight = previousPadding
+      body.style.transition = previousTransition
+      body.removeAttribute("data-sutra-reflow")
+    }
+  }, [open, isModal])
+
+  // <1280: SUTRA is a true modal — the rest of the page is inert (no focus,
+  // no pointer events, hidden from assistive tech) so nothing is half-covered
+  // by an undimmed panel. Reverted on close/unmount.
+  useEffect(() => {
+    if (!open || !isModal) return
+    const keep = [panelRef.current, launcherRef.current].filter((el): el is HTMLElement => Boolean(el))
+    const madeInert: HTMLElement[] = []
+    // Walk down from <body> rather than only checking direct children: any
+    // wrapper element that itself contains the panel/launcher is descended
+    // into (not inerted), so this finds the real siblings to isolate even
+    // when SUTRA is mounted a few levels deep (e.g. under a layout wrapper).
+    const isolate = (node: Element) => {
+      Array.from(node.children).forEach((child) => {
+        if (!(child instanceof HTMLElement)) return
+        if (keep.includes(child)) return // the panel/launcher itself — leave its own subtree alone
+        if (keep.some((k) => child.contains(k))) {
+          isolate(child) // a wrapper ancestor of the panel/launcher — descend, don't inert it
+          return
+        }
+        if (child.hasAttribute("inert")) return
+        child.setAttribute("inert", "")
+        child.setAttribute("aria-hidden", "true")
+        madeInert.push(child)
+      })
+    }
+    isolate(document.body)
+    return () => {
+      madeInert.forEach((el) => {
+        el.removeAttribute("inert")
+        el.removeAttribute("aria-hidden")
+      })
+    }
+  }, [open, isModal])
+
+  // Route changes close SUTRA so no reflow/inert state lingers on the new page.
+  const isFirstPathnameRender = useRef(true)
+  useEffect(() => {
+    if (isFirstPathnameRender.current) {
+      isFirstPathnameRender.current = false
+      return
+    }
+    setOpen(false)
+  }, [pathname])
 
   const toggleChrome = () => {
     if (chromeOpen) setShowConnections(false)
@@ -217,6 +305,10 @@ export default function Concierge() {
     handleSend(input)
   }
 
+  const panelStyle: React.CSSProperties | undefined = open && isModal && viewportBox
+    ? { top: viewportBox.top, height: viewportBox.height, bottom: "auto" }
+    : undefined
+
   return (
     <>
       {!open && !cockpitPresent && (
@@ -236,6 +328,14 @@ export default function Concierge() {
         <span className="[html:has([data-cookie-consent])_&]:max-sm:sr-only">SUTRA</span>
       </button>
       )}
+      {open && isModal && (
+        <div
+          className="fixed inset-0 z-40 bg-relume-ink/50 motion-reduce:transition-none"
+          aria-hidden="true"
+          data-sutra-scrim
+          onClick={minimize}
+        />
+      )}
     <aside
       ref={panelRef}
       role={open ? "dialog" : "complementary"}
@@ -243,10 +343,11 @@ export default function Concierge() {
       aria-modal={open ? "true" : "false"}
       tabIndex={-1}
       onKeyDown={(event) => { if (open) trapTabKey(event, panelRef.current) }}
-      style={open && isPhone && viewportBox ? { top: viewportBox.top, height: viewportBox.height, bottom: "auto" } : undefined}
-      className={`${open ? "flex" : "hidden"} fixed inset-0 z-50 flex-col overflow-hidden overscroll-contain bg-relume-surface outline-none sm:inset-auto sm:bottom-[calc(max(1.5rem,env(safe-area-inset-bottom))+var(--cookie-consent-h,0px))] sm:right-[max(1.5rem,env(safe-area-inset-right))] sm:top-[5rem] sm:w-[clamp(24rem,36vw,36rem)] sm:max-w-[calc(100vw-3rem)] sm:rounded-lg [@media(max-height:32rem)]:sm:top-2 sm:border sm:border-relume-border sm:shadow-xl`}
+      style={panelStyle}
+      className={`${open ? "flex" : "hidden"} fixed inset-0 z-50 flex-col overflow-hidden overscroll-contain bg-relume-surface outline-none xl:inset-auto xl:bottom-[calc(max(1.5rem,env(safe-area-inset-bottom))+var(--cookie-consent-h,0px))] xl:right-[max(1.5rem,env(safe-area-inset-right))] xl:top-[5rem] xl:w-[clamp(24rem,28vw,32rem)] xl:max-w-[calc(100vw-3rem)] xl:rounded-lg [@media(max-height:32rem)]:xl:top-2 xl:border xl:border-relume-border xl:shadow-xl motion-reduce:transition-none`}
       data-sutra
-      data-sutra-fullscreen={open && isPhone ? "true" : "false"}
+      data-sutra-fullscreen={open && isModal ? "true" : "false"}
+      data-sutra-mode={isModal ? "modal" : "docked"}
     >
       <div className="flex items-center justify-between gap-2 border-b border-relume-border pb-3 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))]">
         <div className="min-w-0">

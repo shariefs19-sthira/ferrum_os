@@ -5,6 +5,7 @@ import { clearFeedback, getFeedback } from "../lib/ai/feedback"
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn() }),
+  usePathname: () => "/",
 }))
 
 describe("Concierge", () => {
@@ -167,17 +168,58 @@ describe("Concierge", () => {
   })
 
   it("opens as a tall header-to-bottom side panel that respects the cookie safe area and keeps the conversation as the growing region", () => {
+    // 2026-09-19 (no-cover fix): the panel only docks as a fixed corner
+    // overlay at >=1280 (`xl:`), not from 640 (`sm:`) as SUTRA r2 shipped —
+    // that `sm:` breakpoint is exactly what let the panel cover page content
+    // down to tablet widths. Docked width is the operator-picked fluid
+    // clamp(24rem,28vw,32rem) (2026-09-19).
     render(<Concierge />)
     fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
     const dialog = screen.getByRole("dialog", { name: "SUTRA AI assistant" })
-    expect(dialog.className).toContain("sm:top-[5rem]")
+    expect(dialog.className).toContain("xl:top-[5rem]")
     expect(dialog.className).toContain("var(--cookie-consent-h,0px)")
-    expect(dialog.className).not.toMatch(/sm:h-\[/)
-    expect(dialog.className).toContain("sm:w-[clamp(24rem,36vw,36rem)]")
+    expect(dialog.className).not.toMatch(/xl:h-\[/)
+    expect(dialog.className).not.toMatch(/(^|\s)sm:(top|bottom|right|inset|w)-/)
+    expect(dialog.getAttribute("data-sutra-mode")).toBe("docked")
+    expect(dialog.className).toContain("xl:w-[clamp(24rem,28vw,32rem)]")
     const log = screen.getByRole("log", { name: "Conversation" })
     expect(log.className).toContain("flex-1")
     expect(log.className).toContain("min-h-0")
     expect(log.className).toContain("overflow-y-auto")
+  })
+
+  it("docks and reserves page width (body padding-right) at >=1280, and removes it on close", () => {
+    render(<Concierge />)
+    fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+    const dialog = screen.getByRole("dialog", { name: "SUTRA AI assistant" })
+    expect(dialog.getAttribute("data-sutra-mode")).toBe("docked")
+    expect(document.body.getAttribute("data-sutra-reflow")).toBe("true")
+    fireEvent.click(screen.getByRole("button", { name: "Minimize SUTRA" }))
+    expect(document.body.getAttribute("data-sutra-reflow")).toBeNull()
+    expect(document.body.style.paddingRight).toBe("")
+  })
+
+  describe("below the 1280 dock threshold", () => {
+    beforeEach(() => {
+      vi.stubGlobal("matchMedia", () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
+    })
+    afterEach(() => {
+      vi.unstubAllGlobals()
+    })
+
+    it("opens as a true modal: dialog+aria-modal, a scrim, and the rest of the page made inert", async () => {
+      render(<><main data-testid="page-behind"><button>Behind SUTRA</button></main><Concierge /></>)
+      fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
+      const dialog = await screen.findByRole("dialog", { name: "SUTRA AI assistant" })
+      expect(dialog.getAttribute("aria-modal")).toBe("true")
+      expect(dialog.getAttribute("data-sutra-mode")).toBe("modal")
+      expect(document.querySelector("[data-sutra-scrim]")).toBeTruthy()
+      const behind = screen.getByTestId("page-behind")
+      expect(behind.hasAttribute("inert")).toBe(true)
+      expect(behind.getAttribute("aria-hidden")).toBe("true")
+      fireEvent.click(screen.getByRole("button", { name: "Minimize SUTRA" }))
+      expect(behind.hasAttribute("inert")).toBe(false)
+    })
   })
 
   describe("on a phone viewport", () => {
