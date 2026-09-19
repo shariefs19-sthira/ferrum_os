@@ -1,0 +1,787 @@
+{
+  "baseUrl": "http://127.0.0.1:4177",
+  "results": [
+    {
+      "product": "Design",
+      "width": 320,
+      "height": 640,
+      "hasTool": false,
+      "canvas": {
+        "top": 343,
+        "bottom": 593,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 250
+      },
+      "tool": null,
+      "visibleCanvas": {
+        "w": 318,
+        "h": 250
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 0
+    },
+    {
+      "product": "Land",
+      "width": 320,
+      "height": 640,
+      "hasTool": true,
+      "canvas": {
+        "top": 373,
+        "bottom": 623,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 250
+      },
+      "tool": {
+        "top": 623,
+        "bottom": 1007,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 384
+      },
+      "visibleCanvas": {
+        "w": 318,
+        "h": 250
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 15
+    },
+    {
+      "product": "Structure",
+      "width": 320,
+      "height": 640,
+      "hasTool": true,
+      "canvas": {
+        "top": 325,
+        "bottom": 575,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 250
+      },
+      "tool": {
+        "top": 575,
+        "bottom": 959,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 384
+      },
+      "visibleCanvas": {
+        "w": 318,
+        "h": 250
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 8
+    },
+    {
+      "product": "Cost",
+      "width": 320,
+      "height": 640,
+      "hasTool": true,
+      "canvas": {
+        "top": 325,
+        "bottom": 575,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 250
+      },
+      "tool": {
+        "top": 575,
+        "bottom": 959,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 384
+      },
+      "visibleCanvas": {
+        "w": 318,
+        "h": 250
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 11
+    },
+    {
+      "product": "Market",
+      "width": 320,
+      "height": 640,
+      "hasTool": true,
+      "canvas": {
+        "top": 343,
+        "bottom": 593,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 250
+      },
+      "tool": {
+        "top": 593,
+        "bottom": 977,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 384
+      },
+      "visibleCanvas": {
+        "w": 318,
+        "h": 250
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 6
+    },
+    {
+      "product": "Procure",
+      "width": 320,
+      "height": 640,
+      "hasTool": true,
+      "canvas": {
+        "top": 325,
+        "bottom": 575,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 250
+      },
+      "tool": {
+        "top": 575,
+        "bottom": 959,
+        "left": 1,
+        "right": 319,
+        "width": 318,
+        "height": 384
+      },
+      "visibleCanvas": {
+        "w": 318,
+        "h": 250
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 2
+    },
+    {
+      "switching": 320,
+      "open": false,
+      "product": "structura",
+      "expanded": "false"
+    },
+    {
+      "product": "Design",
+      "width": 390,
+      "height": 844,
+      "hasTool": false,
+      "canvas": {
+        "top": 325,
+        "bottom": 576,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 251
+      },
+      "tool": null,
+      "visibleCanvas": {
+        "w": 388,
+        "h": 251
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 0
+    },
+    {
+      "product": "Land",
+      "width": 390,
+      "height": 844,
+      "hasTool": true,
+      "canvas": {
+        "top": 325,
+        "bottom": 576,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 251
+      },
+      "tool": {
+        "top": 576,
+        "bottom": 1082.390625,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 506.390625
+      },
+      "visibleCanvas": {
+        "w": 388,
+        "h": 251
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 15
+    },
+    {
+      "product": "Structure",
+      "width": 390,
+      "height": 844,
+      "hasTool": true,
+      "canvas": {
+        "top": 277,
+        "bottom": 528,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 251
+      },
+      "tool": {
+        "top": 528,
+        "bottom": 1034.390625,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 506.390625
+      },
+      "visibleCanvas": {
+        "w": 388,
+        "h": 251
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 8
+    },
+    {
+      "product": "Cost",
+      "width": 390,
+      "height": 844,
+      "hasTool": true,
+      "canvas": {
+        "top": 277,
+        "bottom": 528,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 251
+      },
+      "tool": {
+        "top": 528,
+        "bottom": 1034.390625,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 506.390625
+      },
+      "visibleCanvas": {
+        "w": 388,
+        "h": 251
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 11
+    },
+    {
+      "product": "Market",
+      "width": 390,
+      "height": 844,
+      "hasTool": true,
+      "canvas": {
+        "top": 277,
+        "bottom": 528,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 251
+      },
+      "tool": {
+        "top": 528,
+        "bottom": 1034.390625,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 506.390625
+      },
+      "visibleCanvas": {
+        "w": 388,
+        "h": 251
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 6
+    },
+    {
+      "product": "Procure",
+      "width": 390,
+      "height": 844,
+      "hasTool": true,
+      "canvas": {
+        "top": 277,
+        "bottom": 528,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 251
+      },
+      "tool": {
+        "top": 528,
+        "bottom": 928.796875,
+        "left": 1,
+        "right": 389,
+        "width": 388,
+        "height": 400.796875
+      },
+      "visibleCanvas": {
+        "w": 388,
+        "h": 251
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 2
+    },
+    {
+      "switching": 390,
+      "open": false,
+      "product": "structura",
+      "expanded": "false"
+    },
+    {
+      "product": "Design",
+      "width": 768,
+      "height": 1024,
+      "hasTool": false,
+      "canvas": {
+        "top": 277,
+        "bottom": 716,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 439
+      },
+      "tool": null,
+      "visibleCanvas": {
+        "w": 766,
+        "h": 439
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 0
+    },
+    {
+      "product": "Land",
+      "width": 768,
+      "height": 1024,
+      "hasTool": true,
+      "canvas": {
+        "top": 277,
+        "bottom": 716,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 439
+      },
+      "tool": {
+        "top": 716,
+        "bottom": 1330.390625,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 614.390625
+      },
+      "visibleCanvas": {
+        "w": 766,
+        "h": 439
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 15
+    },
+    {
+      "product": "Structure",
+      "width": 768,
+      "height": 1024,
+      "hasTool": true,
+      "canvas": {
+        "top": 277,
+        "bottom": 716,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 439
+      },
+      "tool": {
+        "top": 716,
+        "bottom": 1252.796875,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 536.796875
+      },
+      "visibleCanvas": {
+        "w": 766,
+        "h": 439
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 8
+    },
+    {
+      "product": "Cost",
+      "width": 768,
+      "height": 1024,
+      "hasTool": true,
+      "canvas": {
+        "top": 277,
+        "bottom": 716,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 439
+      },
+      "tool": {
+        "top": 716,
+        "bottom": 1330.390625,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 614.390625
+      },
+      "visibleCanvas": {
+        "w": 766,
+        "h": 439
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 11
+    },
+    {
+      "product": "Market",
+      "width": 768,
+      "height": 1024,
+      "hasTool": true,
+      "canvas": {
+        "top": 277,
+        "bottom": 716,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 439
+      },
+      "tool": {
+        "top": 716,
+        "bottom": 1330.390625,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 614.390625
+      },
+      "visibleCanvas": {
+        "w": 766,
+        "h": 439
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": true,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 6
+    },
+    {
+      "product": "Procure",
+      "width": 768,
+      "height": 1024,
+      "hasTool": true,
+      "canvas": {
+        "top": 277,
+        "bottom": 716,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 439
+      },
+      "tool": {
+        "top": 716,
+        "bottom": 1096.796875,
+        "left": 1,
+        "right": 767,
+        "width": 766,
+        "height": 380.796875
+      },
+      "visibleCanvas": {
+        "w": 766,
+        "h": 439
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 2
+    },
+    {
+      "switching": 768,
+      "open": false,
+      "product": "structura",
+      "expanded": "false"
+    },
+    {
+      "product": "Design",
+      "width": 1366,
+      "height": 768,
+      "hasTool": false,
+      "canvas": {
+        "top": 228,
+        "bottom": 665,
+        "left": 113,
+        "right": 1009.84375,
+        "width": 896.84375,
+        "height": 437
+      },
+      "tool": null,
+      "visibleCanvas": {
+        "w": 897,
+        "h": 437
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 0
+    },
+    {
+      "product": "Land",
+      "width": 1366,
+      "height": 768,
+      "hasTool": true,
+      "canvas": {
+        "top": 276,
+        "bottom": 665,
+        "left": 113,
+        "right": 593.84375,
+        "width": 480.84375,
+        "height": 389
+      },
+      "tool": {
+        "top": 122,
+        "bottom": 665,
+        "left": 593.84375,
+        "right": 1009.84375,
+        "width": 416,
+        "height": 543
+      },
+      "visibleCanvas": {
+        "w": 481,
+        "h": 389
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 14
+    },
+    {
+      "product": "Structure",
+      "width": 1366,
+      "height": 768,
+      "hasTool": true,
+      "canvas": {
+        "top": 232,
+        "bottom": 665,
+        "left": 113,
+        "right": 593.84375,
+        "width": 480.84375,
+        "height": 433
+      },
+      "tool": {
+        "top": 122,
+        "bottom": 665,
+        "left": 593.84375,
+        "right": 1009.84375,
+        "width": 416,
+        "height": 543
+      },
+      "visibleCanvas": {
+        "w": 481,
+        "h": 433
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 7
+    },
+    {
+      "product": "Cost",
+      "width": 1366,
+      "height": 768,
+      "hasTool": true,
+      "canvas": {
+        "top": 232,
+        "bottom": 665,
+        "left": 113,
+        "right": 593.84375,
+        "width": 480.84375,
+        "height": 433
+      },
+      "tool": {
+        "top": 122,
+        "bottom": 665,
+        "left": 593.84375,
+        "right": 1009.84375,
+        "width": 416,
+        "height": 543
+      },
+      "visibleCanvas": {
+        "w": 481,
+        "h": 433
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 10
+    },
+    {
+      "product": "Market",
+      "width": 1366,
+      "height": 768,
+      "hasTool": true,
+      "canvas": {
+        "top": 232,
+        "bottom": 665,
+        "left": 113,
+        "right": 593.84375,
+        "width": 480.84375,
+        "height": 433
+      },
+      "tool": {
+        "top": 122,
+        "bottom": 665,
+        "left": 593.84375,
+        "right": 1009.84375,
+        "width": 416,
+        "height": 543
+      },
+      "visibleCanvas": {
+        "w": 481,
+        "h": 433
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 5
+    },
+    {
+      "product": "Procure",
+      "width": 1366,
+      "height": 768,
+      "hasTool": true,
+      "canvas": {
+        "top": 232,
+        "bottom": 665,
+        "left": 113,
+        "right": 593.84375,
+        "width": 480.84375,
+        "height": 433
+      },
+      "tool": {
+        "top": 122,
+        "bottom": 665,
+        "left": 593.84375,
+        "right": 1009.84375,
+        "width": 416,
+        "height": 543
+      },
+      "visibleCanvas": {
+        "w": 481,
+        "h": 433
+      },
+      "overlapPx": 0,
+      "fixedAncestor": false,
+      "hOverflow": false,
+      "toolScrollable": false,
+      "blocked": [],
+      "scrimPresent": false,
+      "toolTargetsChecked": 1
+    }
+  ]
+}
