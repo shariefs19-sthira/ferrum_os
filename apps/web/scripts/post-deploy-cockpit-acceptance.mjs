@@ -25,6 +25,11 @@ const baseUrl = (args.find((arg) => !arg.startsWith('--')) || process.env.FERRUM
 const list = (value, fallback) => (value ? value.split(',').map((item) => item.trim()).filter(Boolean) : fallback)
 const products = list(flag('products'), ['Land', 'Design', 'Structure', 'Cost', 'Market', 'Procure'])
 const widths = list(flag('widths'), ['320', '390', '768', '1024', '1366', '1440']).map(Number)
+const knownProducts = ['Land', 'Design', 'Structure', 'Cost', 'Market', 'Procure']
+if (products.some((product) => !knownProducts.includes(product)) || widths.some((width) => !Number.isInteger(width) || width < 200 || width > 4000)) {
+  console.error(`Invalid --products/--widths. Products: ${knownProducts.join(',')}; widths: integers 200-4000.`)
+  process.exit(2)
+}
 const reportPath = flag('report') || process.env.FERRUM_ACCEPTANCE_REPORT
 const evidenceAlways = args.includes('--evidence')
 const evidenceDir = resolve(flag('evidence-dir') || fileURLToPath(new URL('../test-results/cockpit-acceptance/', import.meta.url)))
@@ -59,7 +64,19 @@ async function runCase(browser, product, width) {
     const wide = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)
     check(`overflow@${stage}`, !wide, 'horizontal page overflow')
   }
-  const step = async (name, body) => { try { await body() } catch (error) { fail(name, short(error)) } }
+  // A failed step can leave a modal/tool open; reload before the next step so one
+  // regression is reported once instead of cascading into later steps.
+  let dirty = false
+  const step = async (name, body) => {
+    if (dirty) {
+      await page.reload({ waitUntil: 'networkidle', timeout: 120000 })
+      await page.locator('[data-space-3d] canvas').first().waitFor({ state: 'visible', timeout: 60000 })
+      dirty = false
+    }
+    const before = record.failures.length
+    try { await body() } catch (error) { fail(name, short(error)) }
+    if (record.failures.length > before) dirty = true
+  }
 
   try {
     await page.goto(`${baseUrl}${legacy ? legacyRoute : `/project-workspace/cockpit?product=${product}`}`, { waitUntil: 'networkidle', timeout: 120000 })
@@ -75,10 +92,10 @@ async function runCase(browser, product, width) {
         check(`toolbar-below-appbar(${name})`, bar.top >= appBar.bottom - 0.5, `top ${Math.round(bar.top)} < app bar bottom ${Math.round(appBar.bottom)}`)
       }
       const centre = await page.locator('[data-space-3d]').first().evaluate((host) => {
-        host.scrollIntoView({ block: 'nearest' })
+        host.scrollIntoView({ block: 'center' })
         const b = host.getBoundingClientRect()
         const x = b.left + b.width / 2
-        const y = Math.min(Math.max(b.top + b.height / 2, 0), innerHeight - 1)
+        const y = b.top + b.height / 2
         const hit = document.elementFromPoint(x, y)
         return { ok: Boolean(hit && host.contains(hit)), by: hit ? `${hit.tagName.toLowerCase()}[${(hit.getAttribute('aria-label') || String(hit.className)).slice(0, 50)}]` : 'null', w: b.width, h: b.height }
       })
@@ -206,10 +223,11 @@ async function runCase(browser, product, width) {
       await button.scrollIntoViewIfNeeded()
       const [download] = await Promise.all([page.waitForEvent('download', { timeout: 15000 }), button.click({ timeout: 5000 })])
       const path = await download.path()
-      const body = path ? await readFile(path, 'utf8') : ''
-      record.dxf = { name: download.suggestedFilename(), bytes: body.length }
+      const raw = path ? await readFile(path) : Buffer.alloc(0)
+      const body = raw.toString('utf8')
+      record.dxf = { name: download.suggestedFilename(), bytes: raw.length }
       check('dxf-name', /\.dxf$/i.test(download.suggestedFilename()), `unexpected filename ${download.suggestedFilename()}`)
-      check('dxf-content', body.length > 200 && /SECTION/.test(body) && /EOF/.test(body), `download is not a DXF (${body.length} bytes)`)
+      check('dxf-content', raw.length > 200 && /SECTION/.test(body) && /EOF/.test(body), `download is not a DXF (${raw.length} bytes)`)
       await overflow('after-export')
     })
   } catch (error) {
@@ -223,16 +241,22 @@ async function runCase(browser, product, width) {
 const started = Date.now()
 const browser = await launchBrowser()
 const cases = []
-let shots = 0
+const shots = { failure: 0, evidence: 0 }
 try {
-  await mkdir(evidenceDir, { recursive: true })
   for (const product of products) {
     for (const width of widths) {
       const { record, page, context } = await runCase(browser, product, width)
-      const bounded = evidenceAlways && (width === Math.min(...widths) || width === Math.max(...widths))
-      if ((!record.ok || bounded) && shots < MAX_SHOTS) {
+      const bounded = record.ok && evidenceAlways && (width === Math.min(...widths) || width === Math.max(...widths))
+      // Separate caps: failures never starve the bounded evidence set (and vice versa).
+      const counter = record.ok ? 'evidence' : 'failure'
+      if ((!record.ok || bounded) && shots[counter] < MAX_SHOTS) {
         const file = `${product}-${width}${record.ok ? '' : '-FAIL'}.png`
-        try { await page.screenshot({ path: resolve(evidenceDir, file) }); record.shot = file; shots += 1 } catch (error) { record.shot = `unavailable: ${short(error)}` }
+        try {
+          await mkdir(evidenceDir, { recursive: true })
+          await page.screenshot({ path: resolve(evidenceDir, file) })
+          record.shot = file
+          shots[counter] += 1
+        } catch (error) { record.shot = `unavailable: ${short(error)}` }
       }
       await context.close()
       cases.push(record)
