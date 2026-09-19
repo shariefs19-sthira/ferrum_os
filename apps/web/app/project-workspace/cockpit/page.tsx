@@ -13,6 +13,7 @@ import SutraPanel from "../../../components/workspace/SutraPanel"
 import FullscreenController from "../../../components/workspace/FullscreenController"
 import ProductSkin from "../../../components/workspace/ProductSkin"
 import type { SutraEvent } from "../../../lib/sutra/events"
+import { trapTabKey, useBodyScrollLock, useMaxWidthQuery, useVisualViewportBox } from "../../../lib/sutra/mobileSheet"
 import { withWorkspaceProduct, workspaceProductFromParam } from "../../../lib/workspace/workflowNavigation"
 
 /**
@@ -74,6 +75,13 @@ export default function ProjectWorkspaceCockpit() {
   const sutraToggleRef = useRef<HTMLButtonElement | null>(null)
   const sutraRegionRef = useRef<HTMLDivElement | null>(null)
   const desktopSutraInitialized = useRef(false)
+  // Below `md` (768px) SUTRA is a full-screen sheet: it covers the app bar,
+  // background scroll is locked, and it tracks the visual viewport so the
+  // composer stays above the on-screen keyboard. md..lg (side sheet) and lg+
+  // (docked column) are unchanged.
+  const isPhoneSutra = useMaxWidthQuery(767)
+  const sutraViewportBox = useVisualViewportBox(sutraOpen && isPhoneSutra)
+  useBodyScrollLock(sutraOpen && isPhoneSutra)
 
   useEffect(() => {
     window.localStorage.setItem('ferrum-preview-session', 'active')
@@ -220,15 +228,22 @@ export default function ProjectWorkspaceCockpit() {
         {sutraOpen && (
           <div
             ref={sutraRegionRef}
-            className="absolute inset-x-2 bottom-2 z-40 h-[72%] shadow-2xl md:inset-x-auto md:inset-y-0 md:bottom-0 md:left-auto md:right-0 md:top-0 md:h-full md:w-[var(--sutra-w)] lg:static lg:h-full lg:w-auto"
+            className="fixed inset-0 z-[110] overflow-hidden overscroll-contain bg-relume-command shadow-2xl max-md:pb-[env(safe-area-inset-bottom)] max-md:pl-[env(safe-area-inset-left)] max-md:pr-[env(safe-area-inset-right)] max-md:pt-[env(safe-area-inset-top)] md:absolute md:inset-x-auto md:inset-y-0 md:bottom-0 md:left-auto md:right-0 md:top-0 md:z-40 md:h-full md:w-[var(--sutra-w)] lg:static lg:h-full lg:w-auto"
+            style={isPhoneSutra && sutraViewportBox ? { top: sutraViewportBox.top, height: sutraViewportBox.height, bottom: 'auto' } : undefined}
+            onKeyDown={(event) => { if (!isDesktopSutra) trapTabKey(event, sutraRegionRef.current) }}
             data-sutra-region
+            data-sutra-fullscreen={isPhoneSutra ? 'true' : 'false'}
             data-last-sutra-event={lastSutraEvent}
             role={isDesktopSutra ? undefined : 'dialog'}
             aria-modal={isDesktopSutra ? undefined : 'true'}
             aria-label="SUTRA design assistant"
           >
-            <button type="button" onClick={closeSutra} className="absolute right-3 top-2 z-50 min-h-11 px-2 text-xs font-semibold text-white" aria-label="Close SUTRA">Close</button>
-            <SutraPanel onEvent={handleSutraEvent} activeProduct={productControls[activeProduct]} />
+            <button type="button" onClick={closeSutra} className="absolute right-3 top-2 z-50 hidden min-h-11 px-2 text-xs font-semibold text-white md:block" aria-label="Close SUTRA">Close</button>
+            <button type="button" onClick={closeSutra} className="absolute right-3 top-[calc(env(safe-area-inset-top)+0.5rem)] z-50 inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/30 px-3 text-xs font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent md:hidden" aria-label="Minimize SUTRA" data-sutra-minimize>
+              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeWidth={2.5} d="M5 19h14" /></svg>
+              Minimize
+            </button>
+            <SutraPanel onEvent={handleSutraEvent} activeProduct={productControls[activeProduct]} defaultGuidedOpen={!isPhoneSutra} />
           </div>
         )}
       </div>
