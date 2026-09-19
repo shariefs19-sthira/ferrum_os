@@ -28,6 +28,13 @@ export type Jurisdiction = {
   source: LocationSource
   /** ISO timestamp this jurisdiction was declared/captured. */
   declaredAt: string
+  /**
+   * Stable ID of the persisted project record that supplied this jurisdiction.
+   * A typed or session-only country must never populate this field.
+   */
+  projectRecordId?: string
+  /** Citation for the project record used to establish this jurisdiction. */
+  projectRecordCitation?: string
 }
 
 /** Whether the feature's underlying dataset actually covers this jurisdiction. */
@@ -36,6 +43,7 @@ export type DatasetCoverage = {
   datasetId: string
   /** ISO timestamp of the dataset's last refresh for this jurisdiction. */
   lastUpdated: string
+  /** Citable source for the asserted coverage. A bare covered=true is not evidence. */
   sourceUrl?: string
 }
 

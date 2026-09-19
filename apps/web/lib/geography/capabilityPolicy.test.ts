@@ -16,6 +16,7 @@ const freshDataset = {
   covered: true,
   datasetId: "in-stamp-duty-2026",
   lastUpdated: "2026-09-01T00:00:00.000Z",
+  sourceUrl: "https://example.test/evidence/in-stamp-duty-2026",
 }
 
 const verifiedRegulatory = {
@@ -42,6 +43,8 @@ const declaredJurisdiction = {
   region: "IN-KA",
   source: "project-record" as const,
   declaredAt: NOW,
+  projectRecordId: "project-verified-001",
+  projectRecordCitation: "project://project-verified-001/jurisdiction",
 }
 
 function buildInput(overrides: Partial<CapabilityEvaluationInput> = {}): CapabilityEvaluationInput {
@@ -79,12 +82,32 @@ describe("evaluateFeatureAvailability", () => {
     expect(verdict.evidence[0].dimension).toBe("jurisdiction")
   })
 
+  it("treats a user-declared jurisdiction as ephemeral and unverified even when a caller supplies coverage-like fields", () => {
+    const verdict = evaluateFeatureAvailability(
+      buildInput({ jurisdiction: { ...declaredJurisdiction, source: "user-declared" } }),
+    )
+    expect(verdict.status).toBe("UNAVAILABLE")
+    expect(verdict.reason).toContain("typed for this assessment only")
+    expect(verdict.evidence.map((item) => item.summary).join(" ")).toContain("ephemeral and unverified")
+  })
+
+  it("never returns AVAILABLE without a cited persisted project record and cited dataset coverage", () => {
+    const missingProjectCitation = evaluateFeatureAvailability(
+      buildInput({ jurisdiction: { ...declaredJurisdiction, projectRecordCitation: undefined } }),
+    )
+    const missingDatasetCitation = evaluateFeatureAvailability(
+      buildInput({ datasetCoverage: { ...freshDataset, sourceUrl: undefined } }),
+    )
+    expect(missingProjectCitation.status).toBe("UNAVAILABLE")
+    expect(missingDatasetCitation.status).toBe("UNAVAILABLE")
+  })
+
   it("is UNAVAILABLE when the dataset does not cover the jurisdiction", () => {
     const verdict = evaluateFeatureAvailability(
       buildInput({ datasetCoverage: { ...freshDataset, covered: false } }),
     )
     expect(verdict.status).toBe("UNAVAILABLE")
-    expect(verdict.reason).toContain("No dataset coverage")
+    expect(verdict.reason).toContain("No cited dataset coverage")
   })
 
   it("is UNAVAILABLE when no dataset coverage evidence was supplied at all", () => {

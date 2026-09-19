@@ -12,14 +12,26 @@ describe("RegionalAvailability", () => {
     expect(screen.getAllByText(/No jurisdiction was declared/i).length).toBeGreaterThan(0)
   })
 
-  it("uses a user-declared country only for the in-page assessment", () => {
+  it("keeps a recognized user-declared country unverified and unavailable", () => {
     render(<RegionalAvailability />)
     fireEvent.change(screen.getByLabelText("Country code"), { target: { value: "in" } })
 
     expect(screen.getByDisplayValue("IN")).toBeTruthy()
-    expect(screen.getAllByText("AVAILABLE").length).toBeGreaterThan(1)
+    expect(screen.getAllByText("AVAILABLE").length).toBe(1)
+    expect(screen.getAllByText("UNAVAILABLE").length).toBeGreaterThan(5)
     expect(screen.getAllByText(/Jurisdiction IN declared via user-declared/i).length).toBeGreaterThan(0)
-    expect(screen.getByText(/this check does not change your project record/i)).toBeTruthy()
+    expect(screen.getByText(/entry is not persisted/i)).toBeTruthy()
+    expect(screen.getAllByText(/ephemeral and unverified/i).length).toBeGreaterThan(0)
+  })
+
+  it("keeps an unrecognized two-letter entry unverified and unavailable", () => {
+    render(<RegionalAvailability />)
+    fireEvent.change(screen.getByLabelText("Country code"), { target: { value: "zz" } })
+
+    expect(screen.getByDisplayValue("ZZ")).toBeTruthy()
+    expect(screen.getAllByText("UNAVAILABLE").length).toBeGreaterThan(5)
+    expect(screen.queryAllByText("AVAILABLE")).toHaveLength(1)
+    expect(screen.getAllByText(/does not prove regional or regulatory coverage/i).length).toBeGreaterThan(0)
   })
 
   it("renders all policy statuses in an accessible status key and exposes evidence fallback", () => {

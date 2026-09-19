@@ -106,12 +106,50 @@ export function evaluateFeatureAvailability(
     asOf: input.jurisdiction.declaredAt,
   })
 
+  // A browser/session declaration is useful context for a future lookup, but
+  // it is neither a persisted project jurisdiction nor proof of coverage.
+  // Never let arbitrary user input manufacture an AVAILABLE verdict.
+  if (input.jurisdiction.source === "user-declared") {
+    evidence.push({
+      dimension: "jurisdiction",
+      summary: "User-declared jurisdiction is ephemeral and unverified; it is not a persisted project record and does not prove regional or regulatory coverage.",
+      asOf: input.jurisdiction.declaredAt,
+    })
+    return buildVerdict(requirement.featureId, requirement.label, "UNAVAILABLE", evidence, {
+      asOf: evaluatedAt,
+      maxAgeDays: null,
+      ageDays: null,
+      stale: false,
+      clockInvalid: false,
+    }, "This jurisdiction was typed for this assessment only. A cited persisted project record and independently cited coverage evidence are required before availability can be established.")
+  }
+
+  if (
+    input.jurisdiction.source === "project-record" &&
+    (!input.jurisdiction.projectRecordId || !input.jurisdiction.projectRecordCitation)
+  ) {
+    evidence.push({
+      dimension: "jurisdiction",
+      summary: "Project-record jurisdiction lacks a persisted record ID or citation and is not accepted as verified jurisdiction evidence.",
+      asOf: input.jurisdiction.declaredAt,
+    })
+    return buildVerdict(requirement.featureId, requirement.label, "UNAVAILABLE", evidence, {
+      asOf: evaluatedAt,
+      maxAgeDays: null,
+      ageDays: null,
+      stale: false,
+      clockInvalid: false,
+    }, "A project-record jurisdiction requires a persisted record ID and citation before availability can be established.")
+  }
+
   // Gate 2 — dataset must actually cover this jurisdiction.
-  if (!input.datasetCoverage || !input.datasetCoverage.covered) {
+  if (!input.datasetCoverage || !input.datasetCoverage.covered || !input.datasetCoverage.sourceUrl) {
     evidence.push({
       dimension: "dataset",
       summary: input.datasetCoverage
-        ? `Dataset "${input.datasetCoverage.datasetId}" does not cover ${jurisdictionLabel}.`
+        ? input.datasetCoverage.covered
+          ? `Dataset "${input.datasetCoverage.datasetId}" claims coverage for ${jurisdictionLabel} but has no citable source.`
+          : `Dataset "${input.datasetCoverage.datasetId}" does not cover ${jurisdictionLabel}.`
         : "No dataset coverage evidence was supplied.",
     })
     return buildVerdict(requirement.featureId, requirement.label, "UNAVAILABLE", evidence, {
@@ -120,7 +158,7 @@ export function evaluateFeatureAvailability(
       ageDays: null,
       stale: false,
       clockInvalid: false,
-    }, `No dataset coverage for ${jurisdictionLabel}.`)
+    }, `No cited dataset coverage for ${jurisdictionLabel}.`)
   }
   evidence.push({
     dimension: "dataset",

@@ -74,15 +74,11 @@ export default function RegionalAvailability() {
       : undefined
 
     return REGIONAL_REQUIREMENTS.map((requirement) => {
-      const isProjectRecord = requirement.featureId === "project-jurisdiction"
       return evaluateFeatureAvailability({
         jurisdiction,
         requirement,
-        // This is a record of the user's declaration, not a claim that a
-        // geographic or regulatory dataset covers the location.
-        datasetCoverage: isProjectRecord && jurisdiction
-          ? { covered: true, datasetId: "user-declared-project-context", lastUpdated: now }
-          : undefined,
+        // User input is deliberately not converted into coverage evidence.
+        // This browser-only assessment has no project record or cited source.
         evaluatedAt: now,
       })
     })
@@ -96,7 +92,7 @@ export default function RegionalAvailability() {
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-relume-ink">Regional availability</p>
             <h2 id="regional-availability-title" className="mt-3 text-3xl font-semibold tracking-relume-tight text-relume-ink sm:text-4xl">Know the boundary before you start.</h2>
             <p className="mt-4 max-w-xl text-sm leading-6 text-relume-muted sm:text-base">
-              Choose the project country you want to assess. Ferrum does not use device or IP location here, and this check does not change your project record.
+              Type a country to see what evidence is still required. Ferrum does not use device or IP location here. Your entry is not persisted, does not create or update a project jurisdiction record, and does not prove regional or regulatory coverage.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <label className="text-sm font-semibold text-relume-ink" htmlFor="regional-country">
@@ -108,7 +104,7 @@ export default function RegionalAvailability() {
                 <input id="regional-subdivision" value={region} onChange={(event) => setRegion(event.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 8))} placeholder="UNKNOWN" inputMode="text" autoComplete="address-level1" maxLength={8} className="mt-2 min-h-11 w-full rounded-relume border border-relume-border bg-relume-surface px-3 font-mono text-sm font-medium text-relume-ink placeholder:text-relume-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-command" />
               </label>
             </div>
-            <p id="regional-country-help" className="mt-3 text-xs leading-5 text-relume-muted">Use a two-letter country code, for example IN or US. Blank means UNKNOWN.</p>
+            <p id="regional-country-help" className="mt-3 text-xs leading-5 text-relume-muted">Use a two-letter country code, for example IN or US. Recognized and unrecognized entries are USER_DECLARED / UNVERIFIED until a cited project record and coverage source exist. Blank means UNKNOWN.</p>
             <div className="mt-5 flex flex-wrap gap-2" aria-label="Availability status key">
               {(Object.keys(STATUS_COPY) as FeatureAvailabilityStatus[]).map((status) => <span key={status} className={`rounded-full border bg-relume-surface px-2.5 py-1 font-mono text-[10px] font-semibold tracking-[0.08em] ${statusClass(status)}`}>{status}</span>)}
             </div>

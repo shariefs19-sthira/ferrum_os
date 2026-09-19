@@ -1,0 +1,151 @@
+{
+  "baseUrl": "http://127.0.0.1:3017",
+  "countryInput": "IN",
+  "generatedAt": "2026-09-19T01:45:13.429Z",
+  "results": [
+    {
+      "width": 320,
+      "overflow": false,
+      "panelVisible": true,
+      "panelFits": true,
+      "nonblankCards": 5,
+      "statusLabels": [
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE"
+      ],
+      "availableCards": 0,
+      "browserErrors": []
+    },
+    {
+      "width": 375,
+      "overflow": false,
+      "panelVisible": true,
+      "panelFits": true,
+      "nonblankCards": 5,
+      "statusLabels": [
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE"
+      ],
+      "availableCards": 0,
+      "browserErrors": []
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "panelVisible": true,
+      "panelFits": true,
+      "nonblankCards": 5,
+      "statusLabels": [
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE"
+      ],
+      "availableCards": 0,
+      "browserErrors": []
+    },
+    {
+      "width": 430,
+      "overflow": false,
+      "panelVisible": true,
+      "panelFits": true,
+      "nonblankCards": 5,
+      "statusLabels": [
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE"
+      ],
+      "availableCards": 0,
+      "browserErrors": []
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "panelVisible": true,
+      "panelFits": true,
+      "nonblankCards": 5,
+      "statusLabels": [
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE"
+      ],
+      "availableCards": 0,
+      "browserErrors": []
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "panelVisible": true,
+      "panelFits": true,
+      "nonblankCards": 5,
+      "statusLabels": [
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE"
+      ],
+      "availableCards": 0,
+      "browserErrors": []
+    },
+    {
+      "width": 1366,
+      "overflow": false,
+      "panelVisible": true,
+      "panelFits": true,
+      "nonblankCards": 5,
+      "statusLabels": [
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE"
+      ],
+      "availableCards": 0,
+      "browserErrors": []
+    },
+    {
+      "width": 1440,
+      "overflow": false,
+      "panelVisible": true,
+      "panelFits": true,
+      "nonblankCards": 5,
+      "statusLabels": [
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE"
+      ],
+      "availableCards": 0,
+      "browserErrors": []
+    },
+    {
+      "width": 1920,
+      "overflow": false,
+      "panelVisible": true,
+      "panelFits": true,
+      "nonblankCards": 5,
+      "statusLabels": [
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE",
+        "UNAVAILABLE"
+      ],
+      "availableCards": 0,
+      "browserErrors": []
+    }
+  ]
+}

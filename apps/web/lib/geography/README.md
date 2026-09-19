@@ -27,8 +27,8 @@ is set explicitly and the timestamp is never clamped to "fresh".
 
 | Field | What it evidences |
 |---|---|
-| `jurisdiction` | Country/region, and how it was obtained (`source`) — `ip-geolocation` is accepted but capped at `INDICATIVE`. |
-| `datasetCoverage` | Whether the feature's data actually covers this jurisdiction, and when it was last refreshed. |
+| `jurisdiction` | Country/region, how it was obtained (`source`), and, for a `project-record`, its persisted record ID and citation. A `user-declared` value is ephemeral/unverified and always remains `UNAVAILABLE`; it never creates a project record or establishes coverage. `ip-geolocation` is accepted but capped at `INDICATIVE`. |
+| `datasetCoverage` | Whether the feature's data actually covers this jurisdiction, when it was last refreshed, and a citable source URL. A bare `covered: true` is not accepted as coverage evidence. |
 | `regulatoryVerification` | Whether a named human/authority verified the regulatory content — `verified: true` requires `verifiedBy` + `verifiedAt` + `citation` to be accepted — only checked when the feature declares `requiresRegulatoryVerification`. |
 | `localization` | Locale, translated flag, and completeness (0–1), only checked when `requiresLocalization`. |
 | `serviceAvailability` | Whether the live backend this feature calls is operational — `operational: true` requires a valid, non-future `checkedAt` within `maxServiceCheckAgeMinutes` (default 15) to be accepted — only checked when `requiresLiveService`. |
@@ -42,7 +42,7 @@ instead of the full feature.
 
 | Status | Meaning | Fallback |
 |---|---|---|
-| `AVAILABLE` | All required evidence present, fresh, verified with full attribution. | None — render in full. |
+| `AVAILABLE` | Cited persisted project jurisdiction, cited coverage evidence, and all other required evidence present, fresh, and verified with full attribution. | None — render in full. |
 | `INDICATIVE` | Evidenced but stale, dataset timestamp is clock-invalid (future), or jurisdiction from a low-trust signal (IP only). | Render watermarked `INDICATIVE — NOT A LEGAL OPINION`. |
 | `PARTIAL` | Evidenced but localization incomplete. | Render what's covered; label the gap. |
 | `EXTERNAL_GATE` | Regulatory verification required and not on record as verified, or `verified: true` lacks verifier/date/citation attribution. | Do not compute/publish; route to the compliance queue. |
