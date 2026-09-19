@@ -1,0 +1,4499 @@
+{
+  "generatedAt": "2026-09-19T04:15:48.976Z",
+  "cspMode": "none",
+  "base": "http://127.0.0.1:4391/products/landintel",
+  "results": [
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 320,
+      "twoD": {
+        "viewport": {
+          "w": 320,
+          "h": 640
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 63.5625,
+          "w": 318,
+          "h": 512
+        },
+        "mapCentre": {
+          "x": 160,
+          "y": 320
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 575.5625,
+          "w": 318,
+          "h": 378
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 320,
+          "h": 640
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 63.5625,
+          "w": 318,
+          "h": 512
+        },
+        "mapCentre": {
+          "x": 160,
+          "y": 320
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 795.5625,
+          "w": 318,
+          "h": 378
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 30,
+          "assumedHeight": 10,
+          "recordedHeight": 20,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 30 OSM building footprints in view · 20 with OSM-derived height · 10 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 320,
+          "h": 640
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 63.5625,
+          "w": 318,
+          "h": 512
+        },
+        "mapCentre": {
+          "x": 160,
+          "y": 320
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 795.5625,
+          "w": 318,
+          "h": 378
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 31,
+          "assumedHeight": 8,
+          "recordedHeight": 23,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -15.8,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 31 OSM building footprints in view · 23 with OSM-derived height · 8 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 320,
+          "h": 640
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 402.5625,
+          "w": 318,
+          "h": 512
+        },
+        "mapCentre": {
+          "x": 160,
+          "y": 659
+        },
+        "topElementAtCentre": null,
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 914.5625,
+          "w": 318,
+          "h": 378
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 320,
+      "twoD": {
+        "viewport": {
+          "w": 320,
+          "h": 640
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 63.5625,
+          "w": 318,
+          "h": 512
+        },
+        "mapCentre": {
+          "x": 160,
+          "y": 320
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 575.5625,
+          "w": 318,
+          "h": 378
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 320,
+          "h": 640
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 63.5625,
+          "w": 318,
+          "h": 512
+        },
+        "mapCentre": {
+          "x": 160,
+          "y": 320
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 811.5625,
+          "w": 318,
+          "h": 378
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 320,
+          "h": 640
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 63.5625,
+          "w": 318,
+          "h": 512
+        },
+        "mapCentre": {
+          "x": 160,
+          "y": 320
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 811.5625,
+          "w": 318,
+          "h": 378
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -15.8,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 320,
+          "h": 640
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 402.5625,
+          "w": 318,
+          "h": 512
+        },
+        "mapCentre": {
+          "x": 160,
+          "y": 659
+        },
+        "topElementAtCentre": null,
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 914.5625,
+          "w": 318,
+          "h": 378
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 390,
+      "twoD": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 90.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 386
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 681.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 126.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 422
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 901.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 35,
+          "assumedHeight": 12,
+          "recordedHeight": 23,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 35 OSM building footprints in view · 23 with OSM-derived height · 12 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 126.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 422
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 901.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 33,
+          "assumedHeight": 8,
+          "recordedHeight": 25,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -2.6,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 33 OSM building footprints in view · 25 with OSM-derived height · 8 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 904.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 1200
+        },
+        "topElementAtCentre": null,
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 1495.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 390,
+      "twoD": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 90.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 386
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 681.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 126.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 422
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 917.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 126.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 422
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 917.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -15.9,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 904.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 1200
+        },
+        "topElementAtCentre": null,
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 1495.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 768,
+      "twoD": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 72.1875,
+          "w": 766,
+          "h": 716.796875
+        },
+        "mapCentre": {
+          "x": 384,
+          "y": 431
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 788.984375,
+          "w": 766,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 153.1875,
+          "w": 766,
+          "h": 716.796875
+        },
+        "mapCentre": {
+          "x": 384,
+          "y": 512
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 1001.984375,
+          "w": 766,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 63,
+          "assumedHeight": 18,
+          "recordedHeight": 45,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 63 OSM building footprints in view · 45 with OSM-derived height · 18 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 153.1875,
+          "w": 766,
+          "h": 716.796875
+        },
+        "mapCentre": {
+          "x": 384,
+          "y": 512
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 1001.984375,
+          "w": 766,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 55,
+          "assumedHeight": 11,
+          "recordedHeight": 44,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -15.8,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 55 OSM building footprints in view · 44 with OSM-derived height · 11 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 137.1875,
+          "w": 766,
+          "h": 716.796875
+        },
+        "mapCentre": {
+          "x": 384,
+          "y": 496
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 853.984375,
+          "w": 766,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 768,
+      "twoD": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 72.1875,
+          "w": 766,
+          "h": 716.796875
+        },
+        "mapCentre": {
+          "x": 384,
+          "y": 431
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 788.984375,
+          "w": 766,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 153.1875,
+          "w": 766,
+          "h": 716.796875
+        },
+        "mapCentre": {
+          "x": 384,
+          "y": 512
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 1001.984375,
+          "w": 766,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 153.1875,
+          "w": 766,
+          "h": 716.796875
+        },
+        "mapCentre": {
+          "x": 384,
+          "y": 512
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 1001.984375,
+          "w": 766,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -13.7,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 1
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 768,
+          "h": 1024
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 137.1875,
+          "w": 766,
+          "h": 716.796875
+        },
+        "mapCentre": {
+          "x": 384,
+          "y": 496
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 853.984375,
+          "w": 766,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 1024,
+      "twoD": {
+        "viewport": {
+          "w": 1024,
+          "h": 768
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 67,
+          "w": 1022,
+          "h": 537.59375
+        },
+        "mapCentre": {
+          "x": 512,
+          "y": 336
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 604.59375,
+          "w": 1022,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 1024,
+          "h": 768
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 115,
+          "w": 1022,
+          "h": 537.59375
+        },
+        "mapCentre": {
+          "x": 512,
+          "y": 384
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 784.59375,
+          "w": 1022,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 75,
+          "assumedHeight": 21,
+          "recordedHeight": 54,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 75 OSM building footprints in view · 54 with OSM-derived height · 21 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 1024,
+          "h": 768
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 115,
+          "w": 1022,
+          "h": 537.59375
+        },
+        "mapCentre": {
+          "x": 512,
+          "y": 384
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 784.59375,
+          "w": 1022,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 80,
+          "assumedHeight": 18,
+          "recordedHeight": 62,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -2.6,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 80 OSM building footprints in view · 62 with OSM-derived height · 18 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 1024,
+          "h": 768
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 805,
+          "w": 1022,
+          "h": 537.59375
+        },
+        "mapCentre": {
+          "x": 512,
+          "y": 1074
+        },
+        "topElementAtCentre": null,
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 1342.59375,
+          "w": 1022,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 1024,
+      "twoD": {
+        "viewport": {
+          "w": 1024,
+          "h": 768
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 67,
+          "w": 1022,
+          "h": 537.59375
+        },
+        "mapCentre": {
+          "x": 512,
+          "y": 336
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 604.59375,
+          "w": 1022,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 1024,
+          "h": 768
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 115,
+          "w": 1022,
+          "h": 537.59375
+        },
+        "mapCentre": {
+          "x": 512,
+          "y": 384
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 784.59375,
+          "w": 1022,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 1024,
+          "h": 768
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 115,
+          "w": 1022,
+          "h": 537.59375
+        },
+        "mapCentre": {
+          "x": 512,
+          "y": 384
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 784.59375,
+          "w": 1022,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -16,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 1024,
+          "h": 768
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 805,
+          "w": 1022,
+          "h": 537.59375
+        },
+        "mapCentre": {
+          "x": 512,
+          "y": 1074
+        },
+        "topElementAtCentre": null,
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 1342.59375,
+          "w": 1022,
+          "h": 235
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "covered (MG Road, Bengaluru)",
+      "viewport": 1440,
+      "twoD": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 180,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 139,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 112,
+          "assumedHeight": 29,
+          "recordedHeight": 83,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 112 OSM building footprints in view · 83 with OSM-derived height · 29 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 139,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "covered",
+          "buildings": 100,
+          "assumedHeight": 22,
+          "recordedHeight": 78,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -3,
+          "centre": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "selected": {
+            "lat": 12.97567,
+            "lng": 77.60733
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · 100 OSM building footprints in view · 78 with OSM-derived height · 22 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 895,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 1210
+        },
+        "topElementAtCentre": null,
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 915,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "no-building (Bay of Bengal, open sea)",
+      "viewport": 1440,
+      "twoD": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 180,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "",
+        "view3dDisabled": false
+      },
+      "threeD": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 139,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 60,
+          "bearing": -17.6,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "afterControls": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "canvas.maplibregl-canvas",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 139,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Zoom in",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Zoom out",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt up",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Tilt down",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate left",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Rotate right",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Recenter on selected location",
+            "w": 44,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": {
+          "status": "ready",
+          "failure": null,
+          "coverage": "none",
+          "buildings": 0,
+          "assumedHeight": 0,
+          "recordedHeight": 0,
+          "zoom": 17,
+          "pitch": 70,
+          "bearing": -15.8,
+          "centre": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "selected": {
+            "lat": 12.5,
+            "lng": 82.5
+          },
+          "markerTipOffsetPx": {
+            "dx": 0,
+            "dy": 0
+          },
+          "marker": {
+            "w": 28,
+            "h": 40
+          },
+          "notes": "3D context · No OpenStreetMap building footprints found in this view. That means OSM has none mapped here — not that the site is empty. Nothing is drawn or invented.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated; heights are OSM-tagged or assumed. This is not a parcel boundary and does not confirm what stands on the selected site.",
+          "attributionVisible": true
+        },
+        "twoD": null,
+        "viewNotice": "3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.",
+        "view3dDisabled": false
+      },
+      "backTo2d": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.50000, 82.50000",
+        "expected": {
+          "lat": 12.5,
+          "lng": 82.5
+        },
+        "canvas": {
+          "x": 1,
+          "y": 895,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 1210
+        },
+        "topElementAtCentre": null,
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 915,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": false,
+            "reachable": false
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.5",
+          "canvasLng": "82.5"
+        },
+        "viewNotice": "2D plan view · same selected point and marker.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "unavailable (OpenFreeMap tiles blocked)",
+      "viewport": 390,
+      "after": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 126.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 422
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 717.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "scenario": "unavailable (WebGL2 missing)",
+      "viewport": 390,
+      "after": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 126.5625,
+          "w": 388,
+          "h": 590.796875
+        },
+        "mapCentre": {
+          "x": 195,
+          "y": 422
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1,
+          "y": 717.359375,
+          "w": 388,
+          "h": 331
+        },
+        "cardPlacement": "static",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "3D context needs WebGL2, which this browser does not provide. The 2D plan stays available.",
+        "view3dDisabled": true
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "scenario": "unavailable (OpenFreeMap tiles blocked)",
+      "viewport": 1440,
+      "after": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 139,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "3D map tiles could not be loaded (OpenFreeMap unreachable or blocked). Showing the 2D plan.",
+        "view3dDisabled": false
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "scenario": "unavailable (WebGL2 missing)",
+      "viewport": 1440,
+      "after": {
+        "viewport": {
+          "w": 1440,
+          "h": 900
+        },
+        "horizontalOverflow": false,
+        "selectedPointText": "Selected point 12.97567, 77.60733",
+        "expected": {
+          "lat": 12.97567,
+          "lng": 77.60733
+        },
+        "canvas": {
+          "x": 1,
+          "y": 135,
+          "w": 1438,
+          "h": 630
+        },
+        "mapCentre": {
+          "x": 720,
+          "y": 450
+        },
+        "topElementAtCentre": "img.leaflet-marker-icon",
+        "centreObscuredByUi": false,
+        "cardOverlapsCentre": false,
+        "cardRect": {
+          "x": 1011,
+          "y": 139,
+          "w": 416,
+          "h": 288
+        },
+        "cardPlacement": "absolute",
+        "buttons": [
+          {
+            "label": "2D plan",
+            "w": 88,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "3D context",
+            "w": 96,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true,
+            "coveredByStickyHeaderUntilScrolled": true
+          },
+          {
+            "label": "Save to workspace",
+            "w": 140,
+            "h": 44,
+            "inViewport": true,
+            "reachable": true
+          }
+        ],
+        "smallestButton": 44,
+        "allButtonsReachable": true,
+        "threeD": null,
+        "twoD": {
+          "markerVisible": true,
+          "canvasLat": "12.97567",
+          "canvasLng": "77.60733"
+        },
+        "viewNotice": "3D context needs WebGL2, which this browser does not provide. The 2D plan stays available.",
+        "view3dDisabled": true
+      },
+      "consoleErrors": [
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "HTTP 404 http://127.0.0.1:4391/api/region",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    }
+  ]
+}

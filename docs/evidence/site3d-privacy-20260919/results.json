@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-09-19T04:52:59.965Z",
+  "base": "http://127.0.0.1:4392",
+  "results": [
+    {
+      "width": 320,
+      "status": "ready",
+      "geometry": {
+        "text": "Privacy: 3D loads map tiles from OpenFreeMap, which can see the area you view (plus your IP address). No ULPIN, parcel ID, project data or login details are in tile requests.",
+        "lines": 3,
+        "overlapsMap": false,
+        "overlapsMarker": false,
+        "hOverflow": false,
+        "clippedX": false
+      },
+      "providerRequests": 27,
+      "providerUrlsWithQuery": 0,
+      "providerRefererValues": [
+        "http://127.0.0.1:4392/"
+      ]
+    },
+    {
+      "width": 390,
+      "status": "ready",
+      "geometry": {
+        "text": "Privacy: 3D loads map tiles from OpenFreeMap, which can see the area you view (plus your IP address). No ULPIN, parcel ID, project data or login details are in tile requests.",
+        "lines": 3,
+        "overlapsMap": false,
+        "overlapsMarker": false,
+        "hOverflow": false,
+        "clippedX": false
+      },
+      "providerRequests": 27,
+      "providerUrlsWithQuery": 0,
+      "providerRefererValues": [
+        "http://127.0.0.1:4392/"
+      ]
+    },
+    {
+      "width": 768,
+      "status": "ready",
+      "geometry": {
+        "text": "Privacy: 3D loads map tiles from OpenFreeMap, which can see the area you view (plus your IP address). No ULPIN, parcel ID, project data or login details are in tile requests.",
+        "lines": 2,
+        "overlapsMap": false,
+        "overlapsMarker": false,
+        "hOverflow": false,
+        "clippedX": false
+      },
+      "providerRequests": 49,
+      "providerUrlsWithQuery": 0,
+      "providerRefererValues": [
+        "http://127.0.0.1:4392/"
+      ]
+    },
+    {
+      "width": 1440,
+      "status": "ready",
+      "geometry": {
+        "text": "Privacy: 3D loads map tiles from OpenFreeMap, which can see the area you view (plus your IP address). No ULPIN, parcel ID, project data or login details are in tile requests.",
+        "lines": 2,
+        "overlapsMap": false,
+        "overlapsMarker": false,
+        "hOverflow": false,
+        "clippedX": false
+      },
+      "providerRequests": 63,
+      "providerUrlsWithQuery": 0,
+      "providerRefererValues": [
+        "http://127.0.0.1:4392/"
+      ]
+    }
+  ]
+}

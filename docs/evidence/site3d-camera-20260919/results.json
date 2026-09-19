@@ -1,0 +1,502 @@
+{
+  "generatedAt": "2026-09-19T04:38:16.281Z",
+  "base": "http://127.0.0.1:4391",
+  "cspMode": "none (dev server, no _headers)",
+  "results": [
+    {
+      "width": 320,
+      "status": "ready",
+      "failure": null,
+      "before": {
+        "mode": "oblique",
+        "pitch": "60.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "9"
+      },
+      "canvas": {
+        "x": 1,
+        "y": 510.5625,
+        "width": 318,
+        "height": 532
+      },
+      "geometry": {
+        "ctl": [
+          {
+            "label": "Switch to top-down view centred on the selected point",
+            "w": 88,
+            "h": 44,
+            "containsCentre": false
+          },
+          {
+            "label": "Reset north",
+            "w": 44,
+            "h": 44,
+            "containsCentre": false
+          }
+        ],
+        "centreHitIsMapUi": false,
+        "overlapAttr": false,
+        "hOverflow": false,
+        "notes": "3D context · 9 OSM building footprints in view · 5 with OSM-derived height · 4 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdated;",
+        "viewCtl": {
+          "x": 9,
+          "y": 518.5625,
+          "w": 136,
+          "h": 44
+        }
+      },
+      "afterTopDown": {
+        "mode": "top-down",
+        "pitch": "0.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "4"
+      },
+      "afterOblique": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "7"
+      },
+      "afterRotate": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-2.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "11"
+      },
+      "afterResetNorth": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "0.0",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "14"
+      },
+      "selectedPointStable": true,
+      "twoD": {
+        "leaflet": true,
+        "marker": true,
+        "hOverflow": false,
+        "threeDGone": true
+      }
+    },
+    {
+      "width": 390,
+      "status": "ready",
+      "failure": null,
+      "before": {
+        "mode": "oblique",
+        "pitch": "60.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "15"
+      },
+      "canvas": {
+        "x": 1,
+        "y": 478.5625,
+        "width": 388,
+        "height": 532
+      },
+      "geometry": {
+        "ctl": [
+          {
+            "label": "Switch to top-down view centred on the selected point",
+            "w": 88,
+            "h": 44,
+            "containsCentre": false
+          },
+          {
+            "label": "Reset north",
+            "w": 44,
+            "h": 44,
+            "containsCentre": false
+          }
+        ],
+        "centreHitIsMapUi": false,
+        "overlapAttr": false,
+        "hOverflow": false,
+        "notes": "3D context · 15 OSM building footprints in view · 10 with OSM-derived height · 5 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdate",
+        "viewCtl": {
+          "x": 9,
+          "y": 486.5625,
+          "w": 136,
+          "h": 44
+        }
+      },
+      "afterTopDown": {
+        "mode": "top-down",
+        "pitch": "0.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "9"
+      },
+      "afterOblique": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "13"
+      },
+      "afterRotate": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-2.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "loading",
+        "buildings": "20"
+      },
+      "afterResetNorth": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "0.0",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "23"
+      },
+      "selectedPointStable": true,
+      "twoD": {
+        "leaflet": true,
+        "marker": true,
+        "hOverflow": false,
+        "threeDGone": true
+      }
+    },
+    {
+      "width": 768,
+      "status": "ready",
+      "failure": null,
+      "before": {
+        "mode": "oblique",
+        "pitch": "60.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "62"
+      },
+      "canvas": {
+        "x": 1,
+        "y": 525.1875,
+        "width": 766,
+        "height": 630
+      },
+      "geometry": {
+        "ctl": [
+          {
+            "label": "Switch to top-down view centred on the selected point",
+            "w": 88,
+            "h": 44,
+            "containsCentre": false
+          },
+          {
+            "label": "Reset north",
+            "w": 44,
+            "h": 44,
+            "containsCentre": false
+          }
+        ],
+        "centreHitIsMapUi": false,
+        "overlapAttr": false,
+        "hOverflow": false,
+        "notes": "3D context · 62 OSM building footprints in view · 49 with OSM-derived height · 13 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdat",
+        "viewCtl": {
+          "x": 9,
+          "y": 533.1875,
+          "w": 136,
+          "h": 44
+        }
+      },
+      "afterTopDown": {
+        "mode": "top-down",
+        "pitch": "0.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "27"
+      },
+      "afterOblique": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "42"
+      },
+      "afterRotate": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-2.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "42"
+      },
+      "afterResetNorth": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "0.0",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "45"
+      },
+      "selectedPointStable": true,
+      "twoD": {
+        "leaflet": true,
+        "marker": true,
+        "hOverflow": false,
+        "threeDGone": true
+      }
+    },
+    {
+      "width": 1024,
+      "status": "ready",
+      "failure": null,
+      "before": {
+        "mode": "oblique",
+        "pitch": "60.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "77"
+      },
+      "canvas": {
+        "x": 1,
+        "y": 525,
+        "width": 1022,
+        "height": 630
+      },
+      "geometry": {
+        "ctl": [
+          {
+            "label": "Switch to top-down view centred on the selected point",
+            "w": 88,
+            "h": 44,
+            "containsCentre": false
+          },
+          {
+            "label": "Reset north",
+            "w": 44,
+            "h": 44,
+            "containsCentre": false
+          }
+        ],
+        "centreHitIsMapUi": false,
+        "overlapAttr": false,
+        "hOverflow": false,
+        "notes": "3D context · 77 OSM building footprints in view · 60 with OSM-derived height · 17 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outdat",
+        "viewCtl": {
+          "x": 9,
+          "y": 533,
+          "w": 136,
+          "h": 44
+        }
+      },
+      "afterTopDown": {
+        "mode": "top-down",
+        "pitch": "0.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "34"
+      },
+      "afterOblique": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "51"
+      },
+      "afterRotate": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-2.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "loading",
+        "buildings": "59"
+      },
+      "afterResetNorth": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "0.0",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "59"
+      },
+      "selectedPointStable": true,
+      "twoD": {
+        "leaflet": true,
+        "marker": true,
+        "hOverflow": false,
+        "threeDGone": true
+      }
+    },
+    {
+      "width": 1440,
+      "status": "ready",
+      "failure": null,
+      "before": {
+        "mode": "oblique",
+        "pitch": "60.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "104"
+      },
+      "canvas": {
+        "x": 1,
+        "y": 911,
+        "width": 1438,
+        "height": 630
+      },
+      "geometry": {
+        "ctl": [
+          {
+            "label": "Switch to top-down view centred on the selected point",
+            "w": 88,
+            "h": 44,
+            "containsCentre": false
+          },
+          {
+            "label": "Reset north",
+            "w": 44,
+            "h": 44,
+            "containsCentre": false
+          }
+        ],
+        "centreHitIsMapUi": false,
+        "overlapAttr": false,
+        "hOverflow": false,
+        "notes": "3D context · 104 OSM building footprints in view · 83 with OSM-derived height · 21 at an assumed 5 m default.\n\nOSM building footprint (observed where mapped)\nHeight derived from OSM tags\nAssumed 5 m default height\n\nMap data: OpenFreeMap · OpenMapTiles · Data © OpenStreetMap contributors (ODbL)\n\nContext only — not survey-grade. Footprints are OpenStreetMap-mapped and may be missing, offset or outda",
+        "viewCtl": {
+          "x": 9,
+          "y": 919,
+          "w": 136,
+          "h": 44
+        }
+      },
+      "afterTopDown": {
+        "mode": "top-down",
+        "pitch": "0.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "38"
+      },
+      "afterOblique": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-17.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "71"
+      },
+      "afterRotate": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "-2.6",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "covered",
+        "buildings": "91"
+      },
+      "afterResetNorth": {
+        "mode": "oblique",
+        "pitch": "55.0",
+        "bearing": "0.0",
+        "lat": "12.971600",
+        "lng": "77.594600",
+        "selLat": "12.9716",
+        "selLng": "77.5946",
+        "coverage": "loading",
+        "buildings": "93"
+      },
+      "selectedPointStable": true,
+      "twoD": {
+        "leaflet": true,
+        "marker": true,
+        "hOverflow": false,
+        "threeDGone": true
+      }
+    }
+  ]
+}
