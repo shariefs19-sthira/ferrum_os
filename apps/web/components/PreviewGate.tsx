@@ -1,6 +1,7 @@
 "use client"
 
 import BrandMark from './BrandMark'
+import { safeSet } from '../lib/safeStorage'
 
 const features = [
   'Explore product tools without creating an account',
@@ -10,7 +11,8 @@ const features = [
 
 export default function PreviewGate() {
   const enterPreview = () => {
-    window.localStorage.setItem('ferrum-preview-session', 'active')
+    // Best-effort flag: blocked storage must not stop the visitor entering the preview.
+    safeSet('ferrum-preview-session', 'active')
     window.location.href = '/project-workspace'
   }
 

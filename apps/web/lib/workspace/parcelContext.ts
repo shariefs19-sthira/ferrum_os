@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { AnalysisResult } from '../types/analysis'
 import { ParcelAnalyzer } from '../analysis/parcelAnalyzer'
+import { safeGet, safeSet } from '../safeStorage'
 
 export const PARCEL_CONTEXT_KEY = 'ferrum-parcel-context-v1'
 export const PARCEL_CONTEXT_EVENT = 'ferrum:parcel-context'
@@ -34,7 +35,7 @@ export function isParcelContext(value: unknown): value is ParcelContext {
 export function readParcelContext(): ParcelContext | null {
   if (typeof window === 'undefined') return null
   try {
-    const parsed = JSON.parse(window.localStorage.getItem(PARCEL_CONTEXT_KEY) ?? 'null')
+    const parsed = JSON.parse(safeGet(PARCEL_CONTEXT_KEY) ?? 'null')
     return isParcelContext(parsed) ? parsed : null
   } catch {
     return null
@@ -43,7 +44,8 @@ export function readParcelContext(): ParcelContext | null {
 
 export function writeParcelContext(context: ParcelContext): void {
   if (!isParcelContext(context)) throw new Error('Invalid parcel context')
-  window.localStorage.setItem(PARCEL_CONTEXT_KEY, JSON.stringify(context))
+  // Blocked/full storage keeps the parcel for this page session (in memory) instead of throwing.
+  safeSet(PARCEL_CONTEXT_KEY, JSON.stringify(context))
   window.dispatchEvent(new CustomEvent<ParcelContext>(PARCEL_CONTEXT_EVENT, { detail: context }))
 }
 

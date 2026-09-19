@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react'
+import { safeSet } from '../../lib/safeStorage'
 import ProductCockpitPreview, { type CockpitProduct } from '../workspace/ProductCockpitPreview'
 import EvidenceStateBadge from './EvidenceStateBadge'
 import HeroRoadmapPreview from './HeroRoadmapPreview'
@@ -75,7 +76,7 @@ export default function HomepageCockpitHero() {
       outputs: active.outputCards,
       controls: active.controls,
     }
-    window.localStorage.setItem('ferrum-sutra-product-context', JSON.stringify(detail))
+    safeSet('ferrum-sutra-product-context', JSON.stringify(detail))
     window.dispatchEvent(new CustomEvent('ferrum:sutra-context', { detail }))
   }, [active])
 

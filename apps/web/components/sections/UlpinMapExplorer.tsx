@@ -1,6 +1,6 @@
 "use client"
 
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState, type FocusEvent, type PointerEvent } from 'react'
 import ParcelMap from './ParcelMap'
 import { detectWebGL2, failureMessage, type Map3dFailureReason } from './siteMap3dHelpers'
 import { ProvenanceStrip } from '../ProvenanceStrip'
@@ -48,7 +48,35 @@ export default function UlpinMapExplorer() {
   const [mapView, setMapView] = useState<MapView>('2d')
   const [webgl2, setWebgl2] = useState<boolean | null>(null)
   const [viewNotice, setViewNotice] = useState('')
+  // Single-active contextual help: only one method tip exists at a time, driven by hover / keyboard focus-visible, never by sticky click focus.
+  const [helpId, setHelpId] = useState<string | null>(null)
+  const activeHelp = Object.values(modeFeatures).find((feature) => feature.id === helpId)
+  const groupRef = useRef<HTMLDivElement>(null)
+  const tipRef = useRef<HTMLDivElement>(null)
+  const pointerKind = useRef<string | null>(null)
+  // How the open tip was requested. Hover may only nudge a scroller by an amount that keeps the pointer on its button (otherwise the shift would close the tip it just opened).
+  const helpSource = useRef<{ kind: 'hover' | 'focus' | 'touch'; room: number }>({ kind: 'focus', room: 0 })
   useEffect(() => { setWebgl2(detectWebGL2()) }, [])
+  // While a help tip is open: Escape anywhere (pointer hover needs no keyboard focus) and a press outside the method buttons dismiss it.
+  useEffect(() => {
+    if (!helpId) return
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setHelpId(null) }
+    const onDown = (event: globalThis.PointerEvent) => { if (!(event.target instanceof Node) || !groupRef.current?.contains(event.target)) setHelpId(null) }
+    document.addEventListener('keydown', onKey); document.addEventListener('pointerdown', onDown)
+    return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onDown) }
+  }, [helpId])
+  // Keep the opened tip inside its scroll container / viewport (the cockpit side panel is a fixed-height scroller).
+  useLayoutEffect(() => {
+    const tip = tipRef.current; if (!helpId || !tip) return
+    const source = helpSource.current
+    if (source.kind !== 'hover') { tip.scrollIntoView?.({ block: 'nearest', inline: 'nearest' }); return }
+    let budget = source.room
+    for (let node = tip.parentElement; node && budget > 0; node = node.parentElement) {
+      if (!/(auto|scroll)/.test(getComputedStyle(node).overflowY) || node.scrollHeight <= node.clientHeight) continue
+      const over = tip.getBoundingClientRect().bottom - node.getBoundingClientRect().bottom
+      if (over > 0) { const before = node.scrollTop; node.scrollTop += Math.min(over, budget); budget -= node.scrollTop - before }
+    }
+  }, [helpId])
   const chooseView = (next: MapView) => { setMapView(next); setViewNotice(next === '3d' ? '3D site context · OpenStreetMap-derived building footprints for the selected point. Context only, not survey-grade.' : '2D plan view · same selected point and marker.') }
   const fallBackTo2d = (reason: Map3dFailureReason) => { setMapView('2d'); setViewNotice(failureMessage(reason)) }
   const commit = (next: ParcelRecord, nextMessage: string) => {
@@ -99,10 +127,17 @@ export default function UlpinMapExplorer() {
         <div><p className="text-sm font-semibold text-relume-command">Find parcel</p><p className="mt-1 text-xs text-relume-muted">Choose a method, then set or look up the location below.</p></div>
         <span className="rounded-full border border-relume-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-relume-muted">{record?.status ?? 'SAMPLE'}</span>
       </div>
-      <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6 min-[1600px]:mt-2" aria-label="Location method">{(Object.keys(modeLabels) as Mode[]).map((item) => {
+      <div ref={groupRef} className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6 min-[1600px]:mt-2" aria-label="Location method">{(Object.keys(modeLabels) as Mode[]).map((item) => {
         const feature = modeFeatures[item]
-        return <div key={item} className="group relative min-w-0"><button type="button" onClick={() => { setMode(item); setMatches([]) }} aria-pressed={mode === item} aria-describedby={`landintel-${feature.id}-tip`} data-sutra-product="landintel" data-sutra-feature-id={feature.id} className={`min-h-11 w-full rounded-full border px-3 text-xs font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${mode === item ? 'border-relume-command bg-relume-command text-white' : 'border-relume-border text-relume-command hover:bg-relume-surface-secondary'}`}>{modeLabels[item]}</button><span id={`landintel-${feature.id}-tip`} role="tooltip" className="pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-[700] hidden w-64 -translate-x-1/2 rounded-relume bg-relume-ink p-3 text-left text-[11px] font-normal leading-4 text-white shadow-lg group-hover:block group-focus-within:block"><strong className="block text-xs">{feature.title}</strong><span className="mt-1 block">{feature.body}</span></span></div>
+        const tipId = `landintel-${feature.id}-tip`
+        const helpOpen = helpId === feature.id
+        const hoverHelp = (event: PointerEvent<HTMLButtonElement>) => { if (event.pointerType === 'touch') return; helpSource.current = { kind: 'hover', room: Math.max(0, event.currentTarget.getBoundingClientRect().bottom - event.clientY - 2) }; setHelpId(feature.id) }
+        const leaveHelp = (event: PointerEvent<HTMLButtonElement>) => { if (event.pointerType !== 'touch') clearHelp() }
+        const focusHelp = (event: FocusEvent<HTMLButtonElement>) => { try { if (event.currentTarget.matches(':focus-visible')) { helpSource.current = { kind: 'focus', room: 0 }; setHelpId(feature.id) } } catch { /* no :focus-visible support: hover-only help */ } }
+        const clearHelp = () => setHelpId((current) => (current === feature.id ? null : current))
+        return <div key={item} className="min-w-0"><button type="button" onPointerDown={(event) => { pointerKind.current = event.pointerType }} onClick={() => { const touched = pointerKind.current === 'touch'; pointerKind.current = null; setMode(item); setMatches([]); helpSource.current = { kind: 'touch', room: 0 }; setHelpId(touched ? feature.id : null) }} onPointerEnter={hoverHelp} onPointerLeave={leaveHelp} onFocus={focusHelp} onBlur={clearHelp} aria-pressed={mode === item} aria-describedby={helpOpen ? tipId : undefined} data-sutra-product="landintel" data-sutra-feature-id={feature.id} className={`min-h-11 w-full rounded-full border px-3 text-xs font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-ink ${mode === item ? 'border-relume-command bg-relume-command text-white' : 'border-relume-border text-relume-command hover:bg-relume-surface-secondary'}`}>{modeLabels[item]}</button></div>
       })}</div>
+      {activeHelp && <div ref={tipRef} id={`landintel-${activeHelp.id}-tip`} role="tooltip" data-landintel-help={activeHelp.id} className="mt-2 rounded-relume border border-relume-border bg-relume-surface-secondary p-3 text-left text-xs leading-5 text-relume-ink shadow-sm"><strong className="block text-xs font-semibold text-relume-command">{activeHelp.title}</strong><span className="mt-1 block">{activeHelp.body}</span></div>}
       <div className="mt-3 rounded-relume border border-relume-border bg-relume-surface-secondary p-3" data-selected-method>
         {mode === 'ulpin' && <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.7fr)_auto] lg:items-end min-[1600px]:grid-cols-[auto_minmax(14rem,1fr)_auto]"><div className="flex flex-wrap gap-2 min-[1600px]:flex-nowrap">{SAMPLE_ULPINS.map((sample) => <button key={sample} type="button" onClick={() => setUlpin(sample)} aria-pressed={ulpin === sample} className="min-h-11 rounded-full border border-relume-border bg-white px-3 text-xs">{sample}</button>)}</div><label className="block text-xs font-semibold">Seeded ULPIN<input value={ulpin} onChange={(event) => setUlpin(event.target.value)} aria-invalid={ulpinError} aria-describedby="parcel-finder-status" className="mt-1 min-h-11 w-full rounded-relume border border-relume-border bg-white px-3 py-2" /></label><button type="button" onClick={() => void lookupUlpin()} className="min-h-11 rounded-full bg-relume-command px-4 text-sm font-semibold text-white">Lookup seeded record</button></div>}
         {mode === 'pin' && <p className="text-xs leading-5 text-relume-muted">Click any map point to set a location. Ferrum requests a reverse-geocoded address from OpenStreetMap Nominatim; parcel attributes remain GAP.</p>}

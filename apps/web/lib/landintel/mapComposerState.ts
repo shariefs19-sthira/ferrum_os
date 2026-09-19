@@ -1,3 +1,5 @@
+import { safeGet, safeSet } from '../safeStorage'
+
 export type MapComposerLayer = {
   id: string
   name: string
@@ -53,16 +55,17 @@ export function isMapComposerMetadata(value: unknown): value is MapComposerMetad
 export function readMapComposerMetadata(): MapComposerMetadata {
   if (typeof window === 'undefined') return emptyMapComposerMetadata
   try {
-    const parsed = JSON.parse(window.localStorage.getItem(MAP_COMPOSER_STATE_KEY) ?? 'null')
+    const parsed = JSON.parse(safeGet(MAP_COMPOSER_STATE_KEY) ?? 'null')
     return isMapComposerMetadata(parsed) ? parsed : emptyMapComposerMetadata
   } catch {
     return emptyMapComposerMetadata
   }
 }
 
-export function writeMapComposerMetadata(metadata: MapComposerMetadata): void {
+/** Returns true when persisted to browser storage, false when it only lives in memory for this page session (storage blocked or full). Invalid metadata is a programming error and still throws. */
+export function writeMapComposerMetadata(metadata: MapComposerMetadata): boolean {
   if (!isMapComposerMetadata(metadata)) throw new Error('Invalid Map Composer metadata')
-  window.localStorage.setItem(MAP_COMPOSER_STATE_KEY, JSON.stringify(metadata))
+  return safeSet(MAP_COMPOSER_STATE_KEY, JSON.stringify(metadata))
 }
 
 export function generateLayerId(): string {

@@ -6,6 +6,7 @@ import WorkspaceCockpit from './WorkspaceCockpit'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import FullscreenController from './FullscreenController'
 import CrossProductLiveSummary from './CrossProductLiveSummary'
+import { safeSet } from '../../lib/safeStorage'
 
 export type CockpitProduct = ProductControlId
 
@@ -32,8 +33,8 @@ export default function ProductCockpitPreview({ product, label, children, contai
   // BOQ, or unrestricted land-use controls merely because they share a shell.
   const hasDesignWorkspace = product === 'designstudio'
   const persistHandoff = useCallback(() => {
-    window.localStorage.setItem('ferrum-cockpit-handoff', JSON.stringify({ version: 1, source: product, parameters }))
-    window.localStorage.setItem('ferrum-preview-session', 'active')
+    safeSet('ferrum-cockpit-handoff', JSON.stringify({ version: 1, source: product, parameters }))
+    safeSet('ferrum-preview-session', 'active')
   }, [parameters, product])
 
   return (
