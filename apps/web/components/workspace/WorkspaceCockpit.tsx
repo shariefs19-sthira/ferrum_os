@@ -471,7 +471,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           defect; `fullBleedEmbed` doesn't need it (its section isn't
           `flex-col`, so this grid already gets its height from the normal
           document flow / `min-h-[70vh]` on the section). */}
-      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : ''}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto'}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
@@ -488,7 +488,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           </div>
         </aside>}
 
-        <div data-cockpit-canvas-section className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst || fullBleedEmbed ? 'min-h-0' : ''}`}>
+        <div data-cockpit-canvas-section className={`relative order-1 min-w-0 bg-[#E9EEF1] xl:order-none ${canvasFirst ? 'flex min-h-0 flex-col' : fullBleedEmbed ? 'min-h-0' : ''}`}>
           <div className="relative z-40 flex flex-nowrap gap-1 border-b border-relume-border bg-white p-2 md:flex-wrap" role="tablist" aria-label="Model views">
             {(isDesignExperience ? views.filter((candidate) => candidate.id === 'space') : views).map((candidate) => (
               <button key={candidate.id} type="button" role="tab" aria-selected={view === candidate.id} onClick={() => chooseView(candidate.id)} className={`min-h-11 rounded-full px-4 text-xs font-semibold ${view === candidate.id ? 'bg-relume-command text-white' : 'text-relume-ink hover:bg-relume-surface-secondary'}`}>
@@ -566,7 +566,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
             {optionStage === 'rooms' && ['Social-first', 'Balanced', 'Private-first'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('plotWidthM', Math.max(8, Math.min(80, parameters.plotWidthM + index - 1))); setOptionStage('compliance'); setCommandResult(`${choice} room split applied to the deterministic plan proportions.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
             {optionStage === 'compliance' && ['Minimum setback', 'Extra 0.5 m margin'].map((choice, index) => <button key={choice} type="button" onClick={() => { update('setbackM', (landRule?.min_setback_m ?? 1.5) + index * 0.5); setOptionStage(parcelContext ? 'floors' : 'use'); setCommandResult(`${choice} applied. Flow complete; sample rules remain INDICATIVE.`) }} className="min-h-11 shrink-0 rounded-full bg-white px-4 text-xs font-semibold text-relume-command">{choice}</button>)}
           </div>}
-          <div data-cockpit-canvas className={canvasFirst ? "absolute inset-x-0 bottom-0 top-[7.25rem]" : fullBleedEmbed ? "h-[min(68svh,44rem)] min-h-[28rem] lg:h-[calc(76vh-7.25rem)] lg:min-h-[34rem]" : "h-[32rem] min-h-[24rem]"}>
+          <div data-cockpit-canvas className={canvasFirst ? "relative min-h-[14rem] flex-1 overflow-hidden" : fullBleedEmbed ? "h-[min(68svh,44rem)] min-h-[28rem] lg:h-[calc(76vh-7.25rem)] lg:min-h-[34rem]" : "h-[32rem] min-h-[24rem]"}>
             {view === 'space' ? <Space3D plan={plan} contextLabel={siteContextLabel} shell={isDesignExperience ? selectedShell : undefined} /> : <PlanElevationView plan={plan} view={view} activeFloor={activeFloor} selectedOpeningId={selectedOpeningId} fitAllocatedHeight={canvasFirst} onSelectOpening={selectOpening} />}
           </div>
           {isDesignExperience && <ShellCatalogPanel parcel={parcelContext} selectedShell={selectedShell} projectInputs={templateProjectInputs} onSelect={(shell) => setSelectedShellId(shell.id)} mobileOpen={mobilePanel === 'shells'} onMobileClose={closeMobilePanel} />}
@@ -617,7 +617,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
         </aside>}
       </div>
       <p className="border-t border-relume-border bg-relume-surface-secondary px-4 py-2 text-xs text-relume-muted" aria-live="polite" data-canvas-flow-result>{permalinkStatus || commandResult}</p>
-      <ExportBar plan={plan} />
+      <div className={canvasFirst ? 'relative z-10 shrink-0' : undefined}><ExportBar plan={plan} /></div>
     </section>
   )
 }

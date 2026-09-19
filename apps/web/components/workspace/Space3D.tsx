@@ -413,7 +413,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
   }, [plan, demoMode, fullscreen.profile, shell, beautyMode])
 
   return (
-    <div className="flex h-full min-h-[24rem] flex-col bg-[#e7ecec]" data-space-3d-frame>
+    <div className="flex h-full min-h-0 flex-col bg-[#e7ecec]" data-space-3d-frame>
     <div ref={hostRef} className="relative min-h-0 flex-1 overflow-hidden bg-[#e7ecec]" data-space-3d data-space-demo={demoMode || undefined} data-selected={selected} data-profile-label={profile}>
       {profile === 'diagram' && <div className="absolute inset-0 grid place-items-center bg-relume-surface-secondary p-8 text-center text-sm text-relume-command"><p><strong>Reduced diagram mode</strong><br />{contextLost ? 'The 3D graphics context was lost mid-session (a device/driver event, not an app error).' : 'WebGL2 is unavailable.'} Use Plan or Elevation for the same deterministic geometry.</p></div>}
       <div className="hidden" data-canvas-status-bar>
