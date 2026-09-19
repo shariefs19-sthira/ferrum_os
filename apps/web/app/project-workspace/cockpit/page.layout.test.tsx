@@ -20,6 +20,8 @@ let desktop = true
 let phone = false
 // Canvas geometry the mocked getBoundingClientRect reports for [data-cockpit-canvas] (null = unmeasurable).
 let canvasRect: { top: number; bottom: number } | null = { top: 120, bottom: 560 }
+// Rows that un-hide above the canvas once SUTRA stops occluding it (Land: 44px of task buttons).
+let unoccludedShift = 0
 
 function installBrowserStubs() {
   window.matchMedia = ((query: string) => {
@@ -34,7 +36,12 @@ function installBrowserStubs() {
   }
   vi.stubGlobal("ResizeObserver", RO)
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
-    if (this.hasAttribute("data-cockpit-canvas") && canvasRect) return { width: 320, height: canvasRect.bottom - canvasRect.top, top: canvasRect.top, left: 0, right: 320, bottom: canvasRect.bottom, x: 0, y: canvasRect.top, toJSON: () => ({}) } as DOMRect
+    if (this.hasAttribute("data-cockpit-canvas") && canvasRect) {
+      const shift = this.dataset.occluded === "false" ? unoccludedShift : 0
+      const top = canvasRect.top + shift
+      const bottom = canvasRect.bottom + shift
+      return { width: 320, height: bottom - top, top, left: 0, right: 320, bottom, x: 0, y: top, toJSON: () => ({}) } as DOMRect
+    }
     const width = this.hasAttribute("data-workspace-grid") ? GRID_WIDTH : 0
     return { width, height: 0, top: 0, left: 0, right: width, bottom: 0, x: 0, y: 0, toJSON: () => ({}) } as DOMRect
   })
@@ -343,6 +350,38 @@ describe("cockpit SUTRA on tablets and phones", () => {
     expect(screen.getByRole("button", { name: /Full/ })).toBeTruthy()
     expect(screen.getByRole("button", { name: "Minimize SUTRA" })).toBeTruthy()
     Object.defineProperty(window, "innerHeight", { configurable: true, value: 768 })
+  })
+
+  it("re-measures after entering Reading moves the canvas without resizing it, and falls back to Full when the real model is < 180px", async () => {
+    Object.defineProperty(window, "innerHeight", { configurable: true, value: 667 })
+    canvasRect = { top: 281, bottom: 640 }
+    unoccludedShift = 44
+    await openSutra()
+    // Measured in Full (canvas at 281) Reading looks available...
+    expect(region().dataset.sutraReadingAvailable).toBe("true")
+    fireEvent.click(screen.getByRole("button", { name: /Reading/ }))
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 50)) })
+    // ...but the canvas moved to 325, leaving < 180px: it must settle back on Full, once, and stay there.
+    expect(region().dataset.sutraMode).toBe("full")
+    expect(region().dataset.sutraReadingAvailable).toBe("false")
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 50)) })
+    expect(region().dataset.sutraMode).toBe("full")
+    expect(screen.getByRole("button", { name: /Reading/ }).getAttribute("aria-disabled")).toBe("true")
+    unoccludedShift = 0
+    Object.defineProperty(window, "innerHeight", { configurable: true, value: 768 })
+  })
+
+  it("resizes the Reading sheet to the shifted canvas so real model pixels stay >= 180px", async () => {
+    canvasRect = { top: 281, bottom: 700 }
+    unoccludedShift = 44
+    await openSutra()
+    fireEvent.click(screen.getByRole("button", { name: /Reading/ }))
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 50)) })
+    expect(region().dataset.sutraMode).toBe("reading")
+    // canvas now at 325: sheet = 768-325-180 = 263, model above sheet = 768-263-325 = 180
+    expect(region().style.height).toBe("263px")
+    expect(region().dataset.sutraModelVisible).toBe("180")
+    unoccludedShift = 0
   })
 
   it("shrinks the sheet (not the model) when a little more room is needed, and disables Reading when the canvas is unmeasurable", async () => {

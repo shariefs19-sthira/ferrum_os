@@ -1,7 +1,178 @@
 {
   "base": "static export, local",
-  "total": 111,
+  "total": 148,
   "failed": 0,
+  "matrix": [
+    {
+      "tag": "Land@375x667",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Land@390x844",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 180,
+      "sheet": {
+        "top": 505,
+        "height": 339,
+        "bottom": 844,
+        "vh": 844
+      },
+      "composer": {
+        "top": 800,
+        "bottom": 844,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Land@320x568",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Land@667x375",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Structure@375x667",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 180,
+      "sheet": {
+        "top": 457,
+        "height": 210,
+        "bottom": 667,
+        "vh": 667
+      },
+      "composer": {
+        "top": 623,
+        "bottom": 667,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Structure@390x844",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 186,
+      "sheet": {
+        "top": 464,
+        "height": 380,
+        "bottom": 844,
+        "vh": 844
+      },
+      "composer": {
+        "top": 787,
+        "bottom": 831,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Structure@320x568",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Structure@667x375",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Cost@375x667",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 180,
+      "sheet": {
+        "top": 457,
+        "height": 210,
+        "bottom": 667,
+        "vh": 667
+      },
+      "composer": {
+        "top": 623,
+        "bottom": 667,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Cost@390x844",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 186,
+      "sheet": {
+        "top": 464,
+        "height": 380,
+        "bottom": 844,
+        "vh": 844
+      },
+      "composer": {
+        "top": 787,
+        "bottom": 831,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Cost@320x568",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Cost@667x375",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Market@375x667",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 180,
+      "sheet": {
+        "top": 457,
+        "height": 210,
+        "bottom": 667,
+        "vh": 667
+      },
+      "composer": {
+        "top": 623,
+        "bottom": 667,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Market@390x844",
+      "offeredInFull": true,
+      "settled": "reading",
+      "visible": 186,
+      "sheet": {
+        "top": 464,
+        "height": 380,
+        "bottom": 844,
+        "vh": 844
+      },
+      "composer": {
+        "top": 787,
+        "bottom": 831,
+        "height": 44,
+        "inViewport": true,
+        "hit": true
+      }
+    },
+    {
+      "tag": "Market@320x568",
+      "offeredInFull": false
+    },
+    {
+      "tag": "Market@667x375",
+      "offeredInFull": false
+    }
+  ],
   "results": [
     {
       "viewport": "320x568",
@@ -668,6 +839,228 @@
       "name": "reset returns to right/default",
       "pass": true,
       "detail": ""
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px canvas 325-689 sheet {\"top\":505,\"height\":339,\"bottom\":844,\"vh\":844}"
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 180 vs sampled 180"
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":800,\"bottom\":844,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Land@390x844",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px canvas 277-634 sheet {\"top\":457,\"height\":210,\"bottom\":667,\"vh\":667}"
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 180 vs sampled 180"
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":623,\"bottom\":667,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Structure@375x667",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 186px canvas 277-641 sheet {\"top\":464,\"height\":380,\"bottom\":844,\"vh\":844}"
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 187 vs sampled 186"
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":787,\"bottom\":831,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Structure@390x844",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px canvas 277-634 sheet {\"top\":457,\"height\":210,\"bottom\":667,\"vh\":667}"
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 180 vs sampled 180"
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":623,\"bottom\":667,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Cost@375x667",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 186px canvas 277-641 sheet {\"top\":464,\"height\":380,\"bottom\":844,\"vh\":844}"
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 187 vs sampled 186"
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":787,\"bottom\":831,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Cost@390x844",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px canvas 277-634 sheet {\"top\":457,\"height\":210,\"bottom\":667,\"vh\":667}"
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 180 vs sampled 180"
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":623,\"bottom\":667,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Market@375x667",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "mode is stable after Reading settles (no flicker / loop)",
+      "pass": true,
+      "detail": "reading,reading,reading,reading,reading,reading,reading,reading"
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "actual visible model >= 180px after Reading settled (sampled, cookie bar shown)",
+      "pass": true,
+      "detail": "visible 186px canvas 277-641 sheet {\"top\":464,\"height\":380,\"bottom\":844,\"vh\":844}"
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "data-sutra-model-visible agrees with sampled pixels (+-4px)",
+      "pass": true,
+      "detail": "attr 187 vs sampled 186"
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "composer reachable in Reading (in viewport, hit-testable)",
+      "pass": true,
+      "detail": "{\"top\":787,\"bottom\":831,\"height\":44,\"inViewport\":true,\"hit\":true}"
+    },
+    {
+      "viewport": "Market@390x844",
+      "name": "composer accepts typing in Reading",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "Land@320x568",
+      "name": "320 / landscape Reading withheld or safely fallen back",
+      "pass": true,
+      "detail": "{\"tag\":\"Land@320x568\",\"offeredInFull\":false}"
+    },
+    {
+      "viewport": "Land@667x375",
+      "name": "320 / landscape Reading withheld or safely fallen back",
+      "pass": true,
+      "detail": "{\"tag\":\"Land@667x375\",\"offeredInFull\":false}"
     }
   ]
 }

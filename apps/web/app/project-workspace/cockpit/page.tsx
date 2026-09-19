@@ -96,7 +96,7 @@ export default function ProjectWorkspaceCockpit() {
   const collapseFocusTarget = useRef<"restore" | "collapse" | null>(null)
   const compactFull = !isDesktopSutra && sutraMode === "full"
   const sutraViewportBox = useVisualViewportBox(sutraOpen && !isDesktopSutra)
-  const readingPlan = useReadingSheetPlan(sutraOpen && !isDesktopSutra)
+  const readingPlan = useReadingSheetPlan(sutraOpen && !isDesktopSutra, sutraMode === "reading")
   const readingAvailable = Boolean(readingPlan?.available)
   useBodyScrollLock(sutraOpen && compactFull)
 

@@ -210,9 +210,88 @@ for (const vp of viewports) {
   await context.close()
 }
 
+// ---- Product matrix (CRANE c1165e3a): Reading must be judged on the layout Reading actually produces.
+// Entering Reading un-hides task-button rows above the canvas (Land: +44px), so availability measured in Full can be
+// stale. For every product/viewport: if Reading is offered and entered, the model pixels REALLY visible after the
+// layout settles must be >= 180px, the composer must be reachable, and the mode must stay put (no flicker/loop).
+// Withheld/fallen-back is a valid outcome only when the settled Reading layout could not keep 180px.
+const productMatrix = [
+  { label: 'Land', query: '' },
+  { label: 'Structure', query: '?product=Structure' },
+  { label: 'Cost', query: '?product=Cost' },
+  { label: 'Market', query: '?product=Market' },
+]
+const matrixViewports = [
+  { name: '375x667', width: 375, height: 667 },
+  { name: '390x844', width: 390, height: 844 },
+  { name: '320x568', width: 320, height: 568 },
+  { name: '667x375', width: 667, height: 375 },
+]
+const matrix = []
+for (const product of productMatrix) {
+  for (const vp of matrixViewports) {
+    const tag = `${product.label}@${vp.name}`
+    const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, reducedMotion: 'reduce' })
+    const page = await context.newPage()
+    await page.goto(`${base}/project-workspace/cockpit/${product.query}`, { waitUntil: 'networkidle' })
+    await page.waitForSelector('[data-workspace-grid]')
+    await page.getByRole('button', { name: 'SUTRA', exact: true }).click()
+    await page.waitForSelector('[data-sutra-region]')
+    await page.waitForTimeout(300)
+    const readingBtn = page.getByRole('button', { name: /Reading/ })
+    const offered = (await readingBtn.getAttribute('aria-disabled')) !== 'true'
+    let record = { tag, offeredInFull: offered }
+    if (offered) {
+      await readingBtn.click()
+      const modes = []
+      for (let i = 0; i < 8; i++) { await page.waitForTimeout(100); modes.push(await page.evaluate(() => document.querySelector('[data-sutra-region]')?.dataset.sutraMode)) }
+      const settled = modes.at(-1)
+      const stable = modes.slice(2).every(m => m === settled)
+      check(tag, 'mode is stable after Reading settles (no flicker / loop)', stable, modes.join(','))
+      if (settled === 'reading') {
+        const m = await visibleModel(page)
+        const sheet = await page.evaluate(() => { const r = document.querySelector('[data-sutra-region]').getBoundingClientRect(); return { top: Math.round(r.top), height: Math.round(r.height), bottom: Math.round(r.bottom), vh: innerHeight } })
+        check(tag, `actual visible model >= ${MIN_MODEL_PX}px after Reading settled (sampled, cookie bar shown)`, m.rows >= MIN_MODEL_PX, `visible ${m.rows}px canvas ${m.canvasTop}-${m.canvasBottom} sheet ${JSON.stringify(sheet)}`)
+        const attr = await page.evaluate(() => Number(document.querySelector('[data-sutra-region]').dataset.sutraModelVisible))
+        check(tag, 'data-sutra-model-visible agrees with sampled pixels (+-4px)', Math.abs(attr - m.rows) <= 4, `attr ${attr} vs sampled ${m.rows}`)
+        const composer = await page.evaluate(() => {
+          const input = document.querySelector('[data-sutra-region] #sutra-command')
+          if (!input) return null
+          input.scrollIntoView({ block: 'nearest' })
+          const r = input.getBoundingClientRect()
+          const el = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
+          return { top: Math.round(r.top), bottom: Math.round(r.bottom), height: Math.round(r.height), inViewport: r.top >= 0 && r.bottom <= innerHeight, hit: Boolean(el && (el === input || input.contains(el) || el.closest('form')?.contains(input))) }
+        })
+        check(tag, 'composer reachable in Reading (in viewport, hit-testable)', Boolean(composer?.inViewport && composer.hit && composer.height >= 36), JSON.stringify(composer))
+        await page.locator('#sutra-command').focus()
+        await page.keyboard.type('hi')
+        check(tag, 'composer accepts typing in Reading', (await page.locator('#sutra-command').inputValue()) === 'hi')
+        record = { ...record, settled, visible: m.rows, sheet, composer }
+        await shot(page, `matrix-${product.label}-${vp.name}-reading`)
+      } else {
+        // Fell back: legitimate only if the Reading layout truly could not keep 180px, i.e. Reading is now withheld.
+        const nowDisabled = (await readingBtn.getAttribute('aria-disabled')) === 'true'
+        check(tag, 'fallback to Full leaves Reading disabled (not re-offered)', settled === 'full' && nowDisabled, `${settled} disabled=${nowDisabled}`)
+        record = { ...record, settled }
+        await shot(page, `matrix-${product.label}-${vp.name}-fellback`)
+      }
+    } else {
+      await shot(page, `matrix-${product.label}-${vp.name}-withheld`)
+    }
+    matrix.push(record)
+    await context.close()
+  }
+}
+// 320 / landscape must be withheld or fall back; never a covered model (Land default).
+for (const tag of ['Land@320x568', 'Land@667x375']) {
+  const r = matrix.find(x => x.tag === tag)
+  check(tag, '320 / landscape Reading withheld or safely fallen back', !r.offeredInFull || r.settled === 'full', JSON.stringify(r))
+}
+console.log(JSON.stringify(matrix.map(({ tag, offeredInFull, settled, visible }) => ({ tag, offeredInFull, settled, visible }))))
+
 await browser.close()
 server.close()
 const failed = results.filter(r => !r.pass)
-await writeFile(path.join(evidenceDir, 'results.json'), JSON.stringify({ base: 'static export, local', total: results.length, failed: failed.length, results }, null, 2))
+await writeFile(path.join(evidenceDir, 'results.json'), JSON.stringify({ base: 'static export, local', total: results.length, failed: failed.length, matrix, results }, null, 2))
 console.log(`${results.length - failed.length}/${results.length} checks passed`)
 process.exit(failed.length ? 1 : 0)
