@@ -43,4 +43,29 @@ describe("RegionalAvailability", () => {
     }
     expect(screen.getAllByText("Evidence and fallback").length).toBeGreaterThan(0)
   })
+
+  it("gives every Evidence and fallback summary a 44px target and visible focus ring", () => {
+    const { container } = render(<RegionalAvailability />)
+
+    const toggles = container.querySelectorAll("summary[data-regional-evidence-toggle]")
+    expect(toggles).toHaveLength(5)
+    for (const toggle of Array.from(toggles)) {
+      expect(toggle.className).toMatch(/\bmin-h-11\b/)
+      expect(toggle.className).toMatch(/\bflex\b/)
+      expect(toggle.className).toMatch(/\bitems-center\b/)
+      expect(toggle.className).toMatch(/focus-visible:outline-2/)
+      expect(toggle.className).toMatch(/focus-visible:outline-relume-command/)
+      expect(toggle.parentElement?.tagName).toBe("DETAILS")
+      expect(toggle.textContent).toBe("Evidence and fallback")
+    }
+  })
+
+  it("keeps conservative UNKNOWN semantics while evidence is disclosed", () => {
+    const { container } = render(<RegionalAvailability />)
+    const details = container.querySelector("details") as HTMLDetailsElement
+    details.open = true
+
+    expect(details.textContent).toMatch(/Fallback:/)
+    expect(screen.queryAllByText("AVAILABLE")).toHaveLength(1)
+  })
 })

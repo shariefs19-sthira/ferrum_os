@@ -120,7 +120,7 @@ export default function RegionalAvailability() {
                 <p className="mt-3 text-xs leading-5 text-relume-muted">{verdict.reason}</p>
                 <p className="mt-2 text-xs leading-5 text-relume-muted">{formatFreshness(verdict)}</p>
                 <details className="mt-3 border-t border-relume-border pt-3 text-xs leading-5 text-relume-muted">
-                  <summary className="cursor-pointer font-semibold text-relume-command">Evidence and fallback</summary>
+                  <summary data-regional-evidence-toggle className="flex min-h-11 cursor-pointer items-center rounded-relume font-semibold text-relume-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-command">Evidence and fallback</summary>
                   <ul className="mt-2 space-y-1 break-words">
                     {verdict.evidence.map((item) => <li key={`${item.dimension}-${item.summary}`}>{item.dimension}: {item.summary}{item.asOf ? ` (${item.asOf})` : ""}</li>)}
                   </ul>
