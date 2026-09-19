@@ -184,3 +184,51 @@ export function splitterKeyAction(key: string, shiftKey: boolean, growKey: "Arro
   if (key === "Enter") return { kind: "reset" }
   return null
 }
+
+/**
+ * Reading bottom sheet (tablet/phone SUTRA). Reading mode exists so the model
+ * stays usable above the sheet, so it is only offered when real model pixels
+ * remain: the canvas rectangle, clipped to the visual viewport, must still
+ * show >= `minModelPx` above the sheet AND the sheet must keep >= `minSheetPx`
+ * (toolbar + composer + a message line). Otherwise Reading is disabled and
+ * Full + Minimize remain.
+ */
+export const READING_SHEET = { preferredRatio: 0.45, minSheetPx: 200, minModelPx: 180 } as const
+
+export type ReadingSheetInput = {
+  /** Visual viewport top / height in layout coordinates (offsetTop, height). */
+  viewportTop: number
+  viewportHeight: number
+  /** Model canvas rectangle at rest (scroll-normalised, already clipped to its shell), or null if it cannot be measured. */
+  canvas: { top: number; bottom: number } | null
+}
+
+export type ReadingSheetPlan = {
+  available: boolean
+  sheetHeight: number
+  sheetTop: number
+  /** Model pixels left above the sheet (0 when unmeasurable). */
+  modelVisible: number
+}
+
+export function planReadingSheet({ viewportTop, viewportHeight, canvas }: ReadingSheetInput): ReadingSheetPlan {
+  const viewportBottom = viewportTop + viewportHeight
+  const preferred = Math.round(viewportHeight * READING_SHEET.preferredRatio)
+  if (!canvas || !Number.isFinite(viewportHeight) || viewportHeight <= 0) {
+    return { available: false, sheetHeight: preferred, sheetTop: viewportBottom - preferred, modelVisible: 0 }
+  }
+  const modelTop = Math.max(canvas.top, viewportTop)
+  const canvasVisible = Math.min(canvas.bottom, viewportBottom) - modelTop
+  // Shrink the sheet (never below its floor) to give the model its minimum.
+  const sheetHeight = Math.min(preferred, Math.round(viewportBottom - modelTop - READING_SHEET.minModelPx))
+  const sheetTop = viewportBottom - sheetHeight
+  const modelVisible = Math.max(0, Math.round(Math.min(canvas.bottom, sheetTop) - modelTop))
+  const available = canvasVisible >= READING_SHEET.minModelPx && sheetHeight >= READING_SHEET.minSheetPx && modelVisible >= READING_SHEET.minModelPx
+  return { available, sheetHeight, sheetTop, modelVisible }
+}
+
+/** With the on-screen keyboard up the model is hidden anyway: keep the sheet usable and follow the visual viewport. */
+export function keyboardReadingSheet(viewportTop: number, viewportHeight: number): { sheetHeight: number; sheetTop: number } {
+  const sheetHeight = Math.min(viewportHeight, Math.max(Math.round(viewportHeight * READING_SHEET.preferredRatio), READING_SHEET.minSheetPx))
+  return { sheetHeight, sheetTop: viewportTop + viewportHeight - sheetHeight }
+}

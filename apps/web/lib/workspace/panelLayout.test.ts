@@ -12,6 +12,9 @@ import {
   resolvePanelLayout,
   serializePanelLayout,
   splitterKeyAction,
+  READING_SHEET,
+  keyboardReadingSheet,
+  planReadingSheet,
   widthFromDrag,
   type PanelLayout,
 } from "./panelLayout"
@@ -141,5 +144,47 @@ describe("splitter input maths", () => {
     expect(splitterKeyAction("End", false, "ArrowLeft")).toEqual({ kind: "max" })
     expect(splitterKeyAction("Enter", false, "ArrowLeft")).toEqual({ kind: "reset" })
     expect(splitterKeyAction("a", false, "ArrowLeft")).toBeNull()
+  })
+})
+
+describe("reading sheet availability", () => {
+  const plan = (vh: number, canvasTop: number, canvasBottom: number, viewportTop = 0) => planReadingSheet({ viewportTop, viewportHeight: vh, canvas: { top: canvasTop, bottom: canvasBottom } })
+
+  it("offers Reading with 45% sheet when >= 180px of model stays above it", () => {
+    const p = plan(844, 250, 800)
+    expect(p.available).toBe(true)
+    expect(p.sheetHeight).toBe(380)
+    expect(p.modelVisible).toBeGreaterThanOrEqual(READING_SHEET.minModelPx)
+  })
+
+  it("shrinks the sheet to protect the model minimum, down to the sheet floor", () => {
+    const p = plan(700, 300, 650)
+    expect(p.sheetHeight).toBe(220)
+    expect(p.modelVisible).toBe(180)
+    expect(p.available).toBe(true)
+  })
+
+  it("disables Reading on the reported failing viewports", () => {
+    // illustrative canvas offsets for 320x568, 320x640, 667x375 (real geometry is asserted by the rendered audit)
+    expect(plan(568, 190, 520).available).toBe(false)
+    expect(plan(640, 300, 590).available).toBe(false)
+    expect(plan(375, 150, 330).available).toBe(false)
+  })
+
+  it("never counts canvas pixels outside the visual viewport or below the sheet", () => {
+    // keyboard-shrunk / scrolled visual viewport starting at 100
+    const p = plan(500, 0, 400, 100)
+    expect(p.modelVisible).toBeLessThanOrEqual(300)
+    expect(plan(844, 250, 400).available).toBe(false) // canvas itself only 150px tall
+  })
+
+  it("is unavailable when the canvas cannot be measured", () => {
+    expect(planReadingSheet({ viewportTop: 0, viewportHeight: 844, canvas: null }).available).toBe(false)
+  })
+
+  it("keyboard sheet stays usable and inside the visual viewport", () => {
+    const k = keyboardReadingSheet(40, 300)
+    expect(k.sheetHeight).toBe(200)
+    expect(k.sheetTop + k.sheetHeight).toBe(340)
   })
 })

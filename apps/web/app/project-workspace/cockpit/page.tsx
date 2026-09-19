@@ -17,6 +17,7 @@ import { trapTabKey, useBodyScrollLock, useMaxWidthQuery, useVisualViewportBox }
 import { withWorkspaceProduct, workspaceProductFromParam } from "../../../lib/workspace/workflowNavigation"
 import { PANEL_LIMITS } from "../../../lib/workspace/panelLayout"
 import { useElementWidth, usePanelLayout } from "../../../lib/workspace/usePanelLayout"
+import { useReadingSheetPlan } from "../../../lib/workspace/useReadingSheet"
 import PanelSplitter from "../../../components/workspace/PanelSplitter"
 import SutraDockBar, { type CompactSutraMode } from "../../../components/workspace/SutraDockBar"
 
@@ -95,6 +96,8 @@ export default function ProjectWorkspaceCockpit() {
   const collapseFocusTarget = useRef<"restore" | "collapse" | null>(null)
   const compactFull = !isDesktopSutra && sutraMode === "full"
   const sutraViewportBox = useVisualViewportBox(sutraOpen && !isDesktopSutra)
+  const readingPlan = useReadingSheetPlan(sutraOpen && !isDesktopSutra)
+  const readingAvailable = Boolean(readingPlan?.available)
   useBodyScrollLock(sutraOpen && compactFull)
 
   useEffect(() => {
@@ -141,6 +144,12 @@ export default function ProjectWorkspaceCockpit() {
   type LiveMetrics = { extracts: WorkspaceExtract[]; lengthMetres: number; areaSquareMetres: number; provenance: WorkspaceProvenance }
   const [liveMetrics, setLiveMetrics] = useState<LiveMetrics | null>(null)
   const handleLiveMetricsChange = useCallback((metrics: LiveMetrics) => setLiveMetrics(metrics), [])
+
+  // Reading is only valid while real model pixels remain above the sheet
+  // (rotation, resize or a shorter canvas can take that away): fall back to full-screen.
+  useEffect(() => {
+    if (sutraMode === "reading" && readingPlan && !readingPlan.available) setSutraMode("full")
+  }, [sutraMode, readingPlan])
 
   const closeSutra = useCallback(() => {
     setSutraOpen(false)
@@ -219,13 +228,15 @@ export default function ProjectWorkspaceCockpit() {
       ? 'fixed inset-0 z-[110] flex flex-col pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] pt-[env(safe-area-inset-top)]'
       : 'fixed inset-x-0 bottom-0 z-[110] flex h-[45dvh] flex-col rounded-t-relume border-t border-white/20 pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]'
   // Follow the visual viewport so the composer stays above the on-screen keyboard.
+  // The Reading sheet height/top come from the measured plan (visual viewport +
+  // real canvas geometry), never a fixed 45%: the model must stay visible above it.
   const regionStyle: React.CSSProperties | undefined = isDesktopSutra
     ? { gridColumn: sutraColumn, gridRow: 1 }
-    : sutraViewportBox
-      ? (sutraMode === "full"
-          ? { top: sutraViewportBox.top, height: sutraViewportBox.height, bottom: 'auto' }
-          : { top: sutraViewportBox.top + Math.round(sutraViewportBox.height * 0.55), height: Math.round(sutraViewportBox.height * 0.45), bottom: 'auto' })
-      : undefined
+    : sutraMode === "reading" && readingPlan
+      ? { top: readingPlan.sheetTop, height: readingPlan.sheetHeight, bottom: 'auto' }
+      : sutraViewportBox && sutraMode === "full"
+        ? { top: sutraViewportBox.top, height: sutraViewportBox.height, bottom: 'auto' }
+        : undefined
 
   return (
     <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-dvh-safe flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
@@ -316,6 +327,8 @@ export default function ProjectWorkspaceCockpit() {
             onKeyDown={(event) => { if (compactFull) trapTabKey(event, sutraRegionRef.current) }}
             data-sutra-region
             data-sutra-fullscreen={compactFull ? 'true' : 'false'}
+            data-sutra-reading-available={isDesktopSutra ? undefined : String(readingAvailable)}
+            data-sutra-model-visible={sutraMode === "reading" && readingPlan ? readingPlan.modelVisible : undefined}
             data-sutra-mode={isDesktopSutra ? (collapsedDock ? 'collapsed' : 'docked') : sutraMode}
             data-sutra-side={panel.layout.sutraSide}
             data-last-sutra-event={lastSutraEvent}
@@ -346,7 +359,7 @@ export default function ProjectWorkspaceCockpit() {
                   resetDisabled={panel.layout.isDefault}
                 />
               ) : (
-                <SutraDockBar variant="compact" mode={sutraMode} onModeChange={setSutraMode} onMinimize={closeSutra} />
+                <SutraDockBar variant="compact" mode={sutraMode} readingAvailable={readingAvailable} onModeChange={setSutraMode} onMinimize={closeSutra} />
               )}
               <div className="min-h-0 flex-1">
                 <SutraPanel onEvent={handleSutraEvent} activeProduct={productControls[activeProduct]} defaultGuidedOpen={!isPhoneSutra} />

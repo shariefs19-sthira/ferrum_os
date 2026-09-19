@@ -1,148 +1,364 @@
 {
   "base": "static export, local",
-  "total": 75,
+  "total": 111,
   "failed": 0,
   "results": [
     {
-      "viewport": "320",
+      "viewport": "320x568",
       "name": "no horizontal overflow (full)",
       "pass": true,
       "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
     },
     {
-      "viewport": "320",
+      "viewport": "320x568",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":320,\"h\":568,\"vw\":320,\"vh\":568}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "320x568",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "320x568",
+      "name": "cookie bar is shown during the audit",
+      "pass": true,
+      "detail": "{\"top\":503,\"h\":65}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "Reading is disabled (expected)",
+      "pass": true,
+      "detail": "aria-disabled=true"
+    },
+    {
+      "viewport": "320x568",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "clicking disabled Reading keeps SUTRA full-screen and modal (model never covered)",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"top\":0,\"h\":568,\"vh\":568,\"bottom\":568,\"modal\":\"true\",\"canvasTop\":188,\"focusInside\":true}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "a 45% sheet would leave < 180px of model (Reading correctly withheld)",
+      "pass": true,
+      "detail": "would leave -31px"
+    },
+    {
+      "viewport": "320x568",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "320x568",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+    },
+    {
+      "viewport": "320x640",
       "name": "opens full-screen",
       "pass": true,
       "detail": "{\"mode\":\"full\",\"w\":320,\"h\":640,\"vw\":320,\"vh\":640}"
     },
     {
-      "viewport": "320",
+      "viewport": "320x640",
       "name": "preset controls are >= 44px",
       "pass": true,
       "detail": "[]"
     },
     {
-      "viewport": "320",
+      "viewport": "320x640",
       "name": "Tab stays inside the full-screen dialog",
       "pass": true,
       "detail": "in,in,in,in,in,in,in,in"
     },
     {
-      "viewport": "320",
-      "name": "reading size is a bottom sheet leaving the model area above it",
+      "viewport": "320x640",
+      "name": "cookie bar is shown during the audit",
       "pass": true,
-      "detail": "{\"top\":352,\"h\":288,\"vh\":640,\"bottom\":640,\"modal\":null,\"canvasTop\":188}"
+      "detail": "{\"top\":575,\"h\":65}"
     },
     {
-      "viewport": "320",
-      "name": "no horizontal overflow (reading)",
+      "viewport": "320x640",
+      "name": "Reading is disabled (expected)",
       "pass": true,
-      "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
+      "detail": "aria-disabled=true"
     },
     {
-      "viewport": "320",
+      "viewport": "320x640",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "clicking disabled Reading keeps SUTRA full-screen and modal (model never covered)",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"top\":0,\"h\":640,\"vh\":640,\"bottom\":640,\"modal\":\"true\",\"canvasTop\":188,\"focusInside\":true}"
+    },
+    {
+      "viewport": "320x640",
+      "name": "a 45% sheet would leave < 180px of model (Reading correctly withheld)",
+      "pass": true,
+      "detail": "would leave 9px"
+    },
+    {
+      "viewport": "320x640",
       "name": "minimize closes SUTRA and returns focus to the header toggle",
       "pass": true,
       "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
     },
     {
-      "viewport": "320",
+      "viewport": "320x640",
       "name": "no horizontal overflow (minimized)",
       "pass": true,
       "detail": "{\"scrollWidth\":320,\"innerWidth\":320,\"bodyScroll\":320}"
     },
     {
-      "viewport": "390",
+      "viewport": "390x844",
       "name": "no horizontal overflow (full)",
       "pass": true,
       "detail": "{\"scrollWidth\":390,\"innerWidth\":390,\"bodyScroll\":390}"
     },
     {
-      "viewport": "390",
+      "viewport": "390x844",
       "name": "opens full-screen",
       "pass": true,
       "detail": "{\"mode\":\"full\",\"w\":390,\"h\":844,\"vw\":390,\"vh\":844}"
     },
     {
-      "viewport": "390",
+      "viewport": "390x844",
       "name": "preset controls are >= 44px",
       "pass": true,
       "detail": "[]"
     },
     {
-      "viewport": "390",
+      "viewport": "390x844",
       "name": "Tab stays inside the full-screen dialog",
       "pass": true,
       "detail": "in,in,in,in,in,in,in,in"
     },
     {
-      "viewport": "390",
-      "name": "reading size is a bottom sheet leaving the model area above it",
+      "viewport": "390x844",
+      "name": "cookie bar is shown during the audit",
       "pass": true,
-      "detail": "{\"top\":464,\"h\":380,\"vh\":844,\"bottom\":844,\"modal\":null,\"canvasTop\":170}"
+      "detail": "{\"top\":783,\"h\":61}"
     },
     {
-      "viewport": "390",
+      "viewport": "390x844",
+      "name": "Reading is offered (expected)",
+      "pass": true,
+      "detail": "aria-disabled=false"
+    },
+    {
+      "viewport": "390x844",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "390x844",
+      "name": "Reading is a non-modal bottom sheet, <= 45% high, focus stays inside",
+      "pass": true,
+      "detail": "{\"mode\":\"reading\",\"top\":505,\"h\":339,\"vh\":844,\"bottom\":844,\"modal\":null,\"canvasTop\":170,\"focusInside\":true}"
+    },
+    {
+      "viewport": "390x844",
+      "name": ">= 180px of model canvas actually visible above the Reading sheet (cookie bar shown)",
+      "pass": true,
+      "detail": "visible 180px of canvas 325-689, sheet top 505"
+    },
+    {
+      "viewport": "390x844",
+      "name": "model area above the sheet is hit-testable (non-modal)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "390x844",
       "name": "no horizontal overflow (reading)",
       "pass": true,
       "detail": "{\"scrollWidth\":390,\"innerWidth\":390,\"bodyScroll\":390}"
     },
     {
-      "viewport": "390",
+      "viewport": "390x844",
+      "name": "shrinking the viewport drops Reading back to Full",
+      "pass": true,
+      "detail": "full"
+    },
+    {
+      "viewport": "390x844",
       "name": "minimize closes SUTRA and returns focus to the header toggle",
       "pass": true,
       "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
     },
     {
-      "viewport": "390",
+      "viewport": "390x844",
       "name": "no horizontal overflow (minimized)",
       "pass": true,
       "detail": "{\"scrollWidth\":390,\"innerWidth\":390,\"bodyScroll\":390}"
     },
     {
-      "viewport": "768",
+      "viewport": "667x375",
       "name": "no horizontal overflow (full)",
       "pass": true,
-      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+      "detail": "{\"scrollWidth\":667,\"innerWidth\":667,\"bodyScroll\":667}"
     },
     {
-      "viewport": "768",
+      "viewport": "667x375",
       "name": "opens full-screen",
       "pass": true,
-      "detail": "{\"mode\":\"full\",\"w\":768,\"h\":1024,\"vw\":768,\"vh\":1024}"
+      "detail": "{\"mode\":\"full\",\"w\":667,\"h\":375,\"vw\":667,\"vh\":375}"
     },
     {
-      "viewport": "768",
+      "viewport": "667x375",
       "name": "preset controls are >= 44px",
       "pass": true,
       "detail": "[]"
     },
     {
-      "viewport": "768",
+      "viewport": "667x375",
       "name": "Tab stays inside the full-screen dialog",
       "pass": true,
       "detail": "in,in,in,in,in,in,in,in"
     },
     {
-      "viewport": "768",
-      "name": "reading size is a bottom sheet leaving the model area above it",
+      "viewport": "667x375",
+      "name": "cookie bar is shown during the audit",
       "pass": true,
-      "detail": "{\"top\":563,\"h\":461,\"vh\":1024,\"bottom\":1024,\"modal\":null,\"canvasTop\":170}"
+      "detail": "{\"top\":314,\"h\":61}"
     },
     {
-      "viewport": "768",
-      "name": "no horizontal overflow (reading)",
+      "viewport": "667x375",
+      "name": "Reading is disabled (expected)",
       "pass": true,
-      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+      "detail": "aria-disabled=true"
     },
     {
-      "viewport": "768",
+      "viewport": "667x375",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "667x375",
+      "name": "clicking disabled Reading keeps SUTRA full-screen and modal (model never covered)",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"top\":0,\"h\":375,\"vh\":375,\"bottom\":375,\"modal\":\"true\",\"canvasTop\":170,\"focusInside\":true}"
+    },
+    {
+      "viewport": "667x375",
+      "name": "a 45% sheet would leave < 180px of model (Reading correctly withheld)",
+      "pass": true,
+      "detail": "would leave -71px"
+    },
+    {
+      "viewport": "667x375",
       "name": "minimize closes SUTRA and returns focus to the header toggle",
       "pass": true,
       "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
     },
     {
-      "viewport": "768",
+      "viewport": "667x375",
+      "name": "no horizontal overflow (minimized)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":667,\"innerWidth\":667,\"bodyScroll\":667}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "no horizontal overflow (full)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "opens full-screen",
+      "pass": true,
+      "detail": "{\"mode\":\"full\",\"w\":768,\"h\":1024,\"vw\":768,\"vh\":1024}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "preset controls are >= 44px",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "Tab stays inside the full-screen dialog",
+      "pass": true,
+      "detail": "in,in,in,in,in,in,in,in"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "cookie bar is shown during the audit",
+      "pass": true,
+      "detail": "{\"top\":963,\"h\":61}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "Reading is offered (expected)",
+      "pass": true,
+      "detail": "aria-disabled=false"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "Full + Minimize always remain",
+      "pass": true,
+      "detail": "{\"full\":true,\"min\":true}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "Reading is a non-modal bottom sheet, <= 45% high, focus stays inside",
+      "pass": true,
+      "detail": "{\"mode\":\"reading\",\"top\":563,\"h\":461,\"vh\":1024,\"bottom\":1024,\"modal\":null,\"canvasTop\":170,\"focusInside\":true}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": ">= 180px of model canvas actually visible above the Reading sheet (cookie bar shown)",
+      "pass": true,
+      "detail": "visible 286px of canvas 277-776, sheet top 563"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "model area above the sheet is hit-testable (non-modal)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "viewport": "768x1024",
+      "name": "no horizontal overflow (reading)",
+      "pass": true,
+      "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"
+    },
+    {
+      "viewport": "768x1024",
+      "name": "minimize closes SUTRA and returns focus to the header toggle",
+      "pass": true,
+      "detail": "{\"region\":false,\"focus\":\"SUTRA\"}"
+    },
+    {
+      "viewport": "768x1024",
       "name": "no horizontal overflow (minimized)",
       "pass": true,
       "detail": "{\"scrollWidth\":768,\"innerWidth\":768,\"bodyScroll\":768}"

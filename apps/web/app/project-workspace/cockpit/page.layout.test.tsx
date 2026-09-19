@@ -8,7 +8,7 @@ vi.mock("../../../components/workspace/MoreDrawer", () => ({ default: () => null
 vi.mock("../../../components/workspace/ExtractPanel", () => ({ default: () => null }))
 vi.mock("../../../components/workspace/ProductSkin", () => ({ default: () => null }))
 vi.mock("../../../components/workspace/CanvasSlot", () => ({
-  default: ({ sutraOccludesCanvas }: { sutraOccludesCanvas?: boolean }) => <div data-testid="canvas" data-occluded={String(Boolean(sutraOccludesCanvas))}><button type="button">Model control</button></div>,
+  default: ({ sutraOccludesCanvas }: { sutraOccludesCanvas?: boolean }) => <div data-testid="canvas" data-cockpit-canvas data-occluded={String(Boolean(sutraOccludesCanvas))}><button type="button">Model control</button></div>,
   productControls: new Proxy({}, { get: () => undefined }),
 }))
 vi.mock("../../../components/workspace/SutraPanel", () => ({ default: () => <div data-testid="sutra-panel"><label>Ask SUTRA<input /></label></div> }))
@@ -18,6 +18,8 @@ import ProjectWorkspaceCockpit from "./page"
 const GRID_WIDTH = 1440
 let desktop = true
 let phone = false
+// Canvas geometry the mocked getBoundingClientRect reports for [data-cockpit-canvas] (null = unmeasurable).
+let canvasRect: { top: number; bottom: number } | null = { top: 120, bottom: 560 }
 
 function installBrowserStubs() {
   window.matchMedia = ((query: string) => {
@@ -32,6 +34,7 @@ function installBrowserStubs() {
   }
   vi.stubGlobal("ResizeObserver", RO)
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
+    if (this.hasAttribute("data-cockpit-canvas") && canvasRect) return { width: 320, height: canvasRect.bottom - canvasRect.top, top: canvasRect.top, left: 0, right: 320, bottom: canvasRect.bottom, x: 0, y: canvasRect.top, toJSON: () => ({}) } as DOMRect
     const width = this.hasAttribute("data-workspace-grid") ? GRID_WIDTH : 0
     return { width, height: 0, top: 0, left: 0, right: width, bottom: 0, x: 0, y: 0, toJSON: () => ({}) } as DOMRect
   })
@@ -61,6 +64,7 @@ async function openDesktop() {
 beforeEach(() => {
   desktop = true
   phone = false
+  canvasRect = { top: 120, bottom: 560 }
   window.localStorage.clear()
   installBrowserStubs()
 })
@@ -285,8 +289,11 @@ describe("cockpit SUTRA on tablets and phones", () => {
     expect(region().dataset.sutraMode).toBe("reading")
     expect(region().dataset.sutraFullscreen).toBe("false")
     expect(region().hasAttribute("aria-modal")).toBe(false)
-    expect(region().className).toContain("h-[45dvh]")
     expect(region().className).toContain("env(safe-area-inset-bottom)")
+    // measured plan: 45% of the 768px viewport, model keeps 302px above it
+    expect(region().style.height).toBe("346px")
+    expect(region().style.top).toBe("422px")
+    expect(region().dataset.sutraModelVisible).toBe("302")
     expect(screen.getByTestId("canvas").dataset.occluded).toBe("false")
     expect(document.body.style.overflow).not.toBe("hidden")
     fireEvent.click(screen.getByRole("button", { name: /Full/ }))
@@ -309,15 +316,48 @@ describe("cockpit SUTRA on tablets and phones", () => {
 
   it("follows the visual viewport so the composer clears the keyboard, in full and reading modes", async () => {
     const listeners: Record<string, () => void> = {}
-    const viewport = { offsetTop: 0, height: 400, addEventListener: (n: string, cb: () => void) => { listeners[n] = cb }, removeEventListener: () => undefined }
+    const viewport = { offsetTop: 0, height: 800, addEventListener: (n: string, cb: () => void) => { listeners[n] = cb }, removeEventListener: () => undefined }
     Object.defineProperty(window, "visualViewport", { configurable: true, value: viewport })
+    canvasRect = { top: 100, bottom: 700 }
     await openSutra()
     expect(region().style.top).toBe("0px")
-    expect(region().style.height).toBe("400px")
+    expect(region().style.height).toBe("800px")
     fireEvent.click(screen.getByRole("button", { name: /Reading/ }))
-    expect(region().style.top).toBe("220px")
-    expect(region().style.height).toBe("180px")
+    // 45% of the visual viewport = 360 -> top 440, model 100..440 = 340px
+    expect(region().style.top).toBe("440px")
+    expect(region().style.height).toBe("360px")
     Object.defineProperty(window, "visualViewport", { configurable: true, value: undefined })
+  })
+
+  it("keeps Full + Minimize and disables Reading when the sheet would cover the model", async () => {
+    // 320x568-like: canvas starts low, so 45% would leave < 180px of model
+    Object.defineProperty(window, "innerHeight", { configurable: true, value: 568 })
+    canvasRect = { top: 300, bottom: 520 }
+    await openSutra()
+    const reading = screen.getByRole("button", { name: /Reading/ })
+    expect(reading.getAttribute("aria-disabled")).toBe("true")
+    expect(region().dataset.sutraReadingAvailable).toBe("false")
+    expect(screen.getByText(/Reading size unavailable/)).toBeTruthy()
+    fireEvent.click(reading)
+    expect(region().dataset.sutraMode).toBe("full")
+    expect(screen.getByRole("button", { name: /Full/ })).toBeTruthy()
+    expect(screen.getByRole("button", { name: "Minimize SUTRA" })).toBeTruthy()
+    Object.defineProperty(window, "innerHeight", { configurable: true, value: 768 })
+  })
+
+  it("shrinks the sheet (not the model) when a little more room is needed, and disables Reading when the canvas is unmeasurable", async () => {
+    canvasRect = { top: 300, bottom: 700 }
+    const { unmount } = render(<ProjectWorkspaceCockpit />)
+    await act(async () => {})
+    fireEvent.click(screen.getByRole("button", { name: "SUTRA" }))
+    fireEvent.click(screen.getByRole("button", { name: /Reading/ }))
+    // preferred 346 would leave 768-346-300 = 122px -> sheet shrinks to 288, model = 180
+    expect(region().style.height).toBe("288px")
+    expect(region().dataset.sutraModelVisible).toBe("180")
+    unmount()
+    canvasRect = null
+    await openSutra()
+    expect(screen.getByRole("button", { name: /Reading/ }).getAttribute("aria-disabled")).toBe("true")
   })
 
   it("does not apply desktop persistence or grid overrides", async () => {

@@ -35,9 +35,12 @@ const results = []
 const check = (viewport, name, pass, detail = '') => { results.push({ viewport, name, pass, detail }); if (!pass) console.log(`FAIL ${viewport} ${name} ${detail}`) }
 
 const viewports = [
-  { name: '320', width: 320, height: 640, compact: true, touch: true },
-  { name: '390', width: 390, height: 844, compact: true, touch: true },
-  { name: '768', width: 768, height: 1024, compact: true, touch: true },
+  // reading: expected Reading availability (fixed from the CRANE b718d05b findings, not derived from the code under test)
+  { name: '320x568', width: 320, height: 568, compact: true, touch: true, reading: false },
+  { name: '320x640', width: 320, height: 640, compact: true, touch: true, reading: false },
+  { name: '390x844', width: 390, height: 844, compact: true, touch: true, reading: true },
+  { name: '667x375', width: 667, height: 375, compact: true, touch: true, reading: false },
+  { name: '768x1024', width: 768, height: 1024, compact: true, touch: true, reading: true },
   { name: '1024', width: 1024, height: 768, compact: false },
   { name: '1366', width: 1366, height: 768, compact: false },
   { name: '1440', width: 1440, height: 900, compact: false },
@@ -49,6 +52,24 @@ const shot = async (page, name) => { await page.waitForTimeout(150); return page
 const overflow = page => page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth, bodyScroll: document.body.scrollWidth }))
 const small = (page, selector) => page.evaluate(sel => [...document.querySelectorAll(sel)].map(el => { const r = el.getBoundingClientRect(); return { label: el.getAttribute('aria-label') ?? el.textContent?.trim(), w: Math.round(r.width), h: Math.round(r.height) } }).filter(b => b.w < 44 || b.h < 44), selector)
 const val = (page, label) => page.getByRole('separator', { name: label }).getAttribute('aria-valuenow').then(Number)
+const MIN_MODEL_PX = 180
+// Real visible model pixels: sample the canvas rect (clipped to the viewport) with elementFromPoint, so a sheet,
+// cookie bar or any overlay covering the canvas is subtracted. Returns visible rows (height) at >=50% of sampled columns.
+const visibleModel = page => page.evaluate(() => {
+  const canvas = document.querySelector('[data-cockpit-canvas]')
+  if (!canvas) return { rows: 0, canvasTop: 0, canvasBottom: 0 }
+  const rect = canvas.getBoundingClientRect()
+  const x0 = Math.max(rect.left, 0), x1 = Math.min(rect.right, innerWidth)
+  const y0 = Math.max(rect.top, 0), y1 = Math.min(rect.bottom, innerHeight)
+  let rows = 0
+  for (let y = Math.ceil(y0) + 1; y < y1; y += 2) {
+    let hit = 0
+    const samples = 8
+    for (let i = 0; i < samples; i++) { const x = x0 + ((i + 0.5) / samples) * (x1 - x0); const el = document.elementFromPoint(x, y); if (el && canvas.contains(el)) hit++ }
+    if (hit / samples >= 0.5) rows += 2
+  }
+  return { rows, canvasTop: Math.round(rect.top), canvasBottom: Math.round(rect.bottom) }
+})
 const mainWidth = page => page.evaluate(() => Math.round(document.querySelector('[data-cockpit-region]').getBoundingClientRect().width))
 
 for (const vp of viewports) {
@@ -143,13 +164,41 @@ for (const vp of viewports) {
     const seen = []
     for (let i = 0; i < 8; i++) { seen.push(await page.evaluate(() => document.activeElement?.closest('[data-sutra-region]') ? 'in' : 'OUT')); await page.keyboard.press('Tab') }
     check(vp.name, 'Tab stays inside the full-screen dialog', !seen.includes('OUT'), seen.join(','))
-    await page.getByRole('button', { name: /Reading/ }).click()
-    await shot(page, `${vp.name}-02-reading`)
-    await page.waitForFunction(() => { const r = document.querySelector('[data-sutra-region]'); return r?.dataset.sutraMode === 'reading' && r.getBoundingClientRect().height < innerHeight * 0.5 }, null, { timeout: 3000 }).catch(() => undefined)
-    const rd = await page.evaluate(() => { const r = document.querySelector('[data-sutra-region]').getBoundingClientRect(); const canvas = document.querySelector('[data-cockpit-region]').getBoundingClientRect(); return { top: Math.round(r.top), h: Math.round(r.height), vh: innerHeight, bottom: Math.round(r.bottom), modal: document.querySelector('[data-sutra-region]').getAttribute('aria-modal'), canvasTop: Math.round(canvas.top) } })
-    check(vp.name, 'reading size is a bottom sheet leaving the model area above it', rd.modal === null && rd.h < rd.vh * 0.5 && rd.bottom === rd.vh && rd.top > rd.canvasTop, JSON.stringify(rd))
-    o = await overflow(page)
-    check(vp.name, 'no horizontal overflow (reading)', o.scrollWidth <= o.innerWidth, JSON.stringify(o))
+    const cookie = await page.evaluate(() => { const c = document.querySelector('[data-cookie-consent]'); if (!c) return null; const r = c.getBoundingClientRect(); return { top: Math.round(r.top), h: Math.round(r.height) } })
+    check(vp.name, 'cookie bar is shown during the audit', cookie !== null && cookie.h > 0, JSON.stringify(cookie))
+    const readingBtn = page.getByRole('button', { name: /Reading/ })
+    const disabled = (await readingBtn.getAttribute('aria-disabled')) === 'true'
+    check(vp.name, `Reading is ${vp.reading ? 'offered' : 'disabled'} (expected)`, disabled === !vp.reading, `aria-disabled=${disabled}`)
+    const fullMin = await page.evaluate(() => ({ full: Boolean(document.querySelector('[data-sutra-preset="full"]:not([aria-disabled="true"])')), min: Boolean(document.querySelector('[data-sutra-minimize]:not([aria-disabled="true"])')) }))
+    check(vp.name, 'Full + Minimize always remain', fullMin.full && fullMin.min, JSON.stringify(fullMin))
+    await readingBtn.click({ force: disabled })
+    await page.waitForTimeout(200)
+    await shot(page, `${vp.name}-02-reading${vp.reading ? '' : '-disabled'}`)
+    const rd = await page.evaluate(() => { const region = document.querySelector('[data-sutra-region]'); const r = region.getBoundingClientRect(); const canvas = document.querySelector('[data-cockpit-region]').getBoundingClientRect(); return { mode: region.dataset.sutraMode, top: Math.round(r.top), h: Math.round(r.height), vh: innerHeight, bottom: Math.round(r.bottom), modal: region.getAttribute('aria-modal'), canvasTop: Math.round(canvas.top), focusInside: region.contains(document.activeElement) } })
+    if (vp.reading) {
+      check(vp.name, 'Reading is a non-modal bottom sheet, <= 45% high, focus stays inside', rd.mode === 'reading' && rd.modal === null && rd.h <= Math.round(rd.vh * 0.45) + 1 && rd.bottom === rd.vh && rd.top > rd.canvasTop && rd.focusInside, JSON.stringify(rd))
+      const m = await visibleModel(page)
+      check(vp.name, `>= ${MIN_MODEL_PX}px of model canvas actually visible above the Reading sheet (cookie bar shown)`, m.rows >= MIN_MODEL_PX, `visible ${m.rows}px of canvas ${m.canvasTop}-${m.canvasBottom}, sheet top ${rd.top}`)
+      const reach = await page.evaluate(() => { const c = document.querySelector('[data-cockpit-canvas]').getBoundingClientRect(); const y = Math.min(c.top + 40, document.querySelector('[data-sutra-region]').getBoundingClientRect().top - 4); const el = document.elementFromPoint(c.left + c.width / 2, y); return Boolean(el && el.closest('[data-cockpit-canvas]')) })
+      check(vp.name, 'model area above the sheet is hit-testable (non-modal)', reach)
+      o = await overflow(page)
+      check(vp.name, 'no horizontal overflow (reading)', o.scrollWidth <= o.innerWidth, JSON.stringify(o))
+      if (vp.name === '390x844') {
+        // rotate/shrink so Reading no longer fits: it must fall back to Full, never cover the model
+        await page.setViewportSize({ width: 390, height: 420 })
+        await page.waitForFunction(() => document.querySelector('[data-sutra-region]')?.dataset.sutraMode === 'full', null, { timeout: 3000 }).catch(() => undefined)
+        const fb = await page.evaluate(() => document.querySelector('[data-sutra-region]')?.dataset.sutraMode)
+        check(vp.name, 'shrinking the viewport drops Reading back to Full', fb === 'full', String(fb))
+        await shot(page, `${vp.name}-02b-reading-fell-back`)
+        await page.setViewportSize({ width: vp.width, height: vp.height })
+        await page.waitForTimeout(200)
+      }
+    } else {
+      check(vp.name, 'clicking disabled Reading keeps SUTRA full-screen and modal (model never covered)', rd.mode === 'full' && rd.modal === 'true', JSON.stringify(rd))
+      // truthfulness of the disable: at the preferred 45% sheet the model would fall short of the minimum
+      const would = await page.evaluate(() => { const c = document.querySelector('[data-cockpit-canvas]').getBoundingClientRect(); const sheetTop = innerHeight - Math.round(innerHeight * 0.45); return Math.round(Math.min(c.bottom, sheetTop) - Math.max(c.top, 0)) })
+      check(vp.name, `a 45% sheet would leave < ${MIN_MODEL_PX}px of model (Reading correctly withheld)`, would < MIN_MODEL_PX || innerHeight * 0.45 < 200, `would leave ${would}px`)
+    }
     await page.locator('[data-sutra-preset="full"]').click()
     await page.getByRole('button', { name: 'Minimize SUTRA' }).click()
     const gone = await page.evaluate(() => ({ region: Boolean(document.querySelector('[data-sutra-region]')), focus: document.activeElement?.textContent?.trim() }))
