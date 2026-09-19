@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import * as THREE from "three"
 import { OrbitControls } from "three/addons/controls/OrbitControls.js"
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
@@ -11,6 +11,8 @@ import { decodeWorkspaceView } from "../../lib/workspace/viewPermalink"
 import type { BuildingShell } from "../../lib/designstudio/shellCatalog"
 import { WebGLPathTracer } from "three-gpu-pathtracer"
 import { designStudioRenderStack } from "../../lib/designstudio/renderStack"
+import { cameraPathWaypoints, describeManifest, generateCameraPath, sampleCameraPath, type CameraPath } from "../../lib/designstudio/cameraPath"
+import WalkthroughControl, { type RecordingState, type WalkthroughView } from "./WalkthroughControl"
 
 const concrete = 0xf4f2ec
 const glass = 0x93bac2
@@ -50,6 +52,10 @@ const qualityOptions: { value: RenderQualityChoice; label: string; hint: string 
 const vrayBoundary = designStudioRenderStack.find((item) => item.id === "vray-plugin")
 const rendererBoundaryNote = `Rendered in-browser with Three.js (${designStudioRenderStack.find((item) => item.id === "three")?.license ?? "MIT"}). ${vrayBoundary?.name ?? "V-Ray export plugin"} is an ${vrayBoundary?.status.toLowerCase() ?? "plugin only"} handoff and does not run in this view.`
 
+const STEP_SECONDS = 3
+const idleWalk = (durationS = 24): WalkthroughView => ({ status: "idle", progress: 0, elapsedS: 0, durationS, stepped: false })
+type WalkthroughApi = { play: () => void; pause: () => void; restart: () => void; path: CameraPath; engine: string; stepped: () => boolean }
+
 export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE LOCATION Bengaluru, Karnataka", shell }: { plan: StudioPlan; demoMode?: boolean; contextLabel?: string; shell?: BuildingShell }) {
   const hostRef = useRef<HTMLDivElement>(null)
   const [selected, setSelected] = useState("Podium")
@@ -60,6 +66,14 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
   const [beautyMode, setBeautyMode] = useState(false)
   const [contextLost, setContextLost] = useState(false)
   const fullscreen = useFullscreenState()
+  const walkApi = useRef<WalkthroughApi | null>(null)
+  const recorder = useRef<{ media: MediaRecorder; chunks: Blob[]; canvas: HTMLCanvasElement } | null>(null)
+  const [walk, setWalk] = useState<WalkthroughView>(idleWalk())
+  const [recordingSupported, setRecordingSupported] = useState(false)
+  const [recording, setRecording] = useState<RecordingState>("off")
+  const [exportNote, setExportNote] = useState("")
+  const recordingRef = useRef<RecordingState>("off")
+  recordingRef.current = recording
 
   useEffect(() => {
     const host = hostRef.current
@@ -272,14 +286,17 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     controls.screenSpacePanning = true
     controls.maxPolarAngle = Math.PI * 0.49
 
+    // Portrait viewports (phones) see a narrower horizontal field, so pull the
+    // camera back in proportion to keep the whole massing in frame.
+    const framingDistance = () => {
+      const aspect = host.clientHeight > 0 ? host.clientWidth / host.clientHeight : 1
+      return aspect > 0 && aspect < 1.5 ? Math.min(1.8, 1.5 / Math.max(aspect, 0.8)) : 1
+    }
     const fit = () => {
       const height = Math.max(3, plan.floors * floorHeight)
       const radius = Math.max(plan.plotWidthM, plan.plotDepthM, height)
       controls.target.set(0, height * 0.42, 0)
-      // Portrait viewports (phones) see a narrower horizontal field, so pull the
-      // camera back in proportion to keep the whole massing in frame.
-      const aspect = host.clientHeight > 0 ? host.clientWidth / host.clientHeight : 1
-      const distance = aspect > 0 && aspect < 1.5 ? Math.min(1.8, 1.5 / Math.max(aspect, 0.8)) : 1
+      const distance = framingDistance()
       perspective.position.set(radius * 0.92 * distance, radius * 0.72 * distance, radius * 1.08 * distance)
       perspective.near = Math.max(0.1, radius / 100)
       perspective.far = radius * 20
@@ -300,6 +317,75 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     } else {
       host.dataset.renderEngine = lowPower ? 'three-webgl-reduced' : 'three-webgl-pbr'
     }
+
+    // Walkthrough: replays the deterministic camera path (lib/designstudio/
+    // cameraPath) through the SAME perspective camera and OrbitControls the
+    // user orbits with, so it shows exactly the authored geometry. Only ever
+    // started by a user click/keypress; any manual orbit pauses it.
+    const walkPath = generateCameraPath({ plotWidthM: plan.plotWidthM, plotDepthM: plan.plotDepthM, floors: plan.floors, floorHeightM: floorHeight }, framingDistance())
+    const waypoints = cameraPathWaypoints(walkPath)
+    const walkState = { status: "idle" as WalkthroughView["status"], elapsed: 0, last: 0, stepped: false, lastPublish: 0 }
+    const publishWalk = (force = false) => {
+      const nowMs = performance.now()
+      if (!force && nowMs - walkState.lastPublish < 250) return
+      walkState.lastPublish = nowMs
+      publishCamera() // keep data-camera-state (permalink/evidence) truthful while the path moves the camera
+      const total = walkState.stepped ? waypoints.length * STEP_SECONDS : walkPath.durationS
+      setWalk({ status: walkState.status, progress: Math.min(1, walkState.elapsed / total), elapsedS: Math.min(walkState.elapsed, total), durationS: total, stepped: walkState.stepped })
+    }
+    const applyPose = (pose: { position: [number, number, number]; target: [number, number, number] }) => {
+      perspective.position.fromArray(pose.position)
+      controls.target.fromArray(pose.target)
+      controls.update()
+      perspective.lookAt(controls.target)
+      pathTracer?.updateCamera()
+    }
+    const walkPlay = () => {
+      if (walkState.status === "ended") walkState.elapsed = 0
+      if (walkState.elapsed === 0) walkState.stepped = matchMedia("(prefers-reduced-motion: reduce)").matches
+      walkState.status = "playing"
+      walkState.last = 0
+      publishWalk(true)
+    }
+    const walkPause = () => {
+      if (walkState.status !== "playing") return
+      walkState.status = "paused"
+      publishWalk(true)
+      publishCamera()
+    }
+    const walkRestart = () => {
+      walkState.elapsed = 0
+      walkState.stepped = matchMedia("(prefers-reduced-motion: reduce)").matches
+      walkState.status = "playing"
+      walkState.last = 0
+      applyPose(waypoints[0])
+      publishWalk(true)
+    }
+    const tickWalk = (now: number) => {
+      if (walkState.status !== "playing") return
+      if (walkState.last) walkState.elapsed += Math.min(0.1, (now - walkState.last) / 1000)
+      walkState.last = now
+      if (walkState.stepped) {
+        const total = waypoints.length * STEP_SECONDS
+        applyPose(waypoints[Math.min(waypoints.length - 1, Math.floor(walkState.elapsed / STEP_SECONDS))])
+        if (walkState.elapsed >= total) { walkState.status = "ended"; publishWalk(true); publishCamera() } else publishWalk()
+        return
+      }
+      if (walkState.elapsed >= walkPath.durationS) {
+        walkState.elapsed = walkPath.durationS
+        applyPose(sampleCameraPath(walkPath, walkPath.durationS))
+        walkState.status = "ended"
+        publishWalk(true)
+        publishCamera()
+        return
+      }
+      applyPose(sampleCameraPath(walkPath, walkState.elapsed))
+      publishWalk()
+    }
+    controls.addEventListener("start", walkPause)
+    walkApi.current = { play: walkPlay, pause: walkPause, restart: walkRestart, path: walkPath, engine: "", stepped: () => walkState.stepped }
+    host.dataset.walkthroughPathSchema = walkPath.schema
+    setWalk(idleWalk(walkPath.durationS))
 
     const frameCamera = (camera: THREE.OrthographicCamera, width: number, height: number) => {
       const radius = Math.max(plan.plotWidthM, plan.plotDepthM, plan.floors * floorHeight) * 0.7
@@ -334,6 +420,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       if (glContextLost) return
       const width = host.clientWidth
       const height = host.clientHeight
+      tickWalk(now)
       controls.update()
       renderer.clear()
       if (pathTracer) {
@@ -417,6 +504,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     }
     const keydown = (event: KeyboardEvent) => {
       if (event.key === "0") { fit(); event.preventDefault() }
+      if (event.key === "p" || event.key === "P") { if (walkState.status === "playing") walkPause(); else walkPlay(); event.preventDefault() }
       if (event.key === "]" || event.key === "[") {
         const direction = event.key === "]" ? 1 : -1
         selectedIndex = (selectedIndex + direction + pickables.length) % pickables.length
@@ -447,13 +535,14 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     }
     renderer.domElement.addEventListener("webglcontextlost", onContextLost, false)
     renderer.domElement.tabIndex = 0
-    renderer.domElement.setAttribute("aria-label", "Architectural model. Drag to orbit, shift-drag to pan, scroll to zoom, press zero to fit model, click geometry to select it, or use left and right bracket keys to cycle selection across all views.")
+    renderer.domElement.setAttribute("aria-label", "Architectural model. Drag to orbit, shift-drag to pan, scroll to zoom, press zero to fit model, press P to play or pause the camera walkthrough, click geometry to select it, or use left and right bracket keys to cycle selection across all views.")
     host.dataset.renderer = softwareRenderer ? "software" : "gpu"
     host.dataset.renderProfile = lowPower ? "reduced" : "full"
     host.dataset.renderQuality = quality
     host.dataset.renderQualityReason = reason
     host.dataset.renderPixelRatio = String(pixelRatio)
     host.dataset.renderViewport = mobile ? "mobile" : "desktop"
+    if (walkApi.current) walkApi.current.engine = host.dataset.renderEngine ?? ""
     publishCamera()
     raf = requestAnimationFrame(draw)
 
@@ -464,6 +553,8 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       renderer.domElement.removeEventListener("pointermove", indicateSelectable)
       renderer.domElement.removeEventListener("keydown", keydown)
       controls.removeEventListener("end", finishCameraMove)
+      controls.removeEventListener("start", walkPause)
+      walkApi.current = null
       window.removeEventListener("ferrum:restore-view", restoreView)
       renderer.domElement.removeEventListener("webglcontextlost", onContextLost)
       controls.dispose()
@@ -480,6 +571,86 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       renderer.domElement.remove()
     }
   }, [plan, demoMode, fullscreen.profile, shell, beautyMode, quality, fellBack])
+
+  useEffect(() => {
+    setRecordingSupported(typeof MediaRecorder !== "undefined" && typeof HTMLCanvasElement !== "undefined" && typeof HTMLCanvasElement.prototype.captureStream === "function")
+    return () => { const active = recorder.current; recorder.current = null; if (active && active.media.state !== "inactive") { active.media.onstop = null; active.media.stop() } }
+  }, [])
+
+  const downloadBlob = (blob: Blob, name: string) => {
+    const url = URL.createObjectURL(blob)
+    const anchor = document.createElement("a")
+    anchor.href = url
+    anchor.download = name
+    document.body.appendChild(anchor)
+    anchor.click()
+    anchor.remove()
+    setTimeout(() => URL.revokeObjectURL(url), 1000)
+  }
+
+  // Optional, local-only capture of the live canvas: no upload, no dependency.
+  // Any failure degrades to "failed"; the walkthrough itself never depends on it.
+  const startRecording = () => {
+    try {
+      const canvas = hostRef.current?.querySelector("canvas")
+      if (!canvas) throw new Error("no canvas")
+      const mimeType = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"].find((type) => MediaRecorder.isTypeSupported(type))
+      if (!mimeType) throw new Error("no webm")
+      const media = new MediaRecorder(canvas.captureStream(30), { mimeType })
+      const chunks: Blob[] = []
+      media.ondataavailable = (event) => { if (event.data.size > 0) chunks.push(event.data) }
+      media.onerror = () => { recorder.current = null; setRecording("failed") }
+      media.onstop = () => {
+        recorder.current = null
+        if (chunks.length === 0) { setRecording("failed"); return }
+        downloadBlob(new Blob(chunks, { type: mimeType }), "ferrum-walkthrough-indicative.webm")
+        setRecording("saved")
+      }
+      media.start(250)
+      recorder.current = { media, chunks, canvas }
+      setRecording("recording")
+    } catch {
+      recorder.current = null
+      setRecording("failed")
+    }
+  }
+  const stopRecording = useCallback(() => {
+    const active = recorder.current
+    if (active && active.media.state !== "inactive") active.media.stop()
+  }, [])
+  useEffect(() => {
+    if (recording === "recording" && (walk.status === "ended" || walk.status === "paused")) stopRecording()
+  }, [walk.status, recording, stopRecording])
+
+  const handlePlay = () => { if (recordingRef.current === "armed") startRecording(); walkApi.current?.play() }
+  const handleRestart = () => { if (recordingRef.current === "armed") startRecording(); walkApi.current?.restart() }
+  const toggleRecording = () => {
+    if (recording === "recording") { stopRecording(); return }
+    setRecording(recording === "armed" ? "off" : "armed")
+  }
+
+  const exportManifest = async () => {
+    const api = walkApi.current
+    if (!api) return
+    const stepped = walk.stepped || matchMedia("(prefers-reduced-motion: reduce)").matches
+    const manifest = await describeManifest({
+      plan,
+      shell: shell ? { id: shell.id, name: shell.name, provenance: shell.provenance } : undefined,
+      path: api.path,
+      rendererVersion: { three: `r${THREE.REVISION}`, profile, engine: api.engine },
+      contextLabel,
+      siteContext: { source: sampleSiteContext.source, attribution: sampleSiteContext.tile.attribution },
+      motion: stepped ? "stepped-reduced-motion" : "continuous",
+      recording: {
+        requested: recording !== "off",
+        supported: recordingSupported,
+        result: recording === "saved" ? "recorded" : recording === "failed" ? "failed" : !recordingSupported ? "unsupported" : recording === "off" ? "not-requested" : "pending",
+      },
+      generatedAt: new Date().toISOString(),
+    })
+    downloadBlob(new Blob([JSON.stringify(manifest, null, 2)], { type: "application/json" }), `ferrum-walkthrough-manifest-${manifest.pathHash.replace(/^[a-z0-9]+:/, "").slice(0, 12)}.json`)
+    setExportNote(`Manifest exported · path ${manifest.pathHash.slice(0, 19)}… · INDICATIVE, NOT A SURVEY.`)
+  }
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-[#e7ecec]" data-space-3d-frame>
@@ -503,6 +674,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
         {qualityOptions.map((option) => <button key={option.value} type="button" role="radio" aria-checked={quality === option.value} title={option.hint} onClick={() => { setFellBack(false); setQuality(option.value) }} className={`min-h-11 min-w-11 px-3 text-[10px] font-semibold ${quality === option.value ? 'bg-relume-command text-white' : 'bg-white text-relume-command'}`} data-render-quality={option.value}>{option.label}</button>)}
       </div>}
       {shell && profile === 'full' && <button type="button" onClick={() => setBeautyMode((value) => !value)} aria-pressed={beautyMode} className="hidden min-h-11 shrink-0 rounded-full border border-relume-border bg-white px-3 text-[10px] font-semibold text-relume-command md:inline-flex md:items-center" data-mobile-beauty-preview>{beautyMode ? 'Interactive' : 'Beauty'}</button>}
+      {profile !== 'diagram' && !demoMode && <WalkthroughControl view={walk} recordingSupported={recordingSupported} recording={recording} onPlay={handlePlay} onPause={() => walkApi.current?.pause()} onRestart={handleRestart} onExport={() => { void exportManifest() }} onToggleRecording={toggleRecording} exportNote={exportNote} />}
     </div>
     </div>
   )

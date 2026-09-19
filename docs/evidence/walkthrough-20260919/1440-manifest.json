@@ -1,0 +1,183 @@
+{
+  "schema": "ferrum.walkthrough-manifest/1",
+  "label": "INDICATIVE — NOT A SURVEY",
+  "generatedAt": "2026-09-19T07:53:09.965Z",
+  "modelRevision": "sha256:d8749652ba750c3c3be56141191e0e0801858893f9a1d41372e71968964ad4d8",
+  "pathHash": "sha256:e81bc528e7a8247c46ef1fc7a8835e431dd0e50352ee967214f04ca8dbf17a7d",
+  "pathSchema": "ferrum.camera-path/1",
+  "pathDurationS": 24,
+  "rendererVersion": {
+    "name": "three.js",
+    "three": "r185",
+    "profile": "reduced",
+    "engine": "three-webgl-reduced"
+  },
+  "motion": "continuous",
+  "recording": {
+    "requested": false,
+    "supported": true,
+    "result": "not-requested"
+  },
+  "provenance": {
+    "sourceData": {
+      "note": "Source data shown for context only; the walkthrough neither surveys nor verifies it.",
+      "siteContext": {
+        "name": "OpenStreetMap via Overpass API",
+        "queriedAt": "2026-09-05T04:35:36Z",
+        "license": "ODbL",
+        "attribution": "© OpenStreetMap contributors"
+      },
+      "shell": {
+        "id": "india-neutral-adaptive",
+        "name": "Climate-adaptive neutral shell",
+        "basis": "ORIGINAL TYPOLOGY STUDY",
+        "status": "INDICATIVE",
+        "source": "Ferrum internal neutral baseline",
+        "sourceUrl": "/documentation",
+        "reviewedAt": "2026-09-18",
+        "copyrightBoundary": "Original Ferrum massing study; no architect project geometry, drawings or trade dress reproduced."
+      }
+    },
+    "visualLayer": {
+      "note": "Camera path and rendering are visual only and derived deterministically from the authored plan.",
+      "generator": "ferrum.camera-path orbit-dolly",
+      "basis": "authored massing (plan + catalogue shell)",
+      "paidServices": false
+    },
+    "contextLabel": "SAMPLE LOCATION Bengaluru, Karnataka"
+  },
+  "model": {
+    "plotWidthM": 20,
+    "plotDepthM": 30,
+    "buildingWidthM": 16,
+    "buildingDepthM": 26,
+    "floors": 3,
+    "floorHeightM": 3
+  },
+  "path": {
+    "schema": "ferrum.camera-path/1",
+    "kind": "orbit-dolly",
+    "durationS": 24,
+    "closed": true,
+    "framingDistance": 1.0124,
+    "keyframes": [
+      {
+        "t": 0,
+        "position": [
+          27.9432,
+          21.8686,
+          32.8028
+        ],
+        "target": [
+          0,
+          3.78,
+          0
+        ]
+      },
+      {
+        "t": 3,
+        "position": [
+          40.6526,
+          20.0274,
+          3.2522
+        ],
+        "target": [
+          0,
+          3.78,
+          0
+        ]
+      },
+      {
+        "t": 6,
+        "position": [
+          29.5555,
+          18.4666,
+          -25.1769
+        ],
+        "target": [
+          0,
+          3.78,
+          0
+        ]
+      },
+      {
+        "t": 9,
+        "position": [
+          2.9918,
+          17.4237,
+          -37.3981
+        ],
+        "target": [
+          0,
+          3.78,
+          0
+        ]
+      },
+      {
+        "t": 12,
+        "position": [
+          -24.0311,
+          17.0575,
+          -28.2104
+        ],
+        "target": [
+          0,
+          3.78,
+          0
+        ]
+      },
+      {
+        "t": 15,
+        "position": [
+          -37.3981,
+          17.4237,
+          -2.9918
+        ],
+        "target": [
+          0,
+          3.78,
+          0
+        ]
+      },
+      {
+        "t": 18,
+        "position": [
+          -29.5555,
+          18.4666,
+          25.1769
+        ],
+        "target": [
+          0,
+          3.78,
+          0
+        ]
+      },
+      {
+        "t": 21,
+        "position": [
+          -3.2522,
+          20.0274,
+          40.6526
+        ],
+        "target": [
+          0,
+          3.78,
+          0
+        ]
+      },
+      {
+        "t": 24,
+        "position": [
+          27.9432,
+          21.8686,
+          32.8028
+        ],
+        "target": [
+          0,
+          3.78,
+          0
+        ]
+      }
+    ]
+  }
+}
