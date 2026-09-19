@@ -284,7 +284,7 @@ export default function Concierge() {
         </div>
       </div>
 
-      <div className="border-b border-relume-border pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]" data-sutra-chrome data-chrome-open={chromeOpen}>
+      <div className="border-b border-relume-border pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] max-sm:max-h-[30%] max-sm:overflow-y-auto max-sm:overscroll-contain" data-sutra-chrome data-chrome-open={chromeOpen}>
         <button
           type="button"
           onClick={toggleChrome}

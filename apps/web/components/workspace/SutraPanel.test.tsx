@@ -89,4 +89,22 @@ describe('SutraPanel idle demo', () => {
     expect(screen.getByText(/Floor 1 · Living Room/)).toBeTruthy()
     vi.unstubAllGlobals()
   })
+
+  it('phone layout: the whole panel scrolls and stacked sections never shrink, so Confirm/Cancel and the composer stay reachable', () => {
+    vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
+    const scrollIntoView = vi.fn()
+    Element.prototype.scrollIntoView = scrollIntoView
+    const { container } = render(<SutraPanel onEvent={vi.fn()} defaultGuidedOpen />)
+    const panel = container.querySelector('[data-sutra-panel]') as HTMLElement
+    expect(panel.className).toContain('max-md:overflow-y-auto')
+    fireEvent.change(screen.getByLabelText('Ask SUTRA'), { target: { value: 'add one floor' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }))
+    const pending = container.querySelector('[data-sutra-pending-confirm]') as HTMLElement
+    expect(scrollIntoView).toHaveBeenCalled()
+    const form = screen.getByLabelText('Ask SUTRA').closest('form') as HTMLElement
+    for (const block of [panel.querySelector('header'), panel.querySelector('#sutra-guided'), pending, form]) expect((block as HTMLElement).className).toContain('shrink-0')
+    expect(container.querySelector('[data-sutra-messages]')?.className).toContain('max-md:min-h-[8rem]')
+    delete (Element.prototype as { scrollIntoView?: unknown }).scrollIntoView
+    vi.unstubAllGlobals()
+  })
 })
