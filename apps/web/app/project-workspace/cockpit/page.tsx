@@ -15,6 +15,11 @@ import ProductSkin from "../../../components/workspace/ProductSkin"
 import type { SutraEvent } from "../../../lib/sutra/events"
 import { trapTabKey, useBodyScrollLock, useMaxWidthQuery, useVisualViewportBox } from "../../../lib/sutra/mobileSheet"
 import { withWorkspaceProduct, workspaceProductFromParam } from "../../../lib/workspace/workflowNavigation"
+import { PANEL_LIMITS } from "../../../lib/workspace/panelLayout"
+import { useElementWidth, usePanelLayout } from "../../../lib/workspace/usePanelLayout"
+import { useReadingSheetPlan } from "../../../lib/workspace/useReadingSheet"
+import PanelSplitter from "../../../components/workspace/PanelSplitter"
+import SutraDockBar, { type CompactSutraMode } from "../../../components/workspace/SutraDockBar"
 
 /**
  * W2-401 WORKSPACE_SHELL — the cockpit. Assembly only (CRANE is the sole
@@ -80,8 +85,20 @@ export default function ProjectWorkspaceCockpit() {
   // composer stays above the on-screen keyboard. md..lg (side sheet) and lg+
   // (docked column) are unchanged.
   const isPhoneSutra = useMaxWidthQuery(767)
-  const sutraViewportBox = useVisualViewportBox(sutraOpen && isPhoneSutra)
-  useBodyScrollLock(sutraOpen && isPhoneSutra)
+  // Below `lg` SUTRA opens full-screen; the user can drop it to a "reading"
+  // bottom sheet (non-modal, model controls stay reachable above it) or
+  // minimize it. The mode resets to full-screen every time SUTRA closes.
+  const [sutraMode, setSutraMode] = useState<CompactSutraMode>("full")
+  const sutraGridRef = useRef<HTMLDivElement | null>(null)
+  const gridWidth = useElementWidth(sutraGridRef)
+  const panel = usePanelLayout(activeProduct, gridWidth, true)
+  const [resizing, setResizing] = useState(false)
+  const collapseFocusTarget = useRef<"restore" | "collapse" | null>(null)
+  const compactFull = !isDesktopSutra && sutraMode === "full"
+  const sutraViewportBox = useVisualViewportBox(sutraOpen && !isDesktopSutra)
+  const readingPlan = useReadingSheetPlan(sutraOpen && !isDesktopSutra, sutraMode === "reading")
+  const readingAvailable = Boolean(readingPlan?.available)
+  useBodyScrollLock(sutraOpen && compactFull)
 
   useEffect(() => {
     window.localStorage.setItem('ferrum-preview-session', 'active')
@@ -128,10 +145,26 @@ export default function ProjectWorkspaceCockpit() {
   const [liveMetrics, setLiveMetrics] = useState<LiveMetrics | null>(null)
   const handleLiveMetricsChange = useCallback((metrics: LiveMetrics) => setLiveMetrics(metrics), [])
 
+  // Reading is only valid while real model pixels remain above the sheet
+  // (rotation, resize or a shorter canvas can take that away): fall back to full-screen.
+  useEffect(() => {
+    if (sutraMode === "reading" && readingPlan && !readingPlan.available) setSutraMode("full")
+  }, [sutraMode, readingPlan])
+
   const closeSutra = useCallback(() => {
     setSutraOpen(false)
+    setSutraMode("full")
     sutraToggleRef.current?.focus()
   }, [])
+
+  // Collapse/restore swap which control exists, so focus is handed to the
+  // counterpart instead of being dropped on <body>.
+  useEffect(() => {
+    const target = collapseFocusTarget.current
+    if (!target) return
+    collapseFocusTarget.current = null
+    sutraRegionRef.current?.querySelector<HTMLElement>(target === "restore" ? "[data-sutra-restore]" : "[data-sutra-collapse]")?.focus()
+  }, [panel.layout.sutraCollapsed])
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 1024px)")
@@ -174,13 +207,44 @@ export default function ProjectWorkspaceCockpit() {
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [sutraOpen, isDesktopSutra, closeSutra])
 
+  // Docked (desktop) geometry. The SUTRA track falls back to the previous CSS
+  // clamp until the grid has been measured, so first paint matches the old layout.
+  const dockedActive = isDesktopSutra && sutraOpen
+  const collapsedDock = dockedActive && panel.layout.sutraCollapsed
+  const sutraLeft = panel.layout.sutraSide === "left"
+  const sutraTrack = collapsedDock ? `${PANEL_LIMITS.collapsedStrip}px` : panel.measured ? `${panel.layout.sutraWidth}px` : 'clamp(22rem, 26vw, 30rem)'
+  const mainColumn = sutraLeft ? (collapsedDock ? 2 : 3) : 1
+  const sutraColumn = sutraLeft ? 1 : collapsedDock ? 2 : 3
+  const dockedGridStyle: React.CSSProperties | undefined = dockedActive
+    ? {
+        gridTemplateColumns: collapsedDock
+          ? (sutraLeft ? `${sutraTrack} minmax(0,1fr)` : `minmax(0,1fr) ${sutraTrack}`)
+          : (sutraLeft ? `${sutraTrack} ${PANEL_LIMITS.splitter}px minmax(0,1fr)` : `minmax(0,1fr) ${PANEL_LIMITS.splitter}px ${sutraTrack}`),
+      }
+    : undefined
+  const regionClass = isDesktopSutra
+    ? 'relative flex h-full min-h-0 flex-col'
+    : sutraMode === "full"
+      ? 'fixed inset-0 z-[110] flex flex-col pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] pt-[env(safe-area-inset-top)]'
+      : 'fixed inset-x-0 bottom-0 z-[110] flex h-[45dvh] flex-col rounded-t-relume border-t border-white/20 pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]'
+  // Follow the visual viewport so the composer stays above the on-screen keyboard.
+  // The Reading sheet height/top come from the measured plan (visual viewport +
+  // real canvas geometry), never a fixed 45%: the model must stay visible above it.
+  const regionStyle: React.CSSProperties | undefined = isDesktopSutra
+    ? { gridColumn: sutraColumn, gridRow: 1 }
+    : sutraMode === "reading" && readingPlan
+      ? { top: readingPlan.sheetTop, height: readingPlan.sheetHeight, bottom: 'auto' }
+      : sutraViewportBox && sutraMode === "full"
+        ? { top: sutraViewportBox.top, height: sutraViewportBox.height, bottom: 'auto' }
+        : undefined
+
   return (
     <FullscreenController>{fullscreen => <div className="fixed inset-0 z-[70] flex h-dvh-safe flex-col overflow-hidden bg-relume-surface" data-workspace-fullscreen>
       <header className="flex min-h-12 items-center gap-2 border-b border-relume-border bg-relume-command px-3 text-white" aria-label="Workspace app bar">
         <Link href="/" className="font-heading text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent" aria-label="Ferrum home">Ferrum Workspace</Link><span className="mr-auto hidden text-xs text-white/60 sm:inline">{projectId}</span>
         <Link href="/" className="inline-flex min-h-11 items-center rounded-full border border-white/25 px-3 text-xs font-semibold text-white hover:bg-white/10">Home</Link>
         <button type="button" aria-expanded={territoryOpen} onClick={()=>setTerritoryOpen(value=>{ const next=!value; if(next){setSutraOpen(false);setExtractOpen(false);setMoreOpen(false)} return next })} className="min-h-11 rounded-full border border-white/25 px-3 text-xs">Territory</button>
-        <button ref={sutraToggleRef} type="button" aria-expanded={sutraOpen} onClick={()=>setSutraOpen(value=>{ const next=!value; if(next){setTerritoryOpen(false);setExtractOpen(false);setMoreOpen(false)} return next })} className="min-h-11 rounded-full bg-relume-accent px-3 text-xs font-semibold text-relume-command">SUTRA</button>
+        <button ref={sutraToggleRef} type="button" aria-expanded={sutraOpen && !(isDesktopSutra && panel.layout.sutraCollapsed)} onClick={()=>{ if (isDesktopSutra && sutraOpen && panel.layout.sutraCollapsed) { panel.setCollapsed(false); return } setSutraOpen(value=>{ const next=!value; if(next){setTerritoryOpen(false);setExtractOpen(false);setMoreOpen(false)} else setSutraMode("full"); return next }) }} className="min-h-11 rounded-full bg-relume-accent px-3 text-xs font-semibold text-relume-command">SUTRA</button>
       </header>
       <WorkflowRail activeProduct={activeProduct} onProductChange={handleProductChange} />
       <div className="lg:hidden" data-mobile-workspace-tools><ToolsRuler
@@ -203,15 +267,17 @@ export default function ProjectWorkspaceCockpit() {
           (`lg:grid-cols-1` below), so the canvas column reflows to full
           width immediately - no residual reserved space to clean up. */}
       <div
-        className={`relative grid min-h-0 flex-1 grid-cols-1 overflow-hidden transition-[grid-template-columns] duration-200 motion-reduce:transition-none ${sutraOpen ? 'lg:grid-cols-[minmax(0,1fr)_var(--sutra-w)]' : 'lg:grid-cols-1'}`}
-        style={{ '--sutra-w': 'clamp(22rem, 26vw, 30rem)' } as React.CSSProperties}
+        ref={sutraGridRef}
+        className={`relative grid min-h-0 flex-1 grid-cols-1 overflow-hidden motion-reduce:transition-none lg:grid-cols-1 ${resizing ? '' : 'transition-[grid-template-columns] duration-200'}`}
+        style={dockedGridStyle}
+        data-workspace-grid
       >
         {/* The desktop tool rail owns a real grid column. It no longer floats
             over the cockpit toolbar or export bar, so every control keeps its
             full hit target even when the canvas narrows beside SUTRA. */}
-        <main className={`relative h-full min-h-0 min-w-0 ${fullscreen.active ? '' : 'lg:grid lg:grid-cols-[7rem_minmax(0,1fr)]'}`} data-cockpit-region>
+        <main className={`relative h-full min-h-0 min-w-0 ${fullscreen.active ? '' : 'lg:grid lg:grid-cols-[var(--rail-w)_minmax(0,1fr)]'}`} style={{ '--rail-w': `${panel.layout.railWidth}px`, ...(dockedActive ? { gridColumn: mainColumn, gridRow: 1 } : null) } as React.CSSProperties} data-cockpit-region>
           <div className="h-full min-h-0 min-w-0 lg:col-start-2 lg:row-start-1" data-cockpit-canvas-column>
-            <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} sutraOccludesCanvas={sutraOpen && !isDesktopSutra} />
+            <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} sutraOccludesCanvas={sutraOpen && compactFull} />
           </div>
           <div className="hidden lg:contents"><ProductSkin product={activeProduct} /></div>
           {!fullscreen.active && <div className="hidden h-full min-h-0 min-w-0 lg:col-start-1 lg:row-start-1 lg:block lg:[&>aside]:h-full" data-desktop-workspace-tools><ToolsRuler
@@ -222,32 +288,82 @@ export default function ProjectWorkspaceCockpit() {
             onToolChange={setActiveTool}
             rail
           /></div>}
+          {isDesktopSutra && !fullscreen.active && <PanelSplitter
+            label="Resize tool rail"
+            value={panel.layout.railWidth}
+            min={PANEL_LIMITS.rail.min}
+            max={PANEL_LIMITS.rail.max}
+            direction={1}
+            onResize={panel.setRailWidth}
+            onReset={() => panel.setRailWidth(PANEL_LIMITS.rail.min)}
+            onDraggingChange={setResizing}
+            className="absolute inset-y-0 w-3 -translate-x-1/2"
+            style={{ left: 'var(--rail-w)' }}
+            testId="rail"
+          />}
           {territoryOpen && <aside className="absolute inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-50 max-h-[72%] overflow-y-auto rounded-relume border border-relume-border bg-white p-5 shadow-2xl lg:inset-y-2 lg:left-2 lg:right-auto lg:bottom-2 lg:w-80" aria-label="Territorial context" aria-modal="true" role="dialog"><button type="button" onClick={()=>setTerritoryOpen(false)} className="float-right min-h-11 px-3">Close</button><p className="text-xs font-semibold uppercase tracking-wider text-relume-muted">Territorial context</p><h2 className="mt-3 text-xl font-semibold">No parcel attached</h2><p className="mt-3 text-sm leading-6 text-relume-muted">This preview has no authoritative parcel or jurisdiction record. Attach a verified LandIntel result before applying territorial constraints.</p><span className="mt-4 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold">ROADMAP</span></aside>}
           {extractOpen && <div className="absolute inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-50 max-h-[72%] overflow-y-auto rounded-relume shadow-2xl lg:left-auto lg:right-2 lg:w-[28rem]" role="dialog" aria-modal="true" aria-label="Workspace data extract"><ExtractPanel areaSquareMetres={liveMetrics?.areaSquareMetres} extracts={liveMetrics?.extracts ?? noExtracts} lengthMetres={liveMetrics?.lengthMetres} onClose={() => setExtractOpen(false)} product={activeProduct} provenance={liveMetrics?.provenance ?? noProvenance} /></div>}
         </main>
+        {dockedActive && !collapsedDock && <PanelSplitter
+          label="Resize SUTRA"
+          value={panel.layout.sutraWidth}
+          min={panel.layout.sutraMin}
+          max={panel.layout.sutraMax}
+          direction={sutraLeft ? 1 : -1}
+          onResize={panel.setSutraWidth}
+          onReset={panel.reset}
+          onDraggingChange={setResizing}
+          controls="sutra-region"
+          className="h-full w-3"
+          style={{ gridColumn: 2, gridRow: 1 }}
+          testId="sutra"
+        />}
         {sutraOpen && (
           <div
             ref={sutraRegionRef}
-            className="fixed inset-0 z-[110] overflow-hidden overscroll-contain bg-relume-command shadow-2xl max-md:flex max-md:flex-col max-md:pb-[env(safe-area-inset-bottom)] max-md:pl-[env(safe-area-inset-left)] max-md:pr-[env(safe-area-inset-right)] max-md:pt-[env(safe-area-inset-top)] md:absolute md:inset-x-auto md:inset-y-0 md:bottom-0 md:left-auto md:right-0 md:top-0 md:z-40 md:h-full md:w-[var(--sutra-w)] lg:static lg:h-full lg:w-auto"
-            style={isPhoneSutra && sutraViewportBox ? { top: sutraViewportBox.top, height: sutraViewportBox.height, bottom: 'auto' } : undefined}
-            onKeyDown={(event) => { if (!isDesktopSutra) trapTabKey(event, sutraRegionRef.current) }}
+            id="sutra-region"
+            className={`${regionClass} overflow-hidden overscroll-contain bg-relume-command shadow-2xl`}
+            style={regionStyle}
+            onKeyDown={(event) => { if (compactFull) trapTabKey(event, sutraRegionRef.current) }}
             data-sutra-region
-            data-sutra-fullscreen={isPhoneSutra ? 'true' : 'false'}
+            data-sutra-fullscreen={compactFull ? 'true' : 'false'}
+            data-sutra-reading-available={isDesktopSutra ? undefined : String(readingAvailable)}
+            data-sutra-model-visible={sutraMode === "reading" && readingPlan ? readingPlan.modelVisible : undefined}
+            data-sutra-mode={isDesktopSutra ? (collapsedDock ? 'collapsed' : 'docked') : sutraMode}
+            data-sutra-side={panel.layout.sutraSide}
             data-last-sutra-event={lastSutraEvent}
             role={isDesktopSutra ? undefined : 'dialog'}
-            aria-modal={isDesktopSutra ? undefined : 'true'}
+            aria-modal={compactFull ? 'true' : undefined}
             aria-label="SUTRA design assistant"
           >
-            <button type="button" onClick={closeSutra} className="absolute right-3 top-2 z-50 hidden min-h-11 px-2 text-xs font-semibold text-white md:block" aria-label="Close SUTRA">Close</button>
-            {/* Phone: Minimize sits in its own in-flow bar above the panel, so it can never overlay message or confirmation text. */}
-            <div className="flex shrink-0 justify-end px-3 py-1 md:hidden" data-sutra-minimize-bar>
-              <button type="button" onClick={closeSutra} className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/30 px-3 text-xs font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent" aria-label="Minimize SUTRA" data-sutra-minimize>
-                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeWidth={2.5} d="M5 19h14" /></svg>
-                Minimize
+            {collapsedDock && (
+              <button type="button" onClick={() => { collapseFocusTarget.current = "collapse"; panel.setCollapsed(false) }} className="flex h-full w-full flex-col items-center gap-3 py-3 text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-relume-accent" aria-label="Restore SUTRA" title="Restore SUTRA" data-sutra-restore>
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M12 4v16" /></svg>
+                <span className="text-xs font-semibold [writing-mode:vertical-rl]">SUTRA</span>
               </button>
-            </div>
-            <div className="h-full min-h-0 max-md:flex-1">
-              <SutraPanel onEvent={handleSutraEvent} activeProduct={productControls[activeProduct]} defaultGuidedOpen={!isPhoneSutra} />
+            )}
+            <div className={`min-h-0 flex-1 flex-col ${collapsedDock ? 'hidden' : 'flex'}`}>
+              {isDesktopSutra ? (
+                <SutraDockBar
+                  variant="desktop"
+                  side={panel.layout.sutraSide}
+                  width={panel.layout.sutraWidth}
+                  min={panel.layout.sutraMin}
+                  max={panel.layout.sutraMax}
+                  onSideChange={panel.setSide}
+                  onNarrower={() => panel.nudgeSutraWidth(-PANEL_LIMITS.keyStepLarge)}
+                  onWider={() => panel.nudgeSutraWidth(PANEL_LIMITS.keyStepLarge)}
+                  onCollapse={() => { collapseFocusTarget.current = "restore"; panel.setCollapsed(true) }}
+                  onReset={panel.reset}
+                  onClose={closeSutra}
+                  resetDisabled={panel.layout.isDefault}
+                />
+              ) : (
+                <SutraDockBar variant="compact" mode={sutraMode} readingAvailable={readingAvailable} onModeChange={setSutraMode} onMinimize={closeSutra} />
+              )}
+              <div className="min-h-0 flex-1">
+                <SutraPanel onEvent={handleSutraEvent} activeProduct={productControls[activeProduct]} defaultGuidedOpen={!isPhoneSutra} />
+              </div>
             </div>
           </div>
         )}
