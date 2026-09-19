@@ -1,0 +1,17 @@
+320x568 cookie-visible banner=[503,65] primary=Start a project[385,429] | Explore the building library[441,485] overflowX=0 PASS
+320x568 cookie-dismissed banner=null primary=Start a project[385,429] | Explore the building library[441,485] overflowX=0 PASS
+375x667 cookie-visible banner=[606,61] primary=Start a project[495,539] | Explore the building library[551,595] overflowX=0 PASS
+375x667 cookie-dismissed banner=null primary=Start a project[495,539] | Explore the building library[551,595] overflowX=0 PASS
+390x844 cookie-visible banner=[783,61] primary=Start a project[495,539] | Explore the building library[551,595] overflowX=0 PASS
+390x844 cookie-dismissed banner=null primary=Start a project[495,539] | Explore the building library[551,595] overflowX=0 PASS
+768x1024 cookie-visible banner=[963,61] primary=Start a project[518,562] | Explore the building library[518,562] overflowX=0 PASS
+  768x1024: Got it centre covered by another fixed element; dismissing via keyboard
+768x1024 cookie-dismissed banner=null primary=Start a project[518,562] | Explore the building library[518,562] overflowX=0 PASS
+1024x768 cookie-visible banner=[707,61] primary=Start a project[633,677] | Explore the building library[633,677] overflowX=0 PASS
+  1024x768: Got it centre covered by another fixed element; dismissing via keyboard
+1024x768 cookie-dismissed banner=null primary=Start a project[633,677] | Explore the building library[633,677] overflowX=0 PASS
+1366x768 cookie-visible banner=[707,61] primary=Start a project[529,573] | Explore the building library[529,573] overflowX=0 PASS
+1366x768 cookie-dismissed banner=null primary=Start a project[529,573] | Explore the building library[529,573] overflowX=0 PASS
+1440x900 cookie-visible banner=[839,61] primary=Start a project[577,621] | Explore the building library[577,621] overflowX=0 PASS
+1440x900 cookie-dismissed banner=null primary=Start a project[577,621] | Explore the building library[577,621] overflowX=0 PASS
+ALL PASS

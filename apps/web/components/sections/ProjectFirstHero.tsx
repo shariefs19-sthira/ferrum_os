@@ -30,17 +30,17 @@ const startingPaths = [
 
 export default function ProjectFirstHero() {
   return (
-    <section className="ferrum-section overflow-hidden border-b border-relume-border bg-relume-surface py-14 sm:py-20 lg:py-24" aria-labelledby="project-first-title" data-project-first-hero>
-      <div className="mx-auto grid max-w-relume-container gap-10 px-6 md:px-8 lg:grid-cols-[minmax(0,1.04fr)_minmax(24rem,0.96fr)] lg:items-center lg:gap-14">
+    <section className="ferrum-section overflow-hidden border-b border-relume-border bg-relume-surface py-14 sm:py-20 lg:py-24 [@media(max-height:820px)]:lg:py-12 [@media(max-height:600px)]:py-6" aria-labelledby="project-first-title" data-project-first-hero>
+      <div className="mx-auto grid max-w-relume-container gap-10 px-6 md:px-8 lg:grid-cols-[minmax(0,1.04fr)_minmax(24rem,0.96fr)] lg:items-start lg:gap-14">
         <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-relume-command">Less tools. More work.</p>
-          <h1 id="project-first-title" className="mt-5 max-w-[17ch] text-4xl font-semibold tracking-relume-tight text-relume-ink sm:text-5xl lg:text-6xl">
+          <h1 id="project-first-title" className="mt-5 max-w-[17ch] text-4xl [@media(max-height:600px)]:mt-3 [@media(max-height:600px)]:text-3xl font-semibold tracking-relume-tight text-relume-ink sm:text-5xl lg:text-6xl">
             Move one building project from land to delivery.
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-relume-muted sm:text-lg sm:leading-8">
+          <p className="mt-6 [@media(max-height:600px)]:mt-3 [@media(max-height:600px)]:text-sm [@media(max-height:600px)]:leading-6 max-w-2xl text-base leading-7 text-relume-muted sm:text-lg sm:leading-8">
             Start with land, a brief, or an existing professional model. SUTRA coordinates the next bounded step while Ferrum preserves evidence, revisions, unknowns, and approval authority.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 [@media(max-height:600px)]:mt-4 flex flex-col gap-3 sm:flex-row">
             <Link href="/project-workspace" className="inline-flex min-h-11 items-center justify-center rounded-full bg-relume-command px-6 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-command">
               Start a project
             </Link>
