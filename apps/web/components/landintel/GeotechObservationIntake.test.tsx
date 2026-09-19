@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import GeotechObservationIntake from './GeotechObservationIntake'
+import GeotechObservationIntake, { currentObservationDate } from './GeotechObservationIntake'
 
 describe('GeotechObservationIntake', () => {
   it('keeps the initial metadata-only record UNKNOWN and exposes every governed state', () => {
@@ -32,5 +32,28 @@ describe('GeotechObservationIntake', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Validate metadata' }))
     expect(container.querySelector('[data-geotech-current-state]')?.textContent).toContain('USER_PROVIDED')
     expect(screen.getByText(/No automatic release is created/)).toBeTruthy()
+  })
+
+  it('reads the live UTC calendar date through an injectable clock at the day boundary', () => {
+    expect(currentObservationDate(() => new Date('2026-09-19T23:59:59.999Z'))).toBe('2026-09-19')
+    expect(currentObservationDate(() => new Date('2026-09-20T00:00:00.000Z'))).toBe('2026-09-20')
+  })
+
+  it('refreshes future-date validation after a form remains open across midnight', () => {
+    let now = new Date('2026-09-19T23:59:59.999Z')
+    const { container } = render(<GeotechObservationIntake clock={() => now} />)
+    fireEvent.change(screen.getByLabelText('Provider'), { target: { value: 'Field lab' } })
+    fireEvent.change(screen.getByLabelText('Provider role'), { target: { value: 'Testing laboratory' } })
+    fireEvent.change(screen.getByLabelText('Field date'), { target: { value: '2026-09-20' } })
+    fireEvent.change(screen.getByLabelText('Report or log reference'), { target: { value: 'BH-01' } })
+    fireEvent.change(screen.getByLabelText('Source document SHA-256 checksum'), { target: { value: 'a'.repeat(64) } })
+    fireEvent.click(screen.getByRole('button', { name: 'Validate metadata' }))
+    expect(container.querySelector('[data-geotech-current-state]')?.textContent).toContain('UNKNOWN')
+    expect(screen.getByText(/Field date cannot be in the future/i)).toBeTruthy()
+
+    now = new Date('2026-09-20T00:00:00.000Z')
+    fireEvent.click(screen.getByRole('button', { name: 'Validate metadata' }))
+    expect(container.querySelector('[data-geotech-current-state]')?.textContent).toContain('USER_PROVIDED')
+    expect(container.querySelector('[data-geotech-error-summary]')).toBeNull()
   })
 })

@@ -28,6 +28,8 @@ type FormState = {
   groundwaterObservation: string
 }
 
+export type ObservationIntakeClock = () => Date
+
 const initialState: FormState = {
   providerName: '', providerRole: '', fieldDate: '', referenceId: '', checksum: '',
   latitude: '', longitude: '', depthMetres: '', kind: 'BOREHOLE_LOG_REFERENCE', groundwaterObservation: 'Not recorded',
@@ -37,9 +39,19 @@ function asNumber(value: string): number | null {
   return value.trim() === '' ? null : Number(value)
 }
 
-export default function GeotechObservationIntake() {
+/**
+ * Field dates are governed at UTC calendar-day granularity, matching the
+ * ISO-date contract in the intake library. Keeping this clock boundary
+ * injectable makes midnight rollover deterministic in component tests.
+ */
+export function currentObservationDate(clock: ObservationIntakeClock = () => new Date()): string {
+  return clock().toISOString().slice(0, 10)
+}
+
+export default function GeotechObservationIntake({ clock = () => new Date() }: { clock?: ObservationIntakeClock }) {
   const [form, setForm] = useState<FormState>(initialState)
   const [submitted, setSubmitted] = useState(false)
+  const [nowIso, setNowIso] = useState(() => currentObservationDate(clock))
   const errorSummary = useRef<HTMLDivElement>(null)
 
   const record = useMemo(() => intakeSiteObservation({
@@ -51,7 +63,7 @@ export default function GeotechObservationIntake() {
     provider: { name: form.providerName, role: form.providerRole, licenceOrAccreditation: null },
     checksum: form.checksum,
     narrative: `Metadata-only ${form.groundwaterObservation.toLowerCase()} record.`, measurements: [],
-  }, { nowIso: '2026-09-19', staleAfterDays: 365, verifiedProviderRegistry: [] }), [form])
+  }, { nowIso, staleAfterDays: 365, verifiedProviderRegistry: [] }), [form, nowIso])
 
   const impacts = useMemo(() => computeDownstreamImpacts([record], []), [record])
   const errors = record.issues
@@ -60,6 +72,9 @@ export default function GeotechObservationIntake() {
   const submit = (event: React.FormEvent) => {
     event.preventDefault()
     setSubmitted(true)
+    // Re-check at submission so an intake left open across midnight is
+    // governed by the current calendar day, not its initial render.
+    setNowIso(currentObservationDate(clock))
     if (errors.length) errorSummary.current?.focus()
   }
 
