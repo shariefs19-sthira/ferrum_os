@@ -1,0 +1,217 @@
+[
+  {
+    "viewport": "320x568",
+    "state": "cookie-visible",
+    "pass": true,
+    "problems": [],
+    "edges": [
+      "Explore the building lib"
+    ],
+    "launcher": [
+      256,
+      431,
+      304,
+      479
+    ],
+    "bannerTop": 503,
+    "cookieVar": "65px"
+  },
+  {
+    "viewport": "320x568",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      194,
+      496,
+      304,
+      544
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "375x667",
+    "state": "cookie-visible",
+    "pass": true,
+    "problems": [],
+    "edges": [
+      "Start a project",
+      "Explore the building lib"
+    ],
+    "launcher": [
+      311,
+      534,
+      359,
+      582
+    ],
+    "bannerTop": 606,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "375x667",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      249,
+      595,
+      359,
+      643
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "390x844",
+    "state": "cookie-visible",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      326,
+      711,
+      374,
+      759
+    ],
+    "bannerTop": 783,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "390x844",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      264,
+      772,
+      374,
+      820
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "768x1024",
+    "state": "cookie-visible",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      642,
+      891,
+      752,
+      939
+    ],
+    "bannerTop": 963,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "768x1024",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      642,
+      952,
+      752,
+      1000
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "1024x768",
+    "state": "cookie-visible",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      898,
+      635,
+      1008,
+      683
+    ],
+    "bannerTop": 707,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "1024x768",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      898,
+      696,
+      1008,
+      744
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "1366x768",
+    "state": "cookie-visible",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      1240,
+      635,
+      1350,
+      683
+    ],
+    "bannerTop": 707,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "1366x768",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      1240,
+      696,
+      1350,
+      744
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "1440x900",
+    "state": "cookie-visible",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      1314,
+      767,
+      1424,
+      815
+    ],
+    "bannerTop": 839,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "1440x900",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      1314,
+      828,
+      1424,
+      876
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  }
+]

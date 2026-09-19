@@ -227,13 +227,13 @@ export default function Concierge() {
         aria-label="Open SUTRA"
         aria-haspopup="dialog"
         aria-expanded={false}
-        className="fixed bottom-[calc(max(1.5rem,env(safe-area-inset-bottom))+var(--cookie-consent-h,0px))] right-[max(1rem,env(safe-area-inset-right))] z-50 flex h-12 items-center gap-2 rounded-full bg-relume-ink px-4 text-sm font-semibold tracking-[0.08em] text-white shadow-lg transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent sm:bottom-6 sm:right-6"
+        className="fixed bottom-[calc(max(1.5rem,env(safe-area-inset-bottom))+var(--cookie-consent-h,0px))] right-[max(1rem,env(safe-area-inset-right))] z-50 flex h-12 items-center gap-2 rounded-full bg-relume-ink px-4 text-sm font-semibold tracking-[0.08em] text-white shadow-lg transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-relume-accent [html:has([data-cookie-consent])_&]:max-sm:w-12 [html:has([data-cookie-consent])_&]:max-sm:justify-center [html:has([data-cookie-consent])_&]:max-sm:px-0"
         data-sutra-launcher
       >
         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8-1.5 0-2.9-.32-4.14-.89L3 20l1.06-3.68A7.94 7.94 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
-        SUTRA
+        <span className="[html:has([data-cookie-consent])_&]:max-sm:sr-only">SUTRA</span>
       </button>
       )}
     <aside
