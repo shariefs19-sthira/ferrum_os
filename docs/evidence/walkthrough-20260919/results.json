@@ -1,0 +1,282 @@
+{
+  "route": "/products/designstudio",
+  "generated": "2026-09-19T07:53:24.950Z",
+  "results": [
+    {
+      "viewport": "320x640",
+      "checks": {
+        "controlOutsideModel": true,
+        "modelSize": {
+          "w": 270,
+          "h": 269
+        },
+        "noHorizontalOverflow": true,
+        "touchTargetsMin44": true,
+        "controlFullyInViewportWidth": true,
+        "playChangesCamera": true,
+        "statusWhilePlaying": "Playing · 2s / 24s",
+        "toggleLabelWhilePlaying": "Pause",
+        "pauseHoldsCamera": true,
+        "statusWhilePaused": "Paused · 3s / 24s",
+        "restartPlaying": true,
+        "restartNearDefaultPose": true,
+        "keyboardFocusOnToggle": true,
+        "keyboardEnterPlays": true,
+        "keyboardSpacePauses": true,
+        "tabMovesToRestart": true,
+        "canvasPKeyPlays": true,
+        "canvasPKeyPauses": true,
+        "manifest": {
+          "label": "INDICATIVE — NOT A SURVEY",
+          "schema": "ferrum.walkthrough-manifest/1",
+          "modelRevision": "sha256:d8749652ba750c3c3be56141191e0e0801858893f9a1d41372e71968964ad4d8",
+          "pathHash": "sha256:0e0ba269fb58a15301dce7cb4ae186165a97e55571693471dd6b247ffee5f30f",
+          "renderer": {
+            "name": "three.js",
+            "three": "r185",
+            "profile": "reduced",
+            "engine": "three-webgl-reduced"
+          },
+          "motion": "continuous",
+          "recording": {
+            "requested": false,
+            "supported": true,
+            "result": "not-requested"
+          },
+          "paidServices": false,
+          "sourceBlock": true,
+          "visualBlock": true,
+          "contextLabel": "SAMPLE LOCATION Bengaluru, Karnataka"
+        },
+        "manifestComplete": true,
+        "note": "Manifest exported · path sha256:0e0ba269fb58… · INDICATIVE, NOT A SURVEY.",
+        "consoleErrors": []
+      }
+    },
+    {
+      "viewport": "390x844",
+      "checks": {
+        "controlOutsideModel": true,
+        "modelSize": {
+          "w": 340,
+          "h": 308
+        },
+        "noHorizontalOverflow": true,
+        "touchTargetsMin44": true,
+        "controlFullyInViewportWidth": true,
+        "playChangesCamera": true,
+        "statusWhilePlaying": "Playing · 2s / 24s",
+        "toggleLabelWhilePlaying": "Pause",
+        "pauseHoldsCamera": true,
+        "statusWhilePaused": "Paused · 3s / 24s",
+        "restartPlaying": true,
+        "restartNearDefaultPose": true,
+        "keyboardFocusOnToggle": true,
+        "keyboardEnterPlays": true,
+        "keyboardSpacePauses": true,
+        "tabMovesToRestart": true,
+        "canvasPKeyPlays": true,
+        "canvasPKeyPauses": true,
+        "manifest": {
+          "label": "INDICATIVE — NOT A SURVEY",
+          "schema": "ferrum.walkthrough-manifest/1",
+          "modelRevision": "sha256:d8749652ba750c3c3be56141191e0e0801858893f9a1d41372e71968964ad4d8",
+          "pathHash": "sha256:d68bc7a56d58e58559a74a7c0836a39230396d66bd264604b7b8584583a20584",
+          "renderer": {
+            "name": "three.js",
+            "three": "r185",
+            "profile": "reduced",
+            "engine": "three-webgl-reduced"
+          },
+          "motion": "continuous",
+          "recording": {
+            "requested": false,
+            "supported": true,
+            "result": "not-requested"
+          },
+          "paidServices": false,
+          "sourceBlock": true,
+          "visualBlock": true,
+          "contextLabel": "SAMPLE LOCATION Bengaluru, Karnataka"
+        },
+        "manifestComplete": true,
+        "note": "Manifest exported · path sha256:d68bc7a56d58… · INDICATIVE, NOT A SURVEY.",
+        "consoleErrors": []
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "checks": {
+        "controlOutsideModel": true,
+        "modelSize": {
+          "w": 638,
+          "h": 396
+        },
+        "noHorizontalOverflow": true,
+        "touchTargetsMin44": true,
+        "controlFullyInViewportWidth": true,
+        "playChangesCamera": true,
+        "statusWhilePlaying": "Playing · 2s / 24s",
+        "toggleLabelWhilePlaying": "Pause",
+        "pauseHoldsCamera": true,
+        "statusWhilePaused": "Paused · 3s / 24s",
+        "restartPlaying": true,
+        "restartNearDefaultPose": true,
+        "keyboardFocusOnToggle": true,
+        "keyboardEnterPlays": true,
+        "keyboardSpacePauses": true,
+        "tabMovesToRestart": true,
+        "canvasPKeyPlays": true,
+        "canvasPKeyPauses": true,
+        "manifest": {
+          "label": "INDICATIVE — NOT A SURVEY",
+          "schema": "ferrum.walkthrough-manifest/1",
+          "modelRevision": "sha256:d8749652ba750c3c3be56141191e0e0801858893f9a1d41372e71968964ad4d8",
+          "pathHash": "sha256:ba45f48d9d2524edd13617c838d4c302e0366e40cc13c7728b8d3c4f77710ee4",
+          "renderer": {
+            "name": "three.js",
+            "three": "r185",
+            "profile": "reduced",
+            "engine": "three-webgl-reduced"
+          },
+          "motion": "continuous",
+          "recording": {
+            "requested": false,
+            "supported": true,
+            "result": "not-requested"
+          },
+          "paidServices": false,
+          "sourceBlock": true,
+          "visualBlock": true,
+          "contextLabel": "SAMPLE LOCATION Bengaluru, Karnataka"
+        },
+        "manifestComplete": true,
+        "note": "Manifest exported · path sha256:ba45f48d9d25… · INDICATIVE, NOT A SURVEY.",
+        "consoleErrors": []
+      }
+    },
+    {
+      "viewport": "1024x768",
+      "checks": {
+        "controlOutsideModel": true,
+        "modelSize": {
+          "w": 566,
+          "h": 373
+        },
+        "noHorizontalOverflow": true,
+        "touchTargetsMin44": true,
+        "controlFullyInViewportWidth": true,
+        "playChangesCamera": true,
+        "statusWhilePlaying": "Playing · 2s / 24s",
+        "toggleLabelWhilePlaying": "Pause",
+        "pauseHoldsCamera": true,
+        "statusWhilePaused": "Paused · 3s / 24s",
+        "restartPlaying": true,
+        "restartNearDefaultPose": true,
+        "keyboardFocusOnToggle": true,
+        "keyboardEnterPlays": true,
+        "keyboardSpacePauses": true,
+        "tabMovesToRestart": true,
+        "canvasPKeyPlays": true,
+        "canvasPKeyPauses": true,
+        "manifest": {
+          "label": "INDICATIVE — NOT A SURVEY",
+          "schema": "ferrum.walkthrough-manifest/1",
+          "modelRevision": "sha256:d8749652ba750c3c3be56141191e0e0801858893f9a1d41372e71968964ad4d8",
+          "pathHash": "sha256:d60a5eafaf9d8073b0af814bbaabaa795f560d39120db96f4915d36b9c9dc1e1",
+          "renderer": {
+            "name": "three.js",
+            "three": "r185",
+            "profile": "reduced",
+            "engine": "three-webgl-reduced"
+          },
+          "motion": "continuous",
+          "recording": {
+            "requested": false,
+            "supported": true,
+            "result": "not-requested"
+          },
+          "paidServices": false,
+          "sourceBlock": true,
+          "visualBlock": true,
+          "contextLabel": "SAMPLE LOCATION Bengaluru, Karnataka"
+        },
+        "manifestComplete": true,
+        "note": "Manifest exported · path sha256:d60a5eafaf9d… · INDICATIVE, NOT A SURVEY.",
+        "consoleErrors": []
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "checks": {
+        "controlOutsideModel": true,
+        "modelSize": {
+          "w": 563,
+          "h": 373
+        },
+        "noHorizontalOverflow": true,
+        "touchTargetsMin44": true,
+        "controlFullyInViewportWidth": true,
+        "playChangesCamera": true,
+        "statusWhilePlaying": "Playing · 2s / 24s",
+        "toggleLabelWhilePlaying": "Pause",
+        "pauseHoldsCamera": true,
+        "statusWhilePaused": "Paused · 3s / 24s",
+        "restartPlaying": true,
+        "restartNearDefaultPose": true,
+        "keyboardFocusOnToggle": true,
+        "keyboardEnterPlays": true,
+        "keyboardSpacePauses": true,
+        "tabMovesToRestart": true,
+        "canvasPKeyPlays": true,
+        "canvasPKeyPauses": true,
+        "manifest": {
+          "label": "INDICATIVE — NOT A SURVEY",
+          "schema": "ferrum.walkthrough-manifest/1",
+          "modelRevision": "sha256:d8749652ba750c3c3be56141191e0e0801858893f9a1d41372e71968964ad4d8",
+          "pathHash": "sha256:e81bc528e7a8247c46ef1fc7a8835e431dd0e50352ee967214f04ca8dbf17a7d",
+          "renderer": {
+            "name": "three.js",
+            "three": "r185",
+            "profile": "reduced",
+            "engine": "three-webgl-reduced"
+          },
+          "motion": "continuous",
+          "recording": {
+            "requested": false,
+            "supported": true,
+            "result": "not-requested"
+          },
+          "paidServices": false,
+          "sourceBlock": true,
+          "visualBlock": true,
+          "contextLabel": "SAMPLE LOCATION Bengaluru, Karnataka"
+        },
+        "manifestComplete": true,
+        "note": "Manifest exported · path sha256:e81bc528e7a8… · INDICATIVE, NOT A SURVEY.",
+        "consoleErrors": []
+      }
+    },
+    {
+      "viewport": "390x844 prefers-reduced-motion",
+      "checks": {
+        "distinctPosesIn7s": 4,
+        "steppedNoteShown": true,
+        "steppedNotContinuous": true
+      }
+    },
+    {
+      "viewport": "1440x900 recording",
+      "checks": {
+        "recordButtonShown": true,
+        "armedPressed": true,
+        "recordingLabel": "Recording…",
+        "recordingFile": {
+          "name": "ferrum-walkthrough-indicative.webm",
+          "bytes": 317924
+        },
+        "noteAfter": "Recording saved locally."
+      }
+    }
+  ]
+}
