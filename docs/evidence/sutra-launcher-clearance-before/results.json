@@ -1,0 +1,234 @@
+[
+  {
+    "viewport": "320x568",
+    "state": "cookie-visible",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      194,
+      431,
+      304,
+      479
+    ],
+    "bannerTop": 503,
+    "cookieVar": "65px"
+  },
+  {
+    "viewport": "320x568",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      194,
+      496,
+      304,
+      544
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "375x667",
+    "state": "cookie-visible",
+    "pass": false,
+    "problems": [
+      "launcher covers hero CTA centre/label \"Explore the building lib\""
+    ],
+    "edges": [
+      "Start a project"
+    ],
+    "launcher": [
+      249,
+      534,
+      359,
+      582
+    ],
+    "bannerTop": 606,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "375x667",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      249,
+      595,
+      359,
+      643
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "390x844",
+    "state": "cookie-visible",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      264,
+      711,
+      374,
+      759
+    ],
+    "bannerTop": 783,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "390x844",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      264,
+      772,
+      374,
+      820
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "768x1024",
+    "state": "cookie-visible",
+    "pass": false,
+    "problems": [
+      "launcher covers Got it (overlap=true hit=false)",
+      "launcher bottom 1000 below banner top 963"
+    ],
+    "edges": [],
+    "launcher": [
+      634,
+      952,
+      744,
+      1000
+    ],
+    "bannerTop": 963,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "768x1024",
+    "state": "cookie-dismissed",
+    "pass": false,
+    "problems": [
+      "real click on Got it did not dismiss the bar",
+      "--cookie-consent-h not reset: 61px",
+      "SUTRA launcher gone: the click meant for Got it opened SUTRA instead"
+    ],
+    "edges": [],
+    "launcher": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bannerTop": null,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "1024x768",
+    "state": "cookie-visible",
+    "pass": false,
+    "problems": [
+      "launcher covers Got it (overlap=true hit=false)",
+      "launcher bottom 744 below banner top 707"
+    ],
+    "edges": [],
+    "launcher": [
+      890,
+      696,
+      1000,
+      744
+    ],
+    "bannerTop": 707,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "1024x768",
+    "state": "cookie-dismissed",
+    "pass": false,
+    "problems": [
+      "real click on Got it did not dismiss the bar",
+      "--cookie-consent-h not reset: 61px",
+      "SUTRA launcher gone: the click meant for Got it opened SUTRA instead"
+    ],
+    "edges": [],
+    "launcher": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bannerTop": null,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "1366x768",
+    "state": "cookie-visible",
+    "pass": false,
+    "problems": [
+      "launcher bottom 744 below banner top 707"
+    ],
+    "edges": [],
+    "launcher": [
+      1232,
+      696,
+      1342,
+      744
+    ],
+    "bannerTop": 707,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "1366x768",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      1232,
+      696,
+      1342,
+      744
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  },
+  {
+    "viewport": "1440x900",
+    "state": "cookie-visible",
+    "pass": false,
+    "problems": [
+      "launcher bottom 876 below banner top 839"
+    ],
+    "edges": [],
+    "launcher": [
+      1306,
+      828,
+      1416,
+      876
+    ],
+    "bannerTop": 839,
+    "cookieVar": "61px"
+  },
+  {
+    "viewport": "1440x900",
+    "state": "cookie-dismissed",
+    "pass": true,
+    "problems": [],
+    "edges": [],
+    "launcher": [
+      1306,
+      828,
+      1416,
+      876
+    ],
+    "bannerTop": null,
+    "cookieVar": ""
+  }
+]

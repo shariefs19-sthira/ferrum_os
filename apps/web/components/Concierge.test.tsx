@@ -156,6 +156,16 @@ describe("Concierge", () => {
     expect(document.getElementById("sutra-chrome-panel")?.hasAttribute("hidden")).toBe(true)
   })
 
+  it("keeps the launcher above the cookie strip at every breakpoint (no sm:bottom-*/sm:right-* override of the cookie-aware offset)", () => {
+    render(<Concierge />)
+    const launcher = screen.getByRole("button", { name: "Open SUTRA" })
+    expect(launcher.className).toContain("bottom-[calc(max(1.5rem,env(safe-area-inset-bottom))+var(--cookie-consent-h,0px))]")
+    expect(launcher.className).toContain("right-[max(1rem,env(safe-area-inset-right))]")
+    // Phones with the consent bar showing collapse to an icon-only launcher so it never sits on hero CTA labels.
+    expect(launcher.className).toContain("[html:has([data-cookie-consent])_&]:max-sm:w-12")
+    expect(launcher.className).not.toMatch(/(^|\s)(sm|md|lg|xl|2xl):(bottom|right|inset|top)-/)
+  })
+
   it("opens as a tall header-to-bottom side panel that respects the cookie safe area and keeps the conversation as the growing region", () => {
     render(<Concierge />)
     fireEvent.click(screen.getByRole("button", { name: "Open SUTRA" }))
