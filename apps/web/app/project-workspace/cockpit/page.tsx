@@ -198,15 +198,15 @@ export default function ProjectWorkspaceCockpit() {
         className={`relative grid min-h-0 flex-1 grid-cols-1 overflow-hidden transition-[grid-template-columns] duration-200 motion-reduce:transition-none ${sutraOpen ? 'lg:grid-cols-[minmax(0,1fr)_var(--sutra-w)]' : 'lg:grid-cols-1'}`}
         style={{ '--sutra-w': 'clamp(22rem, 26vw, 30rem)' } as React.CSSProperties}
       >
-        {/* ToolsRuler, the territory panel and ExtractPanel stay
-            absolutely-positioned overlays over the canvas - now children
-            of `main` (the canvas's own grid column) instead of the old
-            region, so they overlay only the canvas column and never sit
-            under/over the SUTRA column at `lg:`+. */}
-        <main className="relative h-full min-h-0 min-w-0" data-cockpit-region>
-          <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} sutraOccludesCanvas={sutraOpen && !isDesktopSutra} />
-          <div className="hidden lg:block"><ProductSkin product={activeProduct} /></div>
-          {!fullscreen.active && <div className="absolute bottom-2 left-2 top-2 z-30 hidden w-20 shadow-lg lg:block"><ToolsRuler
+        {/* The desktop tool rail owns a real grid column. It no longer floats
+            over the cockpit toolbar or export bar, so every control keeps its
+            full hit target even when the canvas narrows beside SUTRA. */}
+        <main className={`relative h-full min-h-0 min-w-0 ${fullscreen.active ? '' : 'lg:grid lg:grid-cols-[7rem_minmax(0,1fr)]'}`} data-cockpit-region>
+          <div className="h-full min-h-0 min-w-0 lg:col-start-2 lg:row-start-1" data-cockpit-canvas-column>
+            <CanvasSlot product={activeProduct} onLiveMetricsChange={handleLiveMetricsChange} fullscreenControl={{ active: fullscreen.active, label: fullscreen.active ? 'Exit fullscreen' : 'Fullscreen ⛶', onClick: fullscreen.toggle }} sutraOccludesCanvas={sutraOpen && !isDesktopSutra} />
+          </div>
+          <div className="hidden lg:contents"><ProductSkin product={activeProduct} /></div>
+          {!fullscreen.active && <div className="hidden h-full min-h-0 min-w-0 lg:col-start-1 lg:row-start-1 lg:block lg:[&>aside]:h-full" data-desktop-workspace-tools><ToolsRuler
             activeTool={activeTool}
             extractOpen={extractOpen}
             onExtractOpenChange={(open) => { setExtractOpen(open); if (open) { setTerritoryOpen(false); setSutraOpen(false); setMoreOpen(false) } }}
