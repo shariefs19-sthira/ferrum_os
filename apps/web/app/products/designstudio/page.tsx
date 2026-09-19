@@ -9,6 +9,7 @@ import SteppedForecastModule from '../../../components/sections/SteppedForecastM
 import { productFeatureRegistry } from '../../../lib/productFeatureRegistry'
 import ModelIntakePanel from '../../../components/model-intake/ModelIntakePanel'
 import EnvironmentalContextPanel from '../../../components/designstudio/EnvironmentalContextPanel'
+import SuitabilitySummaryPanel from '../../../components/designstudio/SuitabilitySummaryPanel'
 
 const featureItems = productFeatureRegistry.designstudio
 
@@ -93,6 +94,10 @@ export default function DesignStudioPage() {
             </ProductCockpitPreview>
           </div>
         </div>
+      </SectionShell>
+
+      <SectionShell>
+        <SuitabilitySummaryPanel />
       </SectionShell>
 
       <ModelIntakePanel />
