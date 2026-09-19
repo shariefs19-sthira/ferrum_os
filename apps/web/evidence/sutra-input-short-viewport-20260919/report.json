@@ -1,0 +1,1087 @@
+{
+  "outRoot": "D:\\ferrum_os.worktrees\\mason-sutra-input-20260919\\apps\\web\\out",
+  "total": 216,
+  "failed": 1,
+  "results": [
+    {
+      "label": "Land 1024x700 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":544,\"bottom\":588,\"left\":685,\"right\":884.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1024x700 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1024x700 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1024x700 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1024 innerW=1024"
+    },
+    {
+      "label": "Land 1024x700 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1024x700 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1024x700 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1024x700 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":515,\"composerTop\":531}"
+    },
+    {
+      "label": "Land 1024x700 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=374px"
+    },
+    {
+      "label": "Land 1024x640 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":484,\"bottom\":528,\"left\":685,\"right\":884.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1024x640 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1024x640 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1024x640 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1024 innerW=1024"
+    },
+    {
+      "label": "Land 1024x640 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1024x640 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1024x640 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1024x640 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":455,\"composerTop\":471}"
+    },
+    {
+      "label": "Land 1024x640 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=314px"
+    },
+    {
+      "label": "Land 1280x650 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":494,\"bottom\":538,\"left\":941,\"right\":1140.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1280x650 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1280x650 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1280x650 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1280 innerW=1280"
+    },
+    {
+      "label": "Land 1280x650 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1280x650 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1280x650 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1280x650 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":465,\"composerTop\":481}"
+    },
+    {
+      "label": "Land 1280x650 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=194px"
+    },
+    {
+      "label": "Land 1280x600 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":444,\"bottom\":488,\"left\":941,\"right\":1140.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1280x600 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1280x600 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1280x600 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1280 innerW=1280"
+    },
+    {
+      "label": "Land 1280x600 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1280x600 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1280x600 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1280x600 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":415,\"composerTop\":431}"
+    },
+    {
+      "label": "Land 1280x600 cookie=shown: model region still >= 180px visible",
+      "pass": false,
+      "detail": "visible=144px"
+    },
+    {
+      "label": "Land 1366x600 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":444,\"bottom\":488,\"left\":1024,\"right\":1226.828125,\"width\":202.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1366x600 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1366x600 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1366x600 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1366 innerW=1366"
+    },
+    {
+      "label": "Land 1366x600 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1366x600 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1366x600 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1366x600 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":415,\"composerTop\":431}"
+    },
+    {
+      "label": "Land 1366x600 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=192px"
+    },
+    {
+      "label": "Land 1440x650 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":509,\"bottom\":553,\"left\":1079,\"right\":1300.828125,\"width\":221.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1440x650 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1440x650 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1440x650 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1440 innerW=1440"
+    },
+    {
+      "label": "Land 1440x650 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1440x650 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1440x650 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1440x650 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":480,\"composerTop\":496}"
+    },
+    {
+      "label": "Land 1440x650 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=224px"
+    },
+    {
+      "label": "Land 1024x700 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":605,\"bottom\":649,\"left\":685,\"right\":884.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1024x700 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1024x700 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1024x700 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1024 innerW=1024"
+    },
+    {
+      "label": "Land 1024x700 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1024x700 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1024x700 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1024x700 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":576,\"composerTop\":592}"
+    },
+    {
+      "label": "Land 1024x700 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=412px"
+    },
+    {
+      "label": "Land 1024x640 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":545,\"bottom\":589,\"left\":685,\"right\":884.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1024x640 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1024x640 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1024x640 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1024 innerW=1024"
+    },
+    {
+      "label": "Land 1024x640 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1024x640 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1024x640 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1024x640 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":516,\"composerTop\":532}"
+    },
+    {
+      "label": "Land 1024x640 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=374px"
+    },
+    {
+      "label": "Land 1280x650 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":555,\"bottom\":599,\"left\":941,\"right\":1140.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1280x650 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1280x650 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1280x650 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1280 innerW=1280"
+    },
+    {
+      "label": "Land 1280x650 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1280x650 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1280x650 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1280x650 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":526,\"composerTop\":542}"
+    },
+    {
+      "label": "Land 1280x650 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=224px"
+    },
+    {
+      "label": "Land 1280x600 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":505,\"bottom\":549,\"left\":941,\"right\":1140.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1280x600 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1280x600 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1280x600 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1280 innerW=1280"
+    },
+    {
+      "label": "Land 1280x600 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1280x600 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1280x600 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1280x600 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":476,\"composerTop\":492}"
+    },
+    {
+      "label": "Land 1280x600 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=206px"
+    },
+    {
+      "label": "Land 1366x600 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":505,\"bottom\":549,\"left\":1024,\"right\":1226.828125,\"width\":202.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1366x600 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1366x600 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1366x600 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1366 innerW=1366"
+    },
+    {
+      "label": "Land 1366x600 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1366x600 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1366x600 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1366x600 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":476,\"composerTop\":492}"
+    },
+    {
+      "label": "Land 1366x600 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=224px"
+    },
+    {
+      "label": "Land 1440x650 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":570,\"bottom\":614,\"left\":1079,\"right\":1300.828125,\"width\":221.828125,\"height\":44}"
+    },
+    {
+      "label": "Land 1440x650 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1440x650 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Land 1440x650 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1440 innerW=1440"
+    },
+    {
+      "label": "Land 1440x650 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1440x650 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Land 1440x650 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Land 1440x650 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":541,\"composerTop\":557}"
+    },
+    {
+      "label": "Land 1440x650 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=270px"
+    },
+    {
+      "label": "Structure 1024x700 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":544,\"bottom\":588,\"left\":685,\"right\":884.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1024x700 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1024x700 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1024x700 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1024 innerW=1024"
+    },
+    {
+      "label": "Structure 1024x700 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1024x700 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1024x700 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1024x700 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":515,\"composerTop\":531}"
+    },
+    {
+      "label": "Structure 1024x700 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=412px"
+    },
+    {
+      "label": "Structure 1024x640 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":484,\"bottom\":528,\"left\":685,\"right\":884.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1024x640 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1024x640 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1024x640 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1024 innerW=1024"
+    },
+    {
+      "label": "Structure 1024x640 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1024x640 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1024x640 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1024x640 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":455,\"composerTop\":471}"
+    },
+    {
+      "label": "Structure 1024x640 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=362px"
+    },
+    {
+      "label": "Structure 1280x650 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":494,\"bottom\":538,\"left\":941,\"right\":1140.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1280x650 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1280x650 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1280x650 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1280 innerW=1280"
+    },
+    {
+      "label": "Structure 1280x650 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1280x650 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1280x650 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1280x650 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":465,\"composerTop\":481}"
+    },
+    {
+      "label": "Structure 1280x650 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=254px"
+    },
+    {
+      "label": "Structure 1280x600 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":444,\"bottom\":488,\"left\":941,\"right\":1140.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1280x600 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1280x600 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1280x600 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1280 innerW=1280"
+    },
+    {
+      "label": "Structure 1280x600 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1280x600 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1280x600 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1280x600 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":415,\"composerTop\":431}"
+    },
+    {
+      "label": "Structure 1280x600 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=224px"
+    },
+    {
+      "label": "Structure 1366x600 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":444,\"bottom\":488,\"left\":1024,\"right\":1226.828125,\"width\":202.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1366x600 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1366x600 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1366x600 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1366 innerW=1366"
+    },
+    {
+      "label": "Structure 1366x600 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1366x600 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1366x600 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1366x600 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":415,\"composerTop\":431}"
+    },
+    {
+      "label": "Structure 1366x600 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=224px"
+    },
+    {
+      "label": "Structure 1440x650 cookie=shown: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":509,\"bottom\":553,\"left\":1079,\"right\":1300.828125,\"width\":221.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1440x650 cookie=shown: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1440x650 cookie=shown: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1440x650 cookie=shown: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1440 innerW=1440"
+    },
+    {
+      "label": "Structure 1440x650 cookie=shown: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1440x650 cookie=shown: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1440x650 cookie=shown: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1440x650 cookie=shown: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":480,\"composerTop\":496}"
+    },
+    {
+      "label": "Structure 1440x650 cookie=shown: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=302px"
+    },
+    {
+      "label": "Structure 1024x700 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":605,\"bottom\":649,\"left\":685,\"right\":884.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1024x700 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1024x700 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1024x700 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1024 innerW=1024"
+    },
+    {
+      "label": "Structure 1024x700 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1024x700 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1024x700 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1024x700 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":576,\"composerTop\":592}"
+    },
+    {
+      "label": "Structure 1024x700 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=412px"
+    },
+    {
+      "label": "Structure 1024x640 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":545,\"bottom\":589,\"left\":685,\"right\":884.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1024x640 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1024x640 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1024x640 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1024 innerW=1024"
+    },
+    {
+      "label": "Structure 1024x640 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1024x640 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1024x640 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1024x640 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":516,\"composerTop\":532}"
+    },
+    {
+      "label": "Structure 1024x640 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=412px"
+    },
+    {
+      "label": "Structure 1280x650 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":555,\"bottom\":599,\"left\":941,\"right\":1140.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1280x650 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1280x650 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1280x650 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1280 innerW=1280"
+    },
+    {
+      "label": "Structure 1280x650 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1280x650 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1280x650 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1280x650 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":526,\"composerTop\":542}"
+    },
+    {
+      "label": "Structure 1280x650 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=314px"
+    },
+    {
+      "label": "Structure 1280x600 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":505,\"bottom\":549,\"left\":941,\"right\":1140.828125,\"width\":199.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1280x600 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1280x600 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1280x600 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1280 innerW=1280"
+    },
+    {
+      "label": "Structure 1280x600 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1280x600 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1280x600 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1280x600 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":476,\"composerTop\":492}"
+    },
+    {
+      "label": "Structure 1280x600 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=264px"
+    },
+    {
+      "label": "Structure 1366x600 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":505,\"bottom\":549,\"left\":1024,\"right\":1226.828125,\"width\":202.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1366x600 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1366x600 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1366x600 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1366 innerW=1366"
+    },
+    {
+      "label": "Structure 1366x600 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1366x600 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1366x600 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1366x600 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":476,\"composerTop\":492}"
+    },
+    {
+      "label": "Structure 1366x600 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=264px"
+    },
+    {
+      "label": "Structure 1440x650 cookie=dismissed: #sutra-command reachable with ZERO scrolling",
+      "pass": true,
+      "detail": "{\"top\":570,\"bottom\":614,\"left\":1079,\"right\":1300.828125,\"width\":221.828125,\"height\":44}"
+    },
+    {
+      "label": "Structure 1440x650 cookie=dismissed: #sutra-command >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1440x650 cookie=dismissed: Send control >= 44px tall",
+      "pass": true,
+      "detail": "h=44"
+    },
+    {
+      "label": "Structure 1440x650 cookie=dismissed: no page horizontal scroll",
+      "pass": true,
+      "detail": "scrollW=1440 innerW=1440"
+    },
+    {
+      "label": "Structure 1440x650 cookie=dismissed: #sutra-command is focusable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1440x650 cookie=dismissed: sending a command did not scroll the page",
+      "pass": true,
+      "detail": "0 -> 0"
+    },
+    {
+      "label": "Structure 1440x650 cookie=dismissed: command reached SUTRA (pending confirm shown, RULE 50 -- text intent, not a direct mutation)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "label": "Structure 1440x650 cookie=dismissed: newest message not hidden behind the sticky composer after scrolling",
+      "pass": true,
+      "detail": "{\"lastBottom\":541,\"composerTop\":557}"
+    },
+    {
+      "label": "Structure 1440x650 cookie=dismissed: model region still >= 180px visible",
+      "pass": true,
+      "detail": "visible=362px"
+    }
+  ]
+}

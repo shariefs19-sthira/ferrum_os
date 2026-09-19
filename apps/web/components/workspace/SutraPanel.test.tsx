@@ -90,21 +90,48 @@ describe('SutraPanel idle demo', () => {
     vi.unstubAllGlobals()
   })
 
-  it('phone layout: the whole panel scrolls and stacked sections never shrink, so Confirm/Cancel and the composer stay reachable', () => {
+  it('the whole panel scrolls, the composer/header are sticky allotments (not overlays), and Confirm/Cancel stay reachable', () => {
     vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
     const scrollIntoView = vi.fn()
     Element.prototype.scrollIntoView = scrollIntoView
     const { container } = render(<SutraPanel onEvent={vi.fn()} defaultGuidedOpen />)
     const panel = container.querySelector('[data-sutra-panel]') as HTMLElement
-    expect(panel.className).toContain('max-md:overflow-y-auto')
+    // The panel scrolls at every width now (short desktop viewports need it
+    // too, see SutraPanel.tsx), not only below `md`.
+    expect(panel.className).toContain('overflow-y-auto')
     fireEvent.change(screen.getByLabelText('Ask SUTRA'), { target: { value: 'add one floor' } })
     fireEvent.click(screen.getByRole('button', { name: 'Send' }))
     const pending = container.querySelector('[data-sutra-pending-confirm]') as HTMLElement
     expect(scrollIntoView).toHaveBeenCalled()
     const form = screen.getByLabelText('Ask SUTRA').closest('form') as HTMLElement
-    for (const block of [panel.querySelector('header'), panel.querySelector('#sutra-guided'), pending, form]) expect((block as HTMLElement).className).toContain('shrink-0')
-    expect(container.querySelector('[data-sutra-messages]')?.className).toContain('max-md:min-h-[8rem]')
+    // ALLOTMENT, not overlay: header + composer are `sticky` (a dedicated,
+    // always-visible allotment inside the panel's own scroll, per the
+    // operator's standing overlay rule) rather than plain in-flow blocks a
+    // user could scroll past and lose. `pending` (the confirm alert) stays
+    // ordinary shrink-0 flow -- it isn't meant to be permanently pinned.
+    expect((panel.querySelector('header') as HTMLElement).className).toContain('sticky')
+    expect((panel.querySelector('header') as HTMLElement).className).toContain('top-0')
+    expect(form.className).toContain('sticky')
+    expect(form.className).toContain('bottom-0')
+    expect(pending.className).toContain('shrink-0')
+    // scroll-padding on the panel's own scroll container reserves real
+    // space for both sticky bars so a scrolled-to message/confirm never
+    // lands hidden behind either one.
+    expect(panel.style.scrollPaddingTop).not.toBe('')
+    expect(panel.style.scrollPaddingBottom).not.toBe('')
     delete (Element.prototype as { scrollIntoView?: unknown }).scrollIntoView
+    vi.unstubAllGlobals()
+  })
+
+  it('the composer and Send stay >= 44px tall and #sutra-command keeps its focus/tab order as the last interactive control', () => {
+    vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
+    render(<SutraPanel onEvent={vi.fn()} />)
+    const input = screen.getByLabelText('Ask SUTRA') as HTMLInputElement
+    const send = screen.getByRole('button', { name: 'Send' }) as HTMLButtonElement
+    expect(input.className).toContain('min-h-11')
+    expect(send.className).toContain('min-h-11')
+    input.focus()
+    expect(document.activeElement).toBe(input)
     vi.unstubAllGlobals()
   })
 })
