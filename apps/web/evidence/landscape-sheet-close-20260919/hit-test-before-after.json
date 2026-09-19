@@ -1,0 +1,116 @@
+[
+ {
+  "build": "before",
+  "viewport": "667x375",
+  "sheet": [
+   8,
+   60,
+   651,
+   308
+  ],
+  "railBottom": 109,
+  "railVar": "",
+  "closeRect": [
+   559,
+   73,
+   87,
+   44
+  ],
+  "closeCentreHit": "div (inside data-workflow-rail nav)"
+ },
+ {
+  "build": "before",
+  "viewport": "1366x768",
+  "sheet": [
+   950,
+   16,
+   400,
+   630
+  ],
+  "railBottom": 121,
+  "railVar": "",
+  "closeRect": [
+   1250,
+   29,
+   87,
+   44
+  ],
+  "closeCentreHit": "nav (inside data-workflow-rail nav)"
+ },
+ {
+  "build": "before",
+  "viewport": "320x568",
+  "sheet": [
+   8,
+   94,
+   304,
+   466
+  ],
+  "railBottom": 127,
+  "railVar": "",
+  "closeRect": [
+   212,
+   107,
+   87,
+   44
+  ],
+  "closeCentreHit": "CLOSE BUTTON"
+ },
+ {
+  "build": "after",
+  "viewport": "667x375",
+  "sheet": [
+   8,
+   109,
+   651,
+   258
+  ],
+  "railBottom": 109,
+  "railVar": "109px",
+  "closeRect": [
+   559,
+   122,
+   87,
+   44
+  ],
+  "closeCentreHit": "CLOSE BUTTON"
+ },
+ {
+  "build": "after",
+  "viewport": "1366x768",
+  "sheet": [
+   950,
+   129,
+   400,
+   623
+  ],
+  "railBottom": 121,
+  "railVar": "121px",
+  "closeRect": [
+   1250,
+   142,
+   87,
+   44
+  ],
+  "closeCentreHit": "CLOSE BUTTON"
+ },
+ {
+  "build": "after",
+  "viewport": "320x568",
+  "sheet": [
+   8,
+   127,
+   304,
+   433
+  ],
+  "railBottom": 127,
+  "railVar": "127px",
+  "closeRect": [
+   212,
+   140,
+   87,
+   44
+  ],
+  "closeCentreHit": "CLOSE BUTTON"
+ }
+]

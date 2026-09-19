@@ -1,0 +1,193 @@
+{
+ "baseUrl": "http://127.0.0.1:4177",
+ "at": "2026-09-19T12:14:08.801Z",
+ "ms": 64160,
+ "matrix": {
+  "products": [
+   "Design",
+   "Land"
+  ],
+  "viewports": [
+   "667x375t",
+   "320x568t",
+   "1366x768"
+  ],
+  "cookie": [
+   "accepted"
+  ]
+ },
+ "totals": {
+  "cases": 6,
+  "passed": 1,
+  "failed": 5,
+  "knownOpenFailures": 10,
+  "controlsChecked": 40
+ },
+ "cases": [
+  {
+   "product": "Design",
+   "viewport": "667x375t",
+   "cookie": "accepted",
+   "ok": false,
+   "failures": [
+    "shells:hit-test: control@[559,73,87,44] viewport 667x375 occluded at (603,95) -> div[flex items-center gap-2 min-[1280px]:hidden]; (577,95) -> div[flex items-center gap-2 min-[1280px]:hidden]",
+    "shells:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded.",
+    "workflow-menu-over-shells:close-library-tap: locator.tap: Timeout 5000ms exceeded."
+   ],
+   "knownOpen": [
+    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
+    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
+    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
+   ],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "667x375t",
+   "cookie": "accepted",
+   "ok": false,
+   "failures": [
+    "controls:hit-test: control@[580,73,66,44] viewport 667x375 occluded at (613,95) -> div[flex items-center gap-2 min-[1280px]:hidden]; (593,95) -> div[flex items-center gap-2 min-[1280px]:hidden]",
+    "controls:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
+   ],
+   "knownOpen": [
+    "more-drawer:in-viewport: control@[563,-90,71,44] viewport 667x375 is outside the viewport",
+    "more-drawer:hit-test: control@[563,-90,71,44] viewport 667x375 occluded at (598,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]; (577,0) -> button[w-full py-4 text-left focus-visible:outline focus-visible:ou]",
+    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
+   ],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "320x568t",
+   "cookie": "accepted",
+   "ok": false,
+   "failures": [
+    "shells:hit-test: control@[212,107,87,44] viewport 320x568 occluded at (256,116) -> div[flex items-center gap-2 min-[1280px]:hidden]"
+   ],
+   "knownOpen": [
+    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Capability availability: LIMITED PREVIEW]; (242,89) -> span[Capability availability: LIMITED PREVIEW]",
+    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
+   ],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "320x568t",
+   "cookie": "accepted",
+   "ok": true,
+   "failures": [],
+   "knownOpen": [
+    "more-drawer:hit-test: control@[228,67,71,44] viewport 320x568 occluded at (263,89) -> span[Evidence status: INDICATIVE]; (242,89) -> span[Evidence status: INDICATIVE]",
+    "more-drawer:close-tap: real tap failed - locator.tap: Timeout 1500ms exceeded."
+   ],
+   "checked": [
+    "controls",
+    "tool",
+    "territory",
+    "extract-panel",
+    "more-drawer",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "options",
+    "evidence"
+   ]
+  },
+  {
+   "product": "Design",
+   "viewport": "1366x768",
+   "cookie": "accepted",
+   "ok": false,
+   "failures": [
+    "shells:hit-test: control@[1250,29,87,44] viewport 1366x768 occluded at (1294,51) -> nav[data-workflow-rail][Project workflow]; (1268,51) -> nav[data-workflow-rail][Project workflow]",
+    "controls:hit-test: control@[1267,33,66,44] viewport 1366x768 occluded at (1300,55) -> nav[data-workflow-rail][Project workflow]; (1280,55) -> nav[data-workflow-rail][Project workflow]",
+    "controls:close-tap: real tap failed - locator.click: Timeout 1500ms exceeded."
+   ],
+   "knownOpen": [],
+   "checked": [
+    "shells",
+    "controls",
+    "territory",
+    "sutra",
+    "workflow-menu",
+    "workflow-menu-over-shells"
+   ],
+   "notApplicable": [
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  },
+  {
+   "product": "Land",
+   "viewport": "1366x768",
+   "cookie": "accepted",
+   "ok": false,
+   "failures": [
+    "controls:hit-test: control@[1271,29,66,44] viewport 1366x768 occluded at (1304,51) -> nav[data-workflow-rail][Project workflow]; (1284,51) -> nav[data-workflow-rail][Project workflow]",
+    "controls:close-tap: real tap failed - locator.click: Timeout 1500ms exceeded."
+   ],
+   "knownOpen": [],
+   "checked": [
+    "controls",
+    "territory",
+    "sutra",
+    "workflow-menu"
+   ],
+   "notApplicable": [
+    "shells",
+    "tool",
+    "options",
+    "evidence",
+    "extract-panel",
+    "more-drawer"
+   ]
+  }
+ ]
+}

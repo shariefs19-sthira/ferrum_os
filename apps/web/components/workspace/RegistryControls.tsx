@@ -43,7 +43,7 @@ export default function RegistryControls(props: Props) {
   // other persistent overlay, to remove that collision.
   if (props.product !== 'landintel') {
     return <aside
-      className={`${props.mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,40rem)] overflow-y-auto lg:inset-y-4 lg:left-auto lg:right-4 lg:bottom-4 lg:w-[22rem]' : 'hidden'} rounded-relume border border-relume-border bg-white p-4 shadow-xl`}
+      className={`${props.mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,40rem,calc(100dvh_-_var(--ferrum-workflow-rail-bottom,0px)_-_max(0.5rem,env(safe-area-inset-bottom))))] overflow-y-auto lg:top-[max(1rem,calc(var(--ferrum-workflow-rail-bottom,0px)_+_0.5rem))] lg:left-auto lg:right-4 lg:bottom-4 lg:w-[22rem]' : 'hidden'} rounded-relume border border-relume-border bg-white p-4 shadow-xl`}
       aria-label={`${props.product} controls`}
       aria-modal={props.mobileOpen ? 'true' : undefined}
       role={props.mobileOpen ? 'dialog' : undefined}
@@ -63,7 +63,7 @@ export default function RegistryControls(props: Props) {
   // right-3` strip -- sitting at bottom-3 here put the Site Constraints
   // toggle directly on top of it (z-30 over z-10), visually truncating
   // that attribution text. Clears it with room to spare.
-  return <div className={`${props.mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,40rem)] overflow-y-auto rounded-relume border border-relume-border bg-white p-3 shadow-xl lg:inset-y-4 lg:left-auto lg:right-4 lg:bottom-4 lg:w-[24rem]' : 'hidden'}`} data-control-registry={props.product} data-site-constraints-state={open ? 'open' : modified ? 'modified' : 'closed'} data-mobile-sheet={props.mobileOpen ? 'controls' : undefined}>
+  return <div className={`${props.mobileOpen ? 'fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[80] block max-h-[min(82dvh,40rem,calc(100dvh_-_var(--ferrum-workflow-rail-bottom,0px)_-_max(0.5rem,env(safe-area-inset-bottom))))] overflow-y-auto rounded-relume border border-relume-border bg-white p-3 shadow-xl lg:top-[max(1rem,calc(var(--ferrum-workflow-rail-bottom,0px)_+_0.5rem))] lg:left-auto lg:right-4 lg:bottom-4 lg:w-[24rem]' : 'hidden'}`} data-control-registry={props.product} data-site-constraints-state={open ? 'open' : modified ? 'modified' : 'closed'} data-mobile-sheet={props.mobileOpen ? 'controls' : undefined}>
     {props.mobileOpen && <div className="mb-3 flex items-center justify-between gap-3"><p className="text-sm font-semibold text-relume-command">Site constraints</p><button type="button" onClick={props.onMobileClose} className="min-h-11 rounded-full border border-relume-border px-4 text-xs font-semibold text-relume-command">Close</button></div>}
     {!props.mobileOpen && <button
       type="button"
