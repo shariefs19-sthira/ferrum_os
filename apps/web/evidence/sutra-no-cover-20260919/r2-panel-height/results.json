@@ -1,0 +1,1115 @@
+[
+  {
+    "viewport": "320x640",
+    "stage": "initial",
+    "name": "launcher visible and inside viewport",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "open+cookie",
+    "name": "sub-1280 panel is full-screen modal",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":320,\"bottom\":640,\"width\":320,\"height\":640}"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "open+cookie",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "open+cookie",
+    "name": "message area >= 40% of viewport",
+    "pass": true,
+    "detail": "457 of 640"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "open+cookie",
+    "name": "composer + send inside viewport, unclipped",
+    "pass": true,
+    "detail": "{\"i\":{\"top\":584,\"left\":16,\"right\":230.515625,\"bottom\":628,\"width\":214.515625,\"height\":44},\"s\":{\"top\":584,\"left\":238.515625,\"right\":304,\"bottom\":628,\"width\":65.484375,\"height\":44}}"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "open+cookie",
+    "name": "composer + send not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "open+cookie",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "conversation",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "conversation",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "conversation",
+    "name": "long token wraps (no log x-overflow)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "conversation",
+    "name": "composer inside viewport, no page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "chrome-open",
+    "name": "expanded chrome capped; composer visible; reading room kept",
+    "pass": true,
+    "detail": "log 278"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "focus",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "minimized",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "minimized",
+    "name": "panel hidden",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "reopen",
+    "name": "conversation preserved",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "initial",
+    "name": "launcher visible and inside viewport",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "open+cookie",
+    "name": "sub-1280 panel is full-screen modal",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":375,\"bottom\":667,\"width\":375,\"height\":667}"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "open+cookie",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "open+cookie",
+    "name": "message area >= 40% of viewport",
+    "pass": true,
+    "detail": "484 of 667"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "open+cookie",
+    "name": "composer + send inside viewport, unclipped",
+    "pass": true,
+    "detail": "{\"i\":{\"top\":611,\"left\":16,\"right\":285.515625,\"bottom\":655,\"width\":269.515625,\"height\":44},\"s\":{\"top\":611,\"left\":293.515625,\"right\":359,\"bottom\":655,\"width\":65.484375,\"height\":44}}"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "open+cookie",
+    "name": "composer + send not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "open+cookie",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "conversation",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "conversation",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "conversation",
+    "name": "long token wraps (no log x-overflow)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "conversation",
+    "name": "composer inside viewport, no page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "chrome-open",
+    "name": "expanded chrome capped; composer visible; reading room kept",
+    "pass": true,
+    "detail": "log 296"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "focus",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "minimized",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "minimized",
+    "name": "panel hidden",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "reopen",
+    "name": "conversation preserved",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "initial",
+    "name": "launcher visible and inside viewport",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "open+cookie",
+    "name": "sub-1280 panel is full-screen modal",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":390,\"bottom\":844,\"width\":390,\"height\":844}"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "open+cookie",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "open+cookie",
+    "name": "message area >= 40% of viewport",
+    "pass": true,
+    "detail": "661 of 844"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "open+cookie",
+    "name": "composer + send inside viewport, unclipped",
+    "pass": true,
+    "detail": "{\"i\":{\"top\":788,\"left\":16,\"right\":300.515625,\"bottom\":832,\"width\":284.515625,\"height\":44},\"s\":{\"top\":788,\"left\":308.515625,\"right\":374,\"bottom\":832,\"width\":65.484375,\"height\":44}}"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "open+cookie",
+    "name": "composer + send not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "open+cookie",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "conversation",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "conversation",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "conversation",
+    "name": "long token wraps (no log x-overflow)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "conversation",
+    "name": "composer inside viewport, no page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "chrome-open",
+    "name": "expanded chrome capped; composer visible; reading room kept",
+    "pass": true,
+    "detail": "log 437"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "keyboard",
+    "name": "panel shrinks to visible viewport",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":390,\"bottom\":320,\"width\":390,\"height\":320}"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "keyboard",
+    "name": "composer and send visible above keyboard",
+    "pass": true,
+    "detail": "{\"i\":{\"top\":264,\"left\":16,\"right\":300.515625,\"bottom\":308,\"width\":284.515625,\"height\":44},\"vh\":320}"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "keyboard",
+    "name": "message region keeps reading room",
+    "pass": true,
+    "detail": "137"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "focus",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "minimized",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "minimized",
+    "name": "panel hidden",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "reopen",
+    "name": "conversation preserved",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "initial",
+    "name": "launcher visible and inside viewport",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "open+cookie",
+    "name": "sub-1280 panel is full-screen modal",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":768,\"bottom\":1024,\"width\":768,\"height\":1024}"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "open+cookie",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "open+cookie",
+    "name": "message area >= 40% of viewport",
+    "pass": true,
+    "detail": "841 of 1024"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "open+cookie",
+    "name": "composer + send inside viewport, unclipped",
+    "pass": true,
+    "detail": "{\"i\":{\"top\":968,\"left\":16,\"right\":678.515625,\"bottom\":1012,\"width\":662.515625,\"height\":44},\"s\":{\"top\":968,\"left\":686.515625,\"right\":752,\"bottom\":1012,\"width\":65.484375,\"height\":44}}"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "open+cookie",
+    "name": "composer + send not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "open+cookie",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "conversation",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "conversation",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "conversation",
+    "name": "long token wraps (no log x-overflow)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "conversation",
+    "name": "composer inside viewport, no page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "chrome-open",
+    "name": "expanded chrome capped; composer visible; reading room kept",
+    "pass": true,
+    "detail": "log 633"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "focus",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "minimized",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "minimized",
+    "name": "panel hidden",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "reopen",
+    "name": "conversation preserved",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "initial",
+    "name": "launcher visible and inside viewport",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "open+cookie",
+    "name": "sub-1280 panel is full-screen modal",
+    "pass": true,
+    "detail": "{\"top\":0,\"left\":0,\"right\":1024,\"bottom\":768,\"width\":1024,\"height\":768}"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "open+cookie",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "open+cookie",
+    "name": "message area >= 40% of viewport",
+    "pass": true,
+    "detail": "585 of 768"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "open+cookie",
+    "name": "composer + send inside viewport, unclipped",
+    "pass": true,
+    "detail": "{\"i\":{\"top\":712,\"left\":16,\"right\":934.515625,\"bottom\":756,\"width\":918.515625,\"height\":44},\"s\":{\"top\":712,\"left\":942.515625,\"right\":1008,\"bottom\":756,\"width\":65.484375,\"height\":44}}"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "open+cookie",
+    "name": "composer + send not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "open+cookie",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "conversation",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "conversation",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "conversation",
+    "name": "long token wraps (no log x-overflow)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "conversation",
+    "name": "composer inside viewport, no page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "chrome-open",
+    "name": "expanded chrome capped; composer visible; reading room kept",
+    "pass": true,
+    "detail": "log 377"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "focus",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "minimized",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "minimized",
+    "name": "panel hidden",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "reopen",
+    "name": "conversation preserved",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "initial",
+    "name": "launcher visible and inside viewport",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "panel bottom above cookie/bottom edge",
+    "pass": true,
+    "detail": "bottom 683 cookieTop 707"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "panel starts below site header (nav stays visible)",
+    "pass": true,
+    "detail": "panel.top 80 header.bottom 77"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "panel inside viewport horizontally",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "reading width >= 24rem (or viewport-3rem)",
+    "pass": true,
+    "detail": "384"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "panel fills available height",
+    "pass": true,
+    "detail": "603 of 630"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "panel >= 60% of viewport height",
+    "pass": true,
+    "detail": "603 of 768"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "message area >= 40% of viewport",
+    "pass": true,
+    "detail": "418 of 768"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "composer + send inside viewport, unclipped",
+    "pass": true,
+    "detail": "{\"i\":{\"top\":626,\"left\":975,\"right\":1251.515625,\"bottom\":670,\"width\":276.515625,\"height\":44},\"s\":{\"top\":626,\"left\":1259.515625,\"right\":1325,\"bottom\":670,\"width\":65.484375,\"height\":44}}"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "composer + send not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "site header not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "open+cookie",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "conversation",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "conversation",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "conversation",
+    "name": "long token wraps (no log x-overflow)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "conversation",
+    "name": "composer inside viewport, no page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "conversation",
+    "name": "panel bottom margin = 1.5rem + cookie bar height (if still shown)",
+    "pass": true,
+    "detail": "24"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "chrome-open",
+    "name": "expanded chrome capped; composer visible; reading room kept",
+    "pass": true,
+    "detail": "log 292"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "focus",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "minimized",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "minimized",
+    "name": "panel hidden",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "reopen",
+    "name": "conversation preserved",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "initial",
+    "name": "launcher visible and inside viewport",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "panel bottom above cookie/bottom edge",
+    "pass": true,
+    "detail": "bottom 815 cookieTop 839"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "panel starts below site header (nav stays visible)",
+    "pass": true,
+    "detail": "panel.top 80 header.bottom 77"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "panel inside viewport horizontally",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "reading width >= 24rem (or viewport-3rem)",
+    "pass": true,
+    "detail": "403.1875"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "panel fills available height",
+    "pass": true,
+    "detail": "735 of 762"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "panel >= 60% of viewport height",
+    "pass": true,
+    "detail": "735 of 900"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "message area >= 40% of viewport",
+    "pass": true,
+    "detail": "550 of 900"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "composer + send inside viewport, unclipped",
+    "pass": true,
+    "detail": "{\"i\":{\"top\":758,\"left\":1029.8125,\"right\":1325.515625,\"bottom\":802,\"width\":295.703125,\"height\":44},\"s\":{\"top\":758,\"left\":1333.515625,\"right\":1399,\"bottom\":802,\"width\":65.484375,\"height\":44}}"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "composer + send not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "site header not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "open+cookie",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "conversation",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "conversation",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "conversation",
+    "name": "long token wraps (no log x-overflow)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "conversation",
+    "name": "composer inside viewport, no page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "conversation",
+    "name": "panel bottom margin = 1.5rem + cookie bar height (if still shown)",
+    "pass": true,
+    "detail": "24"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "chrome-open",
+    "name": "expanded chrome capped; composer visible; reading room kept",
+    "pass": true,
+    "detail": "log 387"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "focus",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "minimized",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "minimized",
+    "name": "panel hidden",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "reopen",
+    "name": "conversation preserved",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "initial",
+    "name": "launcher visible and inside viewport",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "panel bottom above cookie/bottom edge",
+    "pass": true,
+    "detail": "bottom 395 cookieTop 419"
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "panel starts below site header (nav stays visible)",
+    "pass": true,
+    "detail": "panel.top 8 header.bottom 77"
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "panel inside viewport horizontally",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "reading width >= 24rem (or viewport-3rem)",
+    "pass": true,
+    "detail": "384"
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "panel fills available height",
+    "pass": true,
+    "detail": "387 of 411"
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "secondary chrome collapsed by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "message area >= 40% of viewport",
+    "pass": true,
+    "detail": "202 of 480"
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "composer + send inside viewport, unclipped",
+    "pass": true,
+    "detail": "{\"i\":{\"top\":338,\"left\":889,\"right\":1165.515625,\"bottom\":382,\"width\":276.515625,\"height\":44},\"s\":{\"top\":338,\"left\":1173.515625,\"right\":1239,\"bottom\":382,\"width\":65.484375,\"height\":44}}"
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "composer + send not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "site header not covered",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "open+cookie",
+    "name": "no horizontal page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "conversation",
+    "name": "long conversation scrolls inside message region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "conversation",
+    "name": "latest message in view",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "conversation",
+    "name": "long token wraps (no log x-overflow)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "conversation",
+    "name": "composer inside viewport, no page overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "conversation",
+    "name": "panel bottom margin = 1.5rem + cookie bar height (if still shown)",
+    "pass": true,
+    "detail": "24"
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "chrome-open",
+    "name": "expanded chrome capped; composer visible; reading room kept",
+    "pass": true,
+    "detail": "log 152"
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "focus",
+    "name": "Tab focus trapped inside dialog",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "minimized",
+    "name": "focus restored to launcher",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "minimized",
+    "name": "panel hidden",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "reopen",
+    "name": "conversation preserved",
+    "pass": true,
+    "detail": ""
+  }
+]

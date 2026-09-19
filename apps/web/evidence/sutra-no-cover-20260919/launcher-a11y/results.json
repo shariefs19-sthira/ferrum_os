@@ -1,0 +1,1290 @@
+[
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "launcher has an accessible name (aria-label \"Open SUTRA\")",
+    "pass": true,
+    "detail": "{\"label\":\"Open SUTRA\",\"visibleText\":\"SUTRA\"}"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "role=button with name \"Open SUTRA\" resolves exactly once in the a11y tree",
+    "pass": true,
+    "detail": "1"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "launcher hit box >= 44 x 44",
+    "pass": true,
+    "detail": "48x48"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" hit box >= 44 x 44",
+    "pass": true,
+    "detail": "78x44"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "closed panel contributes no tab stops",
+    "pass": true,
+    "detail": "0"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "launcher reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 63 of 66"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 64 of 66"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "tab order: launcher then \"Got it\" (DOM order, no positive tabindex)",
+    "pass": true,
+    "detail": "launcher@63 gotit@64"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "no focus trap: Tab order terminates, never inside closed panel",
+    "pass": true,
+    "detail": "a > launcher > gotit > body"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "Tab moves focus off the launcher",
+    "pass": true,
+    "detail": "gotit"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "Shift+Tab returns to the launcher then moves off it",
+    "pass": true,
+    "detail": "launcher > a"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "cookie-visible",
+    "name": "keyboard-focused launcher draws a visible outline (>= 2px)",
+    "pass": true,
+    "detail": "{\"style\":\"solid\",\"width\":2}"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "keyboard-open",
+    "name": "Enter on launcher opens the dialog and moves focus into it",
+    "pass": true,
+    "detail": "sutra-panel"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "keyboard-open",
+    "name": "Escape closes the dialog and returns focus to the launcher",
+    "pass": true,
+    "detail": "launcher"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "gotit-keyboard",
+    "name": "\"Got it\" focusable by Tab",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x568",
+    "stage": "gotit-keyboard",
+    "name": "Enter on \"Got it\" dismisses the bar and clears --cookie-consent-h",
+    "pass": true,
+    "detail": "{\"banner\":false,\"cookieVar\":\"\"}"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "gotit-keyboard",
+    "name": "launcher drops from the cookie offset to the base offset",
+    "pass": true,
+    "detail": "89px -> 24px"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "gotit-keyboard",
+    "name": "focus is not sent into a hidden/closed panel after dismissal",
+    "pass": true,
+    "detail": "activeElement after dismissal: body"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "reload-dismissed",
+    "name": "no banner after reload with consent accepted",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x568",
+    "stage": "reload-dismissed",
+    "name": "--cookie-consent-h is unset",
+    "pass": true,
+    "detail": "\"\""
+  },
+  {
+    "viewport": "320x568",
+    "stage": "reload-dismissed",
+    "name": "launcher sits at the base offset from the bottom",
+    "pass": true,
+    "detail": "24px"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "reload-dismissed",
+    "name": "launcher still >= 44 x 44 and named",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "320x568",
+    "stage": "gotit-click",
+    "name": "real click on \"Got it\" dismisses the bar (launcher does not intercept)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "launcher has an accessible name (aria-label \"Open SUTRA\")",
+    "pass": true,
+    "detail": "{\"label\":\"Open SUTRA\",\"visibleText\":\"SUTRA\"}"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "role=button with name \"Open SUTRA\" resolves exactly once in the a11y tree",
+    "pass": true,
+    "detail": "1"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "launcher hit box >= 44 x 44",
+    "pass": true,
+    "detail": "48x48"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" hit box >= 44 x 44",
+    "pass": true,
+    "detail": "78x44"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "closed panel contributes no tab stops",
+    "pass": true,
+    "detail": "0"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "launcher reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 63 of 66"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 64 of 66"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "tab order: launcher then \"Got it\" (DOM order, no positive tabindex)",
+    "pass": true,
+    "detail": "launcher@63 gotit@64"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "no focus trap: Tab order terminates, never inside closed panel",
+    "pass": true,
+    "detail": "a > launcher > gotit > body"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "Tab moves focus off the launcher",
+    "pass": true,
+    "detail": "gotit"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "Shift+Tab returns to the launcher then moves off it",
+    "pass": true,
+    "detail": "launcher > a"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "cookie-visible",
+    "name": "keyboard-focused launcher draws a visible outline (>= 2px)",
+    "pass": true,
+    "detail": "{\"style\":\"solid\",\"width\":2}"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "keyboard-open",
+    "name": "Enter on launcher opens the dialog and moves focus into it",
+    "pass": true,
+    "detail": "sutra-panel"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "keyboard-open",
+    "name": "Escape closes the dialog and returns focus to the launcher",
+    "pass": true,
+    "detail": "launcher"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "gotit-keyboard",
+    "name": "\"Got it\" focusable by Tab",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "gotit-keyboard",
+    "name": "Enter on \"Got it\" dismisses the bar and clears --cookie-consent-h",
+    "pass": true,
+    "detail": "{\"banner\":false,\"cookieVar\":\"\"}"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "gotit-keyboard",
+    "name": "launcher drops from the cookie offset to the base offset",
+    "pass": true,
+    "detail": "89px -> 24px"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "gotit-keyboard",
+    "name": "focus is not sent into a hidden/closed panel after dismissal",
+    "pass": true,
+    "detail": "activeElement after dismissal: body"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "reload-dismissed",
+    "name": "no banner after reload with consent accepted",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "reload-dismissed",
+    "name": "--cookie-consent-h is unset",
+    "pass": true,
+    "detail": "\"\""
+  },
+  {
+    "viewport": "320x640",
+    "stage": "reload-dismissed",
+    "name": "launcher sits at the base offset from the bottom",
+    "pass": true,
+    "detail": "24px"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "reload-dismissed",
+    "name": "launcher still >= 44 x 44 and named",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "gotit-click",
+    "name": "real click on \"Got it\" dismisses the bar (launcher does not intercept)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "launcher has an accessible name (aria-label \"Open SUTRA\")",
+    "pass": true,
+    "detail": "{\"label\":\"Open SUTRA\",\"visibleText\":\"SUTRA\"}"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "role=button with name \"Open SUTRA\" resolves exactly once in the a11y tree",
+    "pass": true,
+    "detail": "1"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "launcher hit box >= 44 x 44",
+    "pass": true,
+    "detail": "48x48"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" hit box >= 44 x 44",
+    "pass": true,
+    "detail": "78x44"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "closed panel contributes no tab stops",
+    "pass": true,
+    "detail": "0"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "launcher reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 63 of 66"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 64 of 66"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "tab order: launcher then \"Got it\" (DOM order, no positive tabindex)",
+    "pass": true,
+    "detail": "launcher@63 gotit@64"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "no focus trap: Tab order terminates, never inside closed panel",
+    "pass": true,
+    "detail": "a > launcher > gotit > body"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "Tab moves focus off the launcher",
+    "pass": true,
+    "detail": "gotit"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "Shift+Tab returns to the launcher then moves off it",
+    "pass": true,
+    "detail": "launcher > a"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "cookie-visible",
+    "name": "keyboard-focused launcher draws a visible outline (>= 2px)",
+    "pass": true,
+    "detail": "{\"style\":\"solid\",\"width\":2}"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "keyboard-open",
+    "name": "Enter on launcher opens the dialog and moves focus into it",
+    "pass": true,
+    "detail": "sutra-panel"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "keyboard-open",
+    "name": "Escape closes the dialog and returns focus to the launcher",
+    "pass": true,
+    "detail": "launcher"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "gotit-keyboard",
+    "name": "\"Got it\" focusable by Tab",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "gotit-keyboard",
+    "name": "Enter on \"Got it\" dismisses the bar and clears --cookie-consent-h",
+    "pass": true,
+    "detail": "{\"banner\":false,\"cookieVar\":\"\"}"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "gotit-keyboard",
+    "name": "launcher drops from the cookie offset to the base offset",
+    "pass": true,
+    "detail": "85px -> 24px"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "gotit-keyboard",
+    "name": "focus is not sent into a hidden/closed panel after dismissal",
+    "pass": true,
+    "detail": "activeElement after dismissal: body"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "reload-dismissed",
+    "name": "no banner after reload with consent accepted",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "reload-dismissed",
+    "name": "--cookie-consent-h is unset",
+    "pass": true,
+    "detail": "\"\""
+  },
+  {
+    "viewport": "375x667",
+    "stage": "reload-dismissed",
+    "name": "launcher sits at the base offset from the bottom",
+    "pass": true,
+    "detail": "24px"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "reload-dismissed",
+    "name": "launcher still >= 44 x 44 and named",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "gotit-click",
+    "name": "real click on \"Got it\" dismisses the bar (launcher does not intercept)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "launcher has an accessible name (aria-label \"Open SUTRA\")",
+    "pass": true,
+    "detail": "{\"label\":\"Open SUTRA\",\"visibleText\":\"SUTRA\"}"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "role=button with name \"Open SUTRA\" resolves exactly once in the a11y tree",
+    "pass": true,
+    "detail": "1"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "launcher hit box >= 44 x 44",
+    "pass": true,
+    "detail": "48x48"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" hit box >= 44 x 44",
+    "pass": true,
+    "detail": "78x44"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "closed panel contributes no tab stops",
+    "pass": true,
+    "detail": "0"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "launcher reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 63 of 66"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 64 of 66"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "tab order: launcher then \"Got it\" (DOM order, no positive tabindex)",
+    "pass": true,
+    "detail": "launcher@63 gotit@64"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "no focus trap: Tab order terminates, never inside closed panel",
+    "pass": true,
+    "detail": "a > launcher > gotit > body"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "Tab moves focus off the launcher",
+    "pass": true,
+    "detail": "gotit"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "Shift+Tab returns to the launcher then moves off it",
+    "pass": true,
+    "detail": "launcher > a"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "cookie-visible",
+    "name": "keyboard-focused launcher draws a visible outline (>= 2px)",
+    "pass": true,
+    "detail": "{\"style\":\"solid\",\"width\":2}"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "keyboard-open",
+    "name": "Enter on launcher opens the dialog and moves focus into it",
+    "pass": true,
+    "detail": "sutra-panel"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "keyboard-open",
+    "name": "Escape closes the dialog and returns focus to the launcher",
+    "pass": true,
+    "detail": "launcher"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "gotit-keyboard",
+    "name": "\"Got it\" focusable by Tab",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "gotit-keyboard",
+    "name": "Enter on \"Got it\" dismisses the bar and clears --cookie-consent-h",
+    "pass": true,
+    "detail": "{\"banner\":false,\"cookieVar\":\"\"}"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "gotit-keyboard",
+    "name": "launcher drops from the cookie offset to the base offset",
+    "pass": true,
+    "detail": "85px -> 24px"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "gotit-keyboard",
+    "name": "focus is not sent into a hidden/closed panel after dismissal",
+    "pass": true,
+    "detail": "activeElement after dismissal: body"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "reload-dismissed",
+    "name": "no banner after reload with consent accepted",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "reload-dismissed",
+    "name": "--cookie-consent-h is unset",
+    "pass": true,
+    "detail": "\"\""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "reload-dismissed",
+    "name": "launcher sits at the base offset from the bottom",
+    "pass": true,
+    "detail": "24px"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "reload-dismissed",
+    "name": "launcher still >= 44 x 44 and named",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "390x844",
+    "stage": "gotit-click",
+    "name": "real click on \"Got it\" dismisses the bar (launcher does not intercept)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "launcher has an accessible name (aria-label \"Open SUTRA\")",
+    "pass": true,
+    "detail": "{\"label\":\"Open SUTRA\",\"visibleText\":\"SUTRA\"}"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "role=button with name \"Open SUTRA\" resolves exactly once in the a11y tree",
+    "pass": true,
+    "detail": "1"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "launcher hit box >= 44 x 44",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" hit box >= 44 x 44",
+    "pass": true,
+    "detail": "78x44"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "closed panel contributes no tab stops",
+    "pass": true,
+    "detail": "0"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "launcher reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 63 of 66"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 64 of 66"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "tab order: launcher then \"Got it\" (DOM order, no positive tabindex)",
+    "pass": true,
+    "detail": "launcher@63 gotit@64"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "no focus trap: Tab order terminates, never inside closed panel",
+    "pass": true,
+    "detail": "a > launcher > gotit > body"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "Tab moves focus off the launcher",
+    "pass": true,
+    "detail": "gotit"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "Shift+Tab returns to the launcher then moves off it",
+    "pass": true,
+    "detail": "launcher > a"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "cookie-visible",
+    "name": "keyboard-focused launcher draws a visible outline (>= 2px)",
+    "pass": true,
+    "detail": "{\"style\":\"solid\",\"width\":2}"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "keyboard-open",
+    "name": "Enter on launcher opens the dialog and moves focus into it",
+    "pass": true,
+    "detail": "sutra-panel"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "keyboard-open",
+    "name": "Escape closes the dialog and returns focus to the launcher",
+    "pass": true,
+    "detail": "launcher"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "gotit-keyboard",
+    "name": "\"Got it\" focusable by Tab",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "gotit-keyboard",
+    "name": "Enter on \"Got it\" dismisses the bar and clears --cookie-consent-h",
+    "pass": true,
+    "detail": "{\"banner\":false,\"cookieVar\":\"\"}"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "gotit-keyboard",
+    "name": "launcher drops from the cookie offset to the base offset",
+    "pass": true,
+    "detail": "85px -> 24px"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "gotit-keyboard",
+    "name": "focus is not sent into a hidden/closed panel after dismissal",
+    "pass": true,
+    "detail": "activeElement after dismissal: body"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "reload-dismissed",
+    "name": "no banner after reload with consent accepted",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "reload-dismissed",
+    "name": "--cookie-consent-h is unset",
+    "pass": true,
+    "detail": "\"\""
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "reload-dismissed",
+    "name": "launcher sits at the base offset from the bottom",
+    "pass": true,
+    "detail": "24px"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "reload-dismissed",
+    "name": "launcher still >= 44 x 44 and named",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "gotit-click",
+    "name": "real click on \"Got it\" dismisses the bar (launcher does not intercept)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "launcher has an accessible name (aria-label \"Open SUTRA\")",
+    "pass": true,
+    "detail": "{\"label\":\"Open SUTRA\",\"visibleText\":\"SUTRA\"}"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "role=button with name \"Open SUTRA\" resolves exactly once in the a11y tree",
+    "pass": true,
+    "detail": "1"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "launcher hit box >= 44 x 44",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" hit box >= 44 x 44",
+    "pass": true,
+    "detail": "78x44"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "closed panel contributes no tab stops",
+    "pass": true,
+    "detail": "0"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "launcher reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 67 of 70"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 68 of 70"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "tab order: launcher then \"Got it\" (DOM order, no positive tabindex)",
+    "pass": true,
+    "detail": "launcher@67 gotit@68"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "no focus trap: Tab order terminates, never inside closed panel",
+    "pass": true,
+    "detail": "a > launcher > gotit > body"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "Tab moves focus off the launcher",
+    "pass": true,
+    "detail": "gotit"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "Shift+Tab returns to the launcher then moves off it",
+    "pass": true,
+    "detail": "launcher > a"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "cookie-visible",
+    "name": "keyboard-focused launcher draws a visible outline (>= 2px)",
+    "pass": true,
+    "detail": "{\"style\":\"solid\",\"width\":2}"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "keyboard-open",
+    "name": "Enter on launcher opens the dialog and moves focus into it",
+    "pass": true,
+    "detail": "sutra-panel"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "keyboard-open",
+    "name": "Escape closes the dialog and returns focus to the launcher",
+    "pass": true,
+    "detail": "launcher"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "gotit-keyboard",
+    "name": "\"Got it\" focusable by Tab",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "gotit-keyboard",
+    "name": "Enter on \"Got it\" dismisses the bar and clears --cookie-consent-h",
+    "pass": true,
+    "detail": "{\"banner\":false,\"cookieVar\":\"\"}"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "gotit-keyboard",
+    "name": "launcher drops from the cookie offset to the base offset",
+    "pass": true,
+    "detail": "85px -> 24px"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "gotit-keyboard",
+    "name": "focus is not sent into a hidden/closed panel after dismissal",
+    "pass": true,
+    "detail": "activeElement after dismissal: body"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "reload-dismissed",
+    "name": "no banner after reload with consent accepted",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "reload-dismissed",
+    "name": "--cookie-consent-h is unset",
+    "pass": true,
+    "detail": "\"\""
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "reload-dismissed",
+    "name": "launcher sits at the base offset from the bottom",
+    "pass": true,
+    "detail": "24px"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "reload-dismissed",
+    "name": "launcher still >= 44 x 44 and named",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "gotit-click",
+    "name": "real click on \"Got it\" dismisses the bar (launcher does not intercept)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "launcher has an accessible name (aria-label \"Open SUTRA\")",
+    "pass": true,
+    "detail": "{\"label\":\"Open SUTRA\",\"visibleText\":\"SUTRA\"}"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "role=button with name \"Open SUTRA\" resolves exactly once in the a11y tree",
+    "pass": true,
+    "detail": "1"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "launcher hit box >= 44 x 44",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" hit box >= 44 x 44",
+    "pass": true,
+    "detail": "78x44"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "closed panel contributes no tab stops",
+    "pass": true,
+    "detail": "0"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "launcher reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 76 of 79"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 77 of 79"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "tab order: launcher then \"Got it\" (DOM order, no positive tabindex)",
+    "pass": true,
+    "detail": "launcher@76 gotit@77"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "no focus trap: Tab order terminates, never inside closed panel",
+    "pass": true,
+    "detail": "a > launcher > gotit > body"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "Tab moves focus off the launcher",
+    "pass": true,
+    "detail": "gotit"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "Shift+Tab returns to the launcher then moves off it",
+    "pass": true,
+    "detail": "launcher > a"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "cookie-visible",
+    "name": "keyboard-focused launcher draws a visible outline (>= 2px)",
+    "pass": true,
+    "detail": "{\"style\":\"solid\",\"width\":2}"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "keyboard-open",
+    "name": "Enter on launcher opens the dialog and moves focus into it",
+    "pass": true,
+    "detail": "sutra-panel"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "keyboard-open",
+    "name": "Escape closes the dialog and returns focus to the launcher",
+    "pass": true,
+    "detail": "launcher"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "gotit-keyboard",
+    "name": "\"Got it\" focusable by Tab",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "gotit-keyboard",
+    "name": "Enter on \"Got it\" dismisses the bar and clears --cookie-consent-h",
+    "pass": true,
+    "detail": "{\"banner\":false,\"cookieVar\":\"\"}"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "gotit-keyboard",
+    "name": "launcher drops from the cookie offset to the base offset",
+    "pass": true,
+    "detail": "85px -> 24px"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "gotit-keyboard",
+    "name": "focus is not sent into a hidden/closed panel after dismissal",
+    "pass": true,
+    "detail": "activeElement after dismissal: body"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "reload-dismissed",
+    "name": "no banner after reload with consent accepted",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "reload-dismissed",
+    "name": "--cookie-consent-h is unset",
+    "pass": true,
+    "detail": "\"\""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "reload-dismissed",
+    "name": "launcher sits at the base offset from the bottom",
+    "pass": true,
+    "detail": "24px"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "reload-dismissed",
+    "name": "launcher still >= 44 x 44 and named",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "gotit-click",
+    "name": "real click on \"Got it\" dismisses the bar (launcher does not intercept)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "launcher has an accessible name (aria-label \"Open SUTRA\")",
+    "pass": true,
+    "detail": "{\"label\":\"Open SUTRA\",\"visibleText\":\"SUTRA\"}"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "role=button with name \"Open SUTRA\" resolves exactly once in the a11y tree",
+    "pass": true,
+    "detail": "1"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "launcher hit box >= 44 x 44",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" hit box >= 44 x 44",
+    "pass": true,
+    "detail": "78x44"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "closed panel contributes no tab stops",
+    "pass": true,
+    "detail": "0"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "launcher reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 76 of 79"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "\"Got it\" reachable by Tab exactly once",
+    "pass": true,
+    "detail": "position 77 of 79"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "tab order: launcher then \"Got it\" (DOM order, no positive tabindex)",
+    "pass": true,
+    "detail": "launcher@76 gotit@77"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "no focus trap: Tab order terminates, never inside closed panel",
+    "pass": true,
+    "detail": "a > launcher > gotit > body"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "Tab moves focus off the launcher",
+    "pass": true,
+    "detail": "gotit"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "Shift+Tab returns to the launcher then moves off it",
+    "pass": true,
+    "detail": "launcher > a"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "cookie-visible",
+    "name": "keyboard-focused launcher draws a visible outline (>= 2px)",
+    "pass": true,
+    "detail": "{\"style\":\"solid\",\"width\":2}"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "keyboard-open",
+    "name": "Enter on launcher opens the dialog and moves focus into it",
+    "pass": true,
+    "detail": "sutra-panel"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "keyboard-open",
+    "name": "Escape closes the dialog and returns focus to the launcher",
+    "pass": true,
+    "detail": "launcher"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "gotit-keyboard",
+    "name": "\"Got it\" focusable by Tab",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "gotit-keyboard",
+    "name": "Enter on \"Got it\" dismisses the bar and clears --cookie-consent-h",
+    "pass": true,
+    "detail": "{\"banner\":false,\"cookieVar\":\"\"}"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "gotit-keyboard",
+    "name": "launcher drops from the cookie offset to the base offset",
+    "pass": true,
+    "detail": "85px -> 24px"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "gotit-keyboard",
+    "name": "focus is not sent into a hidden/closed panel after dismissal",
+    "pass": true,
+    "detail": "activeElement after dismissal: body"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "reload-dismissed",
+    "name": "no banner after reload with consent accepted",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "reload-dismissed",
+    "name": "--cookie-consent-h is unset",
+    "pass": true,
+    "detail": "\"\""
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "reload-dismissed",
+    "name": "launcher sits at the base offset from the bottom",
+    "pass": true,
+    "detail": "24px"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "reload-dismissed",
+    "name": "launcher still >= 44 x 44 and named",
+    "pass": true,
+    "detail": "110x48"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "gotit-click",
+    "name": "real click on \"Got it\" dismisses the bar (launcher does not intercept)",
+    "pass": true,
+    "detail": ""
+  }
+]
