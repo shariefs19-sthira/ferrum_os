@@ -26,13 +26,20 @@ const viewports = [
   { name: '1440x900', width: 1440, height: 900 },
   { name: '1280x480-short', width: 1280, height: 480 },
 ]
+// Every question must be answered IN PLACE. A query that matches a deterministic catalog route
+// (for example "what does LandIntel do for a parcel buyer") makes SUTRA call router.push() to that
+// product page 400 ms later. With a real edge that is a soft navigation and the panel survives, but
+// a static file server that cannot serve the RSC payload (`*.txt?_rsc=`) forces Next's full-page
+// fallback, which reloads the page and closes the panel mid-audit (this produced the 320x640
+// "Model & connections" timeout). Route-matching wording is therefore deliberately avoided here,
+// and the run asserts the home route is unchanged (see 'conversation stays on the home route').
 const questions = [
   'how often are the adopt hold drop stances reviewed',
-  'what does LandIntel do for a parcel buyer and what evidence does it show',
+  'how does the site analysis explain slope and flood exposure for a plot',
   'explain the BOQ workflow from measured quantities to procurement holds and cost impact',
   'zzzz gibberish supercalifragilisticexpialidocious_supercalifragilisticexpialidocious_supercalifragilisticexpialidocious',
   'how often are the adopt hold drop stances reviewed',
-  'what does LandIntel do for a parcel buyer and what evidence does it show',
+  'how does the site analysis explain slope and flood exposure for a plot',
 ]
 
 const results = []
@@ -112,7 +119,9 @@ for (const vp of viewports) {
     await page.getByRole('textbox', { name: 'Message' }).fill(q)
     await page.getByRole('button', { name: 'Send', exact: true }).click()
   }
-  await page.waitForTimeout(400)
+  // Outlast SUTRA's 400 ms delayed router.push so an accidental route match is caught here, not as a later timeout.
+  await page.waitForTimeout(900)
+  check(vp.name, 'conversation', 'conversation stays on the home route (no SUTRA navigation)', new URL(page.url()).pathname === '/', page.url())
   g = await measure(page)
   check(vp.name, 'conversation', 'long conversation scrolls inside message region', g.logScrolls)
   check(vp.name, 'conversation', 'latest message in view', g.logAtBottom)

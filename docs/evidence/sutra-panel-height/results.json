@@ -51,6 +51,13 @@
   {
     "viewport": "320x640",
     "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "320x640",
+    "stage": "conversation",
     "name": "long conversation scrolls inside message region",
     "pass": true,
     "detail": ""
@@ -163,6 +170,13 @@
   {
     "viewport": "375x667",
     "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "375x667",
+    "stage": "conversation",
     "name": "long conversation scrolls inside message region",
     "pass": true,
     "detail": ""
@@ -271,6 +285,13 @@
     "name": "no horizontal page overflow",
     "pass": true,
     "detail": ""
+  },
+  {
+    "viewport": "390x844",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
   },
   {
     "viewport": "390x844",
@@ -450,6 +471,13 @@
   {
     "viewport": "768x1024",
     "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "768x1024",
+    "stage": "conversation",
     "name": "long conversation scrolls inside message region",
     "pass": true,
     "detail": ""
@@ -480,14 +508,14 @@
     "stage": "conversation",
     "name": "panel bottom margin = 1.5rem + cookie bar height (if still shown)",
     "pass": true,
-    "detail": "85"
+    "detail": "24"
   },
   {
     "viewport": "768x1024",
     "stage": "chrome-open",
     "name": "expanded chrome capped; composer visible; reading room kept",
     "pass": true,
-    "detail": "log 450"
+    "detail": "log 511"
   },
   {
     "viewport": "768x1024",
@@ -611,6 +639,13 @@
   {
     "viewport": "1024x768",
     "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "1024x768",
+    "stage": "conversation",
     "name": "long conversation scrolls inside message region",
     "pass": true,
     "detail": ""
@@ -641,14 +676,14 @@
     "stage": "conversation",
     "name": "panel bottom margin = 1.5rem + cookie bar height (if still shown)",
     "pass": true,
-    "detail": "85"
+    "detail": "24"
   },
   {
     "viewport": "1024x768",
     "stage": "chrome-open",
     "name": "expanded chrome capped; composer visible; reading room kept",
     "pass": true,
-    "detail": "log 253"
+    "detail": "log 292"
   },
   {
     "viewport": "1024x768",
@@ -768,6 +803,13 @@
     "name": "no horizontal page overflow",
     "pass": true,
     "detail": ""
+  },
+  {
+    "viewport": "1366x768",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
   },
   {
     "viewport": "1366x768",
@@ -933,6 +975,13 @@
   {
     "viewport": "1440x900",
     "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
+  },
+  {
+    "viewport": "1440x900",
+    "stage": "conversation",
     "name": "long conversation scrolls inside message region",
     "pass": true,
     "detail": ""
@@ -1083,6 +1132,13 @@
     "name": "no horizontal page overflow",
     "pass": true,
     "detail": ""
+  },
+  {
+    "viewport": "1280x480-short",
+    "stage": "conversation",
+    "name": "conversation stays on the home route (no SUTRA navigation)",
+    "pass": true,
+    "detail": "http://127.0.0.1:4189/"
   },
   {
     "viewport": "1280x480-short",
