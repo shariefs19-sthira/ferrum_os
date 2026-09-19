@@ -31,7 +31,7 @@ export default function CanvasSlot({
   sutraOccludesCanvas?: boolean
 }) {
   return (
-    <div className="h-full" aria-label={`${product} workspace canvas`} data-workspace-canvas>
+    <div className="h-full" aria-label={`${product} workspace canvas`} data-workspace-canvas data-active-product={product}>
       <WorkspaceCockpit canvasFirst activeProduct={product} controlProduct={productControls[product]} onLiveMetricsChange={onLiveMetricsChange} fullscreenControl={fullscreenControl} sutraOccludesCanvas={sutraOccludesCanvas} />
     </div>
   )

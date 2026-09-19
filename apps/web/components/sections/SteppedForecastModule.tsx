@@ -94,7 +94,7 @@ function ForecastShell({
           <HonestyChip />
         </div>
       </div>
-      <div className="mt-5 grid min-w-0 gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+      <div data-forecast-grid className="mt-5 grid min-w-0 gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div className="min-w-0 space-y-5">{controls}</div>
         <div aria-live="polite" className="command-surface min-w-0 rounded-relume border p-5">{results}</div>
       </div>

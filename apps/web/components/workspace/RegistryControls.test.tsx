@@ -17,8 +17,9 @@ describe('LandIntel Site Constraints control', () => {
     expect(document.querySelector('[data-mobile-sheet="controls"]')).toBeTruthy()
     expect(screen.getByRole('heading', { name: 'Authority guidance' })).toBeTruthy()
     expect(screen.getAllByText('GAP').length).toBeGreaterThan(0)
-    fireEvent.click(screen.getByRole('button', { name: 'Increase Open space and setback' }))
-    expect(onChange).toHaveBeenCalledWith('setbackM', 3.5)
+    // No building-design proxy knob (setback/floors) is offered for Land.
+    expect(screen.queryByRole('button', { name: 'Increase Open space and setback' })).toBeNull()
+    expect(onChange).not.toHaveBeenCalled()
     fireEvent.click(screen.getByRole('button', { name: 'Close' }))
     expect(onMobileClose).toHaveBeenCalledTimes(1)
   })

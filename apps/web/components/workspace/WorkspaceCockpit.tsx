@@ -17,6 +17,8 @@ import OpeningInspector from './OpeningInspector'
 import { measureBoq } from '../../lib/workspace/measuredBoq'
 import { applyOpeningEdit, type OpeningEdit, withOpeningEdits } from '../../lib/workspace/openings'
 import RegistryControls from './RegistryControls'
+import ProductToolSurface from './ProductToolSurface'
+import { hasProductToolSurface, resolveProductSurface } from '../../lib/workspace/productSurface'
 import type { ProductControlId } from '../../lib/workspace/controlRegistry'
 import { normalizeProfessionalTerms } from '../../lib/workspace/vocabulary'
 import { readProjectState, sameParameters, subscribeProjectState, writeProjectState } from '../../lib/workspace/projectState'
@@ -126,7 +128,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [optionStage, setOptionStage] = useState<OptionStage>('use')
   const [showDiagram, setShowDiagram] = useState(false)
   const [showExtract, setShowExtract] = useState(false)
-  const [mobilePanel, setMobilePanel] = useState<'shells' | 'controls' | 'options' | 'extract' | null>(null)
+  const [mobilePanel, setMobilePanel] = useState<'shells' | 'controls' | 'tool' | 'options' | 'extract' | null>(null)
   const mobilePanelTriggerRef = useRef<HTMLButtonElement | null>(null)
   const [landUse, setLandUse] = useState<LandUse>('Residential')
   const [permalinkStatus, setPermalinkStatus] = useState('')
@@ -134,6 +136,13 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   const [selectedOpeningId, setSelectedOpeningId] = useState<string>()
   const parcelContext = useParcelContext()
   const isDesignExperience = controlProduct === 'designstudio' || activeProduct === 'Design'
+  // Product-aware cockpit: in the real workspace canvas every product except
+  // Design shows its own tool (or a truthful ROADMAP statement). The building
+  // model stays as central project context; the generic floors/setback proxy
+  // knobs are Design-only. Land keeps its Site Constraints authority sheet.
+  const toolProduct = canvasFirst && controlProduct && hasProductToolSurface(controlProduct) ? controlProduct : undefined
+  const toolSurface = toolProduct ? resolveProductSurface(toolProduct) : undefined
+  const showRegistryControls = Boolean(controlProduct) && (!toolProduct || toolProduct === 'landintel')
   const shellRecommendations = useMemo(() => recommendBuildingShells(parcelContext, 4), [parcelContext])
   const [selectedShellId, setSelectedShellId] = useState('india-neutral-adaptive')
   const selectedShell = getBuildingShell(selectedShellId)
@@ -424,6 +433,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
   useEffect(() => {
     if (sutraOccludesCanvas) setMobilePanel(null)
   }, [sutraOccludesCanvas])
+  // A task sheet opened for one product must not carry over to the next.
+  useEffect(() => { setMobilePanel(null) }, [controlProduct])
 
   return (
     <section className={`overflow-hidden border border-relume-border bg-relume-surface shadow-sm ${canvasFirst ? 'flex h-full min-h-0 flex-col' : 'rounded-relume'} ${fullBleedEmbed ? 'min-h-[70vh]' : ''}`} data-workspace-cockpit data-cockpit-preview={previewLabel} data-canvas-first={canvasFirst || undefined} data-embed-mode={embedMode}>
@@ -471,7 +482,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           defect; `fullBleedEmbed` doesn't need it (its section isn't
           `flex-col`, so this grid already gets its height from the normal
           document flow / `min-h-[70vh]` on the section). */}
-      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto'}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
+      <div className={`grid min-w-0 ${canvasFirst ? 'flex-1' : ''} ${canvasFirst ? `min-h-0 grid-cols-1 ${toolProduct ? 'lg:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)]' : ''} ${selectedOpening && view !== 'space' ? 'grid-rows-[minmax(18rem,1fr)_minmax(16rem,40dvh)]' : 'grid-rows-[minmax(min-content,1fr)] overflow-y-auto'}` : fullBleedEmbed ? 'min-h-0 grid-cols-1' : showFineControls ? 'xl:grid-cols-[17rem_minmax(0,1fr)_18rem]' : 'xl:grid-cols-[minmax(0,1fr)_18rem]'}`}>
         {showFineControls && <aside className="order-2 space-y-5 border-b border-relume-border p-4 xl:order-none xl:border-b-0 xl:border-r" aria-label="Fine design controls">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-relume-muted">Parameters</p>
           <Parameter label="Plot width" value={parameters.plotWidthM} min={8} max={80} step={0.5} display={<DualLength value={parameters.plotWidthM} />} onChange={(value) => update('plotWidthM', value)} />
@@ -502,7 +513,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
                 </select>
               </label>
             )}
-            {canvasFirst && (
+            {canvasFirst && (!toolProduct || toolProduct === 'landintel') && (
               // CODEX-SENTINEL-20260918-1708-sutra-command-cockpit-output:
               // land-use is now editable only in SUTRA (the floating
               // Residential/Commercial/Mixed Use panel below is gated off
@@ -521,7 +532,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           </div>
           <div className="relative z-40 grid grid-cols-4 border-b border-relume-border bg-white" aria-label="Model task controls" data-mobile-cockpit-toolbar>
             {isDesignExperience && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'shells'} onClick={(event) => toggleMobilePanel('shells', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Shells</button>}
-            {controlProduct && !sutraOccludesCanvas && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'controls'} onClick={(event) => toggleMobilePanel('controls', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Controls</button>}
+            {toolSurface && !sutraOccludesCanvas && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'tool'} onClick={(event) => toggleMobilePanel('tool', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command lg:hidden" data-product-tool-trigger={toolSurface.state}>{toolSurface.state === 'LIVE' ? `${activeProduct ?? toolSurface.label} tool` : `${activeProduct ?? toolSurface.label} · ROADMAP`}</button>}
+            {showRegistryControls && !sutraOccludesCanvas && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'controls'} onClick={(event) => toggleMobilePanel('controls', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Controls</button>}
             {!canvasFirst && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'options'} onClick={(event) => toggleMobilePanel('options', event.currentTarget)} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">Options</button>}
             {!canvasFirst && previewLabel && <button type="button" aria-haspopup="dialog" onClick={() => { closeMobilePanel(); window.dispatchEvent(new CustomEvent('ferrum:open-sutra')) }} className="min-h-11 border-r border-relume-border px-2 text-[11px] font-semibold text-relume-command">SUTRA</button>}
             {fullBleedEmbed && !selectedOpening && <button type="button" aria-haspopup="dialog" aria-expanded={mobilePanel === 'extract'} onClick={(event) => toggleMobilePanel('extract', event.currentTarget)} className="min-h-11 px-2 text-[11px] font-semibold text-relume-command">Evidence</button>}
@@ -571,7 +583,7 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           </div>
           {isDesignExperience && <ShellCatalogPanel parcel={parcelContext} selectedShell={selectedShell} projectInputs={templateProjectInputs} onSelect={(shell) => setSelectedShellId(shell.id)} mobileOpen={mobilePanel === 'shells'} onMobileClose={closeMobilePanel} />}
           {!canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} />}
-          {!selectedOpening && !sutraOccludesCanvas && controlProduct && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update} mobileOpen={mobilePanel === 'controls'} onMobileClose={closeMobilePanel}/>}
+          {!selectedOpening && !sutraOccludesCanvas && controlProduct && showRegistryControls && <RegistryControls product={controlProduct} parameters={parameters} context={{maxFloors,minSetbackM:landRule?.min_setback_m??1.5,maxSetbackM:Math.max(landRule?.min_setback_m??1.5,Math.min(parameters.plotWidthM,parameters.plotDepthM)/2-2)}} authorityEvidence={authorityEvidence} onChange={update} mobileOpen={mobilePanel === 'controls'} onMobileClose={closeMobilePanel}/>}
           {fullBleedEmbed && !selectedOpening && <>
             <button type="button" onClick={() => setShowExtract((value) => { const next = !value; if (next) setSelectedOpeningId(undefined); return next })} aria-expanded={showExtract} className="hidden" data-extract-toggle>
               {showExtract ? 'Hide data extract' : 'Data extract'}
@@ -585,6 +597,8 @@ export default function WorkspaceCockpit({ initialParameters = defaultParameters
           </>}
           {mobilePanel && <button type="button" aria-label="Close open panel" onClick={closeMobilePanel} className="fixed inset-0 z-[70] bg-black/25" data-mobile-sheet-scrim />}
         </div>
+
+        {toolProduct && !sutraOccludesCanvas && <ProductToolSurface product={toolProduct} mobileOpen={mobilePanel === 'tool'} onMobileClose={closeMobilePanel} />}
 
         {canvasFirst && view !== 'space' && <OpeningInspector opening={selectedOpening} onCommit={commitOpening} onClose={() => setSelectedOpeningId(undefined)} doorCount={measuredBoq.find((line) => line.item.id === 'doors')?.quantity ?? 0} windowCount={measuredBoq.find((line) => line.item.id === 'windows')?.quantity ?? 0} className="max-h-[40dvh] overflow-y-auto" />}
 
