@@ -26,7 +26,7 @@ const validParameters = (value: unknown): value is StudioParameters => {
 export function readProjectState(fallback: StudioParameters): SharedProjectState {
   if (typeof window === 'undefined') return { version: 1, revision: 0, updatedAt: '', source: 'server-default', parameters: fallback, openingEdits: {}, wallOffsets: {} }
   try {
-    const raw = window.localStorage.getItem(PROJECT_STATE_KEY)
+    const raw = safeGet(PROJECT_STATE_KEY)
     const parsed = raw ? JSON.parse(raw) as Partial<SharedProjectState> : null
     if (parsed?.version === 1 && validParameters(parsed.parameters)) {
       return { version: 1, revision: Number.isFinite(parsed.revision) ? Number(parsed.revision) : 0, updatedAt: typeof parsed.updatedAt === 'string' ? parsed.updatedAt : '', source: typeof parsed.source === 'string' ? parsed.source : 'unknown', parameters: parsed.parameters, openingEdits: validOpeningEdits(parsed.openingEdits) ? parsed.openingEdits : {}, wallOffsets: validWallOffsets(parsed.wallOffsets) ? parsed.wallOffsets : {} }
@@ -57,7 +57,7 @@ const validOpeningEdits = (value: unknown): value is Record<string, OpeningEdit>
 export function writeProjectState(parameters: StudioParameters, source: string, openingEdits: Record<string, OpeningEdit> = {}, wallOffsets: WallOffsets = {}): SharedProjectState {
   const previous = readProjectState(parameters)
   const next: SharedProjectState = { version: 1, revision: previous.revision + 1, updatedAt: new Date().toISOString(), source, parameters, openingEdits, wallOffsets }
-  window.localStorage.setItem(PROJECT_STATE_KEY, JSON.stringify(next))
+  safeSet(PROJECT_STATE_KEY, JSON.stringify(next))
   window.dispatchEvent(new CustomEvent<SharedProjectState>(PROJECT_STATE_EVENT, { detail: next }))
   return next
 }
