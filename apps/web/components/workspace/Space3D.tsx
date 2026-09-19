@@ -5,6 +5,8 @@ import * as THREE from "three"
 import { OrbitControls } from "three/addons/controls/OrbitControls.js"
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 import type { StudioPlan } from "../../lib/types"
+import { getPlanWalls, planWallSolids, wallSolidsDigest } from "../../lib/workspace/walls"
+import { planFingerprint } from "../../lib/workspace/boqLineage"
 import { sampleSiteContext } from "../../lib/workspace/sampleSiteContext"
 import { useFullscreenState } from "./FullscreenController"
 import { decodeWorkspaceView } from "../../lib/workspace/viewPermalink"
@@ -64,6 +66,17 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
   const [qualityReason, setQualityReason] = useState<RenderQualityReason>("device-default")
   const [fellBack, setFellBack] = useState(false)
   const [beautyMode, setBeautyMode] = useState(false)
+  // Wall model: swaps the glazed massing block for the canonical walls, openings
+  // and room floors of the plan, so a 2D wall edit is visible here immediately.
+  const [wallModel, setWallModelState] = useState(false)
+  useEffect(() => {
+    try { if (window.sessionStorage.getItem("ferrum-3d-wall-model") === "on") setWallModelState(true) } catch { /* storage unavailable: default off */ }
+  }, [])
+  const setWallModel = (update: (current: boolean) => boolean) => setWallModelState((current) => {
+    const next = update(current)
+    try { window.sessionStorage.setItem("ferrum-3d-wall-model", next ? "on" : "off") } catch { /* preference stays in memory */ }
+    return next
+  })
   const [contextLost, setContextLost] = useState(false)
   const fullscreen = useFullscreenState()
   const walkApi = useRef<WalkthroughApi | null>(null)
@@ -146,6 +159,9 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     const groundMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0xb8c5bc }) : new THREE.MeshPhysicalMaterial({ color: 0xb8c5bc, roughness: 0.72, metalness: 0, envMapIntensity: 0.25 })
 
     const model = new THREE.Group()
+    const extraMaterials: THREE.Material[] = []
+    const planModel = wallModel && !demoMode
+    let wallModelDigest = ""
     const pickables: THREE.Mesh[] = []
     const baseMaterials = new Map<THREE.Mesh, THREE.Material>()
     const podium = new THREE.Mesh(new THREE.BoxGeometry(plan.plotWidthM * 0.82, 0.5, plan.plotDepthM * 0.82), concreteMaterial)
@@ -160,10 +176,11 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
 
     const floorHeight = plan.floorHeightM
     for (let floor = 0; floor < plan.floors; floor += 1) {
-      const taper = Math.max(0.62, 1 - floor * (shell?.geometry.taperPerFloor ?? 0.025))
+      const taper = planModel ? 1 : Math.max(0.62, 1 - floor * (shell?.geometry.taperPerFloor ?? 0.025))
       const width = plan.buildingWidthM * taper
       const depth = plan.buildingDepthM * taper
       const y = 0.58 + floor * floorHeight
+      if (!planModel) {
       const glazing = new THREE.Mesh(new THREE.BoxGeometry(width * 0.985, floorHeight * 0.82, depth * 0.985), glassMaterial)
       glazing.name = `proposed-opaque-level-${floor + 1}`
       glazing.position.y = y + floorHeight * 0.45
@@ -172,6 +189,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       pickables.push(glazing)
       baseMaterials.set(glazing, glassMaterial)
       model.add(glazing)
+      }
 
       const slab = new THREE.Mesh(new THREE.BoxGeometry(width + 0.7, 0.18, depth + 0.7), concreteMaterial)
       slab.position.y = y
@@ -182,7 +200,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       baseMaterials.set(slab, concreteMaterial)
       model.add(slab)
 
-      if (!lowPower && (shell?.geometry.balconyDepthM ?? 1.45) > 0) {
+      if (!planModel && !lowPower && (shell?.geometry.balconyDepthM ?? 1.45) > 0) {
         const balconyDepth = shell?.geometry.balconyDepthM ?? 1.45
         const balcony = new THREE.Mesh(new THREE.BoxGeometry(width * 0.54, 0.13, balconyDepth), concreteMaterial)
         balcony.position.set(0, y + floorHeight * 0.32, depth / 2 + balconyDepth / 2)
@@ -215,9 +233,51 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     roof.name = `shell-roof-${shell?.geometry.roof ?? 'flat'}`
     roof.userData.label = `${shell?.name ?? 'Building'} roof`
     roof.castShadow = !lowPower
-    pickables.push(roof)
-    baseMaterials.set(roof, roofMaterial)
-    model.add(roof)
+    if (!planModel) {
+      pickables.push(roof)
+      baseMaterials.set(roof, roofMaterial)
+      model.add(roof)
+    } else {
+      roof.geometry.dispose()
+    }
+    if (planModel) {
+      // Walls, hosted openings and room floors straight from the canonical plan
+      // geometry (lib/workspace/walls.ts). Building frame -> scene: x - W/2, z - D/2.
+      const halfW = plan.buildingWidthM / 2
+      const halfD = plan.buildingDepthM / 2
+      const interiorWallMaterial = lowPower ? new THREE.MeshLambertMaterial({ color: 0xc3ccd1 }) : new THREE.MeshPhysicalMaterial({ color: 0xc3ccd1, roughness: 0.85, metalness: 0 })
+      const paneMaterial = new THREE.MeshLambertMaterial({ color: 0x8fb9d1, transparent: true, opacity: 0.55 })
+      extraMaterials.push(interiorWallMaterial, paneMaterial)
+      const wallById = new Map(getPlanWalls(plan).map((wall) => [wall.id, wall]))
+      const floorTop = (floor: number) => 0.58 + (floor - 1) * floorHeight + 0.09
+      const solids = planWallSolids(plan)
+      wallModelDigest = wallSolidsDigest(solids)
+      for (const solid of solids) {
+        const wall = wallById.get(solid.wallId)
+        if (!wall) continue
+        const material = solid.part === 'glass' ? paneMaterial : wall.kind === 'exterior' ? concreteMaterial : interiorWallMaterial
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(solid.sx, solid.sy, solid.sz), material)
+        mesh.position.set(solid.cx - halfW, floorTop(wall.floor) + solid.cy, solid.cz - halfD)
+        mesh.name = `plan-${solid.part}-${solid.wallId}`
+        mesh.castShadow = !lowPower && solid.part === 'wall'
+        mesh.receiveShadow = !lowPower
+        if (solid.part === 'wall') {
+          mesh.userData.label = `${wall.kind === 'exterior' ? 'Exterior' : 'Interior'} wall ${wall.id}`
+          pickables.push(mesh)
+          baseMaterials.set(mesh, material)
+        }
+        model.add(mesh)
+      }
+      for (const room of plan.rooms) {
+        const material = new THREE.MeshLambertMaterial({ color: room.color })
+        extraMaterials.push(material)
+        const plate = new THREE.Mesh(new THREE.BoxGeometry(Math.max(0.1, room.widthM - 0.02), 0.05, Math.max(0.1, room.depthM - 0.02)), material)
+        plate.position.set(room.xM + room.widthM / 2 - halfW, floorTop(room.floor) + 0.025, room.yM + room.depthM / 2 - halfD)
+        plate.name = `plan-room-floor-${room.id}`
+        plate.receiveShadow = !lowPower
+        model.add(plate)
+      }
+    }
 
     if (shell && shell.geometry.courtyardRatio > 0.12) {
       const court = new THREE.Mesh(new THREE.BoxGeometry(plan.buildingWidthM * Math.sqrt(shell.geometry.courtyardRatio), 0.08, plan.buildingDepthM * Math.sqrt(shell.geometry.courtyardRatio)), groundMaterial)
@@ -538,6 +598,10 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
     renderer.domElement.setAttribute("aria-label", "Architectural model. Drag to orbit, shift-drag to pan, scroll to zoom, press zero to fit model, press P to play or pause the camera walkthrough, click geometry to select it, or use left and right bracket keys to cycle selection across all views.")
     host.dataset.renderer = softwareRenderer ? "software" : "gpu"
     host.dataset.renderProfile = lowPower ? "reduced" : "full"
+    host.dataset.planModel = planModel ? "on" : "off"
+    host.dataset.geometryRevision = planFingerprint(plan)
+    host.dataset.wallCount = String(getPlanWalls(plan).length)
+    host.dataset.planModelDigest = wallModelDigest
     host.dataset.renderQuality = quality
     host.dataset.renderQualityReason = reason
     host.dataset.renderPixelRatio = String(pixelRatio)
@@ -561,7 +625,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh || object instanceof THREE.InstancedMesh) object.geometry.dispose()
       })
-      ;[concreteMaterial, glassMaterial, metalMaterial, selectedMaterial, roofMaterial, groundMaterial, treeMaterial,existingMaterial,drapeMaterial,boundaryMaterial].forEach((material) => material.dispose())
+      ;[concreteMaterial, glassMaterial, metalMaterial, selectedMaterial, roofMaterial, groundMaterial, treeMaterial,existingMaterial,drapeMaterial,boundaryMaterial, ...extraMaterials].forEach((material) => material.dispose())
       environment?.dispose()
       pmrem.dispose()
       selectionOutline.geometry.dispose()
@@ -570,7 +634,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       renderer.dispose()
       renderer.domElement.remove()
     }
-  }, [plan, demoMode, fullscreen.profile, shell, beautyMode, quality, fellBack])
+  }, [plan, demoMode, fullscreen.profile, shell, beautyMode, quality, fellBack, wallModel])
 
   useEffect(() => {
     setRecordingSupported(typeof MediaRecorder !== "undefined" && typeof HTMLCanvasElement !== "undefined" && typeof HTMLCanvasElement.prototype.captureStream === "function")
@@ -670,6 +734,7 @@ export default function Space3D({ plan, demoMode = false, contextLabel = "SAMPLE
       <p className="min-w-0 flex-1 basis-40 whitespace-normal break-words text-[9px] font-semibold uppercase leading-4 tracking-[0.08em] text-relume-muted" data-canvas-evidence title={rendererBoundaryNote}>
         <span className="text-relume-command">INDICATIVE</span> · {shell?.name ?? 'Deterministic massing'} · {profile === 'full' ? 'Three.js PBR' : profile === 'reduced' ? 'Three.js reduced' : 'Diagram'}{profile !== 'diagram' && ` (${qualityReasonLabel[qualityReason]})`} · <span className="text-relume-command">NOT A SURVEY</span>
       </p>
+      {profile !== 'diagram' && !demoMode && <button type="button" onClick={() => setWallModel((value) => !value)} aria-pressed={wallModel} title="Show the plan's walls, openings and room floors (roof hidden). INDICATIVE geometry, not a structural model." className={`min-h-11 min-w-11 shrink-0 rounded-full border border-relume-border px-3 text-[10px] font-semibold ${wallModel ? 'bg-relume-command text-white' : 'bg-white text-relume-command'}`} data-wall-model-toggle>Wall model</button>}
       {profile !== 'diagram' && !demoMode && <div role="radiogroup" aria-label="Render quality" className="flex shrink-0 overflow-hidden rounded-full border border-relume-border" data-render-quality-control>
         {qualityOptions.map((option) => <button key={option.value} type="button" role="radio" aria-checked={quality === option.value} title={option.hint} onClick={() => { setFellBack(false); setQuality(option.value) }} className={`min-h-11 min-w-11 px-3 text-[10px] font-semibold ${quality === option.value ? 'bg-relume-command text-white' : 'bg-white text-relume-command'}`} data-render-quality={option.value}>{option.label}</button>)}
       </div>}

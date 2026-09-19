@@ -91,6 +91,27 @@ export type StudioOpening = {
   configuration: StudioDoorConfiguration | StudioWindowConfiguration
 }
 
+export type StudioWallKind = 'exterior' | 'interior'
+
+/** Canonical wall segment in the building frame (metres, origin = north-west
+ * corner of the buildable footprint, +x east, +y south). Derived from the
+ * generated rooms; thickness/height are assumed defaults, not surveyed. */
+export type StudioWall = {
+  id: string
+  floor: number
+  kind: StudioWallKind
+  orientation: 'horizontal' | 'vertical'
+  x1: number
+  y1: number
+  x2: number
+  y2: number
+  thicknessM: number
+  heightM: number
+  /** Movable interior partition key shared by every floor (e.g. `int-v0`). */
+  partitionKey?: string
+  roomIds: string[]
+}
+
 export type StudioPlan = {
   schema: "ferrum-plan-v1"
   plotWidthM: number
@@ -103,6 +124,8 @@ export type StudioPlan = {
   rooms: StudioRoom[]
   /** Optional for compatibility with plans created before parametric openings. */
   openings?: StudioOpening[]
+  /** Optional for compatibility with plans created before the wall model. */
+  walls?: StudioWall[]
   elevations: StudioElevation[]
   generatedBy: "deterministic-layout-v1"
 }

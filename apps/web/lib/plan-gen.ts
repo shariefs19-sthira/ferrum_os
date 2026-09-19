@@ -1,5 +1,6 @@
 import type { StudioPlan, StudioRoom } from './types'
 import { createDefaultOpenings } from './workspace/openings'
+import { deriveWalls, resolvePartitions, type WallOffsets } from './workspace/walls'
 
 type PlanInput = {
   plotWidthM: number
@@ -8,6 +9,8 @@ type PlanInput = {
   floors: number
   floorHeightM?: number
   maxHeightM?: number
+  /** Per-partition offsets (metres) from the generated default, keyed `int-h0`/`int-v0`… */
+  wallOffsets?: WallOffsets
 }
 const roomColors = ['#DCE8EF', '#F4DFC4', '#DCEBDD', '#E8E3F0', '#F2E9CF']
 
@@ -46,15 +49,16 @@ export function generateStudioPlan(input: PlanInput): StudioPlan {
     : Number.MAX_SAFE_INTEGER
   const floors = Math.max(1, Math.min(Math.round(input.floors), heightFloorCap))
   const rooms: StudioRoom[] = []
+  const partitions = resolvePartitions(buildingWidthM, buildingDepthM, input.wallOffsets)
 
   for (let floor = 1; floor <= floors; floor += 1) {
-    const frontDepth = buildingDepthM * 0.55
+    const frontDepth = partitions.splitY
     const rearDepth = buildingDepthM - frontDepth
-    const frontLeftWidth = buildingWidthM * 0.62
+    const frontLeftWidth = partitions.frontX
     const frontRightWidth = buildingWidthM - frontLeftWidth
-    const rearLeftWidth = buildingWidthM * 0.36
-    const rearMiddleWidth = buildingWidthM * 0.28
-    const rearRightWidth = buildingWidthM - rearLeftWidth - rearMiddleWidth
+    const rearLeftWidth = partitions.rearX1
+    const rearMiddleWidth = partitions.rearX2 - partitions.rearX1
+    const rearRightWidth = buildingWidthM - partitions.rearX2
     const prefix = floor === 1 ? '' : `Floor ${floor} `
 
     rooms.push(
@@ -80,6 +84,7 @@ export function generateStudioPlan(input: PlanInput): StudioPlan {
     floorHeightM,
     rooms,
     openings: createDefaultOpenings(rooms, floorHeightM),
+    walls: deriveWalls(rooms, floorHeightM, buildingWidthM, buildingDepthM),
     elevations: [
       { id: 'north', name: 'North elevation', widthM: buildingWidthM, heightM, floorLinesM },
       { id: 'east', name: 'East elevation', widthM: buildingDepthM, heightM, floorLinesM },
